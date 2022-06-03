@@ -1,0 +1,173 @@
+*
+    box-sizing: border-box
+
+html
+    margin: 0
+    padding: 0
+    height: 100%
+    -ms-overflow-style: none
+    scrollbar-width: none
+
+    --su: 16px
+
+    --font-heading: 'Sofia Pro', sans-serif
+    --font-text: 'Proxima Nova', sans-serif
+    --font-icon: 'Material Symbols Rounded'
+
+    --color-primary: #e00047
+    --color-primary-soft: #fc286b
+    --color-heading: #393f3f
+    --color-text: #686f6f
+    --color-background: #ffffff
+    --color-background-soft: #eeeeee
+
+    --color-blue: #00a0e9
+    --color-red: #ff305d
+    --color-green: #09b959
+    --color-yellow: #ffa807
+
+    --color-info: var(--color-blue)
+    --color-success: var(--color-green)
+    --color-warning: var(--color-yellow)
+    --color-error: var(--color-red)
+
+    --height-header: 4.5rem
+
+    --shadow-color: 0deg 0% 0%
+    --shadow-elevation-low: 0px 1px 1.5px hsl(var(--shadow-color) / 0), 0px 1.6px 2.4px hsl(var(--shadow-color) / 0.03), 0px 3px 4.5px hsl(var(--shadow-color) / 0.07)
+    --shadow-elevation-medium: 0px 1px 1.5px hsl(var(--shadow-color) / 0), 0px 3.9px 5.9px hsl(var(--shadow-color) / 0.03), 0px 7.5px 11.3px hsl(var(--shadow-color) / 0.05), 0px 15px 22.5px hsl(var(--shadow-color) / 0.08)
+    --shadow-elevation-high: 0px 1px 1.5px hsl(var(--shadow-color) / 0), 0px 5.6px 8.4px hsl(var(--shadow-color) / 0.01), 0px 9.6px 14.4px hsl(var(--shadow-color) / 0.02), 0px 13.9px 20.9px hsl(var(--shadow-color) / 0.04), 0px 19.1px 28.7px hsl(var(--shadow-color) / 0.05), 0px 26.4px 39.6px hsl(var(--shadow-color) / 0.06), 0px 36.4px 54.6px hsl(var(--shadow-color) / 0.07), 0px 50px 75px hsl(var(--shadow-color) / 0.09)
+
+    --mui-icon-font: var(--font-icon)
+    --mui-background: var(--color-background)
+    --primary: var(--color-primary)
+    --error: var(--color-error)
+    --warning: var(--color-warning)
+    --success: var(--color-success)
+    --info: var(--color-info)
+
+::-webkit-scrollbar
+    display: none
+
+body
+    margin: 0
+    padding: 0
+    height: 100%
+    font-family: var(--font-text)
+    font-weight: 400
+    line-height: 1.75
+    color: var(--color-text)
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6
+    font-family: var(--font-heading)
+    color: var(--color-heading)
+    font-weight: 400
+    line-height: 1.4
+    margin-block: .75em
+
+h1
+    font-size: 2.488rem
+
+h2
+    font-size: 2.074rem
+
+h3
+    font-size: 1.728rem
+
+h4
+    font-size: 1.44rem
+
+h5
+    font-size: 1.2rem
+
+small
+    font-size: 0.833rem
+
+code
+    background: var(--color-background-soft)
+    border-radius: .175em
+    color: var(--color-heading)
+    padding: .25em
+    font-size: inherit
+
+img.content-image
+    object-fit: cover
+    object-position: center
+    width: 100%
+    max-width: 100%
+    border-radius: .75rem
+    display: block
+
+    &.aspect-16-by-9
+        aspect-ratio: 16/9
+
+    &.aspect-4-by-3
+        aspect-ratio: 4/3
+
+    &.aspect-1-by-1
+        aspect-ratio: 1/1
+
+a
+    color: var(--color-primary-soft)
+    text-decoration: none
+
+    &:hover
+        color: var(--color-primary)
+
+select
+    height: 3rem
+    padding: 0 .6rem
+    border: 1px solid #888
+    background: var(--mui-background)
+    border-radius: .325rem
+    font-family: var(--font-text)
+    font-size: 1rem
+
+    &:focus
+        border-color: #222
+
+.limiter
+    width: 100%
+    max-width: 1300px
+    display: block
+    margin: 0 auto
+    padding: 0 var(--su)
+
+    &.text-limiter
+        max-width: 700px
+
+.flex
+    display: flex
+    
+    &.center
+        align-items: center
+
+    &.gap
+        gap: var(--su)
+
+    .flex-1,
+    .spacer
+        flex: 1
+
+
+
+@media only screen and (max-width: 700px)
+    h1 
+        font-size: 1.802rem
+
+    h2
+        font-size: 1.602rem
+
+    h3
+        font-size: 1.424rem
+
+    h4
+        font-size: 1.266rem
+
+    h5
+        font-size: 1.125rem
