@@ -8,8 +8,29 @@ import { InertiaProgress } from '@inertiajs/progress'
 import MarketierUI from "marketier-ui"
 import "marketier-ui/dist/style.css"
 
+// Import i18n for Vue
+import { createI18n } from 'vue-i18n/index'
+import translations from '@/Lang/translations'
+
+
+
+/////////////////////////
+// Prepare Vue         //
+/////////////////////////
+
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'FDBS'
 
+const i18n = createI18n({
+    locale: 'de',
+    fallbackLocale: 'en',
+    messages: translations,
+})
+
+
+
+/////////////////////////
+// Initialize App      //
+/////////////////////////
 createInertiaApp({
     title(title) {
         return `${appName} – ${title}`
@@ -24,6 +45,7 @@ createInertiaApp({
 
         application.use(plugin)
         application.use(MarketierUI)
+        application.use(i18n)
         application.mixin({ methods: { route } })
 
         application.mount(el)

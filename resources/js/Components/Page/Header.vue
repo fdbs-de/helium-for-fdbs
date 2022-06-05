@@ -2,7 +2,7 @@
     <header id="header">
         <div class="limiter">
             <Link id="header-logo" href="/" title="FDBS Home"><Logo /></Link>
-            <Menu />
+            <Menu id="menu" />
             <div class="spacer"></div>
             <mui-button label="Kundenbereich" icon-left="account_circle"/>
         </div>
@@ -17,6 +17,10 @@
 
 <style lang="sass" scoped>
     #header
+        position: fixed
+        top: 0
+        left: 0
+        width: 100%
         height: var(--height-header)
         background-color: #ffffffd9
         backdrop-filter: blur(20px)
@@ -30,6 +34,11 @@
             .spacer
                 flex: 1
 
+        #menu
+            padding-inline: var(--su)
+
         #header-logo
             height: var(--height-header)
+            padding-block: .5rem
+            aspect-ratio: 2/1
 </style>

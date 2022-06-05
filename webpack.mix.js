@@ -13,6 +13,7 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
     .vue()
+    .sourceMaps(true, 'source-map')
     .sass('resources/css/app.sass', 'public/css')
     .alias({
         '@': 'resources/js',

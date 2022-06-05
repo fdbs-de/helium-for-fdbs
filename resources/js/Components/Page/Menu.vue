@@ -9,36 +9,19 @@
 <script setup>
     import { Link } from '@inertiajs/inertia-vue3'
     import MenuBuilder from '@/Components/Page/Menu/MenuBuilder.vue'
+    import { mainmenu } from '@/menus'
     import { ref } from 'vue'
 
     const menu = ref(null)
 
-    menu.value = [
-        { label: 'Home', href: route('home'), icon: null, children: []},
-        { label: 'Philosophie', href: route('philosophie'), icon: null, children: []},
-        {
-            label: 'Produkte & Services',
-            href: route('produkte-und-services'),
-            icon: null,
-            children: [
-                { label: 'Foodservice', href: route('foodservice'), icon: null, children: []},
-                { label: 'Unsere Marken', href: route('unsere-marken'), icon: null, children: []},
-                { label: 'Fachberatung Käse & Salate', href: route('fachberatung-kaese-und-salate'), icon: null, children: []},
-                { label: 'Marketing & Kommunikation', href: route('marketing-und-kommunikation'), icon: null, children: []},
-                { label: 'Technischer Kundendienst', href: route('technischer-kundendienst'), icon: null, children: []},
-                { label: 'Seminare', href: route('seminare'), icon: null, children: []},
-            ],
-        },
-        { label: 'Karriere', href: route('karriere'), icon: null, children: []},
-        { label: 'Kontakt', href: route('kontakt'), icon: null, children: []},
-    ]
+    menu.value = mainmenu
 </script>
 
 <style lang="sass">
     .wrapper
         nav
             display: flex
-            gap: var(--su)
+            gap: calc(var(--su) * 2)
 
             > ul
                 display: contents
@@ -83,9 +66,15 @@
                             padding: 0 var(--su)
                             height: 3rem
                             border-bottom: 1px solid var(--color-border)
+                            color: var(--color-text)
 
-                            &:hover
+                            &:hover,
+                            &:focus
+                                color: var(--color-heading)
                                 background: var(--color-background-soft)
+
+                            &.active
+                                color: var(--color-primary)
 
                     &:hover > ul
                         opacity: 1

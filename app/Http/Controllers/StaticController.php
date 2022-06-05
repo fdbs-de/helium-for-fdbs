@@ -19,37 +19,37 @@ class StaticController extends Controller
 
     public function indexProdukteUndServices()
     {
-        return Inertia::render('ProdukteUndServices');
+        return Inertia::render('ProdukteUndServices/Index');
     }
 
     public function indexFoodservice()
     {
-        return Inertia::render('ProdukeUndServices/Foodservice');
+        return Inertia::render('ProdukteUndServices/Foodservice');
     }
 
     public function indexUnsereMarken()
     {
-        return Inertia::render('ProdukeUndServices/UnsereMarken');
+        return Inertia::render('ProdukteUndServices/UnsereMarken');
     }
 
     public function indexFachberatungKaeseSalate()
     {
-        return Inertia::render('ProdukeUndServices/FachberatungKaeseSalate');
+        return Inertia::render('ProdukteUndServices/FachberatungKaeseSalate');
     }
 
     public function indexMarketingKommunikation()
     {
-        return Inertia::render('ProdukeUndServices/MarketingKommunikation');
+        return Inertia::render('ProdukteUndServices/MarketingKommunikation');
     }
 
     public function indexTechnischerKundendienst()
     {
-        return Inertia::render('ProdukeUndServices/TechnischerKundendienst');
+        return Inertia::render('ProdukteUndServices/TechnischerKundendienst');
     }
 
     public function indexSeminare()
     {
-        return Inertia::render('ProdukeUndServices/Seminare');
+        return Inertia::render('ProdukteUndServices/Seminare');
     }
 
     public function indexKarriere()
