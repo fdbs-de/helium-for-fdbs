@@ -1,10 +1,10 @@
 <template>
     <header id="header">
         <div class="limiter">
-            <Link id="header-logo" href="/" title="FDBS Home"><Logo /></Link>
+            <Link id="header-logo" :href="route('home')" title="FDBS Home"><Logo /></Link>
             <Menu id="menu" />
             <div class="spacer"></div>
-            <mui-button label="Kundenbereich" icon-left="account_circle"/>
+            <Link class="login-button" :href="route('login')">Kundenbereich</Link>
         </div>
     </header>
 </template>
@@ -41,4 +41,39 @@
             height: var(--height-header)
             padding-block: .5rem
             aspect-ratio: 2/1
+
+        .login-button
+            display: flex
+            align-items: center
+            border: none
+            height: 2.5rem
+            padding-inline: 1rem
+            border-radius: calc(var(--su) * .5)
+            background: var(--color-primary)
+            color: var(--color-background)
+            font-family: inherit
+            line-height: 1
+            font-size: .8rem
+            font-weight: 500
+            letter-spacing: .05rem
+            text-transform: uppercase
+            cursor: pointer
+
+            &:focus,
+            &:hover
+                background-color: var(--color-primary-soft)
+
+    @media only screen and (max-width: 1000px)
+        #header
+            #menu
+                order: 3
+                padding: 0
+
+    @media only screen and (max-width: 500px)
+        #header
+            .limiter
+                gap: 0
+
+                .login-button
+                    margin-right: var(--su)
 </style>

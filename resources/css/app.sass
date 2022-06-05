@@ -52,7 +52,7 @@ html
     background: var(--color-background-soft)
 
 ::-webkit-scrollbar-thumb
-    background: var(--color-heading)
+    background: var(--color-text)
     border-radius: 3px
     background-clip: content-box
     border: 2px solid transparent
@@ -60,7 +60,7 @@ html
     &:hover
         background: var(--color-primary-soft)
         border: 0px solid transparent
-        border-radius: 0
+        border-radius: 1px
 
 body
     margin: 0
@@ -126,11 +126,11 @@ img.content-image
         aspect-ratio: 1/1
 
 a
-    color: var(--color-primary-soft)
+    color: var(--color-primary)
     text-decoration: none
 
     &:hover
-        color: var(--color-primary)
+        color: var(--color-primary-soft)
 
 select
     height: 3rem
@@ -166,6 +166,9 @@ select
     .flex-1,
     .spacer
         flex: 1
+
+main
+    width: 100%
 
 
 

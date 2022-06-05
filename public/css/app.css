@@ -48,7 +48,7 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-heading);
+  background: var(--color-text);
   border-radius: 3px;
   background-clip: content-box;
   border: 2px solid transparent;
@@ -56,7 +56,7 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-primary-soft);
   border: 0px solid transparent;
-  border-radius: 0;
+  border-radius: 1px;
 }
 
 body {
@@ -135,11 +135,11 @@ img.content-image.aspect-1-by-1 {
 }
 
 a {
-  color: var(--color-primary-soft);
+  color: var(--color-primary);
   text-decoration: none;
 }
 a:hover {
-  color: var(--color-primary);
+  color: var(--color-primary-soft);
 }
 
 select {
@@ -180,6 +180,10 @@ select:focus {
   flex: 1;
 }
 
+main {
+  width: 100%;
+}
+
 @media only screen and (max-width: 700px) {
   h1 {
     font-size: 1.802rem;
@@ -197,3 +201,5 @@ select:focus {
     font-size: 1.125rem;
   }
 }
+
+/*# sourceMappingURL=app.css.map*/

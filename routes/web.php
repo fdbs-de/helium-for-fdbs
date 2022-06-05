@@ -30,6 +30,11 @@ Route::prefix('/produkte-und-services')->group(function () {
 Route::get('/karriere', [StaticController::class, 'indexKarriere'])->name('karriere');
 Route::get('/kontakt', [StaticController::class, 'indexKontakt'])->name('kontakt');
 
+Route::get('/impressum', [StaticController::class, 'indexImpressum'])->name('impressum');
+Route::get('/datenschutz', [StaticController::class, 'indexDatenschutz'])->name('datenschutz');
+Route::get('/agbs', [StaticController::class, 'indexAGBS'])->name('agbs');
+Route::get('/video-info', [StaticController::class, 'indexVideoInfo'])->name('video-info');
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

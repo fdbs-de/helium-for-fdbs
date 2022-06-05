@@ -1,84 +1,228 @@
 <template>
-    <div class="wrapper">
-        <nav>
+    <div class="menu-wrapper">
+        <nav class="desktop-menu">
             <MenuBuilder :items="menu" />
         </nav>
+    
+        <button class="mobile-menu-toggle" type="button" title="Open navigation" @click="isOpen = true">menu</button>
+    
+        <div class="mobile-menu" :class="{'is-open': isOpen}">
+            <div class="background" @click="isOpen = false"></div>
+            <nav class="menu">
+                <div class="flex center">
+                    <div class="spacer"></div>
+                    <button class="mobile-menu-toggle" type="button" title="Close navigation" @click="isOpen = false">close</button>
+                </div>
+                <div class="menu-scroller">
+                    <MenuBuilder :items="menu" />
+                </div>
+            </nav>
+        </div>
     </div>
 </template>
 
 <script setup>
     import { Link } from '@inertiajs/inertia-vue3'
     import MenuBuilder from '@/Components/Page/Menu/MenuBuilder.vue'
-    import { mainmenu } from '@/menus'
-    import { ref } from 'vue'
+    import { mainMenu } from '@/menus'
+    import { ref, watch } from 'vue'
 
-    const menu = ref(null)
+    const menu = ref(mainMenu)
+    const isOpen = ref(false)
 
-    menu.value = mainmenu
+    watch(isOpen, () => {
+        document.documentElement.style.overflow = isOpen.value ? 'hidden' : 'initial'
+    })
 </script>
 
 <style lang="sass">
-    .wrapper
-        nav
+    .mobile-menu-toggle
+        height: 3rem
+        width: 3rem
+        font-size: 1.5rem
+        font-family: var(--font-icon)
+        color: var(--color-text)
+        border-radius: calc(var(--su) * .5)
+        background: transparent
+        border: none
+        padding: 0
+        display: none
+
+        &:focus,
+        &:hover
+            background: var(--color-background-soft)
+            color: var(--color-heading)
+
+    .mobile-menu
+        position: fixed
+        top: 0
+        left: 0
+        width: 100vw
+        height: 100vh
+        z-index: 1000
+        pointer-events: none
+        display: none
+
+        &.is-open
+            pointer-events: all
+
+            .background
+                opacity: 1
+
+            .menu
+                transform: translateX(0)
+
+        .background
+            position: absolute
+            top: 0
+            left: 0
+            width: 100%
+            height: 100%
+            background-color: rgba(0, 0, 0, .8)
+            opacity: 0
+            transition: opacity 300ms ease-in-out
+
+        .menu
+            position: absolute
+            top: 0
+            right: 0
+            height: 100%
+            width: calc(100% - 3rem)
+            max-width: 400px
             display: flex
-            gap: calc(var(--su) * 2)
+            flex-direction: column
+            background: var(--color-background)
+            transform: translateX(100%)
+            transition: transform 300ms ease-in-out
 
-            > ul
-                display: contents
-                list-style: none
+            .flex
+                height: calc(var(--height-header) + 2px)
+                padding-inline: var(--su)
+                border-bottom: 2px solid rgba(0,0,0,.1)
 
-                > li
+            .menu-scroller
+                overflow-y: auto
+                overflow-x: hidden
+                flex: 1
+                padding-block: var(--su)
+
+                ul
                     display: flex
-                    align-items: center
-                    position: relative
+                    flex-direction: column
+                    list-style: none
+                    padding: 0
+                    margin: 0
 
-                    > a
-                        font-weight: 500
+                    li
+                        > a
+                            padding: calc(var(--su) * .5) calc(var(--su) * 1.5)
+                            display: flex
+                            color: var(--color-text)
+
+                            &:hover,
+                            &:focus
+                                background: var(--color-background-soft)
+                                color: var(--color-heading)
+
+                        &.active > a
+                            color: var(--color-primary) !important
+
+                    li > ul
+                        padding-left: calc(var(--su) * 1.5)
+
+    .desktop-menu
+        display: flex
+        gap: calc(var(--su) * 2)
+
+        > ul
+            display: contents
+            list-style: none
+
+            > li
+                display: flex
+                align-items: center
+                position: relative
+                color: var(--color-text)
+
+                &.has-dropdown::after
+                    content: "arrow_drop_down"
+                    position: absolute
+                    top: 100%
+                    left: 50%
+                    font-size: 1.5rem
+                    transform: translate(-50%, -50%)
+                    font-family: var(--font-icon)
+
+                &:hover,
+                &:focus
+                    color: var(--color-heading)
+
+                &:hover
+                    > ul
+                        opacity: 1
+                        pointer-events: all
+                        transform: translate(-50%, 0)
+
+                > a:focus
+                    ~ ul
+                        opacity: 1
+                        pointer-events: all
+                        transform: translate(-50%, 0)
+
+                &.active
+                    color: var(--color-primary)
+
+                > a
+                    font-weight: 500
+                    color: inherit
+
+                > ul
+                    position: absolute
+                    top: 100%
+                    left: 50%
+                    min-width: 260px
+                    display: flex
+                    flex-direction: column
+                    padding: var(--su) 0
+                    border-radius: calc(var(--su) * .5)
+                    background: var(--color-background)
+                    list-style: none
+                    box-shadow: var(--shadow-elevation-low)
+                    transition: all 150ms ease-out
+                    opacity: 0
+                    pointer-events: none
+                    transform: translate(-50%, -10px)
+
+                    > li
                         color: var(--color-text)
 
-                        &:hover,
-                        &:focus
-                            color: var(--color-heading)
-
-                        &.active
-                            color: var(--color-primary)
-
-                    > ul
-                        position: absolute
-                        top: 100%
-                        left: 50%
-                        min-width: 260px
-                        display: flex
-                        flex-direction: column
-                        padding: var(--su) 0
-                        border-radius: calc(var(--su) * .5)
-                        background: var(--color-background)
-                        list-style: none
-                        box-shadow: var(--shadow-elevation-low)
-                        transition: all 150ms ease-out
-                        opacity: 0
-                        pointer-events: none
-                        transform: translate(-50%, -10px)
-
-                        > li > a
+                        > a
                             display: flex
                             align-items: center
                             padding: 0 var(--su)
                             height: 3rem
                             border-bottom: 1px solid var(--color-border)
-                            color: var(--color-text)
+                            color: inherit
 
-                            &:hover,
-                            &:focus
-                                color: var(--color-heading)
+                        &:hover,
+                        &:focus
+                            color: var(--color-heading)
+
+                            > a
                                 background: var(--color-background-soft)
 
-                            &.active
-                                color: var(--color-primary)
+                        &.active
+                            color: var(--color-primary)
 
-                    &:hover > ul
-                        opacity: 1
-                        pointer-events: all
-                        transform: translate(-50%, 0)
+    
 
+    @media only screen and (max-width: 1000px)
+        .mobile-menu
+            display: block
+
+        .mobile-menu-toggle
+            display: block
+
+        .desktop-menu
+            display: none
 </style>

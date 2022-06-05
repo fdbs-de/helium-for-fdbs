@@ -1,8 +1,8 @@
 <template>
-    <li>
-        <Link :href="href" :class="{'active': isActive}">{{label}}</Link>
-        <ul v-if="children && children.length > 0">
-            <MenuItem v-for="(item, i) in children" :key="i" :href="item.href" :label="item.label" :children="item.children || []" />
+    <li :class="{'has-dropdown': hasDropdown, 'active': isActive}">
+        <Link :href="href">{{label}}</Link>
+        <ul v-if="hasDropdown">
+            <MenuItem v-for="item in children" :key="item.id" :href="item.href" :label="item.label" :children="item.children || []" />
         </ul>
     </li>
 </template>
@@ -25,6 +25,10 @@
             type: Array,
             default: () => []
         }
+    })
+
+    const hasDropdown = computed(() => {
+        return props.children && props.children.length > 0
     })
 
     const isActive = computed(() => {
