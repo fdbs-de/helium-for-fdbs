@@ -175,6 +175,9 @@ select:focus {
 .flex.gap {
   gap: var(--su);
 }
+.flex.wrap {
+  flex-wrap: wrap;
+}
 .flex .flex-1,
 .flex .spacer {
   flex: 1;
@@ -183,6 +186,10 @@ select:focus {
 .divider {
   border-top: 2px solid rgba(0, 0, 0, 0.1);
   width: 100%;
+}
+
+.no-margin {
+  margin: 0;
 }
 
 main {

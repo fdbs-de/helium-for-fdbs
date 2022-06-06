@@ -61,4 +61,26 @@ class StaticController extends Controller
     {
         return Inertia::render('Kontakt');
     }
+
+
+
+    public function indexImpressum()
+    {
+        return Inertia::render('Impressum');
+    }
+
+    public function indexDatenschutz()
+    {
+        return Inertia::render('Datenschutz');
+    }
+
+    public function indexAGBS()
+    {
+        return Inertia::render('AGBS');
+    }
+
+    public function indexVideoInfo()
+    {
+        return Inertia::render('VideoInfo');
+    }
 }

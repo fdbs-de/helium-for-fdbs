@@ -1,7 +1,7 @@
 <template>
     <div class="alert-wrapper" :class="[type__, {'has-icon': icon}]">
+        <div class="icon" v-if="icon" aria-hidden="true">{{icon}}</div>
         <div class="content">
-            <div class="icon" v-if="icon" aria-hidden="true">{{icon}}</div>
             <h3 class="title" v-if="title">{{title}}</h3>
             <div class="slot">
                 <slot></slot>
@@ -74,29 +74,29 @@
             opacity: .1
             border-radius: inherit
 
+        .icon
+            display: grid
+            width: 3.5rem
+            height: 3.5rem
+            background: white
+            color: inherit
+            border-radius: .5rem
+            place-content: center
+            font-size: 1.9rem
+            font-family: var(--font-icon)
+            position: absolute
+            left: 20px
+            top: 0
+            transform: translateY(-50%)
+            box-shadow: var(--shadow-elevation-medium)
+            user-select: none
+            pointer-events: none
+
         .content
             display: flex
             flex-direction: column
             position: relative
             z-index: 1
-
-            .icon
-                display: grid
-                width: 3.5rem
-                height: 3.5rem
-                background: white
-                color: inherit
-                border-radius: .5rem
-                place-content: center
-                font-size: 1.9rem
-                font-family: var(--font-icon)
-                position: absolute
-                left: 20px
-                top: 0
-                transform: translateY(-50%)
-                box-shadow: var(--shadow-elevation-medium)
-                user-select: none
-                pointer-events: none
 
             h1, h2, h3, h4, h5, h6
                 color: inherit

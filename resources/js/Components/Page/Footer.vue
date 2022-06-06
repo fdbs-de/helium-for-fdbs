@@ -39,19 +39,19 @@
                 </div>
             </div>
             <div class="block">
-                <h3 class="headline">Produkte & Services</h3>
+                <h3 class="headline primary">Produkte & Services</h3>
                 <nav class="navigation">
                     <Link class="link" v-for="item in productsMenu" :key="item.id" :href="item.href">{{item.label}}</Link>
                 </nav>
             </div>
             <div class="block">
-                <h3 class="headline">Über Uns</h3>
+                <h3 class="headline primary">Über Uns</h3>
                 <nav class="navigation">
                 <Link class="link" v-for="item in aboutMenu" :key="item.id" :href="item.href">{{item.label}}</Link>
                 </nav>
             </div>
             <div class="block">
-                <h3 class="headline">Rechtliches</h3>
+                <h3 class="headline primary">Rechtliches</h3>
                 <nav class="navigation">
                     <Link class="link" v-for="item in legalMenu" :key="item.id" :href="item.href">{{item.label}}</Link>
                 </nav>
@@ -141,7 +141,10 @@
                 h3
                     margin-block: 0 1rem
                     font-weight: 700
-                    color: var(--color-text)
+                    color: var(--color-heading)
+                    
+                    &.primary
+                        color: var(--color-primary)
 
                 .navigation
                     display: flex
