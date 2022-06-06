@@ -72,11 +72,13 @@
             height: 100%
             background: currentColor
             opacity: .1
-            z-index: -1
             border-radius: inherit
 
         .content
-            display: contents
+            display: flex
+            flex-direction: column
+            position: relative
+            z-index: 1
 
             .icon
                 display: grid
@@ -98,6 +100,10 @@
 
             h1, h2, h3, h4, h5, h6
                 color: inherit
+
+            .title
+                font-size: 1.25rem
+                font-weight: 500
 
             .slot
                 display: contents

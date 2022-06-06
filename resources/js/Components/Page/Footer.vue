@@ -107,21 +107,17 @@
             p
                 margin: 0
 
-            .divider
-                background: rgba(0,0,0,.1)
-                height: 2px
-                width: 100%
-
             .wrapper
                 display: flex
                 flex-wrap: wrap
                 align-items: center
-                gap: var(--su)
-                margin-top: var(--su)
+                gap: calc(var(--su) * 2)
+                margin-block: calc(var(--su) * 2) var(--su)
 
                 .cert-wrapper
                     height: 5rem
                     border-radius: calc(var(--su) * .5)
+                    filter: saturate(0)
 
                     img
                         height: 100%
@@ -129,6 +125,10 @@
                         max-width: 100%
                         object-fit: cover
                         border-radius: inherit
+
+                    &:hover,
+                    &:focus
+                        filter: saturate(1)
 
         .link-row
             display: grid
