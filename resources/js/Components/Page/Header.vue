@@ -76,5 +76,9 @@
                 gap: 0
 
                 .login-button
-                    margin-right: var(--su)
+                    padding: 0
+                    margin-inline: 0 var(--su)
+                    color: var(--color-primary)
+                    background: transparent
+                    border-radius: 0
 </style>

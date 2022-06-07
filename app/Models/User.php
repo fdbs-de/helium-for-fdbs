@@ -40,5 +40,28 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'enabled_at' => 'datetime',
     ];
+
+
+
+    /**
+     * Get the customer profile record associated with the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function customerProfile()
+    {
+        return $this->hasOne(CustomerProfile::class);
+    }
+
+    /**
+     * Get the employee profile record associated with the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function employeeProfile()
+    {
+        return $this->hasOne(EmployeeProfile::class);
+    }
 }

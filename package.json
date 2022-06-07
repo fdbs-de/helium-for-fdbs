@@ -32,6 +32,7 @@
     },
     "dependencies": {
         "marketier-ui": "^0.1.5",
-        "vue-i18n": "^9.1.10"
+        "vue-i18n": "^9.1.10",
+        "zxcvbn": "^4.4.2"
     }
 }

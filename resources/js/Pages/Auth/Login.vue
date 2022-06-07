@@ -14,7 +14,7 @@
         <div class="divider"></div>
 
         <div class="flex center gap">
-            <Link :href="route('register')">Noch kein Konto?</Link>
+            <Link :href="route('registrieren')">Noch kein Konto?</Link>
             <Link v-if="canResetPassword" :href="route('password.request')">Passwort vergessen?</Link>
         </div>
     </FormSubLayout>
