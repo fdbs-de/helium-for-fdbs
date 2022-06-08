@@ -4,7 +4,8 @@
             <Link id="header-logo" :href="route('home')" title="FDBS Home"><Logo /></Link>
             <Menu id="menu" />
             <div class="spacer"></div>
-            <Link class="login-button" :href="route('login')">Kundenbereich</Link>
+            <Link class="login-button" v-if="$page.props.auth.user" :href="route('dashboard')">{{$page.props.auth.user.name || $page.props.auth.user.email}}</Link>
+            <Link class="login-button" v-else :href="route('login')">Kundenbereich</Link>
         </div>
     </header>
 </template>
