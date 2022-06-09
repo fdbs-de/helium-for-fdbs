@@ -5,7 +5,12 @@
                 <h1>{{title}}</h1>
             </section>
             <section id="content-section">
-                <div class="limiter">
+                <div class="limiter main-card">
+                    <nav>
+                        <Link v-if="$page.props.auth.user.permissions.includes('access customer panel')" :href="route('dashboard.customer')">Kundenbereich</Link>
+                        <Link v-if="$page.props.auth.user.permissions.includes('access employee panel')" :href="route('dashboard.employee')">Mitarbeiterbereich</Link>
+                        <Link v-if="$page.props.auth.user.permissions.includes('access admin panel')" :href="route('dashboard.admin')">Adminbereich</Link>
+                    </nav>
                     <slot />
                 </div>
             </section>
@@ -36,7 +41,14 @@
             color: var(--color-primary)
 
     #content-section
-        .limiter
+        .main-card
+            transform: translateY(calc(-1 * var(--height-header)))
+            padding: calc(var(--su) * 2)
+            gap: calc(var(--su) * 2)
+            background: var(--color-background)
+            border-radius: calc(var(--su) * .75)
+            box-shadow: var(--shadow-elevation-low)
+            
             --mui-background: var(--color-background-soft)
 
             .checkbox

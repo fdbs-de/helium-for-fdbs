@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Permissions\Permissions;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -41,11 +42,11 @@ class DatabaseSeeder extends Seeder
         $employee_role = Role::create(['name' => 'employee']);
         $customer_role = Role::create(['name' => 'customer']);
 
-        $ACCESS_ADMIN_PANEL = Permission::create(['name' => 'access admin panel']);
-        $ACCESS_EMPLOYEE_PANEL = Permission::create(['name' => 'access employee panel']);
-        $ACCESS_CUSTOMER_PANEL = Permission::create(['name' => 'access customer panel']);
-        $EDIT_JOB_OFFERS = Permission::create(['name' => 'edit job offers']);
-        $EDIT_USERS = Permission::create(['name' => 'edit users']);
+        $ACCESS_ADMIN_PANEL = Permission::create(['name' => Permissions::CAN_ACCESS_ADMIN_PANEL]);
+        $ACCESS_EMPLOYEE_PANEL = Permission::create(['name' => Permissions::CAN_ACCESS_EMPLOYEE_PANEL]);
+        $ACCESS_CUSTOMER_PANEL = Permission::create(['name' => Permissions::CAN_ACCESS_CUSTOMER_PANEL]);
+        $EDIT_JOB_OFFERS = Permission::create(['name' => Permissions::CAN_EDIT_JOB_OFFERS]);
+        $EDIT_USERS = Permission::create(['name' => Permissions::CAN_EDIT_USERS]);
 
         $admin_role->givePermissionTo($ACCESS_ADMIN_PANEL);
         $admin_role->givePermissionTo($ACCESS_EMPLOYEE_PANEL);

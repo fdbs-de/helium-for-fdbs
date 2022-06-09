@@ -1,9 +1,7 @@
 <?php
 
 use App\Http\Controllers\StaticController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,8 +33,5 @@ Route::get('/datenschutz', [StaticController::class, 'indexDatenschutz'])->name(
 Route::get('/agbs', [StaticController::class, 'indexAGBS'])->name('agbs');
 Route::get('/video-info', [StaticController::class, 'indexVideoInfo'])->name('video-info');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified', 'enabled'])->name('dashboard');
-
 require __DIR__.'/auth.php';
+require __DIR__.'/dashboard.php';
