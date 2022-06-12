@@ -2,7 +2,7 @@
     <header id="header">
         <div class="limiter">
             <Link id="header-logo" :href="route('home')" title="FDBS Home"><Logo /></Link>
-            <Menu id="menu" />
+            <Menu id="menu" :menu="menu"/>
             <div class="spacer"></div>
             <Link class="login-button" v-if="$page.props.auth.user" :href="route('dashboard')">{{$page.props.auth.user.name || $page.props.auth.user.email}}</Link>
             <Link class="login-button" v-else :href="route('login')">Kundenbereich</Link>
@@ -14,6 +14,12 @@
     import Logo from '@/Components/Branding/Logo.vue'
     import Menu from '@/Components/Page/Menu.vue'
     import { Link } from '@inertiajs/inertia-vue3'
+
+
+
+    defineProps({
+        menu: Array,
+    })
 </script>
 
 <style lang="sass" scoped>

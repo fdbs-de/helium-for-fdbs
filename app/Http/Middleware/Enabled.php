@@ -18,7 +18,7 @@ class Enabled
     {
         if ($request->user()->enabled_at === null || $request->user()->enabled_at > now())
         {
-            return redirect('home');
+            return redirect('/');
         }
         
         return $next($request);

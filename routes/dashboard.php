@@ -11,6 +11,7 @@ Route::prefix('dashboard')->middleware(['auth', 'verified', 'enabled'])->group(f
     Route::prefix('admin')->middleware('can:'.Permissions::CAN_ACCESS_ADMIN_PANEL)->group(function () {
         Route::get('/', [OverviewController::class, 'indexOverview'])->name('dashboard.admin');
         Route::get('/users', [UserController::class, 'indexUsers'])->name('dashboard.admin.users');
+        Route::put('/users/{user}', [UserController::class, 'enableUser'])->can('enable', 'user')->name('dashboard.admin.users.enable');
     });
 
     Route::prefix('mitarbeiter')->middleware('can:'.Permissions::CAN_ACCESS_ADMIN_PANEL)->group(function () {
@@ -20,4 +21,6 @@ Route::prefix('dashboard')->middleware(['auth', 'verified', 'enabled'])->group(f
     Route::prefix('kunde')->middleware('can:'.Permissions::CAN_ACCESS_ADMIN_PANEL)->group(function () {
         Route::get('/', [OverviewController::class, 'indexOverview'])->name('dashboard.customer');
     });
+
+    Route::get('/profile', [OverviewController::class, 'indexOverview'])->name('dashboard.profile');
 });

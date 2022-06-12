@@ -14,4 +14,11 @@ class UserController extends Controller
             'users' => User::with(['roles', 'employeeProfile', 'customerProfile'])->get(),
         ]);
     }
+
+    public function enableUser(Request $request, User $user) {
+        $user->enabled_at = now();
+        $user->save();
+
+        return back();
+    }
 }

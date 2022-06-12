@@ -1,5 +1,5 @@
 <template>
-    <GuestLayout>
+    <AuthenticatedLayout>
         <main>
             <section id="hero-section">
                 <h1>{{title}}</h1>
@@ -7,20 +7,17 @@
             <section id="content-section">
                 <div class="limiter main-card">
                     <nav class="dashboard-nav-bar">
-                        <Link v-if="$page.props.auth.user.permissions.includes('access customer panel')" :class="{'active': isActive(route('dashboard.customer'))}" :href="route('dashboard.customer')">Kundenbereich</Link>
-                        <Link v-if="$page.props.auth.user.permissions.includes('access employee panel')" :class="{'active': isActive(route('dashboard.employee'))}" :href="route('dashboard.employee')">Mitarbeiterbereich</Link>
-                        <Link v-if="$page.props.auth.user.permissions.includes('access admin panel')" :class="{'active': isActive(route('dashboard.admin'))}" :href="route('dashboard.admin')">Adminbereich</Link>
                     </nav>
                     <slot />
                 </div>
             </section>
         </main>
-    </GuestLayout>
+    </AuthenticatedLayout>
 </template>
 
 <script setup>
     import { Head, Link, usePage } from '@inertiajs/inertia-vue3'
-    import GuestLayout from '@/Layouts/Guest.vue'
+    import AuthenticatedLayout from '@/Layouts/Authenticated.vue'
 
     defineProps({
         title: String,

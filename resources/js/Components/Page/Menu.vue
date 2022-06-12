@@ -24,10 +24,16 @@
 <script setup>
     import { Link } from '@inertiajs/inertia-vue3'
     import MenuBuilder from '@/Components/Page/Menu/MenuBuilder.vue'
-    import { mainMenu } from '@/menus'
     import { ref, watch } from 'vue'
 
-    const menu = ref(mainMenu)
+
+
+    defineProps({
+        menu: Array,
+    })
+
+
+
     const isOpen = ref(false)
 
     watch(isOpen, () => {
@@ -152,6 +158,8 @@
                     font-size: 1.5rem
                     transform: translate(-50%, -50%)
                     font-family: var(--font-icon)
+                    user-select: none
+                    pointer-events: none
 
                 &:hover,
                 &:focus

@@ -59,6 +59,8 @@ class RegisteredUserController extends Controller
                 'company' => $request->customer['company'],
                 'customer_id' => $request->customer['customer_id'],
             ]);
+
+            $user->assignRole('customer');
         }
 
         if ($request->is_employee)
@@ -67,6 +69,8 @@ class RegisteredUserController extends Controller
                 'first_name' => $request->employee['first_name'],
                 'last_name' => $request->employee['last_name'],
             ]);
+
+            $user->assignRole('employee');
         }
 
         event(new Registered($user));

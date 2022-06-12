@@ -35,17 +35,20 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request)
     {
-        $user = User::with(['roles.permissions'])->find($request->user()->id);
-
-        // Compute the permissions for the current user.
-        $permissions = collect($user->roles)->map->permissions->flatten()->pluck('name')->unique()->toArray();
-
-        // merge direct and role permissions
-        $user->permissions = $permissions;
+        if ($request->user())
+        {
+            $user = User::with(['roles.permissions'])->find($request->user()->id);
+    
+            // Compute the permissions for the current user.
+            $permissions = collect($user->roles)->map->permissions->flatten()->pluck('name')->unique()->toArray();
+    
+            // merge direct and role permissions
+            $user->permissions = $permissions;
+        }
 
         return array_merge(parent::share($request), [
             'auth' => [
-                'user' => $user,
+                'user' => $user ?? null,
             ],
             'ziggy' => function () {
                 return (new Ziggy)->toArray();

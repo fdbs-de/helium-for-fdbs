@@ -172,6 +172,15 @@ select:focus {
 .flex.center {
   align-items: center;
 }
+.flex.h-center {
+  justify-content: center;
+}
+.flex.v-center {
+  align-items: center;
+}
+.flex.h-end {
+  justify-content: flex-end;
+}
 .flex.gap {
   gap: var(--su);
 }
