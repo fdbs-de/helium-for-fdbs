@@ -81,7 +81,22 @@ class UserPolicy
      */
     public function delete(User $user, user $model)
     {
-        //
+        if (!$user->can(Permissions::CAN_EDIT_USERS)) return false;
+
+        if ($user->id == $model->id) return false;
+
+        if ($model->hasRole('admin')) return false;
+
+        return true;
+    }
+
+    public function deleteProfile(User $user, user $model)
+    {
+        if (!$user->can(Permissions::CAN_EDIT_USERS)) return false;
+
+        if ($model->hasRole('admin')) return false;
+
+        return true;
     }
 
     /**

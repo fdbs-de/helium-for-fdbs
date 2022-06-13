@@ -169,6 +169,9 @@ select:focus {
 .flex {
   display: flex;
 }
+.flex.vertical {
+  flex-direction: column;
+}
 .flex.center {
   align-items: center;
 }

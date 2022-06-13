@@ -12,6 +12,10 @@ import 'marketier-ui/dist/style.css'
 import { createI18n } from 'vue-i18n/index'
 import translations from '@/Lang/translations'
 
+// Import dayjs
+import dayjs from 'dayjs'
+import 'dayjs/locale/de'
+
 
 
 /////////////////////////
@@ -22,6 +26,8 @@ const i18n = createI18n({
     fallbackLocale: 'en',
     messages: translations,
 })
+
+dayjs.locale('de')
 
 
 
@@ -47,6 +53,7 @@ createInertiaApp({
         application.use(MarketierUI)
         application.use(i18n)
         application.mixin({ methods: { route } })
+        application.config.globalProperties.$dayjs = dayjs
 
         application.mount(el)
     },

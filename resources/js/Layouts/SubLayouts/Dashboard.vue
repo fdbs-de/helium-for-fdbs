@@ -34,17 +34,18 @@
         align-items: center
         justify-content: center
         margin-top: var(--height-header)
-        padding-bottom: var(--height-header)
-        height: calc(350px + var(--height-header))
-        background: var(--color-background-soft)
+        padding-block: 5rem calc(5rem + var(--height-header))
+        background: var(--color-primary)
 
         h1
-            color: var(--color-primary)
+            color: var(--color-background)
+            margin: 0
 
     #content-section
         .main-card
             transform: translateY(calc(-1 * var(--height-header)))
             padding: 0
+            margin-bottom: 4rem
             background: var(--color-background)
             border-radius: calc(var(--su) * .75)
             box-shadow: var(--shadow-elevation-low)
@@ -88,6 +89,4 @@
 
     @media only screen and (max-width: 500px)
         #hero-section
-            padding-bottom: 0
-            height: 250px
 </style>
