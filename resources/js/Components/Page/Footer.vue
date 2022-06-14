@@ -4,7 +4,7 @@
             <p>Wir sind zertifiziert durch:</p>
             <div class="divider"></div>
             <div class="wrapper">
-                <a class="cert-wrapper" href="/downloads/qs_zertifikat_2022.pdf" target="_blank" rel="noopener noreferrer">
+                <a class="cert-wrapper" href="/downloads/qs_zertifikat_2022.pdf" target="_blank" rel="noopener noreferrer" style="border-radius: 0">
                     <img src="/images/zertifikate/qs_logo.jpg" alt="QS Zertifizierung">
                 </a>
                 <a class="cert-wrapper" href="/downloads/Bio_2022_A4.pdf" target="_blank" rel="noopener noreferrer">

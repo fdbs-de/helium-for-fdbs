@@ -88,5 +88,4 @@
 
 
     @media only screen and (max-width: 500px)
-        #hero-section
 </style>
