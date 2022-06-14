@@ -28,8 +28,8 @@ class DatabaseSeeder extends Seeder
 
         $user = User::create([
             'name' => 'Root',
-            'email' => env('ROOT_EMAIL'),
-            'password' => Hash::make(env('ROOT_PASSWORD')),
+            'email' => config('app.root_email'),
+            'password' => Hash::make(config('app.root_password')),
         ]);
 
         $user->update([
@@ -37,6 +37,7 @@ class DatabaseSeeder extends Seeder
             'enabled_at' => now(),
         ]);
 
+        $super_admin_role = Role::create(['name' => 'super admin']);
         $admin_role = Role::create(['name' => 'admin']);
         $editor_role = Role::create(['name' => 'editor']);
         $employee_role = Role::create(['name' => 'employee']);
@@ -63,6 +64,7 @@ class DatabaseSeeder extends Seeder
 
         $customer_role->givePermissionTo($ACCESS_CUSTOMER_PANEL);
 
+        $user->assignRole('super admin');
         $user->assignRole('admin');
     }
 }
