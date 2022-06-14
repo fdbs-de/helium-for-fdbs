@@ -25143,6 +25143,60 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/Page/StaffCard.vue?vue&type=script&setup=true&lang=js":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/Page/StaffCard.vue?vue&type=script&setup=true&lang=js ***!
+  \*******************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'StaffCard',
+  props: {
+    color: {
+      type: String,
+      "default": 'var(--color-primary)'
+    },
+    name: {
+      type: String
+    },
+    job: {
+      type: String
+    },
+    label: {
+      type: String
+    },
+    link: {
+      type: String
+    },
+    image: {
+      type: String
+    },
+    overlay: {
+      type: String
+    },
+    alt: {
+      type: String
+    }
+  },
+  setup: function setup(__props, _ref) {
+    var expose = _ref.expose;
+    expose();
+    var __returned__ = {};
+    Object.defineProperty(__returned__, '__isScriptSetup', {
+      enumerable: false,
+      value: true
+    });
+    return __returned__;
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/ValidationErrors.vue?vue&type=script&setup=true&lang=js":
 /*!*********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/ValidationErrors.vue?vue&type=script&setup=true&lang=js ***!
@@ -26155,6 +26209,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-vue3 */ "./node_modules/@inertiajs/inertia-vue3/dist/index.js");
 /* harmony import */ var _Layouts_Guest_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Layouts/Guest.vue */ "./resources/js/Layouts/Guest.vue");
 /* harmony import */ var _Components_ValidationErrors_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Components/ValidationErrors.vue */ "./resources/js/Components/ValidationErrors.vue");
+/* harmony import */ var _Components_Page_StaffCard_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Components/Page/StaffCard.vue */ "./resources/js/Components/Page/StaffCard.vue");
+
 
 
 
@@ -26167,7 +26223,8 @@ __webpack_require__.r(__webpack_exports__);
       Head: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.Head,
       Link: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.Link,
       GuestLayout: _Layouts_Guest_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
-      ValidationErrors: _Components_ValidationErrors_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+      ValidationErrors: _Components_ValidationErrors_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+      StaffCard: _Components_Page_StaffCard_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -26893,6 +26950,86 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* KEYED_FRAGMENT */
   ))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 2
   /* CLASS */
+  );
+}
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/Page/StaffCard.vue?vue&type=template&id=3d59f50a&scoped=true":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/Page/StaffCard.vue?vue&type=template&id=3d59f50a&scoped=true ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+
+var _withScopeId = function _withScopeId(n) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.pushScopeId)("data-v-3d59f50a"), n = n(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.popScopeId)(), n;
+};
+
+var _hoisted_1 = {
+  key: 0,
+  "class": "image-wrapper"
+};
+var _hoisted_2 = ["src", "alt"];
+var _hoisted_3 = ["src", "alt"];
+var _hoisted_4 = {
+  key: 0,
+  "class": "job-banner"
+};
+var _hoisted_5 = {
+  key: 1,
+  "class": "text-wrapper"
+};
+var _hoisted_6 = {
+  key: 0
+};
+var _hoisted_7 = ["href"];
+var _hoisted_8 = {
+  key: 2
+};
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["card-wrapper", {
+      'has-overlay': $props.overlay && $props.image
+    }]),
+    style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)('--card-color:' + $props.color)
+  }, [$props.image ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    loading: "lazy",
+    src: $props.image,
+    alt: $props.alt,
+    "class": "card-image"
+  }, null, 8
+  /* PROPS */
+  , _hoisted_2), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    loading: "lazy",
+    src: $props.overlay,
+    alt: $props.alt,
+    "class": "card-image overlay"
+  }, null, 8
+  /* PROPS */
+  , _hoisted_3), $props.job ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.job), 1
+  /* TEXT */
+  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $props.name || $props.label || $props.job ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_5, [$props.name ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("b", _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.name), 1
+  /* TEXT */
+  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $props.link && $props.label ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
+    key: 1,
+    href: $props.link,
+    target: "_blank"
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.label), 1
+  /* TEXT */
+  )], 8
+  /* PROPS */
+  , _hoisted_7)) : $props.label ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("small", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.label), 1
+  /* TEXT */
+  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 6
+  /* CLASS, STYLE */
   );
 }
 
@@ -29140,16 +29277,32 @@ var _hoisted_9 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
-var _hoisted_10 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", {
-    id: "content-section"
-  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": "limiter"
-  })], -1
+var _hoisted_10 = {
+  id: "content-section"
+};
+var _hoisted_11 = {
+  "class": "limiter"
+};
+
+var _hoisted_12 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, "Der Vorstand", -1
   /* HOISTED */
   );
 });
 
+var _hoisted_13 = {
+  "class": "staff-card-container"
+};
+
+var _hoisted_14 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, "Ansprechpartner", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_15 = {
+  "class": "staff-card-container"
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_mui_input = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("mui-input");
 
@@ -29209,7 +29362,358 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         loading: false
       })])], 32
       /* HYDRATE_EVENTS */
-      )]), _hoisted_10])];
+      )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Zentrale",
+        link: "tel:0531 210 55 0",
+        label: "0531 210 55 0",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Sebastian Gerlach",
+        job: "Vorstand",
+        label: "(geschäftsführend)",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Jens Löser",
+        job: "Vorstand",
+        label: "(geschäftsführend)",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Jens Neubauer",
+        job: "Vorstand",
+        label: "(ehrenamtlich)",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      })]), _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Jana Schildhauer",
+        job: "Assistentin des Vorstands / Qualitätsmanagerin",
+        color: "#2f3542",
+        link: "tel:0531 210 55 44",
+        label: "0531 210 55 44",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Robert Heiduk",
+        job: "Leitung Buchhaltung / Personal",
+        color: "#2f3542",
+        link: "tel:0531 210 55 37",
+        label: "0531 210 55 37",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Katja Stöger",
+        job: "Debitorenbuchhaltung",
+        color: "#2f3542",
+        link: "tel:0531 210 55 15",
+        label: "0531 210 55 15",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Silke Sanner",
+        job: "Verwaltung",
+        color: "#2f3542",
+        link: "tel:0531 210 55 31",
+        label: "0531 210 55 31",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Meik Binkowski",
+        job: "Controlling",
+        color: "#2f3542",
+        link: "tel:0531 210 55 33",
+        label: "0531 210 55 33",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Christian Hornig",
+        job: "Leitung Einkauf",
+        link: "tel:0531 210 55 17",
+        label: "0531 210 55 17",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Peter Schmidt",
+        job: "Disposition",
+        color: "#2f3542",
+        link: "tel:0531 210 55 19",
+        label: "0531 210 55 19",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Tobias Klenke",
+        job: "Disposition",
+        color: "#2f3542",
+        link: "tel:0531 210 55 21",
+        label: "0531 210 55 21",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Nino Storch",
+        job: "Disposition",
+        color: "#2f3542",
+        link: "tel:0531 210 55 48",
+        label: "0531 210 55 48",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Marius Hilger",
+        job: "Disposition",
+        color: "#2f3542",
+        link: "tel:0531 210 55 46",
+        label: "0531 210 55 46",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Philipp Rost",
+        job: "Leitung Vertrieb",
+        link: "tel:0531 210 55 99",
+        label: "0531 210 55 99",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Madlen Krause",
+        job: "Leitung Vertriebsinnendienst",
+        link: "tel:0531 210 55 18",
+        label: "0531 210 55 18",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Andreas Pape",
+        job: "Fachberater/-innen",
+        color: "#2f3542",
+        link: "tel:0531 210 55 91",
+        label: "0531 210 55 91",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Marcus König",
+        job: "Fachberater/-innen",
+        color: "#2f3542",
+        link: "tel:0531 210 55 93",
+        label: "0531 210 55 93",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Lutz Nolte",
+        job: "Fachberater/-innen",
+        color: "#2f3542",
+        link: "tel:0531 210 55 04",
+        label: "0531 210 55 94",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Kenan Özden",
+        job: "Fachberater/-innen",
+        color: "#2f3542",
+        link: "tel:0531 210 55 92",
+        label: "0531 210 55 92",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Matthias Vetter",
+        job: "Fachberater/-innen",
+        color: "#2f3542",
+        link: "tel:0531 210 55 95",
+        label: "0531 210 55 95",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Jens Winkler",
+        job: "Fachberater/-innen",
+        color: "#2f3542",
+        link: "tel:0531 210 55 97",
+        label: "0531 210 55 97",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Klaus-Dieter Hoffmann",
+        job: "Fachberater/-innen",
+        color: "#2f3542",
+        link: "tel:0531 210 55 08",
+        label: "0531 210 55 98",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Elke Grigat",
+        job: "Fachberater/-innen",
+        color: "#2f3542",
+        link: "tel:0531 210 55 38",
+        label: "0531 210 55 38",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Silke Künstler",
+        job: "Vertriebsinnendienst",
+        color: "#2f3542",
+        link: "tel:0531 210 55 23",
+        label: "0531 210 55 23",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Romina Pagano",
+        job: "Vertriebsinnendienst",
+        color: "#2f3542",
+        link: "tel:0531 210 55 28",
+        label: "0531 210 55 28",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Yasmin Ruben",
+        job: "Vertriebsinnendienst",
+        color: "#2f3542",
+        link: "tel:0531 210 55 32",
+        label: "0531 210 55 32",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Phil Bartelt",
+        job: "Vertriebsinnendienst",
+        color: "#2f3542",
+        link: "tel:0531 210 55 36",
+        label: "0531 210 55 36",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Benjamin Vahle",
+        job: "Leitung Marketing & Kommunikation",
+        link: "tel:0531 210 55 16",
+        label: "0531 210 55 16",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Franziska Brandt",
+        job: "Mediengestalter/-innen",
+        color: "#2f3542",
+        link: "tel:0531 210 55 51",
+        label: "0531 210 55 51",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Maurice Freuwört",
+        job: "Mediengestalter/-innen",
+        color: "#2f3542",
+        link: "tel:0531 210 55 73",
+        label: "0531 210 55 73",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Franziska Wolff",
+        job: "Mediengestalter/-innen",
+        color: "#2f3542",
+        link: "tel:0531 210 55 25",
+        label: "0531 210 55 25",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Carolin Götzner",
+        job: "Mediengestalter/-innen",
+        color: "#2f3542",
+        link: "tel:0531 210 55 43",
+        label: "0531 210 55 43",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Annika Görmann",
+        job: "Mediengestalter/-innen",
+        color: "#2f3542",
+        link: "tel:0531 210 55 72",
+        label: "0531 210 55 72",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Harald Reckwald",
+        job: "Leitung Lager",
+        link: "tel:0531 210 55 57",
+        label: "0531 210 55 57",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Timo Welskop",
+        job: "Leitung Fuhrpark",
+        link: "tel:0531 210 55 56",
+        label: "0531 210 55 56",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Tobias Behnstedt",
+        job: "Leitung Fleischabteilung",
+        link: "tel:0531 210 55 26",
+        label: "0531 210 55 26",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Niels Brandt",
+        job: "Leitung Fleischabteilung",
+        link: "tel:0531 210 55 27",
+        label: "0531 210 55 27",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Annette Körner",
+        job: "Leitung Werkstatt/Kundendienst",
+        link: "tel:0531 210 55 24",
+        label: "0531 210 55 24",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Marcus Zetzsche",
+        job: "Leitung Werkstatt/Kundendienst",
+        link: "tel:0531 210 55 12",
+        label: "0531 210 55 12",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Karsten Strothmann",
+        job: "Fachberater Geräte/Maschinen",
+        color: "#2f3542",
+        link: "tel:0531 210 55 41",
+        label: "0531 210 55 41",
+        image: "/images/content/test_pfp.jpg",
+        overlay: "/images/content/test_pfp_overlay.jpg",
+        alt: ""
+      })])])])])];
     }),
     _: 1
     /* STABLE */
@@ -29897,6 +30401,33 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".mobile-menu-toggle {\n  height: 3rem;
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-15.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/Page/StaffCard.vue?vue&type=style&index=0&id=3d59f50a&lang=sass&scoped=true":
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-15.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/Page/StaffCard.vue?vue&type=style&index=0&id=3d59f50a&lang=sass&scoped=true ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/cssWithMappingToString.js */ "./node_modules/css-loader/dist/runtime/cssWithMappingToString.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".card-wrapper[data-v-3d59f50a] {\n  background: white;\n  display: flex;\n  flex-direction: column;\n  box-shadow: var(--shadow-elevation-low);\n  border-radius: 10px;\n  overflow: hidden;\n  transition: all 100ms ease-in-out;\n}\n.card-wrapper .image-wrapper[data-v-3d59f50a] {\n  width: 100%;\n  aspect-ratio: 1;\n  background: var(--color-background-soft);\n  position: relative;\n}\n.card-wrapper .image-wrapper .card-image[data-v-3d59f50a] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n.card-wrapper .image-wrapper .card-image.overlay[data-v-3d59f50a] {\n  opacity: 0;\n  pointer-events: none;\n}\n.card-wrapper .image-wrapper .job-banner[data-v-3d59f50a] {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  color: var(--color-background);\n  font-size: 0.9rem;\n  line-height: 1.3;\n  padding: 0.5rem 1rem;\n  text-align: center;\n  -webkit-backdrop-filter: blur(10px);\n          backdrop-filter: blur(10px);\n}\n.card-wrapper .image-wrapper .job-banner[data-v-3d59f50a]::after {\n  content: \"\";\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  z-index: -1;\n  background: var(--card-color);\n  opacity: 0.8;\n}\n.card-wrapper[data-v-3d59f50a]:hover {\n  box-shadow: var(--shadow-elevation-medium);\n}\n.card-wrapper.has-overlay:hover .card-image.overlay[data-v-3d59f50a] {\n  opacity: 1;\n  pointer-events: all;\n}\n.card-wrapper .text-wrapper[data-v-3d59f50a] {\n  padding: 1rem;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: flex-start;\n}\n.card-wrapper .text-wrapper a[data-v-3d59f50a] {\n  color: var(--card-color);\n}", "",{"version":3,"sources":["webpack://./resources/js/Components/Page/StaffCard.vue"],"names":[],"mappings":"AACI;EACI,iBAAA;EACA,aAAA;EACA,sBAAA;EACA,uCAAA;EACA,mBAAA;EACA,gBAAA;EACA,iCAAA;AAAR;AAEQ;EACI,WAAA;EACA,eAAA;EACA,wCAAA;EACA,kBAAA;AAAZ;AAEY;EACI,WAAA;EACA,YAAA;EACA,oBAAA;KAAA,iBAAA;EACA,kBAAA;EACA,MAAA;EACA,OAAA;AAAhB;AAEgB;EACI,UAAA;EACA,oBAAA;AAApB;AAEY;EACI,kBAAA;EACA,SAAA;EACA,OAAA;EACA,QAAA;EACA,8BAAA;EACA,iBAAA;EACA,gBAAA;EACA,oBAAA;EACA,kBAAA;EACA,mCAAA;UAAA,2BAAA;AAAhB;AAEgB;EACI,WAAA;EACA,kBAAA;EACA,MAAA;EACA,SAAA;EACA,OAAA;EACA,QAAA;EACA,WAAA;EACA,6BAAA;EACA,YAAA;AAApB;AAEQ;EACI,0CAAA;AAAZ;AAGY;EACI,UAAA;EACA,mBAAA;AADhB;AAGQ;EACI,aAAA;EACA,aAAA;EACA,sBAAA;EACA,uBAAA;EACA,uBAAA;AADZ;AAGY;EACI,wBAAA;AADhB","sourcesContent":["\r\n    .card-wrapper\r\n        background: white\r\n        display: flex\r\n        flex-direction: column\r\n        box-shadow: var(--shadow-elevation-low)\r\n        border-radius: 10px\r\n        overflow: hidden\r\n        transition: all 100ms ease-in-out\r\n\r\n        .image-wrapper\r\n            width: 100%\r\n            aspect-ratio: 1\r\n            background: var(--color-background-soft)\r\n            position: relative\r\n\r\n            .card-image\r\n                width: 100%\r\n                height: 100%\r\n                object-fit: cover\r\n                position: absolute\r\n                top: 0\r\n                left: 0\r\n\r\n                &.overlay\r\n                    opacity: 0\r\n                    pointer-events: none\r\n\r\n            .job-banner\r\n                position: absolute\r\n                bottom: 0\r\n                left: 0\r\n                right: 0\r\n                color: var(--color-background)\r\n                font-size: .9rem\r\n                line-height: 1.3\r\n                padding: .5rem 1rem\r\n                text-align: center\r\n                backdrop-filter: blur(10px)\r\n\r\n                &::after\r\n                    content: \"\"\r\n                    position: absolute\r\n                    top: 0\r\n                    bottom: 0\r\n                    left: 0\r\n                    right: 0\r\n                    z-index: -1\r\n                    background: var(--card-color)\r\n                    opacity: .8\r\n\r\n        &:hover\r\n            box-shadow: var(--shadow-elevation-medium)\r\n\r\n        &.has-overlay:hover\r\n            .card-image.overlay\r\n                opacity: 1\r\n                pointer-events: all\r\n\r\n        .text-wrapper\r\n            padding: 1rem\r\n            display: flex\r\n            flex-direction: column\r\n            justify-content: center\r\n            align-items: flex-start\r\n\r\n            a\r\n                color: var(--card-color)\r\n"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-15.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Layouts/SubLayouts/Dashboard.vue?vue&type=style&index=0&id=4975dd92&lang=sass&scoped=true":
 /*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-15.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Layouts/SubLayouts/Dashboard.vue?vue&type=style&index=0&id=4975dd92&lang=sass&scoped=true ***!
@@ -30133,7 +30664,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "#hero-section[data-v-c29270f2] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin-top: var(--height-header);\n  padding-bottom: var(--height-header);\n  height: calc(350px + var(--height-header));\n  background: var(--color-background-soft);\n}\n#hero-section h1[data-v-c29270f2] {\n  color: var(--color-primary);\n}\n#form-section form[data-v-c29270f2] {\n  width: 100%;\n  max-width: 500px;\n  margin: 0 auto var(--height-header);\n  transform: translateY(calc(-1 * var(--height-header)));\n  padding: calc(var(--su) * 2);\n  gap: calc(var(--su) * 2);\n  background: var(--color-background);\n  border-radius: calc(var(--su) * 0.75);\n  box-shadow: var(--shadow-elevation-low);\n  display: flex;\n  flex-direction: column;\n  --mui-background: var(--color-background-soft);\n}\n#form-section form .checkbox[data-v-c29270f2] {\n  --mui-background: var(--color-background);\n}\n#form-section form .textarea[data-v-c29270f2] {\n  --base-height: 10rem;\n}\n@media only screen and (max-width: 500px) {\n#hero-section[data-v-c29270f2] {\n    padding-bottom: 0;\n    height: 250px;\n}\n#form-section form[data-v-c29270f2] {\n    border-radius: 0;\n    box-shadow: none;\n    margin-bottom: calc(var(--su) * 2);\n    transform: none;\n    padding-inline: var(--su);\n    gap: calc(var(--su) * 1.25);\n}\n}", "",{"version":3,"sources":["webpack://./resources/js/Pages/Kontakt.vue"],"names":[],"mappings":"AACI;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,gCAAA;EACA,oCAAA;EACA,0CAAA;EACA,wCAAA;AAAR;AAEQ;EACI,2BAAA;AAAZ;AAGQ;EACI,WAAA;EACA,gBAAA;EACA,mCAAA;EACA,sDAAA;EACA,4BAAA;EACA,wBAAA;EACA,mCAAA;EACA,qCAAA;EACA,uCAAA;EACA,aAAA;EACA,sBAAA;EAEA,8CAAA;AADZ;AAGY;EACI,yCAAA;AADhB;AAGY;EACI,oBAAA;AADhB;AAGI;AACI;IACI,iBAAA;IACA,aAAA;AAAV;AAGU;IACI,gBAAA;IACA,gBAAA;IACA,kCAAA;IACA,eAAA;IACA,yBAAA;IACA,2BAAA;AADd;AACF","sourcesContent":["\n    #hero-section\n        display: flex\n        align-items: center\n        justify-content: center\n        margin-top: var(--height-header)\n        padding-bottom: var(--height-header)\n        height: calc(350px + var(--height-header))\n        background: var(--color-background-soft)\n\n        h1\n            color: var(--color-primary)\n\n    #form-section\n        form\n            width: 100%\n            max-width: 500px\n            margin: 0 auto var(--height-header)\n            transform: translateY(calc(-1 * var(--height-header)))\n            padding: calc(var(--su) * 2)\n            gap: calc(var(--su) * 2)\n            background: var(--color-background)\n            border-radius: calc(var(--su) * .75)\n            box-shadow: var(--shadow-elevation-low)\n            display: flex\n            flex-direction: column\n\n            --mui-background: var(--color-background-soft)\n\n            .checkbox\n                --mui-background: var(--color-background)\n\n            .textarea\n                --base-height: 10rem\n\n    @media only screen and (max-width: 500px)\n        #hero-section\n            padding-bottom: 0\n            height: 250px\n\n        #form-section\n            form\n                border-radius: 0\n                box-shadow: none\n                margin-bottom: calc(var(--su) * 2)\n                transform: none\n                padding-inline: var(--su)\n                gap: calc(var(--su) * 1.25)\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "#hero-section[data-v-c29270f2] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin-top: var(--height-header);\n  padding-bottom: var(--height-header);\n  height: calc(350px + var(--height-header));\n  background: var(--color-background-soft);\n}\n#hero-section h1[data-v-c29270f2] {\n  color: var(--color-primary);\n}\n#form-section form[data-v-c29270f2] {\n  width: 100%;\n  max-width: 500px;\n  margin: 0 auto var(--height-header);\n  transform: translateY(calc(-1 * var(--height-header)));\n  padding: calc(var(--su) * 2);\n  gap: calc(var(--su) * 2);\n  background: var(--color-background);\n  border-radius: calc(var(--su) * 0.75);\n  box-shadow: var(--shadow-elevation-low);\n  display: flex;\n  flex-direction: column;\n  --mui-background: var(--color-background-soft);\n}\n#form-section form .checkbox[data-v-c29270f2] {\n  --mui-background: var(--color-background);\n}\n#form-section form .textarea[data-v-c29270f2] {\n  --base-height: 10rem;\n}\n#content-section h2[data-v-c29270f2] {\n  color: var(--color-primary);\n  text-align: center;\n}\n#content-section .staff-card-container[data-v-c29270f2] {\n  display: grid !important;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 2rem;\n  margin-bottom: 4rem;\n}\n@media only screen and (max-width: 500px) {\n#hero-section[data-v-c29270f2] {\n    padding-bottom: 0;\n    height: 250px;\n}\n#form-section form[data-v-c29270f2] {\n    border-radius: 0;\n    box-shadow: none;\n    margin-bottom: calc(var(--su) * 2);\n    transform: none;\n    padding-inline: var(--su);\n    gap: calc(var(--su) * 1.25);\n}\n}", "",{"version":3,"sources":["webpack://./resources/js/Pages/Kontakt.vue"],"names":[],"mappings":"AACI;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,gCAAA;EACA,oCAAA;EACA,0CAAA;EACA,wCAAA;AAAR;AAEQ;EACI,2BAAA;AAAZ;AAGQ;EACI,WAAA;EACA,gBAAA;EACA,mCAAA;EACA,sDAAA;EACA,4BAAA;EACA,wBAAA;EACA,mCAAA;EACA,qCAAA;EACA,uCAAA;EACA,aAAA;EACA,sBAAA;EAEA,8CAAA;AADZ;AAGY;EACI,yCAAA;AADhB;AAGY;EACI,oBAAA;AADhB;AAKQ;EACI,2BAAA;EACA,kBAAA;AAFZ;AAGQ;EACI,wBAAA;EACA,qCAAA;EACA,SAAA;EACA,mBAAA;AADZ;AAGI;AACI;IACI,iBAAA;IACA,aAAA;AAAV;AAGU;IACI,gBAAA;IACA,gBAAA;IACA,kCAAA;IACA,eAAA;IACA,yBAAA;IACA,2BAAA;AADd;AACF","sourcesContent":["\n    #hero-section\n        display: flex\n        align-items: center\n        justify-content: center\n        margin-top: var(--height-header)\n        padding-bottom: var(--height-header)\n        height: calc(350px + var(--height-header))\n        background: var(--color-background-soft)\n\n        h1\n            color: var(--color-primary)\n\n    #form-section\n        form\n            width: 100%\n            max-width: 500px\n            margin: 0 auto var(--height-header)\n            transform: translateY(calc(-1 * var(--height-header)))\n            padding: calc(var(--su) * 2)\n            gap: calc(var(--su) * 2)\n            background: var(--color-background)\n            border-radius: calc(var(--su) * .75)\n            box-shadow: var(--shadow-elevation-low)\n            display: flex\n            flex-direction: column\n\n            --mui-background: var(--color-background-soft)\n\n            .checkbox\n                --mui-background: var(--color-background)\n\n            .textarea\n                --base-height: 10rem\n\n    #content-section\n\n        h2\n            color: var(--color-primary)\n            text-align: center\n        .staff-card-container\n            display: grid !important\n            grid-template-columns: repeat(4, 1fr)\n            gap: 2rem\n            margin-bottom: 4rem\n\n    @media only screen and (max-width: 500px)\n        #hero-section\n            padding-bottom: 0\n            height: 250px\n\n        #form-section\n            form\n                border-radius: 0\n                box-shadow: none\n                margin-bottom: calc(var(--su) * 2)\n                transform: none\n                padding-inline: var(--su)\n                gap: calc(var(--su) * 1.25)\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -55169,6 +55700,36 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-15.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/Page/StaffCard.vue?vue&type=style&index=0&id=3d59f50a&lang=sass&scoped=true":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-15.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/Page/StaffCard.vue?vue&type=style&index=0&id=3d59f50a&lang=sass&scoped=true ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_15_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_15_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_15_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_StaffCard_vue_vue_type_style_index_0_id_3d59f50a_lang_sass_scoped_true__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-15.use[1]!../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15.use[2]!../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15.use[3]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./StaffCard.vue?vue&type=style&index=0&id=3d59f50a&lang=sass&scoped=true */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-15.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/Page/StaffCard.vue?vue&type=style&index=0&id=3d59f50a&lang=sass&scoped=true");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_15_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_15_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_15_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_StaffCard_vue_vue_type_style_index_0_id_3d59f50a_lang_sass_scoped_true__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_15_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_15_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_15_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_StaffCard_vue_vue_type_style_index_0_id_3d59f50a_lang_sass_scoped_true__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-15.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Layouts/SubLayouts/Dashboard.vue?vue&type=style&index=0&id=4975dd92&lang=sass&scoped=true":
 /*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-15.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Layouts/SubLayouts/Dashboard.vue?vue&type=style&index=0&id=4975dd92&lang=sass&scoped=true ***!
@@ -57919,6 +58480,37 @@ if (false) {}
 
 /***/ }),
 
+/***/ "./resources/js/Components/Page/StaffCard.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/Components/Page/StaffCard.vue ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _StaffCard_vue_vue_type_template_id_3d59f50a_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./StaffCard.vue?vue&type=template&id=3d59f50a&scoped=true */ "./resources/js/Components/Page/StaffCard.vue?vue&type=template&id=3d59f50a&scoped=true");
+/* harmony import */ var _StaffCard_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StaffCard.vue?vue&type=script&setup=true&lang=js */ "./resources/js/Components/Page/StaffCard.vue?vue&type=script&setup=true&lang=js");
+/* harmony import */ var _StaffCard_vue_vue_type_style_index_0_id_3d59f50a_lang_sass_scoped_true__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./StaffCard.vue?vue&type=style&index=0&id=3d59f50a&lang=sass&scoped=true */ "./resources/js/Components/Page/StaffCard.vue?vue&type=style&index=0&id=3d59f50a&lang=sass&scoped=true");
+/* harmony import */ var E_Programs_laragon_www_fdbs_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+
+
+const __exports__ = /*#__PURE__*/(0,E_Programs_laragon_www_fdbs_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_StaffCard_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_StaffCard_vue_vue_type_template_id_3d59f50a_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render],['__scopeId',"data-v-3d59f50a"],['__file',"resources/js/Components/Page/StaffCard.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
 /***/ "./resources/js/Components/ValidationErrors.vue":
 /*!******************************************************!*\
   !*** ./resources/js/Components/ValidationErrors.vue ***!
@@ -58722,6 +59314,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/Components/Page/StaffCard.vue?vue&type=script&setup=true&lang=js":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/Components/Page/StaffCard.vue?vue&type=script&setup=true&lang=js ***!
+  \***************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_StaffCard_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_StaffCard_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./StaffCard.vue?vue&type=script&setup=true&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/Page/StaffCard.vue?vue&type=script&setup=true&lang=js");
+ 
+
+/***/ }),
+
 /***/ "./resources/js/Components/ValidationErrors.vue?vue&type=script&setup=true&lang=js":
 /*!*****************************************************************************************!*\
   !*** ./resources/js/Components/ValidationErrors.vue?vue&type=script&setup=true&lang=js ***!
@@ -59250,6 +59858,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/Components/Page/StaffCard.vue?vue&type=template&id=3d59f50a&scoped=true":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/Components/Page/StaffCard.vue?vue&type=template&id=3d59f50a&scoped=true ***!
+  \**********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_StaffCard_vue_vue_type_template_id_3d59f50a_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_StaffCard_vue_vue_type_template_id_3d59f50a_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./StaffCard.vue?vue&type=template&id=3d59f50a&scoped=true */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/Page/StaffCard.vue?vue&type=template&id=3d59f50a&scoped=true");
+
+
+/***/ }),
+
 /***/ "./resources/js/Components/ValidationErrors.vue?vue&type=template&id=4f3624e2":
 /*!************************************************************************************!*\
   !*** ./resources/js/Components/ValidationErrors.vue?vue&type=template&id=4f3624e2 ***!
@@ -59676,6 +60300,19 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_15_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_15_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_15_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Menu_vue_vue_type_style_index_0_id_5296efc4_lang_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-15.use[1]!../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15.use[2]!../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15.use[3]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./Menu.vue?vue&type=style&index=0&id=5296efc4&lang=sass */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-15.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/Page/Menu.vue?vue&type=style&index=0&id=5296efc4&lang=sass");
+
+
+/***/ }),
+
+/***/ "./resources/js/Components/Page/StaffCard.vue?vue&type=style&index=0&id=3d59f50a&lang=sass&scoped=true":
+/*!*************************************************************************************************************!*\
+  !*** ./resources/js/Components/Page/StaffCard.vue?vue&type=style&index=0&id=3d59f50a&lang=sass&scoped=true ***!
+  \*************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_15_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_15_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_15_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_StaffCard_vue_vue_type_style_index_0_id_3d59f50a_lang_sass_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-15.use[1]!../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15.use[2]!../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15.use[3]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./StaffCard.vue?vue&type=style&index=0&id=3d59f50a&lang=sass&scoped=true */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-15.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Components/Page/StaffCard.vue?vue&type=style&index=0&id=3d59f50a&lang=sass&scoped=true");
 
 
 /***/ }),

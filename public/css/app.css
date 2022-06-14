@@ -187,12 +187,24 @@ select:focus {
 .flex.gap {
   gap: var(--su);
 }
+.flex.gap-2 {
+  gap: calc(var(--su) * 2);
+}
 .flex.wrap {
   flex-wrap: wrap;
 }
 .flex .flex-1,
 .flex .spacer {
   flex: 1;
+}
+.flex .flex-2 {
+  flex: 2;
+}
+.flex .flex-3 {
+  flex: 3;
+}
+.flex .flex-4 {
+  flex: 4;
 }
 
 .divider {
