@@ -10,27 +10,32 @@
             </section>
 
             <section id="form-section">
-                <form @submit.prevent>
-                    <h2 class="no-margin">Kontaktformular</h2>
-
-                    <ValidationErrors />
-
-                    <mui-input type="text" no-border label="Ihr Name" required autocomplete="name"/>
-                    <mui-input type="email" no-border label="Ihre Email" required autocomplete="email"/>
-                    <mui-input type="textarea" class="textarea" no-border label="Nachricht" required autocomplete="message"/>
-
-                    <div class="flex center">
-                        <mui-toggle type="checkbox" class="checkbox" no-border>
-                            <template #appendLabel>
-                                <span>
-                                    Ich habe die <a target="_blank" :href="route('datenschutz')">Datenschutzerklärung</a> gelesen und akzeptiere diese.
-                                </span>
-                            </template>
-                        </mui-toggle>
-                        <div class="spacer"></div>
-                        <mui-button type="submit" label="Absenden" :loading="false"/>
+                <div class="limiter wrapper">
+                    <div class="card">
+                        <h2 class="no-margin">Anfart</h2>
                     </div>
-                </form>
+                    <form class="card" @submit.prevent>
+                        <h2 class="no-margin">Kontaktformular</h2>
+    
+                        <ValidationErrors />
+    
+                        <mui-input type="text" no-border label="Ihr Name" required autocomplete="name"/>
+                        <mui-input type="email" no-border label="Ihre Email" required autocomplete="email"/>
+                        <mui-input type="textarea" class="textarea" no-border label="Nachricht" required autocomplete="message"/>
+    
+                        <div class="flex center">
+                            <mui-toggle type="checkbox" class="checkbox" no-border>
+                                <template #appendLabel>
+                                    <span>
+                                        Ich habe die <a target="_blank" :href="route('datenschutz')">Datenschutzerklärung</a> gelesen und akzeptiere diese.
+                                    </span>
+                                </template>
+                            </mui-toggle>
+                            <div class="spacer"></div>
+                            <mui-button type="submit" label="Absenden" :loading="false"/>
+                        </div>
+                    </form>
+                </div>
             </section>
 
             <section id="content-section">
@@ -129,19 +134,24 @@
             color: var(--color-primary)
 
     #form-section
-        form
-            width: 100%
-            max-width: 500px
-            margin: 0 auto var(--height-header)
-            transform: translateY(calc(-1 * var(--height-header)))
-            padding: calc(var(--su) * 2)
-            gap: calc(var(--su) * 2)
-            background: var(--color-background)
-            border-radius: calc(var(--su) * .75)
-            box-shadow: var(--shadow-elevation-low)
+        .wrapper
             display: flex
-            flex-direction: column
+            transform: translateY(calc(-1 * var(--height-header)))
+            margin-bottom: var(--height-header)
+            gap: calc(var(--su) * 2)
 
+            .card
+                flex: 1
+                display: flex
+                flex-direction: column
+                padding: calc(var(--su) * 2)
+                gap: calc(var(--su) * 2)
+                background: var(--color-background)
+                border-radius: calc(var(--su) * .75)
+                box-shadow: var(--shadow-elevation-low)
+
+
+        form
             --mui-background: var(--color-background-soft)
 
             .checkbox
@@ -161,17 +171,41 @@
             gap: 2rem
             margin-bottom: 4rem
 
+
+
+    @media only screen and (max-width: 1000px)
+        #content-section
+            .staff-card-container
+                grid-template-columns: repeat(3, 1fr)
+
+
+
+    @media only screen and (max-width: 700px)
+        #content-section
+            .staff-card-container
+                grid-template-columns: repeat(2, 1fr)
+
+
+
     @media only screen and (max-width: 500px)
         #hero-section
             padding-bottom: 0
             height: 250px
 
         #form-section
-            form
-                border-radius: 0
-                box-shadow: none
+            .wrapper
+                flex-direction: column
                 margin-bottom: calc(var(--su) * 2)
-                transform: none
                 padding-inline: var(--su)
                 gap: calc(var(--su) * 1.25)
+                transform: none
+
+                .card
+                    border-radius: 0
+                    box-shadow: none
+                    padding-inline: 0
+
+        #content-section
+            .staff-card-container
+                grid-template-columns: repeat(1, 1fr)
 </style>

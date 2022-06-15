@@ -29250,8 +29250,21 @@ var _hoisted_2 = /*#__PURE__*/_withScopeId(function () {
 var _hoisted_3 = {
   id: "form-section"
 };
+var _hoisted_4 = {
+  "class": "limiter wrapper"
+};
 
-var _hoisted_4 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_5 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "card"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
+    "class": "no-margin"
+  }, "Anfart")], -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_6 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
     "class": "no-margin"
   }, "Kontaktformular", -1
@@ -29259,17 +29272,17 @@ var _hoisted_4 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
-var _hoisted_5 = {
+var _hoisted_7 = {
   "class": "flex center"
 };
 
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Ich habe die ");
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Ich habe die ");
 
-var _hoisted_7 = ["href"];
+var _hoisted_9 = ["href"];
 
-var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" gelesen und akzeptiere diese. ");
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" gelesen und akzeptiere diese. ");
 
-var _hoisted_9 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_11 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "spacer"
   }, null, -1
@@ -29277,30 +29290,30 @@ var _hoisted_9 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
-var _hoisted_10 = {
+var _hoisted_12 = {
   id: "content-section"
 };
-var _hoisted_11 = {
+var _hoisted_13 = {
   "class": "limiter"
 };
 
-var _hoisted_12 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_14 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, "Der Vorstand", -1
   /* HOISTED */
   );
 });
 
-var _hoisted_13 = {
+var _hoisted_15 = {
   "class": "staff-card-container"
 };
 
-var _hoisted_14 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_16 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, "Ansprechpartner", -1
   /* HOISTED */
   );
 });
 
-var _hoisted_15 = {
+var _hoisted_17 = {
   "class": "staff-card-container"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -29319,9 +29332,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         _: 1
         /* STABLE */
 
-      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("main", null, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("main", null, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
+        "class": "card",
         onSubmit: _cache[0] || (_cache[0] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {}, ["prevent"]))
-      }, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ValidationErrors"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_mui_input, {
+      }, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ValidationErrors"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_mui_input, {
         type: "text",
         "no-border": "",
         label: "Ihr Name",
@@ -29340,29 +29354,29 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         label: "Nachricht",
         required: "",
         autocomplete: "message"
-      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_mui_toggle, {
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_mui_toggle, {
         type: "checkbox",
         "class": "checkbox",
         "no-border": ""
       }, {
         appendLabel: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
             target: "_blank",
             href: _ctx.route('datenschutz')
           }, "Datenschutzerklärung", 8
           /* PROPS */
-          , _hoisted_7), _hoisted_8])];
+          , _hoisted_9), _hoisted_10])];
         }),
         _: 1
         /* STABLE */
 
-      }), _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_mui_button, {
+      }), _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_mui_button, {
         type: "submit",
         label: "Absenden",
         loading: false
       })])], 32
       /* HYDRATE_EVENTS */
-      )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+      )])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [_hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
         name: "Zentrale",
         link: "tel:0531 210 55 0",
         label: "0531 210 55 0",
@@ -29390,7 +29404,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         image: "/images/content/test_pfp.jpg",
         overlay: "/images/content/test_pfp_overlay.jpg",
         alt: ""
-      })]), _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+      })]), _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
         name: "Jana Schildhauer",
         job: "Assistentin des Vorstands / Qualitätsmanagerin",
         color: "#2f3542",
@@ -30664,7 +30678,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "#hero-section[data-v-c29270f2] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin-top: var(--height-header);\n  padding-bottom: var(--height-header);\n  height: calc(350px + var(--height-header));\n  background: var(--color-background-soft);\n}\n#hero-section h1[data-v-c29270f2] {\n  color: var(--color-primary);\n}\n#form-section form[data-v-c29270f2] {\n  width: 100%;\n  max-width: 500px;\n  margin: 0 auto var(--height-header);\n  transform: translateY(calc(-1 * var(--height-header)));\n  padding: calc(var(--su) * 2);\n  gap: calc(var(--su) * 2);\n  background: var(--color-background);\n  border-radius: calc(var(--su) * 0.75);\n  box-shadow: var(--shadow-elevation-low);\n  display: flex;\n  flex-direction: column;\n  --mui-background: var(--color-background-soft);\n}\n#form-section form .checkbox[data-v-c29270f2] {\n  --mui-background: var(--color-background);\n}\n#form-section form .textarea[data-v-c29270f2] {\n  --base-height: 10rem;\n}\n#content-section h2[data-v-c29270f2] {\n  color: var(--color-primary);\n  text-align: center;\n}\n#content-section .staff-card-container[data-v-c29270f2] {\n  display: grid !important;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 2rem;\n  margin-bottom: 4rem;\n}\n@media only screen and (max-width: 500px) {\n#hero-section[data-v-c29270f2] {\n    padding-bottom: 0;\n    height: 250px;\n}\n#form-section form[data-v-c29270f2] {\n    border-radius: 0;\n    box-shadow: none;\n    margin-bottom: calc(var(--su) * 2);\n    transform: none;\n    padding-inline: var(--su);\n    gap: calc(var(--su) * 1.25);\n}\n}", "",{"version":3,"sources":["webpack://./resources/js/Pages/Kontakt.vue"],"names":[],"mappings":"AACI;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,gCAAA;EACA,oCAAA;EACA,0CAAA;EACA,wCAAA;AAAR;AAEQ;EACI,2BAAA;AAAZ;AAGQ;EACI,WAAA;EACA,gBAAA;EACA,mCAAA;EACA,sDAAA;EACA,4BAAA;EACA,wBAAA;EACA,mCAAA;EACA,qCAAA;EACA,uCAAA;EACA,aAAA;EACA,sBAAA;EAEA,8CAAA;AADZ;AAGY;EACI,yCAAA;AADhB;AAGY;EACI,oBAAA;AADhB;AAKQ;EACI,2BAAA;EACA,kBAAA;AAFZ;AAGQ;EACI,wBAAA;EACA,qCAAA;EACA,SAAA;EACA,mBAAA;AADZ;AAGI;AACI;IACI,iBAAA;IACA,aAAA;AAAV;AAGU;IACI,gBAAA;IACA,gBAAA;IACA,kCAAA;IACA,eAAA;IACA,yBAAA;IACA,2BAAA;AADd;AACF","sourcesContent":["\r\n    #hero-section\r\n        display: flex\r\n        align-items: center\r\n        justify-content: center\r\n        margin-top: var(--height-header)\r\n        padding-bottom: var(--height-header)\r\n        height: calc(350px + var(--height-header))\r\n        background: var(--color-background-soft)\r\n\r\n        h1\r\n            color: var(--color-primary)\r\n\r\n    #form-section\r\n        form\r\n            width: 100%\r\n            max-width: 500px\r\n            margin: 0 auto var(--height-header)\r\n            transform: translateY(calc(-1 * var(--height-header)))\r\n            padding: calc(var(--su) * 2)\r\n            gap: calc(var(--su) * 2)\r\n            background: var(--color-background)\r\n            border-radius: calc(var(--su) * .75)\r\n            box-shadow: var(--shadow-elevation-low)\r\n            display: flex\r\n            flex-direction: column\r\n\r\n            --mui-background: var(--color-background-soft)\r\n\r\n            .checkbox\r\n                --mui-background: var(--color-background)\r\n\r\n            .textarea\r\n                --base-height: 10rem\r\n\r\n    #content-section\r\n\r\n        h2\r\n            color: var(--color-primary)\r\n            text-align: center\r\n        .staff-card-container\r\n            display: grid !important\r\n            grid-template-columns: repeat(4, 1fr)\r\n            gap: 2rem\r\n            margin-bottom: 4rem\r\n\r\n    @media only screen and (max-width: 500px)\r\n        #hero-section\r\n            padding-bottom: 0\r\n            height: 250px\r\n\r\n        #form-section\r\n            form\r\n                border-radius: 0\r\n                box-shadow: none\r\n                margin-bottom: calc(var(--su) * 2)\r\n                transform: none\r\n                padding-inline: var(--su)\r\n                gap: calc(var(--su) * 1.25)\r\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "#hero-section[data-v-c29270f2] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin-top: var(--height-header);\n  padding-bottom: var(--height-header);\n  height: calc(350px + var(--height-header));\n  background: var(--color-background-soft);\n}\n#hero-section h1[data-v-c29270f2] {\n  color: var(--color-primary);\n}\n#form-section .wrapper[data-v-c29270f2] {\n  display: flex;\n  transform: translateY(calc(-1 * var(--height-header)));\n  margin-bottom: var(--height-header);\n  gap: calc(var(--su) * 2);\n}\n#form-section .wrapper .card[data-v-c29270f2] {\n  flex: 1;\n  display: flex;\n  flex-direction: column;\n  padding: calc(var(--su) * 2);\n  gap: calc(var(--su) * 2);\n  background: var(--color-background);\n  border-radius: calc(var(--su) * 0.75);\n  box-shadow: var(--shadow-elevation-low);\n}\n#form-section form[data-v-c29270f2] {\n  --mui-background: var(--color-background-soft);\n}\n#form-section form .checkbox[data-v-c29270f2] {\n  --mui-background: var(--color-background);\n}\n#form-section form .textarea[data-v-c29270f2] {\n  --base-height: 10rem;\n}\n#content-section h2[data-v-c29270f2] {\n  color: var(--color-primary);\n  text-align: center;\n}\n#content-section .staff-card-container[data-v-c29270f2] {\n  display: grid !important;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 2rem;\n  margin-bottom: 4rem;\n}\n@media only screen and (max-width: 1000px) {\n#content-section .staff-card-container[data-v-c29270f2] {\n    grid-template-columns: repeat(3, 1fr);\n}\n}\n@media only screen and (max-width: 700px) {\n#content-section .staff-card-container[data-v-c29270f2] {\n    grid-template-columns: repeat(2, 1fr);\n}\n}\n@media only screen and (max-width: 500px) {\n#hero-section[data-v-c29270f2] {\n    padding-bottom: 0;\n    height: 250px;\n}\n#form-section .wrapper[data-v-c29270f2] {\n    flex-direction: column;\n    margin-bottom: calc(var(--su) * 2);\n    padding-inline: var(--su);\n    gap: calc(var(--su) * 1.25);\n    transform: none;\n}\n#form-section .wrapper .card[data-v-c29270f2] {\n    border-radius: 0;\n    box-shadow: none;\n    padding-inline: 0;\n}\n#content-section .staff-card-container[data-v-c29270f2] {\n    grid-template-columns: repeat(1, 1fr);\n}\n}", "",{"version":3,"sources":["webpack://./resources/js/Pages/Kontakt.vue"],"names":[],"mappings":"AACI;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,gCAAA;EACA,oCAAA;EACA,0CAAA;EACA,wCAAA;AAAR;AAEQ;EACI,2BAAA;AAAZ;AAGQ;EACI,aAAA;EACA,sDAAA;EACA,mCAAA;EACA,wBAAA;AAAZ;AAEY;EACI,OAAA;EACA,aAAA;EACA,sBAAA;EACA,4BAAA;EACA,wBAAA;EACA,mCAAA;EACA,qCAAA;EACA,uCAAA;AAAhB;AAGQ;EACI,8CAAA;AADZ;AAGY;EACI,yCAAA;AADhB;AAGY;EACI,oBAAA;AADhB;AAKQ;EACI,2BAAA;EACA,kBAAA;AAFZ;AAGQ;EACI,wBAAA;EACA,qCAAA;EACA,SAAA;EACA,mBAAA;AADZ;AAKI;AAEQ;IACI,qCAAA;AAHd;AACF;AAMI;AAEQ;IACI,qCAAA;AALd;AACF;AAQI;AACI;IACI,iBAAA;IACA,aAAA;AANV;AASU;IACI,sBAAA;IACA,kCAAA;IACA,yBAAA;IACA,2BAAA;IACA,eAAA;AAPd;AASc;IACI,gBAAA;IACA,gBAAA;IACA,iBAAA;AAPlB;AAUU;IACI,qCAAA;AARd;AACF","sourcesContent":["\r\n    #hero-section\r\n        display: flex\r\n        align-items: center\r\n        justify-content: center\r\n        margin-top: var(--height-header)\r\n        padding-bottom: var(--height-header)\r\n        height: calc(350px + var(--height-header))\r\n        background: var(--color-background-soft)\r\n\r\n        h1\r\n            color: var(--color-primary)\r\n\r\n    #form-section\r\n        .wrapper\r\n            display: flex\r\n            transform: translateY(calc(-1 * var(--height-header)))\r\n            margin-bottom: var(--height-header)\r\n            gap: calc(var(--su) * 2)\r\n\r\n            .card\r\n                flex: 1\r\n                display: flex\r\n                flex-direction: column\r\n                padding: calc(var(--su) * 2)\r\n                gap: calc(var(--su) * 2)\r\n                background: var(--color-background)\r\n                border-radius: calc(var(--su) * .75)\r\n                box-shadow: var(--shadow-elevation-low)\r\n\r\n\r\n        form\r\n            --mui-background: var(--color-background-soft)\r\n\r\n            .checkbox\r\n                --mui-background: var(--color-background)\r\n\r\n            .textarea\r\n                --base-height: 10rem\r\n\r\n    #content-section\r\n\r\n        h2\r\n            color: var(--color-primary)\r\n            text-align: center\r\n        .staff-card-container\r\n            display: grid !important\r\n            grid-template-columns: repeat(4, 1fr)\r\n            gap: 2rem\r\n            margin-bottom: 4rem\r\n\r\n\r\n\r\n    @media only screen and (max-width: 1000px)\r\n        #content-section\r\n            .staff-card-container\r\n                grid-template-columns: repeat(3, 1fr)\r\n\r\n\r\n\r\n    @media only screen and (max-width: 700px)\r\n        #content-section\r\n            .staff-card-container\r\n                grid-template-columns: repeat(2, 1fr)\r\n\r\n\r\n\r\n    @media only screen and (max-width: 500px)\r\n        #hero-section\r\n            padding-bottom: 0\r\n            height: 250px\r\n\r\n        #form-section\r\n            .wrapper\r\n                flex-direction: column\r\n                margin-bottom: calc(var(--su) * 2)\r\n                padding-inline: var(--su)\r\n                gap: calc(var(--su) * 1.25)\r\n                transform: none\r\n\r\n                .card\r\n                    border-radius: 0\r\n                    box-shadow: none\r\n                    padding-inline: 0\r\n\r\n        #content-section\r\n            .staff-card-container\r\n                grid-template-columns: repeat(1, 1fr)\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
