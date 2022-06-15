@@ -13,6 +13,15 @@
                 <div class="limiter wrapper">
                     <div class="card">
                         <h2 class="no-margin">Anfart</h2>
+                        <span>
+                            Christian-Pommer-Straße 31/33<br>
+                            38112 Braunschweig<br>
+                        </span>
+                        <span>
+                            Email: <a href="mailto:info@fleischer-dienst.de">info@fleischer-dienst.de</a><br>
+                            Telefon: <a href="tel:0531210550">0531 210 55 0</a><br>
+                            Fax: 0531 210 55 39<br>
+                        </span>
                     </div>
                     <form class="card" @submit.prevent>
                         <h2 class="no-margin">Kontaktformular</h2>
