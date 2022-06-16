@@ -12,7 +12,7 @@
             <section id="form-section">
                 <div class="limiter wrapper">
                     <div class="card">
-                        <h2 class="no-margin">Anfart</h2>
+                        <h2 class="no-margin">Anfahrt</h2>
                         <span>
                             Christian-Pommer-Straße 31/33<br>
                             38112 Braunschweig<br>
@@ -30,7 +30,7 @@
     
                         <mui-input type="text" no-border label="Ihr Name" required autocomplete="name"/>
                         <mui-input type="email" no-border label="Ihre Email" required autocomplete="email"/>
-                        <mui-input type="textarea" class="textarea" no-border label="Nachricht" required autocomplete="message"/>
+                        <mui-input type="textarea" class="textarea" no-border label="Nachricht" max="2000" required autocomplete="message"/>
     
                         <div class="flex center">
                             <mui-toggle type="checkbox" class="checkbox" no-border>
@@ -82,14 +82,14 @@
                     
                         <StaffCard name="Madlen Krause" job="Leitung Vertriebsinnendienst" link="tel:0531 210 55 18" label="0531 210 55 18" image="/images/content/test_pfp.jpg" overlay="/images/content/test_pfp_overlay.jpg" alt=""/>
                     
-                        <StaffCard name="Andreas Pape" job="Fachberater/-innen" color="#2f3542" link="tel:0531 210 55 91" label="0531 210 55 91" image="/images/content/test_pfp.jpg" overlay="/images/content/test_pfp_overlay.jpg" alt=""/>
-                        <StaffCard name="Marcus König" job="Fachberater/-innen" color="#2f3542" link="tel:0531 210 55 93" label="0531 210 55 93" image="/images/content/test_pfp.jpg" overlay="/images/content/test_pfp_overlay.jpg" alt=""/>
-                        <StaffCard name="Lutz Nolte" job="Fachberater/-innen" color="#2f3542" link="tel:0531 210 55 04" label="0531 210 55 94" image="/images/content/test_pfp.jpg" overlay="/images/content/test_pfp_overlay.jpg" alt=""/>
-                        <StaffCard name="Kenan Özden" job="Fachberater/-innen" color="#2f3542" link="tel:0531 210 55 92" label="0531 210 55 92" image="/images/content/test_pfp.jpg" overlay="/images/content/test_pfp_overlay.jpg" alt=""/>
-                        <StaffCard name="Matthias Vetter" job="Fachberater/-innen" color="#2f3542" link="tel:0531 210 55 95" label="0531 210 55 95" image="/images/content/test_pfp.jpg" overlay="/images/content/test_pfp_overlay.jpg" alt=""/>
-                        <StaffCard name="Jens Winkler" job="Fachberater/-innen" color="#2f3542" link="tel:0531 210 55 97" label="0531 210 55 97" image="/images/content/test_pfp.jpg" overlay="/images/content/test_pfp_overlay.jpg" alt=""/>
-                        <StaffCard name="Klaus-Dieter Hoffmann" job="Fachberater/-innen" color="#2f3542" link="tel:0531 210 55 08" label="0531 210 55 98" image="/images/content/test_pfp.jpg" overlay="/images/content/test_pfp_overlay.jpg" alt=""/>
-                        <StaffCard name="Elke Grigat" job="Fachberater/-innen" color="#2f3542" link="tel:0531 210 55 38" label="0531 210 55 38" image="/images/content/test_pfp.jpg" overlay="/images/content/test_pfp_overlay.jpg" alt=""/>
+                        <StaffCard name="Andreas Pape" job="Fachberater" color="#2f3542" link="tel:0531 210 55 91" label="0531 210 55 91" image="/images/content/test_pfp.jpg" overlay="/images/content/test_pfp_overlay.jpg" alt=""/>
+                        <StaffCard name="Marcus König" job="Fachberater" color="#2f3542" link="tel:0531 210 55 93" label="0531 210 55 93" image="/images/content/test_pfp.jpg" overlay="/images/content/test_pfp_overlay.jpg" alt=""/>
+                        <StaffCard name="Lutz Nolte" job="Fachberater" color="#2f3542" link="tel:0531 210 55 04" label="0531 210 55 94" image="/images/content/test_pfp.jpg" overlay="/images/content/test_pfp_overlay.jpg" alt=""/>
+                        <StaffCard name="Kenan Özden" job="Fachberater" color="#2f3542" link="tel:0531 210 55 92" label="0531 210 55 92" image="/images/content/test_pfp.jpg" overlay="/images/content/test_pfp_overlay.jpg" alt=""/>
+                        <StaffCard name="Matthias Vetter" job="Fachberater" color="#2f3542" link="tel:0531 210 55 95" label="0531 210 55 95" image="/images/content/test_pfp.jpg" overlay="/images/content/test_pfp_overlay.jpg" alt=""/>
+                        <StaffCard name="Jens Winkler" job="Fachberater" color="#2f3542" link="tel:0531 210 55 97" label="0531 210 55 97" image="/images/content/test_pfp.jpg" overlay="/images/content/test_pfp_overlay.jpg" alt=""/>
+                        <StaffCard name="Klaus-Dieter Hoffmann" job="Fachberater" color="#2f3542" link="tel:0531 210 55 08" label="0531 210 55 98" image="/images/content/test_pfp.jpg" overlay="/images/content/test_pfp_overlay.jpg" alt=""/>
+                        <StaffCard name="Elke Grigat" job="Fachberaterin" color="#2f3542" link="tel:0531 210 55 38" label="0531 210 55 38" image="/images/content/test_pfp.jpg" overlay="/images/content/test_pfp_overlay.jpg" alt=""/>
                     
                         <StaffCard name="Silke Künstler" job="Vertriebsinnendienst" color="#2f3542" link="tel:0531 210 55 23" label="0531 210 55 23" image="/images/content/test_pfp.jpg" overlay="/images/content/test_pfp_overlay.jpg" alt=""/>
                         <StaffCard name="Romina Pagano" job="Vertriebsinnendienst" color="#2f3542" link="tel:0531 210 55 28" label="0531 210 55 28" image="/images/content/test_pfp.jpg" overlay="/images/content/test_pfp_overlay.jpg" alt=""/>
@@ -98,11 +98,11 @@
                     
                         <StaffCard name="Benjamin Vahle" job="Leitung Marketing & Kommunikation" link="tel:0531 210 55 16" label="0531 210 55 16" image="/images/content/test_pfp.jpg" overlay="/images/content/test_pfp_overlay.jpg" alt=""/>
                     
-                        <StaffCard name="Franziska Brandt" job="Mediengestalter/-innen" color="#2f3542" link="tel:0531 210 55 51" label="0531 210 55 51" image="/images/content/test_pfp.jpg" overlay="/images/content/test_pfp_overlay.jpg" alt=""/>
-                        <StaffCard name="Maurice Freuwört" job="Mediengestalter/-innen" color="#2f3542" link="tel:0531 210 55 73" label="0531 210 55 73" image="/images/content/test_pfp.jpg" overlay="/images/content/test_pfp_overlay.jpg" alt=""/>
-                        <StaffCard name="Franziska Wolff" job="Mediengestalter/-innen" color="#2f3542" link="tel:0531 210 55 25" label="0531 210 55 25" image="/images/content/test_pfp.jpg" overlay="/images/content/test_pfp_overlay.jpg" alt=""/>
-                        <StaffCard name="Carolin Götzner" job="Mediengestalter/-innen" color="#2f3542" link="tel:0531 210 55 43" label="0531 210 55 43" image="/images/content/test_pfp.jpg" overlay="/images/content/test_pfp_overlay.jpg" alt=""/>
-                        <StaffCard name="Annika Görmann" job="Mediengestalter/-innen" color="#2f3542" link="tel:0531 210 55 72" label="0531 210 55 72" image="/images/content/test_pfp.jpg" overlay="/images/content/test_pfp_overlay.jpg" alt=""/>
+                        <StaffCard name="Franziska Brandt" job="Mediengestalterin" color="#2f3542" link="tel:0531 210 55 51" label="0531 210 55 51" image="/images/content/test_pfp.jpg" overlay="/images/content/test_pfp_overlay.jpg" alt=""/>
+                        <StaffCard name="Maurice Freuwört" job="Mediengestalter" color="#2f3542" link="tel:0531 210 55 73" label="0531 210 55 73" image="/images/content/test_pfp.jpg" overlay="/images/content/test_pfp_overlay.jpg" alt=""/>
+                        <StaffCard name="Franziska Wolff" job="Mediengestalterin" color="#2f3542" link="tel:0531 210 55 25" label="0531 210 55 25" image="/images/content/test_pfp.jpg" overlay="/images/content/test_pfp_overlay.jpg" alt=""/>
+                        <StaffCard name="Carolin Götzner" job="Mediengestalterin" color="#2f3542" link="tel:0531 210 55 43" label="0531 210 55 43" image="/images/content/test_pfp.jpg" overlay="/images/content/test_pfp_overlay.jpg" alt=""/>
+                        <StaffCard name="Annika Görmann" job="Mediengestalterin" color="#2f3542" link="tel:0531 210 55 72" label="0531 210 55 72" image="/images/content/test_pfp.jpg" overlay="/images/content/test_pfp_overlay.jpg" alt=""/>
                     
                         <StaffCard name="Harald Reckwald" job="Leitung Lager" link="tel:0531 210 55 57" label="0531 210 55 57" image="/images/content/test_pfp.jpg" overlay="/images/content/test_pfp_overlay.jpg" alt=""/>
                     
@@ -147,7 +147,7 @@
             display: flex
             transform: translateY(calc(-1 * var(--height-header)))
             margin-bottom: var(--height-header)
-            gap: calc(var(--su) * 2)
+            gap: 3rem
 
             .card
                 flex: 1
@@ -176,45 +176,22 @@
             text-align: center
         .staff-card-container
             display: grid !important
-            grid-template-columns: repeat(4, 1fr)
-            gap: 2rem
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))
+            gap: 3rem
             margin-bottom: 4rem
-
-
-
-    @media only screen and (max-width: 1000px)
-        #content-section
-            .staff-card-container
-                grid-template-columns: repeat(3, 1fr)
-
-
-
-    @media only screen and (max-width: 700px)
-        #content-section
-            .staff-card-container
-                grid-template-columns: repeat(2, 1fr)
 
 
 
     @media only screen and (max-width: 500px)
         #hero-section
-            padding-bottom: 0
-            height: 250px
+            height: calc(250px + var(--height-header))
 
         #form-section
             .wrapper
                 flex-direction: column
                 margin-bottom: calc(var(--su) * 2)
                 padding-inline: var(--su)
-                gap: calc(var(--su) * 1.25)
-                transform: none
 
                 .card
-                    border-radius: 0
-                    box-shadow: none
-                    padding-inline: 0
-
-        #content-section
-            .staff-card-container
-                grid-template-columns: repeat(1, 1fr)
+                    padding-inline: var(--su)
 </style>

@@ -1,7 +1,7 @@
 <template>
-    <TextSubLayout title="Unser Foodservice" has-small-limiter>
+    <TextSubLayout title="Unsere Marken" has-small-limiter>
         <Head>
-            <title>Produkte & Services: Foodservice</title>
+            <title>Produkte & Services: Unsere Marken</title>
         </Head>
         <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque sunt nam quam voluptatibus, quibusdam

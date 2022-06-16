@@ -1,5 +1,5 @@
 <template>
-    <LongTextSubLayout title="Impressum">
+    <TextSubLayout title="Impressum" has-small-limiter>
         <Head>
             <title>Impressum</title>
         </Head>
@@ -54,10 +54,10 @@
             Geflügel: Christian Jung<br>
             Backwaren: travelguide
         </p>
-    </LongTextSubLayout>
+    </TextSubLayout>
 </template>
 
 <script setup>
 import { Head, Link } from '@inertiajs/inertia-vue3'
-import LongTextSubLayout from '@/Layouts/SubLayouts/LongText.vue'
+import TextSubLayout from '@/Layouts/SubLayouts/Text.vue'
 </script>

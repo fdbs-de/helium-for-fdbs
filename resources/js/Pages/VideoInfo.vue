@@ -1,5 +1,5 @@
 <template>
-    <LongTextSubLayout title="Videoüberwachung">
+    <TextSubLayout title="Videoüberwachung" has-small-limiter>
         <Head>
             <title>Infos zur Videoüberwachung</title>
         </Head>
@@ -10,11 +10,11 @@
                 <a href="/downloads/info/infoschreiben_videoueberwachung.pdf" target="_blank" rel="noopener noreferrer">Infoschreiben herunterladen</a>
             </p>
         </Alert>
-    </LongTextSubLayout>
+    </TextSubLayout>
 </template>
 
 <script setup>
 import { Head, Link } from '@inertiajs/inertia-vue3'
-import LongTextSubLayout from '@/Layouts/SubLayouts/LongText.vue'
+import TextSubLayout from '@/Layouts/SubLayouts/Text.vue'
 import Alert from '@/Components/Alert.vue'
 </script>

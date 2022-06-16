@@ -25,11 +25,16 @@
     import { Link } from '@inertiajs/inertia-vue3'
     import MenuBuilder from '@/Components/Page/Menu/MenuBuilder.vue'
     import { ref, watch } from 'vue'
+    import { Inertia } from '@inertiajs/inertia'
 
 
 
     defineProps({
         menu: Array,
+    })
+
+    Inertia.on('start', (event) => {
+        document.documentElement.style.overflow = 'initial'
     })
 
 

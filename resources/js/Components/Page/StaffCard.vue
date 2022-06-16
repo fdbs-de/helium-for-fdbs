@@ -45,7 +45,7 @@
 
 <style lang="sass" scoped>
     .card-wrapper
-        background: white
+        background: var(--color-background)
         display: flex
         flex-direction: column
         box-shadow: var(--shadow-elevation-low)

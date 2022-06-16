@@ -2,10 +2,12 @@
     <GuestLayout>
         <main>
             <section id="hero-section">
-                <h1>{{title}}</h1>
+                <div class="limiter">
+                    <h1>{{title}}</h1>
+                </div>
             </section>
             <section id="content-section">
-                <div class="limiter text-limiter">
+                <div class="limiter" :class="{'text-limiter': hasSmallLimiter}">
                     <slot />
                 </div>
             </section>
@@ -20,6 +22,10 @@
 
     defineProps({
         title: String,
+        hasSmallLimiter: {
+            type: Boolean,
+            default: false
+        },
     })
 </script>
 
@@ -34,6 +40,7 @@
 
         h1
             color: var(--color-primary)
+            text-align: center
 
     #content-section
         padding-block: 4rem

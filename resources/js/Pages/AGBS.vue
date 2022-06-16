@@ -1,5 +1,5 @@
 <template>
-    <LongTextSubLayout title="Allgemeine Geschäftsbedingungen">
+    <TextSubLayout title="Allgemeine Geschäftsbedingungen" has-small-limiter>
 
         <Head>
             <title>Allgemeine Geschäftsbedingungen</title>
@@ -206,10 +206,10 @@
             außerhalb des Hoheitsgebiets der Bundesrepublik Deutschland, so ist der Geschäftssitz des Verkäufers
             ausschließlicher Gerichtsstand für alle Streitigkeiten aus diesem Vertrag. Der Verkäufer ist in den
             vorstehenden Fällen jedoch in jedem Fall berechtigt, das Gericht am Sitz des Kunden anzurufen.</p>
-    </LongTextSubLayout>
+    </TextSubLayout>
 </template>
 
 <script setup>
 import { Head, Link } from '@inertiajs/inertia-vue3'
-import LongTextSubLayout from '@/Layouts/SubLayouts/LongText.vue'
+import TextSubLayout from '@/Layouts/SubLayouts/Text.vue'
 </script>

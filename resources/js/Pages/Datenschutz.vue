@@ -1,5 +1,5 @@
 <template>
-    <LongTextSubLayout title="Datenschutzerklärung">
+    <TextSubLayout title="Datenschutzerklärung" has-small-limiter>
         <Head>
             <title>Datenschutzerklärung</title>
         </Head>
@@ -81,12 +81,12 @@
         <p>Bei der Verarbeitung von personenbezogenen Daten auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO werden diese Daten so lange gespeichert, bis der Betroffene sein Widerspruchsrecht nach Art. 21 Abs. 1 DSGVO ausübt, es sei denn, wir können zwingende schutzwürdige Gründe für die Verarbeitung nachweisen, die die Interessen, Rechte und Freiheiten der betroffenen Person überwiegen, oder die Verarbeitung dient der Geltendmachung, Ausübung oder Verteidigung von Rechtsansprüchen.</p>
         <p>Bei der Verarbeitung von personenbezogenen Daten zum Zwecke der Direktwerbung auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO werden diese Daten so lange gespeichert, bis der Betroffene sein Widerspruchsrecht nach Art. 21 Abs. 2 DSGVO ausübt.</p>
         <p>Sofern sich aus den sonstigen Informationen dieser Erklärung über spezifische Verarbeitungssituationen nichts anderes ergibt, werden gespeicherte personenbezogene Daten im Übrigen dann gelöscht, wenn sie für die Zwecke, für die sie erhoben oder auf sonstige Weise verarbeitet wurden, nicht mehr notwendig sind.</p>
-    </LongTextSubLayout>
+    </TextSubLayout>
 </template>
 
 <script setup>
 import { Head, Link } from '@inertiajs/inertia-vue3'
-import LongTextSubLayout from '@/Layouts/SubLayouts/LongText.vue'
+import TextSubLayout from '@/Layouts/SubLayouts/Text.vue'
 import Alert from '@/Components/Alert.vue'
 </script>
 
