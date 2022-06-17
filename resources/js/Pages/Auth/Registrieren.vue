@@ -7,7 +7,7 @@
             Sie erhalten dazu <b>zwei Mails</b> an die angegebene E-Mailadresse. Die Freischaltung erfolgt in der Regel <b>innerhalb eines Werktages</b>.
         </span>
 
-        <div class="divider"></div>
+        <!-- <div class="divider"></div>
 
         <div class="option-wrapper">
             <label class="option" role="checkbox" :aria-checked="form.is_customer" @keydown.space.enter.prevent="form.is_customer = !form.is_customer" tabindex="0">
@@ -21,7 +21,7 @@
                 <div class="icon" aria-hidden="true">work</div>
                 <span>Ich bin Mitarbeiter</span>
             </label>
-        </div>
+        </div> -->
 
         <div class="divider"></div>
 
@@ -35,11 +35,11 @@
         <mui-input v-if="form.is_customer" type="text" no-border label="Firma *" v-model="form.customer.company" required autocomplete="company"/>
         <mui-input v-if="form.is_customer" type="text" no-border label="Kundennummer *" v-model="form.customer.customer_id" required autocomplete="customer-id"/>
         
-        <div v-if="form.is_employee" class="divider"></div>
+        <!-- <div v-if="form.is_employee" class="divider"></div>
         
         <b v-if="form.is_employee">Angaben als Mitarbeiter*in</b>
         <mui-input v-if="form.is_employee" type="text" no-border label="Vorname *" v-model="form.employee.first_name" required autocomplete="firstname"/>
-        <mui-input v-if="form.is_employee" type="text" no-border label="Nachname *" v-model="form.employee.last_name" required autocomplete="lastname"/>
+        <mui-input v-if="form.is_employee" type="text" no-border label="Nachname *" v-model="form.employee.last_name" required autocomplete="lastname"/> -->
 
         <div class="divider"></div>
 
@@ -89,10 +89,10 @@ const isValid = computed(() => {
         if (!form.customer.customer_id.length) return false
     }
 
-    if (form.is_employee) {
-        if (!form.employee.first_name.length) return false
-        if (!form.employee.last_name.length) return false
-    }
+    // if (form.is_employee) {
+    //     if (!form.employee.first_name.length) return false
+    //     if (!form.employee.last_name.length) return false
+    // }
 
     if (!form.terms) return false
 

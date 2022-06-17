@@ -16,6 +16,9 @@ import translations from '@/Lang/translations'
 import dayjs from 'dayjs'
 import 'dayjs/locale/de'
 
+// Import permissions helper
+import { can } from '@/Utils/Permissions'
+
 
 
 /////////////////////////
@@ -52,7 +55,7 @@ createInertiaApp({
         application.use(plugin)
         application.use(MarketierUI)
         application.use(i18n)
-        application.mixin({ methods: { route } })
+        application.mixin({ methods: { route, can } })
         application.config.globalProperties.$dayjs = dayjs
 
         application.mount(el)

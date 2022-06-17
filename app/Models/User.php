@@ -9,7 +9,7 @@ use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasRoles, HasApiTokens, HasFactory, Notifiable;
 
@@ -64,5 +64,22 @@ class User extends Authenticatable
     public function employeeProfile()
     {
         return $this->hasOne(EmployeeProfile::class);
+    }
+
+
+
+    public function getIsEnabledAttribute()
+    {
+        return $this->enabled_at !== null && $this->enabled_at < now();
+    }
+
+    public function getIsEnabledCustomerAttribute()
+    {
+        return $this->customerProfile && $this->customerProfile->enabled_at !== null && $this->customerProfile->enabled_at < now();
+    }
+
+    public function getIsEnabledEmployeeAttribute()
+    {
+        return $this->employeeProfile && $this->employeeProfile->enabled_at !== null && $this->employeeProfile->enabled_at < now();
     }
 }

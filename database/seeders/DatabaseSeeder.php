@@ -40,31 +40,22 @@ class DatabaseSeeder extends Seeder
         $super_admin_role = Role::create(['name' => 'super admin']);
         $admin_role = Role::create(['name' => 'admin']);
         $editor_role = Role::create(['name' => 'editor']);
-        $employee_role = Role::create(['name' => 'employee']);
-        $customer_role = Role::create(['name' => 'customer']);
 
         $ACCESS_ADMIN_PANEL = Permission::create(['name' => Permissions::CAN_ACCESS_ADMIN_PANEL]);
-        $ACCESS_EMPLOYEE_PANEL = Permission::create(['name' => Permissions::CAN_ACCESS_EMPLOYEE_PANEL]);
-        $ACCESS_CUSTOMER_PANEL = Permission::create(['name' => Permissions::CAN_ACCESS_CUSTOMER_PANEL]);
         $EDIT_JOB_OFFERS = Permission::create(['name' => Permissions::CAN_EDIT_JOB_OFFERS]);
         $EDIT_USERS = Permission::create(['name' => Permissions::CAN_EDIT_USERS]);
 
+        $super_admin_role->givePermissionTo($ACCESS_ADMIN_PANEL);
+        $super_admin_role->givePermissionTo($EDIT_JOB_OFFERS);
+        $super_admin_role->givePermissionTo($EDIT_USERS);
+
         $admin_role->givePermissionTo($ACCESS_ADMIN_PANEL);
-        $admin_role->givePermissionTo($ACCESS_EMPLOYEE_PANEL);
-        $admin_role->givePermissionTo($ACCESS_CUSTOMER_PANEL);
         $admin_role->givePermissionTo($EDIT_JOB_OFFERS);
         $admin_role->givePermissionTo($EDIT_USERS);
 
         $editor_role->givePermissionTo($ACCESS_ADMIN_PANEL);
-        $editor_role->givePermissionTo($ACCESS_EMPLOYEE_PANEL);
-        $editor_role->givePermissionTo($ACCESS_CUSTOMER_PANEL);
         $editor_role->givePermissionTo($EDIT_JOB_OFFERS);
 
-        $employee_role->givePermissionTo($ACCESS_EMPLOYEE_PANEL);
-
-        $customer_role->givePermissionTo($ACCESS_CUSTOMER_PANEL);
-
         $user->assignRole('super admin');
-        $user->assignRole('admin');
     }
 }

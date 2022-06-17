@@ -1,42 +1,45 @@
-<script setup>
-import { computed } from 'vue';
-import BreezeButton from '@/Components/Button.vue';
-import BreezeGuestLayout from '@/Layouts/Guest.vue';
-import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
-
-const props = defineProps({
-    status: String,
-});
-
-const form = useForm();
-
-const submit = () => {
-    form.post(route('verification.send'));
-};
-
-const verificationLinkSent = computed(() => props.status === 'verification-link-sent');
-</script>
-
 <template>
-    <BreezeGuestLayout>
-        <Head title="Email Verification" />
+    <FormSubLayout title="Email bestätigen" @submit="submit">
+        <Head>
+            <title>Email Bestätigung</title>
+        </Head>
 
-        <div class="mb-4 text-sm text-gray-600">
-            Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn't receive the email, we will gladly send you another.
+        <Alert type="info" v-if="verificationLinkSent">
+            Ein neuer Bestätigungslink wurde an die von Ihnen angegebene Emailadresse gesendet.
+        </Alert>
+
+        <p>
+            <b>Vielen Dank für Ihre Registrierung!</b><br><br>
+            Bevor Sie zugriff auf den Kundenbereich bekommen, bestätigen Sie bitte Ihre Email-Adresse, indem Sie auf den Link in der Email klicken.<br><br>
+            Sobald Sie Ihre Email-Adresse bestätigt haben, können wir Sie freischalten.<br><br>
+            Wenn Sie keine Email erhalten haben, können wir Ihnen die Email-Adresse erneut senden.<br>
+            <small>(Gucken Sie evtl. auch im Spam Ordner nach)</small>
+        </p>
+
+        <div class="flex gap v-center">
+            <Link class="simple-button" :href="route('logout')" method="post" as="button">Abmelden</Link>
+            <div class="spacer"></div>
+            <mui-button type="submit" label="Email erneut senden" :loading="form.processing"/>
         </div>
-
-        <div class="mb-4 font-medium text-sm text-green-600" v-if="verificationLinkSent" >
-            A new verification link has been sent to the email address you provided during registration.
-        </div>
-
-        <form @submit.prevent="submit">
-            <div class="mt-4 flex items-center justify-between">
-                <BreezeButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Resend Verification Email
-                </BreezeButton>
-
-                <Link :href="route('logout')" method="post" as="button" class="underline text-sm text-gray-600 hover:text-gray-900">Log Out</Link>
-            </div>
-        </form>
-    </BreezeGuestLayout>
+    </FormSubLayout>
 </template>
+
+<script setup>
+    import { computed } from 'vue'
+    import BreezeButton from '@/Components/Button.vue'
+    import FormSubLayout from '@/Layouts/SubLayouts/Form.vue'
+    import { Head, Link, useForm } from '@inertiajs/inertia-vue3'
+    import Alert from '@/Components/Alert.vue'
+
+    const props = defineProps({
+        status: String,
+    })
+
+    const form = useForm()
+
+    const submit = () => {
+        form.post(route('verification.send'))
+    }
+
+    const verificationLinkSent = computed(() => props.status === 'verification-link-sent')
+</script>

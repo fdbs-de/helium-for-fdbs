@@ -39,7 +39,7 @@
 
 <style lang="sass" scoped>
     .alert-wrapper
-        padding: 5px 20px
+        padding: 10px 20px
         border-radius: 10px
         position: relative
         color: var(--color-text)

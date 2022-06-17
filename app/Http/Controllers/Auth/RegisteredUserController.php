@@ -43,9 +43,9 @@ class RegisteredUserController extends Controller
             'customer.company'      => 'required_if:is_customer,true|nullable|string|max:255',
             'customer.customer_id'  => 'required_if:is_customer,true|nullable|string|max:255',
 
-            'is_employee'           => 'required|boolean',
-            'employee.first_name'   => 'required_if:is_employee,true|nullable|string|max:255',
-            'employee.last_name'    => 'required_if:is_employee,true|nullable|string|max:255',
+            // 'is_employee'           => 'required|boolean',
+            // 'employee.first_name'   => 'required_if:is_employee,true|nullable|string|max:255',
+            // 'employee.last_name'    => 'required_if:is_employee,true|nullable|string|max:255',
         ]);
 
         $user = User::create([
@@ -59,19 +59,15 @@ class RegisteredUserController extends Controller
                 'company' => $request->customer['company'],
                 'customer_id' => $request->customer['customer_id'],
             ]);
-
-            $user->assignRole('customer');
         }
 
-        if ($request->is_employee)
-        {
-            $user->employeeProfile()->create([
-                'first_name' => $request->employee['first_name'],
-                'last_name' => $request->employee['last_name'],
-            ]);
-
-            $user->assignRole('employee');
-        }
+        // if ($request->is_employee)
+        // {
+        //     $user->employeeProfile()->create([
+        //         'first_name' => $request->employee['first_name'],
+        //         'last_name' => $request->employee['last_name'],
+        //     ]);
+        // }
 
         event(new Registered($user));
 

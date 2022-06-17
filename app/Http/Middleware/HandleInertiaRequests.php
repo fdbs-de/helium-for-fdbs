@@ -37,13 +37,17 @@ class HandleInertiaRequests extends Middleware
     {
         if ($request->user())
         {
-            $user = User::with(['roles.permissions'])->find($request->user()->id);
+            $user = User::with(['roles.permissions', 'customerProfile', 'employeeProfile'])->find($request->user()->id);
     
             // Compute the permissions for the current user.
             $permissions = collect($user->roles)->map->permissions->flatten()->pluck('name')->unique()->toArray();
     
             // merge direct and role permissions
             $user->permissions = $permissions;
+
+            $user->is_enabled = $user->is_enabled;
+            $user->is_enabled_customer = $user->is_enabled_customer;
+            $user->is_enabled_employee = $user->is_enabled_employee;
         }
 
         return array_merge(parent::share($request), [

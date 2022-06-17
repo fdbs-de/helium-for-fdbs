@@ -11,7 +11,7 @@ class OverviewController extends Controller
 {
     public function redirect()
     {
-        return redirect(RouteServiceProvider::HOME);
+        return redirect()->route('dashboard.profile');
     }
 
     public function indexOverview()

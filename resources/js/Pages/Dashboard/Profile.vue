@@ -1,0 +1,92 @@
+<template>
+    <Head title="Profil" />
+
+    <DashboardSubLayout title="Ihr Profil">
+        <div class="profile-wrapper">
+            <div class="group">
+                <h2>Konto</h2>
+                <div class="flex v-center gap">
+                    <span class="flex-1">Name:</span>
+                    <div class="flex-3 flex gap v-center">
+                        <b v-if="$page.props.auth.user.name">{{$page.props.auth.user.name}}</b>
+                        <i v-else>Kein Kontoname angegeben</i>
+                    </div>
+                </div>
+    
+                <div class="flex v-center gap">
+                    <span class="flex-1">Email:</span>
+                    <div class="flex-3 flex gap v-center">
+                        <b>{{$page.props.auth.user.email}}</b>
+                        <Tag v-if="$page.props.auth.user.email_verified_at" color="green" icon="check_circle">Bestätigt</Tag>
+                        <Tag v-else color="yellow" icon="cancel">Bestätigt ausstehend</Tag>
+                    </div>
+                </div>
+    
+                <div class="flex v-center gap">
+                    <span class="flex-1">Status:</span>
+                    <div class="flex-3 flex gap v-center">
+                        <Tag v-if="$page.props.auth.user.enabled_at" color="green" icon="check_circle">Freischaltet</Tag>
+                        <Tag v-else color="yellow" icon="cancel">Freischaltung ausstehend</Tag>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="group" v-if="$page.props.auth.user.customer_profile">
+                <h2>Kundenprofil</h2>
+
+                <div class="flex v-center gap">
+                    <span class="flex-1">Firma:</span>
+                    <div class="flex-3 flex gap v-center">
+                        <b v-if="$page.props.auth.user.customer_profile.company">{{$page.props.auth.user.customer_profile.company}}</b>
+                        <i v-else>Keine Firma angegeben</i>
+                    </div>
+                </div>
+
+                <div class="flex v-center gap">
+                    <span class="flex-1">Kundennummer:</span>
+                    <div class="flex-3 flex gap v-center">
+                        <b v-if="$page.props.auth.user.customer_profile.customer_id">{{$page.props.auth.user.customer_profile.customer_id}}</b>
+                        <i v-else>Keine Kundennummer angegeben</i>
+                    </div>
+                </div>
+
+                <div class="flex v-center gap">
+                    <span class="flex-1">Status:</span>
+                    <div class="flex-3 flex gap v-center">
+                        <Tag v-if="$page.props.auth.user.customer_profile.enabled_at" color="green" icon="check_circle">Freischaltet</Tag>
+                        <Tag v-else color="yellow" icon="cancel">Freischaltung ausstehend</Tag>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="group">
+                <h2>Einstellungen</h2>
+                <div class="flex v-center gap">
+                    <Link class="simple-button" :href="route('logout')" method="post" as="button">Abmelden</Link>
+                </div>
+            </div>
+        </div>
+    </DashboardSubLayout>
+</template>
+
+<script setup>
+    import DashboardSubLayout from '@/Layouts/SubLayouts/Dashboard.vue'
+    import { Head, Link, usePage } from '@inertiajs/inertia-vue3'
+    import { computed } from 'vue'
+    import Tag from '@/Components/Form/Tag.vue'
+</script>
+
+<style lang="sass" scoped>
+    .profile-wrapper
+        padding: var(--su)
+        display: flex
+        flex-direction: column
+        gap: .5rem
+
+        .group
+            display: contents
+</style>

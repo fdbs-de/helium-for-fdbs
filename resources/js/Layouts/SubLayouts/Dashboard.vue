@@ -6,8 +6,9 @@
             </section>
             <section id="content-section">
                 <div class="limiter main-card">
-                    <nav class="dashboard-nav-bar">
-                    </nav>
+                    <div class="dashboard-nav-bar" v-if="$slots.head">
+                        <slot name="head"/>
+                    </div>
                     <slot />
                 </div>
             </section>

@@ -8,27 +8,38 @@
     import Header from '@/Components/Page/Header.vue'
     import Footer from '@/Components/Page/Footer.vue'
     import { usePage } from '@inertiajs/inertia-vue3'
-    import { ref } from 'vue'
+    import { computed } from 'vue'
+    import { can } from '@/Utils/Permissions'
 
-    const can = (permission) => {
-        return (usePage().props.value?.auth?.user?.permissions || []).includes(permission)
-    }
+
+
+    const user = computed(() =>{
+        return usePage().props.value.auth.user
+    })
 
 
 
     const menu = []
 
-    if (can('access customer panel'))
+    if (user.value.is_enabled && user.value.is_enabled_customer)
     {
-        menu.push({ id: 'customer-overview', label: 'Kundenbereich', href: route('dashboard.customer'), icon: null, children: [] })
+        menu.push({
+            id: 'customer-overview',
+            label: 'Kundenbereich',
+            href: route('dashboard.customer'),
+            icon: null,
+            children: [
+                { id: 'customer-specs', label: 'Spezifikationen', href: route('dashboard.customer.specs'), icon: null, children: [] },
+            ],
+        })
     }
 
-    if (can('access employee panel'))
-    {
-        menu.push({ id: 'employee-overview', label: 'Mitarbeiterbereich', href: route('dashboard.employee'), icon: null, children: [] })
-    }
+    // if (user.value.is_enabled && user.value.is_enabled_employee)
+    // {
+    //     menu.push({ id: 'employee-overview', label: 'Mitarbeiterbereich', href: route('dashboard.employee'), icon: null, children: [] })
+    // }
 
-    if (can('access admin panel'))
+    if (user.value.is_enabled && can('access admin panel'))
     {
         menu.push({
             id: 'admin-overview',

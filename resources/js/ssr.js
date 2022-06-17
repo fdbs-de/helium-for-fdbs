@@ -11,6 +11,9 @@ import MarketierUI from 'marketier-ui'
 import { createI18n } from 'vue-i18n/index'
 import translations from '@/Lang/translations'
 
+// Import permissions helper
+import { can } from '@/Utils/Permissions'
+
 
 
 /////////////////////////
@@ -56,6 +59,8 @@ createServer((page) => createInertiaApp({
                         location: new URL(page.props.ziggy.url),
                     })
                 },
+
+                can,
             },
         })
 
