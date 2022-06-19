@@ -21,7 +21,7 @@
 
     const menu = []
 
-    if (user.value.is_enabled && user.value.is_enabled_customer)
+    if (user.value.can_access_customer_panel)
     {
         menu.push({
             id: 'customer-overview',
@@ -34,12 +34,12 @@
         })
     }
 
-    // if (user.value.is_enabled && user.value.is_enabled_employee)
+    // if (user.value.can_access_employee_panel)
     // {
     //     menu.push({ id: 'employee-overview', label: 'Mitarbeiterbereich', href: route('dashboard.employee'), icon: null, children: [] })
     // }
 
-    if (user.value.is_enabled && can('access admin panel'))
+    if (user.value.can_access_admin_panel)
     {
         menu.push({
             id: 'admin-overview',
@@ -48,6 +48,7 @@
             icon: null,
             children: [
                 { id: 'admin-users', label: 'Nutzerverwaltung', href: route('dashboard.admin.users'), icon: null, children: [] },
+                { id: 'admin-specs', label: 'Speziverwaltung', href: route('dashboard.admin.specs'), icon: null, children: [] },
             ],
         })
     }

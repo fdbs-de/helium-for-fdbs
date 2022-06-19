@@ -17,8 +17,6 @@
                     <span class="flex-1">Email:</span>
                     <div class="flex-3 flex gap v-center">
                         <b>{{$page.props.auth.user.email}}</b>
-                        <Tag v-if="$page.props.auth.user.email_verified_at" color="green" icon="check_circle">Bestätigt</Tag>
-                        <Tag v-else color="yellow" icon="cancel">Bestätigt ausstehend</Tag>
                     </div>
                 </div>
     

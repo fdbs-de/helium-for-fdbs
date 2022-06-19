@@ -8,9 +8,8 @@
                 <b>Email</b>
                 <b>Rollen</b>
                 <b>Eigenschaften</b>
-                <b>&nbsp;</b>
             </div>
-            <div class="row" v-for="user in users" :key="user.id">
+            <div class="row" v-for="user in users" :key="user.id" @click="openUser(user)">
                 <span v-if="user.name">{{user.name}}</span>
                 <i v-else>Kein Name angegeben</i>
                 <span>{{user.email}}</span>
@@ -22,9 +21,6 @@
                     <div class="icon" :class="{'active': user.enabled_at}">check_circle</div>
                     <div class="icon" :class="{'active': (user.customer_profile || {}).enabled_at, 'notified': user.customer_profile}">shopping_cart</div>
                     <div class="icon" :class="{'active': (user.employee_profile || {}).enabled_at, 'notified': user.employee_profile}">work</div>
-                </span>
-                <span class="flex h-end">
-                    <mui-button size="small" label="Verwalten" @click="openUser(user)"/>
                 </span>
             </div>
         </div>
@@ -61,6 +57,7 @@
             <i>Kein Firmenkonto angelegt</i>
         </div>
 
+        <hr>
 
         <div class="popup-row flex gap" v-if="userForm.employee_profile">
             <div class="flex vertical">
@@ -76,14 +73,12 @@
         </div>
 
 
-        <div class="footer flex gap">
-            <span>
-                <p>Erstellt am <b>{{$dayjs(userForm.created_at).format('DD MMMM YYYY')}}</b> um <b>{{$dayjs(userForm.created_at).format('HH:mm')}}</b></p>
-                <p v-if="userForm.email_verified_at">Email bestätigt am <b>{{$dayjs(userForm.email_verified_at).format('DD MMMM YYYY')}}</b> um <b>{{$dayjs(userForm.email_verified_at).format('HH:mm')}}</b></p>
-                <p v-if="userForm.enabled_at">Freigeschaltet am <b>{{$dayjs(userForm.enabled_at).format('DD MMMM YYYY')}}</b> um <b>{{$dayjs(userForm.enabled_at).format('HH:mm')}}</b></p>
-            </span>
-            <div class="spacer"></div>
+        <div class="footer">
             <p>Konto ID: <b>{{userForm.id}}</b></p>
+            <hr>
+            <p>Erstellt am <b>{{$dayjs(userForm.created_at).format('DD MMMM YYYY')}}</b> um <b>{{$dayjs(userForm.created_at).format('HH:mm')}}</b></p>
+            <p v-if="userForm.email_verified_at">Email bestätigt am <b>{{$dayjs(userForm.email_verified_at).format('DD MMMM YYYY')}}</b> um <b>{{$dayjs(userForm.email_verified_at).format('HH:mm')}}</b></p>
+            <p v-if="userForm.enabled_at">Freigeschaltet am <b>{{$dayjs(userForm.enabled_at).format('DD MMMM YYYY')}}</b> um <b>{{$dayjs(userForm.enabled_at).format('HH:mm')}}</b></p>
         </div>
     </Popup>
 </template>
@@ -157,17 +152,23 @@ const disableEmployee = () => useForm().put(route('dashboard.admin.users.disable
             pointer-events: none
 
     .grid
-        display: flex
-        flex-direction: column
+        display: grid
+        align-items: center
+        grid-template-columns: minmax(170px, 2fr) minmax(200px, 3fr) minmax(200px, 3fr) 150px
+        grid-auto-rows: 2.5rem
+        gap: 0 var(--su)
         width: 100%
-        padding-block: 1rem
+        padding: 1rem
+        overflow-x: auto
 
         .row
-            display: grid
-            align-items: center
-            grid-template-columns: 2fr 3fr 3fr 150px 150px
-            gap: var(--su)
-            padding: .5rem 1rem
+            display: contents
+            cursor: pointer
+
+            > span
+                overflow: hidden
+                text-overflow: ellipsis
+                white-space: nowrap
 
             .icon
                 font-family: var(--font-icon)

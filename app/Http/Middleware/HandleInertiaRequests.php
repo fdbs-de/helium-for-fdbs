@@ -48,6 +48,10 @@ class HandleInertiaRequests extends Middleware
             $user->is_enabled = $user->is_enabled;
             $user->is_enabled_customer = $user->is_enabled_customer;
             $user->is_enabled_employee = $user->is_enabled_employee;
+
+            $user->can_access_admin_panel = $user->can_access_admin_panel;
+            $user->can_access_customer_panel = $user->can_access_customer_panel;
+            $user->can_access_employee_panel = $user->can_access_employee_panel;
         }
 
         return array_merge(parent::share($request), [

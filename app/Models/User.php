@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Permissions\Permissions;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -81,5 +82,22 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getIsEnabledEmployeeAttribute()
     {
         return $this->employeeProfile && $this->employeeProfile->enabled_at !== null && $this->employeeProfile->enabled_at < now();
+    }
+
+
+
+    public function getCanAccessAdminPanelAttribute()
+    {
+        return $this->is_enabled && User::find($this->id)->can(Permissions::CAN_ACCESS_ADMIN_PANEL);
+    }
+
+    public function getCanAccessCustomerPanelAttribute()
+    {
+        return $this->is_enabled && (User::find($this->id)->can(Permissions::CAN_ACCESS_ADMIN_PANEL) || $this->is_enabled_customer);
+    }
+
+    public function getCanAccessEmployeePanelAttribute()
+    {
+        return $this->is_enabled && (User::find($this->id)->can(Permissions::CAN_ACCESS_ADMIN_PANEL) || $this->is_enabled_employee);
     }
 }

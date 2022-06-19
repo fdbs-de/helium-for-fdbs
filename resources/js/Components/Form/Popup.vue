@@ -71,7 +71,7 @@
             max-height: calc(100% - 80px)
             overflow-y: auto
             left: 50%
-            width: 100%
+            width: calc(100% - 2 * var(--su))
             max-width: 700px
             background: var(--color-background)
             border-radius: .5rem

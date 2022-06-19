@@ -1,11 +1,13 @@
 <template>
-    <Head title="Spezifications Datenbank" />
+    <Head title="Dashboard: Spezificationen verwalten" />
 
-    <DashboardSubLayout title="Spezifications Datenbank">
+    <DashboardSubLayout title="Spezificationen verwalten">
         <template #head>
             <mui-input class="search-input" type="search" no-border placeholder="Suchen" icon-left="search" v-model="search" @input="throttledGetSpecs" />
             <Loader class="loader" v-show="loading" />
         </template>
+
+        <input type="file" ref="filesInput" multiple @input="uploadSpecs($event.target.files)" accept="application/pdf,application/vnd.ms-excel" />
 
         <PaginationBar v-if="specs.length" :page="page" :length="specs.length" :total="total" @prev="prevPage" @next="nextPage"/>
 
@@ -14,7 +16,7 @@
                 <div class="icon" aria-hidden="true">description</div>
                 <span class="text" v-if="spec.name">{{spec.name}}</span>
                 <span class="flex h-end">
-                    <a :href="spec.url" target="_blank">Download</a>
+                    <a :href="spec.url" target="_blank">Ansehen</a>
                 </span>
             </div>
         </div>
@@ -41,6 +43,8 @@
     const page = ref(1)
     const lastPage = ref(1)
     const loading = ref(true)
+
+    const filesInput = ref(null)
 
 
 
@@ -81,6 +85,23 @@
     const prevPage = () => {
         page.value = Math.max(page.value - 1, 1)
         getSpecs()
+    }
+
+
+
+    const uploadSpecs = (files) => {
+        if (files.length <= 0) return
+
+        useForm({files}).post(route('dashboard.admin.specs.upload'), {
+            onSuccess() {
+                getSpecs()
+                filesInput.value.value = ''
+            },
+
+            onError(error) {
+                console.error(error)
+            }
+        })
     }
 </script>
 

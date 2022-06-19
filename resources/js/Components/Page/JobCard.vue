@@ -21,7 +21,7 @@
         },
         type: {
             type: String,
-            default: 'Job'
+            default: 'Vollzeit'
         },
         tags: {
             type: Array,

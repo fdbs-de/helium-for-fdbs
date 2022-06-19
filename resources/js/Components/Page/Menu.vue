@@ -193,11 +193,13 @@
                     position: absolute
                     top: 100%
                     left: 50%
+                    z-index: 1
                     min-width: 260px
                     display: flex
                     flex-direction: column
                     padding: var(--su) 0
                     border-radius: calc(var(--su) * .5)
+                    border: 1px solid var(--color-background-soft)
                     background: var(--color-background)
                     list-style: none
                     box-shadow: var(--shadow-elevation-low)

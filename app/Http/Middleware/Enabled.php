@@ -14,25 +14,12 @@ class Enabled
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next, $profile = null)
+    public function handle(Request $request, Closure $next)
     {
         if (!$request->user()->is_enabled)
         {
             return redirect()->route('dashboard.profile');
         }
-
-
-
-        if ($profile === 'customer' && !$request->user()->is_enabled_customer)
-        {
-            return redirect()->route('dashboard.profile');
-        }
-        elseif ($profile === 'employee' && !$request->user()->is_enabled_employee)
-        {
-            return redirect()->route('dashboard.profile');
-        }
-
-
 
         return $next($request);
     }

@@ -27,6 +27,7 @@ Route::prefix('/produkte-und-services')->group(function () {
 });
 Route::get('/karriere', [StaticController::class, 'indexKarriere'])->name('karriere');
 Route::get('/kontakt', [StaticController::class, 'indexKontakt'])->name('kontakt');
+Route::post('/kontakt', [StaticController::class, 'storeKontakt']);
 
 Route::get('/impressum', [StaticController::class, 'indexImpressum'])->name('impressum');
 Route::get('/datenschutz', [StaticController::class, 'indexDatenschutz'])->name('datenschutz');

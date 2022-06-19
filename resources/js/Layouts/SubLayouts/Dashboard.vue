@@ -5,11 +5,13 @@
                 <h1>{{title}}</h1>
             </section>
             <section id="content-section">
-                <div class="limiter main-card">
-                    <div class="dashboard-nav-bar" v-if="$slots.head">
-                        <slot name="head"/>
+                <div class="limiter">
+                    <div class="main-card">
+                        <div class="dashboard-nav-bar" v-if="$slots.head">
+                            <slot name="head"/>
+                        </div>
+                        <slot />
                     </div>
-                    <slot />
                 </div>
             </section>
         </main>
@@ -35,7 +37,7 @@
         align-items: center
         justify-content: center
         margin-top: var(--height-header)
-        padding-block: 5rem calc(5rem + var(--height-header))
+        padding-block: 5rem calc(9.5rem)
         background: var(--color-primary)
 
         h1
@@ -43,13 +45,16 @@
             margin: 0
 
     #content-section
+        .limiter
+            padding-bottom: 4rem
+
         .main-card
-            transform: translateY(calc(-1 * var(--height-header)))
-            padding: 0
-            margin-bottom: 4rem
+            transform: translateY(calc(-1 * 4.5rem))
             background: var(--color-background)
             border-radius: calc(var(--su) * .75)
             box-shadow: var(--shadow-elevation-low)
+            display: flex
+            flex-direction: column
             
             --mui-background: var(--color-background-soft)
 
@@ -57,12 +62,13 @@
                 --mui-background: var(--color-background)
 
             .dashboard-nav-bar
-                height: var(--height-header)
+                height: 4.5rem
                 display: flex
                 align-items: center
                 gap: var(--su)
                 padding-inline: var(--su)
                 border-bottom: 2px solid var(--color-background-soft)
+                position: relative
 
                 > a
                     height: 2.5rem
@@ -88,5 +94,8 @@
                         color: var(--color-background)
 
 
-    @media only screen and (max-width: 500px)
+    @media only screen and (max-width: 700px)
+        #content-section
+            .limiter
+                padding-bottom: 0
 </style>
