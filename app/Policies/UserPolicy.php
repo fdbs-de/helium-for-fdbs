@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\User;
 use App\Permissions\Permissions;
+use App\Permissions\Roles;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class UserPolicy
@@ -81,11 +82,17 @@ class UserPolicy
      */
     public function delete(User $user, user $model)
     {
+        // Check permissions
         if (!$user->can(Permissions::CAN_EDIT_USERS)) return false;
 
+        // Prevent deleting self
         if ($user->id == $model->id) return false;
 
-        if ($model->hasRole('admin')) return false;
+        // Prevent deleting super admin
+        if ($model->hasRole(Roles::SUPER_ADMIN)) return false;
+
+        // Prevent deleting admin
+        if ($model->hasRole(Roles::ADMIN)) return false;
 
         return true;
     }
@@ -93,8 +100,6 @@ class UserPolicy
     public function deleteProfile(User $user, user $model)
     {
         if (!$user->can(Permissions::CAN_EDIT_USERS)) return false;
-
-        if ($model->hasRole('admin')) return false;
 
         return true;
     }

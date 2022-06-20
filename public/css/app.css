@@ -257,6 +257,22 @@ main {
   color: var(--color-primary-soft);
 }
 
+.confirm-popup-wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: var(--su);
+  padding: var(--su);
+}
+.confirm-popup-wrapper .confirm-popup-footer {
+  display: flex;
+  gap: var(--su);
+  width: 100%;
+}
+.confirm-popup-wrapper .confirm-popup-footer > button {
+  flex: 1;
+}
+
 .mui-container.checkbox .label {
   flex: unset !important;
 }

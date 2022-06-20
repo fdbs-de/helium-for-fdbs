@@ -72,6 +72,14 @@
             <i>Kein Mitarbeiterkonto angelegt</i>
         </div>
 
+        <hr>
+
+        <div class="popup-row flex gap">
+            <span>Benutzer Löschen</span>
+            <div class="spacer"></div>
+            <mui-button label="Löschen" color="error" @click="$refs.deletePopup.open()"/>
+        </div>
+
 
         <div class="footer">
             <p>Konto ID: <b>{{userForm.id}}</b></p>
@@ -80,6 +88,16 @@
             <p v-if="userForm.email_verified_at">Email bestätigt am <b>{{$dayjs(userForm.email_verified_at).format('DD MMMM YYYY')}}</b> um <b>{{$dayjs(userForm.email_verified_at).format('HH:mm')}}</b></p>
             <p v-if="userForm.enabled_at">Freigeschaltet am <b>{{$dayjs(userForm.enabled_at).format('DD MMMM YYYY')}}</b> um <b>{{$dayjs(userForm.enabled_at).format('HH:mm')}}</b></p>
         </div>
+    </Popup>
+
+    <Popup ref="deletePopup">
+        <form class="confirm-popup-wrapper" @submit.prevent="deleteUser()">
+            <p>Möchten Sie den Nutzer mit der Email <a>{{userForm.email}}</a> entgültig löschen?</p>
+            <div class="confirm-popup-footer">
+                <mui-button variant="contained" label="Abbrechen" @click="$refs.deletePopup.close()"/>
+                <mui-button type="submit" variant="filled" color="error" label="Entgültig löschen"/>
+            </div>
+        </form>
     </Popup>
 </template>
 
@@ -96,6 +114,7 @@ const props = defineProps({
 
 
 const managePopup = ref(null)
+const deletePopup = ref(null)
 const selectedUser = ref(null)
 
 const userForm = computed(() => {
@@ -126,6 +145,14 @@ const enableEmployee = () => useForm().put(route('dashboard.admin.users.enable.e
 const disableUser = () => useForm().put(route('dashboard.admin.users.disable', { user: userForm.value.id }))
 const disableCustomer = () => useForm().put(route('dashboard.admin.users.disable.customer', { user: userForm.value.id }))
 const disableEmployee = () => useForm().put(route('dashboard.admin.users.disable.employee', { user: userForm.value.id }))
+
+const deleteUser = () => useForm().delete(route('dashboard.admin.users.destroy', { user: userForm.value.id }), {
+    onSuccess() {
+        managePopup.value.close()
+        deletePopup.value.close()
+        selectedUser.value = null
+    }
+})
 </script>
 
 <style lang="sass" scoped>
