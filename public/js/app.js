@@ -24808,9 +24808,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'PaginationBar',
   props: {
-    length: Number,
-    total: Number,
-    page: Number
+    from: {
+      type: Number,
+      "default": 0
+    },
+    to: {
+      type: Number,
+      "default": 0
+    },
+    total: {
+      type: Number,
+      "default": 0
+    }
   },
   emits: ['prev', 'next'],
   setup: function setup(__props, _ref) {
@@ -26173,16 +26182,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   setup: function setup(__props, _ref) {
     var expose = _ref.expose;
     expose();
-    var specs = (0,vue__WEBPACK_IMPORTED_MODULE_4__.ref)([]);
+    var pagination = (0,vue__WEBPACK_IMPORTED_MODULE_4__.ref)({
+      data: []
+    });
     var search = (0,vue__WEBPACK_IMPORTED_MODULE_4__.ref)('');
-    var total = (0,vue__WEBPACK_IMPORTED_MODULE_4__.ref)(0);
-    var page = (0,vue__WEBPACK_IMPORTED_MODULE_4__.ref)(1);
-    var lastPage = (0,vue__WEBPACK_IMPORTED_MODULE_4__.ref)(1);
     var loading = (0,vue__WEBPACK_IMPORTED_MODULE_4__.ref)(true);
 
-    var getSpecs = /*#__PURE__*/function () {
+    var fetch = /*#__PURE__*/function () {
       var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var response;
+        var _pagination$value$cur, response;
+
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -26191,69 +26200,62 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context.prev = 1;
                 _context.next = 4;
                 return axios.get(route('dashboard.customer.specs.search', {
-                  search: search.value,
-                  page: page.value
+                  page: (_pagination$value$cur = pagination.value.current_page) !== null && _pagination$value$cur !== void 0 ? _pagination$value$cur : 1,
+                  search: search.value
                 }));
 
               case 4:
                 response = _context.sent;
-                specs.value = response.data.items;
-                lastPage.value = response.data.last_page;
-                total.value = response.data.total;
-                page.value = Math.max(Math.min(page.value, lastPage.value), 1);
-                _context.next = 14;
+                pagination.value = response.data;
+                _context.next = 11;
                 break;
 
-              case 11:
-                _context.prev = 11;
+              case 8:
+                _context.prev = 8;
                 _context.t0 = _context["catch"](1);
-                console.error(_context.t0);
+                console.log(_context.t0.response);
 
-              case 14:
+              case 11:
                 loading.value = false;
 
-              case 15:
+              case 12:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[1, 11]]);
+        }, _callee, null, [[1, 8]]);
       }));
 
-      return function getSpecs() {
+      return function fetch() {
         return _ref2.apply(this, arguments);
       };
     }();
 
-    var throttledGetSpecs = _.throttle(getSpecs, 1000);
+    var throttledFetch = _.throttle(fetch, 300);
 
-    getSpecs();
+    fetch();
 
     var nextPage = function nextPage() {
-      page.value = Math.min(page.value + 1, lastPage.value);
-      getSpecs();
+      pagination.value.current_page++;
+      throttledFetch();
     };
 
     var prevPage = function prevPage() {
-      page.value = Math.max(page.value - 1, 1);
-      getSpecs();
+      pagination.value.current_page--;
+      throttledFetch();
     };
 
     var __returned__ = {
-      specs: specs,
+      pagination: pagination,
       search: search,
-      total: total,
-      page: page,
-      lastPage: lastPage,
       loading: loading,
-      getSpecs: getSpecs,
-      throttledGetSpecs: throttledGetSpecs,
+      fetch: fetch,
+      throttledFetch: throttledFetch,
       nextPage: nextPage,
       prevPage: prevPage,
       DashboardSubLayout: _Layouts_SubLayouts_Dashboard_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
       Head: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__.Head,
       Link: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__.Link,
-      useForm: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__.useForm,
       Loader: _Components_Form_Loader_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
       PaginationBar: _Components_Form_PaginationBar_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
       ref: vue__WEBPACK_IMPORTED_MODULE_4__.ref
@@ -26281,9 +26283,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Layouts_SubLayouts_Dashboard_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Layouts/SubLayouts/Dashboard.vue */ "./resources/js/Layouts/SubLayouts/Dashboard.vue");
 /* harmony import */ var _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @inertiajs/inertia-vue3 */ "./node_modules/@inertiajs/inertia-vue3/dist/index.js");
-/* harmony import */ var _Components_Form_Loader_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Components/Form/Loader.vue */ "./resources/js/Components/Form/Loader.vue");
-/* harmony import */ var _Components_Form_PaginationBar_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Components/Form/PaginationBar.vue */ "./resources/js/Components/Form/PaginationBar.vue");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+/* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
+/* harmony import */ var _Components_Form_Loader_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Components/Form/Loader.vue */ "./resources/js/Components/Form/Loader.vue");
+/* harmony import */ var _Components_Form_PaginationBar_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Components/Form/PaginationBar.vue */ "./resources/js/Components/Form/PaginationBar.vue");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
@@ -26297,22 +26300,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'SpecsManagement',
   setup: function setup(__props, _ref) {
     var expose = _ref.expose;
     expose();
-    var specs = (0,vue__WEBPACK_IMPORTED_MODULE_4__.ref)([]);
-    var search = (0,vue__WEBPACK_IMPORTED_MODULE_4__.ref)('');
-    var total = (0,vue__WEBPACK_IMPORTED_MODULE_4__.ref)(0);
-    var page = (0,vue__WEBPACK_IMPORTED_MODULE_4__.ref)(1);
-    var lastPage = (0,vue__WEBPACK_IMPORTED_MODULE_4__.ref)(1);
-    var loading = (0,vue__WEBPACK_IMPORTED_MODULE_4__.ref)(true);
-    var filesInput = (0,vue__WEBPACK_IMPORTED_MODULE_4__.ref)(null);
+    var pagination = (0,vue__WEBPACK_IMPORTED_MODULE_5__.ref)({
+      data: []
+    });
+    var search = (0,vue__WEBPACK_IMPORTED_MODULE_5__.ref)('');
+    var loading = (0,vue__WEBPACK_IMPORTED_MODULE_5__.ref)(true);
+    var filesInput = (0,vue__WEBPACK_IMPORTED_MODULE_5__.ref)(null);
 
-    var getSpecs = /*#__PURE__*/function () {
+    var fetch = /*#__PURE__*/function () {
       var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var response;
+        var _pagination$value$cur, response;
+
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -26321,62 +26325,71 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context.prev = 1;
                 _context.next = 4;
                 return axios.get(route('dashboard.customer.specs.search', {
-                  search: search.value,
-                  page: page.value
+                  page: (_pagination$value$cur = pagination.value.current_page) !== null && _pagination$value$cur !== void 0 ? _pagination$value$cur : 1,
+                  search: search.value
                 }));
 
               case 4:
                 response = _context.sent;
-                specs.value = response.data.items;
-                lastPage.value = response.data.last_page;
-                total.value = response.data.total;
-                page.value = Math.max(Math.min(page.value, lastPage.value), 1);
-                _context.next = 14;
+                pagination.value = response.data;
+                _context.next = 11;
                 break;
 
-              case 11:
-                _context.prev = 11;
+              case 8:
+                _context.prev = 8;
                 _context.t0 = _context["catch"](1);
-                console.error(_context.t0);
+                console.log(_context.t0.response);
 
-              case 14:
+              case 11:
                 loading.value = false;
 
-              case 15:
+              case 12:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[1, 11]]);
+        }, _callee, null, [[1, 8]]);
       }));
 
-      return function getSpecs() {
+      return function fetch() {
         return _ref2.apply(this, arguments);
       };
     }();
 
-    var throttledGetSpecs = _.throttle(getSpecs, 1000);
+    var throttledFetch = _.throttle(fetch, 300);
 
-    getSpecs();
+    fetch();
 
     var nextPage = function nextPage() {
-      page.value = Math.min(page.value + 1, lastPage.value);
-      getSpecs();
+      pagination.value.current_page++;
+      throttledFetch();
     };
 
     var prevPage = function prevPage() {
-      page.value = Math.max(page.value - 1, 1);
-      getSpecs();
+      pagination.value.current_page--;
+      throttledFetch();
     };
 
-    var uploadSpecs = function uploadSpecs(files) {
+    var upload = function upload(files) {
       if (files.length <= 0) return;
       (0,_inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__.useForm)({
         files: files
       }).post(route('dashboard.admin.specs.upload'), {
         onSuccess: function onSuccess() {
-          getSpecs();
           filesInput.value.value = '';
+          throttledFetch();
+        },
+        onError: function onError(error) {
+          console.error(error);
+        }
+      });
+    };
+
+    var recache = function recache() {
+      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__.Inertia.post(route('dashboard.admin.specs.cache'), {
+        preserveScroll: true,
+        onSuccess: function onSuccess() {
+          throttledFetch();
         },
         onError: function onError(error) {
           console.error(error);
@@ -26385,25 +26398,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
 
     var __returned__ = {
-      specs: specs,
+      pagination: pagination,
       search: search,
-      total: total,
-      page: page,
-      lastPage: lastPage,
       loading: loading,
       filesInput: filesInput,
-      getSpecs: getSpecs,
-      throttledGetSpecs: throttledGetSpecs,
+      fetch: fetch,
+      throttledFetch: throttledFetch,
       nextPage: nextPage,
       prevPage: prevPage,
-      uploadSpecs: uploadSpecs,
+      upload: upload,
+      recache: recache,
       DashboardSubLayout: _Layouts_SubLayouts_Dashboard_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
       Head: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__.Head,
       Link: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__.Link,
       useForm: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__.useForm,
-      Loader: _Components_Form_Loader_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
-      PaginationBar: _Components_Form_PaginationBar_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
-      ref: vue__WEBPACK_IMPORTED_MODULE_4__.ref
+      Inertia: _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__.Inertia,
+      Loader: _Components_Form_Loader_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+      PaginationBar: _Components_Form_PaginationBar_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+      ref: vue__WEBPACK_IMPORTED_MODULE_5__.ref
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -27222,9 +27234,9 @@ var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 );
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [$props.total ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("b", _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(($props.page - 1) * 50 + 1), 1
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [$props.total ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("b", _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.from), 1
   /* TEXT */
-  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $props.total ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_3, " bis ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(($props.page - 1) * 50 + $props.length), 1
+  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $props.total ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_3, " bis ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.to), 1
   /* TEXT */
   ), _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.total), 1
   /* TEXT */
@@ -29402,7 +29414,6 @@ var _hoisted_2 = /*#__PURE__*/_withScopeId(function () {
 });
 
 var _hoisted_3 = {
-  key: 0,
   "class": "text"
 };
 var _hoisted_4 = {
@@ -29432,7 +29443,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
           return $setup.search = $event;
         }),
-        onInput: $setup.throttledGetSpecs
+        onInput: $setup.throttledFetch
       }, null, 8
       /* PROPS */
       , ["modelValue", "onInput"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Loader"], {
@@ -29442,39 +29453,41 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.loading]])];
     }),
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [$setup.specs.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["PaginationBar"], {
+      return [$setup.pagination.data.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["PaginationBar"], {
         key: 0,
-        page: $setup.page,
-        length: $setup.specs.length,
-        total: $setup.total,
+        from: $setup.pagination.from,
+        to: $setup.pagination.to,
+        total: $setup.pagination.total,
         onPrev: $setup.prevPage,
         onNext: $setup.nextPage
       }, null, 8
       /* PROPS */
-      , ["page", "length", "total"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $setup.specs.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.specs, function (spec) {
+      , ["from", "to", "total"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $setup.pagination.data.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.pagination.data, function (item) {
         return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
           "class": "row",
-          key: spec.name
-        }, [_hoisted_2, spec.name ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(spec.name), 1
+          key: item.name
+        }, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.name), 1
         /* TEXT */
-        )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-          href: spec.url,
+        ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+          href: _ctx.route('dashboard.customer.specs.download', {
+            name: item.name
+          }),
           target: "_blank"
         }, "Download", 8
         /* PROPS */
         , _hoisted_5)])]);
       }), 128
       /* KEYED_FRAGMENT */
-      ))])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_6, " Es wurden keine Spezifikationen gefunden. ")), $setup.specs.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["PaginationBar"], {
+      ))])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_6, " Es wurden keine Spezifikationen gefunden. ")), $setup.pagination.data.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["PaginationBar"], {
         key: 3,
-        page: $setup.page,
-        length: $setup.specs.length,
-        total: $setup.total,
+        from: $setup.pagination.from,
+        to: $setup.pagination.to,
+        total: $setup.pagination.total,
         onPrev: $setup.prevPage,
         onNext: $setup.nextPage
       }, null, 8
       /* PROPS */
-      , ["page", "length", "total"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)];
+      , ["from", "to", "total"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)];
     }),
     _: 1
     /* STABLE */
@@ -29505,11 +29518,26 @@ var _withScopeId = function _withScopeId(n) {
 };
 
 var _hoisted_1 = {
+  "class": "upload-wrapper"
+};
+
+var _hoisted_2 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "class": "button",
+    "for": "files-input",
+    role: "button",
+    tabindex: "0"
+  }, "Dateien hochladen (max. 1000)", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_3 = {
   key: 1,
   "class": "grid"
 };
 
-var _hoisted_2 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_4 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "icon",
     "aria-hidden": "true"
@@ -29518,20 +29546,21 @@ var _hoisted_2 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
-var _hoisted_3 = {
-  key: 0,
+var _hoisted_5 = {
   "class": "text"
 };
-var _hoisted_4 = {
+var _hoisted_6 = {
   "class": "flex h-end"
 };
-var _hoisted_5 = ["href"];
-var _hoisted_6 = {
+var _hoisted_7 = ["href"];
+var _hoisted_8 = {
   key: 2,
   "class": "placeholder"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_mui_input = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("mui-input");
+
+  var _component_mui_button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("mui-button");
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Head"], {
     title: "Dashboard: Spezificationen verwalten"
@@ -29549,59 +29578,69 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
           return $setup.search = $event;
         }),
-        onInput: $setup.throttledGetSpecs
+        onInput: $setup.throttledFetch
       }, null, 8
       /* PROPS */
-      , ["modelValue", "onInput"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Loader"], {
+      , ["modelValue", "onInput"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_mui_button, {
+        variant: "contained",
+        size: "small",
+        label: "Refresh Cache",
+        onClick: _cache[1] || (_cache[1] = function ($event) {
+          return $setup.recache();
+        })
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Loader"], {
         "class": "loader"
       }, null, 512
       /* NEED_PATCH */
       ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.loading]])];
     }),
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
         type: "file",
+        id: "files-input",
         ref: "filesInput",
         multiple: "",
-        onInput: _cache[1] || (_cache[1] = function ($event) {
-          return $setup.uploadSpecs($event.target.files);
+        onInput: _cache[2] || (_cache[2] = function ($event) {
+          return $setup.upload($event.target.files);
         }),
         accept: "application/pdf,application/vnd.ms-excel"
       }, null, 544
       /* HYDRATE_EVENTS, NEED_PATCH */
-      ), $setup.specs.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["PaginationBar"], {
+      )]), $setup.pagination.data.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["PaginationBar"], {
         key: 0,
-        page: $setup.page,
-        length: $setup.specs.length,
-        total: $setup.total,
+        from: $setup.pagination.from,
+        to: $setup.pagination.to,
+        total: $setup.pagination.total,
         onPrev: $setup.prevPage,
         onNext: $setup.nextPage
       }, null, 8
       /* PROPS */
-      , ["page", "length", "total"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $setup.specs.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.specs, function (spec) {
+      , ["from", "to", "total"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $setup.pagination.data.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_3, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.pagination.data, function (item) {
         return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
           "class": "row",
-          key: spec.name
-        }, [_hoisted_2, spec.name ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(spec.name), 1
+          key: item.name
+        }, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.name), 1
         /* TEXT */
-        )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-          href: spec.url,
+        ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+          href: _ctx.route('dashboard.customer.specs.download', {
+            name: item.name
+          }),
           target: "_blank"
         }, "Ansehen", 8
         /* PROPS */
-        , _hoisted_5)])]);
+        , _hoisted_7)])]);
       }), 128
       /* KEYED_FRAGMENT */
-      ))])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_6, " Es wurden keine Spezifikationen gefunden. ")), $setup.specs.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["PaginationBar"], {
+      ))])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_8, " Es wurden keine Spezifikationen gefunden. ")), $setup.pagination.data.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["PaginationBar"], {
         key: 3,
-        page: $setup.page,
-        length: $setup.specs.length,
-        total: $setup.total,
+        from: $setup.pagination.from,
+        to: $setup.pagination.to,
+        total: $setup.pagination.total,
         onPrev: $setup.prevPage,
         onNext: $setup.nextPage
       }, null, 8
       /* PROPS */
-      , ["page", "length", "total"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)];
+      , ["from", "to", "total"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)];
     }),
     _: 1
     /* STABLE */
@@ -32544,7 +32583,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".search-input[data-v-577e7f87] {\n  height: 2.5rem;\n  width: 100%;\n  max-width: 400px;\n}\n.loader[data-v-577e7f87] {\n  position: absolute;\n  bottom: -2px;\n  height: 2px;\n  left: 0;\n}\n.placeholder[data-v-577e7f87] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  text-align: center;\n  height: 220px;\n  width: 100%;\n}\n.grid[data-v-577e7f87] {\n  display: flex;\n  flex-direction: column;\n  width: 100%;\n}\n.grid .row[data-v-577e7f87] {\n  display: grid;\n  align-items: center;\n  grid-template-columns: 2.5rem 1fr auto;\n  gap: var(--su);\n  height: 3rem;\n  padding: 0 1rem;\n}\n.grid .row .text[data-v-577e7f87] {\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.grid .row .icon[data-v-577e7f87] {\n  font-family: var(--font-icon);\n  font-size: 1.5rem;\n  line-height: 1;\n  text-align: center;\n  color: var(--color-text);\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.grid .row .icon.notified[data-v-577e7f87] {\n  color: var(--color-warning);\n}\n.grid .row .icon.active[data-v-577e7f87] {\n  color: var(--color-primary);\n}\n.grid .row[data-v-577e7f87]:hover:not(.head) {\n  background: var(--color-background-soft);\n}\n@media only screen and (max-width: 500px) {\n.grid .row[data-v-577e7f87] {\n    grid-template-columns: 1fr auto;\n}\n.grid .row .icon[data-v-577e7f87] {\n    display: none;\n}\n}", "",{"version":3,"sources":["webpack://./resources/js/Pages/Dashboard/SpecsManagement.vue"],"names":[],"mappings":"AACI;EACI,cAAA;EACA,WAAA;EACA,gBAAA;AAAR;AAEI;EACI,kBAAA;EACA,YAAA;EACA,WAAA;EACA,OAAA;AACR;AACI;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,kBAAA;EACA,aAAA;EACA,WAAA;AAER;AAAI;EACI,aAAA;EACA,sBAAA;EACA,WAAA;AAGR;AADQ;EACI,aAAA;EACA,mBAAA;EACA,sCAAA;EACA,cAAA;EACA,YAAA;EACA,eAAA;AAGZ;AADY;EACI,mBAAA;EACA,gBAAA;EACA,uBAAA;AAGhB;AADY;EACI,6BAAA;EACA,iBAAA;EACA,cAAA;EACA,kBAAA;EACA,wBAAA;EACA,yBAAA;KAAA,sBAAA;MAAA,qBAAA;UAAA,iBAAA;AAGhB;AADgB;EACI,2BAAA;AAGpB;AADgB;EACI,2BAAA;AAGpB;AADY;EACI,wCAAA;AAGhB;AADI;AAEQ;IACI,+BAAA;AAGd;AADc;IACI,aAAA;AAGlB;AACF","sourcesContent":["\r\n    .search-input\r\n        height: 2.5rem\r\n        width: 100%\r\n        max-width: 400px\r\n\r\n    .loader\r\n        position: absolute\r\n        bottom: -2px\r\n        height: 2px\r\n        left: 0\r\n\r\n    .placeholder\r\n        display: flex\r\n        align-items: center\r\n        justify-content: center\r\n        text-align: center\r\n        height: 220px\r\n        width: 100%\r\n\r\n    .grid\r\n        display: flex\r\n        flex-direction: column\r\n        width: 100%\r\n\r\n        .row\r\n            display: grid\r\n            align-items: center\r\n            grid-template-columns: 2.5rem 1fr auto\r\n            gap: var(--su)\r\n            height: 3rem\r\n            padding: 0 1rem\r\n\r\n            .text\r\n                white-space: nowrap\r\n                overflow: hidden\r\n                text-overflow: ellipsis\r\n\r\n            .icon\r\n                font-family: var(--font-icon)\r\n                font-size: 1.5rem\r\n                line-height: 1\r\n                text-align: center\r\n                color: var(--color-text)\r\n                user-select: none\r\n\r\n                &.notified\r\n                    color: var(--color-warning)\r\n\r\n                &.active\r\n                    color: var(--color-primary)\r\n\r\n            &:hover:not(.head)\r\n                background: var(--color-background-soft)\r\n\r\n    @media only screen and (max-width: 500px)\r\n        .grid\r\n            .row\r\n                grid-template-columns: 1fr auto\r\n\r\n                .icon\r\n                    display: none\r\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, ".search-input[data-v-577e7f87] {\n  height: 2.5rem;\n  width: 100%;\n  max-width: 400px;\n}\n.loader[data-v-577e7f87] {\n  position: absolute;\n  bottom: -2px;\n  height: 2px;\n  left: 0;\n}\n.upload-wrapper[data-v-577e7f87] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  background: var(--color-background-soft);\n  border-radius: 0.325rem;\n  margin: 1rem;\n  position: relative;\n  padding: 5rem 1rem;\n}\n.upload-wrapper label.button[data-v-577e7f87] {\n  display: flex;\n  align-items: center;\n  height: 2.5rem;\n  padding: 0 1rem;\n  border-radius: 0.325rem;\n  border: none;\n  background: var(--color-primary);\n  color: var(--color-background);\n  font-size: 0.75rem;\n  letter-spacing: 0.05em;\n  font-weight: 500;\n  text-transform: uppercase;\n  cursor: pointer;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.upload-wrapper label.button[data-v-577e7f87]:hover, .upload-wrapper label.button[data-v-577e7f87]:focus {\n  background: var(--color-primary-soft);\n}\n.upload-wrapper input[data-v-577e7f87] {\n  display: none;\n}\n.placeholder[data-v-577e7f87] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  text-align: center;\n  height: 220px;\n  width: 100%;\n}\n.grid[data-v-577e7f87] {\n  display: flex;\n  flex-direction: column;\n  width: 100%;\n}\n.grid .row[data-v-577e7f87] {\n  display: grid;\n  align-items: center;\n  grid-template-columns: 2.5rem 1fr auto;\n  gap: var(--su);\n  height: 3rem;\n  padding: 0 1rem;\n}\n.grid .row .text[data-v-577e7f87] {\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.grid .row .icon[data-v-577e7f87] {\n  font-family: var(--font-icon);\n  font-size: 1.5rem;\n  line-height: 1;\n  text-align: center;\n  color: var(--color-text);\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.grid .row .icon.notified[data-v-577e7f87] {\n  color: var(--color-warning);\n}\n.grid .row .icon.active[data-v-577e7f87] {\n  color: var(--color-primary);\n}\n.grid .row[data-v-577e7f87]:hover:not(.head) {\n  background: var(--color-background-soft);\n}\n@media only screen and (max-width: 500px) {\n.grid .row[data-v-577e7f87] {\n    grid-template-columns: 1fr auto;\n}\n.grid .row .icon[data-v-577e7f87] {\n    display: none;\n}\n}", "",{"version":3,"sources":["webpack://./resources/js/Pages/Dashboard/SpecsManagement.vue"],"names":[],"mappings":"AACI;EACI,cAAA;EACA,WAAA;EACA,gBAAA;AAAR;AAEI;EACI,kBAAA;EACA,YAAA;EACA,WAAA;EACA,OAAA;AACR;AACI;EACI,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,uBAAA;EACA,wCAAA;EACA,uBAAA;EACA,YAAA;EACA,kBAAA;EACA,kBAAA;AAER;AAAQ;EACI,aAAA;EACA,mBAAA;EACA,cAAA;EACA,eAAA;EACA,uBAAA;EACA,YAAA;EACA,gCAAA;EACA,8BAAA;EACA,kBAAA;EACA,sBAAA;EACA,gBAAA;EACA,yBAAA;EACA,eAAA;EACA,yBAAA;KAAA,sBAAA;MAAA,qBAAA;UAAA,iBAAA;AAEZ;AAAY;EAEI,qCAAA;AAChB;AACQ;EACI,aAAA;AACZ;AACI;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,kBAAA;EACA,aAAA;EACA,WAAA;AAER;AAAI;EACI,aAAA;EACA,sBAAA;EACA,WAAA;AAGR;AADQ;EACI,aAAA;EACA,mBAAA;EACA,sCAAA;EACA,cAAA;EACA,YAAA;EACA,eAAA;AAGZ;AADY;EACI,mBAAA;EACA,gBAAA;EACA,uBAAA;AAGhB;AADY;EACI,6BAAA;EACA,iBAAA;EACA,cAAA;EACA,kBAAA;EACA,wBAAA;EACA,yBAAA;KAAA,sBAAA;MAAA,qBAAA;UAAA,iBAAA;AAGhB;AADgB;EACI,2BAAA;AAGpB;AADgB;EACI,2BAAA;AAGpB;AADY;EACI,wCAAA;AAGhB;AADI;AAEQ;IACI,+BAAA;AAGd;AADc;IACI,aAAA;AAGlB;AACF","sourcesContent":["\r\n    .search-input\r\n        height: 2.5rem\r\n        width: 100%\r\n        max-width: 400px\r\n\r\n    .loader\r\n        position: absolute\r\n        bottom: -2px\r\n        height: 2px\r\n        left: 0\r\n\r\n    .upload-wrapper\r\n        display: flex\r\n        flex-direction: column\r\n        align-items: center\r\n        justify-content: center\r\n        background: var(--color-background-soft)\r\n        border-radius: .325rem\r\n        margin: 1rem\r\n        position: relative\r\n        padding: 5rem 1rem\r\n\r\n        label.button\r\n            display: flex\r\n            align-items: center\r\n            height: 2.5rem\r\n            padding: 0 1rem\r\n            border-radius: .325rem\r\n            border: none\r\n            background: var(--color-primary)\r\n            color: var(--color-background)\r\n            font-size: .75rem\r\n            letter-spacing: .05em\r\n            font-weight: 500\r\n            text-transform: uppercase\r\n            cursor: pointer\r\n            user-select: none\r\n\r\n            &:hover,\r\n            &:focus\r\n                background: var(--color-primary-soft)\r\n\r\n        input\r\n            display: none\r\n\r\n    .placeholder\r\n        display: flex\r\n        align-items: center\r\n        justify-content: center\r\n        text-align: center\r\n        height: 220px\r\n        width: 100%\r\n\r\n    .grid\r\n        display: flex\r\n        flex-direction: column\r\n        width: 100%\r\n\r\n        .row\r\n            display: grid\r\n            align-items: center\r\n            grid-template-columns: 2.5rem 1fr auto\r\n            gap: var(--su)\r\n            height: 3rem\r\n            padding: 0 1rem\r\n\r\n            .text\r\n                white-space: nowrap\r\n                overflow: hidden\r\n                text-overflow: ellipsis\r\n\r\n            .icon\r\n                font-family: var(--font-icon)\r\n                font-size: 1.5rem\r\n                line-height: 1\r\n                text-align: center\r\n                color: var(--color-text)\r\n                user-select: none\r\n\r\n                &.notified\r\n                    color: var(--color-warning)\r\n\r\n                &.active\r\n                    color: var(--color-primary)\r\n\r\n            &:hover:not(.head)\r\n                background: var(--color-background-soft)\r\n\r\n    @media only screen and (max-width: 500px)\r\n        .grid\r\n            .row\r\n                grid-template-columns: 1fr auto\r\n\r\n                .icon\r\n                    display: none\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

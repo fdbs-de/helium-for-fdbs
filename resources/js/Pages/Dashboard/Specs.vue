@@ -3,18 +3,18 @@
 
     <DashboardSubLayout title="Spezifications Datenbank">
         <template #head>
-            <mui-input class="search-input" type="search" no-border placeholder="Suchen" icon-left="search" v-model="search" @input="throttledGetSpecs" />
+            <mui-input class="search-input" type="search" no-border placeholder="Suchen" icon-left="search" v-model="search" @input="throttledFetch" />
             <Loader class="loader" v-show="loading" />
         </template>
 
-        <PaginationBar v-if="specs.length" :page="page" :length="specs.length" :total="total" @prev="prevPage" @next="nextPage"/>
+        <PaginationBar v-if="pagination.data.length" :from="pagination.from" :to="pagination.to" :total="pagination.total" @prev="prevPage" @next="nextPage"/>
 
-        <div class="grid" v-if="specs.length">
-            <div class="row" v-for="spec in specs" :key="spec.name">
+        <div class="grid" v-if="pagination.data.length">
+            <div class="row" v-for="item in pagination.data" :key="item.name">
                 <div class="icon" aria-hidden="true">description</div>
-                <span class="text" v-if="spec.name">{{spec.name}}</span>
+                <span class="text">{{item.name}}</span>
                 <span class="flex h-end">
-                    <a :href="spec.url" target="_blank">Download</a>
+                    <a :href="route('dashboard.customer.specs.download', {name: item.name})" target="_blank">Download</a>
                 </span>
             </div>
         </div>
@@ -23,64 +23,60 @@
             Es wurden keine Spezifikationen gefunden.
         </div>
 
-        <PaginationBar v-if="specs.length" :page="page" :length="specs.length" :total="total" @prev="prevPage" @next="nextPage"/>
+        <PaginationBar v-if="pagination.data.length" :from="pagination.from" :to="pagination.to" :total="pagination.total" @prev="prevPage" @next="nextPage"/>
         
     </DashboardSubLayout>
 </template>
 
 <script setup>
     import DashboardSubLayout from '@/Layouts/SubLayouts/Dashboard.vue'
-    import { Head, Link, useForm } from '@inertiajs/inertia-vue3'
+    import { Head, Link } from '@inertiajs/inertia-vue3'
     import Loader from '@/Components/Form/Loader.vue'
     import PaginationBar from '@/Components/Form/PaginationBar.vue'
     import { ref } from 'vue'
 
-    const specs = ref([])
+
+
+    const pagination = ref({ data: [] })
     const search = ref('')
-    const total = ref(0)
-    const page = ref(1)
-    const lastPage = ref(1)
     const loading = ref(true)
 
 
 
-    const getSpecs = async () => {
+    const fetch = async () => {
         loading.value = true
 
         try
         {
             let response = await axios.get(route('dashboard.customer.specs.search', {
+                page: pagination.value.current_page ?? 1,
                 search: search.value,
-                page: page.value,
             }))
 
-            specs.value = response.data.items
-            lastPage.value = response.data.last_page
-            total.value = response.data.total
-            page.value = Math.max(Math.min(page.value, lastPage.value), 1)
+            pagination.value = response.data
         }
         catch (error)
         {
-            console.error(error)
+            console.log(error.response)
         }
         
         loading.value = false
     }
 
-    const throttledGetSpecs = _.throttle(getSpecs, 1000)
+    const throttledFetch = _.throttle(fetch, 300)
 
-    getSpecs()
+    fetch()
 
 
 
     const nextPage = () => {
-        page.value = Math.min(page.value + 1, lastPage.value)
-        getSpecs()
+        pagination.value.current_page++
+        throttledFetch()
     }
 
     const prevPage = () => {
-        page.value = Math.max(page.value - 1, 1)
-        getSpecs()
+        pagination.value.current_page--
+        throttledFetch()
     }
 </script>
 

@@ -1,9 +1,9 @@
 <template>
     <div class="pagination-wrapper">
         <span>
-            <b v-if="total">{{(page - 1) * 50 + 1}}</b>
+            <b v-if="total">{{from}}</b>
             <span v-if="total"> bis </span>
-            <b>{{(page - 1) * 50 + length}}</b>
+            <b>{{to}}</b>
             <span> von </span>
             <b>{{total}}</b>
         </span>
@@ -22,9 +22,18 @@
     ])
 
     defineProps({
-        length: Number,
-        total: Number,
-        page: Number,
+        from: {
+            type: Number,
+            default: 0,
+        },
+        to: {
+            type: Number,
+            default: 0,
+        },
+        total: {
+            type: Number,
+            default: 0,
+        },
     })
 </script>
 

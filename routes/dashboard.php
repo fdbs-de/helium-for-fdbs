@@ -29,8 +29,9 @@ Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () 
         Route::delete('/users/{user}/employee', [UserController::class, 'destroyEmployee'])->can('deleteProfile', 'user')->name('dashboard.admin.users.destroy.employee');
         
         Route::get('/spezifikationen', [SpecController::class, 'indexAdmin'])->name('dashboard.admin.specs');
-        Route::post('/spezifikationen/upload', [SpecController::class, 'upload'])->name('dashboard.admin.specs.upload');
-        Route::delete('/spezifikationen/delete', [SpecController::class, 'delete'])->name('dashboard.admin.specs.delete');
+        Route::post('/spezifikationen/upload', [SpecController::class, 'upload'])->can('create', 'App\Models\Specification')->name('dashboard.admin.specs.upload');
+        Route::post('/spezifikationen/cache', [SpecController::class, 'cache'])->can('create', 'App\Models\Specification')->name('dashboard.admin.specs.cache');
+        Route::delete('/spezifikationen/delete', [SpecController::class, 'delete'])->can('delete', 'App\Models\Specification')->name('dashboard.admin.specs.delete');
     });
 
     // Route::prefix('mitarbeiter')->middleware(['panelaccess:employee'])->group(function () {
@@ -40,7 +41,7 @@ Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () 
     Route::prefix('kunde')->middleware(['panelaccess:customer'])->group(function () {
         Route::get('/', [CustomerController::class, 'redirect'])->name('dashboard.customer');
         Route::get('/spezifikationen', [SpecController::class, 'index'])->name('dashboard.customer.specs');
-        Route::get('/spezifikationen/search/{search?}', [SpecController::class, 'search'])->name('dashboard.customer.specs.search');
-        Route::get('/spezifikationen/download/{name}', [SpecController::class, 'download'])->name('dashboard.customer.spec.download');
+        Route::get('/spezifikationen/search/{page}/{search?}', [SpecController::class, 'search'])->name('dashboard.customer.specs.search');
+        Route::get('/spezifikationen/download/{name}', [SpecController::class, 'download'])->name('dashboard.customer.specs.download');
     });
 });

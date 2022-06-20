@@ -3,20 +3,25 @@
 
     <DashboardSubLayout title="Spezificationen verwalten">
         <template #head>
-            <mui-input class="search-input" type="search" no-border placeholder="Suchen" icon-left="search" v-model="search" @input="throttledGetSpecs" />
+            <mui-input class="search-input" type="search" no-border placeholder="Suchen" icon-left="search" v-model="search" @input="throttledFetch" />
+            <mui-button variant="contained" size="small" label="Refresh Cache" @click="recache()"/>
             <Loader class="loader" v-show="loading" />
         </template>
 
-        <input type="file" ref="filesInput" multiple @input="uploadSpecs($event.target.files)" accept="application/pdf,application/vnd.ms-excel" />
+        <div class="upload-wrapper">
+            <label class="button" for="files-input" role="button" tabindex="0">Dateien hochladen (max. 1000)</label>
+            <input type="file" id="files-input" ref="filesInput" multiple @input="upload($event.target.files)" accept="application/pdf,application/vnd.ms-excel" />
+        </div>
 
-        <PaginationBar v-if="specs.length" :page="page" :length="specs.length" :total="total" @prev="prevPage" @next="nextPage"/>
 
-        <div class="grid" v-if="specs.length">
-            <div class="row" v-for="spec in specs" :key="spec.name">
+        <PaginationBar v-if="pagination.data.length" :from="pagination.from" :to="pagination.to" :total="pagination.total" @prev="prevPage" @next="nextPage"/>
+
+        <div class="grid" v-if="pagination.data.length">
+            <div class="row" v-for="item in pagination.data" :key="item.name">
                 <div class="icon" aria-hidden="true">description</div>
-                <span class="text" v-if="spec.name">{{spec.name}}</span>
+                <span class="text">{{item.name}}</span>
                 <span class="flex h-end">
-                    <a :href="spec.url" target="_blank">Ansehen</a>
+                    <a :href="route('dashboard.customer.specs.download', {name: item.name})" target="_blank">Ansehen</a>
                 </span>
             </div>
         </div>
@@ -25,7 +30,7 @@
             Es wurden keine Spezifikationen gefunden.
         </div>
 
-        <PaginationBar v-if="specs.length" :page="page" :length="specs.length" :total="total" @prev="prevPage" @next="nextPage"/>
+        <PaginationBar v-if="pagination.data.length" :from="pagination.from" :to="pagination.to" :total="pagination.total" @prev="prevPage" @next="nextPage"/>
         
     </DashboardSubLayout>
 </template>
@@ -33,69 +38,80 @@
 <script setup>
     import DashboardSubLayout from '@/Layouts/SubLayouts/Dashboard.vue'
     import { Head, Link, useForm } from '@inertiajs/inertia-vue3'
+    import { Inertia } from '@inertiajs/inertia'
     import Loader from '@/Components/Form/Loader.vue'
     import PaginationBar from '@/Components/Form/PaginationBar.vue'
     import { ref } from 'vue'
 
-    const specs = ref([])
+    const pagination = ref({ data: [] })
     const search = ref('')
-    const total = ref(0)
-    const page = ref(1)
-    const lastPage = ref(1)
     const loading = ref(true)
 
     const filesInput = ref(null)
 
 
 
-    const getSpecs = async () => {
+    const fetch = async () => {
         loading.value = true
 
         try
         {
             let response = await axios.get(route('dashboard.customer.specs.search', {
+                page: pagination.value.current_page ?? 1,
                 search: search.value,
-                page: page.value,
             }))
 
-            specs.value = response.data.items
-            lastPage.value = response.data.last_page
-            total.value = response.data.total
-            page.value = Math.max(Math.min(page.value, lastPage.value), 1)
+            pagination.value = response.data
         }
         catch (error)
         {
-            console.error(error)
+            console.log(error.response)
         }
         
         loading.value = false
     }
 
-    const throttledGetSpecs = _.throttle(getSpecs, 1000)
+    const throttledFetch = _.throttle(fetch, 300)
 
-    getSpecs()
+    fetch()
 
 
 
     const nextPage = () => {
-        page.value = Math.min(page.value + 1, lastPage.value)
-        getSpecs()
+        pagination.value.current_page++
+        throttledFetch()
     }
 
     const prevPage = () => {
-        page.value = Math.max(page.value - 1, 1)
-        getSpecs()
+        pagination.value.current_page--
+        throttledFetch()
     }
 
 
 
-    const uploadSpecs = (files) => {
+    const upload = (files) => {
         if (files.length <= 0) return
 
         useForm({files}).post(route('dashboard.admin.specs.upload'), {
             onSuccess() {
-                getSpecs()
                 filesInput.value.value = ''
+                throttledFetch()
+            },
+
+            onError(error) {
+                console.error(error)
+            }
+        })
+    }
+
+
+
+    const recache = () => {
+        Inertia.post(route('dashboard.admin.specs.cache'), {
+            preserveScroll: true,
+
+            onSuccess() {
+                throttledFetch()
             },
 
             onError(error) {
@@ -116,6 +132,40 @@
         bottom: -2px
         height: 2px
         left: 0
+
+    .upload-wrapper
+        display: flex
+        flex-direction: column
+        align-items: center
+        justify-content: center
+        background: var(--color-background-soft)
+        border-radius: .325rem
+        margin: 1rem
+        position: relative
+        padding: 5rem 1rem
+
+        label.button
+            display: flex
+            align-items: center
+            height: 2.5rem
+            padding: 0 1rem
+            border-radius: .325rem
+            border: none
+            background: var(--color-primary)
+            color: var(--color-background)
+            font-size: .75rem
+            letter-spacing: .05em
+            font-weight: 500
+            text-transform: uppercase
+            cursor: pointer
+            user-select: none
+
+            &:hover,
+            &:focus
+                background: var(--color-primary-soft)
+
+        input
+            display: none
 
     .placeholder
         display: flex
