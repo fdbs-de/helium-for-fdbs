@@ -11,6 +11,7 @@ class Specification extends Model
 
     public $incrementing = false;
     public $timestamps = false;
+    protected  $primaryKey = 'name';
 
     protected $fillable = [
         'name',

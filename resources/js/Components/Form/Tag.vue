@@ -37,12 +37,14 @@
         &.color-yellow
             color: var(--color-yellow)
 
+        &.color-blue
+            color: var(--color-blue)
+
         &::after
             content: ''
             position: absolute
             top: 0
             left: 0
-            z-index: -1
             width: 100%
             height: 100%
             border-radius: inherit
@@ -54,4 +56,10 @@
             font-size: 1.2em
             line-height: 1
             user-select: none
+            position: relative
+            z-index: 1
+
+        > span
+            position: relative
+            z-index: 1
 </style>
