@@ -1,7 +1,7 @@
 <template>
     <div class="popup-wrapper" :class="{'open': isOpen}">
 		<div class="background" @click="close(true)"></div>
-		<div class="content">
+		<div class="content" :style="'background-color: '+backgroundColor">
             <slot></slot>
         </div>
 	</div>
@@ -9,6 +9,13 @@
 
 <script>
     export default {
+        props: {
+            backgroundColor: {
+                type: String,
+                default: '#fff',
+            },
+        },
+
         data() {
             return {
                 isOpen: false,
@@ -26,12 +33,6 @@
                 if (shouldEmit) this.$emit('close')
             },
         },
-
-        watch: {
-            isOpen() {
-                document.documentElement.style.overflow = this.isOpen ? 'hidden' : 'initial'
-            },
-        }
     }
 </script>
 

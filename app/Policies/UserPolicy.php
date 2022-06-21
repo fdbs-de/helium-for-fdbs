@@ -12,17 +12,6 @@ class UserPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view any models.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function viewAny(User $user)
-    {
-        //
-    }
-
-    /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
@@ -57,9 +46,33 @@ class UserPolicy
         //
     }
 
+
+
+    public function manageRole(User $user, user $model)
+    {
+        // Check permissions
+        if (!$user->can(Permissions::CAN_EDIT_USERS)) return false;
+        
+        // Prevent user from assigning/revoking the super admin role
+        if (request()->role == Roles::SUPER_ADMIN) return false;
+
+        // Only allow super admins to assign/revoke the admin role
+        if (request()->role == Roles::ADMIN && !$user->hasAnyRole([Roles::SUPER_ADMIN])) return false;
+
+        // Only allow super admins and admins to assign/revoke the editor role
+        if (request()->role == Roles::EDITOR && !$user->hasAnyRole([Roles::SUPER_ADMIN, Roles::ADMIN])) return false;
+
+        return true;
+    }
+
+
+
     public function enable(User $user, user $model)
     {
         if (!$user->can(Permissions::CAN_EDIT_USERS)) return false;
+
+        // Prevent enabling self
+        if ($user->id == $model->id) return false;
 
         return true;
     }
@@ -70,8 +83,13 @@ class UserPolicy
     {
         if (!$user->can(Permissions::CAN_EDIT_USERS)) return false;
 
+        // Prevent disabling self
+        if ($user->id == $model->id) return false;
+
         return true;
     }
+
+    
 
     /**
      * Determine whether the user can delete the model.
@@ -92,14 +110,15 @@ class UserPolicy
         if ($model->hasRole(Roles::SUPER_ADMIN)) return false;
 
         // Prevent deleting admin
-        if ($model->hasRole(Roles::ADMIN)) return false;
+        if (!$user->hasRole(Roles::SUPER_ADMIN) && $model->hasRole(Roles::ADMIN)) return false;
 
         return true;
     }
 
     public function deleteProfile(User $user, user $model)
     {
-        if (!$user->can(Permissions::CAN_EDIT_USERS)) return false;
+        // Check permissions or if self
+        if (!$user->can(Permissions::CAN_EDIT_USERS) && $user->id != $model->id) return false;
 
         return true;
     }
