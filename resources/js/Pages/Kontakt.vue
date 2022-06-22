@@ -23,17 +23,21 @@
                             Fax: 0531 210 55 39<br>
                         </span>
                     </div>
-                    <form class="card" @submit.prevent>
+                    <form class="card" @submit.prevent="submit">
+                        <Alert type="info" title="Vielen Dank für Ihre Anfrage!" v-if="$page.props.flash.success">
+                            Wir haben Ihre Kontaktanfrage erhalten und werden Ihnen schnellsmöglich antworten.
+                        </Alert>
+
                         <h2 class="no-margin">Kontaktformular</h2>
     
                         <ValidationErrors />
     
-                        <mui-input type="text" no-border label="Ihr Name" required autocomplete="name"/>
-                        <mui-input type="email" no-border label="Ihre Email" required autocomplete="email"/>
-                        <mui-input type="textarea" class="textarea" no-border label="Nachricht" max="2000" required autocomplete="message"/>
+                        <mui-input type="text" no-border label="Ihr Name" required autocomplete="name" v-model="form.name"/>
+                        <mui-input type="email" no-border label="Ihre Email" required autocomplete="email" v-model="form.email"/>
+                        <mui-input type="textarea" class="textarea" no-border label="Nachricht" max="2000" required autocomplete="message" v-model="form.message"/>
     
                         <div class="flex center">
-                            <mui-toggle type="checkbox" class="checkbox" no-border>
+                            <mui-toggle type="checkbox" class="checkbox" no-border v-model="form.terms">
                                 <template #appendLabel>
                                     <span>
                                         Ich habe die <a target="_blank" :href="route('datenschutz')">Datenschutzerklärung</a> gelesen und akzeptiere diese.
@@ -41,7 +45,7 @@
                                 </template>
                             </mui-toggle>
                             <div class="spacer"></div>
-                            <mui-button type="submit" label="Absenden" :loading="false"/>
+                            <mui-button type="submit" label="Absenden" :loading="form.processing"/>
                         </div>
                     </form>
                 </div>
@@ -123,10 +127,30 @@
 </template>
 
 <script setup>
-    import { Head, Link } from '@inertiajs/inertia-vue3'
+    import { ref } from 'vue'
+    import { Head, Link, useForm } from '@inertiajs/inertia-vue3'
     import GuestLayout from '@/Layouts/Guest.vue'
     import ValidationErrors from '@/Components/ValidationErrors.vue'
     import StaffCard from '@/Components/Page/StaffCard.vue'
+    import Alert from '@/Components/Alert.vue'
+
+    const form = useForm({
+        email: '',
+        name: '',
+        message: '',
+        terms: false
+    })
+
+    const isSent = ref(false)
+
+    const submit = () => {
+        form.post(route('kontakt.send'), {
+            onSuccess: () => {
+                isSent.value = true
+                form.reset()
+            },
+        })
+    }
 </script>
 
 <style lang="sass" scoped>

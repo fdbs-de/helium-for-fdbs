@@ -58,9 +58,16 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $user ?? null,
             ],
+
             'ziggy' => function () {
                 return (new Ziggy)->toArray();
             },
+
+            'flash' => [
+                'message' => fn () => $request->session()->get('message'),
+                'success' => fn () => $request->session()->get('success'),
+                'error' => fn () => $request->session()->get('error'),
+            ],
         ]);
     }
 }

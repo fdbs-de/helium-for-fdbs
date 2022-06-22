@@ -96,6 +96,10 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
+    'addresses' => [
+        'user_inquiry' => env('USER_INQUIRY_EMAIL'),
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Markdown Mail Settings

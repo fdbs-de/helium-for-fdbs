@@ -1,17 +1,58 @@
 <template>
-    <TextSubLayout title="Technischer Kundendienst" has-small-limiter>
+    <ServiceSubLayout title="Technischer Kundendienst" image="/images/content/test_banner.jpg">
         <Head>
             <title>Produkte & Services: Technischer Kundendienst</title>
         </Head>
+
+        <template #ansprechpartner>
+            <StaffCard class="service-scroll-item" name="Annette Körner" link="tel:0531 210 55 24" label="0531 210 55 24" image="/images/content/test_pfp.jpg" alt="Portrait von "/>
+            <StaffCard class="service-scroll-item" name="Marcus Zetzsche" link="tel:0531 210 55 12" label="0531 210 55 12" image="/images/content/test_pfp.jpg" alt="Portrait von "/>
+        </template>
+
+        <p><strong>Reparatur und Durchsicht</strong></p>
+        <ul>
+            <li>Hand- und Druckluft-Clipper (Poly- und Technoclipper)</li>
+            <li>Kombidämpfer (Rational-Convotherm-Unox-Wiesheu)</li>
+            <li>Tisch- und Standvacuumgeräte (Röscher-Komet-Multivac-Boss)</li>
+            <li>Rauchanlagen (Fessmann und Bastra)</li>
+            <li>Kesselanlagen (Fessmann-Bastra-Brökelmann)</li>
+            <li>Bandsägen (EFA-Freund-Kolbe-Mado-Bizerba)</li>
+            <li>Allesschneider/Gemüseschneider (Treif-Alexander Solia)</li>
+            <li>Fleischwölfe (K+G-Seydelmann-Mado-Kolbe-Rex Düker)</li>
+            <li>Kutter (K+G-Seydelmann-Kilia-Rex Düker)</li>
+            <li>Füllmaschinen (Frey)</li>
+            <li>Pökelinjektoren (Günther-Hawerkamp)</li>
+            <li>Menger und Poltermaschinen (Stork+Herrmann-Röscher-Günther)</li>
+            <li>Dosen Verschließmaschinen (Lanico-Stiller)</li>
+            <li>Spülmaschinen (Hobart)</li>
+            <li>Betäubungsanlagen (Baumann)</li>
+        </ul>
+        <p><strong>Service</strong></p>
+        <ul>
+            <li>Elektroschweißarbeiten</li>
+            <li>Elektronikarbeiten</li>
+            <li>Rohrreinigung</li>
+            <li>Rissprüfung von Kuttermessern</li>
+            <li>Schleifarbeiten auf modernen Schleifmaschinen (Handmesser, Kuttermesser, Wolfscheiben)</li>
+            <li>Vorführung von Schaumreinigung in Ihrem Betrieb</li>
+            <li>Hackblock- und Schneidbrettbegradigung</li>
+            <li>Installation von Wasserfilteranlagen (Brita Filter)</li>
+        </ul>
+        <p><strong>Haben Sie noch Fragen?</strong></p>
+        <p><strong>Bitte sprechen Sie uns an.</strong></p>
+        <p>Wir sind gerne für Sie da!</p>
+        <p>&nbsp;</p>
+
+        <h3>Öffnungszeiten Werkstatt:</h3>
         <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque sunt nam quam voluptatibus, quibusdam
-            dolorum? Modi iste, consequuntur tempora ab recusandae nemo inventore accusantium consequatur reprehenderit,
-            voluptatibus esse expedita explicabo?
+            Mo - Do 7.00 - 16.00 Uhr<br>
+            Freitag 7.00 - 14.00 Uhr
         </p>
-    </TextSubLayout>
+    </ServiceSubLayout>
 </template>
 
 <script setup>
-import { Head, Link } from '@inertiajs/inertia-vue3'
-import TextSubLayout from '@/Layouts/SubLayouts/Text.vue'
+    import { Head, Link } from '@inertiajs/inertia-vue3'
+    import ServiceSubLayout from '@/Layouts/SubLayouts/Service.vue'
+    import StaffCard from '@/Components/Page/StaffCard.vue'
 </script>
