@@ -24,6 +24,11 @@ class StaticController extends Controller
         return Inertia::render('ProdukteUndServices/Index');
     }
 
+    public function indexAngebote()
+    {
+        return Inertia::render('ProdukteUndServices/Angebote');
+    }
+
     public function indexFoodservice()
     {
         return Inertia::render('ProdukteUndServices/Foodservice');

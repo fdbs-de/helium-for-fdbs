@@ -1,20 +1,16 @@
 <template>
-    <TextSubLayout title="Unsere Marken">
+    <TextSubLayout title="Unsere Aktuellen Angebote">
         <Head>
-            <title>Produkte & Services: Unsere Marken</title>
+            <title>Unsere Aktuellen Angebote</title>
         </Head>
         <div class="grid">
-            <Link class="item" :href="route('angebote')">
+            <a class="item" :href="route('angebote')">
                 <img src="/images/content/test_banner.jpg">
-            </Link>
+            </a>
 
-            <Link class="item" :href="route('foodservice')">
+            <a class="item" :href="route('foodservice')">
                 <img src="/images/content/test_banner.jpg">
-            </Link>
-
-            <Link class="item" :href="route('unsere-marken')">
-                <img src="/images/content/test_banner.jpg">
-            </Link>
+            </a>
         </div>
     </TextSubLayout>
 </template>
@@ -50,6 +46,6 @@
                 left: 0
                 width: 100%
                 height: 100%
-                object-fit: cover
+                object-fit: contain
                 transition: all 200ms
 </style>

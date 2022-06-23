@@ -7,6 +7,7 @@ export const mainMenu = [
         href: route('produkte-und-services'),
         icon: null,
         children: [
+            { id: 'angebote', label: 'Aktuelle Angebote', href: route('angebote'), icon: null, children: [] },
             { id: 'foodservice', label: 'Foodservice', href: route('foodservice'), icon: null, children: [] },
             { id: 'unsere-marken', label: 'Unsere Marken', href: route('unsere-marken'), icon: null, children: [] },
             { id: 'fachberatung-kaese-und-salate', label: 'Fachberatung Käse & Salate', href: route('fachberatung-kaese-und-salate'), icon: null, children: [] },
