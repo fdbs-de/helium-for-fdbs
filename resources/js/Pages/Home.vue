@@ -7,7 +7,7 @@
         <main>
             <section id="hero">
                 <div class="limiter">
-                    <img src="/images/content/test_banner.jpg" alt="FDBS">
+                    <img src="/images/content/slider/welcome_banner.png" alt="FDBS Willkommen; Bild von Jens Löser und Sebastian Gerlach">
                 </div>
             </section>
 
@@ -22,7 +22,7 @@
                         <Link :href="route('philosophie')">Mehr Über Uns</Link>
                     </div>
                     <div class="flex-1">
-                        <img src="/images/content/test_banner.jpg" alt="FDBS">
+                        <img src="/images/content/about.png" alt="FDBS">
                     </div>
                 </div>
             </section>
@@ -33,8 +33,7 @@
                         <span class="icon" aria-hidden="true">verified</span>
                         <h2>Angebote</h2>
                         <p>
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga quisquam totam
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga quisquam totam.
+                            Finden Sie unsere aktuellen Monats- und Grillangebot ganz einfach zum Download.
                         </p>
                         <Link :href="route('angebote')">Mehr Erfahren</Link>
                     </div>
@@ -42,8 +41,7 @@
                         <span class="icon" aria-hidden="true">work</span>
                         <h2>Karriere</h2>
                         <p>
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga quisquam totam
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga quisquam totam.
+                            Wir suchen Sie! Sehen Sie sich unsere aktuellen Stellenangebote an.
                         </p>
                         <Link :href="route('karriere')">Job Finden</Link>
                     </div>
@@ -51,10 +49,9 @@
                         <span class="icon" aria-hidden="true">content_paste</span>
                         <h2>Seminare</h2>
                         <p>
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga quisquam totam
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga quisquam totam.
+                            In Kürze werden Sie wieder unser breites Angebot von Seminaren und Workshops sehen.
                         </p>
-                        <Link :href="route('seminare')">Mehr Erfahren</Link>
+                        <!-- <Link :href="route('seminare')">Mehr Erfahren</Link> -->
                     </div>
                 </div>
             </section>
@@ -130,6 +127,24 @@ import GuestLayout from '@/Layouts/Guest.vue'
             margin-top: 0
             font-weight: 600
 
+        a
+            display: flex
+            align-items: center
+            justify-content: center
+            background: var(--color-primary)
+            color: var(--color-background)
+            width: 160px
+            border-radius: .5rem
+            height: 2.5rem
+            font-size: .8rem
+            letter-spacing: .05rem
+            font-weight: 500
+            text-transform: uppercase
+            text-decoration: none
+
+            &:hover
+                background: var(--color-primary-soft)
+
     section#general
         background: var(--color-primary)
         color: var(--color-background)
@@ -174,11 +189,9 @@ import GuestLayout from '@/Layouts/Guest.vue'
             font-weight: 500
             text-transform: uppercase
             text-decoration: none
-            transition: all .2s ease-in-out
 
             &:hover
-                color: var(--color-primary)
-                text-decoration: underline
+                background: var(--color-background-soft)
 
     section#products
         padding-block: 5rem
