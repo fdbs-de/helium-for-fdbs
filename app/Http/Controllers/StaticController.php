@@ -34,9 +34,9 @@ class StaticController extends Controller
         return Inertia::render('ProdukteUndServices/Foodservice');
     }
 
-    public function indexUnsereMarken()
+    public function indexMarken()
     {
-        return Inertia::render('ProdukteUndServices/UnsereMarken');
+        return Inertia::render('ProdukteUndServices/Marken');
     }
 
     public function indexFachberatungKaeseSalate()

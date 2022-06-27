@@ -16,16 +16,24 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [StaticController::class, 'indexHome'])->name('home');
 Route::get('/philosopie', [StaticController::class, 'indexPhilosophie'])->name('philosophie');
+
 Route::prefix('/produkte-und-services')->group(function () {
     Route::get('/', [StaticController::class, 'indexProdukteUndServices'])->name('produkte-und-services');
-    Route::get('/angebote', [StaticController::class, 'indexAngebote'])->name('angebote');
-    Route::get('/foodservice', [StaticController::class, 'indexFoodservice'])->name('foodservice');
-    Route::get('/unsere-marken', [StaticController::class, 'indexUnsereMarken'])->name('unsere-marken');
-    Route::get('/fachberatung-kaese-und-salate', [StaticController::class, 'indexFachberatungKaeseSalate'])->name('fachberatung-kaese-und-salate');
-    Route::get('/marketing-und-kommunikation', [StaticController::class, 'indexMarketingKommunikation'])->name('marketing-und-kommunikation');
-    Route::get('/technischer-kundendienst', [StaticController::class, 'indexTechnischerKundendienst'])->name('technischer-kundendienst');
-    Route::get('/seminare', [StaticController::class, 'indexSeminare'])->name('seminare');
+    Route::get('/angebote', [StaticController::class, 'indexAngebote'])->name('ps.angebote');
+    Route::get('/foodservice', [StaticController::class, 'indexFoodservice'])->name('ps.foodservice');
+    Route::get('/fachberatung-kaese-und-salate', [StaticController::class, 'indexFachberatungKaeseSalate'])->name('ps.fachberatung-kaese-und-salate');
+    Route::get('/marketing-und-kommunikation', [StaticController::class, 'indexMarketingKommunikation'])->name('ps.marketing-und-kommunikation');
+    Route::get('/technischer-kundendienst', [StaticController::class, 'indexTechnischerKundendienst'])->name('ps.technischer-kundendienst');
+    Route::get('/seminare', [StaticController::class, 'indexSeminare'])->name('ps.seminare');
+    
+    Route::prefix('/marken')->group(function () {
+        Route::get('/', [StaticController::class, 'indexMarken'])->name('ps.marken');
+        Route::get('/eichenhof', [StaticController::class, 'indexMarken'])->name('ps.marken.eichenhof');
+        Route::get('/il-campese', [StaticController::class, 'indexMarken'])->name('ps.marken.il-campese');
+        Route::get('/maxi-france', [StaticController::class, 'indexMarken'])->name('ps.marken.maxi-france');
+    });
 });
+
 Route::get('/karriere', [StaticController::class, 'indexKarriere'])->name('karriere');
 Route::get('/kontakt', [StaticController::class, 'indexKontakt'])->name('kontakt');
 Route::post('/kontakt', [StaticController::class, 'storeKontakt'])->name('kontakt.send');

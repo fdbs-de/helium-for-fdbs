@@ -4,19 +4,19 @@
             <p>Wir sind zertifiziert durch:</p>
             <div class="divider"></div>
             <div class="wrapper">
-                <a class="cert-wrapper" href="/downloads/qs_zertifikat_2022.pdf" target="_blank" rel="noopener noreferrer" style="border-radius: 0">
+                <a class="cert-wrapper" href="/downloads/zertifikate/qs_zertifikat_2022.pdf" target="_blank" rel="noopener noreferrer" style="border-radius: 0">
                     <img src="/images/zertifikate/qs_logo.jpg" alt="QS Zertifizierung">
                 </a>
-                <a class="cert-wrapper" href="/downloads/Bio_2022_A4.pdf" target="_blank" rel="noopener noreferrer">
+                <a class="cert-wrapper" href="/downloads/zertifikate/Bio_2022_A4.pdf" target="_blank" rel="noopener noreferrer">
                     <img src="/images/zertifikate/bio_logo.jpg" alt="Bio Zertifizierung">
                 </a>
-                <a class="cert-wrapper" href="/downloads/ifs_2022.pdf" target="_blank" rel="noopener noreferrer">
+                <a class="cert-wrapper" href="/downloads/zertifikate/ifs_2022.pdf" target="_blank" rel="noopener noreferrer">
                     <img src="/images/zertifikate/ifs_wholesale_logo.png" alt="IFS Wholesale Zertifizierung">
                 </a>
-                <a class="cert-wrapper" href="/downloads/Zertifikat_Orgainvent.pdf" target="_blank" rel="noopener noreferrer">
+                <a class="cert-wrapper" href="/downloads/zertifikate/Zertifikat_Orgainvent.pdf" target="_blank" rel="noopener noreferrer">
                     <img src="/images/zertifikate/orgainvent_logo.png" alt="Orgainvent Zertifizierung">
                 </a>
-                <a class="cert-wrapper" href="/downloads/CrefoZert_2020_2030012751_Fleischer_Dienst_Braunschweig_eG.pdf" target="_blank" rel="noopener noreferrer">
+                <a class="cert-wrapper" href="/downloads/zertifikate/CrefoZert_2020_2030012751_Fleischer_Dienst_Braunschweig_eG.pdf" target="_blank" rel="noopener noreferrer">
                     <img src="/images/zertifikate/crefo_logo.jpg" alt="CreFo Zertifizierung">
                 </a>
                 <div class="cert-wrapper" href="#" target="_blank" rel="noopener noreferrer">

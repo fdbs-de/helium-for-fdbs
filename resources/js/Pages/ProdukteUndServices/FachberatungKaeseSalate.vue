@@ -1,11 +1,11 @@
 <template>
-    <ServiceSubLayout title="Fachberatung Käse & Salate" image="/images/content/test_banner.jpg">
+    <ServiceSubLayout title="Fachberatung: Käse & Salate" image="/images/content/test_banner.jpg">
         <Head>
             <title>Produkte & Services: Fachberatung Käse & Salate</title>
         </Head>
 
         <template #ansprechpartner>
-            <StaffCard class="service-scroll-item" name="Elke Grigat" link="tel:0531 210 55 38" label="0531 210 55 38" image="/images/content/test_pfp.jpg" alt="Portrait von Elke Grigat"/>
+            <StaffCard class="service-scroll-item" name="Elke Grigat" link="tel:0531 210 55 38" label="0531 210 55 38" image="/images/content/mitarbeiter/elke_grigat.png" alt="Portrait von Elke Grigat"/>
         </template>
 
         <p>

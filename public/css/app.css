@@ -219,6 +219,10 @@ select:focus {
   color: var(--color-yellow);
 }
 
+.text-align-center {
+  text-align: center;
+}
+
 .md-icon {
   font-family: var(--font-icon);
   line-height: 1;

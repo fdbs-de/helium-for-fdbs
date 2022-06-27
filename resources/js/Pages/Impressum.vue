@@ -11,7 +11,7 @@
             <br>
             Tel.: <a href="tel:0531210550">0531 210 55 0</a><br>
             Fax: 0531 210 55 39<br>
-            E-Mail: <a href="mailto:info@fleisch-dienst.de">info@fleischer-dienst.de</a><br>
+            E-Mail: <a href="mailto:info@fdbs.de">info@fdbs.de</a><br>
             <br>
             Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz: DE 114814846<br>
             <br>

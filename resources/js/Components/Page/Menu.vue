@@ -189,7 +189,7 @@
                     font-weight: 500
                     color: inherit
 
-                > ul
+                ul
                     position: absolute
                     top: 100%
                     left: 50%
@@ -209,7 +209,20 @@
                     transform: translate(-50%, -10px)
 
                     > li
+                        width: 100%
                         color: var(--color-text)
+                        position: relative
+
+                        &.has-dropdown::after
+                            content: "arrow_right"
+                            position: absolute
+                            top: 50%
+                            right: 5px
+                            font-size: 1.5rem
+                            transform: translate(0, -50%)
+                            font-family: var(--font-icon)
+                            user-select: none
+                            pointer-events: none
 
                         > a
                             display: flex
@@ -226,9 +239,18 @@
                             > a
                                 background: var(--color-background-soft)
 
+                            > ul
+                                opacity: 1
+                                pointer-events: all
+                                transform: translate(0, 0)
+
                         &.active
                             color: var(--color-primary)
 
+                        > ul
+                            top: calc(-1 * var(--su) - 1px)
+                            left: 100%
+                            transform: translate(0, -10px)
     
 
     @media only screen and (max-width: 1000px)

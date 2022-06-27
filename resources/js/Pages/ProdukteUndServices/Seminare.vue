@@ -3,15 +3,20 @@
         <Head>
             <title>Produkte & Services: Seminare</title>
         </Head>
-        <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque sunt nam quam voluptatibus, quibusdam
-            dolorum? Modi iste, consequuntur tempora ab recusandae nemo inventore accusantium consequatur reprehenderit,
-            voluptatibus esse expedita explicabo?
-        </p>
+        <Alert icon="info" type="info" title="Inhalt folgt">
+            <span>
+                In Kürze werden Sie hier wieder unser breites Angebot an Seminaren und Workshops sehen.<br>
+                <br>
+                Bei Fragen wenden Sie sich bitte an <b>Elke Grigat</b>:<br>
+                Tel.: <a href="tel:0531 210 55 38">0531 210 55 38</a><br>
+                Email: <a href="mailto:eg@fdbs.de">eg@fdbs.de</a>
+            </span>
+        </Alert>
     </TextSubLayout>
 </template>
 
 <script setup>
-import { Head, Link } from '@inertiajs/inertia-vue3'
-import TextSubLayout from '@/Layouts/SubLayouts/Text.vue'
+    import { Head, Link } from '@inertiajs/inertia-vue3'
+    import TextSubLayout from '@/Layouts/SubLayouts/Text.vue'
+    import Alert from '@/Components/Alert.vue'
 </script>
