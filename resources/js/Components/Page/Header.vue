@@ -55,6 +55,10 @@
             align-items: center
             border: none
             height: 2.5rem
+            max-width: 145px
+            white-space: nowrap
+            overflow: hidden
+            text-overflow: ellipsis
             padding-inline: 1rem
             border-radius: calc(var(--su) * .5)
             background: var(--color-primary)

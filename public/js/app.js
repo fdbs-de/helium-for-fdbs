@@ -25718,6 +25718,7 @@ __webpack_require__.r(__webpack_exports__);
   name: 'Text',
   props: {
     title: String,
+    image: String,
     hasSmallLimiter: {
       type: Boolean,
       "default": false
@@ -27207,6 +27208,120 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/ProdukteUndServices/Marken/Eichenhof.vue?vue&type=script&setup=true&lang=js":
+/*!************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/ProdukteUndServices/Marken/Eichenhof.vue?vue&type=script&setup=true&lang=js ***!
+  \************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-vue3 */ "./node_modules/@inertiajs/inertia-vue3/dist/index.js");
+/* harmony import */ var _Layouts_SubLayouts_Text_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Layouts/SubLayouts/Text.vue */ "./resources/js/Layouts/SubLayouts/Text.vue");
+/* harmony import */ var _Components_Page_Card_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Components/Page/Card.vue */ "./resources/js/Components/Page/Card.vue");
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'Eichenhof',
+  setup: function setup(__props, _ref) {
+    var expose = _ref.expose;
+    expose();
+    var __returned__ = {
+      Head: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.Head,
+      Link: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.Link,
+      TextSubLayout: _Layouts_SubLayouts_Text_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+      Card: _Components_Page_Card_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+    };
+    Object.defineProperty(__returned__, '__isScriptSetup', {
+      enumerable: false,
+      value: true
+    });
+    return __returned__;
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/ProdukteUndServices/Marken/IlCampese.vue?vue&type=script&setup=true&lang=js":
+/*!************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/ProdukteUndServices/Marken/IlCampese.vue?vue&type=script&setup=true&lang=js ***!
+  \************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-vue3 */ "./node_modules/@inertiajs/inertia-vue3/dist/index.js");
+/* harmony import */ var _Layouts_SubLayouts_Text_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Layouts/SubLayouts/Text.vue */ "./resources/js/Layouts/SubLayouts/Text.vue");
+/* harmony import */ var _Components_Page_Card_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Components/Page/Card.vue */ "./resources/js/Components/Page/Card.vue");
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'IlCampese',
+  setup: function setup(__props, _ref) {
+    var expose = _ref.expose;
+    expose();
+    var __returned__ = {
+      Head: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.Head,
+      Link: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.Link,
+      TextSubLayout: _Layouts_SubLayouts_Text_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+      Card: _Components_Page_Card_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+    };
+    Object.defineProperty(__returned__, '__isScriptSetup', {
+      enumerable: false,
+      value: true
+    });
+    return __returned__;
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/ProdukteUndServices/Marken/MaxiFrance.vue?vue&type=script&setup=true&lang=js":
+/*!*************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/ProdukteUndServices/Marken/MaxiFrance.vue?vue&type=script&setup=true&lang=js ***!
+  \*************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-vue3 */ "./node_modules/@inertiajs/inertia-vue3/dist/index.js");
+/* harmony import */ var _Layouts_SubLayouts_Text_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Layouts/SubLayouts/Text.vue */ "./resources/js/Layouts/SubLayouts/Text.vue");
+/* harmony import */ var _Components_Page_Card_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Components/Page/Card.vue */ "./resources/js/Components/Page/Card.vue");
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'MaxiFrance',
+  setup: function setup(__props, _ref) {
+    var expose = _ref.expose;
+    expose();
+    var __returned__ = {
+      Head: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.Head,
+      Link: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.Link,
+      TextSubLayout: _Layouts_SubLayouts_Text_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+      Card: _Components_Page_Card_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+    };
+    Object.defineProperty(__returned__, '__isScriptSetup', {
+      enumerable: false,
+      value: true
+    });
+    return __returned__;
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/ProdukteUndServices/MarketingKommunikation.vue?vue&type=script&setup=true&lang=js":
 /*!******************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/ProdukteUndServices/MarketingKommunikation.vue?vue&type=script&setup=true&lang=js ***!
@@ -28549,20 +28664,22 @@ var _withScopeId = function _withScopeId(n) {
 };
 
 var _hoisted_1 = {
-  id: "hero-section"
-};
-var _hoisted_2 = {
   "class": "limiter"
 };
-var _hoisted_3 = {
+var _hoisted_2 = {
   id: "content-section"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["GuestLayout"], null, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("main", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.title), 1
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("main", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", {
+        id: "hero-section",
+        style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)('background-image: url(' + ($props.image || '') + ')')
+      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.title), 1
       /* TEXT */
-      )])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+      )])], 4
+      /* STYLE */
+      ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
         "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["limiter", {
           'text-limiter': $props.hasSmallLimiter
         }])
@@ -32057,6 +32174,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         image: "/images/content/mitarbeiter/timo_welskop.png",
         alt: "Portrait von "
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        name: "Kathrin Reviliak",
+        job: "Stlv. Leitung Fuhrpark",
+        link: "tel:0531 210 55 56",
+        label: "0531 210 55 56",
+        image: "/images/content/mitarbeiter/missing.png",
+        alt: "Portrait von "
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
         name: "Tobias Behnstedt",
         job: "Leitung Fleischabteilung",
         link: "tel:0531 210 55 26",
@@ -32083,14 +32207,6 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         link: "tel:0531 210 55 12",
         label: "0531 210 55 12",
         image: "/images/content/mitarbeiter/marcus_zetzsche.png",
-        alt: "Portrait von "
-      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
-        name: "Karsten Strothmann",
-        job: "Fachberater Geräte/Maschinen",
-        color: "#2f3542",
-        link: "tel:0531 210 55 41",
-        label: "0531 210 55 41",
-        image: "/images/content/mitarbeiter/missing.png",
         alt: "Portrait von "
       })])])])])];
     }),
@@ -32563,32 +32679,355 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Card"], {
         cover: "",
-        "new-window": "",
-        "aspect-ratio": "16/9",
-        name: "Eichehof",
-        image: "/images/content/test_banner.jpg",
+        name: "Eichenhof",
+        image: "/images/content/marken/eichenhof/eichenhof_card.png",
         link: _ctx.route('ps.marken.eichenhof')
       }, null, 8
       /* PROPS */
       , ["link"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Card"], {
         cover: "",
-        "new-window": "",
-        "aspect-ratio": "16/9",
         name: "Il Campese",
-        image: "/images/content/test_banner.jpg",
+        image: "/images/content/marken/il-campese/ilcampese_card.png",
         link: _ctx.route('ps.marken.il-campese')
       }, null, 8
       /* PROPS */
       , ["link"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Card"], {
         cover: "",
-        "new-window": "",
-        "aspect-ratio": "16/9",
         name: "Maxi France",
-        image: "/images/content/test_banner.jpg",
+        image: "/images/content/marken/maxi-france/maxifrance_card.png",
         link: _ctx.route('ps.marken.maxi-france')
       }, null, 8
       /* PROPS */
       , ["link"])])];
+    }),
+    _: 1
+    /* STABLE */
+
+  });
+}
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/ProdukteUndServices/Marken/Eichenhof.vue?vue&type=template&id=154d02fe&scoped=true":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/ProdukteUndServices/Marken/Eichenhof.vue?vue&type=template&id=154d02fe&scoped=true ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+
+var _withScopeId = function _withScopeId(n) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.pushScopeId)("data-v-154d02fe"), n = n(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.popScopeId)(), n;
+};
+
+var _hoisted_1 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("title", null, "Eichenhof Markenfleisch", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_2 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "logo-wrapper"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    src: "/images/content/marken/eichenhof/eichenhof_logo.png",
+    alt: "Eichenhof Markenfleisch"
+  })], -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_3 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Qualität, Sicherheit, Vertrauen."), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Denn bei uns kommt alles aus einer starken Gemeinschaft. ")]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "Keine schwarzen Schafe, nur gesunde Schweine"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Eichenhof ist das Markenfleisch der Erzeugergemeinschaft Osnabrück (EGO), das von den Eichenhof-Landwirten erzeugt wird. Die rund 500 bäuerlichen Familienbetriebe aus dem Osnabrücker Land sind Mitglieder der EGO – oftmals schon seit Jahrzehnten – und in die geschlossene Erzeugungskette integriert. Zur Einhaltung der Richtlinien haben sie sich freiwillig verpflichtet. Zudem hat jeder Landwirt sein Fachwissen und die Sorgfalt im Umgang mit Land, Tier und Mensch nachgewiesen. ")], -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_4 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "Unsere Eichenhof-Garantie:")], -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_5 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "vollständig geschlossene Erzeugung bei 500 bäuerlichen Familienbetrieben im Osnabrücker Land"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "alle Eichenhof-Landwirte haften als Mitglieder mit ihrem Kapital für die strenge Einhaltung der Erzeugungs-Richtlinien"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "schonender Umgang mit Tier und Natur"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "kein Einsatz von Wachstumsförderern, Antibiotika oder Tiermehlen"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "handwerkliche Schlachtung"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "jährliche TÜV-Prüfung der gesamten Erzeugungskette"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "beste Ergebnisse bei QS-Kontrollen")], -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_6 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, " ", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_7 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Für weitere Informationen besuchen Sie bitte die Homepage "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+    href: "http://eichenhof.net",
+    target: "_blank",
+    rel: "noopener",
+    title: "Eichenhof Markenfleisch"
+  }, "www.eichenhof.net"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" oder laden Sie sich hier unsere Informationsbroschüre herunter:"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br")], -1
+  /* HOISTED */
+  );
+});
+
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["TextSubLayout"], {
+    title: "Eichenhof Markenfleisch",
+    "has-small-limiter": ""
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Head"], null, {
+        "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [_hoisted_1];
+        }),
+        _: 1
+        /* STABLE */
+
+      }), _hoisted_2, _hoisted_3, _hoisted_4, _hoisted_5, _hoisted_6, _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Card"], {
+        "new-window": "",
+        "aspect-ratio": "16/9",
+        name: "Eichenhof Broschüre (Download)",
+        image: "/images/content/marken/eichenhof/eichenhof_imagebroschure.jpg",
+        link: "/downloads/marken/eichenhof/eichenhof_imagebroschure.pdf"
+      })];
+    }),
+    _: 1
+    /* STABLE */
+
+  });
+}
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/ProdukteUndServices/Marken/IlCampese.vue?vue&type=template&id=55da83a7&scoped=true":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/ProdukteUndServices/Marken/IlCampese.vue?vue&type=template&id=55da83a7&scoped=true ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+
+var _withScopeId = function _withScopeId(n) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.pushScopeId)("data-v-55da83a7"), n = n(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.popScopeId)(), n;
+};
+
+var _hoisted_1 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("title", null, "Il Campese", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_2 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, " Die Story des mediterranen Freilandhähnchens Amadori wurde 1969 in San Vittore di Cesena gegründet. Das Familienunternehmen, dass sich in der zweiten Generation befindet, verbindet Tradition und Innovation. ", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_3 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Das IFS zertifizierte Unternehmen profitiert von der langjährigen Erfahrung und Expertise seiner Mitarbeiter, die jeden Tag mit Leidenschaft daran arbeiten, ihren Endverbrauchern frische, gesunde und schmackhafte Produkte anbieten zu können. Zum Erfolgsrezept des Unternehmens gehört essenziell die Versorgungskette."), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Denn Amadori ist ein echter Selbstversorger: Futterherstellung, Zuchtfarmen, Brütereien und Aufzucht der sowohl männlichen als auch weiblichen Tiere. So kann die Firma die angemessene Fütterung und Aufzucht der Tiere, die schnelle und sichere Zulieferung sowie die Qualität ihrer Produkte garantieren. ")], -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_4 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, " „Il Campese Hubbard JA57“ ist der Name der eigenen Rasse. Dabei werden stets hohe internationale Standards berücksichtigt: Die Tiere werden mit Freilandhaltung in der Region Apulien gehalten, mit einem sehr mediterranen Klima, mit 100% pflanzlicher Ernährung, davon 20 % Mais, was sich in Geschmack und Optik widerspiegelt. ", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_5 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, " Auf den Einsatz von Antibiotika und Gentechnik wird verzichtet. Tierwohl wird hier großgeschrieben. Die hohen Standards hat sich das Unternehmen selbst gesetzt und durch Zertifikate untermauert. ", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_6 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, " ", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_7 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, "Warum Il Campese-Hähnchen so gut ist:", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_8 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "Ohne Gentechnik (GVO)"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "Keine Antibiotika"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "100 % pflanzliche Fütterung, mit 20 % Maisanteil"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "Tierwohl durch mehr Platz"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "Kurze Transportwege")], -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_9 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_10 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "item-wrapper flex v-center gap",
+    style: {
+      "padding": "1rem",
+      "background": "var(--color-background-soft)",
+      "border-radius": "0.5rem"
+    }
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    width: "140",
+    src: "/images/content/marken/il-campese/italien_lage.png",
+    alt: "Herkunft"
+  }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "flex-1"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", null, "Herkunft"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Region Apulien in Süd-Italien")])], -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_11 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, " ", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_12 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, "Die Il Campese-Produktvielfalt", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_13 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Für Bedienungs- und SB-Theken!", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_14 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    src: "/images/content/marken/il-campese//campese_produkte.jpg",
+    alt: "Il Campese Produktauswahl",
+    style: {
+      "width": "100%",
+      "border-radius": "0.5rem"
+    }
+  })], -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_15 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "order-wrapper"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Jetzt bestellen: "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", null, "0531 210 55 23")], -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_16 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, " ", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_17 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, " ", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_18 = {
+  "class": "item-wrapper flex gap"
+};
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["TextSubLayout"], {
+    title: "Il Campese",
+    image: "/images/content/marken/il-campese/header.jpg",
+    "has-small-limiter": ""
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Head"], null, {
+        "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [_hoisted_1];
+        }),
+        _: 1
+        /* STABLE */
+
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"logo-wrapper\">\r\n            <img src=\"/images/content/marken/eichenhof/eichenhof_logo.png\" alt=\"Il Campese\" />\r\n        </div> "), _hoisted_2, _hoisted_3, _hoisted_4, _hoisted_5, _hoisted_6, _hoisted_7, _hoisted_8, _hoisted_9, _hoisted_10, _hoisted_11, _hoisted_12, _hoisted_13, _hoisted_14, _hoisted_15, _hoisted_16, _hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Card"], {
+        "class": "flex-1",
+        "new-window": "",
+        "aspect-ratio": "16/9",
+        name: "Il Campese Broschüre (Download)",
+        image: "/images/content/marken/il-campese/italfino_amadori.jpg",
+        link: "/downloads/marken/il-campese/ilcampese_broschure.pdf"
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Card"], {
+        "class": "flex-1",
+        "new-window": "",
+        "aspect-ratio": "16/9",
+        name: "Il Campese Rezepte (Download)",
+        image: "/images/content/marken/il-campese/campese_rezepte.jpg",
+        link: "/downloads/marken/il-campese/ilcampese_rezeptflyer.pdf"
+      })])];
+    }),
+    _: 1
+    /* STABLE */
+
+  });
+}
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/ProdukteUndServices/Marken/MaxiFrance.vue?vue&type=template&id=350a103c&scoped=true":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/ProdukteUndServices/Marken/MaxiFrance.vue?vue&type=template&id=350a103c&scoped=true ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+
+var _withScopeId = function _withScopeId(n) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.pushScopeId)("data-v-350a103c"), n = n(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.popScopeId)(), n;
+};
+
+var _hoisted_1 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("title", null, "Maxi France", -1
+  /* HOISTED */
+  );
+});
+
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["TextSubLayout"], {
+    title: "Maxi France",
+    "has-small-limiter": ""
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Head"], null, {
+        "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [_hoisted_1];
+        }),
+        _: 1
+        /* STABLE */
+
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"logo-wrapper\">\r\n            <img src=\"/images/content/marken/eichenhof/eichenhof_logo.png\" alt=\"Maxi France\">\r\n        </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <Card new-window aspect-ratio=\"16/9\" name=\"Eichenhof Broschüre (Download)\" image=\"/images/content/marken/eichenhof/eichenhof_imagebroschure.jpg\" link=\"/downloads/marken/eichenhof/eichenhof_imagebroschure.pdf\"/> ")];
     }),
     _: 1
     /* STABLE */
@@ -33560,7 +33999,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "#header[data-v-5218529c] {\n  position: fixed;\n  top: 0;\n  left: 0;\n  z-index: 1000;\n  width: 100%;\n  height: var(--height-header);\n  background-color: rgba(255, 255, 255, 0.8509803922);\n  -webkit-backdrop-filter: blur(20px);\n          backdrop-filter: blur(20px);\n}\n#header .limiter[data-v-5218529c] {\n  height: 100%;\n  display: flex;\n  align-items: center;\n  gap: var(--su);\n}\n#header .limiter .spacer[data-v-5218529c] {\n  flex: 1;\n}\n#header #menu[data-v-5218529c] {\n  padding-inline: var(--su);\n}\n#header #header-logo[data-v-5218529c] {\n  height: var(--height-header);\n  padding-block: 0.5rem;\n  aspect-ratio: 2/1;\n}\n#header .login-button[data-v-5218529c] {\n  display: flex;\n  align-items: center;\n  border: none;\n  height: 2.5rem;\n  padding-inline: 1rem;\n  border-radius: calc(var(--su) * 0.5);\n  background: var(--color-primary);\n  color: var(--color-background);\n  font-family: inherit;\n  line-height: 1;\n  font-size: 0.8rem;\n  font-weight: 500;\n  letter-spacing: 0.05rem;\n  text-transform: uppercase;\n  cursor: pointer;\n}\n#header .login-button[data-v-5218529c]:focus, #header .login-button[data-v-5218529c]:hover {\n  background-color: var(--color-primary-soft);\n}\n@media only screen and (max-width: 1000px) {\n#header #menu[data-v-5218529c] {\n    order: 3;\n    padding: 0;\n}\n}\n@media only screen and (max-width: 500px) {\n#header .limiter[data-v-5218529c] {\n    gap: 0;\n}\n#header .limiter .login-button[data-v-5218529c] {\n    padding: 0;\n    margin-inline: 0 var(--su);\n    color: var(--color-primary);\n    background: transparent;\n    border-radius: 0;\n}\n}", "",{"version":3,"sources":["webpack://./resources/js/Components/Page/Header.vue"],"names":[],"mappings":"AACI;EACI,eAAA;EACA,MAAA;EACA,OAAA;EACA,aAAA;EACA,WAAA;EACA,4BAAA;EACA,mDAAA;EACA,mCAAA;UAAA,2BAAA;AAAR;AAEQ;EACI,YAAA;EACA,aAAA;EACA,mBAAA;EACA,cAAA;AAAZ;AAEY;EACI,OAAA;AAAhB;AAEQ;EACI,yBAAA;AAAZ;AAEQ;EACI,4BAAA;EACA,qBAAA;EACA,iBAAA;AAAZ;AAEQ;EACI,aAAA;EACA,mBAAA;EACA,YAAA;EACA,cAAA;EACA,oBAAA;EACA,oCAAA;EACA,gCAAA;EACA,8BAAA;EACA,oBAAA;EACA,cAAA;EACA,iBAAA;EACA,gBAAA;EACA,uBAAA;EACA,yBAAA;EACA,eAAA;AAAZ;AAEY;EAEI,2CAAA;AADhB;AAGI;AAEQ;IACI,QAAA;IACA,UAAA;AADd;AACF;AAEI;AAEQ;IACI,MAAA;AADd;AAGc;IACI,UAAA;IACA,0BAAA;IACA,2BAAA;IACA,uBAAA;IACA,gBAAA;AADlB;AACF","sourcesContent":["\r\n    #header\r\n        position: fixed\r\n        top: 0\r\n        left: 0\r\n        z-index: 1000\r\n        width: 100%\r\n        height: var(--height-header)\r\n        background-color: #ffffffd9\r\n        backdrop-filter: blur(20px)\r\n\r\n        .limiter\r\n            height: 100%\r\n            display: flex\r\n            align-items: center\r\n            gap: var(--su)\r\n\r\n            .spacer\r\n                flex: 1\r\n\r\n        #menu\r\n            padding-inline: var(--su)\r\n\r\n        #header-logo\r\n            height: var(--height-header)\r\n            padding-block: .5rem\r\n            aspect-ratio: 2/1\r\n\r\n        .login-button\r\n            display: flex\r\n            align-items: center\r\n            border: none\r\n            height: 2.5rem\r\n            padding-inline: 1rem\r\n            border-radius: calc(var(--su) * .5)\r\n            background: var(--color-primary)\r\n            color: var(--color-background)\r\n            font-family: inherit\r\n            line-height: 1\r\n            font-size: .8rem\r\n            font-weight: 500\r\n            letter-spacing: .05rem\r\n            text-transform: uppercase\r\n            cursor: pointer\r\n\r\n            &:focus,\r\n            &:hover\r\n                background-color: var(--color-primary-soft)\r\n\r\n    @media only screen and (max-width: 1000px)\r\n        #header\r\n            #menu\r\n                order: 3\r\n                padding: 0\r\n\r\n    @media only screen and (max-width: 500px)\r\n        #header\r\n            .limiter\r\n                gap: 0\r\n\r\n                .login-button\r\n                    padding: 0\r\n                    margin-inline: 0 var(--su)\r\n                    color: var(--color-primary)\r\n                    background: transparent\r\n                    border-radius: 0\r\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "#header[data-v-5218529c] {\n  position: fixed;\n  top: 0;\n  left: 0;\n  z-index: 1000;\n  width: 100%;\n  height: var(--height-header);\n  background-color: rgba(255, 255, 255, 0.8509803922);\n  -webkit-backdrop-filter: blur(20px);\n          backdrop-filter: blur(20px);\n}\n#header .limiter[data-v-5218529c] {\n  height: 100%;\n  display: flex;\n  align-items: center;\n  gap: var(--su);\n}\n#header .limiter .spacer[data-v-5218529c] {\n  flex: 1;\n}\n#header #menu[data-v-5218529c] {\n  padding-inline: var(--su);\n}\n#header #header-logo[data-v-5218529c] {\n  height: var(--height-header);\n  padding-block: 0.5rem;\n  aspect-ratio: 2/1;\n}\n#header .login-button[data-v-5218529c] {\n  display: flex;\n  align-items: center;\n  border: none;\n  height: 2.5rem;\n  max-width: 145px;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  padding-inline: 1rem;\n  border-radius: calc(var(--su) * 0.5);\n  background: var(--color-primary);\n  color: var(--color-background);\n  font-family: inherit;\n  line-height: 1;\n  font-size: 0.8rem;\n  font-weight: 500;\n  letter-spacing: 0.05rem;\n  text-transform: uppercase;\n  cursor: pointer;\n}\n#header .login-button[data-v-5218529c]:focus, #header .login-button[data-v-5218529c]:hover {\n  background-color: var(--color-primary-soft);\n}\n@media only screen and (max-width: 1000px) {\n#header #menu[data-v-5218529c] {\n    order: 3;\n    padding: 0;\n}\n}\n@media only screen and (max-width: 500px) {\n#header .limiter[data-v-5218529c] {\n    gap: 0;\n}\n#header .limiter .login-button[data-v-5218529c] {\n    padding: 0;\n    margin-inline: 0 var(--su);\n    color: var(--color-primary);\n    background: transparent;\n    border-radius: 0;\n}\n}", "",{"version":3,"sources":["webpack://./resources/js/Components/Page/Header.vue"],"names":[],"mappings":"AACI;EACI,eAAA;EACA,MAAA;EACA,OAAA;EACA,aAAA;EACA,WAAA;EACA,4BAAA;EACA,mDAAA;EACA,mCAAA;UAAA,2BAAA;AAAR;AAEQ;EACI,YAAA;EACA,aAAA;EACA,mBAAA;EACA,cAAA;AAAZ;AAEY;EACI,OAAA;AAAhB;AAEQ;EACI,yBAAA;AAAZ;AAEQ;EACI,4BAAA;EACA,qBAAA;EACA,iBAAA;AAAZ;AAEQ;EACI,aAAA;EACA,mBAAA;EACA,YAAA;EACA,cAAA;EACA,gBAAA;EACA,mBAAA;EACA,gBAAA;EACA,uBAAA;EACA,oBAAA;EACA,oCAAA;EACA,gCAAA;EACA,8BAAA;EACA,oBAAA;EACA,cAAA;EACA,iBAAA;EACA,gBAAA;EACA,uBAAA;EACA,yBAAA;EACA,eAAA;AAAZ;AAEY;EAEI,2CAAA;AADhB;AAGI;AAEQ;IACI,QAAA;IACA,UAAA;AADd;AACF;AAEI;AAEQ;IACI,MAAA;AADd;AAGc;IACI,UAAA;IACA,0BAAA;IACA,2BAAA;IACA,uBAAA;IACA,gBAAA;AADlB;AACF","sourcesContent":["\r\n    #header\r\n        position: fixed\r\n        top: 0\r\n        left: 0\r\n        z-index: 1000\r\n        width: 100%\r\n        height: var(--height-header)\r\n        background-color: #ffffffd9\r\n        backdrop-filter: blur(20px)\r\n\r\n        .limiter\r\n            height: 100%\r\n            display: flex\r\n            align-items: center\r\n            gap: var(--su)\r\n\r\n            .spacer\r\n                flex: 1\r\n\r\n        #menu\r\n            padding-inline: var(--su)\r\n\r\n        #header-logo\r\n            height: var(--height-header)\r\n            padding-block: .5rem\r\n            aspect-ratio: 2/1\r\n\r\n        .login-button\r\n            display: flex\r\n            align-items: center\r\n            border: none\r\n            height: 2.5rem\r\n            max-width: 145px\r\n            white-space: nowrap\r\n            overflow: hidden\r\n            text-overflow: ellipsis\r\n            padding-inline: 1rem\r\n            border-radius: calc(var(--su) * .5)\r\n            background: var(--color-primary)\r\n            color: var(--color-background)\r\n            font-family: inherit\r\n            line-height: 1\r\n            font-size: .8rem\r\n            font-weight: 500\r\n            letter-spacing: .05rem\r\n            text-transform: uppercase\r\n            cursor: pointer\r\n\r\n            &:focus,\r\n            &:hover\r\n                background-color: var(--color-primary-soft)\r\n\r\n    @media only screen and (max-width: 1000px)\r\n        #header\r\n            #menu\r\n                order: 3\r\n                padding: 0\r\n\r\n    @media only screen and (max-width: 500px)\r\n        #header\r\n            .limiter\r\n                gap: 0\r\n\r\n                .login-button\r\n                    padding: 0\r\n                    margin-inline: 0 var(--su)\r\n                    color: var(--color-primary)\r\n                    background: transparent\r\n                    border-radius: 0\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -33749,7 +34188,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "#hero-section[data-v-2875871f] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin-top: var(--height-header);\n  height: 300px;\n  background: var(--color-background-soft);\n}\n#hero-section h1[data-v-2875871f] {\n  color: var(--color-primary);\n  text-align: center;\n}\n#content-section[data-v-2875871f] {\n  padding-block: 4rem;\n}\n@media only screen and (max-width: 500px) {\n#hero-section[data-v-2875871f] {\n    height: 200px;\n}\n}", "",{"version":3,"sources":["webpack://./resources/js/Layouts/SubLayouts/Text.vue"],"names":[],"mappings":"AACI;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,gCAAA;EACA,aAAA;EACA,wCAAA;AAAR;AAEQ;EACI,2BAAA;EACA,kBAAA;AAAZ;AAEI;EACI,mBAAA;AACR;AACI;AACI;IACI,aAAA;AAEV;AACF","sourcesContent":["\r\n    #hero-section\r\n        display: flex\r\n        align-items: center\r\n        justify-content: center\r\n        margin-top: var(--height-header)\r\n        height: 300px\r\n        background: var(--color-background-soft)\r\n\r\n        h1\r\n            color: var(--color-primary)\r\n            text-align: center\r\n\r\n    #content-section\r\n        padding-block: 4rem\r\n\r\n    @media only screen and (max-width: 500px)\r\n        #hero-section\r\n            height: 200px\r\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "#hero-section[data-v-2875871f] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin-top: var(--height-header);\n  height: 300px;\n  background-color: var(--color-background-soft);\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n}\n#hero-section h1[data-v-2875871f] {\n  color: var(--color-primary);\n  text-align: center;\n}\n#content-section[data-v-2875871f] {\n  padding-block: 4rem;\n}\n@media only screen and (max-width: 500px) {\n#hero-section[data-v-2875871f] {\n    height: 200px;\n}\n}", "",{"version":3,"sources":["webpack://./resources/js/Layouts/SubLayouts/Text.vue"],"names":[],"mappings":"AACI;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,gCAAA;EACA,aAAA;EACA,8CAAA;EACA,2BAAA;EACA,4BAAA;EACA,sBAAA;AAAR;AAEQ;EACI,2BAAA;EACA,kBAAA;AAAZ;AAEI;EACI,mBAAA;AACR;AACI;AACI;IACI,aAAA;AAEV;AACF","sourcesContent":["\r\n    #hero-section\r\n        display: flex\r\n        align-items: center\r\n        justify-content: center\r\n        margin-top: var(--height-header)\r\n        height: 300px\r\n        background-color: var(--color-background-soft)\r\n        background-position: center\r\n        background-repeat: no-repeat\r\n        background-size: cover\r\n\r\n        h1\r\n            color: var(--color-primary)\r\n            text-align: center\r\n\r\n    #content-section\r\n        padding-block: 4rem\r\n\r\n    @media only screen and (max-width: 500px)\r\n        #hero-section\r\n            height: 200px\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -33965,7 +34404,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "main[data-v-6a63e488] {\n  display: flex;\n  flex-direction: column;\n}\nsection#hero[data-v-6a63e488] {\n  display: flex;\n  margin-top: var(--height-header);\n  width: 100%;\n  background: var(--color-background-soft);\n}\nsection#hero .limiter[data-v-6a63e488] {\n  display: flex;\n}\nsection#hero img[data-v-6a63e488] {\n  width: 100%;\n  border-radius: 0;\n}\nsection#about[data-v-6a63e488] {\n  padding-block: 7rem;\n}\nsection#about .about-card[data-v-6a63e488] {\n  background: var(--color-background-soft);\n  border-radius: 12px;\n  display: flex;\n  overflow: hidden;\n}\nsection#about .about-card .text-wrapper[data-v-6a63e488] {\n  width: 50%;\n  padding: 2rem;\n}\nsection#about .about-card .text-wrapper h2[data-v-6a63e488] {\n  margin: 0;\n  font-weight: 600;\n}\nsection#about .about-card .text-wrapper a[data-v-6a63e488] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  background: var(--color-primary);\n  color: var(--color-background);\n  width: 160px;\n  border-radius: 0.5rem;\n  height: 2.5rem;\n  font-size: 0.8rem;\n  letter-spacing: 0.05rem;\n  font-weight: 500;\n  text-transform: uppercase;\n  text-decoration: none;\n}\nsection#about .about-card .text-wrapper a[data-v-6a63e488]:hover {\n  background: var(--color-primary-soft);\n}\nsection#about .about-card .image-wrapper[data-v-6a63e488] {\n  flex: 1;\n}\nsection#about .about-card .image-wrapper img[data-v-6a63e488] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  display: flex;\n}\nsection#general[data-v-6a63e488] {\n  background: var(--color-primary);\n  color: var(--color-background);\n  padding-block: 5rem;\n}\nsection#general .limiter[data-v-6a63e488] {\n  gap: 2rem;\n}\nsection#general .flex-1[data-v-6a63e488] {\n  border: 2px solid var(--color-primary-soft);\n  width: 100%;\n  border-radius: 0.7rem;\n  padding: 0 2rem 2rem;\n  margin-top: 2.5rem;\n}\nsection#general .icon[data-v-6a63e488] {\n  height: 5rem;\n  width: 5rem;\n  border: 2px solid var(--color-primary-soft);\n  color: var(--color-background);\n  background: var(--color-primary);\n  border-radius: 0.8rem;\n  display: grid;\n  place-items: center;\n  font-size: 2.5rem;\n  font-family: var(--font-icon);\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  margin: -2.5rem auto 2rem;\n}\nsection#general h2[data-v-6a63e488] {\n  margin-block: 0 0.5rem;\n  color: inherit;\n  font-weight: 500;\n}\nsection#general p[data-v-6a63e488] {\n  margin: 0;\n  opacity: 0.9;\n  margin-bottom: 2rem;\n}\nsection#general a[data-v-6a63e488] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  background: var(--color-background);\n  width: 100%;\n  border-radius: 0.325rem;\n  height: 2.5rem;\n  font-size: 0.8rem;\n  letter-spacing: 0.05rem;\n  font-weight: 500;\n  text-transform: uppercase;\n  text-decoration: none;\n}\nsection#general a[data-v-6a63e488]:hover {\n  background: var(--color-background-soft);\n}\nsection#products[data-v-6a63e488] {\n  padding-block: 7rem;\n}\nsection#products h2[data-v-6a63e488] {\n  margin: 0;\n  font-weight: 600;\n  font-size: 3.5em;\n}\nsection#products p[data-v-6a63e488] {\n  margin: 0;\n  font-size: 1.3em;\n}\nsection#products .grid[data-v-6a63e488] {\n  display: grid;\n  gap: 3rem;\n  margin-top: 3rem;\n  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));\n}\n@media only screen and (max-width: 900px) {\nsection#general[data-v-6a63e488] {\n    padding-block: 1rem 3rem;\n}\nsection#general .limiter[data-v-6a63e488] {\n    max-width: 600px;\n    flex-direction: column;\n    gap: 1rem;\n}\nsection#general .limiter .flex-1[data-v-6a63e488] {\n    margin-top: 4rem;\n    padding: 0 1rem 1rem;\n}\nsection#general .limiter .flex-1 h2[data-v-6a63e488], section#general .limiter .flex-1 p[data-v-6a63e488] {\n    text-align: center;\n}\n}\n@media only screen and (max-width: 700px) {\nsection#about[data-v-6a63e488] {\n    padding-block: 5rem;\n}\nsection#about .limiter[data-v-6a63e488] {\n    max-width: 600px;\n}\nsection#about .limiter .about-card[data-v-6a63e488] {\n    flex-direction: column;\n}\nsection#about .limiter .about-card .text-wrapper[data-v-6a63e488] {\n    width: 100%;\n    padding: 1.5rem 1rem 1rem;\n    order: 1;\n}\nsection#about .limiter .about-card .text-wrapper a[data-v-6a63e488] {\n    width: 100%;\n}\nsection#products[data-v-6a63e488] {\n    padding-block: 5rem;\n}\nsection#products .limiter[data-v-6a63e488] {\n    max-width: 600px;\n}\nsection#products h2[data-v-6a63e488] {\n    font-size: 1.6rem;\n}\nsection#products p[data-v-6a63e488] {\n    font-size: 1rem;\n}\n}", "",{"version":3,"sources":["webpack://./resources/js/Pages/Home.vue"],"names":[],"mappings":"AACI;EACI,aAAA;EACA,sBAAA;AAAR;AAEI;EACI,aAAA;EACA,gCAAA;EACA,WAAA;EACA,wCAAA;AACR;AACQ;EACI,aAAA;AACZ;AACQ;EACI,WAAA;EACA,gBAAA;AACZ;AACI;EACI,mBAAA;AAER;AAAQ;EACI,wCAAA;EACA,mBAAA;EACA,aAAA;EACA,gBAAA;AAEZ;AAAY;EACI,UAAA;EACA,aAAA;AAEhB;AAAgB;EACI,SAAA;EACA,gBAAA;AAEpB;AAAgB;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,gCAAA;EACA,8BAAA;EACA,YAAA;EACA,qBAAA;EACA,cAAA;EACA,iBAAA;EACA,uBAAA;EACA,gBAAA;EACA,yBAAA;EACA,qBAAA;AAEpB;AAAoB;EACI,qCAAA;AAExB;AAAY;EACI,OAAA;AAEhB;AAAgB;EACI,WAAA;EACA,YAAA;EACA,oBAAA;KAAA,iBAAA;EACA,aAAA;AAEpB;AAAI;EACI,gCAAA;EACA,8BAAA;EACA,mBAAA;AAGR;AADQ;EACI,SAAA;AAGZ;AADQ;EACI,2CAAA;EACA,WAAA;EACA,qBAAA;EACA,oBAAA;EACA,kBAAA;AAGZ;AADQ;EACI,YAAA;EACA,WAAA;EACA,2CAAA;EACA,8BAAA;EACA,gCAAA;EACA,qBAAA;EACA,aAAA;EACA,mBAAA;EACA,iBAAA;EACA,6BAAA;EACA,yBAAA;KAAA,sBAAA;MAAA,qBAAA;UAAA,iBAAA;EACA,yBAAA;AAGZ;AADQ;EACI,sBAAA;EACA,cAAA;EACA,gBAAA;AAGZ;AADQ;EACI,SAAA;EACA,YAAA;EACA,mBAAA;AAGZ;AADQ;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,mCAAA;EACA,WAAA;EACA,uBAAA;EACA,cAAA;EACA,iBAAA;EACA,uBAAA;EACA,gBAAA;EACA,yBAAA;EACA,qBAAA;AAGZ;AADY;EACI,wCAAA;AAGhB;AADI;EACI,mBAAA;AAIR;AAFQ;EACI,SAAA;EACA,gBAAA;EACA,gBAAA;AAIZ;AAFQ;EACI,SAAA;EACA,gBAAA;AAIZ;AAFQ;EACI,aAAA;EACA,SAAA;EACA,gBAAA;EACA,2DAAA;AAIZ;AAAI;AACI;IACI,wBAAA;AAGV;AADU;IACI,gBAAA;IACA,sBAAA;IACA,SAAA;AAGd;AADc;IACI,gBAAA;IACA,oBAAA;AAGlB;AADkB;IACI,kBAAA;AAGtB;AACF;AAFI;AACI;IACI,mBAAA;AAIV;AAFU;IACI,gBAAA;AAId;AAFc;IACI,sBAAA;AAIlB;AAFkB;IACI,WAAA;IACA,yBAAA;IACA,QAAA;AAItB;AAFsB;IACI,WAAA;AAI1B;AAFM;IACI,mBAAA;AAIV;AAFU;IACI,gBAAA;AAId;AAFU;IACI,iBAAA;AAId;AAFU;IACI,eAAA;AAId;AACF","sourcesContent":["\r\n    main\r\n        display: flex\r\n        flex-direction: column\r\n\r\n    section#hero\r\n        display: flex\r\n        margin-top: var(--height-header)\r\n        width: 100%\r\n        background: var(--color-background-soft)\r\n\r\n        .limiter\r\n            display: flex\r\n\r\n        img\r\n            width: 100%\r\n            border-radius: 0\r\n\r\n    section#about\r\n        padding-block: 7rem\r\n\r\n        .about-card\r\n            background: var(--color-background-soft)\r\n            border-radius: 12px\r\n            display: flex\r\n            overflow: hidden\r\n\r\n            .text-wrapper\r\n                width: 50%\r\n                padding: 2rem\r\n\r\n                h2\r\n                    margin: 0\r\n                    font-weight: 600\r\n\r\n                a\r\n                    display: flex\r\n                    align-items: center\r\n                    justify-content: center\r\n                    background: var(--color-primary)\r\n                    color: var(--color-background)\r\n                    width: 160px\r\n                    border-radius: .5rem\r\n                    height: 2.5rem\r\n                    font-size: .8rem\r\n                    letter-spacing: .05rem\r\n                    font-weight: 500\r\n                    text-transform: uppercase\r\n                    text-decoration: none\r\n\r\n                    &:hover\r\n                        background: var(--color-primary-soft)\r\n\r\n            .image-wrapper\r\n                flex: 1\r\n\r\n                img\r\n                    width: 100%\r\n                    height: 100%\r\n                    object-fit: cover\r\n                    display: flex\r\n\r\n    section#general\r\n        background: var(--color-primary)\r\n        color: var(--color-background)\r\n        padding-block: 5rem\r\n\r\n        .limiter\r\n            gap: 2rem\r\n\r\n        .flex-1\r\n            border: 2px solid var(--color-primary-soft)\r\n            width: 100%\r\n            border-radius: .7rem\r\n            padding: 0 2rem 2rem\r\n            margin-top: 2.5rem\r\n\r\n        .icon\r\n            height: 5rem\r\n            width: 5rem\r\n            border: 2px solid var(--color-primary-soft)\r\n            color: var(--color-background)\r\n            background: var(--color-primary)\r\n            border-radius: .8rem\r\n            display: grid\r\n            place-items: center\r\n            font-size: 2.5rem\r\n            font-family: var(--font-icon)\r\n            user-select: none\r\n            margin: -2.5rem auto 2rem\r\n\r\n        h2\r\n            margin-block: 0 .5rem\r\n            color: inherit\r\n            font-weight: 500\r\n\r\n        p\r\n            margin: 0\r\n            opacity: .9\r\n            margin-bottom: 2rem\r\n\r\n        a\r\n            display: flex\r\n            align-items: center\r\n            justify-content: center\r\n            background: var(--color-background)\r\n            width: 100%\r\n            border-radius: .325rem\r\n            height: 2.5rem\r\n            font-size: .8rem\r\n            letter-spacing: .05rem\r\n            font-weight: 500\r\n            text-transform: uppercase\r\n            text-decoration: none\r\n\r\n            &:hover\r\n                background: var(--color-background-soft)\r\n\r\n    section#products\r\n        padding-block: 7rem\r\n\r\n        h2\r\n            margin: 0\r\n            font-weight: 600\r\n            font-size: 3.5em\r\n\r\n        p\r\n            margin: 0\r\n            font-size: 1.3em\r\n\r\n        .grid\r\n            display: grid\r\n            gap: 3rem\r\n            margin-top: 3rem\r\n            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))\r\n\r\n\r\n\r\n    @media only screen and (max-width: 900px)\r\n        section#general\r\n            padding-block: 1rem 3rem\r\n\r\n            .limiter\r\n                max-width: 600px\r\n                flex-direction: column\r\n                gap: 1rem\r\n\r\n                .flex-1\r\n                    margin-top: 4rem\r\n                    padding: 0 1rem 1rem\r\n\r\n                    h2, p\r\n                        text-align: center\r\n\r\n    @media only screen and (max-width: 700px)\r\n        section#about\r\n            padding-block: 5rem\r\n\r\n            .limiter\r\n                max-width: 600px\r\n\r\n                .about-card\r\n                    flex-direction: column\r\n                    \r\n                    .text-wrapper\r\n                        width: 100%\r\n                        padding: 1.5rem 1rem 1rem\r\n                        order: 1\r\n\r\n                        a\r\n                            width: 100%\r\n\r\n        section#products\r\n            padding-block: 5rem\r\n\r\n            .limiter\r\n                max-width: 600px\r\n\r\n            h2\r\n                font-size: 1.6rem\r\n\r\n            p\r\n                font-size: 1rem\r\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "main[data-v-6a63e488] {\n  display: flex;\n  flex-direction: column;\n}\nsection#hero[data-v-6a63e488] {\n  display: flex;\n  margin-top: var(--height-header);\n  width: 100%;\n  background: var(--color-background-soft);\n}\nsection#hero .limiter[data-v-6a63e488] {\n  display: flex;\n}\nsection#hero img[data-v-6a63e488] {\n  width: 100%;\n  border-radius: 0;\n}\nsection#about[data-v-6a63e488] {\n  padding-block: 7rem;\n}\nsection#about .about-card[data-v-6a63e488] {\n  background: var(--color-background-soft);\n  border-radius: 12px;\n  display: flex;\n  overflow: hidden;\n}\nsection#about .about-card .text-wrapper[data-v-6a63e488] {\n  width: 50%;\n  padding: 2rem;\n  color: var(--color-heading);\n}\nsection#about .about-card .text-wrapper h2[data-v-6a63e488] {\n  margin: 0;\n  font-weight: 600;\n}\nsection#about .about-card .text-wrapper a[data-v-6a63e488] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  background: var(--color-primary);\n  color: var(--color-background);\n  width: 160px;\n  border-radius: 0.5rem;\n  height: 2.5rem;\n  font-size: 0.8rem;\n  letter-spacing: 0.05rem;\n  font-weight: 500;\n  text-transform: uppercase;\n  text-decoration: none;\n}\nsection#about .about-card .text-wrapper a[data-v-6a63e488]:hover {\n  background: var(--color-primary-soft);\n}\nsection#about .about-card .image-wrapper[data-v-6a63e488] {\n  flex: 1;\n}\nsection#about .about-card .image-wrapper img[data-v-6a63e488] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  display: flex;\n}\nsection#general[data-v-6a63e488] {\n  background: var(--color-primary);\n  color: var(--color-background);\n  padding-block: 5rem;\n}\nsection#general .limiter[data-v-6a63e488] {\n  gap: 2rem;\n}\nsection#general .flex-1[data-v-6a63e488] {\n  border: 2px solid var(--color-primary-soft);\n  width: 100%;\n  border-radius: 0.7rem;\n  padding: 0 2rem 2rem;\n  margin-top: 2.5rem;\n}\nsection#general .icon[data-v-6a63e488] {\n  height: 5rem;\n  width: 5rem;\n  border: 2px solid var(--color-primary-soft);\n  color: var(--color-background);\n  background: var(--color-primary);\n  border-radius: 0.8rem;\n  display: grid;\n  place-items: center;\n  font-size: 2.5rem;\n  font-family: var(--font-icon);\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  margin: -2.5rem auto 2rem;\n}\nsection#general h2[data-v-6a63e488] {\n  margin-block: 0 0.5rem;\n  color: inherit;\n  font-weight: 500;\n}\nsection#general p[data-v-6a63e488] {\n  margin: 0;\n  margin-bottom: 2rem;\n}\nsection#general a[data-v-6a63e488] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  background: var(--color-background);\n  width: 100%;\n  border-radius: 0.325rem;\n  height: 2.5rem;\n  font-size: 0.8rem;\n  letter-spacing: 0.05rem;\n  font-weight: 500;\n  text-transform: uppercase;\n  text-decoration: none;\n}\nsection#general a[data-v-6a63e488]:hover {\n  background: var(--color-background-soft);\n}\nsection#products[data-v-6a63e488] {\n  padding-block: 7rem;\n}\nsection#products h2[data-v-6a63e488] {\n  margin: 0;\n  font-weight: 600;\n  font-size: 3.5em;\n}\nsection#products p[data-v-6a63e488] {\n  margin: 0;\n  font-size: 1.3em;\n}\nsection#products .grid[data-v-6a63e488] {\n  display: grid;\n  gap: 3rem;\n  margin-top: 3rem;\n  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));\n}\n@media only screen and (max-width: 900px) {\nsection#general[data-v-6a63e488] {\n    padding-block: 1rem 3rem;\n}\nsection#general .limiter[data-v-6a63e488] {\n    max-width: 600px;\n    flex-direction: column;\n    gap: 1rem;\n}\nsection#general .limiter .flex-1[data-v-6a63e488] {\n    margin-top: 4rem;\n    padding: 0 1rem 1rem;\n}\nsection#general .limiter .flex-1 h2[data-v-6a63e488], section#general .limiter .flex-1 p[data-v-6a63e488] {\n    text-align: center;\n}\n}\n@media only screen and (max-width: 700px) {\nsection#about[data-v-6a63e488] {\n    padding-block: 5rem;\n}\nsection#about .limiter[data-v-6a63e488] {\n    max-width: 600px;\n}\nsection#about .limiter .about-card[data-v-6a63e488] {\n    flex-direction: column;\n}\nsection#about .limiter .about-card .text-wrapper[data-v-6a63e488] {\n    width: 100%;\n    padding: 1.5rem 1rem 1rem;\n    order: 1;\n}\nsection#about .limiter .about-card .text-wrapper a[data-v-6a63e488] {\n    width: 100%;\n}\nsection#products[data-v-6a63e488] {\n    padding-block: 5rem;\n}\nsection#products .limiter[data-v-6a63e488] {\n    max-width: 600px;\n}\nsection#products h2[data-v-6a63e488] {\n    font-size: 1.6rem;\n}\nsection#products p[data-v-6a63e488] {\n    font-size: 1rem;\n}\n}", "",{"version":3,"sources":["webpack://./resources/js/Pages/Home.vue"],"names":[],"mappings":"AACI;EACI,aAAA;EACA,sBAAA;AAAR;AAEI;EACI,aAAA;EACA,gCAAA;EACA,WAAA;EACA,wCAAA;AACR;AACQ;EACI,aAAA;AACZ;AACQ;EACI,WAAA;EACA,gBAAA;AACZ;AACI;EACI,mBAAA;AAER;AAAQ;EACI,wCAAA;EACA,mBAAA;EACA,aAAA;EACA,gBAAA;AAEZ;AAAY;EACI,UAAA;EACA,aAAA;EACA,2BAAA;AAEhB;AAAgB;EACI,SAAA;EACA,gBAAA;AAEpB;AAAgB;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,gCAAA;EACA,8BAAA;EACA,YAAA;EACA,qBAAA;EACA,cAAA;EACA,iBAAA;EACA,uBAAA;EACA,gBAAA;EACA,yBAAA;EACA,qBAAA;AAEpB;AAAoB;EACI,qCAAA;AAExB;AAAY;EACI,OAAA;AAEhB;AAAgB;EACI,WAAA;EACA,YAAA;EACA,oBAAA;KAAA,iBAAA;EACA,aAAA;AAEpB;AAAI;EACI,gCAAA;EACA,8BAAA;EACA,mBAAA;AAGR;AADQ;EACI,SAAA;AAGZ;AADQ;EACI,2CAAA;EACA,WAAA;EACA,qBAAA;EACA,oBAAA;EACA,kBAAA;AAGZ;AADQ;EACI,YAAA;EACA,WAAA;EACA,2CAAA;EACA,8BAAA;EACA,gCAAA;EACA,qBAAA;EACA,aAAA;EACA,mBAAA;EACA,iBAAA;EACA,6BAAA;EACA,yBAAA;KAAA,sBAAA;MAAA,qBAAA;UAAA,iBAAA;EACA,yBAAA;AAGZ;AADQ;EACI,sBAAA;EACA,cAAA;EACA,gBAAA;AAGZ;AADQ;EACI,SAAA;EACA,mBAAA;AAGZ;AADQ;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,mCAAA;EACA,WAAA;EACA,uBAAA;EACA,cAAA;EACA,iBAAA;EACA,uBAAA;EACA,gBAAA;EACA,yBAAA;EACA,qBAAA;AAGZ;AADY;EACI,wCAAA;AAGhB;AADI;EACI,mBAAA;AAIR;AAFQ;EACI,SAAA;EACA,gBAAA;EACA,gBAAA;AAIZ;AAFQ;EACI,SAAA;EACA,gBAAA;AAIZ;AAFQ;EACI,aAAA;EACA,SAAA;EACA,gBAAA;EACA,2DAAA;AAIZ;AAAI;AACI;IACI,wBAAA;AAGV;AADU;IACI,gBAAA;IACA,sBAAA;IACA,SAAA;AAGd;AADc;IACI,gBAAA;IACA,oBAAA;AAGlB;AADkB;IACI,kBAAA;AAGtB;AACF;AAFI;AACI;IACI,mBAAA;AAIV;AAFU;IACI,gBAAA;AAId;AAFc;IACI,sBAAA;AAIlB;AAFkB;IACI,WAAA;IACA,yBAAA;IACA,QAAA;AAItB;AAFsB;IACI,WAAA;AAI1B;AAFM;IACI,mBAAA;AAIV;AAFU;IACI,gBAAA;AAId;AAFU;IACI,iBAAA;AAId;AAFU;IACI,eAAA;AAId;AACF","sourcesContent":["\r\n    main\r\n        display: flex\r\n        flex-direction: column\r\n\r\n    section#hero\r\n        display: flex\r\n        margin-top: var(--height-header)\r\n        width: 100%\r\n        background: var(--color-background-soft)\r\n\r\n        .limiter\r\n            display: flex\r\n\r\n        img\r\n            width: 100%\r\n            border-radius: 0\r\n\r\n    section#about\r\n        padding-block: 7rem\r\n\r\n        .about-card\r\n            background: var(--color-background-soft)\r\n            border-radius: 12px\r\n            display: flex\r\n            overflow: hidden\r\n\r\n            .text-wrapper\r\n                width: 50%\r\n                padding: 2rem\r\n                color: var(--color-heading)\r\n\r\n                h2\r\n                    margin: 0\r\n                    font-weight: 600\r\n\r\n                a\r\n                    display: flex\r\n                    align-items: center\r\n                    justify-content: center\r\n                    background: var(--color-primary)\r\n                    color: var(--color-background)\r\n                    width: 160px\r\n                    border-radius: .5rem\r\n                    height: 2.5rem\r\n                    font-size: .8rem\r\n                    letter-spacing: .05rem\r\n                    font-weight: 500\r\n                    text-transform: uppercase\r\n                    text-decoration: none\r\n\r\n                    &:hover\r\n                        background: var(--color-primary-soft)\r\n\r\n            .image-wrapper\r\n                flex: 1\r\n\r\n                img\r\n                    width: 100%\r\n                    height: 100%\r\n                    object-fit: cover\r\n                    display: flex\r\n\r\n    section#general\r\n        background: var(--color-primary)\r\n        color: var(--color-background)\r\n        padding-block: 5rem\r\n\r\n        .limiter\r\n            gap: 2rem\r\n\r\n        .flex-1\r\n            border: 2px solid var(--color-primary-soft)\r\n            width: 100%\r\n            border-radius: .7rem\r\n            padding: 0 2rem 2rem\r\n            margin-top: 2.5rem\r\n\r\n        .icon\r\n            height: 5rem\r\n            width: 5rem\r\n            border: 2px solid var(--color-primary-soft)\r\n            color: var(--color-background)\r\n            background: var(--color-primary)\r\n            border-radius: .8rem\r\n            display: grid\r\n            place-items: center\r\n            font-size: 2.5rem\r\n            font-family: var(--font-icon)\r\n            user-select: none\r\n            margin: -2.5rem auto 2rem\r\n\r\n        h2\r\n            margin-block: 0 .5rem\r\n            color: inherit\r\n            font-weight: 500\r\n\r\n        p\r\n            margin: 0\r\n            margin-bottom: 2rem\r\n\r\n        a\r\n            display: flex\r\n            align-items: center\r\n            justify-content: center\r\n            background: var(--color-background)\r\n            width: 100%\r\n            border-radius: .325rem\r\n            height: 2.5rem\r\n            font-size: .8rem\r\n            letter-spacing: .05rem\r\n            font-weight: 500\r\n            text-transform: uppercase\r\n            text-decoration: none\r\n\r\n            &:hover\r\n                background: var(--color-background-soft)\r\n\r\n    section#products\r\n        padding-block: 7rem\r\n\r\n        h2\r\n            margin: 0\r\n            font-weight: 600\r\n            font-size: 3.5em\r\n\r\n        p\r\n            margin: 0\r\n            font-size: 1.3em\r\n\r\n        .grid\r\n            display: grid\r\n            gap: 3rem\r\n            margin-top: 3rem\r\n            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))\r\n\r\n\r\n\r\n    @media only screen and (max-width: 900px)\r\n        section#general\r\n            padding-block: 1rem 3rem\r\n\r\n            .limiter\r\n                max-width: 600px\r\n                flex-direction: column\r\n                gap: 1rem\r\n\r\n                .flex-1\r\n                    margin-top: 4rem\r\n                    padding: 0 1rem 1rem\r\n\r\n                    h2, p\r\n                        text-align: center\r\n\r\n    @media only screen and (max-width: 700px)\r\n        section#about\r\n            padding-block: 5rem\r\n\r\n            .limiter\r\n                max-width: 600px\r\n\r\n                .about-card\r\n                    flex-direction: column\r\n                    \r\n                    .text-wrapper\r\n                        width: 100%\r\n                        padding: 1.5rem 1rem 1rem\r\n                        order: 1\r\n\r\n                        a\r\n                            width: 100%\r\n\r\n        section#products\r\n            padding-block: 5rem\r\n\r\n            .limiter\r\n                max-width: 600px\r\n\r\n            h2\r\n                font-size: 1.6rem\r\n\r\n            p\r\n                font-size: 1rem\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -34101,6 +34540,87 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, ".grid[data-v-491a1223] {\n  display: grid;\n  gap: 3rem;\n  margin-top: 3rem;\n  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));\n}", "",{"version":3,"sources":["webpack://./resources/js/Pages/ProdukteUndServices/Marken.vue"],"names":[],"mappings":"AACI;EACI,aAAA;EACA,SAAA;EACA,gBAAA;EACA,2DAAA;AAAR","sourcesContent":["\r\n    .grid\r\n        display: grid\r\n        gap: 3rem\r\n        margin-top: 3rem\r\n        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))\r\n"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-15.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/ProdukteUndServices/Marken/Eichenhof.vue?vue&type=style&index=0&id=154d02fe&lang=sass&scoped=true":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-15.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/ProdukteUndServices/Marken/Eichenhof.vue?vue&type=style&index=0&id=154d02fe&lang=sass&scoped=true ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../node_modules/css-loader/dist/runtime/cssWithMappingToString.js */ "./node_modules/css-loader/dist/runtime/cssWithMappingToString.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".logo-wrapper[data-v-154d02fe] {\n  display: flex;\n  justify-content: center;\n  padding-block: 3rem;\n  border-radius: 0.5rem;\n  margin-bottom: 4rem;\n  background-color: #14552E;\n}\n.logo-wrapper img[data-v-154d02fe] {\n  width: 100%;\n  max-width: 130px;\n}", "",{"version":3,"sources":["webpack://./resources/js/Pages/ProdukteUndServices/Marken/Eichenhof.vue"],"names":[],"mappings":"AACI;EACI,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,qBAAA;EACA,mBAAA;EACA,yBAAA;AAAR;AAEQ;EACI,WAAA;EACA,gBAAA;AAAZ","sourcesContent":["\r\n    .logo-wrapper\r\n        display: flex\r\n        justify-content: center\r\n        padding-block: 3rem\r\n        border-radius: .5rem\r\n        margin-bottom: 4rem\r\n        background-color: #14552E\r\n\r\n        img\r\n            width: 100%\r\n            max-width: 130px\r\n"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-15.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/ProdukteUndServices/Marken/IlCampese.vue?vue&type=style&index=0&id=55da83a7&lang=sass&scoped=true":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-15.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/ProdukteUndServices/Marken/IlCampese.vue?vue&type=style&index=0&id=55da83a7&lang=sass&scoped=true ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../node_modules/css-loader/dist/runtime/cssWithMappingToString.js */ "./node_modules/css-loader/dist/runtime/cssWithMappingToString.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".logo-wrapper[data-v-55da83a7] {\n  display: flex;\n  justify-content: center;\n  padding-block: 3rem;\n  border-radius: 0.5rem;\n  margin-bottom: 4rem;\n  background-color: #EB920C;\n}\n.logo-wrapper img[data-v-55da83a7] {\n  width: 100%;\n  max-width: 130px;\n}\n.order-wrapper[data-v-55da83a7] {\n  display: flex;\n  flex-direction: column;\n  padding: 1rem;\n  border-radius: 0.5rem;\n  margin-block: 2rem;\n  background-color: #EB920C;\n  color: white;\n}\n.order-wrapper h3[data-v-55da83a7] {\n  color: inherit;\n  margin-block: 0;\n}\n.item-wrapper[data-v-55da83a7] {\n  gap: 2rem;\n}\n@media screen and (max-width: 600px) {\n.item-wrapper[data-v-55da83a7] {\n    flex-direction: column;\n}\n}", "",{"version":3,"sources":["webpack://./resources/js/Pages/ProdukteUndServices/Marken/IlCampese.vue"],"names":[],"mappings":"AACA;EACI,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,qBAAA;EACA,mBAAA;EACA,yBAAA;AAAJ;AAEI;EACI,WAAA;EACA,gBAAA;AAAR;AAEA;EACI,aAAA;EACA,sBAAA;EACA,aAAA;EACA,qBAAA;EACA,kBAAA;EACA,yBAAA;EACA,YAAA;AACJ;AACI;EACI,cAAA;EACA,eAAA;AACR;AACA;EACI,SAAA;AAEJ;AAAA;AACI;IACI,sBAAA;AAGN;AACF","sourcesContent":["\r\n.logo-wrapper\r\n    display: flex\r\n    justify-content: center\r\n    padding-block: 3rem\r\n    border-radius: .5rem\r\n    margin-bottom: 4rem\r\n    background-color: #EB920C\r\n\r\n    img\r\n        width: 100%\r\n        max-width: 130px\r\n\r\n.order-wrapper\r\n    display: flex\r\n    flex-direction: column\r\n    padding: 1rem\r\n    border-radius: .5rem\r\n    margin-block: 2rem\r\n    background-color: #EB920C\r\n    color: white\r\n\r\n    h3\r\n        color: inherit\r\n        margin-block: 0\r\n\r\n.item-wrapper\r\n    gap: 2rem\r\n\r\n@media screen and (max-width: 600px)\r\n    .item-wrapper\r\n        flex-direction: column\r\n"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-15.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/ProdukteUndServices/Marken/MaxiFrance.vue?vue&type=style&index=0&id=350a103c&lang=sass&scoped=true":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-15.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/ProdukteUndServices/Marken/MaxiFrance.vue?vue&type=style&index=0&id=350a103c&lang=sass&scoped=true ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../node_modules/css-loader/dist/runtime/cssWithMappingToString.js */ "./node_modules/css-loader/dist/runtime/cssWithMappingToString.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".logo-wrapper[data-v-350a103c] {\n  display: flex;\n  justify-content: center;\n  padding-block: 3rem;\n  border-radius: 0.5rem;\n  margin-bottom: 4rem;\n  background-color: #EB190C;\n}\n.logo-wrapper img[data-v-350a103c] {\n  width: 100%;\n  max-width: 130px;\n}", "",{"version":3,"sources":["webpack://./resources/js/Pages/ProdukteUndServices/Marken/MaxiFrance.vue"],"names":[],"mappings":"AACI;EACI,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,qBAAA;EACA,mBAAA;EACA,yBAAA;AAAR;AAEQ;EACI,WAAA;EACA,gBAAA;AAAZ","sourcesContent":["\r\n    .logo-wrapper\r\n        display: flex\r\n        justify-content: center\r\n        padding-block: 3rem\r\n        border-radius: .5rem\r\n        margin-bottom: 4rem\r\n        background-color: #EB190C\r\n\r\n        img\r\n            width: 100%\r\n            max-width: 130px\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -59826,6 +60346,96 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-15.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/ProdukteUndServices/Marken/Eichenhof.vue?vue&type=style&index=0&id=154d02fe&lang=sass&scoped=true":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-15.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/ProdukteUndServices/Marken/Eichenhof.vue?vue&type=style&index=0&id=154d02fe&lang=sass&scoped=true ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_15_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_15_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_15_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Eichenhof_vue_vue_type_style_index_0_id_154d02fe_lang_sass_scoped_true__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-15.use[1]!../../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15.use[2]!../../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15.use[3]!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./Eichenhof.vue?vue&type=style&index=0&id=154d02fe&lang=sass&scoped=true */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-15.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/ProdukteUndServices/Marken/Eichenhof.vue?vue&type=style&index=0&id=154d02fe&lang=sass&scoped=true");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_15_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_15_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_15_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Eichenhof_vue_vue_type_style_index_0_id_154d02fe_lang_sass_scoped_true__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_15_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_15_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_15_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Eichenhof_vue_vue_type_style_index_0_id_154d02fe_lang_sass_scoped_true__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-15.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/ProdukteUndServices/Marken/IlCampese.vue?vue&type=style&index=0&id=55da83a7&lang=sass&scoped=true":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-15.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/ProdukteUndServices/Marken/IlCampese.vue?vue&type=style&index=0&id=55da83a7&lang=sass&scoped=true ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_15_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_15_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_15_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_IlCampese_vue_vue_type_style_index_0_id_55da83a7_lang_sass_scoped_true__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-15.use[1]!../../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15.use[2]!../../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15.use[3]!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./IlCampese.vue?vue&type=style&index=0&id=55da83a7&lang=sass&scoped=true */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-15.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/ProdukteUndServices/Marken/IlCampese.vue?vue&type=style&index=0&id=55da83a7&lang=sass&scoped=true");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_15_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_15_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_15_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_IlCampese_vue_vue_type_style_index_0_id_55da83a7_lang_sass_scoped_true__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_15_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_15_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_15_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_IlCampese_vue_vue_type_style_index_0_id_55da83a7_lang_sass_scoped_true__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-15.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/ProdukteUndServices/Marken/MaxiFrance.vue?vue&type=style&index=0&id=350a103c&lang=sass&scoped=true":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-15.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/ProdukteUndServices/Marken/MaxiFrance.vue?vue&type=style&index=0&id=350a103c&lang=sass&scoped=true ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_15_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_15_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_15_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_MaxiFrance_vue_vue_type_style_index_0_id_350a103c_lang_sass_scoped_true__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-15.use[1]!../../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15.use[2]!../../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15.use[3]!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./MaxiFrance.vue?vue&type=style&index=0&id=350a103c&lang=sass&scoped=true */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-15.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/ProdukteUndServices/Marken/MaxiFrance.vue?vue&type=style&index=0&id=350a103c&lang=sass&scoped=true");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_15_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_15_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_15_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_MaxiFrance_vue_vue_type_style_index_0_id_350a103c_lang_sass_scoped_true__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_15_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_15_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_15_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_MaxiFrance_vue_vue_type_style_index_0_id_350a103c_lang_sass_scoped_true__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
 /***/ "./node_modules/marketier-ui/dist/style.css":
 /*!**************************************************!*\
   !*** ./node_modules/marketier-ui/dist/style.css ***!
@@ -63352,6 +63962,99 @@ if (false) {}
 
 /***/ }),
 
+/***/ "./resources/js/Pages/ProdukteUndServices/Marken/Eichenhof.vue":
+/*!*********************************************************************!*\
+  !*** ./resources/js/Pages/ProdukteUndServices/Marken/Eichenhof.vue ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Eichenhof_vue_vue_type_template_id_154d02fe_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Eichenhof.vue?vue&type=template&id=154d02fe&scoped=true */ "./resources/js/Pages/ProdukteUndServices/Marken/Eichenhof.vue?vue&type=template&id=154d02fe&scoped=true");
+/* harmony import */ var _Eichenhof_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Eichenhof.vue?vue&type=script&setup=true&lang=js */ "./resources/js/Pages/ProdukteUndServices/Marken/Eichenhof.vue?vue&type=script&setup=true&lang=js");
+/* harmony import */ var _Eichenhof_vue_vue_type_style_index_0_id_154d02fe_lang_sass_scoped_true__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Eichenhof.vue?vue&type=style&index=0&id=154d02fe&lang=sass&scoped=true */ "./resources/js/Pages/ProdukteUndServices/Marken/Eichenhof.vue?vue&type=style&index=0&id=154d02fe&lang=sass&scoped=true");
+/* harmony import */ var E_Programs_laragon_www_fdbs_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+
+
+const __exports__ = /*#__PURE__*/(0,E_Programs_laragon_www_fdbs_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_Eichenhof_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Eichenhof_vue_vue_type_template_id_154d02fe_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render],['__scopeId',"data-v-154d02fe"],['__file',"resources/js/Pages/ProdukteUndServices/Marken/Eichenhof.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
+/***/ "./resources/js/Pages/ProdukteUndServices/Marken/IlCampese.vue":
+/*!*********************************************************************!*\
+  !*** ./resources/js/Pages/ProdukteUndServices/Marken/IlCampese.vue ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _IlCampese_vue_vue_type_template_id_55da83a7_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./IlCampese.vue?vue&type=template&id=55da83a7&scoped=true */ "./resources/js/Pages/ProdukteUndServices/Marken/IlCampese.vue?vue&type=template&id=55da83a7&scoped=true");
+/* harmony import */ var _IlCampese_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./IlCampese.vue?vue&type=script&setup=true&lang=js */ "./resources/js/Pages/ProdukteUndServices/Marken/IlCampese.vue?vue&type=script&setup=true&lang=js");
+/* harmony import */ var _IlCampese_vue_vue_type_style_index_0_id_55da83a7_lang_sass_scoped_true__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./IlCampese.vue?vue&type=style&index=0&id=55da83a7&lang=sass&scoped=true */ "./resources/js/Pages/ProdukteUndServices/Marken/IlCampese.vue?vue&type=style&index=0&id=55da83a7&lang=sass&scoped=true");
+/* harmony import */ var E_Programs_laragon_www_fdbs_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+
+
+const __exports__ = /*#__PURE__*/(0,E_Programs_laragon_www_fdbs_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_IlCampese_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_IlCampese_vue_vue_type_template_id_55da83a7_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render],['__scopeId',"data-v-55da83a7"],['__file',"resources/js/Pages/ProdukteUndServices/Marken/IlCampese.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
+/***/ "./resources/js/Pages/ProdukteUndServices/Marken/MaxiFrance.vue":
+/*!**********************************************************************!*\
+  !*** ./resources/js/Pages/ProdukteUndServices/Marken/MaxiFrance.vue ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _MaxiFrance_vue_vue_type_template_id_350a103c_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MaxiFrance.vue?vue&type=template&id=350a103c&scoped=true */ "./resources/js/Pages/ProdukteUndServices/Marken/MaxiFrance.vue?vue&type=template&id=350a103c&scoped=true");
+/* harmony import */ var _MaxiFrance_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MaxiFrance.vue?vue&type=script&setup=true&lang=js */ "./resources/js/Pages/ProdukteUndServices/Marken/MaxiFrance.vue?vue&type=script&setup=true&lang=js");
+/* harmony import */ var _MaxiFrance_vue_vue_type_style_index_0_id_350a103c_lang_sass_scoped_true__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MaxiFrance.vue?vue&type=style&index=0&id=350a103c&lang=sass&scoped=true */ "./resources/js/Pages/ProdukteUndServices/Marken/MaxiFrance.vue?vue&type=style&index=0&id=350a103c&lang=sass&scoped=true");
+/* harmony import */ var E_Programs_laragon_www_fdbs_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+
+
+const __exports__ = /*#__PURE__*/(0,E_Programs_laragon_www_fdbs_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_MaxiFrance_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_MaxiFrance_vue_vue_type_template_id_350a103c_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render],['__scopeId',"data-v-350a103c"],['__file',"resources/js/Pages/ProdukteUndServices/Marken/MaxiFrance.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
 /***/ "./resources/js/Pages/ProdukteUndServices/MarketingKommunikation.vue":
 /*!***************************************************************************!*\
   !*** ./resources/js/Pages/ProdukteUndServices/MarketingKommunikation.vue ***!
@@ -64168,6 +64871,54 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/Pages/ProdukteUndServices/Marken/Eichenhof.vue?vue&type=script&setup=true&lang=js":
+/*!********************************************************************************************************!*\
+  !*** ./resources/js/Pages/ProdukteUndServices/Marken/Eichenhof.vue?vue&type=script&setup=true&lang=js ***!
+  \********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Eichenhof_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Eichenhof_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./Eichenhof.vue?vue&type=script&setup=true&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/ProdukteUndServices/Marken/Eichenhof.vue?vue&type=script&setup=true&lang=js");
+ 
+
+/***/ }),
+
+/***/ "./resources/js/Pages/ProdukteUndServices/Marken/IlCampese.vue?vue&type=script&setup=true&lang=js":
+/*!********************************************************************************************************!*\
+  !*** ./resources/js/Pages/ProdukteUndServices/Marken/IlCampese.vue?vue&type=script&setup=true&lang=js ***!
+  \********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_IlCampese_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_IlCampese_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./IlCampese.vue?vue&type=script&setup=true&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/ProdukteUndServices/Marken/IlCampese.vue?vue&type=script&setup=true&lang=js");
+ 
+
+/***/ }),
+
+/***/ "./resources/js/Pages/ProdukteUndServices/Marken/MaxiFrance.vue?vue&type=script&setup=true&lang=js":
+/*!*********************************************************************************************************!*\
+  !*** ./resources/js/Pages/ProdukteUndServices/Marken/MaxiFrance.vue?vue&type=script&setup=true&lang=js ***!
+  \*********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_MaxiFrance_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_MaxiFrance_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./MaxiFrance.vue?vue&type=script&setup=true&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/ProdukteUndServices/Marken/MaxiFrance.vue?vue&type=script&setup=true&lang=js");
+ 
+
+/***/ }),
+
 /***/ "./resources/js/Pages/ProdukteUndServices/MarketingKommunikation.vue?vue&type=script&setup=true&lang=js":
 /*!**************************************************************************************************************!*\
   !*** ./resources/js/Pages/ProdukteUndServices/MarketingKommunikation.vue?vue&type=script&setup=true&lang=js ***!
@@ -64968,6 +65719,54 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/Pages/ProdukteUndServices/Marken/Eichenhof.vue?vue&type=template&id=154d02fe&scoped=true":
+/*!***************************************************************************************************************!*\
+  !*** ./resources/js/Pages/ProdukteUndServices/Marken/Eichenhof.vue?vue&type=template&id=154d02fe&scoped=true ***!
+  \***************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Eichenhof_vue_vue_type_template_id_154d02fe_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Eichenhof_vue_vue_type_template_id_154d02fe_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./Eichenhof.vue?vue&type=template&id=154d02fe&scoped=true */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/ProdukteUndServices/Marken/Eichenhof.vue?vue&type=template&id=154d02fe&scoped=true");
+
+
+/***/ }),
+
+/***/ "./resources/js/Pages/ProdukteUndServices/Marken/IlCampese.vue?vue&type=template&id=55da83a7&scoped=true":
+/*!***************************************************************************************************************!*\
+  !*** ./resources/js/Pages/ProdukteUndServices/Marken/IlCampese.vue?vue&type=template&id=55da83a7&scoped=true ***!
+  \***************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_IlCampese_vue_vue_type_template_id_55da83a7_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_IlCampese_vue_vue_type_template_id_55da83a7_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./IlCampese.vue?vue&type=template&id=55da83a7&scoped=true */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/ProdukteUndServices/Marken/IlCampese.vue?vue&type=template&id=55da83a7&scoped=true");
+
+
+/***/ }),
+
+/***/ "./resources/js/Pages/ProdukteUndServices/Marken/MaxiFrance.vue?vue&type=template&id=350a103c&scoped=true":
+/*!****************************************************************************************************************!*\
+  !*** ./resources/js/Pages/ProdukteUndServices/Marken/MaxiFrance.vue?vue&type=template&id=350a103c&scoped=true ***!
+  \****************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_MaxiFrance_vue_vue_type_template_id_350a103c_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_MaxiFrance_vue_vue_type_template_id_350a103c_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./MaxiFrance.vue?vue&type=template&id=350a103c&scoped=true */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/ProdukteUndServices/Marken/MaxiFrance.vue?vue&type=template&id=350a103c&scoped=true");
+
+
+/***/ }),
+
 /***/ "./resources/js/Pages/ProdukteUndServices/MarketingKommunikation.vue?vue&type=template&id=e7f01986":
 /*!*********************************************************************************************************!*\
   !*** ./resources/js/Pages/ProdukteUndServices/MarketingKommunikation.vue?vue&type=template&id=e7f01986 ***!
@@ -65405,6 +66204,45 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_15_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_15_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_15_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Marken_vue_vue_type_style_index_0_id_491a1223_lang_sass_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-15.use[1]!../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15.use[2]!../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15.use[3]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./Marken.vue?vue&type=style&index=0&id=491a1223&lang=sass&scoped=true */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-15.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/ProdukteUndServices/Marken.vue?vue&type=style&index=0&id=491a1223&lang=sass&scoped=true");
+
+
+/***/ }),
+
+/***/ "./resources/js/Pages/ProdukteUndServices/Marken/Eichenhof.vue?vue&type=style&index=0&id=154d02fe&lang=sass&scoped=true":
+/*!******************************************************************************************************************************!*\
+  !*** ./resources/js/Pages/ProdukteUndServices/Marken/Eichenhof.vue?vue&type=style&index=0&id=154d02fe&lang=sass&scoped=true ***!
+  \******************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_15_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_15_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_15_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Eichenhof_vue_vue_type_style_index_0_id_154d02fe_lang_sass_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-15.use[1]!../../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15.use[2]!../../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15.use[3]!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./Eichenhof.vue?vue&type=style&index=0&id=154d02fe&lang=sass&scoped=true */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-15.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/ProdukteUndServices/Marken/Eichenhof.vue?vue&type=style&index=0&id=154d02fe&lang=sass&scoped=true");
+
+
+/***/ }),
+
+/***/ "./resources/js/Pages/ProdukteUndServices/Marken/IlCampese.vue?vue&type=style&index=0&id=55da83a7&lang=sass&scoped=true":
+/*!******************************************************************************************************************************!*\
+  !*** ./resources/js/Pages/ProdukteUndServices/Marken/IlCampese.vue?vue&type=style&index=0&id=55da83a7&lang=sass&scoped=true ***!
+  \******************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_15_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_15_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_15_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_IlCampese_vue_vue_type_style_index_0_id_55da83a7_lang_sass_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-15.use[1]!../../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15.use[2]!../../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15.use[3]!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./IlCampese.vue?vue&type=style&index=0&id=55da83a7&lang=sass&scoped=true */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-15.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/ProdukteUndServices/Marken/IlCampese.vue?vue&type=style&index=0&id=55da83a7&lang=sass&scoped=true");
+
+
+/***/ }),
+
+/***/ "./resources/js/Pages/ProdukteUndServices/Marken/MaxiFrance.vue?vue&type=style&index=0&id=350a103c&lang=sass&scoped=true":
+/*!*******************************************************************************************************************************!*\
+  !*** ./resources/js/Pages/ProdukteUndServices/Marken/MaxiFrance.vue?vue&type=style&index=0&id=350a103c&lang=sass&scoped=true ***!
+  \*******************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_15_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_15_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_15_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_MaxiFrance_vue_vue_type_style_index_0_id_350a103c_lang_sass_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-15.use[1]!../../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15.use[2]!../../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15.use[3]!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./MaxiFrance.vue?vue&type=style&index=0&id=350a103c&lang=sass&scoped=true */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-15.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-15.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-15.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/ProdukteUndServices/Marken/MaxiFrance.vue?vue&type=style&index=0&id=350a103c&lang=sass&scoped=true");
 
 
 /***/ }),
@@ -67382,6 +68220,9 @@ var map = {
 	"./ProdukteUndServices/Foodservice.vue": "./resources/js/Pages/ProdukteUndServices/Foodservice.vue",
 	"./ProdukteUndServices/Index.vue": "./resources/js/Pages/ProdukteUndServices/Index.vue",
 	"./ProdukteUndServices/Marken.vue": "./resources/js/Pages/ProdukteUndServices/Marken.vue",
+	"./ProdukteUndServices/Marken/Eichenhof.vue": "./resources/js/Pages/ProdukteUndServices/Marken/Eichenhof.vue",
+	"./ProdukteUndServices/Marken/IlCampese.vue": "./resources/js/Pages/ProdukteUndServices/Marken/IlCampese.vue",
+	"./ProdukteUndServices/Marken/MaxiFrance.vue": "./resources/js/Pages/ProdukteUndServices/Marken/MaxiFrance.vue",
 	"./ProdukteUndServices/MarketingKommunikation.vue": "./resources/js/Pages/ProdukteUndServices/MarketingKommunikation.vue",
 	"./ProdukteUndServices/Seminare.vue": "./resources/js/Pages/ProdukteUndServices/Seminare.vue",
 	"./ProdukteUndServices/TechnischerKundendienst.vue": "./resources/js/Pages/ProdukteUndServices/TechnischerKundendienst.vue",

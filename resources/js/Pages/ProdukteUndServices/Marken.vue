@@ -4,9 +4,9 @@
             <title>Produkte & Services: Unsere Marken</title>
         </Head>
         <div class="grid">
-            <Card cover new-window aspect-ratio="16/9" name="Eichehof" image="/images/content/test_banner.jpg" :link="route('ps.marken.eichenhof')"/>
-            <Card cover new-window aspect-ratio="16/9" name="Il Campese" image="/images/content/test_banner.jpg" :link="route('ps.marken.il-campese')"/>
-            <Card cover new-window aspect-ratio="16/9" name="Maxi France" image="/images/content/test_banner.jpg" :link="route('ps.marken.maxi-france')"/>
+            <Card cover name="Eichenhof" image="/images/content/marken/eichenhof/eichenhof_card.png" :link="route('ps.marken.eichenhof')"/>
+            <Card cover name="Il Campese" image="/images/content/marken/il-campese/ilcampese_card.png" :link="route('ps.marken.il-campese')"/>
+            <Card cover name="Maxi France" image="/images/content/marken/maxi-france/maxifrance_card.png" :link="route('ps.marken.maxi-france')"/>
         </div>
     </TextSubLayout>
 </template>

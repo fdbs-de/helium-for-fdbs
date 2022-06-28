@@ -112,14 +112,13 @@
                         <StaffCard name="Harald Reckwald" job="Leitung Lager" link="tel:0531 210 55 57" label="0531 210 55 57" image="/images/content/mitarbeiter/missing.png" alt="Portrait von "/>
                     
                         <StaffCard name="Timo Welskop" job="Leitung Fuhrpark" link="tel:0531 210 55 56" label="0531 210 55 56" image="/images/content/mitarbeiter/timo_welskop.png" alt="Portrait von "/>
+                        <StaffCard name="Kathrin Reviliak" job="Stlv. Leitung Fuhrpark" link="tel:0531 210 55 56" label="0531 210 55 56" image="/images/content/mitarbeiter/missing.png" alt="Portrait von "/>
                     
                         <StaffCard name="Tobias Behnstedt" job="Leitung Fleischabteilung" link="tel:0531 210 55 26" label="0531 210 55 26" image="/images/content/mitarbeiter/tobias_behnstedt.png" alt="Portrait von "/>
                         <StaffCard name="Niels Brandt" job="Leitung Fleischabteilung" link="tel:0531 210 55 27" label="0531 210 55 27" image="/images/content/mitarbeiter/niels_brandt.png" alt="Portrait von "/>
                     
                         <StaffCard name="Annette Körner" job="Leitung Werkstatt/Kundendienst" link="tel:0531 210 55 24" label="0531 210 55 24" image="/images/content/mitarbeiter/annette_koerner.png" alt="Portrait von "/>
                         <StaffCard name="Marcus Zetzsche" job="Leitung Werkstatt/Kundendienst" link="tel:0531 210 55 12" label="0531 210 55 12" image="/images/content/mitarbeiter/marcus_zetzsche.png" alt="Portrait von "/>
-                    
-                        <StaffCard name="Karsten Strothmann" job="Fachberater Geräte/Maschinen" color="#2f3542" link="tel:0531 210 55 41" label="0531 210 55 41" image="/images/content/mitarbeiter/missing.png" alt="Portrait von "/>
                     </div>
                 </div>
             </section>

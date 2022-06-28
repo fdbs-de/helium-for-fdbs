@@ -28,9 +28,9 @@ Route::prefix('/produkte-und-services')->group(function () {
     
     Route::prefix('/marken')->group(function () {
         Route::get('/', [StaticController::class, 'indexMarken'])->name('ps.marken');
-        Route::get('/eichenhof', [StaticController::class, 'indexMarken'])->name('ps.marken.eichenhof');
-        Route::get('/il-campese', [StaticController::class, 'indexMarken'])->name('ps.marken.il-campese');
-        Route::get('/maxi-france', [StaticController::class, 'indexMarken'])->name('ps.marken.maxi-france');
+        Route::get('/eichenhof', [StaticController::class, 'indexEichenhof'])->name('ps.marken.eichenhof');
+        Route::get('/il-campese', [StaticController::class, 'indexIlCampese'])->name('ps.marken.il-campese');
+        Route::get('/maxi-france', [StaticController::class, 'indexMaxiFrance'])->name('ps.marken.maxi-france');
     });
 });
 

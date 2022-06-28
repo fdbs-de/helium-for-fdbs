@@ -39,6 +39,21 @@ class StaticController extends Controller
         return Inertia::render('ProdukteUndServices/Marken');
     }
 
+    public function indexEichenhof()
+    {
+        return Inertia::render('ProdukteUndServices/Marken/Eichenhof');
+    }
+
+    public function indexIlCampese()
+    {
+        return Inertia::render('ProdukteUndServices/Marken/IlCampese');
+    }
+
+    public function indexMaxiFrance()
+    {
+        return Inertia::render('ProdukteUndServices/Marken/MaxiFrance');
+    }
+
     public function indexFachberatungKaeseSalate()
     {
         return Inertia::render('ProdukteUndServices/FachberatungKaeseSalate');

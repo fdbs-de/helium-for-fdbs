@@ -1,7 +1,7 @@
 <template>
     <GuestLayout>
         <main>
-            <section id="hero-section">
+            <section id="hero-section" :style="'background-image: url('+(image || '')+')'">
                 <div class="limiter">
                     <h1>{{title}}</h1>
                 </div>
@@ -22,6 +22,7 @@
 
     defineProps({
         title: String,
+        image: String,
         hasSmallLimiter: {
             type: Boolean,
             default: false
@@ -36,7 +37,10 @@
         justify-content: center
         margin-top: var(--height-header)
         height: 300px
-        background: var(--color-background-soft)
+        background-color: var(--color-background-soft)
+        background-position: center
+        background-repeat: no-repeat
+        background-size: cover
 
         h1
             color: var(--color-primary)

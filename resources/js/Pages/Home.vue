@@ -116,6 +116,7 @@
             .text-wrapper
                 width: 50%
                 padding: 2rem
+                color: var(--color-heading)
 
                 h2
                     margin: 0
@@ -184,7 +185,6 @@
 
         p
             margin: 0
-            opacity: .9
             margin-bottom: 2rem
 
         a
