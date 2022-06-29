@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('company')->nullable();
-            $table->string('customer_id')->unique();
+            $table->string('customer_id')->nullable();
             $table->timestamp('enabled_at')->nullable();
             $table->timestamps();
 

@@ -12,9 +12,48 @@ class UserController extends Controller
     public function indexUsers()
     {
         return Inertia::render('Dashboard/Users', [
-            'users' => User::with(['roles', 'employeeProfile', 'customerProfile'])->get(),
+            'users' => User::with(['roles', 'employeeProfile', 'customerProfile'])->orderBy('created_at', 'desc')->get(),
         ]);
     }
+
+
+
+    public function importUsers(Request $request)
+    {
+        $request->validate([
+            'users' => 'required|array',
+            'users.*.email' => 'required|email|unique:users',
+            'users.*.name' => 'required|string|max:255',
+            'users.*.cb_kundennummer' => 'present|nullable|string|max:255',
+            'users.*.approved' => 'required|in:1',
+        ]);
+
+        
+        foreach ($request->input('users') as $user)
+        {
+            $model = User::create([
+                'email' => $user['email'],
+                'name' => $user['name'],
+                'password' => bcrypt('password'),
+            ]);
+
+            $model->enabled_at = now();
+            $model->email_verified_at = now();
+            $model->save();
+
+            $customerProfile = $model->customerProfile()->create([
+                'company' => $user['name'],
+                'customer_id' => $user['cb_kundennummer'],
+            ]);
+
+            $customerProfile->enabled_at = now();
+            $customerProfile->save();
+        }
+
+        return back()->with('success', 'Users imported successfully');
+    }
+
+
 
     public function assignRole(User $user, Request $request)
     {
@@ -63,6 +102,8 @@ class UserController extends Controller
 
         return back();
     }
+
+
 
     public function disableUser(Request $request, User $user)
     {

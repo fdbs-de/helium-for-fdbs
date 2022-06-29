@@ -76,14 +76,69 @@
                     </div>
                 </div>
             </section>
+
+            <section id="products">
+                <div class="limiter">
+                    <ProductSlider :slides="slides"/>
+                </div>
+            </section>
         </main>
     </GuestLayout>
 </template>
 
 <script setup>
-    import { Head, Link } from '@inertiajs/inertia-vue3'
     import GuestLayout from '@/Layouts/Guest.vue'
     import Card from '@/Components/Page/Card.vue'
+    import ProductSlider from '@/Components/Page/ProduktSlider.vue'
+    import { Head, Link } from '@inertiajs/inertia-vue3'
+    import { ref } from 'vue'
+
+    const slides = ref([
+        {
+            name: 'Eichenhof Fleisch',
+            color: '#166938',
+            text: 'Heute sind lückenlose Informationsketten zu den Themen Aufzucht, Haltung, Futter und Schlachtung in der Fleischproduktion wichtiger denn je! Heben Sie sich deutlich ab vom Standard und setzen Sie auf Qualität, Sicherheit und Vertrauen – mit der Qualitätsmarke Eichenhof!',
+            headlineImage: {
+                src: '/images/content/marken/eichenhof/eichenhof_text.svg',
+                alt: 'Eichenhof',
+            },
+            cover: {
+                src: '/images/content/marken/eichenhof/eichenhof_cover.png',
+                alt: 'Eichenhof Fleisch',
+            },
+            link: route('ps.marken.eichenhof'),
+        },
+
+        {
+            name: 'Il Campese',
+            color: '#EB920C',
+            text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.',
+            headlineImage: {
+                src: '/images/content/marken/il-campese/ilcampese_text.svg',
+                alt: 'Il Campese',
+            },
+            cover: {
+                src: '/images/content/marken/il-campese/ilcampese_cover.png',
+                alt: 'Il Campese',
+            },
+            link: route('ps.marken.il-campese'),
+        },
+
+        {
+            name: 'Maxi France',
+            color: '#EB190C',
+            text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.',
+            headlineImage: {
+                src: '/images/content/marken/maxi-france/maxifrance_text.svg',
+                alt: 'Maxi France',
+            },
+            cover: {
+                src: '/images/content/marken/maxi-france/maxifrance_cover.png',
+                alt: 'Maxi France',
+            },
+            link: route('ps.marken.maxi-france'),
+        },
+    ])
 </script>
 
 <style lang="sass" scoped>

@@ -141,7 +141,8 @@
                 font-size: 1.35rem
                 margin: 0
 
-        &:hover
+        &:hover,
+        &:focus
             box-shadow: var(--shadow-elevation-medium)
 
             .card-image-wrapper

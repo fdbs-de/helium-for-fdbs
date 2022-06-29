@@ -31,7 +31,9 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        //
+        if (!$user->can(Permissions::CAN_EDIT_USERS)) return false;
+
+        return true;
     }
 
     /**

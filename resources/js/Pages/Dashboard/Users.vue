@@ -2,6 +2,11 @@
     <Head title="Dashboard: Nutzerverwaltung" />
 
     <DashboardSubLayout title="Nutzerverwaltung">
+        <template #head>
+            <!-- file input that accepts json -->
+            <input ref="importInput" type="file" accept=".json" @change="importUsersFromJSON($event.target.files[0])" />
+        </template>
+
         <div class="grid">
             <div class="row">
                 <b>Name</b>
@@ -49,7 +54,7 @@
                 <div class="button-group">
                     <mui-button label="Freigeben" v-if="!userForm.enabled_at" @click="enableUser()"/>
                     <mui-button label="Sperren" v-else @click="disableUser()"/>
-                    <mui-button label="Löschen" size="small" variant="contained" @click="$refs.deletePopup.open()"/>
+                    <mui-button label="Löschen" size="small" variant="contained" @click="$refs.deleteUserPopup.open()"/>
                 </div>
             </div>
         </div>
@@ -68,7 +73,7 @@
             <div class="popup-row fixed-height">
                 <div class="flex vertical spacer">
                     <b>Firma: {{userForm.customer_profile.company}}</b>
-                    <span>Kundennummer: {{userForm.customer_profile.customer_id}}</span>
+                    <span>Kundennummer: {{userForm.customer_profile.customer_id || 'Keine Kundennummer'}}</span>
                 </div>
                 <div class="button-group">
                     <mui-button label="Freigeben" v-if="!userForm.customer_profile.enabled_at" @click="enableCustomer()"/>
@@ -162,6 +167,7 @@
     const deleteUserPopup = ref(null)
     const deleteCustomerPopup = ref(null)
     const deleteEmployeePopup = ref(null)
+    const importInput = ref(null)
 
     const selectedUser = ref(null)
     const userForm = computed(() => {
@@ -224,6 +230,25 @@
             deleteEmployeePopup.value.close()
         }
     })
+
+
+
+    const importUsersFromJSON = (file) => {
+        if (!file) return
+
+        const reader = new FileReader()
+        reader.readAsText(file)
+
+        reader.onload = () => {
+            const users = JSON.parse(reader.result)
+            importInput.value = null
+            useForm({users}).post(route('dashboard.admin.users.import'), {
+                onSuccess() {
+                    console.log(`Successfully imported ${users.length} users`)
+                }
+            })
+        }
+    }
 </script>
 
 <style lang="sass" scoped>
