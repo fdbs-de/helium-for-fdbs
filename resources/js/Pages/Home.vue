@@ -111,8 +111,8 @@
 
         {
             name: 'Il Campese',
-            color: '#EB920C',
-            text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.',
+            color: '#eb920e',
+            text: 'Das Freilandhähnchen „Il Campese“ des Familienunternehmens Amadori ist ein Geschmackserlebnis und etwas Besonderes auf dem deutschen Markt: Denn abseits der kritischen Vogelzugrouten können diese Tiere in der Region Apulien im Süden Italiens im Freien entspannt aufwachsen – schmecken Sie den Unterschied!',
             headlineImage: {
                 src: '/images/content/marken/il-campese/ilcampese_text.svg',
                 alt: 'Il Campese',
@@ -126,8 +126,8 @@
 
         {
             name: 'Maxi France',
-            color: '#EB190C',
-            text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.',
+            color: '#b61615',
+            text: 'Mit Maxi France erhalten Sie ein qualifiziertes Angebot von hochwertigem, französischem Marken-Jungbullenfleisch. Das Fleisch für die Maxi France Produkte kommt ausnahmslos von vorab geprüften familiengeführten Bauernhöfen. Artgerechte Aufzucht, natürliche Haltungsbedingungen und kurze Transportwege werden großgeschrieben – das schmeckt man auch!',
             headlineImage: {
                 src: '/images/content/marken/maxi-france/maxifrance_text.svg',
                 alt: 'Maxi France',

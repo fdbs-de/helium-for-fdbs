@@ -26931,8 +26931,8 @@ __webpack_require__.r(__webpack_exports__);
       link: route('ps.marken.eichenhof')
     }, {
       name: 'Il Campese',
-      color: '#EB920C',
-      text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.',
+      color: '#eb920e',
+      text: 'Das Freilandhähnchen „Il Campese“ des Familienunternehmens Amadori ist ein Geschmackserlebnis und etwas Besonderes auf dem deutschen Markt: Denn abseits der kritischen Vogelzugrouten können diese Tiere in der Region Apulien im Süden Italiens im Freien entspannt aufwachsen – schmecken Sie den Unterschied!',
       headlineImage: {
         src: '/images/content/marken/il-campese/ilcampese_text.svg',
         alt: 'Il Campese'
@@ -26944,8 +26944,8 @@ __webpack_require__.r(__webpack_exports__);
       link: route('ps.marken.il-campese')
     }, {
       name: 'Maxi France',
-      color: '#EB190C',
-      text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.',
+      color: '#b61615',
+      text: 'Mit Maxi France erhalten Sie ein qualifiziertes Angebot von hochwertigem, französischem Marken-Jungbullenfleisch. Das Fleisch für die Maxi France Produkte kommt ausnahmslos von vorab geprüften familiengeführten Bauernhöfen. Artgerechte Aufzucht, natürliche Haltungsbedingungen und kurze Transportwege werden großgeschrieben – das schmeckt man auch!',
       headlineImage: {
         src: '/images/content/marken/maxi-france/maxifrance_text.svg',
         alt: 'Maxi France'
@@ -31721,7 +31721,7 @@ var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
   href: "https://ec.europa.eu/odr",
   target: "_blank",
   rel: "noopener"
-}, "https://ec.europa.eu/odr"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Wir sind zur Teilnahme an einem Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle weder verpflichtet noch bereit."), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Vorstand: "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, "Sebastian Gerlach, Jens Löser, Jens Neubauer"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Vorsitzender des Aufsichtsrats: "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, "Frank Schreiber"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Genossenschaftsregister: "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, "Amtsgericht Braunschweig"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Registernummer: "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, "GenR 305")], -1
+}, "https://ec.europa.eu/odr"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Wir sind zur Teilnahme an einem Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle weder verpflichtet noch bereit."), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Vorstand: "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, "Jens Löser, Jens Neubauer, Sebastian Gerlach"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Vorsitzender des Aufsichtsrats: "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, "Frank Schreiber"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Genossenschaftsregister: "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, "Amtsgericht Braunschweig"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Registernummer: "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, "GenR 305")], -1
 /* HOISTED */
 );
 
@@ -31733,34 +31733,21 @@ var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 /* HOISTED */
 );
 
-var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, " Wir verwenden Bilder von Adobe Stock. ", -1
+var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, "Stellenangebotsseite:", -1
 /* HOISTED */
 );
 
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, "Stellenangebotsseite:", -1
+var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
 /* HOISTED */
 );
 
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
-/* HOISTED */
-);
+var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" ©HBS, ©NDABCREATIVITY, ©Cristalov, ©littlewolf1989, ©New Africa, ©ikonoklast_hh, ©assetseller, ©Racle Fotodesign, ©Paul Bradbury/KOTO, ©Drobot Dean - ");
 
-var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" ©HBS, ©NDABCREATIVITY, ©Cristalov, ©littlewolf1989, ©New Africa, ©ikonoklast_hh, ©assetseller, ©Racle Fotodesign, ©Paul Bradbury/KOTO, ©Drobot Dean - ");
-
-var _hoisted_9 = {
+var _hoisted_8 = {
   href: "https://stock.adobe.com",
   target: "_blank",
   ref: "noopener noreferrer"
 };
-
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Seminar \"Sicher und souverän frisch\": XTravaganT"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Seminar Käsekreationen: Belaya Katerina"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Seminar „Fleisch! Botschafter des guten Geschmacks“: somegirl"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Seminar „Kundenansprache - praxisorientiertes Verkaufen“: CrazyCloud"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Seminar Folgebelehrung nach §43 Abs 4 Infektionsschutzgesetz: Alexander Raths"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Seminar Plattengestaltung \"Basic\": Ilka Burckhardt ")], -1
-/* HOISTED */
-);
-
-var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, "Galerie Food:"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Fertiggerichte: Andrea Wilhelm"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Gemüse gfroren: Firma V"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Schinken & Speck: photocrew"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Käse & Molkereiprodukte: HLPhoto"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Fisch: Alexander Raths"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Fleisch gefroren: ExQuisine"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Gewürze: Lucky Dragon "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Geflügel: Christian Jung"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Backwaren: travelguide ")], -1
-/* HOISTED */
-);
-
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["TextSubLayout"], {
     title: "Impressum",
@@ -31774,9 +31761,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         _: 1
         /* STABLE */
 
-      }), _hoisted_2, _hoisted_3, _hoisted_4, _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [_hoisted_6, _hoisted_7, _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_9, "Adobe Stock", 512
+      }), _hoisted_2, _hoisted_3, _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [_hoisted_5, _hoisted_6, _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_8, "Adobe Stock", 512
       /* NEED_PATCH */
-      )]), _hoisted_10, _hoisted_11];
+      )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <p>\r\n            Seminar \"Sicher und souverän frisch\": XTravaganT<br>\r\n            Seminar Käsekreationen: Belaya Katerina<br>\r\n            Seminar „Fleisch! Botschafter des guten Geschmacks“: somegirl<br>\r\n            Seminar „Kundenansprache - praxisorientiertes Verkaufen“: CrazyCloud<br>\r\n            Seminar Folgebelehrung nach §43 Abs 4 Infektionsschutzgesetz: Alexander Raths<br>\r\n            Seminar Plattengestaltung \"Basic\": Ilka Burckhardt\r\n        </p>\r\n        <p>\r\n            <b>Galerie Food:</b><br>\r\n            Fertiggerichte: Andrea Wilhelm<br>\r\n            Gemüse gfroren: Firma V<br>\r\n            Schinken & Speck: photocrew<br>\r\n            Käse & Molkereiprodukte: HLPhoto<br>\r\n            Fisch: Alexander Raths<br>\r\n            Fleisch gefroren: ExQuisine<br>\r\n            Gewürze: Lucky Dragon <br>\r\n            Geflügel: Christian Jung<br>\r\n            Backwaren: travelguide\r\n        </p> ")];
     }),
     _: 1
     /* STABLE */
@@ -31826,24 +31813,6 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         /* STABLE */
 
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Card"], {
-        cover: "",
-        "new-window": "",
-        "aspect-ratio": "16/9",
-        "primary-tag": "Vollzeit",
-        tags: ['m/w/d'],
-        name: "Assistentin(en) der Vertriebsleitung",
-        image: "/images/karriere/vertrieb_124242186.jpeg",
-        link: "/images/karriere/Assistent_Vertrieb.pdf"
-      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Card"], {
-        cover: "",
-        "new-window": "",
-        "aspect-ratio": "16/9",
-        "primary-tag": "Vollzeit",
-        tags: ['m/w/d'],
-        name: "Lagerleiter / Logistikleiter",
-        image: "/images/karriere/lagerlogistik_315564208.jpeg",
-        link: "/images/karriere/Lagerleiter.pdf"
-      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Card"], {
         cover: "",
         "new-window": "",
         "aspect-ratio": "16/9",
@@ -32710,13 +32679,6 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     ansprechpartner: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
         "class": "service-scroll-item",
-        name: "Madlen Krause",
-        link: "tel:0531 210 55 18",
-        label: "0531 210 55 18",
-        image: "/images/content/mitarbeiter/missing.png",
-        alt: "Portrait von Madlen Krause"
-      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
-        "class": "service-scroll-item",
         name: "Silke Künstler",
         link: "tel:0531 210 55 23",
         label: "0531 210 55 23",
@@ -32743,6 +32705,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         label: "0531 210 55 36",
         image: "/images/content/mitarbeiter/phil_bartelt.png",
         alt: "Portrait von Phil Bartelt"
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["StaffCard"], {
+        "class": "service-scroll-item",
+        name: "Madlen Krause",
+        link: "tel:0531 210 55 18",
+        label: "0531 210 55 18",
+        image: "/images/content/mitarbeiter/missing.png",
+        alt: "Portrait von Madlen Krause"
       })];
     }),
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -32985,30 +32954,76 @@ var _hoisted_2 = /*#__PURE__*/_withScopeId(function () {
 });
 
 var _hoisted_3 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Qualität, Sicherheit, Vertrauen."), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Denn bei uns kommt alles aus einer starken Gemeinschaft. ")]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "Keine schwarzen Schafe, nur gesunde Schweine"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Eichenhof ist das Markenfleisch der Erzeugergemeinschaft Osnabrück (EGO), das von den Eichenhof-Landwirten erzeugt wird. Die rund 500 bäuerlichen Familienbetriebe aus dem Osnabrücker Land sind Mitglieder der EGO – oftmals schon seit Jahrzehnten – und in die geschlossene Erzeugungskette integriert. Zur Einhaltung der Richtlinien haben sie sich freiwillig verpflichtet. Zudem hat jeder Landwirt sein Fachwissen und die Sorgfalt im Umgang mit Land, Tier und Mensch nachgewiesen. ")], -1
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
+    style: {
+      "margin-bottom": "0"
+    }
+  }, "Qualität, Sicherheit, Vertrauen.", -1
   /* HOISTED */
   );
 });
 
 var _hoisted_4 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "Unsere Eichenhof-Garantie:")], -1
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+    style: {
+      "margin-top": "0"
+    }
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, "Denn bei uns kommt alles aus einer starken Gemeinschaft.")], -1
   /* HOISTED */
   );
 });
 
 var _hoisted_5 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "vollständig geschlossene Erzeugung bei 500 bäuerlichen Familienbetrieben im Osnabrücker Land"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "alle Eichenhof-Landwirte haften als Mitglieder mit ihrem Kapital für die strenge Einhaltung der Erzeugungs-Richtlinien"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "schonender Umgang mit Tier und Natur"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "kein Einsatz von Wachstumsförderern, Antibiotika oder Tiermehlen"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "handwerkliche Schlachtung"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "jährliche TÜV-Prüfung der gesamten Erzeugungskette"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "beste Ergebnisse bei QS-Kontrollen")], -1
-  /* HOISTED */
-  );
-});
-
-var _hoisted_6 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, " ", -1
   /* HOISTED */
   );
 });
 
+var _hoisted_6 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "Keine schwarzen Schafe, nur gesunde Schweine."), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Eichenhof ist das Markenfleisch der Erzeugergemeinschaft Osnabrück (EGO), das von den Eichenhof-Landwirten erzeugt wird. Die rund 500 bäuerlichen Familienbetriebe aus dem Osnabrücker Land sind Mitglieder der EGO – oftmals schon seit Jahrzehnten – und in die geschlossene Erzeugungskette integriert. Zur Einhaltung der Richtlinien haben sie sich freiwillig verpflichtet. Zudem hat jeder Landwirt sein Fachwissen und die Sorgfalt im Umgang mit Land, Tier und Mensch nachgewiesen. ")], -1
+  /* HOISTED */
+  );
+});
+
 var _hoisted_7 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, " ", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_8 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, "Unsere Eichenhof-Garantie:", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_9 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "vollständig geschlossene Erzeugung bei 500 bäuerlichen Familienbetrieben im Osnabrücker Land"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "alle Eichenhof-Landwirte haften als Mitglieder mit ihrem Kapital für die strenge Einhaltung der Erzeugungs-Richtlinien"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "schonender Umgang mit Tier und Natur"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "kein Einsatz von Wachstumsförderern, Antibiotika oder Tiermehlen"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "handwerkliche Schlachtung"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "jährliche TÜV-Prüfung der gesamten Erzeugungskette"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "beste Ergebnisse bei QS-Kontrollen")], -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_10 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, " ", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_11 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "order-wrapper"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Jetzt bestellen: "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", null, "0531 210 55 23")], -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_12 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, " ", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_13 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Für weitere Informationen besuchen Sie bitte die Homepage "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     href: "http://eichenhof.net",
     target: "_blank",
@@ -33032,7 +33047,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         _: 1
         /* STABLE */
 
-      }), _hoisted_2, _hoisted_3, _hoisted_4, _hoisted_5, _hoisted_6, _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Card"], {
+      }), _hoisted_2, _hoisted_3, _hoisted_4, _hoisted_5, _hoisted_6, _hoisted_7, _hoisted_8, _hoisted_9, _hoisted_10, _hoisted_11, _hoisted_12, _hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Card"], {
         "new-window": "",
         "aspect-ratio": "16/9",
         name: "Eichenhof Broschüre (Download)",
@@ -33073,54 +33088,65 @@ var _hoisted_1 = /*#__PURE__*/_withScopeId(function () {
 });
 
 var _hoisted_2 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, " Die Story des mediterranen Freilandhähnchens Amadori wurde 1969 in San Vittore di Cesena gegründet. Das Familienunternehmen, dass sich in der zweiten Generation befindet, verbindet Tradition und Innovation. ", -1
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "logo-wrapper"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    src: "/images/content/marken/il-campese/ilcampese_logo.png",
+    alt: "Il Campese"
+  })], -1
   /* HOISTED */
   );
 });
 
 var _hoisted_3 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Das IFS zertifizierte Unternehmen profitiert von der langjährigen Erfahrung und Expertise seiner Mitarbeiter, die jeden Tag mit Leidenschaft daran arbeiten, ihren Endverbrauchern frische, gesunde und schmackhafte Produkte anbieten zu können. Zum Erfolgsrezept des Unternehmens gehört essenziell die Versorgungskette."), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Denn Amadori ist ein echter Selbstversorger: Futterherstellung, Zuchtfarmen, Brütereien und Aufzucht der sowohl männlichen als auch weiblichen Tiere. So kann die Firma die angemessene Fütterung und Aufzucht der Tiere, die schnelle und sichere Zulieferung sowie die Qualität ihrer Produkte garantieren. ")], -1
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, " Die Story des mediterranen Freilandhähnchens Amadori wurde 1969 in San Vittore di Cesena gegründet. Das Familienunternehmen, dass sich in der zweiten Generation befindet, verbindet Tradition und Innovation. ", -1
   /* HOISTED */
   );
 });
 
 var _hoisted_4 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, " „Il Campese Hubbard JA57“ ist der Name der eigenen Rasse. Dabei werden stets hohe internationale Standards berücksichtigt: Die Tiere werden mit Freilandhaltung in der Region Apulien gehalten, mit einem sehr mediterranen Klima, mit 100% pflanzlicher Ernährung, davon 20 % Mais, was sich in Geschmack und Optik widerspiegelt. ", -1
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Das IFS zertifizierte Unternehmen profitiert von der langjährigen Erfahrung und Expertise seiner Mitarbeiter, die jeden Tag mit Leidenschaft daran arbeiten, ihren Endverbrauchern frische, gesunde und schmackhafte Produkte anbieten zu können. Zum Erfolgsrezept des Unternehmens gehört essenziell die Versorgungskette."), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Denn Amadori ist ein echter Selbstversorger: Futterherstellung, Zuchtfarmen, Brütereien und Aufzucht der sowohl männlichen als auch weiblichen Tiere. So kann die Firma die angemessene Fütterung und Aufzucht der Tiere, die schnelle und sichere Zulieferung sowie die Qualität ihrer Produkte garantieren. ")], -1
   /* HOISTED */
   );
 });
 
 var _hoisted_5 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, " Auf den Einsatz von Antibiotika und Gentechnik wird verzichtet. Tierwohl wird hier großgeschrieben. Die hohen Standards hat sich das Unternehmen selbst gesetzt und durch Zertifikate untermauert. ", -1
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, " „Il Campese Hubbard JA57“ ist der Name der eigenen Rasse. Dabei werden stets hohe internationale Standards berücksichtigt: Die Tiere werden mit Freilandhaltung in der Region Apulien gehalten, mit einem sehr mediterranen Klima, mit 100% pflanzlicher Ernährung, davon 20 % Mais, was sich in Geschmack und Optik widerspiegelt. ", -1
   /* HOISTED */
   );
 });
 
 var _hoisted_6 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, " ", -1
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, " Auf den Einsatz von Antibiotika und Gentechnik wird verzichtet. Tierwohl wird hier großgeschrieben. Die hohen Standards hat sich das Unternehmen selbst gesetzt und durch Zertifikate untermauert. ", -1
   /* HOISTED */
   );
 });
 
 var _hoisted_7 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, "Warum Il Campese-Hähnchen so gut ist:", -1
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, " ", -1
   /* HOISTED */
   );
 });
 
 var _hoisted_8 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "Ohne Gentechnik (GVO)"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "Keine Antibiotika"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "100 % pflanzliche Fütterung, mit 20 % Maisanteil"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "Tierwohl durch mehr Platz"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "Kurze Transportwege")], -1
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, "Warum Il Campese-Hähnchen so gut ist:", -1
   /* HOISTED */
   );
 });
 
 var _hoisted_9 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "Ohne Gentechnik (GVO)"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "Keine Antibiotika"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "100 % pflanzliche Fütterung, mit 20 % Maisanteil"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "Tierwohl durch mehr Platz"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "Kurze Transportwege")], -1
   /* HOISTED */
   );
 });
 
 var _hoisted_10 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, " ", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_11 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "item-wrapper flex v-center gap",
     style: {
@@ -33139,47 +33165,46 @@ var _hoisted_10 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
-var _hoisted_11 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, " ", -1
-  /* HOISTED */
-  );
-});
-
 var _hoisted_12 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, "Die Il Campese-Produktvielfalt", -1
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, " ", -1
   /* HOISTED */
   );
 });
 
 var _hoisted_13 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Für Bedienungs- und SB-Theken!", -1
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
+    style: {
+      "margin-bottom": "0"
+    }
+  }, "Die Il Campese-Produktvielfalt", -1
   /* HOISTED */
   );
 });
 
 var _hoisted_14 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-    src: "/images/content/marken/il-campese//campese_produkte.jpg",
-    alt: "Il Campese Produktauswahl",
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
     style: {
-      "width": "100%",
-      "border-radius": "0.5rem"
+      "margin-top": "0"
     }
-  })], -1
+  }, "Für Bedienungs- und SB-Theken!", -1
   /* HOISTED */
   );
 });
 
 var _hoisted_15 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": "order-wrapper"
-  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Jetzt bestellen: "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", null, "0531 210 55 23")], -1
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    "class": "content-image",
+    src: "/images/content/marken/il-campese//campese_produkte.jpg",
+    alt: "Il Campese Produktauswahl"
+  }, null, -1
   /* HOISTED */
   );
 });
 
 var _hoisted_16 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, " ", -1
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "order-wrapper"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Jetzt bestellen: "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", null, "0531 210 55 23")], -1
   /* HOISTED */
   );
 });
@@ -33190,7 +33215,13 @@ var _hoisted_17 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
-var _hoisted_18 = {
+var _hoisted_18 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, " ", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_19 = {
   "class": "item-wrapper flex gap"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -33207,7 +33238,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         _: 1
         /* STABLE */
 
-      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"logo-wrapper\">\r\n            <img src=\"/images/content/marken/eichenhof/eichenhof_logo.png\" alt=\"Il Campese\" />\r\n        </div> "), _hoisted_2, _hoisted_3, _hoisted_4, _hoisted_5, _hoisted_6, _hoisted_7, _hoisted_8, _hoisted_9, _hoisted_10, _hoisted_11, _hoisted_12, _hoisted_13, _hoisted_14, _hoisted_15, _hoisted_16, _hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Card"], {
+      }), _hoisted_2, _hoisted_3, _hoisted_4, _hoisted_5, _hoisted_6, _hoisted_7, _hoisted_8, _hoisted_9, _hoisted_10, _hoisted_11, _hoisted_12, _hoisted_13, _hoisted_14, _hoisted_15, _hoisted_16, _hoisted_17, _hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Card"], {
         "class": "flex-1",
         "new-window": "",
         "aspect-ratio": "16/9",
@@ -33255,9 +33286,91 @@ var _hoisted_1 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
+var _hoisted_2 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "logo-wrapper"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    src: "/images/content/marken/maxi-france/maxifrance_logo.png",
+    alt: "Maxi France"
+  })], -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_3 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, " Mit Maxi France erhalten Sie ein qualifiziertes Angebot von hochwertigem, französischem Marken-Jungbullenfleisch. Die Marke ist leicht verständlich und lässt die Herkunft des Fleisches sofort erkennen. Der Name ist für jedermann gut auszusprechen und vermittelt dem Endverbraucher französisches Flair. Die drei Sterne im Logo stehen zudem für höchste Qualität. Dadurch bedingt entsteht ein maximaler Wiedererkennungswert von Maxi France. Maxi France Erzeugnisse stammen zu 100 Prozent aus Frankreich – von der Geburt der Tiere über die Aufzucht bis hin zur Schlachtung und Herstellung. Schon die Auswahl der Lieferanten erfolgt nach strengen Vorgaben. Das Fleisch für die Maxi France Produkte kommt ausnahmslos von vorab geprüften familiengeführten Bauernhöfen. Artgerechte Aufzucht, natürliche Haltungsbedingungen und kurze Transportwege werden großgeschrieben. Maxi France unterliegt strengsten Kontrollen und sichert durch ein umfassendes Qualitäts-Sicherungsprogramm lückenlose Rückverfolgbarkeit – vom landwirtschaftlichen Betrieb bis zum POS. Dabei werden alle Prozesse von der Aufzucht bis zum POS unabhängig überwacht und kontrolliert. ", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_4 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, " ", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_5 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    "class": "content-image",
+    src: "/images/content/marken/maxi-france/trennbild_1.jpg",
+    alt: "Bullenherde auf einer Wiese"
+  }, null, -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_6 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, " ", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_7 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, "Ihre Maxi-France-Vorteile:", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_8 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "100 % pflanzliche Ernährung der Jungbullen, mineral- und vitaminhaltig"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "Ständige unabhängige Kontrollen"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "In Frankreich geborene, gehaltene und geschlachtete Jungbullen"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, " Garantierte Rückverfolgbarkeit der Jungbullen von der Geburt bis zur Verkaufsstelle gemäß den Vorschriften des Bundesministeriums für Ernährung und Landwirtschaft (BMEL) "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "Garantierte Reifedauer für Barbecues und Bratenteilstücke"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, "Ausgewählte Fleisch- und Zweinutzungsrassen, keine reinen Milchrassen")], -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_9 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, " ", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_10 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    "class": "content-image",
+    src: "/images/content/marken/maxi-france/trennbild_2.jpg",
+    alt: "Bauer mit weißem Bullen auf einer Wiese"
+  }, null, -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_11 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "order-wrapper"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Jetzt bestellen: "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", null, "0531 210 55 23")], -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_12 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, " ", -1
+  /* HOISTED */
+  );
+});
+
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["TextSubLayout"], {
     title: "Maxi France",
+    image: "/images/content/marken/maxi-france/header.jpg",
     "has-small-limiter": ""
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -33268,7 +33381,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         _: 1
         /* STABLE */
 
-      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"logo-wrapper\">\r\n            <img src=\"/images/content/marken/eichenhof/eichenhof_logo.png\" alt=\"Maxi France\">\r\n        </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <Card new-window aspect-ratio=\"16/9\" name=\"Eichenhof Broschüre (Download)\" image=\"/images/content/marken/eichenhof/eichenhof_imagebroschure.jpg\" link=\"/downloads/marken/eichenhof/eichenhof_imagebroschure.pdf\"/> ")];
+      }), _hoisted_2, _hoisted_3, _hoisted_4, _hoisted_5, _hoisted_6, _hoisted_7, _hoisted_8, _hoisted_9, _hoisted_10, _hoisted_11, _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Card"], {
+        "new-window": "",
+        "aspect-ratio": "16/9",
+        name: "Maxi France Broschüre (Download)",
+        image: "/images/content/marken/maxi-france/imageflyer_cover.png",
+        link: "/downloads/marken/maxi-france/MaxiFrance_Imageflyer.pdf"
+      })];
     }),
     _: 1
     /* STABLE */
@@ -34834,7 +34953,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".logo-wrapper[data-v-154d02fe] {\n  display: flex;\n  justify-content: center;\n  padding-block: 3rem;\n  border-radius: 0.5rem;\n  margin-bottom: 4rem;\n  background-color: #14552E;\n}\n.logo-wrapper img[data-v-154d02fe] {\n  width: 100%;\n  max-width: 130px;\n}", "",{"version":3,"sources":["webpack://./resources/js/Pages/ProdukteUndServices/Marken/Eichenhof.vue"],"names":[],"mappings":"AACI;EACI,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,qBAAA;EACA,mBAAA;EACA,yBAAA;AAAR;AAEQ;EACI,WAAA;EACA,gBAAA;AAAZ","sourcesContent":["\r\n    .logo-wrapper\r\n        display: flex\r\n        justify-content: center\r\n        padding-block: 3rem\r\n        border-radius: .5rem\r\n        margin-bottom: 4rem\r\n        background-color: #14552E\r\n\r\n        img\r\n            width: 100%\r\n            max-width: 130px\r\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, ".logo-wrapper[data-v-154d02fe] {\n  display: flex;\n  justify-content: center;\n  padding-block: 3rem;\n  border-radius: 0.5rem;\n  margin-bottom: 4rem;\n  background-color: #14552E;\n}\n.logo-wrapper img[data-v-154d02fe] {\n  width: 100%;\n  max-width: 130px;\n}\n.order-wrapper[data-v-154d02fe] {\n  display: flex;\n  flex-direction: column;\n  padding: 1rem;\n  border-radius: 0.5rem;\n  margin-block: 2rem;\n  background-color: #14552E;\n  color: white;\n}\n.order-wrapper h3[data-v-154d02fe] {\n  color: inherit;\n  margin-block: 0;\n}", "",{"version":3,"sources":["webpack://./resources/js/Pages/ProdukteUndServices/Marken/Eichenhof.vue"],"names":[],"mappings":"AACI;EACI,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,qBAAA;EACA,mBAAA;EACA,yBAAA;AAAR;AAEQ;EACI,WAAA;EACA,gBAAA;AAAZ;AAEI;EACI,aAAA;EACA,sBAAA;EACA,aAAA;EACA,qBAAA;EACA,kBAAA;EACA,yBAAA;EACA,YAAA;AACR;AACQ;EACI,cAAA;EACA,eAAA;AACZ","sourcesContent":["\r\n    .logo-wrapper\r\n        display: flex\r\n        justify-content: center\r\n        padding-block: 3rem\r\n        border-radius: .5rem\r\n        margin-bottom: 4rem\r\n        background-color: #14552E\r\n\r\n        img\r\n            width: 100%\r\n            max-width: 130px\r\n\r\n    .order-wrapper\r\n        display: flex\r\n        flex-direction: column\r\n        padding: 1rem\r\n        border-radius: .5rem\r\n        margin-block: 2rem\r\n        background-color: #14552E\r\n        color: white\r\n\r\n        h3\r\n            color: inherit\r\n            margin-block: 0\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -34861,7 +34980,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".logo-wrapper[data-v-55da83a7] {\n  display: flex;\n  justify-content: center;\n  padding-block: 3rem;\n  border-radius: 0.5rem;\n  margin-bottom: 4rem;\n  background-color: #EB920C;\n}\n.logo-wrapper img[data-v-55da83a7] {\n  width: 100%;\n  max-width: 130px;\n}\n.order-wrapper[data-v-55da83a7] {\n  display: flex;\n  flex-direction: column;\n  padding: 1rem;\n  border-radius: 0.5rem;\n  margin-block: 2rem;\n  background-color: #EB920C;\n  color: white;\n}\n.order-wrapper h3[data-v-55da83a7] {\n  color: inherit;\n  margin-block: 0;\n}\n.item-wrapper[data-v-55da83a7] {\n  gap: 2rem;\n}\n@media screen and (max-width: 600px) {\n.item-wrapper[data-v-55da83a7] {\n    flex-direction: column;\n}\n}", "",{"version":3,"sources":["webpack://./resources/js/Pages/ProdukteUndServices/Marken/IlCampese.vue"],"names":[],"mappings":"AACA;EACI,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,qBAAA;EACA,mBAAA;EACA,yBAAA;AAAJ;AAEI;EACI,WAAA;EACA,gBAAA;AAAR;AAEA;EACI,aAAA;EACA,sBAAA;EACA,aAAA;EACA,qBAAA;EACA,kBAAA;EACA,yBAAA;EACA,YAAA;AACJ;AACI;EACI,cAAA;EACA,eAAA;AACR;AACA;EACI,SAAA;AAEJ;AAAA;AACI;IACI,sBAAA;AAGN;AACF","sourcesContent":["\r\n.logo-wrapper\r\n    display: flex\r\n    justify-content: center\r\n    padding-block: 3rem\r\n    border-radius: .5rem\r\n    margin-bottom: 4rem\r\n    background-color: #EB920C\r\n\r\n    img\r\n        width: 100%\r\n        max-width: 130px\r\n\r\n.order-wrapper\r\n    display: flex\r\n    flex-direction: column\r\n    padding: 1rem\r\n    border-radius: .5rem\r\n    margin-block: 2rem\r\n    background-color: #EB920C\r\n    color: white\r\n\r\n    h3\r\n        color: inherit\r\n        margin-block: 0\r\n\r\n.item-wrapper\r\n    gap: 2rem\r\n\r\n@media screen and (max-width: 600px)\r\n    .item-wrapper\r\n        flex-direction: column\r\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, ".logo-wrapper[data-v-55da83a7] {\n  display: flex;\n  justify-content: center;\n  padding-block: 3rem;\n  border-radius: 0.5rem;\n  margin-bottom: 4rem;\n  background-color: #eb920e;\n}\n.logo-wrapper img[data-v-55da83a7] {\n  width: 100%;\n  max-width: 200px;\n}\n.order-wrapper[data-v-55da83a7] {\n  display: flex;\n  flex-direction: column;\n  padding: 1rem;\n  border-radius: 0.5rem;\n  margin-block: 2rem;\n  background-color: #eb920e;\n  color: white;\n}\n.order-wrapper h3[data-v-55da83a7] {\n  color: inherit;\n  margin-block: 0;\n}\n.item-wrapper[data-v-55da83a7] {\n  gap: 2rem;\n}\n@media screen and (max-width: 600px) {\n.item-wrapper[data-v-55da83a7] {\n    flex-direction: column;\n}\n}", "",{"version":3,"sources":["webpack://./resources/js/Pages/ProdukteUndServices/Marken/IlCampese.vue"],"names":[],"mappings":"AACI;EACI,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,qBAAA;EACA,mBAAA;EACA,yBAAA;AAAR;AAEQ;EACI,WAAA;EACA,gBAAA;AAAZ;AAEI;EACI,aAAA;EACA,sBAAA;EACA,aAAA;EACA,qBAAA;EACA,kBAAA;EACA,yBAAA;EACA,YAAA;AACR;AACQ;EACI,cAAA;EACA,eAAA;AACZ;AACI;EACI,SAAA;AAER;AAAI;AACI;IACI,sBAAA;AAGV;AACF","sourcesContent":["\r\n    .logo-wrapper\r\n        display: flex\r\n        justify-content: center\r\n        padding-block: 3rem\r\n        border-radius: .5rem\r\n        margin-bottom: 4rem\r\n        background-color: #eb920e\r\n\r\n        img\r\n            width: 100%\r\n            max-width: 200px\r\n\r\n    .order-wrapper\r\n        display: flex\r\n        flex-direction: column\r\n        padding: 1rem\r\n        border-radius: .5rem\r\n        margin-block: 2rem\r\n        background-color: #eb920e\r\n        color: white\r\n\r\n        h3\r\n            color: inherit\r\n            margin-block: 0\r\n\r\n    .item-wrapper\r\n        gap: 2rem\r\n\r\n    @media screen and (max-width: 600px)\r\n        .item-wrapper\r\n            flex-direction: column\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -34888,7 +35007,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".logo-wrapper[data-v-350a103c] {\n  display: flex;\n  justify-content: center;\n  padding-block: 3rem;\n  border-radius: 0.5rem;\n  margin-bottom: 4rem;\n  background-color: #EB190C;\n}\n.logo-wrapper img[data-v-350a103c] {\n  width: 100%;\n  max-width: 130px;\n}", "",{"version":3,"sources":["webpack://./resources/js/Pages/ProdukteUndServices/Marken/MaxiFrance.vue"],"names":[],"mappings":"AACI;EACI,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,qBAAA;EACA,mBAAA;EACA,yBAAA;AAAR;AAEQ;EACI,WAAA;EACA,gBAAA;AAAZ","sourcesContent":["\r\n    .logo-wrapper\r\n        display: flex\r\n        justify-content: center\r\n        padding-block: 3rem\r\n        border-radius: .5rem\r\n        margin-bottom: 4rem\r\n        background-color: #EB190C\r\n\r\n        img\r\n            width: 100%\r\n            max-width: 130px\r\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, ".logo-wrapper[data-v-350a103c] {\n  display: flex;\n  justify-content: center;\n  padding-block: 3rem;\n  border-radius: 0.5rem;\n  margin-bottom: 4rem;\n  background-color: #b61615;\n}\n.logo-wrapper img[data-v-350a103c] {\n  width: 100%;\n  max-width: 130px;\n}\n.order-wrapper[data-v-350a103c] {\n  display: flex;\n  flex-direction: column;\n  padding: 1rem;\n  border-radius: 0.5rem;\n  margin-block: 2rem;\n  background-color: #b61615;\n  color: white;\n}\n.order-wrapper h3[data-v-350a103c] {\n  color: inherit;\n  margin-block: 0;\n}", "",{"version":3,"sources":["webpack://./resources/js/Pages/ProdukteUndServices/Marken/MaxiFrance.vue"],"names":[],"mappings":"AACI;EACI,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,qBAAA;EACA,mBAAA;EACA,yBAAA;AAAR;AAEQ;EACI,WAAA;EACA,gBAAA;AAAZ;AAEI;EACI,aAAA;EACA,sBAAA;EACA,aAAA;EACA,qBAAA;EACA,kBAAA;EACA,yBAAA;EACA,YAAA;AACR;AACQ;EACI,cAAA;EACA,eAAA;AACZ","sourcesContent":["\r\n    .logo-wrapper\r\n        display: flex\r\n        justify-content: center\r\n        padding-block: 3rem\r\n        border-radius: .5rem\r\n        margin-bottom: 4rem\r\n        background-color: #b61615\r\n\r\n        img\r\n            width: 100%\r\n            max-width: 130px\r\n\r\n    .order-wrapper\r\n        display: flex\r\n        flex-direction: column\r\n        padding: 1rem\r\n        border-radius: .5rem\r\n        margin-block: 2rem\r\n        background-color: #b61615\r\n        color: white\r\n\r\n        h3\r\n            color: inherit\r\n            margin-block: 0\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

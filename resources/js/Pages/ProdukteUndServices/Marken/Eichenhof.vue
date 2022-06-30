@@ -9,20 +9,23 @@
             <img src="/images/content/marken/eichenhof/eichenhof_logo.png" alt="Eichenhof Markenfleisch">
         </div>
 
+        <h2 style="margin-bottom: 0;">Qualität, Sicherheit, Vertrauen.</h2>
+        <p style="margin-top: 0"><b>Denn bei uns kommt alles aus einer starken Gemeinschaft.</b></p>
+
+        <p>&nbsp;</p>
+
         <p>
-            <strong>
-                Qualität, Sicherheit, Vertrauen.<br>
-                Denn bei uns kommt alles aus einer starken Gemeinschaft.
-            </strong><br>
-            <br>
-            <strong>Keine schwarzen Schafe, nur gesunde Schweine</strong><br>
+            <strong>Keine schwarzen Schafe, nur gesunde Schweine.</strong><br>
             Eichenhof ist das Markenfleisch der Erzeugergemeinschaft Osnabrück (EGO), das von
             den Eichenhof-Landwirten erzeugt wird. Die rund 500 bäuerlichen Familienbetriebe aus dem Osnabrücker Land
             sind Mitglieder der EGO – oftmals schon seit Jahrzehnten – und in die geschlossene Erzeugungskette
             integriert. Zur Einhaltung der Richtlinien haben sie sich freiwillig verpflichtet. Zudem hat jeder Landwirt
             sein Fachwissen und die Sorgfalt im Umgang mit Land, Tier und Mensch nachgewiesen.
         </p>
-        <p><strong>Unsere Eichenhof-Garantie:</strong></p>
+
+        <p>&nbsp;</p>
+
+        <h2>Unsere Eichenhof-Garantie:</h2>
         <ul>
             <li>vollständig geschlossene Erzeugung bei 500 bäuerlichen Familienbetrieben im Osnabrücker Land</li>
             <li>alle Eichenhof-Landwirte haften als Mitglieder mit ihrem Kapital für die strenge Einhaltung der Erzeugungs-Richtlinien</li>
@@ -32,7 +35,16 @@
             <li>jährliche TÜV-Prüfung der gesamten Erzeugungskette</li>
             <li>beste Ergebnisse bei QS-Kontrollen</li>
         </ul>
+
         <p>&nbsp;</p>
+
+        <div class="order-wrapper">
+            Jetzt bestellen:
+            <h3>0531 210 55 23</h3>
+        </div>
+
+        <p>&nbsp;</p>
+        
         <p>
             Für weitere Informationen besuchen Sie bitte die Homepage
             <a href="http://eichenhof.net" target="_blank" rel="noopener" title="Eichenhof Markenfleisch">www.eichenhof.net</a><br>
@@ -60,4 +72,17 @@
         img
             width: 100%
             max-width: 130px
+
+    .order-wrapper
+        display: flex
+        flex-direction: column
+        padding: 1rem
+        border-radius: .5rem
+        margin-block: 2rem
+        background-color: #14552E
+        color: white
+
+        h3
+            color: inherit
+            margin-block: 0
 </style>

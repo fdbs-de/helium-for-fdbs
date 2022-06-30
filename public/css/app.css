@@ -121,7 +121,7 @@ img.content-image {
      object-position: center;
   width: 100%;
   max-width: 100%;
-  border-radius: 0.75rem;
+  border-radius: 0.5rem;
   display: block;
 }
 img.content-image.aspect-16-by-9 {

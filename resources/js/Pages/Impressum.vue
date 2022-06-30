@@ -19,7 +19,7 @@
             <br>
             Wir sind zur Teilnahme an einem Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle weder verpflichtet noch bereit.<br>
             <br>
-            Vorstand: <b>Sebastian Gerlach, Jens Löser, Jens Neubauer</b><br>
+            Vorstand: <b>Jens Löser, Jens Neubauer, Sebastian Gerlach</b><br>
             Vorsitzender des Aufsichtsrats: <b>Frank Schreiber</b><br>
             Genossenschaftsregister: <b>Amtsgericht Braunschweig</b><br>
             Registernummer: <b>GenR 305</b>
@@ -27,14 +27,11 @@
         <p>&nbsp;</p>
         <h2>Bildnachweis:</h2>
         <p>
-            Wir verwenden Bilder von Adobe Stock.
-        </p>
-        <p>
             <b>Stellenangebotsseite:</b><br>
             ©HBS, ©NDABCREATIVITY, ©Cristalov, ©littlewolf1989, ©New Africa, ©ikonoklast_hh,
             ©assetseller, ©Racle Fotodesign, ©Paul Bradbury/KOTO, ©Drobot Dean - <a href="https://stock.adobe.com" target="_blank" ref="noopener noreferrer">Adobe Stock</a>
         </p>
-        <p>
+        <!-- <p>
             Seminar "Sicher und souverän frisch": XTravaganT<br>
             Seminar Käsekreationen: Belaya Katerina<br>
             Seminar „Fleisch! Botschafter des guten Geschmacks“: somegirl<br>
@@ -53,7 +50,7 @@
             Gewürze: Lucky Dragon <br>
             Geflügel: Christian Jung<br>
             Backwaren: travelguide
-        </p>
+        </p> -->
     </TextSubLayout>
 </template>
 

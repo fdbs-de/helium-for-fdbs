@@ -6,16 +6,6 @@
 
         <div class="wrapper">
             <Card cover new-window aspect-ratio="16/9" primary-tag="Vollzeit" :tags="['m/w/d']"
-                name="Assistentin(en) der Vertriebsleitung"
-                image="/images/karriere/vertrieb_124242186.jpeg"
-                link="/images/karriere/Assistent_Vertrieb.pdf"/>
-                
-            <Card cover new-window aspect-ratio="16/9" primary-tag="Vollzeit" :tags="['m/w/d']"
-                name="Lagerleiter / Logistikleiter"
-                image="/images/karriere/lagerlogistik_315564208.jpeg"
-                link="/images/karriere/Lagerleiter.pdf"/>
-                
-            <Card cover new-window aspect-ratio="16/9" primary-tag="Vollzeit" :tags="['m/w/d']"
                 name="LKW-Fahrer"
                 image="/images/karriere/kraftfahrer_275535330.jpeg"
                 link="/images/karriere/Kraftfahrer.pdf"/>
