@@ -35,7 +35,7 @@
         </div>
     </DashboardSubLayout>
 
-    <Popup ref="managePopup" class="user-popup" :title="`Nutzer – ${userForm.email}`" background-color="var(--color-background-soft)">
+    <Popup ref="managePopup" class="user-popup" :title="`Nutzer: ${userForm.name}`" background-color="var(--color-background-soft)">
         <div class="popup-block popup-error" v-if="hasErrors">
             <h3><b>Fehler!</b></h3>
             <p v-for="(error, key) in errors" :key="key">{{ error }}</p>
