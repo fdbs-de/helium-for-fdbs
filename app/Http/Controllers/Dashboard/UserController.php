@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ImportedUserCreated;
+use App\Mail\UserEnabled;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class UserController extends Controller
@@ -31,10 +35,12 @@ class UserController extends Controller
         
         foreach ($request->input('users') as $user)
         {
+            $newPassword = Str::random(10);
+
             $model = User::create([
                 'email' => $user['email'],
                 'name' => $user['name'],
-                'password' => bcrypt('password'),
+                'password' => bcrypt($newPassword),
             ]);
 
             $model->enabled_at = now();
@@ -48,6 +54,8 @@ class UserController extends Controller
 
             $customerProfile->enabled_at = now();
             $customerProfile->save();
+
+            Mail::to($user['email'])->send(new ImportedUserCreated($user['email'], $newPassword));
         }
 
         return back()->with('success', 'Users imported successfully');
@@ -83,6 +91,8 @@ class UserController extends Controller
     {
         $user->enabled_at = now();
         $user->save();
+
+        Mail::to($user->email)->send(new UserEnabled());
 
         return back();
     }

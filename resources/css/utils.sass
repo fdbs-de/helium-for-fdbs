@@ -1,0 +1,136 @@
+.flex
+    display: flex
+
+    &.vertical
+        flex-direction: column
+
+    @for $i from 0 through 6
+        &.gap-#{$i}
+            gap: #{$i}rem
+
+    &.wrap
+        flex-wrap: wrap
+
+    &.v-center
+        align-items: center
+
+    &.h-center
+        justify-content: center
+
+    .spacer
+        flex: 1
+
+    @for $i from 1 through 6
+        .flex-#{$i}
+            flex: #{$i}
+
+@each $prop in ['padding', 'margin']
+    @each $modifier in ['', '-inline', '-block', '-top', '-right', '-bottom', '-left']
+        @for $i from 0 through 6
+            .#{$prop}#{$modifier}-#{$i}
+                #{$prop}#{$modifier}: #{$i}rem
+
+@for $i from 0 through 30
+    .h-#{$i}
+        height: #{$i}rem
+
+    .w-#{$i}
+        width: #{$i}rem
+
+    .min-h-#{$i}
+        min-height: #{$i}rem
+
+
+.text-align-center
+    text-align: center
+
+.text-align-right
+    text-align: right
+
+.text-align-left
+    text-align: left
+
+
+
+.font-icon,
+.md-icon
+    font-family: var(--font-icon)
+    text-transform: lowercase
+    font-style: normal
+    font-weight: normal
+
+.font-text
+    font-family: var(--font-text)
+
+.font-heading
+    font-family: var(--font-heading)
+
+
+
+.color-primary
+    color: var(--color-primary)
+
+.color-heading
+    color: var(--color-heading)
+
+.color-text
+    color: var(--color-text)
+
+.color-red
+    color: var(--color-red)
+
+.color-green
+    color: var(--color-green)
+
+
+
+.background
+    background: var(--color-background)
+
+.background-soft
+    background: var(--color-background-soft)
+
+
+
+@each $modifier in ['', '-inline', '-block', '-top', '-right', '-bottom', '-left']
+    .border#{$modifier}
+        border#{$modifier}: 1px solid var(--color-border)
+
+    .border#{$modifier}-soft
+        border#{$modifier}: 1px solid var(--color-background-soft)
+
+    .border#{$modifier}-primary
+        border#{$modifier}: 1px solid var(--color-primary)
+
+
+
+@each $size in ['s', 'm', 'l', 'xl']
+    .radius-#{$size}
+        border-radius: var(--radius-#{$size})
+        
+    .radius-top-#{$size}
+        border-top-left-radius: var(--radius-#{$size})
+        border-top-right-radius: var(--radius-#{$size})
+
+    .radius-right-#{$size}
+        border-top-right-radius: var(--radius-#{$size})
+        border-bottom-right-radius: var(--radius-#{$size})
+
+    .radius-bottom-#{$size}
+        border-bottom-right-radius: var(--radius-#{$size})
+        border-bottom-left-radius: var(--radius-#{$size})
+
+    .radius-left-#{$size}
+        border-bottom-left-radius: var(--radius-#{$size})
+        border-top-left-radius: var(--radius-#{$size})
+
+.radius-circle
+    border-radius: 50%
+
+
+
+.profile-image
+    border-radius: 50%
+    aspect-ratio: 1/1
+    object-fit: cover
+    object-position: center

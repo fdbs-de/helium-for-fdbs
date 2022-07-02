@@ -115,7 +115,7 @@
                 overflow-y: auto
                 overflow-x: hidden
                 flex: 1
-                padding-block: var(--su)
+                padding-block: var(--su) 100px
 
                 ul
                     display: flex

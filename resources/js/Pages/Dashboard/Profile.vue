@@ -64,18 +64,69 @@
             <div class="group">
                 <h2>Einstellungen</h2>
                 <div class="flex v-center gap">
-                    <Link class="simple-button" :href="route('logout')" method="post" as="button">Abmelden</Link>
+                    <span class="flex-1">Passwort:</span>
+                    <div class="flex-3 flex gap v-center">
+                        <mui-button label="Passwort Ändern" size="small" variant="contained" @click="$refs.changePasswordPopup.open()"/>
+                    </div>
+                </div>
+
+                <div class="flex v-center gap">
+                    <span class="flex-1">Abmelden:</span>
+                    <div class="flex-3 flex gap v-center">
+                        <Link class="simple-button" :href="route('logout')" method="post" as="button">Abmelden</Link>
+                    </div>
                 </div>
             </div>
         </div>
     </DashboardSubLayout>
+
+    <Popup ref="changePasswordPopup" title="Passwort ändern">
+        <div class="popup-block popup-error" v-if="hasErrors">
+            <h3><b>Fehler!</b></h3>
+            <p v-for="(error, key) in errors" :key="key">{{ error }}</p>
+        </div>
+
+        <form class="flex vertical gap-1 padding-1" @submit.prevent="changePassword()">
+            <mui-input type="password" no-border label="Derzeitiges Passwort" v-model="changePasswordForm.currentPassword"/>
+            <mui-input type="password" no-border label="Neues Passwort" show-password-score v-model="changePasswordForm.newPassword"/>
+            <mui-button type="submit" label="Passwort Ändern"/>
+        </form>
+    </Popup>
 </template>
 
 <script setup>
-    import DashboardSubLayout from '@/Layouts/SubLayouts/Dashboard.vue'
-    import { Head, Link, usePage } from '@inertiajs/inertia-vue3'
-    import { computed } from 'vue'
     import Tag from '@/Components/Form/Tag.vue'
+    import Popup from '@/Components/Form/Popup.vue'
+    import DashboardSubLayout from '@/Layouts/SubLayouts/Dashboard.vue'
+
+    import { Head, Link, usePage, useForm } from '@inertiajs/inertia-vue3'
+    import { ref, computed } from 'vue'
+    import zxcvbn from 'zxcvbn'
+
+    window.zxcvbn = zxcvbn
+
+
+
+    const errors = computed(() => usePage().props.value.errors)
+    const hasErrors = computed(() => Object.keys(errors.value).length > 0)
+
+
+
+    const changePasswordPopup = ref(null)
+
+    const changePasswordForm = useForm({
+        currentPassword: '',
+        newPassword: '',
+    })
+
+    const changePassword = () => {
+        changePasswordForm.put(route('dashboard.profile.change-password'), {
+            onSuccess() {
+                changePasswordForm.reset()
+                changePasswordPopup.value.close()
+            },
+        })
+    }
 </script>
 
 <style lang="sass" scoped>

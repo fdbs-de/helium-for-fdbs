@@ -29,6 +29,7 @@
         <p>
             <b>Stellenangebotsseite:</b><br>
             ©HBS, ©NDABCREATIVITY, ©Cristalov, ©littlewolf1989, ©New Africa, ©ikonoklast_hh,
+            ©StudioDFlorez, ©laplateresca, ©NVB Stocker, ©Prostock-studio, ©Rawpixel.com,
             ©assetseller, ©Racle Fotodesign, ©Paul Bradbury/KOTO, ©Drobot Dean - <a href="https://stock.adobe.com" target="_blank" ref="noopener noreferrer">Adobe Stock</a>
         </p>
         <!-- <p>

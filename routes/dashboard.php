@@ -13,6 +13,7 @@ Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () 
     Route::get('/', [OverviewController::class, 'redirect'])->name('dashboard');
 
     Route::get('/profile', [ProfileController::class, 'indexProfile'])->name('dashboard.profile');
+    Route::put('/profile/change-password', [ProfileController::class, 'changePassword'])->name('dashboard.profile.change-password');
 
     Route::prefix('admin')->middleware(['panelaccess:admin'])->group(function () {
         Route::get('/', [AdminController::class, 'redirect'])->name('dashboard.admin');

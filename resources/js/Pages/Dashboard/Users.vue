@@ -15,7 +15,7 @@
                 <b>Eigenschaften</b>
             </div>
             
-            <div class="row" v-for="user in users" :key="user.id" @click="openUser(user)">
+            <button class="row" v-for="user in users" :key="user.id" @click="openUser(user)">
                 <span v-if="user.name">{{user.name}}</span>
                 <i v-else>Kein Name angegeben</i>
 
@@ -31,11 +31,11 @@
                     <div class="icon" :class="{'active': (user.customer_profile || {}).enabled_at, 'notified': user.customer_profile}">shopping_cart</div>
                     <div class="icon" :class="{'active': (user.employee_profile || {}).enabled_at, 'notified': user.employee_profile}">work</div>
                 </span>
-            </div>
+            </button>
         </div>
     </DashboardSubLayout>
 
-    <Popup ref="managePopup" class="user-popup" background-color="var(--color-background-soft)">
+    <Popup ref="managePopup" class="user-popup" :title="`Nutzer – ${userForm.email}`" background-color="var(--color-background-soft)">
         <div class="popup-block popup-error" v-if="hasErrors">
             <h3><b>Fehler!</b></h3>
             <p v-for="(error, key) in errors" :key="key">{{ error }}</p>
@@ -62,9 +62,9 @@
 
         <div class="popup-block popup-tags">
             <div class="popup-row">
-                <Tag class="tag active" v-if="userForm.roles.map(e => e.name).includes('Super Admin')">Super Admin</Tag>
-                <Tag class="tag clickable" :class="{'active': userForm.roles.map(e => e.name).includes('Admin')}" @click="toggleRole('Admin')">Admin</Tag>
-                <Tag class="tag clickable" :class="{'active': userForm.roles.map(e => e.name).includes('Editor')}" @click="toggleRole('Editor')">Editor</Tag>
+                <Tag tabindex="0" class="tag active" v-if="userForm.roles.map(e => e.name).includes('Super Admin')">Super Admin</Tag>
+                <Tag tabindex="0" class="tag clickable" :class="{'active': userForm.roles.map(e => e.name).includes('Admin')}" @click="toggleRole('Admin')">Admin</Tag>
+                <Tag tabindex="0" class="tag clickable" :class="{'active': userForm.roles.map(e => e.name).includes('Editor')}" @click="toggleRole('Editor')">Editor</Tag>
             </div>
         </div>
 
@@ -115,11 +115,11 @@
             <p>Konto ID: <b>{{userForm.id}}</b></p>
             <p>Erstellt am <b>{{$dayjs(userForm.created_at).format('DD MMMM YYYY')}}</b> um <b>{{$dayjs(userForm.created_at).format('HH:mm')}}</b></p>
             <p v-if="userForm.email_verified_at">Email bestätigt am <b>{{$dayjs(userForm.email_verified_at).format('DD MMMM YYYY')}}</b> um <b>{{$dayjs(userForm.email_verified_at).format('HH:mm')}}</b></p>
-            <p v-if="userForm.enabled_at">Freigeschaltet am <b>{{$dayjs(userForm.enabled_at).format('DD MMMM YYYY')}}</b> um <b>{{$dayjs(userForm.enabled_at).format('HH:mm')}}</b></p>
+            <p v-if="userForm.enabled_at">Freigegeben am <b>{{$dayjs(userForm.enabled_at).format('DD MMMM YYYY')}}</b> um <b>{{$dayjs(userForm.enabled_at).format('HH:mm')}}</b></p>
         </div>
     </Popup>
 
-    <Popup ref="deleteUserPopup">
+    <Popup ref="deleteUserPopup" title="Nutzer löschen?">
         <form class="confirm-popup-wrapper" @submit.prevent="deleteUser()">
             <p>Möchten Sie den <b>Nutzer</b> mit der Email <a>{{userForm.email}}</a> entgültig löschen?</p>
             <div class="confirm-popup-footer">
@@ -129,7 +129,7 @@
         </form>
     </Popup>
 
-    <Popup ref="deleteCustomerPopup">
+    <Popup ref="deleteCustomerPopup" title="Kundenprofil löschen?">
         <form class="confirm-popup-wrapper" @submit.prevent="deleteCustomer()">
             <p>Möchten Sie das <b>Kundenprofil</b> des Nutzers mit der Email <a>{{userForm.email}}</a> entgültig löschen?</p>
             <div class="confirm-popup-footer">
@@ -139,7 +139,7 @@
         </form>
     </Popup>
 
-    <Popup ref="deleteEmployeePopup">
+    <Popup ref="deleteEmployeePopup" title="Mitarbeiterprofil löschen?">
         <form class="confirm-popup-wrapper" @submit.prevent="deleteEmployee()">
             <p>Möchten Sie das <b>Mitarbeiterprofil</b> des Nutzers mit der Email <a>{{userForm.email}}</a> entgültig löschen?</p>
             <div class="confirm-popup-footer">
@@ -241,7 +241,9 @@
 
         reader.onload = () => {
             const users = JSON.parse(reader.result)
-            importInput.value = null
+            
+            importInput.value.value = null
+
             useForm({users}).post(route('dashboard.admin.users.import'), {
                 onSuccess() {
                     console.log(`Successfully imported ${users.length} users`)
@@ -265,6 +267,10 @@
         .row
             display: contents
             cursor: pointer
+            text-align: inherit
+            font-family: inherit
+            font-size: inherit
+            color: inherit
 
             > span
                 overflow: hidden

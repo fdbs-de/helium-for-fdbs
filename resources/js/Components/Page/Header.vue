@@ -3,9 +3,10 @@
         <div class="limiter">
             <Link id="header-logo" :href="route('home')" title="FDBS Home"><Logo /></Link>
             <Menu id="menu" :menu="menu"/>
+
             <div class="spacer"></div>
-            <Link class="login-button" v-if="$page.props.auth.user" :href="route('dashboard')">{{$page.props.auth.user.name || $page.props.auth.user.email}}</Link>
-            <Link class="login-button" v-else :href="route('login')">Kundenbereich</Link>
+
+            <Link class="login-button" :href="loggedIn ? route('dashboard') : route('login')" :title="displayText"><span>{{displayText}}</span></Link>
         </div>
     </header>
 </template>
@@ -13,12 +14,21 @@
 <script setup>
     import Logo from '@/Components/Branding/Logo.vue'
     import Menu from '@/Components/Page/Menu.vue'
-    import { Link } from '@inertiajs/inertia-vue3'
+    import { Link, usePage } from '@inertiajs/inertia-vue3'
+    import { computed } from 'vue'
 
 
 
     defineProps({
         menu: Array,
+    })
+
+    const loggedIn = computed(() => {
+        return !!usePage().props.value.auth.user
+    })
+
+    const displayText = computed(() => {
+        return loggedIn.value ? (usePage().props.value.auth.user.name || usePage().props.value.auth.user.email) : 'Kundenbereich'
     })
 </script>
 
@@ -53,13 +63,11 @@
         .login-button
             display: flex
             align-items: center
+            justify-content: center
             border: none
-            height: 2.5rem
-            max-width: 145px
-            white-space: nowrap
-            overflow: hidden
-            text-overflow: ellipsis
-            padding-inline: 1rem
+            height: 2.25rem
+            width: 145px
+            padding-inline: .65rem
             border-radius: calc(var(--su) * .5)
             background: var(--color-primary)
             color: var(--color-background)
@@ -75,6 +83,13 @@
             &:hover
                 background-color: var(--color-primary-soft)
 
+            > span
+                justify-self: stretch
+                white-space: nowrap
+                overflow: hidden
+                text-overflow: ellipsis
+                text-align: center
+
     @media only screen and (max-width: 1000px)
         #header
             #menu
@@ -88,8 +103,12 @@
 
                 .login-button
                     padding: 0
-                    margin-inline: 0 var(--su)
+                    margin-inline: 0 calc(var(--su) * .5)
                     color: var(--color-primary)
                     background: transparent
                     border-radius: 0
+                    justify-content: flex-end
+
+                    > span
+                        text-align: right
 </style>
