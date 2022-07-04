@@ -22,6 +22,20 @@ class UserController extends Controller
 
 
 
+    public function changePassword(Request $request, User $user)
+    {
+        $request->validate([
+            'newPassword' => 'required|min:8',
+        ]);
+
+        $user->password = bcrypt($request->newPassword);
+        $user->save();
+
+        return back();
+    }
+
+
+
     public function importUsers(Request $request)
     {
         $request->validate([

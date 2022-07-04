@@ -3,7 +3,7 @@
         <Head>
             <title>Produkte & Services: Seminare</title>
         </Head>
-        <Alert icon="info" type="info" title="Inhalt folgt">
+        <Alert icon="info" title="Inhalt folgt">
             <span>
                 In Kürze werden Sie hier wieder unser breites Angebot an Seminaren und Workshops sehen.<br>
                 <br>

@@ -76,12 +76,12 @@
             overflow: hidden
 
             .card-image
-                width: 100%
-                height: 100%
+                width: calc(100% + 4px)
+                height: calc(100% + 4px)
                 object-fit: contain
                 position: absolute
-                top: 0
-                left: 0
+                top: -2px
+                left: -2px
                 filter: saturate(0)
                 transition: all 200ms ease-out
 

@@ -33,7 +33,7 @@
         
         <b v-if="form.is_customer">Angaben als Kunde</b>
         <mui-input v-if="form.is_customer" type="text" no-border label="Firma *" v-model="form.customer.company" required autocomplete="company"/>
-        <mui-input v-if="form.is_customer" type="text" no-border label="Kundennummer" v-model="form.customer.customer_id" autocomplete="customer-id"/>
+        <mui-input v-if="form.is_customer" type="text" no-border label="Kundennummer *" v-model="form.customer.customer_id" required autocomplete="customer-id"/>
         
         <!-- <div v-if="form.is_employee" class="divider"></div>
         

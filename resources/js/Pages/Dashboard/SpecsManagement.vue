@@ -1,7 +1,7 @@
 <template>
-    <Head title="Dashboard: Spezificationen verwalten" />
+    <Head title="Dashboard: Spezifikationen verwalten" />
 
-    <DashboardSubLayout title="Spezificationen verwalten">
+    <DashboardSubLayout title="Spezifikationen verwalten">
         <template #head>
             <mui-input class="search-input" type="search" no-border placeholder="Suchen" icon-left="search" v-model="search" @input="throttledFetch" />
             <Loader class="loader" v-show="loading" />

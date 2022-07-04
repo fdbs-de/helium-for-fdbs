@@ -1,5 +1,5 @@
 <template>
-    <TextSubLayout title="Eichenhof Markenfleisch" has-small-limiter>
+    <TextSubLayout title="Eichenhof Markenfleisch" image="/images/content/marken/eichenhof/header.jpg" has-small-limiter>
 
         <Head>
             <title>Eichenhof Markenfleisch</title>

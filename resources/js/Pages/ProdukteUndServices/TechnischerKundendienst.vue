@@ -42,12 +42,6 @@
         <p><strong>Bitte sprechen Sie uns an.</strong></p>
         <p>Wir sind gerne für Sie da!</p>
         <p>&nbsp;</p>
-
-        <h3>Öffnungszeiten Werkstatt:</h3>
-        <p>
-            Mo - Do 7.00 - 16.00 Uhr<br>
-            Freitag 7.00 - 14.00 Uhr
-        </p>
     </ServiceSubLayout>
 </template>
 

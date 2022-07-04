@@ -10,7 +10,7 @@
         </div>
 
         <p>
-            Mit Maxi France erhalten Sie ein qualifiziertes Angebot von hochwertigem, französischem
+            Mit Maxi France erhalten Sie ein hochwertiges, französisches
             Marken-Jungbullenfleisch. Die Marke ist leicht verständlich und lässt die Herkunft des Fleisches sofort
             erkennen. Der Name ist für jedermann gut auszusprechen und vermittelt dem Endverbraucher französisches
             Flair. Die drei Sterne im Logo stehen zudem für höchste Qualität. Dadurch bedingt entsteht ein maximaler
@@ -55,9 +55,9 @@
 
         <p>&nbsp;</p>
 
-        <Card new-window aspect-ratio="16/9" name="Maxi France Broschüre (Download)"
+        <!-- <Card new-window aspect-ratio="16/9" name="Maxi France Broschüre (Download)"
             image="/images/content/marken/maxi-france/imageflyer_cover.png"
-            link="/downloads/marken/maxi-france/MaxiFrance_Imageflyer.pdf" />
+            link="/downloads/marken/maxi-france/MaxiFrance_Imageflyer.pdf" /> -->
     </TextSubLayout>
 </template>
 

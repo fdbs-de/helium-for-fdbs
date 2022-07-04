@@ -15,7 +15,7 @@ export const mainMenu = [
         { id: 'seminare', label: 'Seminare', href: route('ps.seminare'), children: [] },
     ]},
     { id: 'karriere', label: 'Karriere', href: route('karriere'), children: [] },
-    { id: 'kontakt', label: 'Kontakt', href: route('kontakt'), children: [] },
+    { id: 'kontakt', label: 'Kontakt & Ansprechpartner', href: route('kontakt'), children: [] },
 ]
 
 

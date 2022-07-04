@@ -6,7 +6,7 @@
 
         <main>
             <section id="hero-section">
-                <h1>Kontakt</h1>
+                <h1>Kontakt & Ansprechpartner</h1>
             </section>
 
             <section id="form-section">
@@ -18,7 +18,7 @@
                             38112 Braunschweig<br>
                         </span>
                         <span>
-                            Email: <a href="mailto:info@fleischer-dienst.de">info@fleischer-dienst.de</a><br>
+                            Email: <a href="mailto:info@fdbs.de">info@fdbs.de</a><br>
                             Telefon: <a href="tel:0531210550">0531 210 55 0</a><br>
                             Fax: 0531 210 55 39<br>
                         </span>
@@ -56,22 +56,25 @@
                     <h2>Der Vorstand</h2>
 
                     <div class="staff-card-container">
-                        <StaffCard name="Zentrale" link="tel:0531 210 55 0" label="0531 210 55 0" image="/images/content/mitarbeiter/missing.png" alt="Zentrale"/>
+                        <div></div>
+                        <!-- <StaffCard name="Zentrale" link="tel:0531 210 55 0" label="0531 210 55 0" image="/images/content/mitarbeiter/missing.png" alt="Zentrale"/> -->
                         <StaffCard name="Sebastian Gerlach" job="Vorstand" label="(geschäftsführend)" image="/images/content/mitarbeiter/sebastian_gerlach.png" alt="Portrait von "/>
                         <StaffCard name="Jens Löser" job="Vorstand" label="(geschäftsführend)" image="/images/content/mitarbeiter/jens_loeser.png" alt="Portrait von "/>
-                        <StaffCard name="Jens Neubauer" job="Vorstand" label="(ehrenamtlich)" image="/images/content/mitarbeiter/missing.png" alt="Portrait von "/>
+                        <!-- <StaffCard name="Jens Neubauer" job="Vorstand" label="(ehrenamtlich)" image="/images/content/mitarbeiter/missing.png" alt="Portrait von "/> -->
+                        <div></div>
                     </div>
 
                     <h2>Ansprechpartner</h2>
                     
                     <div class="staff-card-container">
-                        <StaffCard name="Jana Schildhauer" job="Assistentin des Vorstands / Qualitätsmanagerin" color="#2f3542" link="tel:0531 210 55 44" label="0531 210 55 44" image="/images/content/mitarbeiter/jana_schildhauer.png" alt="Portrait von "/>
+                        <StaffCard name="Jana Schildhauer" job="Assistentin des Vorstands / Qualitätsmanagerin" link="tel:0531 210 55 44" label="0531 210 55 44" image="/images/content/mitarbeiter/jana_schildhauer.png" alt="Portrait von "/>
                         
-                        <StaffCard name="Robert Heiduk" job="Leitung Buchhaltung / Personal" color="#2f3542" link="tel:0531 210 55 37" label="0531 210 55 37" image="/images/content/mitarbeiter/robert_heiduk.png" alt="Portrait von "/>
+                        <StaffCard name="Robert Heiduk" job="Leitung Buchhaltung / Personal" link="tel:0531 210 55 37" label="0531 210 55 37" image="/images/content/mitarbeiter/robert_heiduk.png" alt="Portrait von "/>
                     
                         <StaffCard name="Katja Stöger" job="Debitorenbuchhaltung" color="#2f3542" link="tel:0531 210 55 15" label="0531 210 55 15" image="/images/content/mitarbeiter/missing.png" alt="Portrait von "/>
                     
-                        <StaffCard name="Silke Sanner" job="Verwaltung" color="#2f3542" link="tel:0531 210 55 31" label="0531 210 55 31" image="/images/content/mitarbeiter/silke_sanner.png" alt="Portrait von "/>
+                        <!-- <StaffCard name="Silke Sanner" job="Verwaltung" color="#2f3542" link="tel:0531 210 55 31" label="0531 210 55 31" image="/images/content/mitarbeiter/silke_sanner.png" alt="Portrait von "/> -->
+                        <StaffCard name="Silke Sanner" job="Verwaltung" color="#2f3542" link="tel:0531 210 55 31" label="0531 210 55 31" image="/images/content/mitarbeiter/missing.png" alt="Portrait von "/>
                     
                         <StaffCard name="Meik Binkowski" job="Controlling" color="#2f3542" link="tel:0531 210 55 33" label="0531 210 55 33" image="/images/content/mitarbeiter/meik_binkowski.png" alt="Portrait von "/>
                     

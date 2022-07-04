@@ -45,7 +45,9 @@ class UserPolicy
      */
     public function update(User $user, user $model)
     {
-        //
+        if (!$user->can(Permissions::CAN_EDIT_USERS)) return false;
+
+        return true;
     }
 
 

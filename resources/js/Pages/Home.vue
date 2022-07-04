@@ -18,7 +18,7 @@
                             <h2>Das sind Wir!</h2>
                             <p>
                                 <b>Wir sind FDBS</b>...<br>
-                                Ihre Kompezension rund um den Foodservice.
+                                Ihre Kompetenz rund um den Foodservice.
                                 Von Lebensmitteln, über Non-Food bis hin zum Marketing können wir Ihnen helfen.
                             </p>
                             <div class="spacer"></div>
@@ -127,7 +127,7 @@
         {
             name: 'Maxi France',
             color: '#b61615',
-            text: 'Mit Maxi France erhalten Sie ein qualifiziertes Angebot von hochwertigem, französischem Marken-Jungbullenfleisch. Das Fleisch für die Maxi France Produkte kommt ausnahmslos von vorab geprüften familiengeführten Bauernhöfen. Artgerechte Aufzucht, natürliche Haltungsbedingungen und kurze Transportwege werden großgeschrieben – das schmeckt man auch!',
+            text: 'Mit Maxi France erhalten Sie ein hochwertiges, französisches Marken-Jungbullenfleisch. Das Fleisch für die Maxi France Produkte kommt ausnahmslos von vorab geprüften familiengeführten Bauernhöfen. Artgerechte Aufzucht, natürliche Haltungsbedingungen und kurze Transportwege werden großgeschrieben – das schmeckt man auch!',
             headlineImage: {
                 src: '/images/content/marken/maxi-france/maxifrance_text.svg',
                 alt: 'Maxi France',

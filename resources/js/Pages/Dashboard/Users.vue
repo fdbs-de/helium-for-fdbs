@@ -110,6 +110,14 @@
             </div>
         </div>
 
+        <div class="popup-block">
+            <div class="popup-row flex">
+                <span>Aktionen</span>
+                <div class="spacer"></div>
+                <mui-button label="Passwort ändern" size="small" @click="$refs.changePasswordPopup.open()"/>
+            </div>
+        </div>
+
 
         <div class="popup-block popup-footer">
             <p>Konto ID: <b>{{userForm.id}}</b></p>
@@ -117,6 +125,18 @@
             <p v-if="userForm.email_verified_at">Email bestätigt am <b>{{$dayjs(userForm.email_verified_at).format('DD MMMM YYYY')}}</b> um <b>{{$dayjs(userForm.email_verified_at).format('HH:mm')}}</b></p>
             <p v-if="userForm.enabled_at">Freigegeben am <b>{{$dayjs(userForm.enabled_at).format('DD MMMM YYYY')}}</b> um <b>{{$dayjs(userForm.enabled_at).format('HH:mm')}}</b></p>
         </div>
+    </Popup>
+
+
+
+    <Popup ref="changePasswordPopup" title="Passwort ändern">
+        <form class="confirm-popup-wrapper" @submit.prevent="changePassword()">
+            <mui-input type="password" style="width: 100%" label="Neues Passwort" no-border show-password-score v-model="changePasswordForm.newPassword"/>
+            <div class="flex" style="width: 100%">
+                <div class="spacer"></div>
+                <mui-button type="submit" label="Passwort ändern"/>
+            </div>
+        </form>
     </Popup>
 
     <Popup ref="deleteUserPopup" title="Nutzer löschen?">
@@ -156,6 +176,9 @@
     import Popup from '@/Components/Form/Popup.vue'
     import Tag from '@/Components/Form/Tag.vue'
     import { ref, computed } from 'vue'
+    import zxcvbn from 'zxcvbn'
+
+    window.zxcvbn = zxcvbn
 
     const props = defineProps({
         users: Array,
@@ -210,6 +233,22 @@
     const disableUser = () => useForm().put(route('dashboard.admin.users.disable', { user: userForm.value.id }))
     const disableCustomer = () => useForm().put(route('dashboard.admin.users.disable.customer', { user: userForm.value.id }))
     const disableEmployee = () => useForm().put(route('dashboard.admin.users.disable.employee', { user: userForm.value.id }))
+
+
+
+    const changePasswordPopup = ref(null)
+    const changePasswordForm = useForm({
+        newPassword: '',
+    })
+
+    const changePassword = () => {
+        changePasswordForm.put(route('dashboard.admin.users.change-password', { user: userForm.value.id }), {
+            onSuccess() {
+                changePasswordPopup.value.close()
+                changePasswordForm.reset()
+            }
+        })
+    }
 
     const deleteUser = () => useForm().delete(route('dashboard.admin.users.destroy', { user: userForm.value.id }), {
         onSuccess() {
