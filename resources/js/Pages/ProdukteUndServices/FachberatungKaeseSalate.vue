@@ -5,7 +5,7 @@
         </Head>
 
         <template #ansprechpartner>
-            <StaffCard class="service-scroll-item" name="Elke Grigat" tel="38" image="/images/content/mitarbeiter/elke_grigat.png"/>
+            <StaffCard class="service-scroll-item" name="Elke Grigat" tel="38" image="/images/content/mitarbeiter/elke_grigat.png" overlay="/images/content/mitarbeiter/elke_grigat_zeichnung.png"/>
         </template>
 
         <p>
