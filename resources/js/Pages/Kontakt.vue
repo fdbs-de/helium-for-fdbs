@@ -57,71 +57,63 @@
 
                     <div class="staff-card-container">
                         <div></div>
-                        <!-- <StaffCard name="Zentrale" link="tel:0531 210 55 0" label="0531 210 55 0" image="/images/content/mitarbeiter/missing.png" alt="Zentrale"/> -->
-                        <StaffCard name="Sebastian Gerlach" job="Vorstand" label="(geschäftsführend)" image="/images/content/mitarbeiter/sebastian_gerlach.png" alt="Portrait von "/>
-                        <StaffCard name="Jens Löser" job="Vorstand" label="(geschäftsführend)" image="/images/content/mitarbeiter/jens_loeser.png" alt="Portrait von "/>
-                        <!-- <StaffCard name="Jens Neubauer" job="Vorstand" label="(ehrenamtlich)" image="/images/content/mitarbeiter/missing.png" alt="Portrait von "/> -->
+                        <StaffCard name="Sebastian Gerlach" job="Vorstand" leader label="(geschäftsführend)" image="/images/content/mitarbeiter/sebastian_gerlach.png"/>
+                        <StaffCard name="Jens Löser" job="Vorstand" leader label="(geschäftsführend)" image="/images/content/mitarbeiter/jens_loeser.png" overlay="/images/content/mitarbeiter/jens_loeser_zeichnung.png"/>
                         <div></div>
                     </div>
 
                     <h2>Ansprechpartner</h2>
                     
                     <div class="staff-card-container">
-                        <StaffCard name="Jana Schildhauer" job="Assistentin des Vorstands / Qualitätsmanagerin" link="tel:0531 210 55 44" label="0531 210 55 44" image="/images/content/mitarbeiter/jana_schildhauer.png" alt="Portrait von "/>
+                        <StaffCard name="Jana Schildhauer" job="Assistentin des Vorstands / Qualitätsmanagerin" leader tel="44" image="/images/content/mitarbeiter/jana_schildhauer.png" overlay="/images/content/mitarbeiter/jana_schildhauer_zeichnung.png"/>
                         
-                        <StaffCard name="Robert Heiduk" job="Leitung Buchhaltung / Personal" link="tel:0531 210 55 37" label="0531 210 55 37" image="/images/content/mitarbeiter/robert_heiduk.png" alt="Portrait von "/>
+                        <StaffCard name="Robert Heiduk" job="Leitung Buchhaltung / Personal" leader tel="37" image="/images/content/mitarbeiter/robert_heiduk.png"/>
+                        <StaffCard name="Silke Sanner" job="Verwaltung" tel="31" image="/images/content/mitarbeiter/missing.png"/>
+                        <StaffCard name="Katja Stöger" job="Debitorenbuchhaltung" tel="15" image="/images/content/mitarbeiter/missing.png"/>
                     
-                        <StaffCard name="Katja Stöger" job="Debitorenbuchhaltung" color="#2f3542" link="tel:0531 210 55 15" label="0531 210 55 15" image="/images/content/mitarbeiter/missing.png" alt="Portrait von "/>
+                        <StaffCard name="Meik Binkowski" job="Controlling" leader tel="33" image="/images/content/mitarbeiter/meik_binkowski.png" overlay="/images/content/mitarbeiter/meik_binkowski_zeichnung.png"/>
                     
-                        <!-- <StaffCard name="Silke Sanner" job="Verwaltung" color="#2f3542" link="tel:0531 210 55 31" label="0531 210 55 31" image="/images/content/mitarbeiter/silke_sanner.png" alt="Portrait von "/> -->
-                        <StaffCard name="Silke Sanner" job="Verwaltung" color="#2f3542" link="tel:0531 210 55 31" label="0531 210 55 31" image="/images/content/mitarbeiter/missing.png" alt="Portrait von "/>
+                        <StaffCard name="Christian Hornig" job="Leitung Einkauf / Warendisposition" leader tel="17" image="/images/content/mitarbeiter/christian_hornig.png" overlay="/images/content/mitarbeiter/christian_hornig_zeichnung.png"/>
+                        <StaffCard name="Marius Hilger" job="Einkauf / Warendisposition" tel="46" image="/images/content/mitarbeiter/marius_hilger.png" overlay="/images/content/mitarbeiter/marius_hilger_zeichnung.png"/>
+                        <StaffCard name="Tobias Klenke" job="Einkauf / Warendisposition" tel="21" image="/images/content/mitarbeiter/tobias_klenke.png"/>
+                        <StaffCard name="Peter Schmidt" job="Einkauf / Warendisposition" tel="19" image="/images/content/mitarbeiter/peter_schmidt.png" overlay="/images/content/mitarbeiter/peter_schmidt_zeichnung.png"/>
+                        <StaffCard name="Nino Storch" job="Einkauf / Warendisposition" tel="48" image="/images/content/mitarbeiter/nino_storch.png" overlay="/images/content/mitarbeiter/nino_storch_zeichnung.png"/>
                     
-                        <StaffCard name="Meik Binkowski" job="Controlling" color="#2f3542" link="tel:0531 210 55 33" label="0531 210 55 33" image="/images/content/mitarbeiter/meik_binkowski.png" alt="Portrait von "/>
+                        <StaffCard name="Philipp Rost" job="Leitung Vertrieb" leader tel="99" image="/images/content/mitarbeiter/philipp_rost.png" overlay="/images/content/mitarbeiter/philipp_rost_zeichnung.png"/>
+                        <StaffCard name="Elke Grigat" job="Fachberaterin Käse & Salate" tel="38" image="/images/content/mitarbeiter/elke_grigat.png" overlay="/images/content/mitarbeiter/elke_grigat_zeichnung.png"/>
+                        <StaffCard name="Klaus-Dieter Hoffmann" job="Fachberater" tel="98" image="/images/content/mitarbeiter/missing.png"/>
+                        <StaffCard name="Marcus König" job="Fachberater" tel="93" image="/images/content/mitarbeiter/marcus_koenig.png" overlay="/images/content/mitarbeiter/marcus_koenig_zeichnung.png"/>
+                        <StaffCard name="Lutz Nolte" job="Fachberater" tel="94" image="/images/content/mitarbeiter/lutz_nolte.png" overlay="/images/content/mitarbeiter/lutz_nolte_zeichnung.png"/>
+                        <StaffCard name="Kenan Özden" job="Fachberater" tel="92" image="/images/content/mitarbeiter/kenan_oezden.png" overlay="/images/content/mitarbeiter/kenan_oezden_zeichnung.png"/>
+                        <StaffCard name="Andreas Pape" job="Fachberater" tel="91" image="/images/content/mitarbeiter/andreas_pape.png" overlay="/images/content/mitarbeiter/andreas_pape_zeichnung.png"/>
+                        <StaffCard name="Mathias Vetter" job="Fachberater" tel="95" image="/images/content/mitarbeiter/mathias_vetter.png" overlay="/images/content/mitarbeiter/mathias_vetter_zeichnung.png"/>
+                        <StaffCard name="Jens Winkler" job="Fachberater" tel="97" image="/images/content/mitarbeiter/jens_winkler.png" overlay="/images/content/mitarbeiter/jens_winkler_zeichnung.png"/>
                     
-                        <StaffCard name="Christian Hornig" job="Leitung Einkauf" link="tel:0531 210 55 17" label="0531 210 55 17" image="/images/content/mitarbeiter/christian_hornig.png" alt="Portrait von "/>
+                        <StaffCard name="Madlen Krause" job="Leitung Vertriebsinnendienst" leader tel="18" image="/images/content/mitarbeiter/missing.png"/>
+                        <StaffCard name="Phil Bartelt" job="Vertriebsinnendienst" tel="36" image="/images/content/mitarbeiter/phil_bartelt.png" overlay="/images/content/mitarbeiter/phil_bartelt_zeichnung.png"/>
+                        <StaffCard name="Silke Künstler" job="Vertriebsinnendienst" tel="23" image="/images/content/mitarbeiter/silke_kuenstler.png"/>
+                        <StaffCard name="Romina Pagano" job="Vertriebsinnendienst" tel="28" image="/images/content/mitarbeiter/missing.png"/>
+                        <StaffCard name="Yasmin Ruben" job="Vertriebsinnendienst" tel="32" image="/images/content/mitarbeiter/yasmin_ruben.png"/>
+                        <StaffCard name="Angela Schrödter" job="Vertriebsinnendienst" tel="20" image="/images/content/mitarbeiter/angela_schroedter.png" overlay="/images/content/mitarbeiter/angela_schroedter_zeichnung.png"/>
                     
-                        <StaffCard name="Peter Schmidt" job="Disposition" color="#2f3542" link="tel:0531 210 55 19" label="0531 210 55 19" image="/images/content/mitarbeiter/peter_schmidt.png" alt="Portrait von "/>
-                        <StaffCard name="Tobias Klenke" job="Disposition" color="#2f3542" link="tel:0531 210 55 21" label="0531 210 55 21" image="/images/content/mitarbeiter/tobias_klenke.png" alt="Portrait von "/>
-                        <StaffCard name="Nino Storch" job="Disposition" color="#2f3542" link="tel:0531 210 55 48" label="0531 210 55 48" image="/images/content/mitarbeiter/nino_storch.png" alt="Portrait von "/>
-                        <StaffCard name="Marius Hilger" job="Disposition" color="#2f3542" link="tel:0531 210 55 46" label="0531 210 55 46" image="/images/content/mitarbeiter/marius_hilger.png" alt="Portrait von "/>
+                        <StaffCard name="Benjamin Vahle" job="Leitung Marketing & Kommunikation" leader tel="16" image="/images/content/mitarbeiter/benjamin_vahle.png" overlay="/images/content/mitarbeiter/benjamin_vahle_zeichnung.png"/>
+                        <StaffCard name="Franziska Brandt" job="Printgestaltung & Produktion" tel="51" image="/images/content/mitarbeiter/franziska_brandt.png" overlay="/images/content/mitarbeiter/franziska_brandt_zeichnung.png"/>
+                        <StaffCard name="Maurice Freuwört" job="Web Developer" tel="73" image="/images/content/mitarbeiter/maurice_freuwoert.png" overlay="/images/content/mitarbeiter/maurice_freuwoert_zeichnung.png"/>
+                        <StaffCard name="Annika Görmann" job="Social Media Marketing" tel="72" image="/images/content/mitarbeiter/annika_goermann.png" overlay="/images/content/mitarbeiter/annika_goermann_zeichnung.png"/>
+                        <StaffCard name="Carolin Götzner" job="Printgestaltung & Produktion" tel="43" image="/images/content/mitarbeiter/carolin_goetzner.png" overlay="/images/content/mitarbeiter/carolin_goetzner_zeichnung.png"/>
+                        <StaffCard name="Julia Kirschner" job="Printgestaltung & Produktion" tel="13" image="/images/content/mitarbeiter/missing.png"/>
+                        <StaffCard name="Franziska Wolff" job="Printgestaltung & Produktion" tel="25" image="/images/content/mitarbeiter/franziska_wolff.png" overlay="/images/content/mitarbeiter/franziska_wolff_zeichnung.png"/>
                     
-                        <StaffCard name="Philipp Rost" job="Leitung Vertrieb" link="tel:0531 210 55 99" label="0531 210 55 99" image="/images/content/mitarbeiter/philipp_rost.png" alt="Portrait von "/>
+                        <StaffCard name="Harald Reckwald" job="Leitung Lager" leader tel="57" image="/images/content/mitarbeiter/missing.png"/>
                     
-                        <StaffCard name="Madlen Krause" job="Leitung Vertriebsinnendienst" link="tel:0531 210 55 18" label="0531 210 55 18" image="/images/content/mitarbeiter/missing.png" alt="Portrait von "/>
+                        <StaffCard name="Timo Welskop" job="Leitung Fuhrpark" leader tel="56" image="/images/content/mitarbeiter/timo_welskop.png"/>
+                        <StaffCard name="Kathrin Reviliak" job="Fuhrpark" tel="53" image="/images/content/mitarbeiter/missing.png"/>
                     
-                        <StaffCard name="Andreas Pape" job="Fachberater" color="#2f3542" link="tel:0531 210 55 91" label="0531 210 55 91" image="/images/content/mitarbeiter/andreas_pape.png" alt="Portrait von "/>
-                        <StaffCard name="Marcus König" job="Fachberater" color="#2f3542" link="tel:0531 210 55 93" label="0531 210 55 93" image="/images/content/mitarbeiter/marcus_koenig.png" alt="Portrait von "/>
-                        <StaffCard name="Lutz Nolte" job="Fachberater" color="#2f3542" link="tel:0531 210 55 04" label="0531 210 55 94" image="/images/content/mitarbeiter/lutz_nolte.png" alt="Portrait von "/>
-                        <StaffCard name="Kenan Özden" job="Fachberater" color="#2f3542" link="tel:0531 210 55 92" label="0531 210 55 92" image="/images/content/mitarbeiter/kenan_oezden.png" alt="Portrait von "/>
-                        <StaffCard name="Mathias Vetter" job="Fachberater" color="#2f3542" link="tel:0531 210 55 95" label="0531 210 55 95" image="/images/content/mitarbeiter/mathias_vetter.png" alt="Portrait von "/>
-                        <StaffCard name="Jens Winkler" job="Fachberater" color="#2f3542" link="tel:0531 210 55 97" label="0531 210 55 97" image="/images/content/mitarbeiter/jens_winkler.png" alt="Portrait von "/>
-                        <StaffCard name="Klaus-Dieter Hoffmann" job="Fachberater" color="#2f3542" link="tel:0531 210 55 08" label="0531 210 55 98" image="/images/content/mitarbeiter/missing.png" alt="Portrait von "/>
-                        <StaffCard name="Elke Grigat" job="Fachberaterin" color="#2f3542" link="tel:0531 210 55 38" label="0531 210 55 38" image="/images/content/mitarbeiter/elke_grigat.png" alt="Portrait von "/>
+                        <StaffCard name="Tobias Behnstedt" job="Leitung Fleischabteilung" leader tel="26" image="/images/content/mitarbeiter/tobias_behnstedt.png"/>
+                        <StaffCard name="Niels Brandt" job="Leitung Fleischabteilung" leader tel="27" image="/images/content/mitarbeiter/niels_brandt.png" overlay="/images/content/mitarbeiter/niels_brandt_zeichnung.png"/>
                     
-                        <StaffCard name="Silke Künstler" job="Vertriebsinnendienst" color="#2f3542" link="tel:0531 210 55 23" label="0531 210 55 23" image="/images/content/mitarbeiter/silke_kuenstler.png" alt="Portrait von "/>
-                        <StaffCard name="Romina Pagano" job="Vertriebsinnendienst" color="#2f3542" link="tel:0531 210 55 28" label="0531 210 55 28" image="/images/content/mitarbeiter/missing.png" alt="Portrait von "/>
-                        <StaffCard name="Yasmin Ruben" job="Vertriebsinnendienst" color="#2f3542" link="tel:0531 210 55 32" label="0531 210 55 32" image="/images/content/mitarbeiter/yasmin_ruben.png" alt="Portrait von "/>
-                        <StaffCard name="Phil Bartelt" job="Vertriebsinnendienst" color="#2f3542" link="tel:0531 210 55 36" label="0531 210 55 36" image="/images/content/mitarbeiter/phil_bartelt.png" alt="Portrait von "/>
-                    
-                        <StaffCard name="Benjamin Vahle" job="Leitung Marketing & Kommunikation" link="tel:0531 210 55 16" label="0531 210 55 16" image="/images/content/mitarbeiter/benjamin_vahle.png" alt="Portrait von "/>
-                    
-                        <StaffCard name="Franziska Brandt" job="Mediengestalterin" color="#2f3542" link="tel:0531 210 55 51" label="0531 210 55 51" image="/images/content/mitarbeiter/franziska_brandt.png" alt="Portrait von "/>
-                        <StaffCard name="Maurice Freuwört" job="Mediengestalter" color="#2f3542" link="tel:0531 210 55 73" label="0531 210 55 73" image="/images/content/mitarbeiter/maurice_freuwoert.png" alt="Portrait von "/>
-                        <StaffCard name="Julia Kirschner" job="Mediengestalterin" color="#2f3542" link="tel:0531 210 55 13" label="0531 210 55 13" image="/images/content/mitarbeiter/missing.png" alt="Portrait von "/>
-                        <StaffCard name="Franziska Wolff" job="Mediengestalterin" color="#2f3542" link="tel:0531 210 55 25" label="0531 210 55 25" image="/images/content/mitarbeiter/franziska_wolff.png" alt="Portrait von "/>
-                        <StaffCard name="Carolin Götzner" job="Mediengestalterin" color="#2f3542" link="tel:0531 210 55 43" label="0531 210 55 43" image="/images/content/mitarbeiter/carolin_goetzner.png" alt="Portrait von "/>
-                        <StaffCard name="Annika Görmann" job="Mediengestalterin" color="#2f3542" link="tel:0531 210 55 72" label="0531 210 55 72" image="/images/content/mitarbeiter/annika_goermann.png" alt="Portrait von "/>
-                    
-                        <StaffCard name="Harald Reckwald" job="Leitung Lager" link="tel:0531 210 55 57" label="0531 210 55 57" image="/images/content/mitarbeiter/missing.png" alt="Portrait von "/>
-                    
-                        <StaffCard name="Timo Welskop" job="Leitung Fuhrpark" link="tel:0531 210 55 56" label="0531 210 55 56" image="/images/content/mitarbeiter/timo_welskop.png" alt="Portrait von "/>
-                        <StaffCard name="Kathrin Reviliak" job="Stlv. Leitung Fuhrpark" link="tel:0531 210 55 56" label="0531 210 55 56" image="/images/content/mitarbeiter/missing.png" alt="Portrait von "/>
-                    
-                        <StaffCard name="Tobias Behnstedt" job="Leitung Fleischabteilung" link="tel:0531 210 55 26" label="0531 210 55 26" image="/images/content/mitarbeiter/tobias_behnstedt.png" alt="Portrait von "/>
-                        <StaffCard name="Niels Brandt" job="Leitung Fleischabteilung" link="tel:0531 210 55 27" label="0531 210 55 27" image="/images/content/mitarbeiter/niels_brandt.png" alt="Portrait von "/>
-                    
-                        <StaffCard name="Annette Körner" job="Leitung Werkstatt/Kundendienst" link="tel:0531 210 55 24" label="0531 210 55 24" image="/images/content/mitarbeiter/annette_koerner.png" alt="Portrait von "/>
-                        <StaffCard name="Marcus Zetzsche" job="Leitung Werkstatt/Kundendienst" link="tel:0531 210 55 12" label="0531 210 55 12" image="/images/content/mitarbeiter/marcus_zetzsche.png" alt="Portrait von "/>
+                        <StaffCard name="Annette Körner" job="Leitung Servicewerkstatt" leader tel="24" image="/images/content/mitarbeiter/annette_koerner.png" overlay="/images/content/mitarbeiter/annette_koerner_zeichnung.png"/>
+                        <StaffCard name="Marcus Zetzsche" job="Stv. Leitung Servicewerkstatt" leader tel="12" image="/images/content/mitarbeiter/marcus_zetzsche.png" overlay="/images/content/mitarbeiter/marcus_zetzsche_zeichnung.png"/>
                     </div>
                 </div>
             </section>

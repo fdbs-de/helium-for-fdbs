@@ -1,23 +1,29 @@
 <template>
-    <div class="card-wrapper" :class="{'has-overlay': overlay && image}" :style="'--card-color:' + color">
+    <div class="card-wrapper" :class="{'has-overlay': overlay && image}" :style="'--card-color:' + color__">
         <div class="image-wrapper" v-if="image">
-            <img loading="lazy" :src="image" :alt="alt" class="card-image">
-            <img loading="lazy" :src="overlay" :alt="alt" class="card-image overlay">
+            <img loading="lazy" :src="image" :alt="alt__" class="card-image">
+            <img loading="lazy" :src="overlay" :alt="alt__" class="card-image overlay">
             <div class="job-banner" v-if="job">{{job}}</div>
         </div>
-        <div class="text-wrapper" v-if="name || label || job">
+        <div class="text-wrapper" v-if="name || label__ || job">
             <b v-if="name">{{name}}</b>
-            <a v-if="link && label" :href="link" target="_blank"><small>{{label}}</small></a>
-            <small v-else-if="label">{{label}}</small>
+            <a v-if="link__ && label__" :href="link__" target="_blank"><small>{{label__}}</small></a>
+            <small v-else-if="label__">{{label__}}</small>
         </div>
     </div>
 </template>
 
 <script setup>
-    defineProps({
+    import { computed, ref } from 'vue'
+
+    const props = defineProps({
         color: {
             type: String,
-            default: 'var(--color-primary)'
+            default: 'var(--color-heading)'
+        },
+        leader: {
+            type: Boolean,
+            default: false
         },
         name: {
             type: String
@@ -31,6 +37,9 @@
         link: {
             type: String
         },
+        tel: {
+            type: String
+        },
         image: {
             type: String
         },
@@ -41,6 +50,27 @@
             type: String
         },
     })
+
+    const basePhone = ref('0531 210 55')
+
+    const tel__ = computed(() => {
+
+        // Wenn nur die Durchwahl gegenen ist
+        if ([2,3].includes(props.tel?.length ?? 0))
+        {
+            // Dann ergänze die BaseNumber
+            return basePhone.value + ' ' + props.tel
+        }
+
+        return props.tel || ''
+    })
+
+    const link__ = computed(() => (props.link || tel__?.value ? 'tel:'+tel__.value : null))
+    const label__ = computed(() => (props.label || tel__?.value || null))
+
+    const alt__ = computed(() => (props.alt || 'Portrait von '+props.name))
+
+    const color__ = computed(() => (props.leader ? 'var(--color-primary)' : props.color))
 </script>
 
 <style lang="sass" scoped>

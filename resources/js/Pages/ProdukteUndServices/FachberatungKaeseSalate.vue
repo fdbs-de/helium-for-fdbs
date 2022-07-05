@@ -5,7 +5,7 @@
         </Head>
 
         <template #ansprechpartner>
-            <StaffCard class="service-scroll-item" name="Elke Grigat" link="tel:0531 210 55 38" label="0531 210 55 38" image="/images/content/mitarbeiter/elke_grigat.png" alt="Portrait von Elke Grigat"/>
+            <StaffCard class="service-scroll-item" name="Elke Grigat" tel="38" image="/images/content/mitarbeiter/elke_grigat.png"/>
         </template>
 
         <p>
@@ -50,15 +50,17 @@
             an Seminaren und Workshops zu den unterschiedlichsten Themen anbieten durfte. Unser aktuelles Angebot
             präsentiert sich Ihnen auf unserer Homepage.
         </p>
-        <a href="/images/content/services/some.jpg" target="_blank">
-            <img src="/images/content/services/some_small.jpg" alt="Somelier Elke Grigat" title="Zertifikat Someliere Elke Grigat">
-        </a>
-        <a href="/images/content/services/zertifikat_ernaehrungsberatung.jpg" target="_blank">
-            <img src="/images/content/services/zertifikat_ernaehrungsberatung_small.jpg" alt="Ernährungsberatung Elke Grigat" title="Zertifikat Ernährungsberatung Elke Grigat">
-        </a>
+
         <p><strong>Fragen? Wünsche? Anregungen?</strong></p>
         <p><strong>Sprechen Sie mich gerne an.</strong></p>
         <p>Ich bin gerne für Sie da!</p>
+
+        <p>&nbsp;</p>
+        
+        <div class="item-wrapper flex gap-2">
+            <Card class="flex-1" new-window aspect-ratio="16/9" name="Zertifikat: Someliere Elke Grigat" image="/images/content/services/some.jpg" link="/images/content/services/some.jpg" />
+            <Card class="flex-1" new-window aspect-ratio="16/9" name="Zertifikat: Ernährungsberatung Elke Grigat" image="/images/content/services/zertifikat_ernaehrungsberatung.jpg" link="/images/content/services/zertifikat_ernaehrungsberatung.jpg" />
+        </div>
     </ServiceSubLayout>
 </template>
 
@@ -66,4 +68,11 @@
     import { Head, Link } from '@inertiajs/inertia-vue3'
     import ServiceSubLayout from '@/Layouts/SubLayouts/Service.vue'
     import StaffCard from '@/Components/Page/StaffCard.vue'
+    import Card from '@/Components/Page/Card.vue'
 </script>
+
+<style lang="sass">
+    @media screen and (max-width: 600px)
+        .item-wrapper
+            flex-direction: column
+</style>

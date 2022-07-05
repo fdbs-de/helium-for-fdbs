@@ -69,10 +69,10 @@
                 </div>
                 <div class="spacer"></div>
                 <div class="social-wrapper">
-                    <a href="https://www.linkedin.com/company/fleischer-dienst-braunschweig-eg" target="_blank" rel="opener">LinkedIn</a>
+                    <a href="https://www.linkedin.com/company/fdbsfoodservice" target="_blank" rel="opener">LinkedIn</a>
                     <a href="https://www.xing.com/pages/fleischer-dienst-braunschweig-eg" target="_blank" rel="opener">Xing</a>
                     <!-- <a href="#" target="_blank" rel="opener">YouTube</a> -->
-                    <a href="https://www.instagram.com/fleischerdienstbraunschweig" target="_blank" rel="opener">Instagram</a>
+                    <a href="https://www.instagram.com/fdbs_foodservice/" target="_blank" rel="opener">Instagram</a>
                     <a href="https://www.facebook.com/FleischerDienstBraunschweig" target="_blank" rel="opener">Facebook</a>
                     <a href="https://www.ebay-kleinanzeigen.de/pro/Fleischer-Dienst-Braunschweig-eG" target="_blank" rel="opener">Ebay</a>
                 </div>

@@ -4,7 +4,7 @@
             <title>Unsere Aktuellen Angebote</title>
         </Head>
         <div class="grid">
-            <Card name="Unser Monatsangebot für Juni 2022" alt="Unser Monatsangebot für Juni 2022" image="/images/content/flyer/monatsangebot_06_2022_op.jpg" new-window link="/downloads/flyer/monatsangebot_06_2022_op.pdf"/>
+            <Card name="Unser Monatsangebot für Juli 2022" alt="Unser Monatsangebot für Juli 2022" image="/images/content/flyer/monatsangebot_07_2022_op.jpg" new-window link="/downloads/flyer/monatsangebot_07_2022_op.pdf"/>
             <Card name="Unser Grillangebot für 2022" alt="Unser Grillangebot für 2022" image="/images/content/flyer/grillflyer_2022.jpg" new-window link="/downloads/flyer/grillflyer_2022.pdf"/>
         </div>
     </TextSubLayout>

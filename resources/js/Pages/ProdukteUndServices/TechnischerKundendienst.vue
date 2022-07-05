@@ -5,8 +5,8 @@
         </Head>
 
         <template #ansprechpartner>
-            <StaffCard class="service-scroll-item" name="Annette Körner" link="tel:0531 210 55 24" label="0531 210 55 24" image="/images/content/mitarbeiter/annette_koerner.png" alt="Portrait von Annette Körner"/>
-            <StaffCard class="service-scroll-item" name="Marcus Zetzsche" link="tel:0531 210 55 12" label="0531 210 55 12" image="/images/content/mitarbeiter/marcus_zetzsche.png" alt="Portrait von Marcus Zetzsche"/>
+            <StaffCard class="service-scroll-item" name="Annette Körner" job="Leitung" leader tel="24" image="/images/content/mitarbeiter/annette_koerner.png" overlay="/images/content/mitarbeiter/annette_koerner_zeichnung.png"/>
+            <StaffCard class="service-scroll-item" name="Marcus Zetzsche" job="Stv. Leitung" leader tel="12" image="/images/content/mitarbeiter/marcus_zetzsche.png" overlay="/images/content/mitarbeiter/marcus_zetzsche_zeichnung.png"/>
         </template>
 
         <p><strong>Reparatur und Durchsicht</strong></p>
