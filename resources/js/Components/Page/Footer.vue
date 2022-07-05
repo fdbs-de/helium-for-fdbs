@@ -74,7 +74,7 @@
                     <!-- <a href="#" target="_blank" rel="opener">YouTube</a> -->
                     <a href="https://www.instagram.com/fdbs_foodservice/" target="_blank" rel="opener">Instagram</a>
                     <a href="https://www.facebook.com/FleischerDienstBraunschweig" target="_blank" rel="opener">Facebook</a>
-                    <a href="https://www.ebay-kleinanzeigen.de/pro/Fleischer-Dienst-Braunschweig-eG" target="_blank" rel="opener">Ebay</a>
+                    <a href="https://www.ebay-kleinanzeigen.de/pro/FDBS" target="_blank" rel="opener">Ebay</a>
                 </div>
             </div>
         </div>
