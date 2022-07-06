@@ -57,7 +57,7 @@
 
                     <div class="staff-card-container">
                         <div></div>
-                        <StaffCard name="Sebastian Gerlach" job="Vorstand" leader label="(geschäftsführend)" image="/images/content/mitarbeiter/sebastian_gerlach.png"/>
+                        <StaffCard name="Sebastian Gerlach" job="Vorstand" leader label="(geschäftsführend)" image="/images/content/mitarbeiter/sebastian_gerlach.png" overlay="/images/content/mitarbeiter/sebastian_gerlach_zeichnung.png"/>
                         <StaffCard name="Jens Löser" job="Vorstand" leader label="(geschäftsführend)" image="/images/content/mitarbeiter/jens_loeser.png" overlay="/images/content/mitarbeiter/jens_loeser_zeichnung.png"/>
                         <div></div>
                     </div>
@@ -67,7 +67,7 @@
                     <div class="staff-card-container">
                         <StaffCard name="Jana Schildhauer" job="Assistentin des Vorstands / Leitung QM / Ausbildungsleitung" leader tel="44" image="/images/content/mitarbeiter/jana_schildhauer.png" overlay="/images/content/mitarbeiter/jana_schildhauer_zeichnung.png"/>
                         
-                        <StaffCard name="Robert Heiduk" job="Leitung Buchhaltung / Personal" leader tel="37" image="/images/content/mitarbeiter/robert_heiduk.png"/>
+                        <StaffCard name="Robert Heiduk" job="Leitung Buchhaltung / Personal" leader tel="37" image="/images/content/mitarbeiter/robert_heiduk.png" overlay="/images/content/mitarbeiter/robert_heiduk_zeichnung.png"/>
                         <StaffCard name="Silke Sanner" job="Verwaltung" tel="31" image="/images/content/mitarbeiter/missing.png"/>
                         <StaffCard name="Katja Stöger" job="Debitorenbuchhaltung" tel="15" image="/images/content/mitarbeiter/missing.png"/>
                     
@@ -75,7 +75,7 @@
                     
                         <StaffCard name="Christian Hornig" job="Leitung Einkauf / Warendisposition" leader tel="17" image="/images/content/mitarbeiter/christian_hornig.png" overlay="/images/content/mitarbeiter/christian_hornig_zeichnung.png"/>
                         <StaffCard name="Marius Hilger" job="Einkauf / Warendisposition" tel="46" image="/images/content/mitarbeiter/marius_hilger.png" overlay="/images/content/mitarbeiter/marius_hilger_zeichnung.png"/>
-                        <StaffCard name="Tobias Klenke" job="Einkauf / Warendisposition" tel="21" image="/images/content/mitarbeiter/tobias_klenke.png"/>
+                        <StaffCard name="Tobias Klenke" job="Einkauf / Warendisposition" tel="21" image="/images/content/mitarbeiter/tobias_klenke.png" overlay="/images/content/mitarbeiter/tobias_klenke_zeichnung.png"/>
                         <StaffCard name="Peter Schmidt" job="Einkauf / Warendisposition" tel="19" image="/images/content/mitarbeiter/peter_schmidt.png" overlay="/images/content/mitarbeiter/peter_schmidt_zeichnung.png"/>
                         <StaffCard name="Nino Storch" job="Einkauf / Warendisposition" tel="48" image="/images/content/mitarbeiter/nino_storch.png" overlay="/images/content/mitarbeiter/nino_storch_zeichnung.png"/>
                     
@@ -91,9 +91,9 @@
                     
                         <StaffCard name="Madlen Krause" job="Leitung Vertriebsinnendienst" leader tel="18" image="/images/content/mitarbeiter/missing.png"/>
                         <StaffCard name="Phil Bartelt" job="Vertriebsinnendienst" tel="36" image="/images/content/mitarbeiter/phil_bartelt.png" overlay="/images/content/mitarbeiter/phil_bartelt_zeichnung.png"/>
-                        <StaffCard name="Silke Künstler" job="Vertriebsinnendienst" tel="23" image="/images/content/mitarbeiter/silke_kuenstler.png"/>
+                        <StaffCard name="Silke Künstler" job="Vertriebsinnendienst" tel="23" image="/images/content/mitarbeiter/silke_kuenstler.png" overlay="/images/content/mitarbeiter/silke_kuenstler_zeichnung.png"/>
                         <StaffCard name="Romina Pagano" job="Vertriebsinnendienst" image="/images/content/mitarbeiter/missing.png"/>
-                        <StaffCard name="Yasmin Ruben" job="Vertriebsinnendienst" tel="32" image="/images/content/mitarbeiter/yasmin_ruben.png"/>
+                        <StaffCard name="Yasmin Ruben" job="Vertriebsinnendienst" tel="32" image="/images/content/mitarbeiter/yasmin_ruben.png" overlay="/images/content/mitarbeiter/yasmin_ruben_zeichnung.png"/>
                         <StaffCard name="Angela Schrödter" job="Vertriebsinnendienst" tel="20" image="/images/content/mitarbeiter/angela_schroedter.png" overlay="/images/content/mitarbeiter/angela_schroedter_zeichnung.png"/>
                     
                         <StaffCard name="Benjamin Vahle" job="Leitung Marketing & Kommunikation" leader tel="16" image="/images/content/mitarbeiter/benjamin_vahle.png" overlay="/images/content/mitarbeiter/benjamin_vahle_zeichnung.png"/>
@@ -106,10 +106,10 @@
                     
                         <StaffCard name="Harald Reckwald" job="Leitung Lager" leader tel="57" image="/images/content/mitarbeiter/missing.png"/>
                     
-                        <StaffCard name="Timo Welskop" job="Leitung Fuhrpark" leader tel="56" image="/images/content/mitarbeiter/timo_welskop.png"/>
+                        <StaffCard name="Timo Welskop" job="Leitung Fuhrpark" leader tel="56" image="/images/content/mitarbeiter/timo_welskop.png" overlay="/images/content/mitarbeiter/timo_welskop_zeichnung.png"/>
                         <StaffCard name="Kathrin Reviliak" job="Stv. Leitung Fuhrpark" leader tel="53" image="/images/content/mitarbeiter/missing.png"/>
                     
-                        <StaffCard name="Tobias Behnstedt" job="Leitung Fleischabteilung" leader tel="26" image="/images/content/mitarbeiter/tobias_behnstedt.png"/>
+                        <StaffCard name="Tobias Behnstedt" job="Leitung Fleischabteilung" leader tel="26" image="/images/content/mitarbeiter/tobias_behnstedt.png" overlay="/images/content/mitarbeiter/tobias_behnstedt_zeichnung.png"/>
                         <StaffCard name="Niels Brandt" job="Leitung Fleischabteilung" leader tel="27" image="/images/content/mitarbeiter/niels_brandt.png" overlay="/images/content/mitarbeiter/niels_brandt_zeichnung.png"/>
                     
                         <StaffCard name="Annette Körner" job="Leitung Servicewerkstatt" leader tel="24" image="/images/content/mitarbeiter/annette_koerner.png" overlay="/images/content/mitarbeiter/annette_koerner_zeichnung.png"/>
