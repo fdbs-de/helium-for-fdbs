@@ -25,6 +25,8 @@ const i18n = createI18n({
     messages: translations,
 })
 
+// window.route = route
+
 
 
 /////////////////////////
@@ -51,6 +53,7 @@ createServer((page) => createInertiaApp({
         application.use(plugin)
         application.use(MarketierUI)
         application.use(i18n)
+        application.config.globalProperties.route = route
         application.mixin({
             methods: {
                 route: (name, params, absolute) => {
