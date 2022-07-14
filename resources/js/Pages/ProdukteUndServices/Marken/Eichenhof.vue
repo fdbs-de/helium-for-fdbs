@@ -23,7 +23,7 @@
             sein Fachwissen und die Sorgfalt im Umgang mit Land, Tier und Mensch nachgewiesen.
         </p>
 
-        <p>&nbsp;</p>
+        <!-- <p>&nbsp;</p>
 
         <h2>Unsere Eichenhof-Garantie:</h2>
         <ul>
@@ -50,7 +50,7 @@
             <a href="http://eichenhof.net" target="_blank" rel="noopener" title="Eichenhof Markenfleisch">www.eichenhof.net</a><br>
             oder laden Sie sich hier unsere Informationsbroschüre herunter:<br><br>
         </p>
-        <Card new-window aspect-ratio="16/9" name="Eichenhof Broschüre (Download)" image="/images/content/marken/eichenhof/eichenhof_imagebroschure.jpg" link="/downloads/marken/eichenhof/eichenhof_imagebroschure.pdf"/>
+        <Card new-window aspect-ratio="16/9" name="Eichenhof Broschüre (Download)" image="/images/content/marken/eichenhof/eichenhof_imagebroschure.jpg" link="/downloads/marken/eichenhof/eichenhof_imagebroschure.pdf"/> -->
     </TextSubLayout>
 </template>
 
