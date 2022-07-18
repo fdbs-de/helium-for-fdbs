@@ -49,6 +49,7 @@
             children: [
                 { id: 'admin-users', label: 'Nutzerverwaltung', href: route('dashboard.admin.users'), icon: null, children: [] },
                 { id: 'admin-specs', label: 'Speziverwaltung', href: route('dashboard.admin.specs'), icon: null, children: [] },
+                { id: 'admin-docs',  label: 'Dokumentverwaltung', href: route('dashboard.admin.docs'), icon: null, children: [] },
             ],
         })
     }

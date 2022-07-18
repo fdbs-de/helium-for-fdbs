@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\DocumentController;
 use App\Http\Controllers\StaticController;
 use Illuminate\Support\Facades\Route;
 
@@ -42,6 +43,10 @@ Route::get('/impressum', [StaticController::class, 'indexImpressum'])->name('imp
 Route::get('/datenschutz', [StaticController::class, 'indexDatenschutz'])->name('datenschutz');
 Route::get('/agbs', [StaticController::class, 'indexAGBS'])->name('agbs');
 Route::get('/video-info', [StaticController::class, 'indexVideoInfo'])->name('video-info');
+
+Route::get('dokumente/{document:slug}', [DocumentController::class, 'show'])->name('dokumente');
+
+
 
 require __DIR__.'/auth.php';
 require __DIR__.'/dashboard.php';

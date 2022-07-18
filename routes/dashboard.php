@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Dashboard\AdminController;
 use App\Http\Controllers\Dashboard\CustomerController;
+use App\Http\Controllers\Dashboard\DocumentController;
 use App\Http\Controllers\Dashboard\OverviewController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\SpecController;
@@ -37,6 +38,11 @@ Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () 
         Route::post('/spezifikationen/upload', [SpecController::class, 'upload'])->can('create', 'App\Models\Specification')->name('dashboard.admin.specs.upload');
         Route::post('/spezifikationen/cache', [SpecController::class, 'cache'])->can('create', 'App\Models\Specification')->name('dashboard.admin.specs.cache');
         Route::delete('/spezifikationen/delete', [SpecController::class, 'delete'])->can('delete', 'App\Models\Specification')->name('dashboard.admin.specs.delete');
+        
+        Route::get('/dokumente', [DocumentController::class, 'indexAdmin'])->name('dashboard.admin.docs');
+        Route::post('/dokumente', [DocumentController::class, 'store'])->name('dashboard.admin.docs.store');
+        Route::put('/dokumente/{document}', [DocumentController::class, 'update'])->name('dashboard.admin.docs.update');
+        Route::delete('/dokumente/{document}', [DocumentController::class, 'delete'])->name('dashboard.admin.docs.delete');
     });
 
     // Route::prefix('mitarbeiter')->middleware(['panelaccess:employee'])->group(function () {

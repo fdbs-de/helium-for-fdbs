@@ -11,6 +11,7 @@ return [
         2 => Permissions::CAN_EDIT_USERS,
         3 => Permissions::CAN_EDIT_SPECS,
         4 => Permissions::CAN_EDIT_JOB_OFFERS,
+        5 => Permissions::CAN_EDIT_DOCS,
     ],
 
     'roles' => [
@@ -21,6 +22,7 @@ return [
                 Permissions::CAN_EDIT_USERS,
                 Permissions::CAN_EDIT_SPECS,
                 Permissions::CAN_EDIT_JOB_OFFERS,
+                Permissions::CAN_EDIT_DOCS,
             ],
         ],
     
@@ -31,6 +33,7 @@ return [
                 Permissions::CAN_EDIT_USERS,
                 Permissions::CAN_EDIT_SPECS,
                 Permissions::CAN_EDIT_JOB_OFFERS,
+                Permissions::CAN_EDIT_DOCS,
             ],
         ],
     
@@ -40,6 +43,7 @@ return [
                 Permissions::CAN_ACCESS_ADMIN_PANEL,
                 Permissions::CAN_EDIT_SPECS,
                 Permissions::CAN_EDIT_JOB_OFFERS,
+                Permissions::CAN_EDIT_DOCS,
             ],
         ],
     ],
