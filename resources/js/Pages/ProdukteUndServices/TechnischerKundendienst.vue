@@ -7,6 +7,7 @@
         <template #ansprechpartner>
             <StaffCard class="service-scroll-item" name="Annette Körner" job="Leitung" leader tel="24" image="/images/content/mitarbeiter/annette_koerner.png" overlay="/images/content/mitarbeiter/annette_koerner_zeichnung.png"/>
             <StaffCard class="service-scroll-item" name="Marcus Zetzsche" job="Stv. Leitung" leader tel="12" image="/images/content/mitarbeiter/marcus_zetzsche.png" overlay="/images/content/mitarbeiter/marcus_zetzsche_zeichnung.png"/>
+            <StaffCard class="service-scroll-item" name="André Hoffmann" tel="41" image="/images/content/mitarbeiter/missing.png"/>
         </template>
 
         <p><strong>Reparatur und Durchsicht</strong></p>
