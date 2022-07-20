@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Docs;
 
+use App\Permissions\Permissions;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateDocumentRequest extends FormRequest
@@ -13,7 +14,9 @@ class CreateDocumentRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        if (!$this->user()->can(Permissions::CAN_EDIT_DOCS)) return false;
+
+        return true;
     }
 
     /**
@@ -24,7 +27,15 @@ class CreateDocumentRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'file' => 'required|file|max:8192',
+            'slug' => 'required|string|unique:documents,slug|max:255|regex:/^[a-z0-9\-]+$/',
+            'name' => 'nullable|string|max:255',
+            'category' => 'nullable|string|max:255',
+            'group' => 'nullable|string|in:customers,employees',
+            
+            'cover' => 'nullable|image|max:4096|mimes:png,jpg',
+            'cover_alt' => 'nullable|string',
+            'cover_size' => 'required_with:cover|string|in:cover,contain',
         ];
     }
 }

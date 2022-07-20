@@ -10,6 +10,7 @@
 
     <Popup ref="uploadDocumentPopup" title="Dokument hochladen">
         <form class="flex vertical gap-1 padding-1" @submit.prevent="saveDocument">
+            <input type="file" @input="documentForm.file = $event.target.files[0]">
             <mui-input label="Name" v-model="documentForm.name"/>
             <mui-input label="URL freundlicher Name" v-model="documentForm.slug"/>
             <mui-input label="Category" v-model="documentForm.category"/>
@@ -18,12 +19,17 @@
                 <option value="customers">Nur Kunden</option>
                 <option value="employees">Nur Mitarbeiter</option>
             </select>
-            <mui-input label="Cover Alt-Text" v-model="documentForm.alt"/>
-            <select v-model="documentForm.cover_size">
+
+            <mui-toggle type="switch" v-model="documentForm.has_cover" label="Dieses Dokument besitzt ein Cover-Bild"/>
+
+            <input type="file" @input="documentForm.cover = $event.target.files[0]" v-show="documentForm.has_cover">
+            <mui-input label="Cover Alt-Text" v-model="documentForm.alt" v-show="documentForm.has_cover"/>
+            <select v-model="documentForm.cover_size" v-show="documentForm.has_cover">
                 <option value="cover">Cover</option>
                 <option value="contain">Contain</option>
             </select>
-            <mui-button type="submit" label="Jetzt Hochladen"/>
+
+            <mui-button label="Jetzt Hochladen"/>
         </form>
     </Popup>
 </template>
@@ -34,7 +40,8 @@
     import { Inertia } from '@inertiajs/inertia'
     import Popup from '@/Components/Form/Popup.vue'
     import Loader from '@/Components/Form/Loader.vue'
-    import { ref } from 'vue'
+    import { slugify } from '@/Utils/String'
+    import { ref, watch } from 'vue'
 
 
 
@@ -42,13 +49,19 @@
 
     const documentForm = useForm({
         id: null,
+        file: null,
         slug: '',
         name: '',
         group: '',
         category: '',
+        cover: null,
         has_cover: false,
         cover_alt: '',
         cover_size: 'cover',
+    })
+
+    watch(documentForm, () => {
+        documentForm.slug = slugify(documentForm.name)
     })
 
     const openUploadDocumentPopup = (document) => {
@@ -60,7 +73,16 @@
         (documentForm.id) ? updateDocument() : storeDocument()
     }
 
-    const storeDocument = () => {}
+    const storeDocument = () => {
+        documentForm.post(route('dashboard.admin.docs.store'), {
+            forceFormData: true,
+
+            onSuccess() {
+                uploadDocumentPopup.value.close()
+                documentForm.reset()
+            },
+        })
+    }
     const updateDocument = () => {}
 </script>
 

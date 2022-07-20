@@ -25,7 +25,7 @@ class Document extends Model
     ];
 
     protected $attributes = [
-        'group' => 'everyone',
+        'group' => '',
         'has_cover' => false,
         'cover_size' => 'cover',
     ];

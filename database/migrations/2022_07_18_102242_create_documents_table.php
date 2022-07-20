@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('slug')->unique();
             $table->string('name')->nullable();
-            $table->string('filename');
+            $table->string('filename')->nullable();
             $table->string('category')->nullable();
-            $table->string('group');
+            $table->string('group')->nullable();
             $table->boolean('has_cover');
             $table->string('cover_alt')->nullable();
             $table->string('cover_size');

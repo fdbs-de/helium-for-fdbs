@@ -34,7 +34,7 @@
         "dayjs": "^1.11.3",
         "focus-trap": "^6.9.4",
         "focus-trap-vue": "^3.3.0",
-        "marketier-ui": "^0.1.5",
+        "marketier-ui": "^2.0.0",
         "vue-i18n": "^9.1.10",
         "zxcvbn": "^4.4.2"
     }
