@@ -6,6 +6,11 @@
 
         <div class="wrapper">
             <Card cover new-window aspect-ratio="16/9" primary-tag="Vollzeit" :tags="['m/w/d']"
+                name="Mitarbeiter(in) im Vertriebsinnendienst"
+                image="/images/karriere/Innendienst_308824031.jpg"
+                link="/downloads/karriere/Vertriebsinnendienst.pdf"/>
+
+            <Card cover new-window aspect-ratio="16/9" primary-tag="Vollzeit" :tags="['m/w/d']"
                 name="LKW-Fahrer"
                 image="/images/karriere/kraftfahrer_275535330.jpeg"
                 link="/downloads/karriere/Kraftfahrer.pdf"/>

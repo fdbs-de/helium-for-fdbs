@@ -30,7 +30,7 @@
         <p>
             ©HBS, ©NDABCREATIVITY, ©Cristalov, ©littlewolf1989, ©New Africa, ©ikonoklast_hh,
             ©StudioDFlorez, ©laplateresca, ©NVB Stocker, ©Prostock-studio, ©Rawpixel.com,
-            ©assetseller, ©Racle Fotodesign, ©Paul Bradbury/KOTO, ©Drobot Dean - <a href="https://stock.adobe.com" target="_blank" ref="noopener noreferrer">Adobe Stock</a>
+            ©assetseller, ©Racle Fotodesign, ©Paul Bradbury/KOTO, ©Pixel-Shot, ©Drobot Dean - <a href="https://stock.adobe.com" target="_blank" ref="noopener noreferrer">Adobe Stock</a>
         </p>
         <!-- <p>
             Seminar "Sicher und souverän frisch": XTravaganT<br>
