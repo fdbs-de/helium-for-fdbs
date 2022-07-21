@@ -9,22 +9,42 @@
 
         <div class="grid">
             <div class="row">
+                <b>Cover</b>
+                <b>Sichtbarkeit</b>
                 <b>Name</b>
-                <b>Email</b>
+                <b>Datei</b>
+                <b>Kategorie</b>
             </div>
             
-            <button class="row" v-for="document in documents" :key="document.id">
-                <span v-if="document.name">{{document.name}}</span>
+            <button class="row" v-for="document in documents" :key="document.id" @click="openUploadDocumentPopup(document)">
+                <img v-if="document.has_cover" class="cover" :src="route('dokumentcover', document.id)" :alt="document.cover_alt" width="80" height="50" />
+                <i v-else>Kein Cover</i>
+                
+                <span>{{document.group || 'Öffentlich'}}</span>
+                
+                <span>{{document.name}}</span>
+                
+                <a target="_blank" :href="route('dokument', document.id)" @click.stop>{{document.filename}}</a>
+                
+                <span>{{document.category || 'Keine Kategorie'}}</span>
             </button>
         </div>
     </DashboardSubLayout>
 
+
+
     <Popup ref="uploadDocumentPopup" title="Dokument hochladen">
         <form class="flex vertical gap-1 padding-1" @submit.prevent="saveDocument">
-            <input type="file" @input="documentForm.file = $event.target.files[0]">
+
+            <div class="upload-box">
+                <mui-button as="label" for="file-input" label="Dokument auswählen"/>
+                <input type="file" id="file-input" required @input="documentForm.file = $event.target.files[0]">
+            </div>
+
             <mui-input label="Name" v-model="documentForm.name"/>
             <mui-input label="URL freundlicher Name" v-model="documentForm.slug"/>
             <mui-input label="Category" v-model="documentForm.category"/>
+
             <select v-model="documentForm.group">
                 <option value="">Öffentlich</option>
                 <option value="customers">Nur Kunden</option>
@@ -33,14 +53,24 @@
 
             <mui-toggle type="switch" v-model="documentForm.has_cover" label="Dieses Dokument besitzt ein Cover-Bild"/>
 
-            <input type="file" @input="documentForm.cover = $event.target.files[0]" v-show="documentForm.has_cover">
+            <div class="upload-box" v-show="documentForm.has_cover">
+                <mui-button as="label" for="cover-input" label="Cover auswählen"/>
+                <input type="file" id="cover-input" @input="documentForm.cover = $event.target.files[0]">
+            </div>
+
             <mui-input label="Cover Alt-Text" v-model="documentForm.alt" v-show="documentForm.has_cover"/>
+
             <select v-model="documentForm.cover_size" v-show="documentForm.has_cover">
                 <option value="cover">Cover</option>
                 <option value="contain">Contain</option>
             </select>
 
-            <mui-button label="Jetzt Hochladen"/>
+            <div class="flex gap-1">
+                <mui-button v-if="documentForm.id" type="button" color="error" variant="contained" label="Dokument Löschen"/>
+                <div class="spacer"></div>
+                <mui-button v-if="documentForm.id" label="Änderungen Speichern"/>
+                <mui-button v-else label="Jetzt Hochladen"/>
+            </div>
         </form>
     </Popup>
 </template>
@@ -51,6 +81,7 @@
     import { Inertia } from '@inertiajs/inertia'
     import Popup from '@/Components/Form/Popup.vue'
     import Loader from '@/Components/Form/Loader.vue'
+    import Tag from '@/Components/Form/Tag.vue'
     import { slugify } from '@/Utils/String'
     import { ref, watch } from 'vue'
 
@@ -83,7 +114,20 @@
 
     const openUploadDocumentPopup = (document) => {
         uploadDocumentPopup.value.open()
-        if (document) documentForm.set(document)
+
+        if (document)
+        {
+            documentForm.id = document.id || null
+            documentForm.file = null
+            documentForm.slug = document.slug || ''
+            documentForm.name = document.name || ''
+            documentForm.group = document.group || ''
+            documentForm.category = document.category || ''
+            documentForm.has_cover = document.has_cover || false
+            documentForm.cover = null
+            documentForm.cover_alt = document.cover_alt || ''
+            documentForm.cover_size = document.cover_size || 'cover'
+        }
     }
 
     const saveDocument = () => {
@@ -104,112 +148,50 @@
 </script>
 
 <style lang="sass" scoped>
-    .search-input
-        height: 2.5rem
-        width: 100%
-        max-width: 400px
-
-    .loader
-        position: absolute
-        bottom: -2px
-        height: 2px
-        left: 0
-
-    .upload-wrapper
+    .upload-box
         display: flex
-        flex-direction: column
         align-items: center
         justify-content: center
+        width: 100%
+        height: 150px
         background: var(--color-background-soft)
-        border-radius: .5rem
-        margin: 1rem 1rem 0
-        position: relative
-        padding: 5rem 1rem
+        border-radius: 8px
 
-        input
+        > input
             display: none
 
-        .button-group
-            display: flex
-            flex-direction: column
-            gap: 2px
-
-            .bottom-button
-                border-radius: .2rem .2rem .5rem .5rem
-
-            label.top-button
-                display: flex
-                align-items: center
-                height: 2.5rem
-                padding: 0 1rem
-                border-radius: .5rem .5rem .2rem .2rem
-                border: none
-                background: var(--color-primary)
-                color: var(--color-background)
-                font-size: .75rem
-                letter-spacing: .05em
-                font-weight: 500
-                text-transform: uppercase
-                cursor: pointer
-                user-select: none
-
-                &:hover,
-                &:focus
-                    background: var(--color-primary-soft)
-
-    .selection-wrapper
-        display: flex
-        align-items: center
-        height: 3.5rem
-        background: var(--color-background-soft)
-        border-radius: .5rem .5rem .2rem .2rem
-        margin: 1rem 1rem 0
-        position: relative
-        padding: 0 1rem
-        gap: 1rem
-
-        span.text
-            flex: 1
-
-        .inner-wrapper
-            display: contents
-
-    .top-pagination-bar
-        margin-top: 2px
-        border-radius: .2rem .2rem .5rem .5rem
-
-    .placeholder
-        display: flex
-        align-items: center
-        justify-content: center
-        text-align: center
-        height: 220px
-        width: 100%
-
     .grid
-        display: flex
-        flex-direction: column
+        display: grid
+        align-items: center
+        grid-template-columns: minmax(170px, 2fr) minmax(200px, 3fr) minmax(200px, 3fr) minmax(200px, 3fr) minmax(200px, 3fr)
+        // grid-auto-rows: 2.5rem
+        gap: 0 var(--su)
         width: 100%
+        padding: 1rem
+        overflow-x: auto
 
         .row
-            display: grid
-            align-items: center
-            grid-template-columns: 2.5rem 1fr auto
-            gap: var(--su)
-            height: 3rem
-            padding: 0 1rem
-            --mui-background: var(--color-background)
+            display: contents
+            cursor: pointer
+            text-align: inherit
+            font-family: inherit
+            font-size: inherit
+            color: inherit
 
-            .text
-                white-space: nowrap
+            > span
                 overflow: hidden
                 text-overflow: ellipsis
+                white-space: nowrap
+
+            .cover
+                object-fit: contain
+                background: var(--color-background-soft)
+                border-radius: 5px
 
             .icon
                 font-family: var(--font-icon)
                 font-size: 1.5rem
                 line-height: 1
-                text-align: center
                 color: var(--color-text)
                 user-select: none
 
@@ -219,21 +201,6 @@
                 &.active
                     color: var(--color-primary)
 
-            &:hover:not(.head)
+            &:hover
                 background: var(--color-background-soft)
-
-    @media only screen and (max-width: 500px)
-        .selection-wrapper
-            flex-direction: column
-            height: auto
-            gap: .5rem
-            padding: .5rem 1rem
-
-            .inner-wrapper
-                display: flex
-                width: 100%
-                gap: 1rem
-
-                > button
-                    flex: 1
 </style>

@@ -45,10 +45,10 @@
                 image="/images/karriere/marketing_299897089.jpeg"
                 link="/downloads/karriere/GTA.pdf"/>
                 
-            <Card cover new-window aspect-ratio="16/9" primary-tag="Vollzeit" :tags="['m/w/d']"
+            <Card cover new-window aspect-ratio="16/9" primary-tag="Vollzeit" :tags="['m/w/d', 'Spätschicht']"
                 name="Lagermitarbeiter / Kommissionierer"
                 image="/images/karriere/Kommissionierer_357276619.jpeg"
-                link="/downloads/karriere/Kommissionierer.pdf"/>
+                link="/downloads/karriere/Kommissionierer_Spaetschicht.pdf"/>
                 
         </div>
     </TextSubLayout>

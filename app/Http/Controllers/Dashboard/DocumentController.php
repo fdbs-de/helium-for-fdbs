@@ -44,7 +44,7 @@ class DocumentController extends Controller
         ]);
     }
 
-    
+
 
     public function store(CreateDocumentRequest $request)
     {
