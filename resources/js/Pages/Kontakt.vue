@@ -32,13 +32,13 @@
     
                         <ValidationErrors />
     
-                        <mui-input type="text" no-border label="Ihr Name" required autocomplete="name" v-model="form.name"/>
-                        <mui-input type="email" no-border label="Ihre Email" required autocomplete="email" v-model="form.email"/>
-                        <mui-input type="textarea" class="textarea" no-border label="Nachricht" max="2000" required autocomplete="message" v-model="form.message"/>
+                        <mui-input type="text" label="Ihr Name" required autocomplete="name" v-model="form.name"/>
+                        <mui-input type="email" label="Ihre Email" required autocomplete="email" v-model="form.email"/>
+                        <mui-input type="textarea" class="textarea" label="Nachricht" max="2000" required autocomplete="message" v-model="form.message"/>
     
                         <div class="flex center">
-                            <mui-toggle type="checkbox" class="checkbox" no-border v-model="form.terms">
-                                <template #appendLabel>
+                            <mui-toggle type="checkbox" class="checkbox" v-model="form.terms">
+                                <template #label>
                                     <span>
                                         Ich habe die <a target="_blank" :href="route('datenschutz')">Datenschutzerklärung</a> gelesen und akzeptiere diese.
                                     </span>
@@ -67,7 +67,7 @@
                     <h2>Ansprechpartner</h2>
                     
                     <div class="staff-card-container">
-                        <StaffCard name="Jana Schildhauer" job="Assistentin des Vorstands / Leitung QM / Ausbildungsleitung" leader tel="44" image="/images/content/mitarbeiter/jana_schildhauer.png" overlay="/images/content/mitarbeiter/jana_schildhauer_zeichnung.png"/>
+                        <StaffCard name="Jana Schildhauer" job="Assistentin des Vorstands / QM / Ausbildungsleitung" leader tel="44" image="/images/content/mitarbeiter/jana_schildhauer.png" overlay="/images/content/mitarbeiter/jana_schildhauer_zeichnung.png"/>
                         
                         <StaffCard name="Robert Heiduk" job="Leitung Buchhaltung / Personal" leader tel="37" image="/images/content/mitarbeiter/robert_heiduk.png" overlay="/images/content/mitarbeiter/robert_heiduk_zeichnung.png"/>
                         <StaffCard name="Silke Sanner" job="Verwaltung" tel="31" image="/images/content/mitarbeiter/missing.png"/>
@@ -77,13 +77,14 @@
                     
                         <StaffCard name="Christian Hornig" job="Leitung Einkauf / Warendisposition" leader tel="17" image="/images/content/mitarbeiter/christian_hornig.png" overlay="/images/content/mitarbeiter/christian_hornig_zeichnung.png"/>
                         <StaffCard name="Marius Hilger" job="Einkauf / Warendisposition" tel="46" image="/images/content/mitarbeiter/marius_hilger.png" overlay="/images/content/mitarbeiter/marius_hilger_zeichnung.png"/>
+                        <StaffCard name="Maik Kirsch" job="Einkauf / Warendisposition" tel="68" image="/images/content/mitarbeiter/missing.png"/>
                         <StaffCard name="Tobias Klenke" job="Einkauf / Warendisposition" tel="21" image="/images/content/mitarbeiter/tobias_klenke.png" overlay="/images/content/mitarbeiter/tobias_klenke_zeichnung.png"/>
                         <StaffCard name="Peter Schmidt" job="Einkauf / Warendisposition" tel="19" image="/images/content/mitarbeiter/peter_schmidt.png" overlay="/images/content/mitarbeiter/peter_schmidt_zeichnung.png"/>
                         <StaffCard name="Nino Storch" job="Einkauf / Warendisposition" tel="48" image="/images/content/mitarbeiter/nino_storch.png" overlay="/images/content/mitarbeiter/nino_storch_zeichnung.png"/>
                     
                         <StaffCard name="Philipp Rost" job="Leitung Vertrieb" leader tel="99" image="/images/content/mitarbeiter/philipp_rost.png" overlay="/images/content/mitarbeiter/philipp_rost_zeichnung.png"/>
                         <StaffCard name="Elke Grigat" job="Fachberaterin Käse & Salate" tel="38" image="/images/content/mitarbeiter/elke_grigat.png" overlay="/images/content/mitarbeiter/elke_grigat_zeichnung.png"/>
-                        <StaffCard name="Klaus-Dieter Hoffmann" job="Fachberater" tel="98" image="/images/content/mitarbeiter/missing.png"/>
+                        <StaffCard name="Klaus-Dieter Hoffmann" job="Fachberater Großküchentechnik" tel="98" image="/images/content/mitarbeiter/missing.png"/>
                         <StaffCard name="Marcus König" job="Fachberater" tel="93" image="/images/content/mitarbeiter/marcus_koenig.png" overlay="/images/content/mitarbeiter/marcus_koenig_zeichnung.png"/>
                         <StaffCard name="Lutz Nolte" job="Fachberater" tel="94" image="/images/content/mitarbeiter/lutz_nolte.png" overlay="/images/content/mitarbeiter/lutz_nolte_zeichnung.png"/>
                         <StaffCard name="Kenan Özden" job="Fachberater" tel="92" image="/images/content/mitarbeiter/kenan_oezden.png" overlay="/images/content/mitarbeiter/kenan_oezden_zeichnung.png"/>
@@ -106,7 +107,7 @@
                         <StaffCard name="Julia Kirschner" job="Printgestaltung & Produktion" tel="13" image="/images/content/mitarbeiter/missing.png"/>
                         <StaffCard name="Franziska Wolff" job="Printgestaltung & Produktion" image="/images/content/mitarbeiter/franziska_wolff.png" overlay="/images/content/mitarbeiter/franziska_wolff_zeichnung.png"/>
                     
-                        <StaffCard name="Harald Reckwald" job="Leitung Lager" leader tel="57" image="/images/content/mitarbeiter/missing.png"/>
+                        <StaffCard name="Philipp Tronnier" job="Leitung Lager" leader tel="57" image="/images/content/mitarbeiter/missing.png"/>
                     
                         <StaffCard name="Timo Welskop" job="Leitung Fuhrpark" leader tel="56" image="/images/content/mitarbeiter/timo_welskop.png" overlay="/images/content/mitarbeiter/timo_welskop_zeichnung.png"/>
                         <StaffCard name="Kathrin Reviliak" job="Stv. Leitung Fuhrpark" leader tel="53" image="/images/content/mitarbeiter/missing.png"/>

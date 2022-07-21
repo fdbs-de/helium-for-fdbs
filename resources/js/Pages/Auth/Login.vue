@@ -2,13 +2,13 @@
     <FormSubLayout title="Kundenlogin" :status="status" @submit="submit">
         <Head title="Kundenlogin" />
 
-        <mui-input type="email" no-border label="Email" v-model="form.email" required autocomplete="username"/>
-        <mui-input type="password" no-border label="Passwort" v-model="form.password" required autocomplete="current-password"/>
+        <mui-input type="email" label="Email" v-model="form.email" required autocomplete="username"/>
+        <mui-input type="password" label="Passwort" v-model="form.password" required autocomplete="current-password"/>
 
         <div class="flex center">
-            <mui-toggle type="checkbox" class="checkbox" no-border append-label="Angemeldet bleiben" v-model="form.remember"/>
+            <mui-toggle type="checkbox" class="checkbox" label="Angemeldet bleiben" v-model="form.remember"/>
             <div class="spacer"></div>
-            <mui-button type="submit" label="Anmelden" :loading="form.processing"/>
+            <mui-button label="Anmelden" :loading="form.processing"/>
         </div>
 
         <div class="divider"></div>

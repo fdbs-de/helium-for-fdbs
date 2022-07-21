@@ -66,13 +66,14 @@
                 <div class="flex v-center gap">
                     <span class="flex-1">Passwort:</span>
                     <div class="flex-3 flex gap v-center">
-                        <mui-button label="Passwort Ändern" size="small" variant="contained" @click="$refs.changePasswordPopup.open()"/>
+                        <mui-button type="button" label="Passwort Ändern" size="small" variant="contained" @click="$refs.changePasswordPopup.open()"/>
                     </div>
                 </div>
 
                 <div class="flex v-center gap">
                     <span class="flex-1">Abmelden:</span>
                     <div class="flex-3 flex gap v-center">
+                        <!-- <mui-button type="button" label="Abmelden" size="small" variant="contained"/> -->
                         <Link class="simple-button" :href="route('logout')" method="post" as="button">Abmelden</Link>
                     </div>
                 </div>
@@ -87,9 +88,9 @@
         </div>
 
         <form class="flex vertical gap-1 padding-1" @submit.prevent="changePassword()">
-            <mui-input type="password" no-border label="Derzeitiges Passwort" v-model="changePasswordForm.currentPassword"/>
-            <mui-input type="password" no-border label="Neues Passwort" show-password-score v-model="changePasswordForm.newPassword"/>
-            <mui-button type="submit" label="Passwort Ändern"/>
+            <mui-input type="password" no-border label="Derzeitiges Passwort" required v-model="changePasswordForm.currentPassword"/>
+            <mui-input type="password" no-border label="Neues Passwort" show-password-score required v-model="changePasswordForm.newPassword"/>
+            <mui-button label="Passwort Ändern"/>
         </form>
     </Popup>
 </template>

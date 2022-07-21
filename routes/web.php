@@ -45,6 +45,7 @@ Route::get('/agbs', [StaticController::class, 'indexAGBS'])->name('agbs');
 Route::get('/video-info', [StaticController::class, 'indexVideoInfo'])->name('video-info');
 
 Route::get('dokumente/{document:slug}', [DocumentController::class, 'show'])->name('dokumente');
+Route::get('dokumente/{document:slug}/cover', [DocumentController::class, 'showCover'])->name('dokumentcover');
 
 
 

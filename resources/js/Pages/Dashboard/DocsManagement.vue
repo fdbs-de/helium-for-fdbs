@@ -6,6 +6,17 @@
             <mui-button label="Neues Dokument Hochladen" @click="openUploadDocumentPopup()"/>
             <!-- <mui-input class="search-input" type="search" no-border placeholder="Suchen" icon-left="search"/> -->
         </template>
+
+        <div class="grid">
+            <div class="row">
+                <b>Name</b>
+                <b>Email</b>
+            </div>
+            
+            <button class="row" v-for="document in documents" :key="document.id">
+                <span v-if="document.name">{{document.name}}</span>
+            </button>
+        </div>
     </DashboardSubLayout>
 
     <Popup ref="uploadDocumentPopup" title="Dokument hochladen">
@@ -42,6 +53,12 @@
     import Loader from '@/Components/Form/Loader.vue'
     import { slugify } from '@/Utils/String'
     import { ref, watch } from 'vue'
+
+
+
+    defineProps({
+        documents: Array,
+    })
 
 
 

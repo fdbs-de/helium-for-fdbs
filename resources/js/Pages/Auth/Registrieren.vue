@@ -26,26 +26,26 @@
         <div class="divider"></div>
 
         <b>Angaben zu Ihrem FDBS Account</b>
-        <mui-input type="email" no-border label="Email *" v-model="form.email" required autocomplete="username"/>
-        <mui-input type="password" no-border show-password-score label="Passwort wählen *" v-model="form.password" required autocomplete="new-password"/>
+        <mui-input type="email" label="Email *" v-model="form.email" required autocomplete="username"/>
+        <mui-input type="password" show-password-score label="Passwort wählen *" v-model="form.password" required autocomplete="new-password"/>
         
         <div v-if="form.is_customer" class="divider"></div>
         
         <b v-if="form.is_customer">Angaben als Kunde</b>
-        <mui-input v-if="form.is_customer" type="text" no-border label="Firma *" v-model="form.customer.company" required autocomplete="company"/>
-        <mui-input v-if="form.is_customer" type="text" no-border label="Kundennummer *" v-model="form.customer.customer_id" required autocomplete="customer-id"/>
+        <mui-input v-if="form.is_customer" type="text" label="Firma *" v-model="form.customer.company" required autocomplete="company"/>
+        <mui-input v-if="form.is_customer" type="text" label="Kundennummer *" v-model="form.customer.customer_id" required autocomplete="customer-id"/>
         
         <!-- <div v-if="form.is_employee" class="divider"></div>
         
         <b v-if="form.is_employee">Angaben als Mitarbeiter*in</b>
-        <mui-input v-if="form.is_employee" type="text" no-border label="Vorname *" v-model="form.employee.first_name" required autocomplete="firstname"/>
-        <mui-input v-if="form.is_employee" type="text" no-border label="Nachname *" v-model="form.employee.last_name" required autocomplete="lastname"/> -->
+        <mui-input v-if="form.is_employee" type="text" label="Vorname *" v-model="form.employee.first_name" required autocomplete="firstname"/>
+        <mui-input v-if="form.is_employee" type="text" label="Nachname *" v-model="form.employee.last_name" required autocomplete="lastname"/> -->
 
         <div class="divider"></div>
 
         <div class="flex center">
-            <mui-toggle type="checkbox" class="checkbox" no-border v-model="form.terms">
-                <template #appendLabel>
+            <mui-toggle type="checkbox" class="checkbox" v-model="form.terms">
+                <template #label>
                     <span>
                         Ich habe die <a target="_blank" :href="route('datenschutz')">Datenschutzerklärung</a> und die
                         <a target="_blank" :href="route('agbs')">AGBs</a> gelesen und akzeptiere diese.

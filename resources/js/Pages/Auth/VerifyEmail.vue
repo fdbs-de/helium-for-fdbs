@@ -19,7 +19,7 @@
         <div class="flex gap v-center">
             <Link class="simple-button" :href="route('logout')" method="post" as="button">Abmelden</Link>
             <div class="spacer"></div>
-            <mui-button type="submit" label="Email erneut senden" :loading="form.processing"/>
+            <mui-button label="Email erneut senden" :loading="form.processing"/>
         </div>
     </FormSubLayout>
 </template>

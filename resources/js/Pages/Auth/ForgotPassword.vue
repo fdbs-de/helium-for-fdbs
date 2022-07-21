@@ -9,11 +9,11 @@
 
         <div class="divider"></div>
 
-        <mui-input type="email" no-border label="Email" v-model="form.email" required autocomplete="username"/>
+        <mui-input type="email" label="Email" v-model="form.email" required autocomplete="username"/>
 
         <div class="flex center">
             <div class="spacer"></div>
-            <mui-button type="submit" label="Passwort wiederherstellen" :loading="form.processing"/>
+            <mui-button label="Passwort wiederherstellen" :loading="form.processing"/>
         </div>
     </FormSubLayout>
 </template>

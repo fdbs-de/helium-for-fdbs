@@ -15,15 +15,36 @@ class DocumentController extends Controller
 {
     public function show(Request $request, Document $document)
     {
-        return Inertia::render('Dashboard/Documents/Show', [
-            'document' => $document,
-        ]);
+        $path = storage_path('app/documents/' . $document->filename);
+        $headers = [
+            // 'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="' . $document->filename,
+        ];
+        return response()->file($path, $headers);
     }
+
+
+
+    public function showCover(Request $request, Document $document)
+    {
+        $path = storage_path('app/documents/' . $document->filename . '.cover.png');
+        $headers = [
+            // 'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="' . $document->filename . '.cover.png',
+        ];
+        return response()->file($path, $headers);
+    }
+
+
 
     public function indexAdmin()
     {
-        return Inertia::render('Dashboard/DocsManagement');
+        return Inertia::render('Dashboard/DocsManagement', [
+            'documents' => Document::all(),
+        ]);
     }
+
+    
 
     public function store(CreateDocumentRequest $request)
     {
