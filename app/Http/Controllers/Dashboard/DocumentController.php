@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Docs\CreateDocumentRequest;
+use App\Http\Requests\Docs\ShowDocumentRequest;
 use App\Models\Document;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -13,25 +14,25 @@ use Image;
 
 class DocumentController extends Controller
 {
-    public function show(Request $request, Document $document)
+    public function show(ShowDocumentRequest $request, Document $document)
     {
         $path = storage_path('app/documents/' . $document->filename);
         $headers = [
-            // 'Content-Type' => 'application/pdf',
             'Content-Disposition' => 'inline; filename="' . $document->filename,
         ];
+
         return response()->file($path, $headers);
     }
 
 
 
-    public function showCover(Request $request, Document $document)
+    public function showCover(ShowDocumentRequest $request, Document $document)
     {
         $path = storage_path('app/documents/' . $document->filename . '.cover.png');
         $headers = [
-            // 'Content-Type' => 'application/pdf',
             'Content-Disposition' => 'inline; filename="' . $document->filename . '.cover.png',
         ];
+
         return response()->file($path, $headers);
     }
 
@@ -58,9 +59,11 @@ class DocumentController extends Controller
 
         Storage::putFileAs('documents/', $file, $filename);
 
+        $has_cover = $request->hasFile('cover');
+
         // Routine for creating a cover image
         // Right now it needs a separate image
-        if ($request->has('cover'))
+        if ($has_cover)
         {
             // Get cover image
             $cover = $request->file('cover');
@@ -84,8 +87,17 @@ class DocumentController extends Controller
         // save to database
         $document = Document::create(array_merge($request->validated(), [
             'filename' => $filename,
-            'has_cover' => $request->has('cover'),
+            'has_cover' => $has_cover,
         ]));
+
+        return back();
+    }
+
+
+
+    public function delete(Document $document)
+    {
+        $document->delete();
 
         return back();
     }

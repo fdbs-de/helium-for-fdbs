@@ -26,7 +26,8 @@
                 
                 <a target="_blank" :href="route('dokument', document.id)" @click.stop>{{document.filename}}</a>
                 
-                <span>{{document.category || 'Keine Kategorie'}}</span>
+                <span v-if="document.category">{{document.category}}</span>
+                <i v-else>Keine Kategorie</i>
             </button>
         </div>
     </DashboardSubLayout>
@@ -66,10 +67,22 @@
             </select>
 
             <div class="flex gap-1">
-                <mui-button v-if="documentForm.id" type="button" color="error" variant="contained" label="Dokument Löschen"/>
+                <mui-button v-if="documentForm.id" type="button" color="error" variant="contained" label="Dokument Löschen" @click="$refs.deleteDocumentPopup.open()"/>
                 <div class="spacer"></div>
                 <mui-button v-if="documentForm.id" label="Änderungen Speichern"/>
                 <mui-button v-else label="Jetzt Hochladen"/>
+            </div>
+        </form>
+    </Popup>
+
+
+
+    <Popup ref="deleteDocumentPopup" title="Dokument löschen?">
+        <form class="confirm-popup-wrapper" @submit.prevent="deleteDocument">
+            <p>Möchten Sie das Dokument "<b>{{documentForm.name}}</b>" entgültig löschen?</p>
+            <div class="confirm-popup-footer">
+                <mui-button variant="contained" label="Abbrechen" @click="$refs.deleteDocumentPopup.close()"/>
+                <mui-button type="submit" variant="filled" color="error" label="Entgültig löschen"/>
             </div>
         </form>
     </Popup>
@@ -94,6 +107,7 @@
 
 
     const uploadDocumentPopup = ref(null)
+    const deleteDocumentPopup = ref(null)
 
     const documentForm = useForm({
         id: null,
@@ -144,7 +158,18 @@
             },
         })
     }
+
     const updateDocument = () => {}
+
+    const deleteDocument = () => {
+        documentForm.delete(route('dashboard.admin.docs.delete', documentForm.id), {
+            onSuccess() {
+                uploadDocumentPopup.value.close()
+                deleteDocumentPopup.value.close()
+                documentForm.reset()
+            },
+        })
+    }
 </script>
 
 <style lang="sass" scoped>

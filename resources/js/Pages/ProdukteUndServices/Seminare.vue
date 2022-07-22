@@ -1,9 +1,13 @@
 <template>
-    <TextSubLayout title="Seminare" has-small-limiter>
+    <TextSubLayout title="Seminare">
         <Head>
             <title>Produkte & Services: Seminare</title>
         </Head>
-        <Alert icon="info" title="Inhalt folgt">
+        <div class="grid">
+            <Card aspect-ratio="16/9" cover name="AZUBI Bootcamp" alt="AZUBI Bootcamp" primary-tag="14.09.2022" :tags="['Maja Kirsch']" image="/images/content/seminare/azubibootcamp_50245828.jpg" new-window link="/downloads/seminare/azubibootcamp_2022.pdf"/>
+            <Card aspect-ratio="16/9" cover name="Workshop: Power-Pricing" alt="Workshop: Power-Pricing" primary-tag="28.09.2022" :tags="['Prof. Dr. Torsten Olderog']" image="/images/content/seminare/power_pricing_workshop_2022_452991385.jpg" new-window link="/downloads/seminare/power_pricing_workshop_2022.pdf"/>
+        </div>
+        <!-- <Alert icon="info" title="Inhalt folgt">
             <span>
                 In Kürze werden Sie hier wieder unser breites Angebot an Seminaren und Workshops sehen.<br>
                 <br>
@@ -11,7 +15,7 @@
                 Tel.: <a href="tel:0531 210 55 38">0531 210 55 38</a><br>
                 Email: <a href="mailto:eg@fdbs.de">eg@fdbs.de</a>
             </span>
-        </Alert>
+        </Alert> -->
     </TextSubLayout>
 </template>
 
@@ -19,4 +23,13 @@
     import { Head, Link } from '@inertiajs/inertia-vue3'
     import TextSubLayout from '@/Layouts/SubLayouts/Text.vue'
     import Alert from '@/Components/Alert.vue'
+    import Card from '@/Components/Page/Card.vue'
 </script>
+
+<style lang="sass" scoped>
+    .grid
+        display: grid
+        gap: 3rem
+        margin-top: 3rem
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))
+</style>

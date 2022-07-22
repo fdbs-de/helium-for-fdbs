@@ -63,12 +63,13 @@
         height: 100%
         width: 100%
         pointer-events: none
-        overflow-y: auto
+        overflow-y: none
         perspective: 1000px
         transition: background 300ms
         background: rgb(48 51 55 / 0%)
 
         &.open
+            overflow-y: auto
             pointer-events: all
             background: rgb(48 51 55 / 80%)
                 
