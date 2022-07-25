@@ -35,7 +35,7 @@
                 image="/images/karriere/elektromeister_251700495.jpeg"
                 link="/downloads/karriere/Elektromonteur.pdf"/>
                 
-            <Card cover new-window aspect-ratio="16/9" primary-tag="Vollzeit" :tags="['m/w/d']"
+            <!-- <Card cover new-window aspect-ratio="16/9" primary-tag="Vollzeit" :tags="['m/w/d']"
                 name="Mediengestalter"
                 image="/images/karriere/marketing_299897089.jpeg"
                 link="/downloads/karriere/Mediengestalter.pdf"/>
@@ -43,7 +43,7 @@
             <Card cover new-window aspect-ratio="16/9" primary-tag="Vollzeit" :tags="['m/w/d']"
                 name="Gestaltungstechnischer Assistent"
                 image="/images/karriere/marketing_299897089.jpeg"
-                link="/downloads/karriere/GTA.pdf"/>
+                link="/downloads/karriere/GTA.pdf"/> -->
                 
             <Card cover new-window aspect-ratio="16/9" primary-tag="Vollzeit" :tags="['m/w/d', 'Spätschicht']"
                 name="Lagermitarbeiter / Kommissionierer"
