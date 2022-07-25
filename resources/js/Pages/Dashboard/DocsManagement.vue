@@ -34,12 +34,12 @@
 
 
 
-    <Popup ref="uploadDocumentPopup" title="Dokument hochladen">
+    <Popup ref="uploadDocumentPopup" title="Dokument hochladen" @close="documentForm.reset()">
         <form class="flex vertical gap-1 padding-1" @submit.prevent="saveDocument">
 
             <div class="upload-box">
                 <mui-button as="label" for="file-input" label="Dokument auswählen"/>
-                <input type="file" id="file-input" required @input="documentForm.file = $event.target.files[0]">
+                <input type="file" id="file-input" ref="fileInput" required @input="documentForm.file = $event.target.files[0]">
             </div>
 
             <mui-input label="Name" v-model="documentForm.name"/>
@@ -55,7 +55,7 @@
             <mui-toggle type="switch" v-model="documentForm.has_cover" label="Dieses Dokument besitzt ein Cover-Bild"/>
 
             <div class="upload-box" v-show="documentForm.has_cover">
-                <mui-button as="label" for="cover-input" label="Cover auswählen"/>
+                <mui-button as="label" for="cover-input" ref="coverInput" label="Cover auswählen"/>
                 <input type="file" id="cover-input" @input="documentForm.cover = $event.target.files[0]">
             </div>
 
@@ -108,6 +108,8 @@
 
     const uploadDocumentPopup = ref(null)
     const deleteDocumentPopup = ref(null)
+    const fileInput = ref(null)
+    const coverInput = ref(null)
 
     const documentForm = useForm({
         id: null,
@@ -142,6 +144,13 @@
             documentForm.cover_alt = document.cover_alt || ''
             documentForm.cover_size = document.cover_size || 'cover'
         }
+    }
+
+    const closeUploadDocumentPopup = () => {
+        uploadDocumentPopup.value.close()
+        documentForm.reset()
+        fileInput.value.value = ''
+        coverInput.value.value = ''
     }
 
     const saveDocument = () => {
