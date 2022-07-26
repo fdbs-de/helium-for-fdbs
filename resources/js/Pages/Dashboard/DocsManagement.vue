@@ -39,7 +39,7 @@
 
             <div class="upload-box">
                 <mui-button as="label" for="file-input" label="Dokument auswählen"/>
-                <input type="file" id="file-input" ref="fileInput" required @input="documentForm.file = $event.target.files[0]">
+                <input type="file" id="file-input" ref="fileInput" :required="!documentForm.id" @input="documentForm.file = $event.target.files[0]">
             </div>
 
             <mui-input label="Name" v-model="documentForm.name"/>
@@ -96,7 +96,7 @@
     import Loader from '@/Components/Form/Loader.vue'
     import Tag from '@/Components/Form/Tag.vue'
     import { slugify } from '@/Utils/String'
-    import { ref, watch } from 'vue'
+    import { ref, watch, computed } from 'vue'
 
 
 
@@ -111,6 +111,12 @@
     const fileInput = ref(null)
     const coverInput = ref(null)
 
+
+
+    const documentFormName = computed(() => documentForm.name)
+
+
+
     const documentForm = useForm({
         id: null,
         file: null,
@@ -124,9 +130,13 @@
         cover_size: 'cover',
     })
 
-    watch(documentForm, () => {
+
+
+    watch(documentFormName, () => {
         documentForm.slug = slugify(documentForm.name)
     })
+
+
 
     const openUploadDocumentPopup = (document) => {
         uploadDocumentPopup.value.open()
@@ -153,9 +163,13 @@
         coverInput.value.value = ''
     }
 
+
+
     const saveDocument = () => {
         (documentForm.id) ? updateDocument() : storeDocument()
     }
+
+
 
     const storeDocument = () => {
         documentForm.post(route('dashboard.admin.docs.store'), {
@@ -168,7 +182,18 @@
         })
     }
 
-    const updateDocument = () => {}
+    const updateDocument = () => {
+        Inertia.post(route('dashboard.admin.docs.update', documentForm.id), {
+            _method: 'put',
+            ...documentForm,
+        }, {
+            forceFormData: true,
+            onSuccess() {
+                uploadDocumentPopup.value.close()
+                documentForm.reset()
+            },
+        })
+    }
 
     const deleteDocument = () => {
         documentForm.delete(route('dashboard.admin.docs.delete', documentForm.id), {

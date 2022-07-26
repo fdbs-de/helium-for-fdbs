@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Docs\CreateDocumentRequest;
 use App\Http\Requests\Docs\ShowDocumentRequest;
+use App\Http\Requests\Docs\UpdateDocumentRequest;
 use App\Models\Document;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -89,6 +90,72 @@ class DocumentController extends Controller
             'filename' => $filename,
             'has_cover' => $has_cover,
         ]));
+
+        return back();
+    }
+
+
+
+    public function update(UpdateDocumentRequest $request, Document $document)
+    {
+        $document->update($request->validated());
+
+        $old_filename = $document->filename;
+
+
+
+        // If new file was uploaded
+        if ($request->hasFile('file'))
+        {
+            // Delete old file
+            Storage::delete('documents/' . $old_filename);
+
+            // Get new file
+            $file = $request->file('file');
+    
+            // Get file extension
+            $extension = Str::lower(pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION));
+    
+            // Make new filename
+            $filename = $request->slug . '.' . $extension;
+    
+            // Store new file
+            Storage::putFileAs('documents/', $file, $filename);
+
+            // Update document
+            $document->update(['filename' => $filename]);
+        }
+
+
+
+        // If new cover was uploaded
+        if ($request->has_cover && $request->hasFile('cover'))
+        {
+            // Delete old cover
+            Storage::delete('documents/' . $old_filename . '.cover.png');
+
+            // Get new cover image
+            $cover = $request->file('cover');
+
+            // Convert to intervention-image object
+            $cover = Image::make($cover);
+
+            // Resize it (so it keeps the same aspect ratio but no side is larger than 600px)
+            $cover->resize(600, 600, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            });
+
+            // Make new filename
+            $cover_filename = $document->filename . '.cover.png';
+
+            // Save file
+            $cover->save(storage_path('app/documents/' . $cover_filename));
+
+            // Update document
+            $document->update(['has_cover' => true]);
+        }
+        
 
         return back();
     }
