@@ -20,14 +20,15 @@
                 <img v-if="document.has_cover" class="cover" :src="route('dokumentcover', document.id)" :alt="document.cover_alt" width="80" height="50" />
                 <i v-else>Kein Cover</i>
                 
-                <span>{{document.group || 'Öffentlich'}}</span>
+                <span :title="getGroupName(document.group)">{{getGroupName(document.group)}}</span>
                 
-                <span>{{document.name}}</span>
+                <span v-if="document.name" :title="document.name">{{document.name}}</span>
+                <i v-else title="document.name">Kein Name</i>
                 
-                <a target="_blank" :href="route('dokument', document.id)" @click.stop>{{document.filename}}</a>
+                <a target="_blank" :href="route('dokument', document.id)" :title="document.filename" @click.stop>{{document.filename}}</a>
                 
-                <span v-if="document.category">{{document.category}}</span>
-                <i v-else>Keine Kategorie</i>
+                <span v-if="document.category" :title="document.category">{{document.category}}</span>
+                <i v-else title="Keine Kategorie">Keine Kategorie</i>
             </button>
         </div>
     </DashboardSubLayout>
@@ -48,7 +49,7 @@
             </div>
 
             <div class="flex gap-1">
-                <mui-input class="flex-1" label="Category" v-model="documentForm.category"/>
+                <mui-input class="flex-1" label="Kategorie" v-model="documentForm.category"/>
                 <div class="flex flex-1">
                     <select class="flex-1" v-model="documentForm.group">
                         <option value="">Öffentlich</option>
@@ -133,6 +134,16 @@
 
     const documentFormName = computed(() => documentForm.name)
 
+    const getGroupName = (group) => {
+        switch (group)
+        {
+            case 'customers': return 'Nur Kunden';
+            case 'employees': return 'Nur Mitarbeiter';
+            case 'hidden': return 'Versteckt';
+            default: return 'Öffentlich';
+        }
+    }
+
 
 
     const documentForm = useForm({
@@ -152,9 +163,9 @@
 
 
 
-    watch(documentFormName, () => {
-        documentForm.slug = slugify(documentForm.name)
-    })
+    // watch(documentFormName, () => {
+    //     documentForm.slug = slugify(documentForm.name)
+    // })
 
 
 
@@ -239,8 +250,8 @@
         display: grid
         align-items: center
         grid-template-columns: minmax(170px, 2fr) minmax(200px, 3fr) minmax(200px, 3fr) minmax(200px, 3fr) minmax(200px, 3fr)
-        // grid-auto-rows: 2.5rem
-        gap: 0 var(--su)
+        grid-auto-rows: 50px
+        gap: .5rem var(--su)
         width: 100%
         padding: 1rem
         overflow-x: auto
@@ -253,7 +264,8 @@
             font-size: inherit
             color: inherit
 
-            > span
+            > span,
+            > a
                 overflow: hidden
                 text-overflow: ellipsis
                 white-space: nowrap

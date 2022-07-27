@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Docs;
 
+use App\Permissions\Permissions;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ShowDocumentRequest extends FormRequest
@@ -17,7 +18,7 @@ class ShowDocumentRequest extends FormRequest
         
         if ($this->document->group === 'employees' && !$this->user()->can_access_employee_panel) return false;
 
-        if ($this->document->group === 'hidden') return false;
+        if ($this->document->group === 'hidden' && !$this->user()->can(Permissions::CAN_ACCESS_ADMIN_PANEL)) return false;
 
         return true;
     }
