@@ -27,7 +27,7 @@ class CreateDocumentRequest extends FormRequest
     public function rules()
     {
         return [
-            'file' => 'required|file|max:8192',
+            'file' => 'required|file|max:24576',
             'slug' => 'required|string|unique:documents,slug|max:255|regex:/^[a-z0-9\-]+$/',
             'name' => 'nullable|string|max:255',
             'category' => 'nullable|string|max:255',

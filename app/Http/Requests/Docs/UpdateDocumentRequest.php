@@ -27,7 +27,7 @@ class UpdateDocumentRequest extends FormRequest
     public function rules()
     {
         return [
-            'file' => 'nullable|file|max:8192',
+            'file' => 'nullable|file|max:24576',
             'slug' => 'required|string|max:255|regex:/^[a-z0-9\-]+$/|unique:documents,slug,'.$this->document->id,
             'name' => 'nullable|string|max:255',
             'category' => 'nullable|string|max:255',
