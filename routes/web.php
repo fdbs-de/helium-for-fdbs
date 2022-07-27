@@ -44,8 +44,8 @@ Route::get('/datenschutz', [StaticController::class, 'indexDatenschutz'])->name(
 Route::get('/agbs', [StaticController::class, 'indexAGBS'])->name('agbs');
 Route::get('/video-info', [StaticController::class, 'indexVideoInfo'])->name('video-info');
 
-Route::get('dokumente/{document}', [DocumentController::class, 'show'])->name('dokument');
-Route::get('dokumente/{document}/cover', [DocumentController::class, 'showCover'])->name('dokumentcover');
+Route::get('docs/{document:slug}', [DocumentController::class, 'show'])->name('docs');
+Route::get('docs/{document:slug}/cover', [DocumentController::class, 'showCover'])->name('docs.cover');
 
 
 

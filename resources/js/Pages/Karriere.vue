@@ -5,54 +5,15 @@
         </Head>
 
         <div class="wrapper">
-            <!-- <Card cover new-window aspect-ratio="16/9" primary-tag="Vollzeit" :tags="['m/w/d']"
-                name="Mitarbeiter(in) im Vertriebsinnendienst"
-                image="/images/karriere/Innendienst_308824031.jpg"
-                link="/downloads/karriere/Vertriebsinnendienst.pdf"/>
-
-            <Card cover new-window aspect-ratio="16/9" primary-tag="Vollzeit" :tags="['m/w/d']"
-                name="LKW-Fahrer"
-                image="/images/karriere/kraftfahrer_275535330.jpeg"
-                link="/downloads/karriere/Kraftfahrer.pdf"/>
-                
-            <Card cover new-window aspect-ratio="16/9" primary-tag="Vollzeit" :tags="['m/w/d']"
-                name="Vertriebsmitarbeiter für Gastronomie & Hotellerie im Außendienst"
-                image="/images/karriere/vertrieb_124242186.jpeg"
-                link="/downloads/karriere/Vertriebsaussendienst.pdf"/>
-                
-            <Card cover new-window aspect-ratio="16/9" primary-tag="Vollzeit" :tags="['m/w/d']"
-                name="Fachkraft für Lagerlogistik"
-                image="/images/karriere/lagerlogistik_315564208.jpeg"
-                link="/downloads/karriere/Fachkraft_Lagerlogistik.pdf"/>
-                
-            <Card cover new-window aspect-ratio="16/9" primary-tag="Vollzeit" :tags="['m/w/d']"
-                name="Metallbauer als Servicetechniker"
-                image="/images/karriere/mechatronik_50771204.jpg"
-                link="/downloads/karriere/Metallbauer.pdf"/>
-                
-            <Card cover new-window aspect-ratio="16/9" primary-tag="Vollzeit" :tags="['m/w/d']"
-                name="Elektromonteur als Servicetechniker"
-                image="/images/karriere/elektromeister_251700495.jpeg"
-                link="/downloads/karriere/Elektromonteur.pdf"/> -->
-                
-            <!-- <Card cover new-window aspect-ratio="16/9" primary-tag="Vollzeit" :tags="['m/w/d']"
-                name="Mediengestalter"
-                image="/images/karriere/marketing_299897089.jpeg"
-                link="/downloads/karriere/Mediengestalter.pdf"/>
-                
-            <Card cover new-window aspect-ratio="16/9" primary-tag="Vollzeit" :tags="['m/w/d']"
-                name="Gestaltungstechnischer Assistent"
-                image="/images/karriere/marketing_299897089.jpeg"
-                link="/downloads/karriere/GTA.pdf"/> -->
-                
-            <!-- <Card cover new-window aspect-ratio="16/9" primary-tag="Vollzeit" :tags="['m/w/d', 'Spätschicht']"
-                name="Lagermitarbeiter / Kommissionierer"
-                image="/images/karriere/Kommissionierer_357276619.jpeg"
-                link="/downloads/karriere/Kommissionierer_Spaetschicht.pdf"/> -->
-
-            <Card cover new-window aspect-ratio="16/9" v-for="job in jobs" :key="job.id" :primary-tag="job.primary_tag" :tags="strToTags(job.tags)"
-                :name="job.name" :image="route('dokumentcover', job.id)" :link="route('dokument', job.id)" />
-                
+            <Card v-for="job in jobs" cover new-window
+                aspect-ratio="16/9"
+                :key="job.id"
+                :name="job.name"
+                :primary-tag="job.primary_tag"
+                :tags="strToTags(job.tags)"
+                :image="route('docs.cover', job.slug)"
+                :link="route('docs', job.slug)"
+            />
         </div>
     </TextSubLayout>
 </template>
@@ -67,7 +28,7 @@
     })
 
     const strToTags = (string) => {
-        return string.split(',').map(tag => tag.trim())
+        return string?.split(',')?.map(tag => tag.trim()) ?? []
     }
 </script>
 

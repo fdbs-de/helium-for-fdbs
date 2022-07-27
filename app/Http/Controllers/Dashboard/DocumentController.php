@@ -43,6 +43,7 @@ class DocumentController extends Controller
     {
         return Inertia::render('Dashboard/DocsManagement', [
             'documents' => Document::all(),
+            'categories' => Document::all()->pluck('category')->unique()->sort()->values()->all(),
         ]);
     }
 
@@ -86,7 +87,7 @@ class DocumentController extends Controller
         }
         
         // save to database
-        $document = Document::create(array_merge($request->validated(), [
+        Document::create(array_merge($request->validated(), [
             'filename' => $filename,
             'has_cover' => $has_cover,
         ]));

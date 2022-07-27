@@ -17,15 +17,15 @@
             </div>
             
             <button class="row" v-for="document in documents" :key="document.id" @click="openUploadDocumentPopup(document)">
-                <img v-if="document.has_cover" class="cover" :src="route('dokumentcover', document.id)" :alt="document.cover_alt" width="80" height="50" />
+                <img v-if="document.has_cover" class="cover" :src="route('docs.cover', document.slug)" :alt="document.cover_alt" width="80" height="50" />
                 <i v-else>Kein Cover</i>
                 
                 <span :title="getGroupName(document.group)">{{getGroupName(document.group)}}</span>
                 
                 <span v-if="document.name" :title="document.name">{{document.name}}</span>
-                <i v-else title="document.name">Kein Name</i>
+                <i v-else title="Kein Name">Kein Name</i>
                 
-                <a target="_blank" :href="route('dokument', document.id)" :title="document.filename" @click.stop>{{document.filename}}</a>
+                <a target="_blank" :href="route('docs', document.slug)" :title="document.filename" @click.stop>{{document.filename}}</a>
                 
                 <span v-if="document.category" :title="document.category">{{document.category}}</span>
                 <i v-else title="Keine Kategorie">Keine Kategorie</i>
@@ -39,17 +39,25 @@
         <form class="flex vertical gap-1 padding-1" @submit.prevent="saveDocument">
 
             <div class="upload-box">
-                <!-- <mui-button as="label" for="file-input" size="small" variant="contained" label="Dokument auswählen"/> -->
                 <input type="file" id="file-input" ref="fileInput" :required="!documentForm.id" @input="documentForm.file = $event.target.files[0]">
             </div>
 
             <div class="flex gap-1">
                 <mui-input class="flex-1" label="Name" v-model="documentForm.name"/>
-                <mui-input class="flex-1" label="URL freundlicher Name *" required v-model="documentForm.slug"/>
+                <mui-input class="flex-1" label="URL freundlicher Name *" required v-model="documentForm.slug">
+                    <template #right>
+                        <button type="button" class="input-button" title="Aus Namen generieren" @click="generateSlug">move_down</button>
+                    </template>
+                </mui-input>
             </div>
 
             <div class="flex gap-1">
-                <mui-input class="flex-1" label="Kategorie" v-model="documentForm.category"/>
+                <mui-input class="flex-1" label="Kategorie" v-model="documentForm.category">
+                    <template #right>
+                        <button type="button" class="input-button" title="Bestehende Kategorie auswählen" @click="$refs.categoryPopup.open()">expand_more</button>
+                    </template>
+                </mui-input>
+
                 <div class="flex flex-1">
                     <select class="flex-1" v-model="documentForm.group">
                         <option value="">Öffentlich</option>
@@ -62,7 +70,7 @@
 
             <div class="flex gap-1">
                 <mui-input class="flex-1" label="Primärer Tag" v-model="documentForm.primary_tag"/>
-                <mui-input class="flex-1" label="Tags" v-model="documentForm.tags"/>
+                <mui-input class="flex-1" label="Weitere Tags" v-model="documentForm.tags"/>
             </div>
 
             <div class="flex wrap">
@@ -71,12 +79,15 @@
             </div>
 
             <div class="upload-box" v-show="documentForm.has_cover">
-                <!-- <mui-button as="label" for="cover-input" size="small" variant="contained" label="Cover auswählen"/> -->
                 <input type="file" id="cover-input" ref="coverInput" @input="documentForm.cover = $event.target.files[0]">
             </div>
 
             <div class="flex gap-1">
-                <mui-input class="flex-1" label="Cover Alt-Text" v-model="documentForm.alt" v-show="documentForm.has_cover"/>
+                <mui-input class="flex-1" label="Cover Alt-Text" v-model="documentForm.cover_alt" v-show="documentForm.has_cover">
+                    <template #right>
+                        <button type="button" class="input-button" title="Namen übernehmen" @click="generateAlt">move_down</button>
+                    </template>
+                </mui-input>
                 <div class="flex flex-1">
                     <select class="flex-1" v-model="documentForm.cover_size" v-show="documentForm.has_cover">
                         <option value="cover">Cover</option>
@@ -105,6 +116,12 @@
             </div>
         </form>
     </Popup>
+
+    <Popup ref="categoryPopup" title="Kategorie auswählen">
+        <div class="flex vertical gap-1 padding-1">
+            <mui-button type="button" v-for="category in categories" :key="category" @click="selectCategory(category)" :label="category" variant="contained"/>
+        </div>
+    </Popup>
 </template>
 
 <script setup>
@@ -121,12 +138,14 @@
 
     defineProps({
         documents: Array,
+        categories: Array,
     })
 
 
 
     const uploadDocumentPopup = ref(null)
     const deleteDocumentPopup = ref(null)
+    const categoryPopup = ref(null)
     const fileInput = ref(null)
     const coverInput = ref(null)
 
@@ -161,11 +180,18 @@
         cover_size: 'cover',
     })
 
+    const generateSlug = () => {
+        documentForm.slug = slugify(documentForm.name)
+    }
 
+    const generateAlt = () => {
+        documentForm.cover_alt = documentForm.name
+    }
 
-    // watch(documentFormName, () => {
-    //     documentForm.slug = slugify(documentForm.name)
-    // })
+    const selectCategory = (category) => {
+        documentForm.category = category
+        categoryPopup.value.close()
+    }
 
 
 
@@ -242,9 +268,33 @@
         align-items: center
         justify-content: center
         width: 100%
-        height: 150px
+        height: 100px
         background: var(--color-background-soft)
-        border-radius: 8px
+        border-radius: .325rem
+
+    .input-button
+        height: 2rem
+        width: 2rem
+        display: flex
+        align-items: center
+        justify-content: center
+        padding: 0
+        margin: 0
+        border: none
+        background: none
+        cursor: pointer
+        user-select: none
+        font-family: var(--font-icon)
+        font-size: 1.25rem
+        text-align: center
+        color: var(--mui-color-light__)
+        border-radius: .25rem
+        flex: none
+
+        &:hover,
+        &:focus
+            color: var(--mui-color__)
+            background: var(--mui-background-secondary__)
 
     .grid
         display: grid

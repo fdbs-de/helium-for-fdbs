@@ -27,7 +27,9 @@ class StaticController extends Controller
 
     public function indexAngebote()
     {
-        return Inertia::render('ProdukteUndServices/Angebote');
+        return Inertia::render('ProdukteUndServices/Angebote', [
+            'angebote' => Document::where('category', 'angebote')->where('group', null)->orderBy('name')->get(),
+        ]);
     }
 
     public function indexFoodservice()
@@ -78,7 +80,6 @@ class StaticController extends Controller
     public function indexKarriere()
     {
         return Inertia::render('Karriere', [
-            // 'jobs' => Document::where('category', 'jobs')->get(),
             'jobs' => Document::where('category', 'jobs')->where('group', null)->orderBy('name')->get(),
         ]);
     }

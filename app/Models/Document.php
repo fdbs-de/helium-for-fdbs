@@ -69,7 +69,6 @@ class Document extends Model
 
                 // Update filename
                 $model->filename = $model->slug.'.'.$extension;
-                // $model->save();
             }
 
 
@@ -78,9 +77,6 @@ class Document extends Model
             if ($model->original['has_cover'] && !$model->has_cover)
             {
                 Storage::delete($new_filepath.'.cover.png');
-                $model->cover_size = 'cover';
-                $model->cover_alt = null;
-                // $model->save();
             }
         });
 
