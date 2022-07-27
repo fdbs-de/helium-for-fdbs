@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\AdminContactMail;
+use App\Models\Document;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
@@ -76,7 +77,10 @@ class StaticController extends Controller
 
     public function indexKarriere()
     {
-        return Inertia::render('Karriere');
+        return Inertia::render('Karriere', [
+            // 'jobs' => Document::where('category', 'jobs')->get(),
+            'jobs' => Document::where('category', 'jobs')->where('group', null)->orderBy('name')->get(),
+        ]);
     }
 
     public function indexKontakt()

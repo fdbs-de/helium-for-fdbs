@@ -38,33 +38,51 @@
         <form class="flex vertical gap-1 padding-1" @submit.prevent="saveDocument">
 
             <div class="upload-box">
-                <mui-button as="label" for="file-input" label="Dokument auswählen"/>
+                <!-- <mui-button as="label" for="file-input" size="small" variant="contained" label="Dokument auswählen"/> -->
                 <input type="file" id="file-input" ref="fileInput" :required="!documentForm.id" @input="documentForm.file = $event.target.files[0]">
             </div>
 
-            <mui-input label="Name" v-model="documentForm.name"/>
-            <mui-input label="URL freundlicher Name" v-model="documentForm.slug"/>
-            <mui-input label="Category" v-model="documentForm.category"/>
-
-            <select v-model="documentForm.group">
-                <option value="">Öffentlich</option>
-                <option value="customers">Nur Kunden</option>
-                <option value="employees">Nur Mitarbeiter</option>
-            </select>
-
-            <mui-toggle type="switch" v-model="documentForm.has_cover" label="Dieses Dokument besitzt ein Cover-Bild"/>
-
-            <div class="upload-box" v-show="documentForm.has_cover">
-                <mui-button as="label" for="cover-input" ref="coverInput" label="Cover auswählen"/>
-                <input type="file" id="cover-input" @input="documentForm.cover = $event.target.files[0]">
+            <div class="flex gap-1">
+                <mui-input class="flex-1" label="Name" v-model="documentForm.name"/>
+                <mui-input class="flex-1" label="URL freundlicher Name *" required v-model="documentForm.slug"/>
             </div>
 
-            <mui-input label="Cover Alt-Text" v-model="documentForm.alt" v-show="documentForm.has_cover"/>
+            <div class="flex gap-1">
+                <mui-input class="flex-1" label="Category" v-model="documentForm.category"/>
+                <div class="flex flex-1">
+                    <select class="flex-1" v-model="documentForm.group">
+                        <option value="">Öffentlich</option>
+                        <option value="customers">Nur Kunden</option>
+                        <option value="employees">Nur Mitarbeiter</option>
+                        <option value="hidden">Versteckt</option>
+                    </select>
+                </div>
+            </div>
 
-            <select v-model="documentForm.cover_size" v-show="documentForm.has_cover">
-                <option value="cover">Cover</option>
-                <option value="contain">Contain</option>
-            </select>
+            <div class="flex gap-1">
+                <mui-input class="flex-1" label="Primärer Tag" v-model="documentForm.primary_tag"/>
+                <mui-input class="flex-1" label="Tags" v-model="documentForm.tags"/>
+            </div>
+
+            <div class="flex wrap">
+                <mui-toggle type="switch" v-model="documentForm.has_cover" label="Separates Cover"/>
+                <div class="spacer"></div>
+            </div>
+
+            <div class="upload-box" v-show="documentForm.has_cover">
+                <!-- <mui-button as="label" for="cover-input" size="small" variant="contained" label="Cover auswählen"/> -->
+                <input type="file" id="cover-input" ref="coverInput" @input="documentForm.cover = $event.target.files[0]">
+            </div>
+
+            <div class="flex gap-1">
+                <mui-input class="flex-1" label="Cover Alt-Text" v-model="documentForm.alt" v-show="documentForm.has_cover"/>
+                <div class="flex flex-1">
+                    <select class="flex-1" v-model="documentForm.cover_size" v-show="documentForm.has_cover">
+                        <option value="cover">Cover</option>
+                        <option value="contain">Contain</option>
+                    </select>
+                </div>
+            </div>
 
             <div class="flex gap-1">
                 <mui-button v-if="documentForm.id" type="button" color="error" variant="contained" label="Dokument Löschen" @click="$refs.deleteDocumentPopup.open()"/>
@@ -124,6 +142,8 @@
         name: '',
         group: '',
         category: '',
+        primary_tag: '',
+        tags: '',
         cover: null,
         has_cover: false,
         cover_alt: '',
@@ -147,8 +167,10 @@
             documentForm.file = null
             documentForm.slug = document.slug || ''
             documentForm.name = document.name || ''
-            documentForm.group = document.group || ''
             documentForm.category = document.category || ''
+            documentForm.group = document.group || ''
+            documentForm.primary_tag = document.primary_tag || ''
+            documentForm.tags = document.tags || ''
             documentForm.has_cover = document.has_cover || false
             documentForm.cover = null
             documentForm.cover_alt = document.cover_alt || ''
@@ -176,8 +198,7 @@
             forceFormData: true,
 
             onSuccess() {
-                uploadDocumentPopup.value.close()
-                documentForm.reset()
+                closeUploadDocumentPopup()
             },
         })
     }
@@ -189,8 +210,7 @@
         }, {
             forceFormData: true,
             onSuccess() {
-                uploadDocumentPopup.value.close()
-                documentForm.reset()
+                closeUploadDocumentPopup()
             },
         })
     }
@@ -198,9 +218,8 @@
     const deleteDocument = () => {
         documentForm.delete(route('dashboard.admin.docs.delete', documentForm.id), {
             onSuccess() {
-                uploadDocumentPopup.value.close()
+                closeUploadDocumentPopup()
                 deleteDocumentPopup.value.close()
-                documentForm.reset()
             },
         })
     }
@@ -215,9 +234,6 @@
         height: 150px
         background: var(--color-background-soft)
         border-radius: 8px
-
-        > input
-            display: none
 
     .grid
         display: grid

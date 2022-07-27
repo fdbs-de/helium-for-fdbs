@@ -17,6 +17,8 @@ class ShowDocumentRequest extends FormRequest
         
         if ($this->document->group === 'employees' && !$this->user()->can_access_employee_panel) return false;
 
+        if ($this->document->group === 'hidden') return false;
+
         return true;
     }
 

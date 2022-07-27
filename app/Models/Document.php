@@ -17,6 +17,8 @@ class Document extends Model
         'filename',
         'category',
         'group',
+        'primary_tag',
+        'tags',
         'has_cover',
         'cover_alt',
         'cover_size',

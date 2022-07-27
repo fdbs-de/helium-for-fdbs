@@ -5,7 +5,7 @@
         </Head>
 
         <div class="wrapper">
-            <Card cover new-window aspect-ratio="16/9" primary-tag="Vollzeit" :tags="['m/w/d']"
+            <!-- <Card cover new-window aspect-ratio="16/9" primary-tag="Vollzeit" :tags="['m/w/d']"
                 name="Mitarbeiter(in) im Vertriebsinnendienst"
                 image="/images/karriere/Innendienst_308824031.jpg"
                 link="/downloads/karriere/Vertriebsinnendienst.pdf"/>
@@ -33,7 +33,7 @@
             <Card cover new-window aspect-ratio="16/9" primary-tag="Vollzeit" :tags="['m/w/d']"
                 name="Elektromonteur als Servicetechniker"
                 image="/images/karriere/elektromeister_251700495.jpeg"
-                link="/downloads/karriere/Elektromonteur.pdf"/>
+                link="/downloads/karriere/Elektromonteur.pdf"/> -->
                 
             <!-- <Card cover new-window aspect-ratio="16/9" primary-tag="Vollzeit" :tags="['m/w/d']"
                 name="Mediengestalter"
@@ -45,10 +45,13 @@
                 image="/images/karriere/marketing_299897089.jpeg"
                 link="/downloads/karriere/GTA.pdf"/> -->
                 
-            <Card cover new-window aspect-ratio="16/9" primary-tag="Vollzeit" :tags="['m/w/d', 'Spätschicht']"
+            <!-- <Card cover new-window aspect-ratio="16/9" primary-tag="Vollzeit" :tags="['m/w/d', 'Spätschicht']"
                 name="Lagermitarbeiter / Kommissionierer"
                 image="/images/karriere/Kommissionierer_357276619.jpeg"
-                link="/downloads/karriere/Kommissionierer_Spaetschicht.pdf"/>
+                link="/downloads/karriere/Kommissionierer_Spaetschicht.pdf"/> -->
+
+            <Card cover new-window aspect-ratio="16/9" v-for="job in jobs" :key="job.id" :primary-tag="job.primary_tag" :tags="strToTags(job.tags)"
+                :name="job.name" :image="route('dokumentcover', job.id)" :link="route('dokument', job.id)" />
                 
         </div>
     </TextSubLayout>
@@ -58,6 +61,14 @@
     import { Head, Link } from '@inertiajs/inertia-vue3'
     import TextSubLayout from '@/Layouts/SubLayouts/Text.vue'
     import Card from '@/Components/Page/Card.vue'
+
+    defineProps({
+        jobs: Array,
+    })
+
+    const strToTags = (string) => {
+        return string.split(',').map(tag => tag.trim())
+    }
 </script>
 
 <style lang="sass" scoped>

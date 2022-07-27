@@ -31,7 +31,9 @@ class CreateDocumentRequest extends FormRequest
             'slug' => 'required|string|unique:documents,slug|max:255|regex:/^[a-z0-9\-]+$/',
             'name' => 'nullable|string|max:255',
             'category' => 'nullable|string|max:255',
-            'group' => 'nullable|string|in:customers,employees',
+            'group' => 'nullable|string|in:customers,employees,hidden',
+            'primary_tag' => 'nullable|string|max:255',
+            'tags' => 'nullable|string|max:255',
             
             'cover' => 'nullable|image|max:4096|mimes:png,jpg',
             'cover_alt' => 'nullable|string',
