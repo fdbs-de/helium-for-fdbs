@@ -24,7 +24,7 @@
                     <span class="flex-1">Status:</span>
                     <div class="flex-3 flex gap v-center">
                         <Tag v-if="$page.props.auth.user.enabled_at" color="green" icon="check_circle">Freischaltet</Tag>
-                        <Tag v-else color="yellow" icon="cancel">Freischaltung ausstehend</Tag>
+                        <Tag v-else color="yellow" icon="cancel">Freigeschaltung ausstehend</Tag>
                     </div>
                 </div>
             </div>
@@ -54,7 +54,7 @@
                     <span class="flex-1">Status:</span>
                     <div class="flex-3 flex gap v-center">
                         <Tag v-if="$page.props.auth.user.customer_profile.enabled_at" color="green" icon="check_circle">Freischaltet</Tag>
-                        <Tag v-else color="yellow" icon="cancel">Freischaltung ausstehend</Tag>
+                        <Tag v-else color="yellow" icon="cancel">Freigeschaltung ausstehend</Tag>
                     </div>
                 </div>
             </div>
