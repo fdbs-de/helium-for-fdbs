@@ -53,7 +53,7 @@
                         <span class="icon" aria-hidden="true">content_paste</span>
                         <h2>Seminare</h2>
                         <p>
-                            In Kürze werden Sie wieder unser breites Angebot an Seminaren und Workshops sehen.
+                            Sehen Sie unser breites Angebot an Seminaren und Workshops.
                         </p>
                         <Link :href="route('ps.seminare')">Mehr Erfahren</Link>
                     </div>
