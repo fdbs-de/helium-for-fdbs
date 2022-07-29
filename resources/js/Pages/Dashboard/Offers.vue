@@ -1,8 +1,7 @@
 <template>
-    <TextSubLayout title="Unsere aktuellen Angebote">
-        <Head>
-            <title>Unsere aktuellen Angebote</title>
-        </Head>
+    <Head title="Unsere aktuellen Angebote" />
+
+    <DashboardSubLayout title="Unsere aktuellen Angebote">
         <div class="grid">
             <Card v-for="angebot in angebote" new-window
                 :key="angebot.id"
@@ -13,12 +12,12 @@
                 :link="route('docs', angebot.slug)"
             />
         </div>
-    </TextSubLayout>
+    </DashboardSubLayout>
 </template>
 
 <script setup>
+    import DashboardSubLayout from '@/Layouts/SubLayouts/Dashboard.vue'
     import { Head, Link } from '@inertiajs/inertia-vue3'
-    import TextSubLayout from '@/Layouts/SubLayouts/Text.vue'
     import Card from '@/Components/Page/Card.vue'
 
     defineProps({
@@ -30,5 +29,11 @@
     .grid
         display: grid
         gap: 3rem
+        padding: 3rem
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))
+
+    @media only screen and (max-width: 500px)
+        .grid
+            padding: 3rem 1rem
+            grid-template-columns: auto
 </style>

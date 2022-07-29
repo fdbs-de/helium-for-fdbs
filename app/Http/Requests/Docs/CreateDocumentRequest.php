@@ -35,7 +35,7 @@ class CreateDocumentRequest extends FormRequest
             'primary_tag' => 'nullable|string|max:255',
             'tags' => 'nullable|string|max:255',
             
-            'cover' => 'nullable|image|max:4096|mimes:png,jpg',
+            'cover' => 'nullable|image|max:16384|mimes:png,jpg',
             'cover_alt' => 'nullable|string',
             'cover_size' => 'required_with:cover|string|in:cover,contain',
         ];

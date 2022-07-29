@@ -42,7 +42,7 @@ class DocumentController extends Controller
     public function indexAdmin()
     {
         return Inertia::render('Dashboard/DocsManagement', [
-            'documents' => Document::all(),
+            'documents' => Document::orderBy('category')->get(),
             'categories' => Document::all()->pluck('category')->unique()->sort()->values()->all(),
         ]);
     }

@@ -30,6 +30,7 @@
             icon: null,
             children: [
                 { id: 'customer-specs', label: 'Spezifikationen', href: route('dashboard.customer.specs'), icon: null, children: [] },
+                { id: 'customer-offers', label: 'Angebote', href: route('dashboard.customer.offers'), icon: null, children: [] },
             ],
         })
     }

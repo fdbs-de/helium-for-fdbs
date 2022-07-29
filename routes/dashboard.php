@@ -54,5 +54,7 @@ Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () 
         Route::get('/spezifikationen', [SpecController::class, 'index'])->name('dashboard.customer.specs');
         Route::get('/spezifikationen/search/{page}/{search?}', [SpecController::class, 'search'])->name('dashboard.customer.specs.search');
         Route::get('/spezifikationen/download/{name}', [SpecController::class, 'download'])->name('dashboard.customer.specs.download');
+
+        Route::get('/angebote', [CustomerController::class, 'indexOffers'])->name('dashboard.customer.offers');
     });
 });
