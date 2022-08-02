@@ -3,9 +3,8 @@
         <Head title="Kundenlogin" />
 
         <Alert title="Info für Nutzer unserer alten Seite">
-            Nutzer unserer alten Webseite mit einem Konto können sich zurzeit noch nicht anmelden.
-            Wir werden die alten Konten in Kürze auf unser neues System migrieren.<br><br>
-            Bitte haben Sie etwas Gedult.
+            Nutzer unserer alten Webseite mit einem Konto können sich zurzeit noch nicht anmelden.<br>
+            Danke für Ihr Verständnis!
         </Alert>
 
         <mui-input type="email" label="Email" v-model="form.email" required autocomplete="username"/>
