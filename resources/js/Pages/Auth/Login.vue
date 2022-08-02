@@ -2,6 +2,12 @@
     <FormSubLayout title="Kundenlogin" :status="status" @submit="submit">
         <Head title="Kundenlogin" />
 
+        <Alert title="Info für Nutzer unserer alten Seite">
+            Nutzer unserer alten Webseite mit einem Konto können sich zurzeit noch nicht anmelden.
+            Wir werden die alten Konten in Kürze auf unser neues System migrieren.<br><br>
+            Bitte haben Sie etwas Gedult.
+        </Alert>
+
         <mui-input type="email" label="Email" v-model="form.email" required autocomplete="username"/>
         <mui-input type="password" label="Passwort" v-model="form.password" required autocomplete="current-password"/>
 
@@ -14,7 +20,7 @@
         <div class="divider"></div>
 
         <div class="flex center gap">
-            <Link :href="route('registrieren')">Noch kein Konto?</Link>
+            <!-- <Link :href="route('registrieren')">Noch kein Konto?</Link> -->
             <Link v-if="canResetPassword" :href="route('password.request')">Passwort vergessen?</Link>
         </div>
     </FormSubLayout>
@@ -22,6 +28,7 @@
 
 <script setup>
 import FormSubLayout from '@/Layouts/SubLayouts/Form.vue'
+import Alert from '@/Components/Alert.vue'
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3'
 
 defineProps({
