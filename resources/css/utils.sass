@@ -17,12 +17,12 @@
     &.h-center
         justify-content: center
 
-    .spacer
-        flex: 1
+.spacer
+    flex: 1
 
-    @for $i from 1 through 6
-        .flex-#{$i}
-            flex: #{$i}
+@for $i from 1 through 6
+    .flex-#{$i}
+        flex: #{$i}
 
 @each $prop in ['padding', 'margin']
     @each $modifier in ['', '-inline', '-block', '-top', '-right', '-bottom', '-left']
@@ -36,6 +36,9 @@
 
     .w-#{$i}
         width: #{$i}rem
+
+    .w-100
+        width: 100%
 
     .min-h-#{$i}
         min-height: #{$i}rem

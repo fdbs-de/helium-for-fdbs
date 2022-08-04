@@ -40,6 +40,7 @@ Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () 
         Route::delete('/spezifikationen/delete', [SpecController::class, 'delete'])->can('delete', 'App\Models\Specification')->name('dashboard.admin.specs.delete');
         
         Route::get('/dokumente', [DocumentController::class, 'indexAdmin'])->name('dashboard.admin.docs');
+        Route::get('/dokumente/search', [DocumentController::class, 'search'])->name('dashboard.admin.docs.search');
         Route::post('/dokumente', [DocumentController::class, 'store'])->name('dashboard.admin.docs.store');
         Route::put('/dokumente/{document}', [DocumentController::class, 'update'])->name('dashboard.admin.docs.update');
         Route::delete('/dokumente/{document}', [DocumentController::class, 'delete'])->name('dashboard.admin.docs.delete');

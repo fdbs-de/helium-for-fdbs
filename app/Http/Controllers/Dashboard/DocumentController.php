@@ -42,9 +42,31 @@ class DocumentController extends Controller
     public function indexAdmin()
     {
         return Inertia::render('Dashboard/DocsManagement', [
-            'documents' => Document::orderBy('category')->get(),
-            'categories' => Document::all()->pluck('category')->unique()->sort()->values()->all(),
+            // 'documents' => Document::orderBy('category')->get(),
+            // remove empty categories
+            'categories' => Document::all()->pluck('category')->unique()->filter(function ($category) {
+                return $category !== null;
+            })->sort()->values()->all(),
         ]);
+    }
+
+
+
+    public function search(Request $request)
+    {
+        $documents = Document::where('name', 'like', '%' . $request->name . '%')
+            ->when(true, function ($query) use ($request) {
+                if (!$request->category) return $query;
+                return $query->where('category', $request->category);
+            })
+            ->when(true, function ($query) use ($request) {
+                if ($request->group === 'all') return $query;
+                return $query->where('group', $request->group);
+            })
+            ->orderBy('name')
+            ->get();
+
+        return response()->json($documents);
     }
 
 
@@ -55,7 +77,7 @@ class DocumentController extends Controller
         
         // get file extension
         $extension = Str::lower(pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION));
-
+        
         // get file name
         $filename = $request->slug . '.' . $extension;
 

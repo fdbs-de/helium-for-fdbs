@@ -3,8 +3,26 @@
 
     <DashboardSubLayout title="Dokumente verwalten">
         <template #head>
-            <mui-button label="Neues Dokument Hochladen" @click="openUploadDocumentPopup()"/>
-            <!-- <mui-input class="search-input" type="search" no-border placeholder="Suchen" icon-left="search"/> -->
+            <div class="flex gap-1 v-center wrap flex-1">
+                <mui-input class="search-input" type="search" no-border placeholder="Suchen" icon-left="search" v-model="searchName" @input="throttledFetch"/>
+                <select v-model="searchCategory" @change="throttledFetch">
+                    <option value="" selected>Alle Kategorien</option>
+                    <option v-for="category in categories" :key="category" :value="category">{{capitalizeWords(category)}}</option>
+                </select>
+                <select v-model="searchGroup" @change="throttledFetch">
+                    <option value="all" selected>Alle</option>
+                    <option value="">Öffentlich</option>
+                    <option value="customers">Nur Kunden</option>
+                    <option value="employees">Nur Mitarbeiter</option>
+                    <option value="hidden">Versteckt</option>
+                </select>
+                
+                <div class="spacer"></div>
+
+                <mui-button label="Neues Dokument Hochladen" @click="openUploadDocumentPopup()"/>
+            </div>
+
+            <Loader class="loader" v-show="loading" />
         </template>
 
         <div class="grid">
@@ -131,13 +149,13 @@
     import Popup from '@/Components/Form/Popup.vue'
     import Loader from '@/Components/Form/Loader.vue'
     import Tag from '@/Components/Form/Tag.vue'
-    import { slugify } from '@/Utils/String'
+    import { slugify, capitalizeWords } from '@/Utils/String'
     import { ref, watch, computed } from 'vue'
 
 
 
     defineProps({
-        documents: Array,
+        // documents: Array,
         categories: Array,
     })
 
@@ -148,6 +166,37 @@
     const categoryPopup = ref(null)
     const fileInput = ref(null)
     const coverInput = ref(null)
+
+    // Search parameters
+    const loading = ref(false)
+    const searchName = ref('')
+    const searchCategory = ref('')
+    const searchGroup = ref('all')
+    const documents = ref([])
+
+
+
+    const fetch = async () => {
+        loading.value = true
+
+        try
+        {
+            let response = await axios.get(route('dashboard.admin.docs.search', {
+                name: searchName.value,
+                category: searchCategory.value,
+                group: searchGroup.value,
+            }))
+
+            documents.value = response.data
+            console.log(response.data)
+        }
+        catch (error)
+        {
+            console.log(error.response)
+        }
+        
+        loading.value = false
+    }
 
 
 
@@ -236,6 +285,7 @@
 
             onSuccess() {
                 closeUploadDocumentPopup()
+                throttledFetch()
             },
         })
     }
@@ -248,6 +298,7 @@
             forceFormData: true,
             onSuccess() {
                 closeUploadDocumentPopup()
+                throttledFetch()
             },
         })
     }
@@ -257,12 +308,28 @@
             onSuccess() {
                 closeUploadDocumentPopup()
                 deleteDocumentPopup.value.close()
+                throttledFetch()
             },
         })
     }
+
+
+
+    //////////////
+    // On Mount //
+    //////////////
+
+    const throttledFetch = _.throttle(fetch, 300)
+    fetch()
 </script>
 
 <style lang="sass" scoped>
+    .loader
+        position: absolute
+        bottom: -2px
+        height: 2px
+        left: 0
+
     .upload-box
         display: flex
         align-items: center
