@@ -69,6 +69,8 @@
                 </div>
                 <div class="spacer"></div>
                 <div class="social-wrapper">
+                    <a href="https://g.page/r/CWfKbNs4inYXEAg/review" target="_blank">Bewerten Sie uns auf Google</a>
+                    <span>•</span>
                     <a href="https://www.linkedin.com/company/fdbsfoodservice" target="_blank" rel="opener">LinkedIn</a>
                     <a href="https://www.xing.com/pages/fleischer-dienst-braunschweig-eg" target="_blank" rel="opener">Xing</a>
                     <!-- <a href="#" target="_blank" rel="opener">YouTube</a> -->
