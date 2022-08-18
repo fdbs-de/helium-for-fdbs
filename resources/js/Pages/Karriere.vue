@@ -29,7 +29,7 @@
             <IconCard icon="groups" title="Flache Hierarchien" text="Mehr Spaß bei der Arbeit: eine kollegiale Arbeitsatmosphäre."/>
             <IconCard icon="money_off" title="Keine Studiengebühren" text="Wir zahlen Ihre Studiengebühren für das duale Studium."/>
             <!-- <IconCard icon="handshake" title="Übernahmegarantie" text="Garantierte Übernahme nach erfolgreichem Abschluss Ihres Studiums oder Ihrer Ausbildung."/> -->
-            <IconCard icon="reviews" title="Direkter Ansprechpartner" text="Einen festen Ansprechpartner und regelmäßige Feedbackgespräche."/>
+            <!-- <IconCard icon="reviews" title="Direkter Ansprechpartner" text="Einen festen Ansprechpartner und regelmäßige Feedbackgespräche."/> -->
         </div>
     </TextSubLayout>
 </template>
