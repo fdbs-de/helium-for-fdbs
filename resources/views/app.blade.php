@@ -10,6 +10,9 @@
         <!-- Cookie Consent Tool by Usercentrics -->
         <script type="application/javascript" src="https://app.usercentrics.eu/latest/main.js" id="rMqB9azKr"></script>
 
+        <meta data-privacy-proxy-server = "https://privacy-proxy-server.usercentrics.eu">
+        <script type="application/javascript" src="https://privacy-proxy.usercentrics.eu/latest/uc-block.bundle.js"></script>
+
         <!-- Fonts -->
         <link rel="stylesheet" href="https://use.typekit.net/imf2sid.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@40,300,0,0">
