@@ -79,9 +79,26 @@ class StaticController extends Controller
 
     public function indexKarriere()
     {
-        return Inertia::render('Karriere', [
+        return Inertia::render('Karriere/Index');
+    }
+
+    public function indexStellenangebote()
+    {
+        return Inertia::render('Karriere/Stellenangebote', [
             'jobs' => Document::where('category', 'jobs')->where('group', null)->orderBy('name')->get(),
         ]);
+    }
+
+    public function indexStudiumAusbildung()
+    {
+        return Inertia::render('Karriere/StudiumAusbildung', [
+            'jobs' => Document::where('category', 'jobs-studium')->where('group', null)->orderBy('name')->get(),
+        ]);
+    }
+
+    public function indexFDBSAlsArbeitgeber()
+    {
+        return Inertia::render('Karriere/FDBSAlsArbeitgeber');
     }
 
     public function indexKontakt()

@@ -1,5 +1,5 @@
 <template>
-    <ServiceSubLayout title="Fachberatung: Käse & Salate" image="/images/content/test_banner.jpg">
+    <ServiceSubLayout title="Fachberatung: Käse & Salate">
         <Head>
             <title>Produkte & Services: Fachberatung Käse & Salate</title>
         </Head>

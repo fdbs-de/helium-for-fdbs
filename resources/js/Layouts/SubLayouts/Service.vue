@@ -91,6 +91,7 @@
             background: var(--color-background-soft)
             width: calc(100% - 2 * var(--su))
             margin-top: calc(-1 * var(--height-header))
+            box-shadow: var(--shadow-elevation-medium)
 
             h2
                 margin: 0
