@@ -4,6 +4,18 @@
     </Head>
 
     <TextSubLayout title="Studium und Ausbildung bei FDBS">
+        <div class="limiter text-limiter" style="padding: 0 0 4rem 0">
+            <h2>Komm in unser Team!</h2>
+            <p>
+                Du bist vom ersten Tag an unser gleichberechtigter Arbeitskollege.
+                Wir arbeiten mit Dir eng im Team zusammen. Ein freundschaftlicher,
+                aber professioneller Umgang sowie gemeinsame Aktivitäten fördern unseren Zusammenhalt.
+                Durch unsere kollegiale Arbeitsatmosphäre identifizieren sich unsere Mitarbeiter
+                mit unserem Unternehmen. Dazu benötigst Du nur zwei Dinge: Fleiß und Engagement.
+                Den Rest machen wir.
+            </p>
+        </div>
+        <hr>
         <div class="wrapper">
             <Card v-for="job in jobs" cover new-window
                 aspect-ratio="16/9"
@@ -15,7 +27,7 @@
                 :link="route('docs', job.slug)"
             />
         </div>
-
+        <hr>
         <Benefits />
     </TextSubLayout>
 </template>
@@ -40,6 +52,7 @@
         display: grid !important
         grid-template-columns: repeat(3, 1fr)
         gap: 3rem
+        margin: 4rem 0
 
 
 

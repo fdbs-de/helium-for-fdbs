@@ -36,11 +36,11 @@ Route::prefix('/produkte-und-services')->group(function () {
 });
 
 Route::prefix('/karriere')->group(function () {
-    // Route::get('/', [StaticController::class, 'indexKarriere'])->name('karriere');
-    Route::get('/', [StaticController::class, 'indexStellenangebote'])->name('karriere');
-    // Route::get('/stellenangebote', [StaticController::class, 'indexStellenangebote'])->name('karriere.stellenangebote');
-    // Route::get('/studium-und-ausbildung', [StaticController::class, 'indexStudiumAusbildung'])->name('karriere.studium-und-ausbildung');
-    // Route::get('/fdbs-als-arbeitgeber', [StaticController::class, 'indexFDBSAlsArbeitgeber'])->name('karriere.fdbs-als-arbeitgeber');
+    Route::get('/', [StaticController::class, 'indexKarriere'])->name('karriere');
+    // Route::get('/', [StaticController::class, 'indexStellenangebote'])->name('karriere');
+    Route::get('/stellenangebote', [StaticController::class, 'indexStellenangebote'])->name('karriere.stellenangebote');
+    Route::get('/studium-und-ausbildung', [StaticController::class, 'indexStudiumAusbildung'])->name('karriere.studium-und-ausbildung');
+    Route::get('/fdbs-als-arbeitgeber', [StaticController::class, 'indexFDBSAlsArbeitgeber'])->name('karriere.fdbs-als-arbeitgeber');
 });
 
 Route::get('/kontakt', [StaticController::class, 'indexKontakt'])->name('kontakt');

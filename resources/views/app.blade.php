@@ -9,7 +9,6 @@
 
         <!-- Cookie Consent Tool by Usercentrics -->
         <script type="application/javascript" src="https://app.usercentrics.eu/latest/main.js" id="rMqB9azKr"></script>
-
         <meta data-privacy-proxy-server = "https://privacy-proxy-server.usercentrics.eu">
         <script type="application/javascript" src="https://privacy-proxy.usercentrics.eu/latest/uc-block.bundle.js"></script>
 

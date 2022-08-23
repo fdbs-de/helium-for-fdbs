@@ -26,7 +26,7 @@
 
 @each $prop in ['padding', 'margin']
     @each $modifier in ['', '-inline', '-block', '-top', '-right', '-bottom', '-left']
-        @for $i from 0 through 6
+        @for $i from 0 through 10
             .#{$prop}#{$modifier}-#{$i}
                 #{$prop}#{$modifier}: #{$i}rem
 
