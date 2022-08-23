@@ -20,7 +20,13 @@
             <SpecCard class="flex-1" spec="15.000+" subtitle="Artikel"/>
             <SpecCard class="flex-1" spec="namhafte" subtitle="Lieferanten & Partner"/>
         </div>
-        <Benefits />
+        <div class="limiter text-limiter">
+            <h2>Zufriedenheit schafft Motivation</h2>
+            <p>FDBS bietet seinen Mitarbeitern weit mehr als ein gutes Gehalt. Bei uns wird Ihnen ein moderner Arbeitsplatz in lichtdurchfluteten Räumen zur Verfügung gestellt. Sie arbeiten in einem Team mit freundlichen und motivierten Kollegen und erhalten die Möglichkeit, sich nach Ihren Fähigkeiten individuell zu entwickeln.</p>
+            <p>FDBS fördert seine Mitarbeiter mit individuellen Fort- und Weiterbildungsmaßen. So kann jeder Mitarbeiter seine Talente entfalten und sein Können ausbauen.</p>
+            <p>Die flachen Hierarchien ermöglichen kurze Entscheidungswege. Diese Organisationsstruktur schafft die Voraussetzung für viele Freiräume der Mitarbeiter. Zudem werden die Eigeninitiative und -verantwortung der Mitarbeiter gefördert.</p>
+            <p>Durch das angenehme Betriebsklima können sich die Mitarbeiter mit unserem Unternehmen identifizieren. Das trägt neben den anderen Faktoren maßgeblich zur Motivation bei.</p>
+        </div>
     </TextSubLayout>
 </template>
 
@@ -28,5 +34,4 @@
     import { Head, Link } from '@inertiajs/inertia-vue3'
     import TextSubLayout from '@/Layouts/SubLayouts/Text.vue'
     import SpecCard from '@/Components/Page/SpecCard.vue'
-    import Benefits from '@/Components/Page/Karriere/Benefits.vue'
 </script>
