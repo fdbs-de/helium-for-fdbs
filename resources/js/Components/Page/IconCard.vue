@@ -1,6 +1,6 @@
 <template>
     <div class="card-wrapper">
-        <div v-if="icon" class="icon" aria-hidden="">{{icon}}</div>
+        <div v-if="icon" class="icon" aria-hidden="true">{{icon}}</div>
         <h3 v-if="title">{{title}}</h3>
         <p v-if="$slots.default || text"><slot>{{text}}</slot></p>
     </div>

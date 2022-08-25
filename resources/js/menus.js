@@ -18,7 +18,6 @@ export const mainMenu = [
         // { id: 'stellenangebote', label: 'Stellenangebote', href: route('karriere.stellenangebote'), children: [] },
         // { id: 'studium-ausbildung', label: 'Studium & Ausbildung', href: route('karriere.studium-und-ausbildung'), children: [] },
         // { id: 'fdbs-als-arbeitgeber', label: 'FDBS als Arbeitgeber', href: route('karriere.fdbs-als-arbeitgeber'), children: [] },
-
     ]},
     { id: 'kontakt', label: 'Kontakt & Ansprechpartner', href: route('kontakt'), children: [] },
 ]
