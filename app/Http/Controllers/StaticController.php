@@ -28,7 +28,7 @@ class StaticController extends Controller
     public function indexAngebote()
     {
         return Inertia::render('ProdukteUndServices/Angebote', [
-            'angebote' => Document::where('category', 'angebote')->where('group', null)->orderBy('name')->get(),
+            'angebote' => Document::where('category', 'angebote')->where('group', null)->orderBy('slug')->get(),
         ]);
     }
 
@@ -85,14 +85,14 @@ class StaticController extends Controller
     public function indexStellenangebote()
     {
         return Inertia::render('Karriere/Stellenangebote', [
-            'jobs' => Document::where('category', 'jobs')->where('group', null)->orderBy('name')->get(),
+            'jobs' => Document::where('category', 'jobs')->where('group', null)->orderBy('slug')->get(),
         ]);
     }
 
     public function indexStudiumAusbildung()
     {
         return Inertia::render('Karriere/StudiumAusbildung', [
-            'jobs' => Document::where('category', 'jobs-studium')->where('group', null)->orderBy('name')->get(),
+            'jobs' => Document::where('category', 'jobs-studium')->where('group', null)->orderBy('slug')->get(),
         ]);
     }
 
