@@ -35,10 +35,10 @@
         })
     }
 
-    // if (user.value.can_access_employee_panel)
-    // {
-    //     menu.push({ id: 'employee-overview', label: 'Mitarbeiterbereich', href: route('dashboard.employee'), icon: null, children: [] })
-    // }
+    if (user.value.can_access_employee_panel)
+    {
+        menu.push({ id: 'employee-overview', label: 'Mitarbeiterbereich', href: route('dashboard.employee'), icon: null, children: [] })
+    }
 
     if (user.value.can_access_admin_panel)
     {

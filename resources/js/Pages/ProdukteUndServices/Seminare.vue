@@ -5,7 +5,8 @@
         </Head>
         <div class="grid">
             <Card aspect-ratio="16/9" cover name="AZUBI Bootcamp" alt="AZUBI Bootcamp" primary-tag="14.09.2022" :tags="['Maja Kirsch']" image="/images/content/seminare/azubibootcamp_50245828.jpg" new-window link="/downloads/seminare/azubibootcamp_2022.pdf"/>
-            <Card aspect-ratio="16/9" cover name="Workshop: Power-Pricing" alt="Workshop: Power-Pricing" primary-tag="28.09.2022" :tags="['Prof. Dr. Torsten Olderog']" image="/images/content/seminare/power_pricing_workshop_2022_452991385.jpg" new-window link="/downloads/seminare/power_pricing_workshop_2022.pdf"/>
+            <span></span>
+            <!-- <Card aspect-ratio="16/9" cover name="Workshop: Power-Pricing" alt="Workshop: Power-Pricing" primary-tag="28.09.2022" :tags="['Prof. Dr. Torsten Olderog']" image="/images/content/seminare/power_pricing_workshop_2022_452991385.jpg" new-window link="/downloads/seminare/power_pricing_workshop_2022.pdf"/> -->
         </div>
         <!-- <Alert icon="info" title="Inhalt folgt">
             <span>

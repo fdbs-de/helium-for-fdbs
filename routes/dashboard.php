@@ -46,9 +46,9 @@ Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () 
         Route::delete('/dokumente/{document}', [DocumentController::class, 'delete'])->name('dashboard.admin.docs.delete');
     });
 
-    // Route::prefix('mitarbeiter')->middleware(['panelaccess:employee'])->group(function () {
-    //     Route::get('/', [OverviewController::class, 'indexOverview'])->name('dashboard.employee');
-    // });
+    Route::prefix('mitarbeiter')->middleware(['panelaccess:employee'])->group(function () {
+        Route::get('/', [OverviewController::class, 'indexOverview'])->name('dashboard.employee');
+    });
 
     Route::prefix('kunde')->middleware(['panelaccess:customer'])->group(function () {
         Route::get('/', [CustomerController::class, 'redirect'])->name('dashboard.customer');

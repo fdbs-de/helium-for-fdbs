@@ -10,8 +10,8 @@ class EmployeeProfile extends Model
     use HasFactory;
 
     protected $fillable = [
-        'company',
-        'customer_id',
+        'first_name',
+        'last_name',
     ];
 
     protected $casts = [
