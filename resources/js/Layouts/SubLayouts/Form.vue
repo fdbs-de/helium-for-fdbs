@@ -5,7 +5,7 @@
                 <h1>{{title}}</h1>
             </section>
             <section id="content-section">
-                <form @submit.prevent="$emit('submit')">
+                <form @submit.prevent="$emit('submit')" :class="{'no-padding': noPadding, 'no-gap': noSpacing}">
                     <ValidationErrors />
 
                     <div v-if="status">
@@ -28,6 +28,14 @@
     defineProps({
         title: String,
         status: String,
+        noPadding: {
+            type: Boolean,
+            default: false,
+        },
+        noSpacing: {
+            type: Boolean,
+            default: false,
+        },
     })
 
     const emit = defineEmits(['submit'])
@@ -61,6 +69,12 @@
             flex-direction: column
 
             --mui-background: var(--color-background-soft)
+
+            &.no-padding
+                padding: 0 !important
+
+            &.no-gap
+                gap: 0 !important
 
     @media only screen and (max-width: 500px)
         #hero-section
