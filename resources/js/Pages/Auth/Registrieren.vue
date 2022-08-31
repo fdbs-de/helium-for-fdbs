@@ -7,8 +7,7 @@
                 <div class="progress-wrapper" :style="`--progress: ${step / 4 * 100}%`"></div>
             </div>
 
-            <transition-group name="slide">
-
+            <transition-group :name="`slide-${stepDirection}`" tag="div" class="animation-wrapper" :class="`slide-${stepDirection}`">
                 <div class="step-wrapper" v-show="step === 0" key="start">
                     <span class="text-align-center padding-bottom-2">
                         Egal, ob Sie Kunde oder Mitarbeiter bei uns sind:<br>
@@ -16,7 +15,7 @@
                     </span>
                     <div class="flex-1 flex vertical gap-2 padding-top-1 v-center h-center background-soft radius-m">
                         <mui-button type="button" class="start-onboarding-button" size="large" label="Jetzt registrieren" @click="setStep(1)"/>
-                        <a target="_blank" :href="route('login')">Sie haben bereits ein Konto?</a>
+                        <Link :href="route('login')">Sie haben bereits ein Konto?</Link>
                     </div>
                 </div>
     
@@ -110,7 +109,7 @@
     import FormSubLayout from '@/Layouts/SubLayouts/Form.vue'
     import { Head, Link, useForm } from '@inertiajs/inertia-vue3'
     import zxcvbn from 'zxcvbn'
-    import { ref, computed } from 'vue'
+    import { ref, computed, watch } from 'vue'
 
     window.zxcvbn = zxcvbn
 
@@ -125,6 +124,12 @@
     const setStep = (i) => {
         step.value = i
     }
+
+    const stepDirection = ref('right')
+    
+    watch(step, (newStep, oldStep) => {
+        stepDirection.value = (newStep > oldStep) ? 'left' : 'right'
+    })
 
 
 
@@ -208,6 +213,29 @@
 </script>
 
 <style lang="sass" scoped>
+
+    .slide-left-move,
+    .slide-right-move,
+    .slide-left-enter-active,
+    .slide-right-enter-active,
+    .slide-left-leave-active,
+    .slide-right-leave-active
+        transition: all 0.5s ease
+
+    .slide-left-enter-from,
+    .slide-right-leave-to
+        transform: translate(100%, 0) !important
+
+    .slide-right-enter-from,
+    .slide-left-leave-to
+        transform: translate(-100%, 0) !important
+
+    .slide-left-leave-active,
+    .slide-right-leave-active
+        position: absolute
+
+
+
     .checkbox
         --mui-background: var(--color-background)
 
@@ -238,10 +266,17 @@
                     background: var(--color-primary)
                     transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)
 
+        .animation-wrapper
+            position: relative
+            overflow: hidden
+
         .step-wrapper
+            width: 100%
             min-height: 20rem
             display: flex
             flex-direction: column
             padding: 1rem
             gap: 1rem
+            top: 0
+            left: 0
 </style>

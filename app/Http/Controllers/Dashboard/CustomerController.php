@@ -19,7 +19,7 @@ class CustomerController extends Controller
     public function indexOffers()
     {
         return Inertia::render('Dashboard/Offers', [
-            'angebote' => Document::where('category', 'angebote')->where('group', 'customers')->orderBy('name')->get(),
+            'angebote' => Document::where('category', 'angebote')->where('group', 'customers')->orderBy('slug')->get(),
         ]);
     }
 }

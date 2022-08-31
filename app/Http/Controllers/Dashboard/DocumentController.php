@@ -63,7 +63,7 @@ class DocumentController extends Controller
                 if ($request->group === 'all') return $query;
                 return $query->where('group', $request->group);
             })
-            ->orderBy('name')
+            ->orderBy('category')
             ->get();
 
         return response()->json($documents);

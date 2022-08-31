@@ -1,7 +1,7 @@
 <template>
     <!-- TODO:: use Link for internal links -->
     <a :href="link" :target="newWindow ? '_blank' : '_self'" class="card-wrapper">
-        <div class="card-image-wrapper" :class="{'cover': cover}" :style="`aspect-ratio: ${aspectRatio};`">
+        <div class="card-image-wrapper" v-if="image" :class="{'cover': cover}" :style="`aspect-ratio: ${aspectRatio};`">
             <img loading="lazy" :src="image" :alt="alt" class="card-image"/>
 
             <div class="tag-wrapper" v-if="primaryTag || tags.length">
