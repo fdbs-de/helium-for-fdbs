@@ -86,14 +86,13 @@
                         <StaffCard name="Niklas Figge" job="Fachberater" tel="80" image="/images/content/mitarbeiter/missing.png"/>
                         <StaffCard name="Elke Grigat" job="Fachberaterin Käse & Salate" tel="38" image="/images/content/mitarbeiter/elke_grigat.png" overlay="/images/content/mitarbeiter/elke_grigat_zeichnung.png"/>
                         <StaffCard name="Klaus-Dieter Hoffmann" job="Fachberater" tel="98" image="/images/content/mitarbeiter/missing.png"/>
-                        <StaffCard name="Holger Kleinert" job="Fachberater" tel="14" image="/images/content/mitarbeiter/missing.png"/>
                         <StaffCard name="Marcus König" job="Fachberater" tel="93" image="/images/content/mitarbeiter/marcus_koenig.png" overlay="/images/content/mitarbeiter/marcus_koenig_zeichnung.png"/>
                         <StaffCard name="Lutz Nolte" job="Fachberater" tel="94" image="/images/content/mitarbeiter/lutz_nolte.png" overlay="/images/content/mitarbeiter/lutz_nolte_zeichnung.png"/>
                         <StaffCard name="Kenan Özden" job="Fachberater" tel="92" image="/images/content/mitarbeiter/kenan_oezden.png" overlay="/images/content/mitarbeiter/kenan_oezden_zeichnung.png"/>
                         <StaffCard name="Andreas Pape" job="Fachberater" tel="91" image="/images/content/mitarbeiter/andreas_pape.png" overlay="/images/content/mitarbeiter/andreas_pape_zeichnung.png"/>
                         <StaffCard name="Mathias Vetter" job="Fachberater" tel="95" image="/images/content/mitarbeiter/mathias_vetter.png" overlay="/images/content/mitarbeiter/mathias_vetter_zeichnung.png"/>
                         <StaffCard name="Jens Winkler" job="Fachberater" tel="97" image="/images/content/mitarbeiter/jens_winkler.png" overlay="/images/content/mitarbeiter/jens_winkler_zeichnung.png"/>
-                    
+                        
                         <StaffCard name="Madlen Krause" job="Leitung Vertriebsinnendienst" leader tel="18" image="/images/content/mitarbeiter/missing.png"/>
                         <StaffCard name="Phil Bartelt" job="Vertriebsinnendienst" tel="36" image="/images/content/mitarbeiter/phil_bartelt.png" overlay="/images/content/mitarbeiter/phil_bartelt_zeichnung.png"/>
                         <StaffCard name="Silke Künstler" job="Vertriebsinnendienst" tel="23" image="/images/content/mitarbeiter/silke_kuenstler.png" overlay="/images/content/mitarbeiter/silke_kuenstler_zeichnung.png"/>
@@ -109,20 +108,21 @@
                         <StaffCard name="Julia Kirschner" job="Printgestaltung & Produktion" tel="13" image="/images/content/mitarbeiter/missing.png"/>
                         <StaffCard name="Sophie Quast" job="Printgestaltung & Produktion" tel="79" image="/images/content/mitarbeiter/missing.png"/>
                         <StaffCard name="Franziska Wolff" job="Printgestaltung & Produktion" image="/images/content/mitarbeiter/franziska_wolff.png" overlay="/images/content/mitarbeiter/franziska_wolff_zeichnung.png"/>
-                    
+                        
                         <StaffCard name="Philipp Tronnier" job="Leitung Lager" leader tel="57" image="/images/content/mitarbeiter/missing.png"/>
-                    
+                        
                         <StaffCard name="Timo Welskop" job="Leitung Fuhrpark" leader tel="56" image="/images/content/mitarbeiter/timo_welskop.png" overlay="/images/content/mitarbeiter/timo_welskop_zeichnung.png"/>
                         <StaffCard name="Kathrin Reviliak" job="Stv. Leitung Fuhrpark" leader tel="53" image="/images/content/mitarbeiter/missing.png"/>
-                    
+                        
                         <StaffCard name="Tobias Behnstedt" job="Leitung Fleischabteilung" leader tel="26" image="/images/content/mitarbeiter/tobias_behnstedt.png" overlay="/images/content/mitarbeiter/tobias_behnstedt_zeichnung.png"/>
                         <StaffCard name="Niels Brandt" job="Leitung Fleischabteilung" leader tel="27" image="/images/content/mitarbeiter/niels_brandt.png" overlay="/images/content/mitarbeiter/niels_brandt_zeichnung.png"/>
-                    
+                        
                         <StaffCard name="Annette Körner" job="Leitung Servicewerkstatt" leader tel="24" image="/images/content/mitarbeiter/annette_koerner.png" overlay="/images/content/mitarbeiter/annette_koerner_zeichnung.png"/>
                         <StaffCard name="Marcus Zetzsche" job="Stv. Leitung Servicewerkstatt" leader tel="12" image="/images/content/mitarbeiter/marcus_zetzsche.png" overlay="/images/content/mitarbeiter/marcus_zetzsche_zeichnung.png"/>
                         <StaffCard name="Sabine Barnert" job="Vetriebsinnendienst der Werkstatt" tel="76" image="/images/content/mitarbeiter/missing.png"/>
                         <StaffCard name="André Hoffmann" job="Fachberater Großküchentechnik" tel="41" image="/images/content/mitarbeiter/missing.png"/>
-                        <StaffCard name="Peter Wiebke" job="Vetriebsinnendienst der Werkstatt" tel="75" image="/images/content/mitarbeiter/missing.png"/>
+                        <StaffCard name="Holger Kleinert" job="Fachberater Geräte und Maschinen" tel="14" image="/images/content/mitarbeiter/missing.png"/>
+                        <StaffCard name="Wiebke Peter" job="Vetriebsinnendienst der Werkstatt" tel="75" image="/images/content/mitarbeiter/missing.png"/>
                     </div>
                 </div>
             </section>
