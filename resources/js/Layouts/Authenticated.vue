@@ -21,24 +21,36 @@
 
     const menu = []
 
+
+
     if (user.value.can_access_customer_panel)
     {
         menu.push({
             id: 'customer-overview',
             label: 'Kundenbereich',
             href: route('dashboard.customer'),
-            icon: null,
             children: [
-                { id: 'customer-specs', label: 'Spezifikationen', href: route('dashboard.customer.specs'), icon: null, children: [] },
-                { id: 'customer-offers', label: 'Angebote', href: route('dashboard.customer.offers'), icon: null, children: [] },
+                {id: 'customer-specs', label: 'Spezifikationen', href: route('dashboard.customer.specs'), children: []},
+                {id: 'customer-offers', label: 'Angebote', href: route('dashboard.customer.offers'), children: []},
             ],
         })
     }
 
+
+
     if (user.value.can_access_employee_panel)
     {
-        menu.push({ id: 'employee-overview', label: 'Mitarbeiterbereich', href: route('dashboard.employee'), icon: null, children: [] })
+        menu.push({
+            id: 'employee-overview',
+            label: 'Mitarbeiterbereich',
+            href: route('dashboard.employee'),
+            children: [
+                {id: 'employee-docs', label: 'Dokumente', href: route('dashboard.employee.documents'), children: []},
+            ],
+        })
     }
+
+
 
     if (user.value.can_access_admin_panel)
     {
@@ -46,14 +58,15 @@
             id: 'admin-overview',
             label: 'Adminbereich',
             href: route('dashboard.admin'),
-            icon: null,
             children: [
-                { id: 'admin-users', label: 'Nutzerverwaltung', href: route('dashboard.admin.users'), icon: null, children: [] },
-                { id: 'admin-specs', label: 'Speziverwaltung', href: route('dashboard.admin.specs'), icon: null, children: [] },
-                { id: 'admin-docs',  label: 'Dokumentverwaltung', href: route('dashboard.admin.docs'), icon: null, children: [] },
+                {id: 'admin-users', label: 'Nutzerverwaltung', href: route('dashboard.admin.users'), children: []},
+                {id: 'admin-specs', label: 'Speziverwaltung', href: route('dashboard.admin.specs'), children: []},
+                {id: 'admin-docs',  label: 'Dokumentverwaltung', href: route('dashboard.admin.docs'), children: []},
             ],
         })
     }
 
-    menu.push({ id: 'profile', label: 'Profil', href: route('dashboard.profile'), icon: null, children: [] })
+
+
+    menu.push({id: 'profile', label: 'Profil', href: route('dashboard.profile'), children: [] })
 </script>

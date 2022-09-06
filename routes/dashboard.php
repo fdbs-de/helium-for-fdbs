@@ -3,6 +3,7 @@
 use App\Http\Controllers\Dashboard\AdminController;
 use App\Http\Controllers\Dashboard\CustomerController;
 use App\Http\Controllers\Dashboard\DocumentController;
+use App\Http\Controllers\Dashboard\EmployeeController;
 use App\Http\Controllers\Dashboard\OverviewController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\SpecController;
@@ -47,7 +48,8 @@ Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () 
     });
 
     Route::prefix('mitarbeiter')->middleware(['panelaccess:employee'])->group(function () {
-        Route::get('/', [OverviewController::class, 'indexOverview'])->name('dashboard.employee');
+        Route::get('/', [EmployeeController::class, 'indexOverview'])->name('dashboard.employee');
+        Route::get('/dokumente', [EmployeeController::class, 'indexDocuments'])->name('dashboard.employee.documents');
     });
 
     Route::prefix('kunde')->middleware(['panelaccess:customer'])->group(function () {
