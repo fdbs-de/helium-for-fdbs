@@ -120,9 +120,9 @@
                     
                         <StaffCard name="Annette Körner" job="Leitung Servicewerkstatt" leader tel="24" image="/images/content/mitarbeiter/annette_koerner.png" overlay="/images/content/mitarbeiter/annette_koerner_zeichnung.png"/>
                         <StaffCard name="Marcus Zetzsche" job="Stv. Leitung Servicewerkstatt" leader tel="12" image="/images/content/mitarbeiter/marcus_zetzsche.png" overlay="/images/content/mitarbeiter/marcus_zetzsche_zeichnung.png"/>
+                        <StaffCard name="Sabine Barnert" job="Vetriebsinnendienst der Werkstatt" tel="76" image="/images/content/mitarbeiter/missing.png"/>
                         <StaffCard name="André Hoffmann" job="Fachberater Großküchentechnik" tel="41" image="/images/content/mitarbeiter/missing.png"/>
-                        <StaffCard name="Sabine Barnert" job="" tel="76" image="/images/content/mitarbeiter/missing.png"/>
-                        <StaffCard name="Peter Wiebke" job="" tel="75" image="/images/content/mitarbeiter/missing.png"/>
+                        <StaffCard name="Peter Wiebke" job="Vetriebsinnendienst der Werkstatt" tel="75" image="/images/content/mitarbeiter/missing.png"/>
                     </div>
                 </div>
             </section>
