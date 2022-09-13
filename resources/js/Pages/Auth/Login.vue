@@ -2,10 +2,10 @@
     <FormSubLayout title="Kundenlogin" :status="status" @submit="submit">
         <Head title="Kundenlogin" />
 
-        <Alert title="Info für Nutzer unserer alten Seite">
+        <!-- <Alert title="Info für Nutzer unserer alten Seite">
             Nutzer unserer alten Webseite mit einem Konto können sich zurzeit noch nicht anmelden.<br>
             Danke für Ihr Verständnis!
-        </Alert>
+        </Alert> -->
 
         <mui-input type="email" label="Email" v-model="form.email" required autocomplete="username"/>
         <mui-input type="password" label="Passwort" v-model="form.password" required autocomplete="current-password"/>
@@ -19,7 +19,7 @@
         <div class="divider"></div>
 
         <div class="flex center gap">
-            <!-- <Link :href="route('registrieren')">Noch kein Konto?</Link> -->
+            <Link :href="route('registrieren')">Noch kein Konto?</Link>
             <Link v-if="canResetPassword" :href="route('password.request')">Passwort vergessen?</Link>
         </div>
     </FormSubLayout>
