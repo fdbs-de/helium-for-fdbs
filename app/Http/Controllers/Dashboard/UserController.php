@@ -61,7 +61,7 @@ class UserController extends Controller
             $model->email_verified_at = now();
             $model->save();
 
-            $customerProfile = $model->customerProfile()->create([
+            $customerProfile = $model->fresh()->customerProfile()->create([
                 'company' => $user['name'],
                 'customer_id' => $user['cb_kundennummer'],
             ]);
@@ -69,7 +69,7 @@ class UserController extends Controller
             $customerProfile->enabled_at = now();
             $customerProfile->save();
 
-            Mail::to($user['email'])->send(new ImportedUserCreated($user['email'], $newPassword));
+            // Mail::to($user['email'])->send(new ImportedUserCreated($user['email'], $newPassword));
         }
 
         return back()->with('success', 'Users imported successfully');
