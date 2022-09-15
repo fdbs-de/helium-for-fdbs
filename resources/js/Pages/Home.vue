@@ -17,11 +17,9 @@
                         <div class="text-wrapper flex vertical">
                             <h2>Das sind Wir!</h2>
                             <p>
-                                <b>Wir sind FDBS</b>...<br>
-                                Ihre Kompetenz rund um den Foodservice.
+                                Wir sind FDBS – Ihre Kompetenz rund um den Foodservice.
                                 Von Lebensmitteln, über Non-Food bis hin zum Marketing können wir Ihnen helfen.
                             </p>
-                            <div class="spacer"></div>
                             <Link :href="route('philosophie')">Mehr Über Uns</Link>
                         </div>
                         <div class="image-wrapper">
@@ -150,32 +148,35 @@
         display: flex
         margin-top: var(--height-header)
         width: 100%
-        background: var(--color-background-soft)
 
         .limiter
             display: flex
 
         img
+            background: var(--color-background-soft)
             width: 100%
-            border-radius: 0
+            padding-inline: 2rem
+            border-radius: var(--radius-xl)
 
     section#about
         padding-block: 7rem
 
         .about-card
-            background: var(--color-background-soft)
-            border-radius: 12px
             display: flex
-            overflow: hidden
+            gap: 2rem
+            align-items: center
 
             .text-wrapper
-                width: 50%
-                padding: 2rem
+                flex: 3
                 color: var(--color-heading)
 
                 h2
                     margin: 0
                     font-weight: 600
+
+                p
+                    max-width: 500px
+                    margin-bottom: 2rem
 
                 a
                     display: flex
@@ -196,13 +197,14 @@
                         background: var(--color-primary-soft)
 
             .image-wrapper
-                flex: 1
+                flex: 2
 
                 img
                     width: 100%
                     height: 100%
                     object-fit: cover
                     display: flex
+                    border-radius: var(--radius-m)
 
     section#general
         background: var(--color-primary)
@@ -296,6 +298,14 @@
                         text-align: center
 
     @media only screen and (max-width: 700px)
+        section#hero
+            img
+                aspect-ratio: 2/1
+                width: 100%
+                padding-inline: 1rem
+                object-fit: contain
+                object-position: bottom center
+                
         section#about
             padding-block: 5rem
 
@@ -307,8 +317,6 @@
                     
                     .text-wrapper
                         width: 100%
-                        padding: 1.5rem 1rem 1rem
-                        order: 1
 
                         a
                             width: 100%
