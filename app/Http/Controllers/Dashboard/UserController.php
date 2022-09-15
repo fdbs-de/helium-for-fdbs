@@ -40,7 +40,7 @@ class UserController extends Controller
     {
         $request->validate([
             'users' => 'required|array',
-            'users.*.email' => 'required|email|unique:users',
+            'users.*.email' => 'required|email',
             'users.*.name' => 'required|string|max:255',
             'users.*.cb_kundennummer' => 'present|nullable|string|max:255',
             'users.*.approved' => 'required|in:1',
@@ -51,6 +51,8 @@ class UserController extends Controller
         {
             $newPassword = Str::random(10);
 
+            if (User::firstWhere('email', $user['email'])) continue;
+            
             $model = User::create([
                 'email' => $user['email'],
                 'name' => $user['name'],
