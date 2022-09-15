@@ -69,7 +69,7 @@ class UserController extends Controller
             $customerProfile->enabled_at = now();
             $customerProfile->save();
 
-            // Mail::to($user['email'])->send(new ImportedUserCreated($user['email'], $newPassword));
+            Mail::to($user['email'])->send(new ImportedUserCreated($user['email'], $newPassword));
         }
 
         return back()->with('success', 'Users imported successfully');
