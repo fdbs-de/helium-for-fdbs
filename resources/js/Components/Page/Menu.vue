@@ -55,7 +55,7 @@
         color: var(--color-text)
         border-radius: calc(var(--su) * .5)
         background: transparent
-        border: none
+        border: 2px solid var(--color-background-soft)
         padding: 0
         display: none
 

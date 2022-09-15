@@ -1,6 +1,6 @@
 <template>
-    <FormSubLayout title="Kundenlogin" :status="status" @submit="submit">
-        <Head title="Kundenlogin" />
+    <FormSubLayout title="Anmeldung" :status="status" @submit="submit">
+        <Head title="Anmeldung" />
 
         <!-- <Alert title="Info für Nutzer unserer alten Seite">
             Nutzer unserer alten Webseite mit einem Konto können sich zurzeit noch nicht anmelden.<br>

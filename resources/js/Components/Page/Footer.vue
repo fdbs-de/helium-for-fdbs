@@ -30,7 +30,7 @@
 
         <div class="limiter link-row">
             <div class="block">
-                <h3 class="headline">Abholmarkt</h3>
+                <h3 class="headline primary">Abholmarkt</h3>
                 <div class="content">
                     <b>Öffnungszeiten:</b><br>
                     Mo - Do: 06:00 - 16:00<br>
@@ -71,6 +71,8 @@
                 <div class="social-wrapper">
                     <a href="https://g.page/r/CWfKbNs4inYXEAg/review" target="_blank">Bewerten Sie uns auf Google</a>
                     <span>•</span>
+                    <a @click="openPopup()">Hier nicht klicken</a>
+                    <span>•</span>
                     <a href="https://www.linkedin.com/company/fdbsfoodservice" target="_blank" rel="opener">LinkedIn</a>
                     <a href="https://www.xing.com/pages/fleischer-dienst-braunschweig-eg" target="_blank" rel="opener">Xing</a>
                     <!-- <a href="#" target="_blank" rel="opener">YouTube</a> -->
@@ -81,17 +83,95 @@
             </div>
         </div>
     </footer>
+
+    <Popup ref="easteregg_one" class="easteregg_one" @close="clearTimer()">
+        <div class="flex padding-2 gap-2 vertical">
+            <h3 class="margin-0 text-align-center">Sie haben die Selbstzerstörung eingeleitet!</h3>
+            <hr>
+            <div class="flex vertical">
+                <h3 class="margin-0 text-align-center"><b>Selbstzerstörung in:</b></h3>
+                <h2 class="margin-0 text-align-center heading">{{timer}} Sekunden</h2>
+            </div>
+            <hr>
+        </div>
+    </Popup>
+
+    <div class="blend" :class="{'active': isBlack}"></div>
 </template>
 
 <script setup>
     import { Link } from '@inertiajs/inertia-vue3'
     import { mainMenu, aboutMenu, legalMenu } from '@/menus'
-    import { computed } from 'vue'
+    import Popup from '@/Components/Form/Popup.vue'
+    import { ref, computed } from 'vue'
 
     const productsMenu = computed(() => {
         return mainMenu.find(e => e.id === 'projekte-und-services')?.children || []
     })
+
+
+    // EASTEREGG START //
+    const easteregg_one = ref(null)
+    const timer = ref(0)
+    let interval = null
+    const isBlack = ref(false)
+
+    const openPopup = () => {
+        timer.value = 15
+        easteregg_one.value.open()
+        interval = setInterval(reduceTimer, 1000)
+    }
+
+    const reduceTimer = () => {
+        timer.value--
+        if (timer.value <= 0) closePopup(true)
+    }
+    
+    const closePopup = (playAnimation = false) => {
+        clearTimer()
+
+        setTimeout(() => {
+            easteregg_one.value.close()
+            if (playAnimation) animation()
+        }, 600)
+    }
+
+    const clearTimer = () => {
+        clearInterval(interval)
+    }
+
+    const animation = () => {
+        isBlack.value = true
+
+        setTimeout(() => {
+            isBlack.value = false
+        }, 3000)
+    }
+    // EASTEREGG END //
 </script>
+
+<style lang="sass" scoped>
+    .easteregg_one
+        .heading
+            color: var(--color-primary)
+            font-size: 3rem
+
+    .blend
+        position: fixed
+        z-index: 9999
+        top: 0
+        left: 0
+        width: 100vw
+        height: 100vh
+        background-color: black
+        opacity: 0
+        transition: opacity 100ms ease-in-out
+        pointer-events: none
+
+        &.active
+            opacity: 1
+            pointer-events: all
+</style>
 
 <style lang="sass" scoped>
     footer

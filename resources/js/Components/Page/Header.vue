@@ -28,7 +28,7 @@
     })
 
     const displayText = computed(() => {
-        return loggedIn.value ? (usePage().props.value.auth.user.name || usePage().props.value.auth.user.email) : 'Kundenbereich'
+        return loggedIn.value ? (usePage().props.value.auth.user.name || usePage().props.value.auth.user.email) : 'Anmelden'
     })
 </script>
 
