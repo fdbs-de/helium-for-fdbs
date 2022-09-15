@@ -12,6 +12,7 @@ class CustomerProfile extends Model
     protected $fillable = [
         'company',
         'customer_id',
+        'enabled_at',
     ];
 
     protected $casts = [

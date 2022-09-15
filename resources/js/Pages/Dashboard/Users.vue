@@ -26,10 +26,10 @@
                 </span>
 
                 <span class="flex center gap">
-                    <div class="icon" :class="{'active': user.email_verified_at}">mail</div>
-                    <div class="icon" :class="{'active': user.enabled_at}">check_circle</div>
-                    <div class="icon" :class="{'active': (user.customer_profile || {}).enabled_at, 'notified': user.customer_profile}">shopping_cart</div>
-                    <div class="icon" :class="{'active': (user.employee_profile || {}).enabled_at, 'notified': user.employee_profile}">work</div>
+                    <div class="icon" title="Email Bestätigung" :class="{'active': user.email_verified_at}">mail</div>
+                    <div class="icon" title="Freigabe" :class="{'active': user.enabled_at}">check_circle</div>
+                    <div class="icon" title="Kundenkonto (gelb = angelegt; rot = freigegeben)" :class="{'active': (user.customer_profile || {}).enabled_at, 'notified': user.customer_profile}">shopping_cart</div>
+                    <div class="icon" title="Mitarbeiterkonto (gelb = angelegt; rot = freigegeben)" :class="{'active': (user.employee_profile || {}).enabled_at, 'notified': user.employee_profile}">work</div>
                 </span>
             </button>
         </div>
