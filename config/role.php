@@ -12,6 +12,7 @@ return [
         3 => Permissions::CAN_EDIT_SPECS,
         4 => Permissions::CAN_EDIT_JOB_OFFERS,
         5 => Permissions::CAN_EDIT_DOCS,
+        6 => Permissions::CAN_EDIT_POSTS,
     ],
 
     'roles' => [
