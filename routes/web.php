@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Warning for IE users
+Route::view('/ie', 'ie')->name('ie');
+
 Route::get('/', [StaticController::class, 'indexHome'])->name('home');
 Route::get('/philosopie', [StaticController::class, 'indexPhilosophie'])->name('philosophie');
 

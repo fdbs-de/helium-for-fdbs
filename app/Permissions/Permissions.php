@@ -9,4 +9,5 @@ class Permissions
     public const CAN_EDIT_SPECS = 'edit specs';
     public const CAN_EDIT_USERS = 'edit users';
     public const CAN_EDIT_DOCS = 'edit docs';
+    public const CAN_EDIT_POSTS = 'edit posts';
 }

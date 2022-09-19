@@ -14,16 +14,19 @@
             <section id="about">
                 <div class="limiter">
                     <div class="about-card">
-                        <div class="text-wrapper flex vertical">
-                            <h2>Das sind Wir!</h2>
-                            <p>
-                                Wir sind FDBS – Ihre Kompetenz rund um den Foodservice.
-                                Von Lebensmitteln, über Non-Food bis hin zum Marketing können wir Ihnen helfen.
-                            </p>
-                            <Link :href="route('philosophie')">Mehr Über Uns</Link>
-                        </div>
-                        <div class="image-wrapper">
+                        <!-- <div class="image-wrapper">
                             <img src="/images/content/about.png" alt="FDBS">
+                        </div> -->
+                        <div class="text-wrapper flex vertical">
+                            <h2>Wir sind FDBS</h2>
+                            <p>
+                                Ihre Kompetenz rund um den Foodservice.
+                                Von <Link :href="route('ps.foodservice')">Food</Link>,
+                                über <Link :href="route('ps.foodservice')">Non-Food</Link>
+                                bis hin zum <Link :href="route('ps.marketing-und-kommunikation')">Marketing</Link>
+                                und <Link :href="route('ps.technischer-kundendienst')">technischen Kundendienst</Link> können wir Ihnen helfen.
+                            </p>
+                            <!-- <Link :href="route('philosophie')">Mehr Über Uns</Link> -->
                         </div>
                     </div>
                 </div>
@@ -146,7 +149,7 @@
 
     section#hero
         display: flex
-        margin-top: var(--height-header)
+        margin-top: calc(var(--height-header) + 1rem)
         width: 100%
 
         .limiter
@@ -159,7 +162,7 @@
             border-radius: var(--radius-xl)
 
     section#about
-        padding-block: 7rem
+        padding-block: 13rem
 
         .about-card
             display: flex
@@ -169,16 +172,34 @@
             .text-wrapper
                 flex: 3
                 color: var(--color-heading)
+                text-align: center
 
                 h2
-                    margin: 0
+                    margin: 0 auto 2rem
                     font-weight: 600
+                    font-size: 4rem
+                    font-family: var(--font-heading)
 
                 p
-                    max-width: 500px
-                    margin-bottom: 2rem
+                    margin: 0 auto
+                    max-width: 700px
+                    font-size: 1.5rem
+                    font-family: var(--font-heading)
 
                 a
+                    color: inherit
+                    font-weight: 600
+                    text-decoration: underline
+                    text-decoration-thickness: 2px
+                    text-underline-offset: 3px
+                    text-decoration-color: transparent
+                    transition: all 100ms
+
+                    &:hover,
+                    &:focus
+                        text-decoration-color: var(--color-primary)
+
+                a.t
                     display: flex
                     align-items: center
                     justify-content: center
@@ -276,7 +297,7 @@
         .grid
             display: grid
             gap: 3rem
-            margin-top: 3rem
+            margin-top: 5rem
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))
 
 
@@ -317,6 +338,12 @@
                     
                     .text-wrapper
                         width: 100%
+
+                        h2
+                            font-size: 2.5rem
+
+                        p
+                            font-size: 1rem
 
                         a
                             width: 100%
