@@ -1,8 +1,8 @@
 <template>
     <div class="wrapper" :class="'color-'+color">
-        <div class="icon" v-if="icon">{{icon}}</div>
+        <div class="icon" v-if="icon" aria-hidden="true">{{icon}}</div>
         <span>
-            <slot/>
+            <slot>{{label}}</slot>
         </span>
     </div>
 </template>
@@ -14,6 +14,7 @@
             type: String,
             default: 'red',
         },
+        label: String,
     })
 </script>
 
@@ -39,6 +40,9 @@
 
         &.color-blue
             color: var(--color-blue)
+
+        &.color-gray
+            color: var(--color-heading)
 
         .icon
             font-family: var(--font-icon)

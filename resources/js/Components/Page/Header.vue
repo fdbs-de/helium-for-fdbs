@@ -1,12 +1,15 @@
 <template>
     <header id="header">
         <div class="limiter">
-            <Link id="header-logo" :href="route('home')" title="FDBS Home"><Logo /></Link>
-            <Menu id="menu" :menu="menu"/>
-
-            <div class="spacer"></div>
-
-            <Link class="login-button" :href="loggedIn ? route('dashboard') : route('login')" :title="displayText"><span>{{displayText}}</span></Link>
+            <div class="wrapper logo">
+                <Link id="header-logo" :href="route('home')" title="FDBS Home"><Logo /></Link>
+            </div>
+            <div class="wrapper menu">
+                <Menu id="menu" :menu="menu"/>
+            </div>
+            <div class="wrapper login">
+                <Link class="login-button" :href="loggedIn ? route('dashboard') : route('login')" :title="displayText">{{displayText}}</Link>
+            </div>
         </div>
     </header>
 </template>
@@ -28,7 +31,7 @@
     })
 
     const displayText = computed(() => {
-        return loggedIn.value ? (usePage().props.value.auth.user.name || usePage().props.value.auth.user.email) : 'Anmelden'
+        return loggedIn.value ? 'Profil' : 'Anmelden'
     })
 </script>
 
@@ -42,73 +45,77 @@
         height: var(--height-header)
         background-color: #ffffffd9
         backdrop-filter: blur(20px)
-
+        
         .limiter
-            height: 100%
             display: flex
             align-items: center
-            gap: var(--su)
 
-            .spacer
-                flex: 1
+        .wrapper
+            flex: 1
+            display: flex
+            align-items: center
+            justify-content: center
 
-        #menu
-            padding-inline: var(--su)
+            &.logo
+                flex: none
+                width: 140px
+                justify-content: flex-start
+
+            &.login
+                flex: none
+                width: 140px
+                justify-content: flex-end
 
         #header-logo
+            display: flex
             height: var(--height-header)
             padding-block: .5rem
             aspect-ratio: 2/1
 
         .login-button
-            display: flex
+            display: inline-flex
             align-items: center
             justify-content: center
             border: none
             height: 2.25rem
-            width: 145px
-            padding-inline: .65rem
+            padding-inline: 1.5rem
             border-radius: calc(var(--su) * .5)
             background: var(--color-primary)
             color: var(--color-background)
             font-family: inherit
             line-height: 1
             font-size: .8rem
-            font-weight: 500
+            font-weight: 600
             letter-spacing: .05rem
             text-transform: uppercase
             cursor: pointer
+            white-space: nowrap
+            overflow: hidden
+            text-overflow: ellipsis
 
             &:focus,
             &:hover
                 background-color: var(--color-primary-soft)
 
-            > span
-                justify-self: stretch
-                white-space: nowrap
-                overflow: hidden
-                text-overflow: ellipsis
-                text-align: center
-
     @media only screen and (max-width: 1000px)
         #header
-            #menu
-                order: 3
-                padding: 0
+            .limiter
+                gap: 1rem
 
+                > .wrapper.menu
+                    order: 1
+                    flex: none
+                    padding: 0
+
+                .wrapper.login
+                    flex: 1
+                    width: auto
+
+
+    
     @media only screen and (max-width: 500px)
         #header
             .limiter
-                gap: 0
-
-                .login-button
-                    padding: 0
-                    margin-inline: 0 calc(var(--su) * .5)
-                    color: var(--color-primary)
-                    background: transparent
-                    border-radius: 0
-                    justify-content: flex-end
-
-                    > span
-                        text-align: right
+                .wrapper.logo
+                    width: 100px
 </style>

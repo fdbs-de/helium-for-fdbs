@@ -23,6 +23,7 @@ return [
                 Permissions::CAN_EDIT_SPECS,
                 Permissions::CAN_EDIT_JOB_OFFERS,
                 Permissions::CAN_EDIT_DOCS,
+                Permissions::CAN_EDIT_POSTS,
             ],
         ],
     
@@ -34,6 +35,7 @@ return [
                 Permissions::CAN_EDIT_SPECS,
                 Permissions::CAN_EDIT_JOB_OFFERS,
                 Permissions::CAN_EDIT_DOCS,
+                Permissions::CAN_EDIT_POSTS,
             ],
         ],
     
@@ -44,6 +46,7 @@ return [
                 Permissions::CAN_EDIT_SPECS,
                 Permissions::CAN_EDIT_JOB_OFFERS,
                 Permissions::CAN_EDIT_DOCS,
+                Permissions::CAN_EDIT_POSTS,
             ],
         ],
     ],

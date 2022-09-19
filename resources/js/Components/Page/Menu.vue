@@ -48,14 +48,14 @@
 
 <style lang="sass">
     .mobile-menu-toggle
-        height: 3rem
-        width: 3rem
+        height: 2.25rem
+        width: 2.25rem
         font-size: 1.5rem
         font-family: var(--font-icon)
         color: var(--color-text)
         border-radius: calc(var(--su) * .5)
-        background: transparent
-        border: 2px solid var(--color-background-soft)
+        background: var(--color-background-soft)
+        border: none
         padding: 0
         display: none
 

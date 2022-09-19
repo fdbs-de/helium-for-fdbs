@@ -3,11 +3,6 @@
 
     <DashboardSubLayout title="FDBS Intranet">
         <div class="grid">
-            <!-- <Card new-window name="Dokumente" :link="route('dashboard.employee.documents')" />
-            <Card new-window v-if="leitbild" :name="leitbild.name" :link="route('docs', leitbild.slug)" />
-            <Card new-window v-if="organigramm" :name="organigramm.name" :link="route('docs', organigramm.slug)" />
-            <Card new-window name="Uweb Schulungen" link="https://fleischer-dienst.uweb2000.de" /> -->
-
             <Link class="icon-button" :href="route('dashboard.employee.documents')">
                 <div class="icon">draft</div>
                 <div class="button-divider"></div>
@@ -32,6 +27,21 @@
                 <div class="text">Uweb Schulungen</div>
             </a>
         </div>
+        <div class="posts-container">
+            <article class="post-wrapper">
+                <Tag class="pinned" icon="push_pin" color="gray" label="Angepinnt"/>
+                <div class="info-group">
+                    <h3 class="title">Neue Mitarbeiter zum 01.10.2022</h3>
+                    <time class="date" datetime="2022-10-01">01. Okt 2022</time>
+                </div>
+                <p class="text">
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                    Unde asperiores eos eaque deleniti veritatis ea nemo, accusantium
+                    ratione expedita repellat facere dolores error ipsam, laboriosam
+                    similique! Modi reiciendis iure nostrum?
+                </p>
+            </article>
+        </div>
     </DashboardSubLayout>
 </template>
 
@@ -39,6 +49,7 @@
     import DashboardSubLayout from '@/Layouts/SubLayouts/Dashboard.vue'
     import { Head, Link } from '@inertiajs/inertia-vue3'
     import Card from '@/Components/Page/Card.vue'
+    import Tag from '@/Components/Form/Tag.vue'
 
     defineProps({
         leitbild: Object,
@@ -51,6 +62,8 @@
         display: grid
         gap: 2rem
         padding: 2rem
+        border-bottom: 1px solid #00000020
+        border-radius: calc(var(--su) * 0.75) calc(var(--su) * 0.75) 0 0
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))
 
     .icon-button
@@ -90,8 +103,43 @@
             font-family: var(--font-heading)
             font-size: 1.15rem
 
+    .posts-container
+        padding: 2rem 2rem 0rem
+        gap: 2rem
+        display: flex
+        flex-direction: column
+
+        .post-wrapper
+            display: flex
+            align-items: flex-start
+            flex-direction: column
+            border-bottom: 1px solid #00000020
+            gap: 1rem
+            padding: 0 0 2rem
+
+            &:last-child
+                border-bottom: none
+
+            .pinned
+                display: inline-flex
+
+            .title
+                margin: 0
+
+            .date
+                margin: 0
+                font-size: .9rem
+
+            .text
+                margin: 0
+                max-width: 800px
+
     @media only screen and (max-width: 500px)
         .grid
-            padding: 3rem 1rem
+            padding: 1rem
+            gap: 1rem
             grid-template-columns: auto
+
+        .posts-container
+            padding: 2rem 1rem 0
 </style>                    

@@ -65,8 +65,4 @@
             ],
         })
     }
-
-
-
-    menu.push({id: 'profile', label: 'Profil', href: route('dashboard.profile'), children: [] })
 </script>
