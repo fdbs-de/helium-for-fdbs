@@ -35,7 +35,7 @@
         </div>
     </DashboardSubLayout>
 
-    <Popup ref="managePopup" class="user-popup" :title="`Nutzer: ${userForm.name}`" background-color="var(--color-background-soft)">
+    <Popup ref="managePopup" class="user-popup" title="Nutzer Ansicht" background-color="var(--color-background-soft)">
         <div class="popup-block popup-error" v-if="hasErrors">
             <h3><b>Fehler!</b></h3>
             <p v-for="(error, key) in errors" :key="key">{{ error }}</p>
@@ -300,7 +300,7 @@
         grid-auto-rows: 2.5rem
         gap: 0 var(--su)
         width: 100%
-        padding: 1rem
+        padding: 1rem 0
         overflow-x: auto
 
         .row

@@ -4,16 +4,13 @@
     <DashboardSubLayout title="Spezifikationen verwalten">
         <template #head>
             <mui-input class="search-input" type="search" no-border placeholder="Suchen" icon-left="search" v-model="search" @input="throttledFetch" />
+            <div class="spacer"></div>
+            <mui-button variant="contained" size="small" icon-left="refresh" label="Cache erneuern" @click="recache()"/>
+            <mui-button as="label" for="files-input" role="button" tabindex="0" size="small" icon-left="upload" label="Dateien hochladen"/>
             <Loader class="loader" v-show="loading" />
-        </template>
-
-        <div class="upload-wrapper">
-            <div class="button-group">
-                <label class="top-button" for="files-input" role="button" tabindex="0">Dateien hochladen (max. 1000)</label>
-                <mui-button class="bottom-button" variant="contained" size="small" label="Cache erneuern" @click="recache()"/>
-            </div>
+            
             <input type="file" id="files-input" ref="filesInput" multiple @input="upload($event.target.files)" accept="application/pdf,application/vnd.ms-excel" />
-        </div>
+        </template>
 
         <div class="selection-wrapper">
             <span class="text">Auswahl: <b>{{selection.length}}</b></span>
@@ -32,7 +29,7 @@
                 </span>
                 <span class="text">{{item.name}}</span>
                 <span class="flex h-end">
-                    <a :href="route('dashboard.customer.specs.download', {name: item.name})" target="_blank">Ansehen</a>
+                    <mui-button as="a" :href="route('dashboard.customer.specs.download', item.name)" target="_blank" label="Download" size="small" variant="contained" />
                 </span>
             </div>
         </div>
@@ -41,7 +38,7 @@
             Es wurden keine Spezifikationen gefunden.
         </div>
 
-        <PaginationBar v-if="pagination.data.length" :from="pagination.from" :to="pagination.to" :total="pagination.total" @prev="prevPage" @next="nextPage"/>
+        <PaginationBar class="margin-top-1" v-if="pagination.data.length" :from="pagination.from" :to="pagination.to" :total="pagination.total" @prev="prevPage" @next="nextPage"/>
         
     </DashboardSubLayout>
 </template>
@@ -193,55 +190,16 @@
         height: 2px
         left: 0
 
-    .upload-wrapper
-        display: flex
-        flex-direction: column
-        align-items: center
-        justify-content: center
-        background: var(--color-background-soft)
-        border-radius: .5rem
-        margin: 1rem 1rem 0
-        position: relative
-        padding: 5rem 1rem
-
-        input
-            display: none
-
-        .button-group
-            display: flex
-            flex-direction: column
-            gap: 2px
-
-            .bottom-button
-                border-radius: .2rem .2rem .5rem .5rem
-
-            label.top-button
-                display: flex
-                align-items: center
-                height: 2.5rem
-                padding: 0 1rem
-                border-radius: .5rem .5rem .2rem .2rem
-                border: none
-                background: var(--color-primary)
-                color: var(--color-background)
-                font-size: .75rem
-                letter-spacing: .05em
-                font-weight: 500
-                text-transform: uppercase
-                cursor: pointer
-                user-select: none
-
-                &:hover,
-                &:focus
-                    background: var(--color-primary-soft)
+    input[type="file"]
+        display: none
 
     .selection-wrapper
         display: flex
         align-items: center
         height: 3.5rem
         background: var(--color-background-soft)
-        border-radius: .5rem .5rem .2rem .2rem
-        margin: 1rem 1rem 0
+        border-radius: var(--radius-m) var(--radius-m) .2rem .2rem
+        margin-top: 1rem
         position: relative
         padding: 0 1rem
         gap: 1rem
@@ -254,7 +212,8 @@
 
     .top-pagination-bar
         margin-top: 2px
-        border-radius: .2rem .2rem .5rem .5rem
+        margin-bottom: 1rem
+        border-radius: .2rem .2rem var(--radius-m) var(--radius-m)
 
     .placeholder
         display: flex
@@ -273,9 +232,10 @@
             display: grid
             align-items: center
             grid-template-columns: 2.5rem 1fr auto
-            gap: var(--su)
+            gap: 1rem
             height: 3rem
-            padding: 0 1rem
+            padding: 0 1rem 0 0
+            border-radius: var(--radius-m)
             --mui-background: var(--color-background)
 
             .text

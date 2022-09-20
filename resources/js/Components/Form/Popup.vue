@@ -158,7 +158,7 @@
 
             .popup-content
                 background: var(--color-background)
-                border-radius: .5rem
+                border-radius: var(--radius-m)
                 display: flex
                 flex-direction: column
                 order: 1

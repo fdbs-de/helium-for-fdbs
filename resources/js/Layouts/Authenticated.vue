@@ -45,6 +45,7 @@
             label: 'Mitarbeiterbereich',
             href: route('dashboard.employee'),
             children: [
+                {id: 'employee-overview-sub', label: 'Übersicht', href: route('dashboard.employee'), children: []},
                 {id: 'employee-docs', label: 'Dokumente', href: route('dashboard.employee.documents'), children: []},
             ],
         })
@@ -62,6 +63,7 @@
                 {id: 'admin-users', label: 'Nutzerverwaltung', href: route('dashboard.admin.users'), children: []},
                 {id: 'admin-specs', label: 'Speziverwaltung', href: route('dashboard.admin.specs'), children: []},
                 {id: 'admin-docs',  label: 'Dokumentverwaltung', href: route('dashboard.admin.docs'), children: []},
+                {id: 'admin-posts',  label: 'Post CMS', href: route('dashboard.admin.posts'), children: []},
             ],
         })
     }

@@ -12,21 +12,16 @@
             </section>
 
             <section id="about">
-                <div class="limiter">
+                <div class="limiter text-limiter">
                     <div class="about-card">
-                        <!-- <div class="image-wrapper">
-                            <img src="/images/content/about.png" alt="FDBS">
-                        </div> -->
                         <div class="text-wrapper flex vertical">
-                            <h2>Wir sind FDBS</h2>
                             <p>
-                                Ihre Kompetenz rund um den Foodservice.
+                                <b>Wir sind FDBS</b> – Ihre Kompetenz rund um den Foodservice.
                                 Von <Link :href="route('ps.foodservice')">Food</Link>,
                                 über <Link :href="route('ps.foodservice')">Non-Food</Link>
                                 bis hin zum <Link :href="route('ps.marketing-und-kommunikation')">Marketing</Link>
                                 und <Link :href="route('ps.technischer-kundendienst')">technischen Kundendienst</Link> können wir Ihnen helfen.
                             </p>
-                            <!-- <Link :href="route('philosophie')">Mehr Über Uns</Link> -->
                         </div>
                     </div>
                 </div>
@@ -174,16 +169,9 @@
                 color: var(--color-heading)
                 text-align: center
 
-                h2
-                    margin: 0 auto 2rem
-                    font-weight: 600
-                    font-size: 4rem
-                    font-family: var(--font-heading)
-
                 p
                     margin: 0 auto
-                    max-width: 700px
-                    font-size: 1.5rem
+                    font-size: 1.75rem
                     font-family: var(--font-heading)
 
                 a
@@ -192,30 +180,12 @@
                     text-decoration: underline
                     text-decoration-thickness: 2px
                     text-underline-offset: 3px
-                    text-decoration-color: transparent
+                    text-decoration-color: var(--color-primary)
                     transition: all 100ms
 
                     &:hover,
                     &:focus
-                        text-decoration-color: var(--color-primary)
-
-                a.t
-                    display: flex
-                    align-items: center
-                    justify-content: center
-                    background: var(--color-primary)
-                    color: var(--color-background)
-                    width: 160px
-                    border-radius: .5rem
-                    height: 2.5rem
-                    font-size: .8rem
-                    letter-spacing: .05rem
-                    font-weight: 500
-                    text-transform: uppercase
-                    text-decoration: none
-
-                    &:hover
-                        background: var(--color-primary-soft)
+                        color: var(--color-primary)
 
             .image-wrapper
                 flex: 2
@@ -230,10 +200,10 @@
     section#general
         background: var(--color-primary)
         color: var(--color-background)
-        padding-block: 5rem
+        padding-block: 7rem
 
         .limiter
-            gap: 2rem
+            gap: 4rem
 
         .flex-1
             border: 2px solid var(--color-primary-soft)

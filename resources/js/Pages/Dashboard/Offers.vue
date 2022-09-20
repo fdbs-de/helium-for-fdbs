@@ -28,12 +28,10 @@
 <style lang="sass" scoped>
     .grid
         display: grid
-        gap: 3rem
-        padding: 3rem
+        gap: 1rem
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))
 
     @media only screen and (max-width: 500px)
         .grid
-            padding: 3rem 1rem
             grid-template-columns: auto
 </style>

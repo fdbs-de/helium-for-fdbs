@@ -73,8 +73,7 @@
                 <div class="flex v-center gap">
                     <span class="flex-1">Abmelden:</span>
                     <div class="flex-3 flex gap v-center">
-                        <!-- <mui-button type="button" label="Abmelden" size="small" variant="contained"/> -->
-                        <Link class="simple-button" :href="route('logout')" method="post" as="button">Abmelden</Link>
+                        <mui-button as="a" :href="route('logout')" label="Abmelden" size="small" variant="contained"/>
                     </div>
                 </div>
             </div>
@@ -132,11 +131,18 @@
 
 <style lang="sass" scoped>
     .profile-wrapper
-        padding: var(--su)
         display: flex
         flex-direction: column
-        gap: .5rem
+        gap: 1rem
 
         .group
-            display: contents
+            padding: 1rem
+            display: flex
+            flex-direction: column
+            gap: .5rem
+            border-radius: var(--radius-m)
+            background: var(--color-background-soft)
+
+            h2
+                margin: 0
 </style>

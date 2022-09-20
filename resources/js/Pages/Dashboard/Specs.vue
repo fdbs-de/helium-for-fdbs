@@ -7,14 +7,14 @@
             <Loader class="loader" v-show="loading" />
         </template>
 
-        <PaginationBar v-if="pagination.data.length" :from="pagination.from" :to="pagination.to" :total="pagination.total" @prev="prevPage" @next="nextPage"/>
+        <PaginationBar class="margin-block-1" v-if="pagination.data.length" :from="pagination.from" :to="pagination.to" :total="pagination.total" @prev="prevPage" @next="nextPage"/>
 
         <div class="grid" v-if="pagination.data.length">
             <div class="row" v-for="item in pagination.data" :key="item.name">
                 <div class="icon" aria-hidden="true">description</div>
                 <span class="text">{{item.name}}</span>
                 <span class="flex h-end">
-                    <a :href="route('dashboard.customer.specs.download', {name: item.name})" target="_blank">Download</a>
+                    <mui-button as="a" :href="route('dashboard.customer.specs.download', {name: item.name})" target="_blank" label="Download" size="small" variant="contained" />
                 </span>
             </div>
         </div>
@@ -23,7 +23,7 @@
             Es wurden keine Spezifikationen gefunden.
         </div>
 
-        <PaginationBar v-if="pagination.data.length" :from="pagination.from" :to="pagination.to" :total="pagination.total" @prev="prevPage" @next="nextPage"/>
+        <PaginationBar class="margin-top-1" v-if="pagination.data.length" :from="pagination.from" :to="pagination.to" :total="pagination.total" @prev="prevPage" @next="nextPage"/>
         
     </DashboardSubLayout>
 </template>
@@ -109,9 +109,10 @@
             display: grid
             align-items: center
             grid-template-columns: 2.5rem 1fr auto
-            gap: var(--su)
+            gap: 1rem
             height: 3rem
-            padding: 0 1rem
+            padding: 0 1rem 0 0
+            border-radius: var(--radius-m)
 
             .text
                 white-space: nowrap

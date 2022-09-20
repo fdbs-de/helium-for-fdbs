@@ -5,6 +5,7 @@ use App\Http\Controllers\Dashboard\CustomerController;
 use App\Http\Controllers\Dashboard\DocumentController;
 use App\Http\Controllers\Dashboard\EmployeeController;
 use App\Http\Controllers\Dashboard\OverviewController;
+use App\Http\Controllers\Dashboard\PostController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\SpecController;
 use App\Http\Controllers\Dashboard\UserController;
@@ -45,6 +46,11 @@ Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () 
         Route::post('/dokumente', [DocumentController::class, 'store'])->name('dashboard.admin.docs.store');
         Route::put('/dokumente/{document}', [DocumentController::class, 'update'])->name('dashboard.admin.docs.update');
         Route::delete('/dokumente/{document}', [DocumentController::class, 'delete'])->name('dashboard.admin.docs.delete');
+
+        Route::get('/posts', [PostController::class, 'index'])->name('dashboard.admin.posts');
+        Route::post('/posts', [PostController::class, 'store'])->name('dashboard.admin.posts.store');
+        Route::put('/posts/{post}', [PostController::class, 'update'])->name('dashboard.admin.posts.update');
+        Route::delete('/posts/{post}', [PostController::class, 'delete'])->name('dashboard.admin.posts.delete');
     });
 
     Route::prefix('mitarbeiter')->middleware(['panelaccess:employee'])->group(function () {
