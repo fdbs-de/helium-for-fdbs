@@ -2,11 +2,6 @@
     <FormSubLayout title="Anmeldung" :status="status" @submit="submit">
         <Head title="Anmeldung" />
 
-        <!-- <Alert title="Info für Nutzer unserer alten Seite">
-            Nutzer unserer alten Webseite mit einem Konto können sich zurzeit noch nicht anmelden.<br>
-            Danke für Ihr Verständnis!
-        </Alert> -->
-
         <mui-input type="email" label="Email" v-model="form.email" required autocomplete="username"/>
         <mui-input type="password" label="Passwort" v-model="form.password" required autocomplete="current-password"/>
 
@@ -26,26 +21,25 @@
 </template>
 
 <script setup>
-import FormSubLayout from '@/Layouts/SubLayouts/Form.vue'
-import Alert from '@/Components/Alert.vue'
-import { Head, Link, useForm } from '@inertiajs/inertia-vue3'
+    import FormSubLayout from '@/Layouts/SubLayouts/Form.vue'
+    import { Head, Link, useForm } from '@inertiajs/inertia-vue3'
 
-defineProps({
-    canResetPassword: Boolean,
-    status: String,
-})
-
-const form = useForm({
-    email: '',
-    password: '',
-    remember: false
-})
-
-const submit = () => {
-    form.post(route('login'), {
-        onFinish: () => form.reset('password'),
+    defineProps({
+        canResetPassword: Boolean,
+        status: String,
     })
-}
+
+    const form = useForm({
+        email: '',
+        password: '',
+        remember: false
+    })
+
+    const submit = () => {
+        form.post(route('login'), {
+            onFinish: () => form.reset('password'),
+        })
+    }
 </script>
 
 <style lang="sass" scoped>

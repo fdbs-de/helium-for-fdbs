@@ -1,57 +1,38 @@
-<script setup>
-import BreezeButton from '@/Components/Button.vue';
-import BreezeGuestLayout from '@/Layouts/Guest.vue';
-import BreezeInput from '@/Components/Input.vue';
-import BreezeLabel from '@/Components/Label.vue';
-import BreezeValidationErrors from '@/Components/ValidationErrors.vue';
-import { Head, useForm } from '@inertiajs/inertia-vue3';
-
-const props = defineProps({
-    email: String,
-    token: String,
-});
-
-const form = useForm({
-    token: props.token,
-    email: props.email,
-    password: '',
-    password_confirmation: '',
-});
-
-const submit = () => {
-    form.post(route('password.update'), {
-        onFinish: () => form.reset('password', 'password_confirmation'),
-    });
-};
-</script>
-
 <template>
-    <BreezeGuestLayout>
-        <Head title="Reset Password" />
+    <FormSubLayout title="Passwort zurücksetzen" @submit="submit">
+        <Head title="Passwort zurücksetzen" />
 
-        <BreezeValidationErrors class="mb-4" />
+        <mui-input type="email" label="Email *" v-model="form.email" required autocomplete="username"/>
+        <mui-input type="password" label="Passwort *" v-model="form.password" show-password-score required autocomplete="new-password"/>
 
-        <form @submit.prevent="submit">
-            <div>
-                <BreezeLabel for="email" value="Email" />
-                <BreezeInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autofocus autocomplete="username" />
-            </div>
-
-            <div class="mt-4">
-                <BreezeLabel for="password" value="Password" />
-                <BreezeInput id="password" type="password" class="mt-1 block w-full" v-model="form.password" required autocomplete="new-password" />
-            </div>
-
-            <div class="mt-4">
-                <BreezeLabel for="password_confirmation" value="Confirm Password" />
-                <BreezeInput id="password_confirmation" type="password" class="mt-1 block w-full" v-model="form.password_confirmation" required autocomplete="new-password" />
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <BreezeButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Reset Password
-                </BreezeButton>
-            </div>
-        </form>
-    </BreezeGuestLayout>
+        <div class="flex center">
+            <div class="spacer"></div>
+            <mui-button label="Passwort zurücksetzen" :loading="form.processing"/>
+        </div>
+    </FormSubLayout>
 </template>
+
+<script setup>
+    import FormSubLayout from '@/Layouts/SubLayouts/Form.vue'
+    import { Head, useForm } from '@inertiajs/inertia-vue3'
+    import zxcvbn from 'zxcvbn'
+    
+    window.zxcvbn = zxcvbn
+
+    const props = defineProps({
+        email: String,
+        token: String,
+    })
+
+    const form = useForm({
+        token: props.token,
+        email: props.email,
+        password: '',
+    })
+
+    const submit = () => {
+        form.post(route('password.update'), {
+            onFinish: () => form.reset('password', 'password_confirmation'),
+        })
+    }
+</script>
