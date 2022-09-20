@@ -1,5 +1,5 @@
 <template>
-    <FormSubLayout title="Passwort vergessen">
+    <FormSubLayout title="Passwort vergessen" :status="status" @submit="submit">
         <Head title="Passwort vergessen" />
 
         <span>
