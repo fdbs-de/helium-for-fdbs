@@ -41,12 +41,11 @@
     .pagination-wrapper
         display: flex
         align-items: center
-        padding: .5rem .5rem .5rem 1rem
+        padding: .5rem 1rem .5rem 1rem
         background: var(--color-background-soft)
-        border-radius: .325rem
+        border-radius: var(--radius-m)
         white-space: nowrap
         gap: .5rem
-        margin: 1rem
 
         .spacer
             flex: 1

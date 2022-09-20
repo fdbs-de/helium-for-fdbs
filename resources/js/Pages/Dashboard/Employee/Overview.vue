@@ -2,44 +2,41 @@
     <Head title="Intranet" />
 
     <DashboardSubLayout title="FDBS Intranet">
-        <div class="grid">
+        <template #head>
             <Link class="icon-button" :href="route('dashboard.employee.documents')">
                 <div class="icon">draft</div>
                 <div class="button-divider"></div>
                 <div class="text">Dokumente</div>
             </Link>
-
+    
             <a class="icon-button" v-if="leitbild" target="_blank" :href="route('docs', leitbild.slug)">
                 <div class="icon">explore</div>
                 <div class="button-divider"></div>
                 <div class="text">{{leitbild.name}}</div>
             </a>
-
+    
             <a class="icon-button" v-if="organigramm" target="_blank" :href="route('docs', organigramm.slug)">
                 <div class="icon">lan</div>
                 <div class="button-divider"></div>
                 <div class="text">{{organigramm.name}}</div>
             </a>
-
+    
             <a class="icon-button" target="_blank" href="https://fleischer-dienst.uweb2000.de">
                 <div class="icon">school</div>
                 <div class="button-divider"></div>
                 <div class="text">Uweb Schulungen</div>
             </a>
-        </div>
-        <div class="posts-container">
-            <article class="post-wrapper">
-                <Tag class="pinned" icon="push_pin" color="gray" label="Angepinnt"/>
+        </template>
+
+        <div class="posts-container" v-if="posts.length">
+            <h2 class="margin-0 margin-top-3 text-align-center">News und Termine</h2>
+            <article class="post-wrapper" v-for="post in posts" :key="post.id">
+                <Tag v-if="post.pinned" class="pinned" icon="push_pin" color="green" label="Angepinnt"/>
                 <div class="info-group">
-                    <h3 class="title">Neue Mitarbeiter zum 01.10.2022</h3>
-                    <time class="date" datetime="2022-10-01">01. Okt 2022</time>
+                    <h3 class="title">{{post.title}}</h3>
+                    <time class="date" :datetime="post.created_at">{{$dayjs(post.created_at).format('DD. MMM YYYY')}}</time>
                 </div>
-                <p class="text">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Unde asperiores eos eaque deleniti veritatis ea nemo, accusantium
-                    ratione expedita repellat facere dolores error ipsam, laboriosam
-                    similique! Modi reiciendis iure nostrum?
-                </p>
+                <p class="text">{{post.content}}</p>
             </article>
         </div>
     </DashboardSubLayout>
@@ -54,32 +51,25 @@
     defineProps({
         leitbild: Object,
         organigramm: Object,
+        posts: Array,
     })
 </script>
 
 <style lang="sass" scoped>
-    .grid
-        display: grid
-        gap: 2rem
-        padding: 2rem
-        border-bottom: 1px solid #00000020
-        border-radius: calc(var(--su) * 0.75) calc(var(--su) * 0.75) 0 0
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))
-
     .icon-button
         background: var(--color-background)
+        flex: 1
         display: flex
         padding: 1rem
         gap: 1rem
         align-items: center
         border-radius: var(--radius-m)
-        border: 1px solid #00000020
         color: var(--color-heading)
         transition: all 200ms
 
-        &:hover
+        &:hover,
+        &:focus
             color: var(--color-primary)
-            border-color: transparent
             box-shadow: var(--shadow-elevation-medium)
 
         .icon
@@ -104,7 +94,7 @@
             font-size: 1.15rem
 
     .posts-container
-        padding: 2rem 2rem 0rem
+        padding-top: 1rem
         gap: 2rem
         display: flex
         flex-direction: column
@@ -113,12 +103,10 @@
             display: flex
             align-items: flex-start
             flex-direction: column
-            border-bottom: 1px solid #00000020
+            border-radius: var(--radius-m)
             gap: 1rem
-            padding: 0 0 2rem
-
-            &:last-child
-                border-bottom: none
+            padding: 1rem
+            background: var(--color-background-soft)
 
             .pinned
                 display: inline-flex
@@ -135,11 +123,6 @@
                 max-width: 800px
 
     @media only screen and (max-width: 500px)
-        .grid
-            padding: 1rem
-            gap: 1rem
-            grid-template-columns: auto
-
         .posts-container
-            padding: 2rem 1rem 0
+            padding: 2rem 0 0
 </style>                    

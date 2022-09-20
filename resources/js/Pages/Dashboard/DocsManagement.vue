@@ -19,7 +19,7 @@
                 
                 <div class="spacer"></div>
 
-                <mui-button label="Neues Dokument Hochladen" @click="openUploadDocumentPopup()"/>
+                <mui-button icon-left="add" label="Neues Dokument" size="small" @click="openUploadDocumentPopup()"/>
             </div>
 
             <Loader class="loader" v-show="loading" />
@@ -367,9 +367,9 @@
         align-items: center
         grid-template-columns: minmax(170px, 2fr) minmax(200px, 3fr) minmax(200px, 3fr) minmax(200px, 3fr) minmax(200px, 3fr)
         grid-auto-rows: 50px
-        gap: .5rem var(--su)
+        gap: .5rem 1rem
         width: 100%
-        padding: 1rem
+        padding: 1rem 0
         overflow-x: auto
 
         .row

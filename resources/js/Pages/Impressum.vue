@@ -30,7 +30,7 @@
         <p>
             ©HBS, ©NDABCREATIVITY, ©Cristalov, ©littlewolf1989, ©New Africa, ©ikonoklast_hh,
             ©StudioDFlorez, ©laplateresca, ©NVB Stocker, ©Prostock-studio, ©Rawpixel.com, ©Looker_Studio
-            ©assetseller, ©Racle Fotodesign, ©Paul Bradbury/KOTO, ©Pixel-Shot, ©Robert Kneschke, ©Drobot Dean
+            ©assetseller, ©Racle Fotodesign, ©Paul Bradbury/KOTO, ©Pixel-Shot, ©Robert Kneschke, ©Drobot Dean, ©contrastwerkstatt
             - <a href="https://stock.adobe.com" target="_blank" ref="noopener noreferrer">Adobe Stock</a>
         </p>
         <!-- <p>

@@ -8,9 +8,17 @@ use App\Http\Requests\Posts\DestroyPostRequest;
 use App\Http\Requests\Posts\UpdatePostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class PostController extends Controller
 {
+    public function index()
+    {
+        return Inertia::render('Dashboard/Admin/Posts', [
+            'posts' => Post::orderBy('created_at', 'desc')->get(),
+        ]);
+    }
+
     public function store(CreatePostRequest $request)
     {
         Post::create($request->validated());
@@ -25,7 +33,7 @@ class PostController extends Controller
         return back();
     }
 
-    public function destroy(DestroyPostRequest $request, Post $post)
+    public function delete(DestroyPostRequest $request, Post $post)
     {
         $post->delete();
 

@@ -1,9 +1,11 @@
 <template>
     <GuestLayout>
         <main>
-            <section id="hero-section" :style="'background-image: url('+(image || '')+')'">
+            <section id="hero-section">
                 <div class="limiter">
-                    <h1>{{title}}</h1>
+                    <div class="inner-wrapper" :style="'background-image: url('+(image || '')+')'">
+                        <h1>{{title}}</h1>
+                    </div>
                 </div>
             </section>
             <section id="content-section">
@@ -33,14 +35,18 @@
 <style lang="sass" scoped>
     #hero-section
         display: flex
-        align-items: center
-        justify-content: center
-        margin-top: var(--height-header)
-        height: 300px
-        background-color: var(--color-background-soft)
-        background-position: center
-        background-repeat: no-repeat
-        background-size: cover
+        margin-top: calc(var(--height-header) + 1rem)
+
+        .inner-wrapper
+            display: flex
+            align-items: center
+            justify-content: center
+            height: 300px
+            background-color: var(--color-background-soft)
+            background-position: center
+            background-repeat: no-repeat
+            background-size: cover
+            border-radius: var(--radius-xl)
 
         h1
             color: var(--color-primary)
@@ -49,7 +55,9 @@
     #content-section
         padding-block: 4rem
 
-    @media only screen and (max-width: 500px)
+    @media only screen and (max-width: 700px)
         #hero-section
-            height: 200px
+            .inner-wrapper
+                height: auto
+                aspect-ratio: 2/1
 </style>

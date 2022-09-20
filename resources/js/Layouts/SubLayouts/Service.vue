@@ -1,20 +1,24 @@
 <template>
     <GuestLayout>
         <main>
-            <section id="hero-section" :style="'background-image: url('+(image || '')+')'">
+            <section id="hero-section">
                 <div class="limiter">
-                    <h1>{{title}}</h1>
+                    <div class="inner-wrapper" :style="'background-image: url('+(image || '')+')'">
+                        <h1>{{title}}</h1>
+                    </div>
                 </div>
             </section>
             <section id="contact-section">
                 <div class="limiter">
-                    <h2>Ihre Ansprechpartner</h2>
-                    <div class="scroll-wrapper">
-                        <button class="scroll-button first" :class="{'clickable': canScrollLeft}" type="button" @click="prev">chevron_left</button>
-                        <div class="scroller" ref="scroller">
-                            <slot name="ansprechpartner" />
+                    <div class="inner-wrapper">
+                        <h2>Ihre Ansprechpartner</h2>
+                        <div class="scroll-wrapper">
+                            <button class="scroll-button first" :class="{'clickable': canScrollLeft}" type="button" @click="prev">chevron_left</button>
+                            <div class="scroller" ref="scroller">
+                                <slot name="ansprechpartner" />
+                            </div>
+                            <button class="scroll-button last" :class="{'clickable': canScrollRight}" type="button" @click="next">chevron_right</button>
                         </div>
-                        <button class="scroll-button last" :class="{'clickable': canScrollRight}" type="button" @click="next">chevron_right</button>
                     </div>
                 </div>
             </section>
@@ -69,29 +73,30 @@
 <style lang="sass" scoped>
     #hero-section
         display: flex
-        align-items: center
-        justify-content: center
-        margin-top: var(--height-header)
-        padding-bottom: var(--height-header)
-        height: 500px
-        background-color: var(--color-background-soft)
-        background-position: center
-        background-repeat: no-repeat
-        background-size: cover
+        margin-top: calc(var(--height-header) + 1rem)
+
+        .inner-wrapper
+            display: flex
+            align-items: center
+            justify-content: center
+            height: 300px
+            background-color: var(--color-background-soft)
+            background-position: center
+            background-repeat: no-repeat
+            background-size: cover
+            border-radius: var(--radius-xl)
 
         h1
             color: var(--color-primary)
             text-align: center
 
     #contact-section
-        .limiter
-            padding: 0
+        margin-top: 2rem
+
+        .inner-wrapper
             padding-top: 2rem
-            border-radius: 10px
+            border-radius: var(--radius-xl)
             background: var(--color-background-soft)
-            width: calc(100% - 2 * var(--su))
-            margin-top: calc(-1 * var(--height-header))
-            box-shadow: var(--shadow-elevation-medium)
 
             h2
                 margin: 0
@@ -170,14 +175,12 @@
 
     @media only screen and (max-width: 700px)
         #hero-section
-            height: 300px
-            padding-bottom: 0
+            .inner-wrapper
+                height: auto
+                aspect-ratio: 2/1
 
         #contact-section
-            .limiter
-                width: 100%
-                border-radius: 0
-                margin-top: 0
+            margin-top: 1rem
 
             .scroll-wrapper
                 padding: 0
@@ -193,10 +196,4 @@
 
                     &::-webkit-scrollbar
                         display: initial
-
-
-
-    @media only screen and (max-width: 500px)
-        #hero-section
-            height: 300px
 </style>

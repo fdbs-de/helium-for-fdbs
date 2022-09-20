@@ -2,7 +2,11 @@
     <AuthenticatedLayout>
         <main>
             <section id="hero-section">
-                <h1>{{title}}</h1>
+                <div class="limiter">
+                    <div class="inner-wrapper">
+                        <h1>{{title}}</h1>
+                    </div>
+                </div>
             </section>
             <section id="content-section">
                 <div class="limiter">
@@ -34,25 +38,29 @@
 <style lang="sass" scoped>
     #hero-section
         display: flex
-        align-items: center
-        justify-content: center
-        margin-top: var(--height-header)
-        padding-block: 5rem calc(9.5rem)
-        background: var(--color-primary)
+        margin-top: calc(var(--height-header) + 1rem)
+        margin-bottom: 1rem
+
+        .inner-wrapper
+            display: flex
+            align-items: center
+            justify-content: center
+            height: 250px
+            padding: 0 1rem
+            border-radius: var(--radius-xl)
+            background: var(--color-primary)
 
         h1
             color: var(--color-background)
             margin: 0
+            text-align: center
 
     #content-section
         .limiter
             padding-bottom: 4rem
 
         .main-card
-            transform: translateY(calc(-1 * 4.5rem))
             background: var(--color-background)
-            border-radius: calc(var(--su) * .75)
-            box-shadow: var(--shadow-elevation-low)
             display: flex
             flex-direction: column
             
@@ -62,12 +70,14 @@
                 --mui-background: var(--color-background)
 
             .dashboard-nav-bar
-                height: 4.5rem
                 display: flex
+                flex-wrap: wrap
                 align-items: center
-                gap: var(--su)
-                padding-inline: var(--su)
-                border-bottom: 2px solid var(--color-background-soft)
+                gap: 1rem
+                padding: 1rem
+                border-radius: var(--radius-m)
+                background: var(--color-background-soft)
+                --mui-background: var(--color-background)
                 position: relative
 
                 > a
@@ -95,7 +105,8 @@
 
 
     @media only screen and (max-width: 700px)
-        #content-section
-            .limiter
-                padding-bottom: 0
+        #hero-section
+            .inner-wrapper
+                height: auto
+                aspect-ratio: 2/1
 </style>
