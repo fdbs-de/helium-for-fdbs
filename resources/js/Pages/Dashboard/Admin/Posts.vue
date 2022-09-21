@@ -1,7 +1,7 @@
 <template>
-    <Head title="Dashboard: Post CMS" />
+    <Head title="Posts verwalten" />
 
-    <DashboardSubLayout title="Post CMS">
+    <DashboardSubLayout title="Posts verwalten" area="Adminbereich">
         <template #head>
             <div class="spacer"></div>
             <mui-button icon-left="add" label="Neuer Post" size="small" @click="openItem()"/>

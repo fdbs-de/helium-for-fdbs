@@ -15,7 +15,7 @@ class UserController extends Controller
 {
     public function indexUsers()
     {
-        return Inertia::render('Dashboard/Users', [
+        return Inertia::render('Dashboard/Admin/Users', [
             'users' => User::with(['roles', 'employeeProfile', 'customerProfile'])->orderBy('created_at', 'desc')->get(),
         ]);
     }

@@ -1,7 +1,7 @@
 <template>
     <Head title="Dokumente" />
 
-    <DashboardSubLayout title="Dokumente">
+    <DashboardSubLayout title="Dokumente" area="Intranet">
         <div class="grid">
             <Card v-for="document in documents" new-window
                 :key="document.id"

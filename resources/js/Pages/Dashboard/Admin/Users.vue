@@ -1,7 +1,7 @@
 <template>
-    <Head title="Dashboard: Nutzerverwaltung" />
+    <Head title="Nutzer verwalten" />
 
-    <DashboardSubLayout title="Nutzerverwaltung">
+    <DashboardSubLayout title="Nutzer verwalten" area="Adminbereich">
         <template #head>
             <!-- file input that accepts json -->
             <input ref="importInput" type="file" accept=".json" @change="importUsersFromJSON($event.target.files[0])" />

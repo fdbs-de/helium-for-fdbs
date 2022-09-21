@@ -41,7 +41,7 @@ class DocumentController extends Controller
 
     public function indexAdmin()
     {
-        return Inertia::render('Dashboard/DocsManagement', [
+        return Inertia::render('Dashboard/Admin/Docs', [
             // 'documents' => Document::orderBy('category')->get(),
             // remove empty categories
             'categories' => Document::all()->pluck('category')->unique()->filter(function ($category) {

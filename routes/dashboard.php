@@ -13,7 +13,7 @@ use App\Permissions\Permissions;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () {
-    Route::get('/', [OverviewController::class, 'redirect'])->name('dashboard');
+    Route::get('/', [OverviewController::class, 'show'])->name('dashboard');
 
     Route::get('/profile', [ProfileController::class, 'indexProfile'])->name('dashboard.profile');
     Route::put('/profile/change-password', [ProfileController::class, 'changePassword'])->name('dashboard.profile.change-password');
@@ -54,7 +54,7 @@ Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () 
     });
 
     Route::prefix('mitarbeiter')->middleware(['panelaccess:employee'])->group(function () {
-        Route::get('/', [EmployeeController::class, 'indexOverview'])->name('dashboard.employee');
+        Route::get('/', [EmployeeController::class, 'indexOverview'])->name('dashboard.employee.overview');
         Route::get('/dokumente', [EmployeeController::class, 'indexDocuments'])->name('dashboard.employee.documents');
     });
 

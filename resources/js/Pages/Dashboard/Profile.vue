@@ -1,7 +1,7 @@
 <template>
     <Head title="Profil" />
 
-    <DashboardSubLayout title="Ihr Profil">
+    <DashboardSubLayout title="Profil" area="Loginbereich">
         <div class="profile-wrapper">
             <div class="group">
                 <h2>Konto</h2>

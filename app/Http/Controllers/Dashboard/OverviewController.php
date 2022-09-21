@@ -14,7 +14,7 @@ class OverviewController extends Controller
         return redirect()->route('dashboard.profile');
     }
 
-    public function indexOverview()
+    public function show()
     {
         return Inertia::render('Dashboard/Overview');
     }
