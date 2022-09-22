@@ -1,15 +1,15 @@
 <template>
-    <Head title="Unsere aktuellen Angebote" />
+    <Head title="Qualitätsmanagement" />
 
-    <DashboardSubLayout title="Angebote" area="Kundenbereich">
+    <DashboardSubLayout title="Qualitätsmanagement" area="Intranet">
         <div class="grid">
-            <Card v-for="angebot in angebote" new-window
-                :key="angebot.id"
-                :name="angebot.name"
-                :alt="angebot.cover_alt"
-                :cover="angebot.cover_size === 'cover'"
-                :image="route('docs.cover', angebot.slug)"
-                :link="route('docs', angebot.slug)"
+            <Card v-for="document in documents" new-window
+                :key="document.id"
+                :name="document.name"
+                :alt="document.cover_alt"
+                :cover="document.cover_size === 'cover'"
+                :image="route('docs.cover', document.slug)"
+                :link="route('docs', document.slug)"
             />
         </div>
     </DashboardSubLayout>
@@ -21,7 +21,7 @@
     import Card from '@/Components/Page/Card.vue'
 
     defineProps({
-        angebote: Array,
+        documents: Array,
     })
 </script>
 
