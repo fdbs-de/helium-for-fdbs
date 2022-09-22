@@ -95,7 +95,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getCanAccessCustomerPanelAttribute()
     {
-        return $this->is_enabled && (User::find($this->id)->can(Permissions::CAN_ACCESS_ADMIN_PANEL) || $this->is_enabled_customer);
+        return $this->is_enabled && (User::find($this->id)->can(Permissions::CAN_ACCESS_ADMIN_PANEL) || $this->is_enabled_customer || $this->is_enabled_employee);
     }
 
     public function getCanAccessEmployeePanelAttribute()
