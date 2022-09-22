@@ -1,7 +1,7 @@
 <template>
     <Head title="Spezifikations Datenbank" />
 
-    <DashboardSubLayout title="Spezifikations Datenbank">
+    <DashboardSubLayout title="Spezifikations Datenbank" area="Kundenbereich">
         <template #head>
             <mui-input class="search-input" type="search" no-border placeholder="Suchen" icon-left="search" v-model="search" @input="throttledFetch" />
             <Loader class="loader" v-show="loading" />
@@ -111,7 +111,7 @@
             grid-template-columns: 2.5rem 1fr auto
             gap: 1rem
             height: 3rem
-            padding: 0 1rem 0 0
+            padding: 0 .5rem
             border-radius: var(--radius-m)
 
             .text

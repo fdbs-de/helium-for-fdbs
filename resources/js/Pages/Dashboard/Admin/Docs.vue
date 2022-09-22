@@ -1,7 +1,7 @@
 <template>
     <Head title="Dashboard: Dokumente verwalten" />
 
-    <DashboardSubLayout title="Dokumente verwalten">
+    <DashboardSubLayout title="Dokumente verwalten" area="Adminbereich">
         <template #head>
             <div class="flex gap-1 v-center wrap flex-1">
                 <mui-input class="search-input" type="search" no-border placeholder="Suchen" icon-left="search" v-model="searchName" @input="throttledFetch"/>

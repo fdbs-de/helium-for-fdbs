@@ -13,12 +13,12 @@ class SpecController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Dashboard/Specs');
+        return Inertia::render('Dashboard/Customer/Specs');
     }
 
     public function indexAdmin()
     {
-        return Inertia::render('Dashboard/SpecsManagement');
+        return Inertia::render('Dashboard/Admin/Specs');
     }
 
 

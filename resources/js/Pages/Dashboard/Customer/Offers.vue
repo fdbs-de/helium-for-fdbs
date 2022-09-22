@@ -1,7 +1,7 @@
 <template>
     <Head title="Unsere aktuellen Angebote" />
 
-    <DashboardSubLayout title="Unsere aktuellen Angebote">
+    <DashboardSubLayout title="Unsere aktuellen Angebote" area="Kundenbereich">
         <div class="grid">
             <Card v-for="angebot in angebote" new-window
                 :key="angebot.id"

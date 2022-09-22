@@ -1,7 +1,7 @@
 <template>
     <Head title="Dashboard: Spezifikationen verwalten" />
 
-    <DashboardSubLayout title="Spezifikationen verwalten">
+    <DashboardSubLayout title="Spezifikationen verwalten" area="Adminbereich">
         <template #head>
             <mui-input class="search-input" type="search" no-border placeholder="Suchen" icon-left="search" v-model="search" @input="throttledFetch" />
             <div class="spacer"></div>
@@ -234,7 +234,7 @@
             grid-template-columns: 2.5rem 1fr auto
             gap: 1rem
             height: 3rem
-            padding: 0 1rem 0 0
+            padding: 0 .5rem
             border-radius: var(--radius-m)
             --mui-background: var(--color-background)
 

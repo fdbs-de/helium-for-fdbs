@@ -1,24 +1,15 @@
 <template>
-    <AuthenticatedLayout>
-        <main>
-            <section id="hero-section">
-                <div class="limiter">
-                    <div class="inner-wrapper">
-                        <h1>{{title}}</h1>
+    <AuthenticatedLayout :title="title" :area="area">
+        <section id="content-section">
+            <div class="limiter">
+                <div class="main-card">
+                    <div class="dashboard-nav-bar" v-if="$slots.head">
+                        <slot name="head"/>
                     </div>
+                    <slot />
                 </div>
-            </section>
-            <section id="content-section">
-                <div class="limiter">
-                    <div class="main-card">
-                        <div class="dashboard-nav-bar" v-if="$slots.head">
-                            <slot name="head"/>
-                        </div>
-                        <slot />
-                    </div>
-                </div>
-            </section>
-        </main>
+            </div>
+        </section>
     </AuthenticatedLayout>
 </template>
 
@@ -28,36 +19,13 @@
 
     defineProps({
         title: String,
+        area: String,
     })
-
-    const isActive = (url) => {
-        return usePage().url.value.startsWith(new URL(url).pathname)
-    }
 </script>
 
 <style lang="sass" scoped>
-    #hero-section
-        display: flex
-        margin-top: calc(var(--height-header) + 1rem)
-        margin-bottom: 1rem
-
-        .inner-wrapper
-            display: flex
-            align-items: center
-            justify-content: center
-            height: 250px
-            padding: 0 1rem
-            border-radius: var(--radius-xl)
-            background: var(--color-primary)
-
-        h1
-            color: var(--color-background)
-            margin: 0
-            text-align: center
-
     #content-section
-        .limiter
-            padding-bottom: 4rem
+        margin: 2rem 0
 
         .main-card
             background: var(--color-background)
@@ -75,7 +43,7 @@
                 align-items: center
                 gap: 1rem
                 padding: 1rem
-                border-radius: var(--radius-m)
+                border-radius: var(--radius-l)
                 background: var(--color-background-soft)
                 --mui-background: var(--color-background)
                 position: relative
@@ -103,10 +71,13 @@
                         background: var(--color-primary)
                         color: var(--color-background)
 
+    @media only screen and (max-width: 900px)
+        #content-section
+            margin: 1rem 0
 
-    @media only screen and (max-width: 700px)
-        #hero-section
-            .inner-wrapper
-                height: auto
-                aspect-ratio: 2/1
+            .main-card
+                .dashboard-nav-bar
+                    flex-direction: column
+                    align-items: flex-start
+                    gap: 1rem
 </style>

@@ -1,7 +1,7 @@
 <template>
     <Head title="Intranet" />
 
-    <DashboardSubLayout title="FDBS Intranet">
+    <DashboardSubLayout title="Übersicht" area="Intranet">
         <template #head>
             <Link class="icon-button" :href="route('dashboard.employee.documents')">
                 <div class="icon">draft</div>
