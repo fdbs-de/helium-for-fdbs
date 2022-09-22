@@ -36,11 +36,11 @@
     <div class="layout">
         <div class="menu" :class="{'collapsed': isCollapsed, 'open': isOpen}">
             <div class="menu-group">
-                <Link class="menu-item" :href="route('dashboard')">
+                <Link class="menu-item" :href="route('dashboard')" :class="{'active': is('dashboard')}">
                     <div class="icon" aria-hidden="true">home</div>
                     <div class="text">Startseite</div>
                 </Link>
-                <Link class="menu-item" :href="route('dashboard.profile')">
+                <Link class="menu-item" :href="route('dashboard.profile')" :class="{'active': is('dashboard.profile')}">
                     <div class="icon" aria-hidden="true">account_circle</div>
                     <div class="text">Profil</div>
                 </Link>
@@ -48,11 +48,11 @@
 
             <div class="menu-group" v-if="user.can_access_customer_panel">
                 <div class="group-label">Kundenbereich</div>
-                <Link class="menu-item" :href="route('dashboard.customer.specs')">
+                <Link class="menu-item" :href="route('dashboard.customer.specs')" :class="{'active': is('dashboard.customer.specs')}">
                     <div class="icon" aria-hidden="true">fact_check</div>
                     <div class="text">Spezifikationen</div>
                 </Link>
-                <Link class="menu-item" :href="route('dashboard.customer.offers')">
+                <Link class="menu-item" :href="route('dashboard.customer.offers')" :class="{'active': is('dashboard.customer.offers')}">
                     <div class="icon" aria-hidden="true">sell</div>
                     <div class="text">Angebote</div>
                 </Link>
@@ -60,13 +60,17 @@
 
             <div class="menu-group" v-if="user.can_access_employee_panel">
                 <div class="group-label">Intranet</div>
-                <Link class="menu-item" :href="route('dashboard.employee.overview')">
+                <Link class="menu-item" :href="route('dashboard.employee.overview')" :class="{'active': is('dashboard.employee.overview')}">
                     <div class="icon" aria-hidden="true">language</div>
                     <div class="text">Übersicht</div>
                 </Link>
-                <Link class="menu-item" :href="route('dashboard.employee.documents')">
+                <Link class="menu-item" :href="route('dashboard.employee.documents')" :class="{'active': is('dashboard.employee.documents')}">
                     <div class="icon" aria-hidden="true">download</div>
                     <div class="text">Dokumente</div>
+                </Link>
+                <Link class="menu-item" :href="route('dashboard.employee.qm')" :class="{'active': is('dashboard.employee.qm')}">
+                    <div class="icon" aria-hidden="true">workspace_premium</div>
+                    <div class="text">Qualitätsmanagement</div>
                 </Link>
                 <a class="menu-item" target="_blank" href="https://fleischer-dienst.uweb2000.de">
                     <div class="icon" aria-hidden="true">school</div>
@@ -76,19 +80,19 @@
 
             <div class="menu-group" v-if="user.can_access_admin_panel">
                 <div class="group-label">Adminbereich</div>
-                <Link class="menu-item" :href="route('dashboard.admin.users')">
+                <Link class="menu-item" :href="route('dashboard.admin.users')" :class="{'active': is('dashboard.admin.users')}">
                     <div class="icon" aria-hidden="true">verified_user</div>
                     <div class="text">Nutzer</div>
                 </Link>
-                <Link class="menu-item" :href="route('dashboard.admin.specs')">
+                <Link class="menu-item" :href="route('dashboard.admin.specs')" :class="{'active': is('dashboard.admin.specs')}">
                     <div class="icon" aria-hidden="true">fact_check</div>
                     <div class="text">Spezifikationen</div>
                 </Link>
-                <Link class="menu-item" :href="route('dashboard.admin.docs')">
+                <Link class="menu-item" :href="route('dashboard.admin.docs')" :class="{'active': is('dashboard.admin.docs')}">
                     <div class="icon" aria-hidden="true">upload</div>
                     <div class="text">Dokumente</div>
                 </Link>
-                <Link class="menu-item" :href="route('dashboard.admin.posts')">
+                <Link class="menu-item" :href="route('dashboard.admin.posts')" :class="{'active': is('dashboard.admin.posts')}">
                     <div class="icon" aria-hidden="true">post_add</div>
                     <div class="text">Posts</div>
                 </Link>
@@ -125,6 +129,12 @@
 
     const isCollapsed = ref(false)
     const isOpen = ref(false)
+
+
+
+    const is = (routeName) => {
+        return routeName === route().current()
+    }
 </script>
 
 <style lang="sass" scoped>

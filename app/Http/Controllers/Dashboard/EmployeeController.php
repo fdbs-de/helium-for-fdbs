@@ -29,4 +29,11 @@ class EmployeeController extends Controller
             'documents' => Document::where('category', 'dokumente')->where('group', 'employees')->orderBy('slug')->get(),
         ]);
     }
+
+    public function indexQM()
+    {
+        return Inertia::render('Dashboard/Employee/QM', [
+            'documents' => Document::where('category', 'qm-dokumente')->where('group', 'employees')->orderBy('slug')->get(),
+        ]);
+    }
 }
