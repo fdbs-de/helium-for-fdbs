@@ -29,7 +29,7 @@
     .grid
         display: grid
         gap: 1rem
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr))
 
     @media only screen and (max-width: 500px)
         .grid
