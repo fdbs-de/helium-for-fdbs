@@ -13,8 +13,6 @@ class EmployeeController extends Controller
     public function indexOverview()
     {
         return Inertia::render('Dashboard/Employee/Overview', [
-            'leitbild' => Document::where('category', 'leitbild')->firstWhere('group', 'employees'),
-            'organigramm' => Document::where('category', 'organigramm')->firstWhere('group', 'employees'),
             'posts' => Post::where('scope', 'intranet')->where(function($query) {
                 $query->whereDate('available_from', '<=', now())->orWhere('available_from', null);
             })->where(function ($query) {
