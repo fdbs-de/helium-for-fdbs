@@ -9,16 +9,16 @@
                 <div class="text">Dokumente</div>
             </Link>
     
-            <a class="icon-button" v-if="leitbild" target="_blank" :href="route('docs', leitbild.slug)">
+            <a class="icon-button" v-if="$page.props.auth.leitbild" target="_blank" :href="route('docs', $page.props.auth.leitbild.slug)">
                 <div class="icon">explore</div>
                 <div class="button-divider"></div>
-                <div class="text">{{leitbild.name}}</div>
+                <div class="text">{{$page.props.auth.leitbild.name}}</div>
             </a>
     
-            <a class="icon-button" v-if="organigramm" target="_blank" :href="route('docs', organigramm.slug)">
+            <a class="icon-button" v-if="$page.props.auth.organigramm" target="_blank" :href="route('docs', $page.props.auth.organigramm.slug)">
                 <div class="icon">lan</div>
                 <div class="button-divider"></div>
-                <div class="text">{{organigramm.name}}</div>
+                <div class="text">{{$page.props.auth.organigramm.name}}</div>
             </a>
     
             <a class="icon-button" target="_blank" href="https://fleischer-dienst.uweb2000.de">
@@ -49,8 +49,6 @@
     import Tag from '@/Components/Form/Tag.vue'
 
     defineProps({
-        leitbild: Object,
-        organigramm: Object,
         posts: Array,
     })
 </script>
