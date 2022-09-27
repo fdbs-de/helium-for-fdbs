@@ -83,7 +83,7 @@
                         <StaffCard name="Nino Storch" job="Einkauf / Warendisposition" tel="48" image="/images/content/mitarbeiter/nino_storch.png" overlay="/images/content/mitarbeiter/nino_storch_zeichnung.png"/>
                     
                         <StaffCard name="Philipp Rost" job="Leitung Vertrieb" leader tel="99" image="/images/content/mitarbeiter/philipp_rost.png" overlay="/images/content/mitarbeiter/philipp_rost_zeichnung.png"/>
-                        <StaffCard name="Niklas Figge" job="Fachberater" tel="80" image="/images/content/mitarbeiter/missing.png"/>
+                        <StaffCard name="Niklas Figge" job="Fachberater Gastronomie & Gemeinschaftsverpflegung" tel="80" image="/images/content/mitarbeiter/missing.png"/>
                         <StaffCard name="Elke Grigat" job="Fachberaterin Käse & Salate" tel="38" image="/images/content/mitarbeiter/elke_grigat.png" overlay="/images/content/mitarbeiter/elke_grigat_zeichnung.png"/>
                         <StaffCard name="Klaus-Dieter Hoffmann" job="Fachberater" tel="98" image="/images/content/mitarbeiter/missing.png"/>
                         <StaffCard name="Marcus König" job="Fachberater" tel="93" image="/images/content/mitarbeiter/marcus_koenig.png" overlay="/images/content/mitarbeiter/marcus_koenig_zeichnung.png"/>
