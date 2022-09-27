@@ -91,6 +91,7 @@
 
     const slides = ref([
         {
+            id: '1',
             name: 'Eichenhof Fleisch',
             color: '#166938',
             text: 'Heute sind lückenlose Informationsketten zu den Themen Aufzucht, Haltung, Futter und Schlachtung in der Fleischproduktion wichtiger denn je! Heben Sie sich deutlich ab vom Standard und setzen Sie auf Qualität, Sicherheit und Vertrauen – mit der Qualitätsmarke Eichenhof!',
@@ -106,6 +107,7 @@
         },
 
         {
+            id: '2',
             name: 'Il Campese',
             color: '#eb920e',
             text: 'Das Freilandhähnchen „Il Campese“ des Familienunternehmens Amadori ist ein Geschmackserlebnis und etwas Besonderes auf dem deutschen Markt: Denn abseits der kritischen Vogelzugrouten können diese Tiere in der Region Apulien im Süden Italiens im Freien entspannt aufwachsen – schmecken Sie den Unterschied!',
@@ -121,6 +123,7 @@
         },
 
         {
+            id: '3',
             name: 'Maxi France',
             color: '#b61615',
             text: 'Mit Maxi France erhalten Sie ein hochwertiges, französisches Marken-Jungbullenfleisch. Das Fleisch für die Maxi France Produkte kommt ausnahmslos von vorab geprüften familiengeführten Bauernhöfen. Artgerechte Aufzucht, natürliche Haltungsbedingungen und kurze Transportwege werden großgeschrieben – das schmeckt man auch!',

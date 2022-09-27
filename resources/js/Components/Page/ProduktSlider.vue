@@ -1,15 +1,15 @@
 <template>
     <div class="outer-wrapper" :style="`--color-brand: ${selectedSlide.color};`">
-        <img :src="selectedSlide.headlineImage.src" :alt="selectedSlide.headlineImage.alt" aria-hidden="true">
-
+        <img v-for="slide in slides" :key="slide.id" :src="slide.headlineImage.src" :alt="slide.headlineImage.alt" aria-hidden="true" v-show="slide.id === selectedSlide.id">
+        
         <div class="inner-wrapper">
             <button class="prev" type="button" @click="prevSlide(true)" title="Vorige Marke">chevron_left</button>
-            <div class="container" v-if="selectedSlide">
-                <img :src="selectedSlide.cover.src" :alt="selectedSlide.cover.alt">
+            <div class="container" v-for="slide in slides" :key="'container-'+slide.id" v-show="slide.id === selectedSlide.id">
+                <img :src="slide.cover.src" :alt="slide.cover.alt">
                 <div class="text-wrapper">
-                    <h2>{{selectedSlide.name}}</h2>
-                    <p>{{selectedSlide.text}}</p>
-                    <Link :href="selectedSlide.link">Mehr Erfahren</Link>
+                    <h2>{{slide.name}}</h2>
+                    <p>{{slide.text}}</p>
+                    <Link :href="slide.link">Mehr Erfahren</Link>
                 </div>
             </div>
             <button class="next" type="button" @click="nextSlide(true)" title="Nächste Marke">chevron_right</button>
