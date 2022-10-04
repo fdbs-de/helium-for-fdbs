@@ -63,11 +63,11 @@
 
         .big-slide-enter-from
             opacity: 0
-            transform: translate(-70px, 0) !important
+            transform: translate(0px, 0px) !important
 
         .big-slide-leave-to
             opacity: 0
-            transform: translate(70px, 0) !important
+            transform: translate(0px, 0px) !important
 
         .big-slide-leave-active
             position: absolute !important
@@ -123,11 +123,11 @@
 
         .small-slide-enter-from
             opacity: 0
-            transform: translate(0px, -30px) !important
+            transform: translate(0px, 0px) !important
             
         .small-slide-leave-to
             opacity: 0
-            transform: translate(0px, 30px) !important
+            transform: translate(0px, 0px) !important
 
         .small-slide-leave-active
             position: absolute !important
