@@ -1,17 +1,21 @@
 <template>
     <div class="outer-wrapper" :style="`--color-brand: ${selectedSlide.color};`">
-        <img v-for="slide in slides" :key="slide.id" :src="slide.headlineImage.src" :alt="slide.headlineImage.alt" aria-hidden="true" v-show="slide.id === selectedSlide.id">
+        <transition-group name="big-slide">
+            <img v-for="slide in slides" :key="slide.id" :src="slide.headlineImage.src" :alt="slide.headlineImage.alt" aria-hidden="true" v-show="slide.id === selectedSlide.id">
+        </transition-group>
         
         <div class="inner-wrapper">
             <button class="prev" type="button" @click="prevSlide(true)" title="Vorige Marke">chevron_left</button>
-            <div class="container" v-for="slide in slides" :key="'container-'+slide.id" v-show="slide.id === selectedSlide.id">
-                <img :src="slide.cover.src" :alt="slide.cover.alt">
-                <div class="text-wrapper">
-                    <h2>{{slide.name}}</h2>
-                    <p>{{slide.text}}</p>
-                    <Link :href="slide.link">Mehr Erfahren</Link>
+            <transition-group name="small-slide">
+                <div class="container" v-for="slide in slides" :key="'container-'+slide.id" v-show="slide.id === selectedSlide.id">
+                    <img :src="slide.cover.src" :alt="slide.cover.alt">
+                    <div class="text-wrapper">
+                        <h2>{{slide.name}}</h2>
+                        <p>{{slide.text}}</p>
+                        <Link :href="slide.link">Mehr Erfahren</Link>
+                    </div>
                 </div>
-            </div>
+            </transition-group>
             <button class="next" type="button" @click="nextSlide(true)" title="Nächste Marke">chevron_right</button>
         </div>
     </div>
@@ -49,12 +53,33 @@
 
 <style lang="sass" scoped>
     .outer-wrapper
+        position: relative
+        padding-top: 10%
+
+        .big-slide-move,
+        .big-slide-enter-active,
+        .big-slide-leave-active
+            transition: all 0.5s ease
+
+        .big-slide-enter-from
+            opacity: 0
+            transform: translate(0px, 0px) !important
+
+        .big-slide-leave-to
+            opacity: 0
+            transform: translate(0px, 0px) !important
+
+        .big-slide-leave-active
+            position: absolute !important
+
         > img
             width: 100%
             object-fit: contain
             object-position: center
             opacity: 5%
-            transform: translateY(30%)
+            position: absolute
+            top: 0
+            left: 0
 
         .inner-wrapper
             position: relative
@@ -91,6 +116,23 @@
                     background: var(--color-primary)
                     color: var(--color-background)
 
+        .small-slide-move,
+        .small-slide-enter-active,
+        .small-slide-leave-active
+            transition: all 0.5s ease
+
+        .small-slide-enter-from
+            opacity: 0
+            transform: translate(0px, 0px) !important
+            
+        .small-slide-leave-to
+            opacity: 0
+            transform: translate(0px, 0px) !important
+
+        .small-slide-leave-active
+            position: absolute !important
+            top: 0 !important
+
         .container
             position: relative
             z-index: 1
@@ -103,7 +145,7 @@
             margin-inline: 4rem
 
             img
-                width: 280px
+                width: 250px
                 align-self: stretch
                 object-fit: cover
 
@@ -179,13 +221,13 @@
                 display: none
 
             .inner-wrapper
-                padding-bottom: 4.5rem
+                padding-top: 4.5rem
 
                 > button
                     height: 3rem
                     width: 3rem
                     top: unset
-                    bottom: 0
+                    top: 0
                     transform: translateY(0)
                     
                     &.prev
