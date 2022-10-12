@@ -57,10 +57,10 @@
 
                     <div class="staff-card-container">
                         <div></div>
-                        <StaffCard name="Sebastian Gerlach" job="Vorstand" leader label="(geschäftsführend)" image="/images/content/mitarbeiter/sebastian_gerlach.png"/>
-                        <!-- <StaffCard name="Sebastian Gerlach" job="Vorstand" leader label="(geschäftsführend)" image="/images/content/mitarbeiter/sebastian_gerlach.png" overlay="/images/content/mitarbeiter/sebastian_gerlach_zeichnung.png"/> -->
-                        <StaffCard name="Jens Löser" job="Vorstand" leader label="(geschäftsführend)" image="/images/content/mitarbeiter/jens_loeser.png"/>
-                        <!-- <StaffCard name="Jens Löser" job="Vorstand" leader label="(geschäftsführend)" image="/images/content/mitarbeiter/jens_loeser.png" overlay="/images/content/mitarbeiter/jens_loeser_zeichnung.png"/> -->
+                        <!-- <StaffCard name="Sebastian Gerlach" job="Vorstand" leader label="(geschäftsführend)" image="/images/content/mitarbeiter/sebastian_gerlach.png"/> -->
+                        <StaffCard name="Sebastian Gerlach" job="Vorstand" leader label="(geschäftsführend)" image="/images/content/mitarbeiter/sebastian_gerlach.png" overlay="/images/content/mitarbeiter/sebastian_gerlach_zeichnung.png"/>
+                        <!-- <StaffCard name="Jens Löser" job="Vorstand" leader label="(geschäftsführend)" image="/images/content/mitarbeiter/jens_loeser.png"/> -->
+                        <StaffCard name="Jens Löser" job="Vorstand" leader label="(geschäftsführend)" image="/images/content/mitarbeiter/jens_loeser.png" overlay="/images/content/mitarbeiter/jens_loeser_zeichnung.png"/>
                         <div></div>
                     </div>
 
@@ -70,8 +70,8 @@
                         <StaffCard name="Jana Schildhauer" job="Assistentin des Vorstands / QM / Ausbildungsleitung" leader tel="44" image="/images/content/mitarbeiter/jana_schildhauer.png" overlay="/images/content/mitarbeiter/jana_schildhauer_zeichnung.png"/>
                         
                         <StaffCard name="Robert Heiduk" job="Leitung Buchhaltung / Personal" leader tel="37" image="/images/content/mitarbeiter/robert_heiduk.png" overlay="/images/content/mitarbeiter/robert_heiduk_zeichnung.png"/>
-                        <StaffCard name="Silke Sanner" job="Verwaltung" tel="31" image="/images/content/mitarbeiter/missing.png"/>
-                        <StaffCard name="Katja Stöger" job="Debitorenbuchhaltung" tel="15" image="/images/content/mitarbeiter/missing.png"/>
+                        <StaffCard name="Silke Sanner" job="Verwaltung" tel="31" image="/images/content/mitarbeiter/silke_sanner.png" overlay="/images/content/mitarbeiter/silke_sanner_zeichnung.png"/>
+                        <StaffCard name="Katja Stöger" job="Debitorenbuchhaltung" tel="15" image="/images/content/mitarbeiter/katja_stoeger.png" overlay="/images/content/mitarbeiter/katja_stoeger_zeichnung.png"/>
                     
                         <StaffCard name="Meik Binkowski" job="Controlling" leader tel="33" image="/images/content/mitarbeiter/meik_binkowski.png" overlay="/images/content/mitarbeiter/meik_binkowski_zeichnung.png"/>
                     
@@ -93,10 +93,10 @@
                         <StaffCard name="Mathias Vetter" job="Fachberater" tel="95" image="/images/content/mitarbeiter/mathias_vetter.png" overlay="/images/content/mitarbeiter/mathias_vetter_zeichnung.png"/>
                         <StaffCard name="Jens Winkler" job="Fachberater" tel="97" image="/images/content/mitarbeiter/jens_winkler.png" overlay="/images/content/mitarbeiter/jens_winkler_zeichnung.png"/>
                         
-                        <StaffCard name="Madlen Krause" job="Leitung Vertriebsinnendienst" leader tel="18" image="/images/content/mitarbeiter/missing.png"/>
+                        <StaffCard name="Madlen Krause" job="Leitung Vertriebsinnendienst" leader tel="18" image="/images/content/mitarbeiter/madlen_krause.png" overlay="/images/content/mitarbeiter/madlen_krause_zeichnung.png"/>
                         <StaffCard name="Phil Bartelt" job="Vertriebsinnendienst" tel="36" image="/images/content/mitarbeiter/phil_bartelt.png" overlay="/images/content/mitarbeiter/phil_bartelt_zeichnung.png"/>
                         <StaffCard name="Silke Künstler" job="Vertriebsinnendienst" tel="23" image="/images/content/mitarbeiter/silke_kuenstler.png" overlay="/images/content/mitarbeiter/silke_kuenstler_zeichnung.png"/>
-                        <StaffCard name="Romina Pagano" job="Vertriebsinnendienst" image="/images/content/mitarbeiter/missing.png"/>
+                        <StaffCard name="Romina Pagano" job="Vertriebsinnendienst" image="/images/content/mitarbeiter/romina_pagano.png" overlay="/images/content/mitarbeiter/romina_pagano_zeichnung.png"/>
                         <StaffCard name="Yasmin Ruben" job="Vertriebsinnendienst" tel="32" image="/images/content/mitarbeiter/yasmin_ruben.png" overlay="/images/content/mitarbeiter/yasmin_ruben_zeichnung.png"/>
                         <StaffCard name="Angela Schrödter" job="Vertriebsinnendienst" tel="20" image="/images/content/mitarbeiter/angela_schroedter.png" overlay="/images/content/mitarbeiter/angela_schroedter_zeichnung.png"/>
                     
@@ -105,7 +105,7 @@
                         <StaffCard name="Maurice Freuwört" job="Web Developer" tel="73" image="/images/content/mitarbeiter/maurice_freuwoert.png" overlay="/images/content/mitarbeiter/maurice_freuwoert_zeichnung.png"/>
                         <StaffCard name="Annika Görmann" job="Social Media Marketing" tel="72" image="/images/content/mitarbeiter/annika_goermann.png" overlay="/images/content/mitarbeiter/annika_goermann_zeichnung.png"/>
                         <StaffCard name="Carolin Götzner" job="Printgestaltung & Produktion" tel="43" image="/images/content/mitarbeiter/carolin_goetzner.png" overlay="/images/content/mitarbeiter/carolin_goetzner_zeichnung.png"/>
-                        <StaffCard name="Julia Kirschner" job="Printgestaltung & Produktion" tel="13" image="/images/content/mitarbeiter/missing.png"/>
+                        <StaffCard name="Julia Kirschner" job="Printgestaltung & Produktion" tel="13" image="/images/content/mitarbeiter/julia_kirschner.png" overlay="/images/content/mitarbeiter/julia_kirschner_zeichnung.png"/>
                         <StaffCard name="Sophie Quast" job="Printgestaltung & Produktion" tel="79" image="/images/content/mitarbeiter/missing.png"/>
                         <StaffCard name="Franziska Wolff" job="Printgestaltung & Produktion" image="/images/content/mitarbeiter/franziska_wolff.png" overlay="/images/content/mitarbeiter/franziska_wolff_zeichnung.png"/>
                         
@@ -119,10 +119,10 @@
                         
                         <StaffCard name="Annette Körner" job="Leitung Servicewerkstatt" leader tel="24" image="/images/content/mitarbeiter/annette_koerner.png" overlay="/images/content/mitarbeiter/annette_koerner_zeichnung.png"/>
                         <StaffCard name="Marcus Zetzsche" job="Stv. Leitung Servicewerkstatt" leader tel="12" image="/images/content/mitarbeiter/marcus_zetzsche.png" overlay="/images/content/mitarbeiter/marcus_zetzsche_zeichnung.png"/>
-                        <StaffCard name="Sabine Barnert" job="Vetriebsinnendienst der Werkstatt" tel="76" image="/images/content/mitarbeiter/missing.png"/>
+                        <StaffCard name="Sabine Barnert" job="Vetriebsinnendienst der Werkstatt" tel="76" image="/images/content/mitarbeiter/sabine_barnert.png" overlay="/images/content/mitarbeiter/sabine_barnert_zeichnung.png"/>
                         <StaffCard name="André Hoffmann" job="Fachberater Großküchentechnik" tel="41" image="/images/content/mitarbeiter/missing.png"/>
                         <StaffCard name="Holger Kleinert" job="Fachberater Geräte und Maschinen" tel="14" image="/images/content/mitarbeiter/missing.png"/>
-                        <StaffCard name="Wiebke Peter" job="Vetriebsinnendienst der Werkstatt" tel="75" image="/images/content/mitarbeiter/missing.png"/>
+                        <StaffCard name="Wiebke Peter" job="Vetriebsinnendienst der Werkstatt" tel="75" image="/images/content/mitarbeiter/wiebke_peter.png" overlay="/images/content/mitarbeiter/wiebke_peter_zeichnung.png"/>
                     </div>
                 </div>
             </section>

@@ -61,8 +61,8 @@
             <div class="menu-group" v-if="user.can_access_employee_panel">
                 <div class="group-label">Intranet</div>
                 <Link class="menu-item" :href="route('dashboard.employee.overview')" :class="{'active': is('dashboard.employee.overview')}">
-                    <div class="icon" aria-hidden="true">language</div>
-                    <div class="text">Übersicht</div>
+                    <div class="icon" aria-hidden="true">newspaper</div>
+                    <div class="text">News und Termine</div>
                 </Link>
                 <Link class="menu-item" :href="route('dashboard.employee.documents')" :class="{'active': is('dashboard.employee.documents')}">
                     <div class="icon" aria-hidden="true">download</div>
