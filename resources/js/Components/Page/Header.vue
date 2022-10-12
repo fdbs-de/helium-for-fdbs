@@ -45,6 +45,7 @@
         height: var(--height-header)
         background-color: #ffffffd9
         backdrop-filter: blur(20px)
+        border-bottom: 1px solid #ffffff99
         
         .limiter
             display: flex
@@ -79,7 +80,7 @@
             border: none
             height: 2.25rem
             padding-inline: 1.5rem
-            border-radius: calc(var(--su) * .5)
+            border-radius: var(--radius-m)
             background: var(--color-primary)
             color: var(--color-background)
             font-family: inherit
