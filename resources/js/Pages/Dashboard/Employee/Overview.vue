@@ -1,35 +1,12 @@
 <template>
     <Head title="Intranet" />
 
-    <DashboardSubLayout title="Übersicht" area="Intranet">
-        <template #head>
-            <Link class="icon-button" :href="route('dashboard.employee.documents')">
-                <div class="icon">draft</div>
-                <div class="button-divider"></div>
-                <div class="text">Dokumente</div>
-            </Link>
-    
-            <a class="icon-button" v-if="$page.props.auth.leitbild" target="_blank" :href="route('docs', $page.props.auth.leitbild.slug)">
-                <div class="icon">explore</div>
-                <div class="button-divider"></div>
-                <div class="text">{{$page.props.auth.leitbild.name}}</div>
-            </a>
-    
-            <a class="icon-button" v-if="$page.props.auth.organigramm" target="_blank" :href="route('docs', $page.props.auth.organigramm.slug)">
-                <div class="icon">lan</div>
-                <div class="button-divider"></div>
-                <div class="text">{{$page.props.auth.organigramm.name}}</div>
-            </a>
-    
-            <a class="icon-button" target="_blank" href="https://fleischer-dienst.uweb2000.de">
-                <div class="icon">school</div>
-                <div class="button-divider"></div>
-                <div class="text">Uweb Schulungen</div>
-            </a>
-        </template>
+    <DashboardSubLayout title="News und Termine" area="Intranet">
+        <div class="posts-container">
+            <!-- <h2 class="margin-0 margin-top-3 text-align-center">News und Termine</h2> -->
 
-        <div class="posts-container" v-if="posts.length">
-            <h2 class="margin-0 margin-top-3 text-align-center">News und Termine</h2>
+            <Calendar class="padding-bottom-2" :entries="appointments" :groups="['Allgemein', 'Audits', 'Vertrieb', 'Messen']"/>
+            
             <article class="post-wrapper" v-for="post in posts" :key="post.id">
                 <Tag v-if="post.pinned" class="pinned" icon="push_pin" color="green" label="Angepinnt"/>
                 <div class="info-group">
@@ -45,8 +22,9 @@
 <script setup>
     import DashboardSubLayout from '@/Layouts/SubLayouts/Dashboard.vue'
     import { Head, Link } from '@inertiajs/inertia-vue3'
-    import Card from '@/Components/Page/Card.vue'
+    import Calendar from '@/Components/Form/Calendar.vue'
     import Tag from '@/Components/Form/Tag.vue'
+    import appointments from '@/Pages/Dashboard/Employee/appointments.json'
 
     defineProps({
         posts: Array,

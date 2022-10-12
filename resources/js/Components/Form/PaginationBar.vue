@@ -51,6 +51,7 @@
             flex: 1
     
         .pagination-button
+            flex: none
             height: 2.5rem
             width: 2.5rem
             border-radius: 50%

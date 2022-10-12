@@ -26,7 +26,6 @@
 
 <script setup>
     import { computed } from 'vue'
-    import BreezeButton from '@/Components/Button.vue'
     import FormSubLayout from '@/Layouts/SubLayouts/Form.vue'
     import { Head, Link, useForm } from '@inertiajs/inertia-vue3'
     import Alert from '@/Components/Alert.vue'
