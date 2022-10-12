@@ -118,8 +118,7 @@
 
 <script setup>
     import { ref } from 'vue'
-    import { Head, Link, useForm } from '@inertiajs/inertia-vue3'
-    import GuestLayout from '@/Layouts/Guest.vue'
+    import { Head, useForm } from '@inertiajs/inertia-vue3'
     import TextSubLayout from '@/Layouts/SubLayouts/Text.vue'
     import ValidationErrors from '@/Components/ValidationErrors.vue'
     import StaffCard from '@/Components/Page/StaffCard.vue'
