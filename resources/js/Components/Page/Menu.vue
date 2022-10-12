@@ -153,7 +153,7 @@
                 display: flex
                 align-items: center
                 position: relative
-                color: var(--color-text)
+                color: var(--color-heading)
 
                 &.has-dropdown::after
                     content: "arrow_drop_down"
@@ -168,7 +168,7 @@
 
                 &:hover,
                 &:focus
-                    color: var(--color-heading)
+                    color: var(--color-primary)
 
                 &:hover
                     > ul
