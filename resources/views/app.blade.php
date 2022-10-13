@@ -19,6 +19,18 @@
         @routes
         <script src="{{ mix('js/app.js') }}" defer></script>
 
+        @env('production')
+            <script type="text/javascript">
+            // var et_pagename = "";
+            // var et_areas = "";
+            // var et_tval = 0;
+            // var et_tsale = 0;
+            // var et_tonr = "";
+            // var et_basket = "";
+            </script>
+            <script id="_etLoader" type="text/javascript" charset="UTF-8" data-block-cookies="true" data-respect-dnt="true" data-secure-code="4aKHpV" src="//code.etracker.com/code/e.js" async></script>
+        @endenv
+
         <!-- IE Detect -->
         <script defer>
             function detectIEEdge()
