@@ -10,7 +10,8 @@
             <StaffCard class="service-scroll-item" name="Maurice Freuwört" tel="73" image="/images/content/mitarbeiter/maurice_freuwoert.png" overlay="/images/content/mitarbeiter/maurice_freuwoert_zeichnung.png"/>
             <StaffCard class="service-scroll-item" name="Annika Görmann" tel="72" image="/images/content/mitarbeiter/annika_goermann.png" overlay="/images/content/mitarbeiter/annika_goermann_zeichnung.png"/>
             <StaffCard class="service-scroll-item" name="Carolin Götzner" tel="43" image="/images/content/mitarbeiter/carolin_goetzner.png" overlay="/images/content/mitarbeiter/carolin_goetzner_zeichnung.png"/>
-            <StaffCard class="service-scroll-item" name="Julia Kirschner" tel="13" image="/images/content/mitarbeiter/missing.png"/>
+            <StaffCard class="service-scroll-item" name="Julia Kirschner" tel="13" image="/images/content/mitarbeiter/julia_kirschner.png" overlay="/images/content/mitarbeiter/julia_kirschner_zeichnung.png"/>
+            <StaffCard class="service-scroll-item" name="Sophie Quast" tel="79" image="/images/content/mitarbeiter/missing.png"/>
             <StaffCard class="service-scroll-item" name="Franziska Wolff" image="/images/content/mitarbeiter/franziska_wolff.png" overlay="/images/content/mitarbeiter/franziska_wolff_zeichnung.png"/>
         </template>
 
