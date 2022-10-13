@@ -90,7 +90,7 @@
             <StaffCard name="Angela Schrödter" job="Vertriebsinnendienst" tel="20" image="/images/content/mitarbeiter/angela_schroedter.png" overlay="/images/content/mitarbeiter/angela_schroedter_zeichnung.png"/>
         
             <StaffCard name="Benjamin Vahle" job="Leitung Marketing & Kommunikation" leader tel="16" image="/images/content/mitarbeiter/benjamin_vahle.png" overlay="/images/content/mitarbeiter/benjamin_vahle_zeichnung.png"/>
-            <StaffCard name="Franziska Brandt" job="Printgestaltung & Produktion" tel="51" image="/images/content/mitarbeiter/franziska_brandt.png" overlay="/images/content/mitarbeiter/franziska_brandt_zeichnung.png"/>
+            <StaffCard name="Franziska Brandt" job="Marketing Manager" tel="51" image="/images/content/mitarbeiter/franziska_brandt.png" overlay="/images/content/mitarbeiter/franziska_brandt_zeichnung.png"/>
             <StaffCard name="Maurice Freuwört" job="Web Developer" tel="73" image="/images/content/mitarbeiter/maurice_freuwoert.png" overlay="/images/content/mitarbeiter/maurice_freuwoert_zeichnung.png"/>
             <StaffCard name="Annika Görmann" job="Social Media Marketing" tel="72" image="/images/content/mitarbeiter/annika_goermann.png" overlay="/images/content/mitarbeiter/annika_goermann_zeichnung.png"/>
             <StaffCard name="Carolin Götzner" job="Printgestaltung & Produktion" tel="43" image="/images/content/mitarbeiter/carolin_goetzner.png" overlay="/images/content/mitarbeiter/carolin_goetzner_zeichnung.png"/>
