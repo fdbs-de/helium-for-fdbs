@@ -68,13 +68,13 @@
                     <div class="icon" aria-hidden="true">download</div>
                     <div class="text">Dokumente</div>
                 </Link>
-                <a class="menu-item" v-if="$page.props.auth.leitbild" target="_blank" :href="route('docs', $page.props.auth.leitbild.slug)">
+                <a class="menu-item" target="_blank" :href="route('docs', 'leitbild')">
                     <div class="icon" aria-hidden="true">explore</div>
-                    <div class="text">{{$page.props.auth.leitbild.name}}</div>
+                    <div class="text">Leitbild</div>
                 </a>
-                <a class="menu-item" v-if="$page.props.auth.organigramm" target="_blank" :href="route('docs', $page.props.auth.organigramm.slug)">
+                <a class="menu-item" target="_blank" :href="route('docs', 'organigramm')">
                     <div class="icon" aria-hidden="true">lan</div>
-                    <div class="text">{{$page.props.auth.organigramm.name}}</div>
+                    <div class="text">Organigramm</div>
                 </a>
                 <Link class="menu-item" :href="route('dashboard.employee.qm')" :class="{'active': is('dashboard.employee.qm')}">
                     <div class="icon" aria-hidden="true">workspace_premium</div>

@@ -1,5 +1,5 @@
 <template>
-    <ServiceSubLayout title="Technischer Kundendienst">
+    <ServiceSubLayout title="Technischer Kundendienst" image="/images/content/banner/kontakt_360006987.webp">
         <Head>
             <title>Produkte & Services: Technischer Kundendienst</title>
         </Head>

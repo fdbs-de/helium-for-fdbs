@@ -3,7 +3,7 @@
         <title>Kontakt & Ansprechpartner</title>
     </Head>
 
-    <TextSubLayout title="Kontakt & Ansprechpartner">
+    <TextSubLayout title="Kontakt & Ansprechpartner" image="/images/content/banner/kontakt_360006987.webp">
         <section id="form-section">
             <div class="card">
                 <h2>Anfahrt</h2>
@@ -32,7 +32,7 @@
                 <mui-input type="email" label="Ihre Email *" required autocomplete="email" v-model="form.email"/>
                 <mui-input type="textarea" class="textarea" label="Nachricht *" max="2000" required autocomplete="message" v-model="form.message"/>
 
-                <div class="flex center">
+                <div class="flex center wrap">
                     <mui-toggle type="checkbox" class="checkbox" v-model="form.terms">
                         <template #label>
                             <span>
@@ -146,8 +146,8 @@
 <style lang="sass" scoped>
     #form-section
         display: flex
-        gap: 3rem
-        margin-bottom: 4rem
+        gap: 4rem
+        margin-bottom: 6rem
 
         .card
             flex: 1
@@ -155,9 +155,8 @@
             flex-direction: column
             padding: 2rem
             gap: 2rem
-            background: var(--color-background)
+            background: var(--color-background-soft)
             border-radius: var(--radius-xl)
-            box-shadow: var(--shadow-elevation-low)
 
             h2
                 color: var(--color-heading)
@@ -166,10 +165,10 @@
 
 
         form
-            --mui-background: var(--color-background-soft)
+            --mui-background: var(--color-background)
 
             .checkbox
-                --mui-background: var(--color-background)
+                --mui-background: var(--color-background-soft)
 
             .textarea
                 --base-height: 10rem
@@ -186,9 +185,8 @@
     @media only screen and (max-width: 500px)
         #form-section
             flex-direction: column
-            margin-bottom: 2rem
-            padding-inline: 1rem
+            gap: 1rem
 
             .card
-                padding-inline: 1rem
+                padding: 1rem
 </style>

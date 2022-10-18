@@ -80,6 +80,7 @@
             align-items: center
             justify-content: center
             height: 300px
+            padding: 0 1rem
             background-color: var(--color-background-soft)
             background-position: center
             background-repeat: no-repeat
@@ -89,6 +90,7 @@
         h1
             color: var(--color-primary)
             text-align: center
+            font-weight: 700
 
     #contact-section
         margin-top: 2rem

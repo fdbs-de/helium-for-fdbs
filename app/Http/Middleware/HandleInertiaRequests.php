@@ -58,8 +58,6 @@ class HandleInertiaRequests extends Middleware
         return array_merge(parent::share($request), [
             'auth' => [
                 'user' => $user ?? null,
-                'leitbild' => Document::where('category', 'leitbild')->firstWhere('group', 'employees'),
-                'organigramm' => Document::where('category', 'organigramm')->firstWhere('group', 'employees'),
             ],
 
             'ziggy' => function () {

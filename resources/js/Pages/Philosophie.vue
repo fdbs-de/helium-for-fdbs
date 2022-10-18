@@ -1,5 +1,5 @@
 <template>
-    <TextSubLayout title="Unsere Firmenphilosophie" image="/images/content/philo_banner.png" has-small-limiter>
+    <TextSubLayout title="Unsere Firmenphilosophie" image="/images/content/banner/philosophie.webp" has-small-limiter>
         <Head>
             <title>Unsere Firmenphilosophie</title>
         </Head>
