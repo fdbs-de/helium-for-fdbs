@@ -3,7 +3,7 @@
         <title>Unsere Stellenangebote</title>
     </Head>
 
-    <TextSubLayout title="Unsere Stellenangebote">
+    <TextSubLayout title="Unsere Stellenangebote" image="/images/content/banner/karriere_513169496_482949832.webp">
         <div class="wrapper">
             <Card v-for="job in jobs" cover new-window
                 aspect-ratio="16/9"

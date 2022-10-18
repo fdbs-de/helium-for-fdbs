@@ -5,25 +5,25 @@
             <div class="divider"></div>
             <div class="wrapper">
                 <a class="cert-wrapper" href="/downloads/zertifikate/qs_zertifikat_2022.pdf" target="_blank" rel="noopener noreferrer" style="border-radius: 0">
-                    <img src="/images/zertifikate/qs_logo.jpg" alt="QS Zertifizierung">
+                    <img src="/images/assets/zertifikate/qs_logo.jpg" alt="QS Zertifizierung">
                 </a>
                 <a class="cert-wrapper" href="/downloads/zertifikate/Bio_2022_A4.pdf" target="_blank" rel="noopener noreferrer">
-                    <img src="/images/zertifikate/bio_logo.jpg" alt="Bio Zertifizierung">
+                    <img src="/images/assets/zertifikate/bio_logo.jpg" alt="Bio Zertifizierung">
                 </a>
                 <a class="cert-wrapper" href="/downloads/zertifikate/ifs_2022.pdf" target="_blank" rel="noopener noreferrer">
-                    <img src="/images/zertifikate/ifs_wholesale_logo.png" alt="IFS Wholesale Zertifizierung">
+                    <img src="/images/assets/zertifikate/ifs_wholesale_logo.png" alt="IFS Wholesale Zertifizierung">
                 </a>
                 <a class="cert-wrapper" href="/downloads/zertifikate/Zertifikat_Orgainvent.pdf" target="_blank" rel="noopener noreferrer">
-                    <img src="/images/zertifikate/orgainvent_logo.png" alt="Orgainvent Zertifizierung">
+                    <img src="/images/assets/zertifikate/orgainvent_logo.png" alt="Orgainvent Zertifizierung">
                 </a>
                 <a class="cert-wrapper" href="/downloads/zertifikate/CrefoZert_2020_2030012751_Fleischer_Dienst_Braunschweig_eG.pdf" target="_blank" rel="noopener noreferrer">
-                    <img src="/images/zertifikate/crefo_logo.jpg" alt="CreFo Zertifizierung">
+                    <img src="/images/assets/zertifikate/crefo_logo.jpg" alt="CreFo Zertifizierung">
                 </a>
                 <div class="cert-wrapper" href="#" target="_blank" rel="noopener noreferrer">
-                    <img src="/images/zertifikate/itw_logo.jpg" alt="Initiative Tierwohl Zertifizierung">
+                    <img src="/images/assets/zertifikate/itw_logo.jpg" alt="Initiative Tierwohl Zertifizierung">
                 </div>
                 <div class="cert-wrapper">
-                    <img src="/images/zertifikate/lucid_regnr_text.jpg" alt="LUCID Registrierungsnummer: DE3379292435101">
+                    <img src="/images/assets/zertifikate/lucid_regnr_text.jpg" alt="LUCID Registrierungsnummer: DE3379292435101">
                 </div>
             </div>
         </div>
@@ -65,7 +65,7 @@
             <div class="row">
                 <div class="copyright">
                     <img src="/images/branding/logo_sloganless_black.svg" alt="FDBS Logo">
-                    <span>© {{new Date().getFullYear()}} FDBS</span>
+                    <span aria-hidden="true">© {{new Date().getFullYear()}}</span>
                 </div>
                 <div class="spacer"></div>
                 <div class="social-wrapper">
@@ -189,6 +189,7 @@
             box-shadow: var(--shadow-elevation-low)
             border-radius: calc(var(--su) * .5)
             padding: var(--su)
+            border: 1px solid var(--color-background-soft)
 
             p
                 margin: 0

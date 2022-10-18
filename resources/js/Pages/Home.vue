@@ -7,7 +7,7 @@
         <main>
             <section id="hero">
                 <div class="limiter">
-                    <img src="/images/content/slider/welcome_banner.png" alt="FDBS Willkommen; Bild von Jens Löser und Sebastian Gerlach">
+                    <img src="/images/content/banner/home.webp" alt="Willkommen; Bild von Jens Löser und Sebastian Gerlach">
                 </div>
             </section>
 
@@ -160,7 +160,7 @@
             border-radius: var(--radius-xl)
 
     section#about
-        padding-block: 13rem
+        padding-block: 4rem 13rem
 
         .about-card
             display: flex

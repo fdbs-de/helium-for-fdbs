@@ -42,6 +42,7 @@
             align-items: center
             justify-content: center
             height: 300px
+            padding: 0 1rem
             background-color: var(--color-background-soft)
             background-position: center
             background-repeat: no-repeat

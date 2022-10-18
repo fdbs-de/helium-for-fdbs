@@ -1,5 +1,5 @@
 <template>
-    <TextSubLayout title="Unsere Produkte und Services">
+    <TextSubLayout title="Unsere Produkte und Services" image="/images/content/banner/produkte_services_229048757.webp">
         <Head>
             <title>Unsere Produkte & Services</title>
         </Head>
@@ -24,7 +24,6 @@
 <style lang="sass" scoped>
     .grid
         display: grid
-        gap: 3rem
-        margin-top: 3rem
+        gap: 4rem
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))
 </style>

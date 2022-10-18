@@ -60,6 +60,7 @@
         display: flex
         flex-direction: column
         box-shadow: var(--shadow-elevation-low)
+        border: 1px solid var(--color-background-soft)
         border-radius: 10px
         overflow: hidden
         transition: all 200ms ease-out
