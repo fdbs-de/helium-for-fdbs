@@ -3,6 +3,7 @@
         <title>Kontakt & Ansprechpartner</title>
     </Head>
 
+    <!-- <TextSubLayout title="Kontakt & Ansprechpartner" image="/images/content/banner/contact_360006987.png"> -->
     <TextSubLayout title="Kontakt & Ansprechpartner">
         <section id="form-section">
             <div class="card">

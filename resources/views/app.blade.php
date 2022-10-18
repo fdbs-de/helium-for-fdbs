@@ -2,36 +2,65 @@
 {{-- <html lang="{{ str_replace('_', '-', app()->getLocale()) }}"> --}}
 <html lang="de">
     <head>
+        <!-- START: Meta -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         @inertiaHead
+        <!-- END: Meta -->
 
-        <!-- Cookie Consent Tool by Usercentrics -->
+
+
+        <!-- START: Cookie Consent Tool-->
         <script type="application/javascript" src="https://app.usercentrics.eu/latest/main.js" id="rMqB9azKr"></script>
         <meta data-privacy-proxy-server = "https://privacy-proxy-server.usercentrics.eu">
         <script type="application/javascript" src="https://privacy-proxy.usercentrics.eu/latest/uc-block.bundle.js"></script>
+        <!-- END: Cookie Consent Tool-->
 
-        <!-- Styles -->
+
+
+        <!-- START: Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+        <!-- END: Styles -->
 
-        <!-- Scripts -->
+
+
+        <!-- START: Ziggy -->
+        {{-- @php
+            $ziggyGroups = [];
+            $user = auth()->user();
+            
+            array_push($ziggyGroups, 'static');
+            array_push($ziggyGroups, Auth::check() ? 'authenticated' : 'guest');
+
+            if ($user)
+            {
+                if ($user->can_access_customer_panel) array_push($ziggyGroups, 'customer');
+                if ($user->can_access_employee_panel) array_push($ziggyGroups, 'employee');
+                if ($user->can_access_admin_panel) array_push($ziggyGroups, 'admin');
+            }
+        @endphp --}}
+
         @routes
-        <script src="{{ mix('js/app.js') }}" defer></script>
+        <!-- END: Ziggy -->
 
+
+
+        <!-- START: Scripts -->
+        <script src="{{ mix('js/app.js') }}" defer></script>
+        <!-- END: Scripts -->
+
+
+
+        <!-- START: eTracker Analytics -->
         @env('production')
-            <script type="text/javascript">
-            // var et_pagename = "";
-            // var et_areas = "";
-            // var et_tval = 0;
-            // var et_tsale = 0;
-            // var et_tonr = "";
-            // var et_basket = "";
-            </script>
             <script id="_etLoader" type="text/javascript" charset="UTF-8" data-block-cookies="true" data-respect-dnt="true" data-secure-code="4aKHpV" src="//code.etracker.com/code/e.js" async></script>
         @endenv
+        <!-- END: eTracker Analytics -->
 
-        <!-- IE Detect -->
+
+
+        <!-- START: IE Detect -->
         <script defer>
             function detectIEEdge()
             {
@@ -61,6 +90,7 @@
                 window.location.href = '/ie'
             }
         </script>
+        <!-- END: IE Detect -->
     </head>
     <body>
         @inertia

@@ -51,6 +51,7 @@
         h1
             color: var(--color-primary)
             text-align: center
+            font-weight: 700
 
     #content-section
         padding-block: 4rem
