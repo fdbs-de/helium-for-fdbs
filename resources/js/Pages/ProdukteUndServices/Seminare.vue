@@ -1,5 +1,5 @@
 <template>
-    <TextSubLayout title="Seminare" has-small-limiter>
+    <TextSubLayout title="Seminare" image="/images/content/banner/seminare_291711336_335532188.webp" has-small-limiter>
         <Head>
             <title>Produkte & Services: Seminare</title>
         </Head>

@@ -1,5 +1,5 @@
 <template>
-    <ServiceSubLayout title="Marketing & Kommunikation">
+    <ServiceSubLayout title="Marketing & Kommunikation" image="/images/content/banner/mkbs_358814027_359715993_357394407.webp">
         <Head>
             <title>Produkte & Services: Marketing & Kommunikation</title>
         </Head>

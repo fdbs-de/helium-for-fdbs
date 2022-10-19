@@ -32,16 +32,17 @@
                 <mui-input type="email" label="Ihre Email *" required autocomplete="email" v-model="form.email"/>
                 <mui-input type="textarea" class="textarea" label="Nachricht *" max="2000" required autocomplete="message" v-model="form.message"/>
 
-                <div class="flex center wrap">
-                    <mui-toggle type="checkbox" class="checkbox" v-model="form.terms">
-                        <template #label>
-                            <span>
-                                Ich habe die <a target="_blank" :href="route('datenschutz')">Datenschutzerklärung</a> gelesen und akzeptiere diese.
-                            </span>
-                        </template>
-                    </mui-toggle>
-                    <div class="spacer"></div>
+                <mui-toggle type="checkbox" class="checkbox" v-model="form.terms">
+                    <template #label>
+                        <span>
+                            Ich habe die <a target="_blank" :href="route('datenschutz')">Datenschutzerklärung</a> gelesen und akzeptiere diese.
+                        </span>
+                    </template>
+                </mui-toggle>
+
+                <div class="flex center">
                     <mui-button type="submit" label="Absenden" :loading="form.processing"/>
+                    <div class="spacer"></div>
                 </div>
             </form>
         </section>

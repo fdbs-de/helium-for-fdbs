@@ -1,5 +1,5 @@
 <template>
-    <TextSubLayout title="Unsere aktuellen Angebote">
+    <TextSubLayout title="Unsere aktuellen Angebote" image="/images/content/banner/angebote_526077708.webp">
         <Head>
             <title>Unsere aktuellen Angebote</title>
         </Head>
