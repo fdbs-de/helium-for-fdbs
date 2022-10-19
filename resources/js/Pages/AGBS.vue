@@ -1,5 +1,5 @@
 <template>
-    <TextSubLayout title="Allgemeine Geschäftsbedingungen" has-small-limiter>
+    <TextSubLayout title="Allgemeine Geschäftsbedingungen" image="/images/content/banner/rechtliches_437198485.webp" has-small-limiter>
 
         <Head>
             <title>Allgemeine Geschäftsbedingungen</title>
