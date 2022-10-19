@@ -1,5 +1,5 @@
 <template>
-    <TextSubLayout title="Unsere Marken">
+    <TextSubLayout title="Unsere Marken" image="/images/content/banner/marken_509487561.webp">
         <Head>
             <title>Produkte & Services: Unsere Marken</title>
         </Head>

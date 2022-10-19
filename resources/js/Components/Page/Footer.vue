@@ -5,25 +5,25 @@
             <div class="divider"></div>
             <div class="wrapper">
                 <a class="cert-wrapper" href="/downloads/zertifikate/qs_zertifikat_2022.pdf" target="_blank" rel="noopener noreferrer" style="border-radius: 0">
-                    <img src="/images/assets/zertifikate/qs_logo.jpg" alt="QS Zertifizierung">
+                    <img src="/images/assets/zertifikate/qs_logo.webp" alt="QS Zertifizierung">
                 </a>
                 <a class="cert-wrapper" href="/downloads/zertifikate/Bio_2022_A4.pdf" target="_blank" rel="noopener noreferrer">
-                    <img src="/images/assets/zertifikate/bio_logo.jpg" alt="Bio Zertifizierung">
+                    <img src="/images/assets/zertifikate/bio_logo.webp" alt="Bio Zertifizierung">
                 </a>
                 <a class="cert-wrapper" href="/downloads/zertifikate/ifs_2022.pdf" target="_blank" rel="noopener noreferrer">
-                    <img src="/images/assets/zertifikate/ifs_wholesale_logo.png" alt="IFS Wholesale Zertifizierung">
+                    <img src="/images/assets/zertifikate/ifs_wholesale_logo.webp" alt="IFS Wholesale Zertifizierung">
                 </a>
                 <a class="cert-wrapper" href="/downloads/zertifikate/Zertifikat_Orgainvent.pdf" target="_blank" rel="noopener noreferrer">
-                    <img src="/images/assets/zertifikate/orgainvent_logo.png" alt="Orgainvent Zertifizierung">
+                    <img src="/images/assets/zertifikate/orgainvent_logo.webp" alt="Orgainvent Zertifizierung">
                 </a>
                 <a class="cert-wrapper" href="/downloads/zertifikate/CrefoZert_2020_2030012751_Fleischer_Dienst_Braunschweig_eG.pdf" target="_blank" rel="noopener noreferrer">
-                    <img src="/images/assets/zertifikate/crefo_logo.jpg" alt="CreFo Zertifizierung">
+                    <img src="/images/assets/zertifikate/crefo_logo.webp" alt="CreFo Zertifizierung">
                 </a>
                 <div class="cert-wrapper" href="#" target="_blank" rel="noopener noreferrer">
-                    <img src="/images/assets/zertifikate/itw_logo.jpg" alt="Initiative Tierwohl Zertifizierung">
+                    <img src="/images/assets/zertifikate/itw_logo.webp" alt="Initiative Tierwohl Zertifizierung">
                 </div>
                 <div class="cert-wrapper">
-                    <img src="/images/assets/zertifikate/lucid_regnr_text.jpg" alt="LUCID Registrierungsnummer: DE3379292435101">
+                    <img src="/images/assets/zertifikate/lucid_regnr_text.webp" alt="LUCID Registrierungsnummer: DE3379292435101">
                 </div>
             </div>
         </div>
@@ -71,7 +71,7 @@
                 <div class="social-wrapper">
                     <a href="https://g.page/r/CWfKbNs4inYXEAg/review" target="_blank">Bewerten Sie uns auf Google</a>
                     <span>•</span>
-                    <a @click="openPopup()">Hier nicht klicken</a>
+                    <button class="szb" @click="openPopup()">Hier nicht klicken</button>
                     <span>•</span>
                     <a href="https://www.linkedin.com/company/fdbsfoodservice" target="_blank" rel="opener">LinkedIn</a>
                     <a href="https://www.xing.com/pages/fleischer-dienst-braunschweig-eg" target="_blank" rel="opener">Xing</a>
@@ -157,6 +157,16 @@
             color: var(--color-primary)
             font-size: 3rem
 
+    .szb
+        background: none
+        border: none
+        color: var(--color-primary)
+        cursor: pointer
+        font-size: inherit
+        font-weight: inherit
+        font-family: inherit
+        padding: 0
+
     .blend
         position: fixed
         z-index: 9999
@@ -181,6 +191,8 @@
         flex-direction: column
         gap: calc(var(--su) * 3)
         padding-top: calc(var(--su) * 3)
+        color: var(--color-text)
+        --color-text: #525858
 
         .certificate-row
             display: flex
@@ -207,7 +219,7 @@
                     filter: saturate(0)
 
                     img
-                        height: 100%
+                        height: 5rem
                         width: auto
                         max-width: 100%
                         object-fit: cover
@@ -270,11 +282,10 @@
                 img
                     height: 2rem
                     width: auto
-                    opacity: .5
+                    opacity: .6
 
                 span
                     font-weight: 600
-                    color: rgba(57,63,63,0.6)
 
             .spacer
                 flex: 1
