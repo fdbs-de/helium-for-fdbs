@@ -1,5 +1,5 @@
 <template>
-    <TextSubLayout title="Datenschutzerklärung" has-small-limiter>
+    <TextSubLayout title="Datenschutzerklärung" image="/images/content/banner/rechtliches_437198485.webp" has-small-limiter>
         <Head>
             <title>Datenschutzerklärung</title>
         </Head>

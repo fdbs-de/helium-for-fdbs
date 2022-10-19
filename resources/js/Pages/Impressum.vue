@@ -1,5 +1,5 @@
 <template>
-    <TextSubLayout title="Impressum" has-small-limiter>
+    <TextSubLayout title="Impressum" image="/images/content/banner/rechtliches_437198485.webp" has-small-limiter>
         <Head>
             <title>Impressum</title>
         </Head>
