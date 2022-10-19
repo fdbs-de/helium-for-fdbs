@@ -2,6 +2,7 @@
     <GuestLayout>
         <Head>
             <title>The Competence in Foodservice</title>
+            <meta name="description" content="Wir sind FDBS – Ihre Kompetenz rund um den Foodservice. Von Food, über Non-Food bis hin zum Marketing und technischen Kundendienst können wir Ihnen helfen.">
         </Head>
 
         <main>
@@ -100,7 +101,7 @@
                 alt: 'Eichenhof',
             },
             cover: {
-                src: '/images/content/marken/eichenhof/eichenhof_cover.png',
+                src: '/images/content/marken/eichenhof/eichenhof_cover.webp',
                 alt: 'Eichenhof Fleisch',
             },
             link: route('ps.marken.eichenhof'),
@@ -116,7 +117,7 @@
                 alt: 'Il Campese',
             },
             cover: {
-                src: '/images/content/marken/il-campese/ilcampese_cover.png',
+                src: '/images/content/marken/il-campese/ilcampese_cover.webp',
                 alt: 'Il Campese',
             },
             link: route('ps.marken.il-campese'),
@@ -132,7 +133,7 @@
                 alt: 'Maxi France',
             },
             cover: {
-                src: '/images/content/marken/maxi-france/maxifrance_cover.png',
+                src: '/images/content/marken/maxi-france/maxifrance_cover.webp',
                 alt: 'Maxi France',
             },
             link: route('ps.marken.maxi-france'),
@@ -156,6 +157,8 @@
         img
             background: var(--color-background-soft)
             width: 100%
+            aspect-ratio: 65/25
+            object-fit: cover
             padding-inline: 2rem
             border-radius: var(--radius-xl)
 
