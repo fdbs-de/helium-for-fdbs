@@ -5,7 +5,10 @@
 
     <TextSubLayout title="Mehrwegpflicht ab 01.01.2023" image="/images/content/banner/karriere_513169496_482949832.webp">
         <div class="flex wrap gap-3 margin-block-8 margin-top-4 v-center">
-            <SpecCard class="flex-1" :spec="`${countdown.days} - ${countdown.hours}:${countdown.minutes}:${countdown.seconds}`" subtitle="Countdown bis zur Mehrwegpflicht"/>
+            <SpecCard class="flex-1" :spec="countdown.days" subtitle="Tage"/>
+            <SpecCard class="flex-1" :spec="countdown.hours" subtitle="Stunden"/>
+            <SpecCard class="flex-1" :spec="countdown.minutes" subtitle="Minuten"/>
+            <SpecCard class="flex-1" :spec="countdown.seconds" subtitle="Sekunden"/>
         </div>
 
         <div class="limiter text-limiter" style="padding: 0">
@@ -25,24 +28,24 @@
             <h2>Und wozu das Ganze?</h2>
             <p>
                 Als Anbieter von Mehrwegverpackungen leisten Sie zum einen einen
-                Bei-trag zum Umweltschutz. Zum anderen sparen Sie Kosten ein, denn die Ver-packungen können wiederverwendet werden und
+                Bei-trag zum Umweltschutz. Zum anderen sparen Sie Kosten ein, denn die Verpackungen können wiederverwendet werden und
                 müssen nicht so häufig ersetzt werden. Außerdem stärken Sie so die Kundenbindung: setzen Sie ein Pfandsystem ein, kommt
-                der Kunde immer wieder zu Ihnen zurück und er-wirbt bestenfalls häufiger Gerichte oder Getränke in Ihrem Geschäft!<br><br>
+                der Kunde immer wieder zu Ihnen zurück und erwirbt bestenfalls häufiger Gerichte oder Getränke in Ihrem Geschäft!<br><br>
             </p>
             
             <h2>Was bietet der FDBS für Möglichkeiten?</h2>
             <p>
-                Wir haben natürlich vorgesorgt und können Ihnen ein Sortiment an Mehrweg-verpackungen
+                Wir haben natürlich vorgesorgt und können Ihnen ein Sortiment an Mehrwegverpackungen
                 zum Kauf anbieten. Diese können auf Wunsch auch mit Ihrem Logo versehen werden. Des Weiteren arbeiten wir gerade an
-                einer Mietlösung, die Ihnen die Mög-lichkeit bietet, die Verpackungen bei uns gegen eine monatliche Nutzungs-gebühr zu
-                mieten und nach Bedarf aufzustocken oder die Mengen zu verrin-gern. Sie können aber auch Ihre bereits vorhandenen
+                einer Mietlösung, die Ihnen die Möglichkeit bietet, die Verpackungen bei uns gegen eine monatliche Nutzungsgebühr zu
+                mieten und nach Bedarf aufzustocken oder die Mengen zu verringern. Sie können aber auch Ihre bereits vorhandenen
                 Verpackungen, sowie z. B. GN-Schalen für das Catering entsprechend präparieren.<br><br>
             </p>
 
             <h2>Ich hätte gerne weitere Informationen, wo kann ich mich melden?</h2>
             <p>
                 Für mehr Informationen, ein persönliches Gespräch oder Ihr individuelles Angebot, melden Sie
-                sich gerne unter 0531 210 55-xx oder schreiben Sie eine Email an xx@fdbs.de.
+                sich gerne unter 0531 210 55 xx oder schreiben Sie eine Email an <a href="mailto:xx@fdbs.de">xx@fdbs.de</a>.
             </p>
         </div>
         
