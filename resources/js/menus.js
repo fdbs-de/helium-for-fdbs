@@ -3,7 +3,9 @@ export const mainMenu = [
     { id: 'philosophie', label: 'Philosophie', href: route('philosophie'), children: [] },
     { id: 'projekte-und-services', label: 'Produkte & Services', href: route('produkte-und-services'), children: [
         { id: 'angebote', label: 'Aktuelle Angebote', href: route('ps.angebote'), children: [] },
-        { id: 'foodservice', label: 'Foodservice', href: route('ps.foodservice'), children: [] },
+        { id: 'foodservice', label: 'Foodservice', href: route('ps.foodservice'), children: [
+            { id: 'mehrwegpflicht', label: 'Mehrwegpflicht ab 2023', href: route('ps.mehrwegpflicht'), children: [] },
+        ]},
         { id: 'unsere-marken', label: 'Unsere Marken', href: route('ps.marken'), children: [
             { id: 'eichenhof', label: 'Eichenhof', href: route('ps.marken.eichenhof'), children: [] },
             { id: 'il-campese', label: 'Il Campese', href: route('ps.marken.il-campese'), children: [] },

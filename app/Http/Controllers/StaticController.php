@@ -37,6 +37,11 @@ class StaticController extends Controller
         return Inertia::render('ProdukteUndServices/Foodservice');
     }
 
+    public function indexMehrwegpflicht()
+    {
+        return Inertia::render('ProdukteUndServices/Mehrwegpflicht');
+    }
+
     public function indexMarken()
     {
         return Inertia::render('ProdukteUndServices/Marken');
