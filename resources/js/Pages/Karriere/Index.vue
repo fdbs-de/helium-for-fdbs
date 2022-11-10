@@ -22,9 +22,9 @@
         </div>
         
         <div class="flex wrap gap-3 margin-block-8 v-center">
-            <SpecCard class="flex-1" spec="100+" subtitle="Mitarbeiter"/>
-            <SpecCard class="flex-1" spec="650+" subtitle="Kunden"/>
-            <SpecCard class="flex-1" spec="15.000+" subtitle="Artikel"/>
+            <SpecCard class="flex-1" animated :spec="100" suffix="+" subtitle="Mitarbeiter"/>
+            <SpecCard class="flex-1" animated :spec="650" suffix="+" subtitle="Kunden"/>
+            <SpecCard class="flex-1" animated :spec="15000" suffix="+" subtitle="Artikel"/>
             <SpecCard class="flex-1" spec="namhafte" subtitle="Lieferanten & Partner"/>
         </div>
 
