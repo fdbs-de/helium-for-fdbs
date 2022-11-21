@@ -14,38 +14,37 @@
         <div class="limiter text-limiter" style="padding: 0">
             <h2>Was ist die Mehrwegpflicht?</h2>
             <p>
-                Ab dem 01. Januar 2023 sind alle Geschäfte, die Essen oder Getränke „to go“ verkaufen, dazu
-                verpflichtet, ihre Produkte sowohl in Einweg- als auch in Mehrwegverpackungen anzubieten.<br><br>
+                Ab dem 01. Januar 2023 sind alle Geschäfte, die Essen oder Getränke „to go“ verkaufen, dazu verpflichtet, ihre Produkte
+                sowohl in Einweg- als auch in Mehrwegverpackungen anzubieten.<br><br>
             </p>
             
             <h2>Gibt es Ausnahmen?</h2>
             <p>
-                Es gibt eine Ausnahmeregelung, die besagt, dass Betriebe, die weniger als fünf Mitarbeiter und eine Verkaufsfläche unter 80m2 haben,
-                von der Pflicht ausgenommen sind. Jene Betriebe sind aber dazu verpflichtet, Speisen oder Getränke auf Wunsch in
-                mitgebrachte Behältnisse zu füllen.<br><br>
+                Es gibt eine Ausnahmeregelung, die besagt, dass Betriebe, die weniger als fünf Mitarbeiter und eine Verkaufsfläche
+                unter 80m2 haben, von der Pflicht ausgenommen sind. Jene Betriebe sind aber dazu verpflichtet, Speisen oder Getränke
+                auf Wunsch in mitgebrachte Behältnisse zu füllen.<br><br>
             </p>
             
             <h2>Und wozu das Ganze?</h2>
             <p>
-                Als Anbieter von Mehrwegverpackungen leisten Sie zum einen einen
-                Bei-trag zum Umweltschutz. Zum anderen sparen Sie Kosten ein, denn die Verpackungen können wiederverwendet werden und
-                müssen nicht so häufig ersetzt werden. Außerdem stärken Sie so die Kundenbindung: setzen Sie ein Pfandsystem ein, kommt
-                der Kunde immer wieder zu Ihnen zurück und erwirbt bestenfalls häufiger Gerichte oder Getränke in Ihrem Geschäft!<br><br>
+                Als Anbieter von Mehrwegverpackungen leisten Sie zum einen einen Beitrag zum Umweltschutz. Zum anderen sparen Sie
+                Kosten ein, denn die Verpackungen können wiederverwendet werden und müssen nicht so häufig ersetzt werden. Außerdem
+                stärken Sie so die Kundenbindung: setzen Sie ein Pfandsystem ein, kommt der Kunde immer wieder zu Ihnen zurück und
+                erwirbt bestenfalls häufiger Gerichte oder Getränke in Ihrem Geschäft!<br><br>
             </p>
             
             <h2>Was bietet der FDBS für Möglichkeiten?</h2>
             <p>
-                Wir haben natürlich vorgesorgt und können Ihnen ein Sortiment an Mehrwegverpackungen
-                zum Kauf anbieten. Diese können auf Wunsch auch mit Ihrem Logo versehen werden. Des Weiteren arbeiten wir gerade an
-                einer Mietlösung, die Ihnen die Möglichkeit bietet, die Verpackungen bei uns gegen eine monatliche Nutzungsgebühr zu
-                mieten und nach Bedarf aufzustocken oder die Mengen zu verringern. Sie können aber auch Ihre bereits vorhandenen
-                Verpackungen, sowie z. B. GN-Schalen für das Catering entsprechend präparieren.<br><br>
+                Wir haben natürlich vorgesorgt und können Ihnen ein Sortiment an Mehrwegverpackungen der Marke Thermohauser zum Kauf
+                anbieten. Diese können auf Wunsch auch mit Ihrem Logo versehen werden. Des Weiteren arbeiten wir mit der Firma FairCup
+                zusammen und bieten Ihnen damit ein flexibles Mietpfandsystem für Ihr To-Go-Geschäft. Bestehend aus verschiedenen
+                Bechern und Behältern können Sie Ihr eigenes Mehrwegportfolio zusammenstellen.<br><br>
             </p>
 
             <h2>Ich hätte gerne weitere Informationen, wo kann ich mich melden?</h2>
             <p>
                 Für mehr Informationen, ein persönliches Gespräch oder Ihr individuelles Angebot, melden Sie
-                sich gerne unter 0531 210 55 xx oder schreiben Sie eine Email an <a href="mailto:xx@fdbs.de">xx@fdbs.de</a>.
+                sich gerne unter <b>0531 210 55 23</b> oder schreiben Sie eine Email an <a href="mailto:info@fdbs.de">info@fdbs.de</a>.
             </p>
         </div>
         

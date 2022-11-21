@@ -16,8 +16,8 @@ export const mainMenu = [
         { id: 'technischer-kundendienst', label: 'Technischer Kundendienst', href: route('ps.technischer-kundendienst'), children: [] },
         { id: 'seminare', label: 'Seminare', href: route('ps.seminare'), children: [] },
     ]},
-    { id: 'karriere', label: 'Karriere', href: route('karriere'), children: [
-        { id: 'stellenangebote', label: 'Stellenangebote', href: route('karriere.stellenangebote'), children: [] },
+    { id: 'karriere', label: 'Karriere', href: route('karriere.stellenangebote'), children: [
+        // { id: 'stellenangebote', label: 'Stellenangebote', href: route('karriere.stellenangebote'), children: [] },
     ]},
     { id: 'kontakt', label: 'Kontakt & Ansprechpartner', href: route('kontakt'), children: [] },
 ]
