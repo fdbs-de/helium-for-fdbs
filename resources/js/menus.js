@@ -3,7 +3,9 @@ export const mainMenu = [
     { id: 'philosophie', label: 'Philosophie', href: route('philosophie'), children: [] },
     { id: 'projekte-und-services', label: 'Produkte & Services', href: route('produkte-und-services'), children: [
         { id: 'angebote', label: 'Aktuelle Angebote', href: route('ps.angebote'), children: [] },
-        { id: 'foodservice', label: 'Foodservice', href: route('ps.foodservice'), children: [] },
+        { id: 'foodservice', label: 'Foodservice', href: route('ps.foodservice'), children: [
+            { id: 'mehrwegpflicht', label: 'Mehrwegpflicht ab 2023', href: route('ps.mehrwegpflicht'), children: [] },
+        ]},
         { id: 'unsere-marken', label: 'Unsere Marken', href: route('ps.marken'), children: [
             { id: 'eichenhof', label: 'Eichenhof', href: route('ps.marken.eichenhof'), children: [] },
             { id: 'il-campese', label: 'Il Campese', href: route('ps.marken.il-campese'), children: [] },
@@ -14,10 +16,8 @@ export const mainMenu = [
         { id: 'technischer-kundendienst', label: 'Technischer Kundendienst', href: route('ps.technischer-kundendienst'), children: [] },
         { id: 'seminare', label: 'Seminare', href: route('ps.seminare'), children: [] },
     ]},
-    { id: 'karriere', label: 'Karriere', href: route('karriere'), children: [
+    { id: 'karriere', label: 'Karriere', href: route('karriere.stellenangebote'), children: [
         // { id: 'stellenangebote', label: 'Stellenangebote', href: route('karriere.stellenangebote'), children: [] },
-        // { id: 'studium-ausbildung', label: 'Studium & Ausbildung', href: route('karriere.studium-und-ausbildung'), children: [] },
-        // { id: 'fdbs-als-arbeitgeber', label: 'FDBS als Arbeitgeber', href: route('karriere.fdbs-als-arbeitgeber'), children: [] },
     ]},
     { id: 'kontakt', label: 'Kontakt & Ansprechpartner', href: route('kontakt'), children: [] },
 ]

@@ -24,7 +24,10 @@ Route::get('/philosopie', [StaticController::class, 'indexPhilosophie'])->name('
 Route::prefix('/produkte-und-services')->group(function () {
     Route::get('/', [StaticController::class, 'indexProdukteUndServices'])->name('produkte-und-services');
     Route::get('/angebote', [StaticController::class, 'indexAngebote'])->name('ps.angebote');
-    Route::get('/foodservice', [StaticController::class, 'indexFoodservice'])->name('ps.foodservice');
+    Route::prefix('/foodservice')->group(function () {
+        Route::get('/', [StaticController::class, 'indexFoodservice'])->name('ps.foodservice');
+        Route::get('/mehrwegpflicht', [StaticController::class, 'indexMehrwegpflicht'])->name('ps.mehrwegpflicht');
+    });
     Route::get('/fachberatung-kaese-und-salate', [StaticController::class, 'indexFachberatungKaeseSalate'])->name('ps.fachberatung-kaese-und-salate');
     Route::get('/marketing-und-kommunikation', [StaticController::class, 'indexMarketingKommunikation'])->name('ps.marketing-und-kommunikation');
     Route::get('/technischer-kundendienst', [StaticController::class, 'indexTechnischerKundendienst'])->name('ps.technischer-kundendienst');
@@ -41,7 +44,7 @@ Route::prefix('/produkte-und-services')->group(function () {
 Route::prefix('/karriere')->group(function () {
     // Route::get('/', [StaticController::class, 'indexKarriere'])->name('karriere');
     Route::get('/', [StaticController::class, 'indexStellenangebote'])->name('karriere');
-    // Route::get('/stellenangebote', [StaticController::class, 'indexStellenangebote'])->name('karriere.stellenangebote');
+    Route::get('/stellenangebote', [StaticController::class, 'indexStellenangebote'])->name('karriere.stellenangebote');
     // Route::get('/studium-und-ausbildung', [StaticController::class, 'indexStudiumAusbildung'])->name('karriere.studium-und-ausbildung');
     // Route::get('/fdbs-als-arbeitgeber', [StaticController::class, 'indexFDBSAlsArbeitgeber'])->name('karriere.fdbs-als-arbeitgeber');
 });

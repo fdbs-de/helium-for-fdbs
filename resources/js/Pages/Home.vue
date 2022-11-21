@@ -29,30 +29,32 @@
             </section>
 
             <section id="general">
-                <div class="limiter flex gap">
-                    <div class="flex-1">
-                        <span class="icon" aria-hidden="true">verified</span>
-                        <h2>Angebote</h2>
-                        <p>
-                            Finden Sie unsere aktuellen Monats- und Grillangebot ganz einfach zum Download.
-                        </p>
-                        <Link :href="route('ps.angebote')">Zu den Angeboten</Link>
-                    </div>
-                    <div class="flex-1">
-                        <span class="icon" aria-hidden="true">work</span>
-                        <h2>Karriere</h2>
-                        <p>
-                            Wir suchen Sie! Sehen Sie sich unsere aktuellen Stellenangebote an.
-                        </p>
-                        <Link :href="route('karriere')">Job Finden</Link>
-                    </div>
-                    <div class="flex-1">
-                        <span class="icon" aria-hidden="true">content_paste</span>
-                        <h2>Seminare</h2>
-                        <p>
-                            Sehen Sie unser breites Angebot an Seminaren und Workshops.
-                        </p>
-                        <Link :href="route('ps.seminare')">Mehr Erfahren</Link>
+                <div class="limiter">
+                    <div class="wrapper flex gap">
+                        <div class="flex-1">
+                            <span class="icon" aria-hidden="true">verified</span>
+                            <h2>Angebote</h2>
+                            <p>
+                                Finden Sie unsere aktuellen Monats- und Grillangebot ganz einfach zum Download.
+                            </p>
+                            <Link :href="route('ps.angebote')">Zu den Angeboten</Link>
+                        </div>
+                        <div class="flex-1">
+                            <span class="icon" aria-hidden="true">work</span>
+                            <h2>Karriere</h2>
+                            <p>
+                                Wir suchen Sie! Sehen Sie sich unsere aktuellen Stellenangebote an.
+                            </p>
+                            <Link :href="route('karriere')">Job Finden</Link>
+                        </div>
+                        <div class="flex-1">
+                            <span class="icon" aria-hidden="true">content_paste</span>
+                            <h2>Seminare</h2>
+                            <p>
+                                Sehen Sie unser breites Angebot an Seminaren und Workshops.
+                            </p>
+                            <Link :href="route('ps.seminare')">Mehr Erfahren</Link>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -204,12 +206,12 @@
                     border-radius: var(--radius-m)
 
     section#general
-        background: var(--color-primary)
-        color: var(--color-background)
-        padding-block: 7rem
-
-        .limiter
-            gap: 4rem
+        .wrapper
+            gap: 3rem
+            padding: 3rem
+            border-radius: var(--radius-xl)
+            background: var(--color-primary)
+            color: var(--color-background)
 
         .flex-1
             border: 2px solid var(--color-primary-soft)
@@ -235,7 +237,7 @@
         h2
             margin-block: 0 .5rem
             color: inherit
-            font-weight: 500
+            font-weight: 600
 
         p
             margin: 0
@@ -280,15 +282,12 @@
 
     @media only screen and (max-width: 900px)
         section#general
-            padding-block: 1rem 3rem
-
-            .limiter
-                max-width: 600px
+            .wrapper
                 flex-direction: column
-                gap: 1rem
+                gap: 4rem
 
                 .flex-1
-                    margin-top: 4rem
+                    margin-top: 3rem
                     padding: 0 1rem 1rem
 
                     h2, p
@@ -335,4 +334,12 @@
 
             p
                 font-size: 1rem
+
+
+
+    @media only screen and (max-width: 500px)
+        section#general
+            .wrapper
+                padding: 1rem
+                gap: 1rem
 </style>

@@ -53,6 +53,7 @@
             color: var(--color-primary)
             text-align: center
             font-weight: 700
+            text-shadow: 0 0 10px var(--color-background-soft)
 
     #content-section
         padding-block: 4rem
