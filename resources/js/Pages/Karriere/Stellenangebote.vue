@@ -17,10 +17,11 @@
                 <div class="bar-divider"></div>
                 <select v-model="filterParameter.category">
                     <option :value="null">Alle Felder</option>
-                    <option value="marketing">Marketing</option>
-                    <option value="vertrieb">Vertrieb</option>
-                    <option value="service">Service</option>
                     <option value="logistik">Logistik</option>
+                    <option value="marketing">Marketing</option>
+                    <option value="service">Service</option>
+                    <option value="vertrieb">Vertrieb</option>
+                    <option value="verwaltung">Verwaltung</option>
                 </select>
             </div>
 
@@ -73,9 +74,9 @@
 
     const filteredJobs = computed(() => {
         return props.jobs.filter(job => {
-            if (filterParameter.value.search.trim() && !job.name.toLowerCase().trim().includes(filterParameter.value.search.toLowerCase().trim())) return false
-            if (filterParameter.value.type          && job.primary_tag.toLowerCase() !== filterParameter.value.type) return false
-            if (filterParameter.value.category      && !strToTags(job.tags.toLowerCase()).includes(filterParameter.value.category)) return false
+            if (filterParameter.value.search.trim() && !job?.name?.toLowerCase().trim().includes(filterParameter.value.search.toLowerCase().trim())) return false
+            if (filterParameter.value.type          && job?.primary_tag?.toLowerCase() !== filterParameter.value.type) return false
+            if (filterParameter.value.category      && !strToTags(job?.tags?.toLowerCase() || '').includes(filterParameter.value.category)) return false
 
             return true
         })
