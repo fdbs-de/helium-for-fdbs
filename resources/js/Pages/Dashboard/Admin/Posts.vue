@@ -43,7 +43,9 @@
                     <mui-input class="flex-1" type="text" label="Titel" v-model="form.title"/>
                     <mui-toggle label="Angepinnt" v-model="form.pinned"/>
                 </div>
-                <mui-input type="textarea" class="content-input" label="Inhalt" v-model="form.content"/>
+
+                <BlogInput class="content-input margin-block-1" v-model="form.content" />
+
                 <select v-model="form.scope">
                     <option value="" disabled>Sichtbarkeit</option>
                     <option value="public">Öffentlich</option>
@@ -86,6 +88,7 @@
     import { Head, Link, useForm, usePage } from '@inertiajs/inertia-vue3'
     import Popup from '@/Components/Form/Popup.vue'
     import Tag from '@/Components/Form/Tag.vue'
+    import BlogInput from '@/Components/Form/BlogInput.vue'
     import { ref, computed } from 'vue'
     import dayjs from 'dayjs'
 

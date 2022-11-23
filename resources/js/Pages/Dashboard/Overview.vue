@@ -9,9 +9,11 @@
                 Im Loginbereich können Sie auf die Spezi-Datenbank zugreifen,<br>
                 Informationen im Intranet nachlesen, unsere aktuellsten Angebote durchstöbern und vieles mehr.
             </p>
-            <!-- <p v-html="v1"></p>
-            <p>{{v1}}</p>
-            <BlogInput v-model="v1" /> -->
+            
+            <!-- <BlogInput v-model="v1" />
+            <p v-html="v1"></p>
+            <p>{{v1}}</p> -->
+
             <!-- <div class="flex wrap gap-2 margin-top-2">
                 <mui-button :as="Link" :href="route('dashboard.employee.overview')" v-if="$page.props.auth.user.employee_profile" label="Zum Intranet"/>
                 <mui-button :as="Link" :href="route('dashboard.customer.specs')" v-if="$page.props.auth.user.customer_profile" label="Zur Spezi-Datenbank"/>
