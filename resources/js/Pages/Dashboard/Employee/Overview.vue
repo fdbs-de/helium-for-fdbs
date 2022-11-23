@@ -13,7 +13,7 @@
                     <h3 class="title">{{post.title}}</h3>
                     <time class="date" :datetime="post.created_at">{{$dayjs(post.created_at).format('DD. MMM YYYY')}}</time>
                 </div>
-                <p class="text">{{post.content}}</p>
+                <p class="text" v-html="post.content"></p>
             </article>
         </div>
     </DashboardSubLayout>
