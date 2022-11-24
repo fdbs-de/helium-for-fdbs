@@ -24,13 +24,11 @@
 </template>
 
 <script setup>
-    import Tag from '@/Components/Form/Tag.vue'
-    import Popup from '@/Components/Form/Popup.vue'
     import DashboardSubLayout from '@/Layouts/SubLayouts/Dashboard.vue'
     import BlogInput from '@/Components/Form/BlogInput.vue'
 
-    import { Head, Link, usePage, useForm } from '@inertiajs/inertia-vue3'
-    import { ref, computed } from 'vue'
+    import { Head } from '@inertiajs/inertia-vue3'
+    import { ref } from 'vue'
 
     const v1 = ref('')
 </script>

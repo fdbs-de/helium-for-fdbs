@@ -32,40 +32,55 @@
 
 
     <Popup ref="managePopup" class="manage-popup" :title="form.id ? 'Post bearbeiten' : 'Post erstellen'">
-        <form @submit.prevent="saveItem()">
-            <div class="popup-block popup-error" v-if="hasErrors">
-                <h3><b>Fehler!</b></h3>
-                <p v-for="(error, key) in errors" :key="key">{{ error }}</p>
+        <form @submit.prevent="saveItem()" class="layout-wrapper">
+            <div class="editor-content">
+                <div class="popup-block popup-error" v-if="hasErrors">
+                    <h3><b>Fehler!</b></h3>
+                    <p v-for="(error, key) in errors" :key="key">{{ error }}</p>
+                </div>
+                
+                <mui-input type="text" label="Titel" border v-model="form.title"/>
+
+                <BlogInput class="content-input" v-model="form.content" />
             </div>
-    
-            <div class="flex gap-1 padding-1 vertical">
-                <div class="flex gap-1 v-center">
-                    <mui-input class="flex-1" type="text" label="Titel" v-model="form.title"/>
-                    <mui-toggle label="Angepinnt" v-model="form.pinned"/>
+
+            <div class="sidebar">
+                <div class="group">
+                    <b>Post anpinnen</b>
+                    <mui-toggle label="Angepinnt" class="pin-toggle" border v-model="form.pinned" />
                 </div>
 
-                <BlogInput class="content-input margin-block-1" v-model="form.content" />
+                <div class="group">
+                    <b>Sichtbarkeit</b>
+                    <select v-model="form.scope">
+                        <option value="public">Öffentlich</option>
+                        <option value="intranet">Intranet</option>
+                    </select>
+                </div>
 
-                <select v-model="form.scope">
-                    <option value="" disabled>Sichtbarkeit</option>
-                    <option value="public">Öffentlich</option>
-                    <option value="intranet">Intranet</option>
-                </select>
-                <div class="flex gap-1 v-center">
-                    <input class="flex-1" type="date" v-model="form.available_from">
-                    <mui-button type="button" label="Reset" size="small" @click="form.available_from = null"/>
+                <div class="group">
+                    <b>Veröffentlichungsdatum</b>
+                    <div class="date-input">
+                        <input type="date" v-model="form.available_from">
+                        <button type="button" class="reset-button" title="Veröffentlichungsdatum zurücksetzen" @click="form.available_from = null">replay</button>
+                    </div>
                 </div>
-                <div class="flex gap-1 v-center">
-                    <input class="flex-1" type="date" v-model="form.available_to">
-                    <mui-button type="button" label="Reset" size="small" @click="form.available_to = null"/>
+
+                <div class="group">
+                    <b>Gültigkeitsdatum</b>
+                    <div class="date-input">
+                        <input type="date" v-model="form.available_to">
+                        <button type="button" class="reset-button" title="Zurücksetzen" @click="form.available_to = null">replay</button>
+                    </div>
                 </div>
-            </div>
-    
-            <div class="flex gap-1 padding-1 background-soft radius-bottom-m">
-                <mui-button type="button" v-if="form.id" label="Post löschen" color="error" @click="$refs.deletePopup.open()"/>
+                
                 <div class="spacer"></div>
-                <mui-button v-if="form.id" label="Post bearbeiten" :loading="form.processing"/>
-                <mui-button v-else label="Post erstellen" :loading="form.processing"/>
+
+                <div class="group no-border">
+                    <mui-button type="button" v-if="form.id" label="löschen" color="error" variant="contained" @click="$refs.deletePopup.open()"/>
+                    <mui-button v-if="form.id" label="Speichern" :loading="form.processing"/>
+                    <mui-button v-else label="Post erstellen" :loading="form.processing"/>
+                </div>
             </div>
         </form>
     </Popup>
@@ -76,7 +91,7 @@
         <form class="confirm-popup-wrapper" @submit.prevent="deleteItem()">
             <p>Möchten Sie den Post <b>"{{form.title}}"</b> entgültig löschen?</p>
             <div class="confirm-popup-footer">
-                <mui-button variant="contained" label="Abbrechen" @click="$refs.deletePopup.close()"/>
+                <mui-button type="button" variant="contained" label="Abbrechen" @click="$refs.deletePopup.close()"/>
                 <mui-button type="submit" variant="filled" color="error" label="Entgültig löschen"/>
             </div>
         </form>
@@ -105,7 +120,7 @@
         id: null,
         title: '',
         content: '',
-        scope: 'intranet',
+        scope: 'public',
         pinned: false,
         available_from: null,
         available_to: null,
@@ -117,7 +132,7 @@
         form.id = item?.id ?? null
         form.title = item?.title ?? ''
         form.content = item?.content ?? ''
-        form.scope = item?.scope ?? 'intranet'
+        form.scope = item?.scope ?? 'public'
         form.pinned = item?.pinned ?? false
         form.available_from = item?.available_from ? dayjs(item?.available_from).format('YYYY-MM-DD') : null
         form.available_to = item?.available_to ? dayjs(item?.available_to).format('YYYY-MM-DD') : null
@@ -199,6 +214,74 @@
                 background: var(--color-background-soft)
 
     .manage-popup
-        .content-input
-            --base-height: 10rem
+        --max-width: 1100px
+
+        .layout-wrapper
+            display: flex
+
+            .sidebar
+                width: 300px
+                background: var(--color-background-soft)
+                display: flex
+                flex-direction: column
+                border-radius: 0 var(--radius-m) var(--radius-m) 0
+
+                .group
+                    display: flex
+                    flex-direction: column
+                    padding: 1rem
+                    gap: 1rem
+                    border-bottom: 1px solid var(--color-border)
+
+                    &.no-border
+                        border: none
+
+                .pin-toggle
+                    height: 3rem
+
+                select
+                    border: 1px solid var(--color-border)
+
+                .date-input
+                    display: flex
+                    align-items: center
+                    height: 3rem
+                    border-radius: var(--radius-s)
+                    border: 1px solid var(--color-border)
+
+                    > input
+                        flex: 1
+                        height: 100%
+                        border: none
+                        border-radius: inherit
+
+                    .reset-button
+                        height: 100%
+                        aspect-ratio: 1
+                        display: flex
+                        align-items: center
+                        justify-content: center
+                        user-select: none
+                        font-size: 1.5rem
+                        font-family: var(--font-icon)
+                        color: var(--color-heading)
+                        background: var(--color-background-soft)
+                        border-radius: var(--radius-m)
+                        padding: 0
+                        border: none
+                        cursor: pointer
+
+                        &:hover,
+                        &:focus
+                            color: var(--color-primary)
+
+            .editor-content
+                flex: 1
+                padding: 1rem
+                display: flex
+                flex-direction: column
+                gap: 1rem
+
+                .content-input
+                    height: 35rem
 </style>

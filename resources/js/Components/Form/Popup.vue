@@ -67,11 +67,14 @@
         perspective: 1000px
         transition: background 300ms
         background: rgb(48 51 55 / 0%)
+        backdrop-filter: blur(0px)
+        --max-width: 700px
 
         &.open
             overflow-y: auto
             pointer-events: all
             background: rgb(48 51 55 / 80%)
+            backdrop-filter: blur(12px)
                 
             .popup-inner-wrapper
                 transform: rotateX(0deg)
@@ -81,7 +84,7 @@
             position: relative
             z-index: 1
             width: calc(100% - 2rem)
-            max-width: 700px
+            max-width: var(--max-width)
             margin: 0 auto
             display: flex
             flex-direction: column
