@@ -46,8 +46,10 @@
 
             <div class="sidebar">
                 <div class="group">
-                    <b>Post anpinnen</b>
-                    <mui-toggle label="Angepinnt" class="pin-toggle" border v-model="form.pinned" />
+                    <div class="flex gap-1 v-center">
+                        <b class="flex-1">Post anpinnen</b>
+                        <mui-toggle type="switch" v-model="form.pinned" />
+                    </div>
                 </div>
 
                 <div class="group">
@@ -58,20 +60,30 @@
                     </select>
                 </div>
 
+                <!-- <div class="group">
+                    <b>Kategorie</b>
+                    <select>
+                        <option value="public">Öffentlich</option>
+                        <option value="intranet">Intranet</option>
+                    </select>
+                </div> -->
+
                 <div class="group">
-                    <b>Veröffentlichungsdatum</b>
-                    <div class="date-input">
-                        <input type="date" v-model="form.available_from">
-                        <button type="button" class="reset-button" title="Veröffentlichungsdatum zurücksetzen" @click="form.available_from = null">replay</button>
+                    <div class="flex gap-1 v-center">
+                        <b class="flex-1">Veröffentlichungsdatum</b>
+                        <button type="button" class="icon-button" title="Veröffentlichungsdatum hinzufügen" v-if="form.available_from === null" @click="form.available_from = new Date().toISOString().split('T')[0]">add</button>
+                        <button type="button" class="icon-button" title="Veröffentlichungsdatum zurücksetzen" v-else @click="form.available_from = null">replay</button>
                     </div>
+                    <input type="date" class="date-input" v-model="form.available_from" v-show="form.available_from">
                 </div>
 
                 <div class="group">
-                    <b>Gültigkeitsdatum</b>
-                    <div class="date-input">
-                        <input type="date" v-model="form.available_to">
-                        <button type="button" class="reset-button" title="Zurücksetzen" @click="form.available_to = null">replay</button>
+                    <div class="flex gap-1 v-center">
+                        <b class="flex-1">Gültigkeitsdatum</b>
+                        <button type="button" class="icon-button" title="Gültigkeitsdatum hinzufügen" v-if="form.available_to === null" @click="form.available_to = new Date().toISOString().split('T')[0]">add</button>
+                        <button type="button" class="icon-button" title="Gültigkeitsdatum zurücksetzen" v-else @click="form.available_to = null">replay</button>
                     </div>
+                    <input type="date" class="date-input" v-model="form.available_to" v-show="form.available_to">
                 </div>
                 
                 <div class="spacer"></div>
@@ -236,11 +248,29 @@
                     &.no-border
                         border: none
 
-                .pin-toggle
-                    height: 3rem
-
                 select
                     border: 1px solid var(--color-border)
+
+                .icon-button
+                    height: 1.5rem
+                    width: 2.5rem
+                    display: flex
+                    align-items: center
+                    justify-content: center
+                    user-select: none
+                    font-size: 1.2rem
+                    font-family: var(--font-icon)
+                    color: var(--color-primary)
+                    background: #e0004730
+                    border-radius: var(--radius-xl)
+                    padding: 0
+                    border: none
+                    cursor: pointer
+
+                    &:hover,
+                    &:focus
+                        background: var(--color-primary)
+                        color: var(--color-background)
 
                 .date-input
                     display: flex
@@ -248,32 +278,6 @@
                     height: 3rem
                     border-radius: var(--radius-s)
                     border: 1px solid var(--color-border)
-
-                    > input
-                        flex: 1
-                        height: 100%
-                        border: none
-                        border-radius: inherit
-
-                    .reset-button
-                        height: 100%
-                        aspect-ratio: 1
-                        display: flex
-                        align-items: center
-                        justify-content: center
-                        user-select: none
-                        font-size: 1.5rem
-                        font-family: var(--font-icon)
-                        color: var(--color-heading)
-                        background: var(--color-background-soft)
-                        border-radius: var(--radius-m)
-                        padding: 0
-                        border: none
-                        cursor: pointer
-
-                        &:hover,
-                        &:focus
-                            color: var(--color-primary)
 
             .editor-content
                 flex: 1
