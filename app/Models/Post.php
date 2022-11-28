@@ -12,8 +12,11 @@ class Post extends Model
     protected $fillable = [
         'scope',
         'title',
+        'slug',
+        'category',
         'content',
         'pinned',
+        'status',
         'available_from',
         'available_to',
     ];
@@ -27,5 +30,6 @@ class Post extends Model
     protected $attributes = [
         'scope' => 'public',
         'pinned' => false,
+        'status' => 'draft',
     ];
 }
