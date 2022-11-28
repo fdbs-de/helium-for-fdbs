@@ -27,10 +27,13 @@ class CreatePostRequest extends FormRequest
     public function rules()
     {
         return [
-            'scope' => ['required', 'string', 'in:public,intranet'],
+            'scope' => ['required', 'string', 'in:public,intranet,wiki'],
             'title' => ['nullable', 'string', 'max:255'],
+            'slug' => ['nullable', 'string', 'max:255', 'unique:posts'],
+            'category' => ['nullable', 'integer', 'exists:post_categories,id'],
             'content' => ['nullable', 'string'],
             'pinned' => ['required', 'boolean'],
+            'status' => ['required', 'string', 'in:draft,pending,public,hidden'],
             'available_from' => ['nullable', 'date'],
             'available_to' => ['nullable', 'date'],
         ];

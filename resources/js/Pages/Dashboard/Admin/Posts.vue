@@ -60,13 +60,13 @@
                     </select>
                 </div>
 
-                <!-- <div class="group">
+                <div class="group">
                     <b>Kategorie</b>
-                    <select>
-                        <option value="public">Öffentlich</option>
-                        <option value="intranet">Intranet</option>
+                    <select v-model="form.category">
+                        <option :value="null">Keine Kategorie</option>
+                        <option v-for="category in categories" :key="category.id" :value="category.id">{{category.name}}</option>
                     </select>
-                </div> -->
+                </div>
 
                 <div class="group">
                     <div class="flex gap-1 v-center">
@@ -121,6 +121,7 @@
 
     const props = defineProps({
         posts: Array,
+        categories: Array,
     })
 
 
@@ -131,8 +132,10 @@
     const form = useForm({
         id: null,
         title: '',
-        content: '',
+        slug: '',
+        category: null,
         scope: 'public',
+        content: '',
         pinned: false,
         available_from: null,
         available_to: null,
@@ -143,8 +146,10 @@
 
         form.id = item?.id ?? null
         form.title = item?.title ?? ''
-        form.content = item?.content ?? ''
+        form.slug = item?.slug ?? ''
+        form.category = item?.category ?? null
         form.scope = item?.scope ?? 'public'
+        form.content = item?.content ?? ''
         form.pinned = item?.pinned ?? false
         form.available_from = item?.available_from ? dayjs(item?.available_from).format('YYYY-MM-DD') : null
         form.available_to = item?.available_to ? dayjs(item?.available_to).format('YYYY-MM-DD') : null

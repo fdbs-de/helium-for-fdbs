@@ -3,7 +3,7 @@
         <title>Mehrwegpflicht</title>
     </Head>
 
-    <TextSubLayout title="Mehrwegpflicht ab 01.01.2023" image="/images/content/banner/karriere_513169496_482949832.webp">
+    <TextSubLayout title="Mehrwegpflicht ab 01.01.2023" image="/images/content/banner/mehrwegpflicht_481353401.webp">
         <div class="flex wrap gap-3 margin-block-8 margin-top-4 v-center">
             <SpecCard class="flex-1" :spec="countdown.days" subtitle="Tage"/>
             <SpecCard class="flex-1" :spec="countdown.hours" subtitle="Stunden"/>

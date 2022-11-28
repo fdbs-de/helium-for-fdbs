@@ -7,6 +7,7 @@ use App\Http\Requests\Posts\CreatePostRequest;
 use App\Http\Requests\Posts\DestroyPostRequest;
 use App\Http\Requests\Posts\UpdatePostRequest;
 use App\Models\Post;
+use App\Models\PostCategory;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -16,6 +17,7 @@ class PostController extends Controller
     {
         return Inertia::render('Dashboard/Admin/Posts', [
             'posts' => Post::orderBy('created_at', 'desc')->get(),
+            'categories' => PostCategory::orderBy('name', 'asc')->get(),
         ]);
     }
 

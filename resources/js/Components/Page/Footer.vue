@@ -70,8 +70,8 @@
                 <div class="spacer"></div>
                 <div class="social-wrapper">
                     <a href="https://g.page/r/CWfKbNs4inYXEAg/review" target="_blank">Bewerten Sie uns auf Google</a>
-                    <span>•</span>
-                    <button class="szb" @click="openPopup()">Hier nicht klicken</button>
+                    <!-- <span>•</span>
+                    <button class="szb" @click="openPopup()">Hier nicht klicken</button> -->
                     <span>•</span>
                     <a href="https://www.linkedin.com/company/fdbsfoodservice" target="_blank" rel="opener">LinkedIn</a>
                     <a href="https://www.xing.com/pages/fleischer-dienst-braunschweig-eg" target="_blank" rel="opener">Xing</a>
@@ -85,7 +85,7 @@
         </div>
     </footer>
 
-    <Popup ref="easteregg_one" class="easteregg_one" @close="clearTimer()">
+    <!-- <Popup ref="easteregg_one" class="easteregg_one" @close="clearTimer()">
         <div class="flex padding-2 gap-2 vertical">
             <h3 class="margin-0 text-align-center">Sie haben die Selbstzerstörung eingeleitet!</h3>
             <hr>
@@ -97,7 +97,7 @@
         </div>
     </Popup>
 
-    <div class="blend" :class="{'active': isBlack}"></div>
+    <div class="blend" :class="{'active': isBlack}"></div> -->
 </template>
 
 <script setup>
@@ -112,42 +112,42 @@
 
 
     // EASTEREGG START //
-    const easteregg_one = ref(null)
-    const timer = ref(0)
-    let interval = null
-    const isBlack = ref(false)
+    // const easteregg_one = ref(null)
+    // const timer = ref(0)
+    // let interval = null
+    // const isBlack = ref(false)
 
-    const openPopup = () => {
-        timer.value = 15
-        easteregg_one.value.open()
-        interval = setInterval(reduceTimer, 1000)
-    }
+    // const openPopup = () => {
+    //     timer.value = 15
+    //     easteregg_one.value.open()
+    //     interval = setInterval(reduceTimer, 1000)
+    // }
 
-    const reduceTimer = () => {
-        timer.value--
-        if (timer.value <= 0) closePopup(true)
-    }
+    // const reduceTimer = () => {
+    //     timer.value--
+    //     if (timer.value <= 0) closePopup(true)
+    // }
     
-    const closePopup = (playAnimation = false) => {
-        clearTimer()
+    // const closePopup = (playAnimation = false) => {
+    //     clearTimer()
 
-        setTimeout(() => {
-            easteregg_one.value.close()
-            if (playAnimation) animation()
-        }, 600)
-    }
+    //     setTimeout(() => {
+    //         easteregg_one.value.close()
+    //         if (playAnimation) animation()
+    //     }, 600)
+    // }
 
-    const clearTimer = () => {
-        clearInterval(interval)
-    }
+    // const clearTimer = () => {
+    //     clearInterval(interval)
+    // }
 
-    const animation = () => {
-        isBlack.value = true
+    // const animation = () => {
+    //     isBlack.value = true
 
-        setTimeout(() => {
-            isBlack.value = false
-        }, 3000)
-    }
+    //     setTimeout(() => {
+    //         isBlack.value = false
+    //     }, 3000)
+    // }
     // EASTEREGG END //
 </script>
 

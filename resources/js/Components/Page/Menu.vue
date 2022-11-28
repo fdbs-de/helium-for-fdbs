@@ -229,7 +229,6 @@
                             align-items: center
                             padding: 0 var(--su)
                             height: 3rem
-                            border-bottom: 1px solid var(--color-border)
                             color: inherit
 
                         &:hover,
