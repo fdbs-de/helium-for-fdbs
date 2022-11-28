@@ -94,5 +94,17 @@
     </head>
     <body>
         @inertia
+        
+        <!-- START: Cookie Consent Tool-->
+        {{-- <script src="https://app.cockpit.legal/static/cookieconsent.js"
+            data-cc-tools="Matomo"
+            data-cc-privacy="https://fdbs.de/datenschutz"
+            data-cc-imprint="https://fdbs.de/impressum"
+            data-cc-color="#e00047"
+            data-cc-theme="light"
+            data-cc-language="browser"
+            data-cc-non-eu-consent="false">
+        </script> --}}
+        <!-- END: Cookie Consent Tool-->
     </body>
 </html>

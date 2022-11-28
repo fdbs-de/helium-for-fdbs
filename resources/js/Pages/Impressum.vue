@@ -3,7 +3,9 @@
         <Head>
             <title>Impressum</title>
         </Head>
-        <p>
+
+        <span v-html="text"></span>
+        <!-- <p>
             <b>Fleischer-Dienst Braunschweig eG</b><br>
             Christian-Pommer-Straße 31/33<br>
             38112 Braunschweig<br>
@@ -24,7 +26,7 @@
             Vorsitzender des Aufsichtsrats: <b>Frank Schreiber</b><br>
             Genossenschaftsregister: <b>Amtsgericht Braunschweig</b><br>
             Registernummer: <b>GenR 305</b>
-        </p>
+        </p> -->
         <p>&nbsp;</p>
         <h2>Bildnachweis:</h2>
         <p>
@@ -32,33 +34,20 @@
             ©StudioDFlorez, ©laplateresca, ©NVB Stocker, ©Prostock-studio, ©Rawpixel.com, ©Looker_Studio
             ©assetseller, ©Racle Fotodesign, ©Paul Bradbury/KOTO, ©Pixel-Shot, ©Robert Kneschke, ©Drobot Dean, ©contrastwerkstatt,
             ©Оля Molly, ©Simple Line, ©torik, ©mitay20, ©Екатерина Заносиенко, ©Yana, ©Sell Vector, ©Olga Rai, ©Mihail, ©sahs94,
-            ©Valenty, ©Natalia, ©samuii, ©ngupakarti, ©MuhammadZulfan,
+            ©Valenty, ©Natalia, ©samuii, ©ngupakarti, ©MuhammadZulfan, ©LuckyStep
             - <a href="https://stock.adobe.com" target="_blank" ref="noopener noreferrer">Adobe Stock</a>
         </p>
-        <!-- <p>
-            Seminar "Sicher und souverän frisch": XTravaganT<br>
-            Seminar Käsekreationen: Belaya Katerina<br>
-            Seminar „Fleisch! Botschafter des guten Geschmacks“: somegirl<br>
-            Seminar „Kundenansprache - praxisorientiertes Verkaufen“: CrazyCloud<br>
-            Seminar Folgebelehrung nach §43 Abs 4 Infektionsschutzgesetz: Alexander Raths<br>
-            Seminar Plattengestaltung "Basic": Ilka Burckhardt
-        </p>
-        <p>
-            <b>Galerie Food:</b><br>
-            Fertiggerichte: Andrea Wilhelm<br>
-            Gemüse gfroren: Firma V<br>
-            Schinken & Speck: photocrew<br>
-            Käse & Molkereiprodukte: HLPhoto<br>
-            Fisch: Alexander Raths<br>
-            Fleisch gefroren: ExQuisine<br>
-            Gewürze: Lucky Dragon <br>
-            Geflügel: Christian Jung<br>
-            Backwaren: travelguide
-        </p> -->
     </TextSubLayout>
 </template>
 
 <script setup>
-import { Head, Link } from '@inertiajs/inertia-vue3'
-import TextSubLayout from '@/Layouts/SubLayouts/Text.vue'
+    import { Head, Link } from '@inertiajs/inertia-vue3'
+    import TextSubLayout from '@/Layouts/SubLayouts/Text.vue'
+    import { ref } from 'vue'
+
+    const text = ref('')
+
+    fetch(`https://app.cockpit.legal/api/cockpit/resources/legaldocumentshare/ad20360c1ad60f8f5d9223a28907d7ba/document/render/html`)
+        .then(result => result.text())
+        .then(content => { text.value = content })
 </script>
