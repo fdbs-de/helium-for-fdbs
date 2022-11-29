@@ -26,4 +26,11 @@ class PostCategory extends Model
     {
         return $this->hasMany(Post::class, 'category');
     }
+
+    
+    
+    public function getPostCountAttribute()
+    {
+        return $this->posts()->count();
+    }
 }
