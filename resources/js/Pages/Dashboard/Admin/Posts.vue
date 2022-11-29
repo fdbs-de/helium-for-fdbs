@@ -53,10 +53,21 @@
                 </div>
 
                 <div class="group">
+                    <b>Status</b>
+                    <select v-model="form.status">
+                        <option value="draft">Entwurf</option>
+                        <option value="pending">Zur Freigabe</option>
+                        <option value="public">Veröffentlicht</option>
+                        <option value="hidden">Versteckt</option>
+                    </select>
+                </div>
+
+                <div class="group">
                     <b>Sichtbarkeit</b>
                     <select v-model="form.scope">
-                        <option value="public">Öffentlich</option>
+                        <option value="public">Blog</option>
                         <option value="intranet">Intranet</option>
+                        <option value="wiki">Wiki</option>
                     </select>
                 </div>
 
@@ -137,6 +148,7 @@
         scope: 'public',
         content: '',
         pinned: false,
+        status: 'draft',
         available_from: null,
         available_to: null,
     })
@@ -151,6 +163,7 @@
         form.scope = item?.scope ?? 'public'
         form.content = item?.content ?? ''
         form.pinned = item?.pinned ?? false
+        form.status = item?.status ?? 'draft'
         form.available_from = item?.available_from ? dayjs(item?.available_from).format('YYYY-MM-DD') : null
         form.available_to = item?.available_to ? dayjs(item?.available_to).format('YYYY-MM-DD') : null
     }
