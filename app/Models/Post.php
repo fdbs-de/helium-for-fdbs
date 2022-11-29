@@ -32,4 +32,11 @@ class Post extends Model
         'pinned' => false,
         'status' => 'draft',
     ];
+
+
+
+    public function category()
+    {
+        return $this->belongsTo(PostCategory::class, 'category');
+    }
 }

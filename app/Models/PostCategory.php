@@ -19,4 +19,11 @@ class PostCategory extends Model
     protected $attributes = [
         'status' => 'public',
     ];
+
+
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'category');
+    }
 }

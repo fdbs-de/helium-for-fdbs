@@ -29,7 +29,7 @@ class UpdatePostRequest extends FormRequest
         return [
             'scope' => ['required', 'string', 'in:public,intranet,wiki'],
             'title' => ['nullable', 'string', 'max:255'],
-            'slug' => ['nullable', 'string', 'max:255', 'unique:posts'],
+            'slug' => ['nullable', 'string', 'max:255', 'unique:posts,slug,' . $this->post->id],
             'category' => ['nullable', 'integer', 'exists:post_categories,id'],
             'content' => ['nullable', 'string'],
             'pinned' => ['required', 'boolean'],
