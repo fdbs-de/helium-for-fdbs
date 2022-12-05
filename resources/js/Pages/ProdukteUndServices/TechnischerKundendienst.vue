@@ -5,12 +5,12 @@
         </Head>
 
         <template #ansprechpartner>
-            <StaffCard class="service-scroll-item" name="Annette Körner" job="Leitung" leader tel="24" image="/images/content/mitarbeiter/annette_koerner.png" overlay="/images/content/mitarbeiter/annette_koerner_zeichnung.png"/>
-            <StaffCard class="service-scroll-item" name="Marcus Zetzsche" job="Stv. Leitung" leader tel="12" image="/images/content/mitarbeiter/marcus_zetzsche.png" overlay="/images/content/mitarbeiter/marcus_zetzsche_zeichnung.png"/>
+            <!-- <StaffCard class="service-scroll-item" name="Annette Körner" leader tel="24" image="/images/content/mitarbeiter/annette_koerner.png" overlay="/images/content/mitarbeiter/annette_koerner_zeichnung.png"/> -->
+            <StaffCard class="service-scroll-item" name="Marcus Zetzsche" job="Leitung" leader tel="12" image="/images/content/mitarbeiter/marcus_zetzsche.png" overlay="/images/content/mitarbeiter/marcus_zetzsche_zeichnung.png"/>
+            <StaffCard class="service-scroll-item" name="Wiebke Peter" job="Stv. Leitung" leader tel="75" image="/images/content/mitarbeiter/wiebke_peter.png" overlay="/images/content/mitarbeiter/wiebke_peter_zeichnung.png"/>
             <StaffCard class="service-scroll-item" name="Sabine Barnert" tel="76" image="/images/content/mitarbeiter/sabine_barnert.png" overlay="/images/content/mitarbeiter/sabine_barnert_zeichnung.png"/>
             <StaffCard class="service-scroll-item" name="André Hoffmann" tel="41" image="/images/content/mitarbeiter/missing.png"/>
             <StaffCard class="service-scroll-item" name="Holger Kleinert" tel="14" image="/images/content/mitarbeiter/missing.png"/>
-            <StaffCard class="service-scroll-item" name="Wiebke Peter" tel="75" image="/images/content/mitarbeiter/wiebke_peter.png" overlay="/images/content/mitarbeiter/wiebke_peter_zeichnung.png"/>
         </template>
 
         <p><strong>Reparatur und Durchsicht</strong></p>

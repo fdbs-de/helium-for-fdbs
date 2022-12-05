@@ -60,6 +60,7 @@
             <StaffCard name="Jana Schildhauer" job="Assistentin des Vorstands / QM / Ausbildungsleitung" leader tel="44" image="/images/content/mitarbeiter/jana_schildhauer.png" overlay="/images/content/mitarbeiter/jana_schildhauer_zeichnung.png"/>
             
             <StaffCard name="Robert Heiduk" job="Leitung Buchhaltung / Personal" leader tel="37" image="/images/content/mitarbeiter/robert_heiduk.png" overlay="/images/content/mitarbeiter/robert_heiduk_zeichnung.png"/>
+            <StaffCard name="Annette Körner" job="Personal & Lohn" tel="24" image="/images/content/mitarbeiter/annette_koerner.png" overlay="/images/content/mitarbeiter/annette_koerner_zeichnung.png"/>
             <StaffCard name="Silke Sanner" job="Buchhaltung" tel="31" image="/images/content/mitarbeiter/silke_sanner.png" overlay="/images/content/mitarbeiter/silke_sanner_zeichnung.png"/>
             <StaffCard name="Katja Stöger" job="Buchhaltung" tel="15" image="/images/content/mitarbeiter/katja_stoeger.png" overlay="/images/content/mitarbeiter/katja_stoeger_zeichnung.png"/>
         
@@ -108,12 +109,11 @@
             <StaffCard name="Tobias Behnstedt" job="Leitung Fleischabteilung" leader tel="26" image="/images/content/mitarbeiter/tobias_behnstedt.png" overlay="/images/content/mitarbeiter/tobias_behnstedt_zeichnung.png"/>
             <StaffCard name="Niels Brandt" job="Leitung Fleischabteilung" leader tel="27" image="/images/content/mitarbeiter/niels_brandt.png" overlay="/images/content/mitarbeiter/niels_brandt_zeichnung.png"/>
         
-            <StaffCard name="Annette Körner" job="Leitung Servicewerkstatt" leader tel="24" image="/images/content/mitarbeiter/annette_koerner.png" overlay="/images/content/mitarbeiter/annette_koerner_zeichnung.png"/>
-            <StaffCard name="Marcus Zetzsche" job="Stv. Leitung Servicewerkstatt" leader tel="12" image="/images/content/mitarbeiter/marcus_zetzsche.png" overlay="/images/content/mitarbeiter/marcus_zetzsche_zeichnung.png"/>
+            <StaffCard name="Marcus Zetzsche" job="Leitung Servicewerkstatt" leader tel="12" image="/images/content/mitarbeiter/marcus_zetzsche.png" overlay="/images/content/mitarbeiter/marcus_zetzsche_zeichnung.png"/>
+            <StaffCard name="Wiebke Peter" job="Stv. Leitung Servicewerkstatt" leader tel="75" image="/images/content/mitarbeiter/wiebke_peter.png" overlay="/images/content/mitarbeiter/wiebke_peter_zeichnung.png"/>
             <StaffCard name="Sabine Barnert" job="Vetriebsinnendienst der Werkstatt" tel="76" image="/images/content/mitarbeiter/sabine_barnert.png" overlay="/images/content/mitarbeiter/sabine_barnert_zeichnung.png"/>
             <StaffCard name="André Hoffmann" job="Fachberater Großküchentechnik" tel="41" image="/images/content/mitarbeiter/missing.png"/>
             <StaffCard name="Holger Kleinert" job="Fachberater Geräte und Maschinen" tel="14" image="/images/content/mitarbeiter/missing.png"/>
-            <StaffCard name="Wiebke Peter" job="Vetriebsinnendienst der Werkstatt" tel="75" image="/images/content/mitarbeiter/wiebke_peter.png" overlay="/images/content/mitarbeiter/wiebke_peter_zeichnung.png"/>
         </div>
     </TextSubLayout>
 </template>
