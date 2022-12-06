@@ -188,6 +188,7 @@
                 > a
                     font-weight: 500
                     color: inherit
+                    text-align: center
 
                 ul
                     position: absolute

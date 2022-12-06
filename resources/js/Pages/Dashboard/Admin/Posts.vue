@@ -84,7 +84,7 @@
                     <select v-model="form.status">
                         <option value="draft">Entwurf</option>
                         <!-- <option value="pending">Zur Freigabe</option> -->
-                        <option value="public">Veröffentlicht</option>
+                        <option value="published">Veröffentlicht</option>
                         <!-- <option value="hidden">Versteckt</option> -->
                     </select>
                 </div>
@@ -92,7 +92,7 @@
                 <div class="group">
                     <b class="heading">Veröffentlichungsort</b>
                     <select v-model="form.scope">
-                        <option value="public">Blog</option>
+                        <option value="blog">Blog</option>
                         <option value="intranet">Intranet</option>
                         <option value="wiki">Wiki</option>
                     </select>
@@ -166,8 +166,8 @@
                 <div class="group">
                     <b class="heading">Status</b>
                     <select v-model="categoryForm.status">
-                        <option value="private">Privat</option>
-                        <option value="public">Veröffentlicht</option>
+                        <option value="hidden">Privat</option>
+                        <option value="published">Veröffentlicht</option>
                     </select>
                 </div>
                 
@@ -220,7 +220,7 @@
         title: '',
         slug: '',
         category: null,
-        scope: 'public',
+        scope: 'blog',
         content: '',
         pinned: false,
         status: 'draft',
@@ -235,7 +235,7 @@
         form.title = item?.title ?? ''
         form.slug = item?.slug ?? ''
         form.category = item?.category?.id ?? null
-        form.scope = item?.scope ?? 'public'
+        form.scope = item?.scope ?? 'blog'
         form.content = item?.content ?? ''
         form.pinned = item?.pinned ?? false
         form.status = item?.status ?? 'draft'
@@ -284,7 +284,7 @@
         name: '',
         slug: '',
         description: '',
-        status: 'public',
+        status: 'published',
     })
 
     const openCategory = (item = null) => {
@@ -294,7 +294,7 @@
         categoryForm.name = item?.name ?? ''
         categoryForm.slug = item?.slug ?? ''
         categoryForm.description = item?.description ?? ''
-        categoryForm.status = item?.status ?? 'public'
+        categoryForm.status = item?.status ?? 'published'
     }
 
     const saveCategory = () => {
