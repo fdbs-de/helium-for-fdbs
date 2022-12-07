@@ -66,12 +66,29 @@
                     <p v-for="(error, key) in errors" :key="key">{{ error }}</p>
                 </div>
                 
-                <mui-input type="text" label="Titel" border v-model="form.title"/>
+                <mui-input type="text" label="Titel *" required border v-model="form.title"/>
 
                 <BlogInput class="content-input flex-1" v-model="form.content" />
             </div>
 
             <div class="sidebar">
+                <div class="group">
+                    <mui-input type="text" label="URL Titel *" required border v-model="form.slug">
+                        <template #right>
+                            <button type="button" class="input-button" title="Aus Titel generieren" @click="generateSlug">enable</button>
+                        </template>
+                    </mui-input>
+                </div>
+
+                <div class="group">
+                    <div class="flex gap-1 v-center">
+                        <b class="heading flex-1">Hero-Bild</b>
+                        <button type="button" class="icon-button" title="Bild hinzufügen" v-if="form.image === null" @click="form.image = ''">add</button>
+                        <button type="button" class="icon-button" title="Bild entfernen" v-else @click="form.image = null">replay</button>
+                    </div>
+                    <mui-input type="text" label="Bild URL" border clearable v-model="form.image" v-show="form.image !== null" />
+                </div>
+
                 <div class="group">
                     <div class="flex gap-1 v-center">
                         <b class="flex-1">Post anpinnen</b>
@@ -197,10 +214,10 @@
 
 <script setup>
     import DashboardSubLayout from '@/Layouts/SubLayouts/Dashboard.vue'
-    import { Head, Link, useForm, usePage } from '@inertiajs/inertia-vue3'
+    import { Head, useForm, usePage } from '@inertiajs/inertia-vue3'
     import Popup from '@/Components/Form/Popup.vue'
-    import Tag from '@/Components/Form/Tag.vue'
     import BlogInput from '@/Components/Form/BlogInput.vue'
+    import { slugify } from '@/Utils/String'
     import { ref, computed } from 'vue'
     import dayjs from 'dayjs'
 
@@ -221,12 +238,17 @@
         slug: '',
         category: null,
         scope: 'blog',
+        image: null,
         content: '',
         pinned: false,
         status: 'draft',
         available_from: null,
         available_to: null,
     })
+
+    const generateSlug = () => {
+        form.slug = slugify(form.title)
+    }
 
     const openItem = (item = null) => {
         managePopup.value.open()
@@ -236,6 +258,7 @@
         form.slug = item?.slug ?? ''
         form.category = item?.category?.id ?? null
         form.scope = item?.scope ?? 'blog'
+        form.image = item?.image ?? null
         form.content = item?.content ?? ''
         form.pinned = item?.pinned ?? false
         form.status = item?.status ?? 'draft'
@@ -379,13 +402,37 @@
                 background: var(--color-background-soft)
 
     .manage-popup
-        --max-width: 1100px
+        --max-width: 1200px
+
+        .input-button
+            height: 2rem
+            width: 2rem
+            display: flex
+            align-items: center
+            justify-content: center
+            padding: 0
+            margin: 0
+            border: none
+            background: none
+            cursor: pointer
+            user-select: none
+            font-family: var(--font-icon)
+            font-size: 1.35rem
+            text-align: center
+            color: var(--color-text)
+            border-radius: .25rem
+            flex: none
+
+            &:hover,
+            &:focus
+                color: var(--mui-color__)
+                background: var(--mui-background-secondary__)
 
         .layout-wrapper
             display: flex
 
             .sidebar
-                width: 300px
+                width: 350px
                 background: var(--color-background-soft)
                 display: flex
                 flex-direction: column

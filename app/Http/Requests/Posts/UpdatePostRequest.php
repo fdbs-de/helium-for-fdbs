@@ -31,6 +31,7 @@ class UpdatePostRequest extends FormRequest
             'title' => ['nullable', 'string', 'max:255'],
             'slug' => ['nullable', 'string', 'max:255', 'unique:posts,slug,' . $this->post->id],
             'category' => ['nullable', 'integer', 'exists:post_categories,id'],
+            'image' => ['nullable', 'string'],
             'content' => ['nullable', 'string'],
             'pinned' => ['required', 'boolean'],
             'status' => ['required', 'string', 'in:draft,pending,published,hidden'],

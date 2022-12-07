@@ -32,7 +32,9 @@ class BlogController extends Controller
     public function show(Post $post)
     {
         return Inertia::render('Blog/Post', [
-            'post' => $post,
+            'post' => $post->load(['category' => function ($query) {
+                $query->select('id', 'name', 'slug');
+            }])
         ]);
     }
 }

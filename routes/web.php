@@ -24,7 +24,7 @@ Route::get('/philosopie', [StaticController::class, 'indexPhilosophie'])->name('
 
 Route::prefix('/blog')->group(function () {
     Route::get('/', [BlogController::class, 'index'])->name('blog');
-    Route::get('/b/{post:slug}', [BlogController::class, 'show'])->name('blog.article');
+    Route::get('/{post:slug}', [BlogController::class, 'show'])->name('blog.article');
 });
 
 Route::prefix('/produkte-und-services')->group(function () {
