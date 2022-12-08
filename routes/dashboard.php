@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\AdminController;
 use App\Http\Controllers\Dashboard\CustomerController;
 use App\Http\Controllers\Dashboard\DocumentController;
 use App\Http\Controllers\Dashboard\EmployeeController;
+use App\Http\Controllers\Dashboard\MediaController;
 use App\Http\Controllers\Dashboard\OverviewController;
 use App\Http\Controllers\Dashboard\PostCategoryController;
 use App\Http\Controllers\Dashboard\PostController;
@@ -47,6 +48,9 @@ Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () 
         Route::post('/dokumente', [DocumentController::class, 'store'])->name('dashboard.admin.docs.store');
         Route::put('/dokumente/{document}', [DocumentController::class, 'update'])->name('dashboard.admin.docs.update');
         Route::delete('/dokumente/{document}', [DocumentController::class, 'delete'])->name('dashboard.admin.docs.delete');
+        
+        Route::get('/media', [MediaController::class, 'indexAdmin'])->name('dashboard.admin.media');
+        Route::post('/media', [MediaController::class, 'store'])->name('dashboard.admin.media.store');
 
         Route::get('/posts', [PostController::class, 'index'])->name('dashboard.admin.posts');
         Route::post('/posts', [PostController::class, 'store'])->name('dashboard.admin.posts.store');

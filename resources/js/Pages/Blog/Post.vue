@@ -5,7 +5,9 @@
         </Head>
     
         <div class="limiter">
-            <img class="article-hero-image" :src="post.image" :alt="post.title">
+            <div class="article-hero">
+                <img class="article-hero-image" :style="`height: calc(100% - ${offset}px); top: ${offset}px;`" :src="post.image" :alt="post.title">
+            </div>
         </div>
         <div class="limiter text-limiter">
             <div class="flex vertical gap-1 padding-block-3">
@@ -26,20 +28,39 @@
     import { Head, Link } from '@inertiajs/inertia-vue3'
     import TextSubLayout from '@/Layouts/SubLayouts/Text.vue'
     import GuestLayout from '@/Layouts/Guest.vue'
+    import { ref } from 'vue'
 
     const props = defineProps({
         post: Object,
     })
+
+
+
+    const offset = ref(window.pageYOffset)
+
+    window.addEventListener('scroll', () => {
+        offset.value = window.pageYOffset
+    })
+
 </script>
 
 <style lang="sass" scoped>
-    .article-hero-image
+    .article-hero
         width: 100%
         aspect-ratio: 2.5
-        object-fit: cover
-        object-position: center
+        position: relative
         margin-top: calc(var(--height-header) + 1rem)
         border-radius: var(--radius-l)
+
+    .article-hero-image
+        position: absolute
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
+        object-fit: cover
+        object-position: center
+        border-radius: inherit
 
     h1
         margin: 0

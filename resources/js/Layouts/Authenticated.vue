@@ -104,6 +104,10 @@
                     <div class="icon" aria-hidden="true">upload</div>
                     <div class="text">Dokumente</div>
                 </Link>
+                <Link class="menu-item" :href="route('dashboard.admin.media')" :class="{'active': is('dashboard.admin.media')}">
+                    <div class="icon" aria-hidden="true">folder_open</div>
+                    <div class="text">Media</div>
+                </Link>
                 <Link class="menu-item" :href="route('dashboard.admin.posts')" :class="{'active': is('dashboard.admin.posts')}">
                     <div class="icon" aria-hidden="true">post_add</div>
                     <div class="text">Posts</div>

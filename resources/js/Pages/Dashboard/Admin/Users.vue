@@ -16,7 +16,7 @@
             </div>
             
             <button class="row" v-for="user in users" :key="user.id" @click="openUser(user)">
-                <span v-if="user.name">{{user.name}}</span>
+                <span v-if="user.display_name">{{user.display_name}}</span>
                 <i v-else>Kein Name angegeben</i>
 
                 <span>{{user.email}}</span>
