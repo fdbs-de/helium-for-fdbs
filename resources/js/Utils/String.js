@@ -21,3 +21,14 @@ export function firstname(string)
 {
     return string.split(' ')[0]
 }
+
+export function lastname(string)
+{
+    return string.split(' ').slice(-1)[0]
+}
+
+export function fileSize(size)
+{
+    var i = size == 0 ? 0 : Math.floor(Math.log(size) / Math.log(1024));
+    return (size / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i];
+}

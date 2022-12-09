@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Classes\MediaLibrary\Directory;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Media\CreateMediaRequest;
 use App\Models\Media;
@@ -14,8 +15,13 @@ class MediaController extends Controller
 {
     public function indexAdmin()
     {
+        $rootPath = ['public', 'media'];
+
+        $directory = new Directory(implode('/', $rootPath));
+
         return Inertia::render('Dashboard/Admin/Media', [
             'media' => Media::all(),
+            'items' => $directory->jsonSerialize(),
         ]);
     }
 

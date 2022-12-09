@@ -19,10 +19,6 @@ class Media extends Model
         'description',
     ];
 
-    protected $appends = [
-        'url',
-    ];
-
 
 
     public function getUrlAttribute()

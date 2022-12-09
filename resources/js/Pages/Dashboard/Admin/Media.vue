@@ -2,21 +2,32 @@
     <Head title="Media Library" />
 
     <DashboardSubLayout title="Media Library" area="Adminbereich">
-        <template #head>
-            <div class="flex gap-1 v-center wrap flex-1">
-                <mui-input class="search-input" type="search" no-border placeholder="Suchen" icon-left="search" v-model="searchName" @input="throttledFetch"/>
-                
-                <div class="spacer"></div>
-
-                <input type="file" multiple @input="uploadFiles($event.target.files)">
-            </div>
-
+        <div class="flex v-center background-soft padding-1 gap-1 radius-l">
+            <mui-input class="search-input" type="search" no-border placeholder="Suchen" icon-left="search" v-model="searchName" @input="throttledFetch"/>
+            
+            <div class="spacer"></div>
+            
+            <mui-button variant="filled" color="primary" label="Grid" @click="layout = 'grid'" />
+            <mui-button variant="filled" color="primary" label="Liste" @click="layout = 'list'" />
+            <mui-toggle type="switch" label="Vorschau" v-model="isPreview" />
+            
             <Loader class="loader" v-show="loading" />
-        </template>
-
-        <div class="grid">
-            <img v-for="item in media" :key="item.id" :src="item.url" :alt="item.alt">
         </div>
+
+        <div class="flex v-center background-soft padding-1 gap-1 radius-l margin-top-1">
+            <input type="file" multiple @input="uploadFiles($event.target.files)">
+        </div>
+        
+        <div class="grid">
+            <DirectoryItem v-for="item in items" :key="item.path" :item="item" :layout="layout" :enable-preview="isPreview"/>
+        </div>
+
+        <div class="flex v-center gap-1 border-top padding-top-1 margin-top-1">
+            <small><b>{{items.filter(i => i.mime !== 'folder').length}}</b> Dateien</small>
+            <small><b>{{fileSize(items.reduce((a, b) => a + b.size, 0))}}</b> gesamt</small>
+        </div>
+        
+        <!-- {{JSON.stringify(items)}} -->
     </DashboardSubLayout>
 
 
@@ -38,11 +49,13 @@
     import Popup from '@/Components/Form/Popup.vue'
     import Loader from '@/Components/Form/Loader.vue'
     import { ref, watch, computed } from 'vue'
+    import { fileSize } from '@/Utils/String'
+    import DirectoryItem from '@/Components/Form/MediaLibrary/DirectoryItem.vue'
 
 
 
     const props = defineProps({
-        media: Array,
+        items: Object,
     })
 
 
@@ -56,6 +69,10 @@
     const searchCategory = ref('')
     const searchGroup = ref('all')
     const documents = ref([])
+    
+    // View Parameters
+    const layout = ref('grid')
+    const isPreview = ref(false)
 
 
 
@@ -130,7 +147,7 @@
 
     .grid
         display: grid
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr))
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr))
         gap: 1rem
         width: 100%
         padding: 1rem 0
