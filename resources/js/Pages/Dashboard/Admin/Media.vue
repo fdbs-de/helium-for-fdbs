@@ -2,32 +2,54 @@
     <Head title="Media Library" />
 
     <DashboardSubLayout title="Media Library" area="Adminbereich">
-        <div class="flex v-center background-soft padding-1 gap-1 radius-l">
-            <mui-input class="search-input" type="search" no-border placeholder="Suchen" icon-left="search" v-model="searchName" @input="throttledFetch"/>
+        <div class="flex v-center gap-1">
+            <VDropdown placement="bottom-start">
+                <mui-button icon-left="upload" label="Neu"/>
+                <template #popper>
+                    <div class="flex padding-1 vertical">
+                        <mui-button class="dropdown-button" variant="text" label="Neue Datei" icon-left="upload" as="label" for="file-upload"/>
+                        <input type="file" id="file-upload" style="display: none" multiple @input="uploadFiles($event.target.files)">
+
+                        <mui-button class="dropdown-button" variant="text" label="Neuer Ordner" icon-left="create_new_folder" @click="storeDirectory()"/>
+                    </div>
+                </template>
+            </VDropdown>
             
+            <Breadcrumbs :path="workPath" :base-paths="basePaths" @open="openDirectory($event)"/>
+
             <div class="spacer"></div>
-            
-            <mui-button variant="filled" color="primary" label="Grid" @click="layout = 'grid'" />
-            <mui-button variant="filled" color="primary" label="Liste" @click="layout = 'list'" />
-            <mui-toggle type="switch" label="Vorschau" v-model="isPreview" />
+
+            <div class="flex v-center">
+                <button class="icon-button">search</button>
+                <VDropdown placement="bottom-end">
+                    <button class="icon-button">settings</button>
+                    <template #popper>
+                        <div class="flex padding-1 vertical">
+                            <mui-toggle type="switch" prepend-label="Bildvorschau" v-model="isPreview" />
+                        </div>
+                    </template>
+                </VDropdown>
+            </div>
+
+            <div class="view-switcher">
+                <button class="icon-button" @click="layout = 'list'" :class="{'active': layout === 'list'}">view_list</button>
+                <button class="icon-button" @click="layout = 'grid'" :class="{'active': layout === 'grid'}">grid_view</button>
+                <button class="icon-button" @click="layout = 'icon'" :class="{'active': layout === 'icon'}">grid_on</button>
+            </div>
             
             <Loader class="loader" v-show="loading" />
         </div>
-
-        <div class="flex v-center background-soft padding-1 gap-1 radius-l margin-top-1">
-            <input type="file" multiple @input="uploadFiles($event.target.files)">
-        </div>
         
         <div class="grid">
-            <DirectoryItem v-for="item in items" :key="item.path" :item="item" :layout="layout" :enable-preview="isPreview"/>
+            <DirectoryItem v-for="item in items" :key="item.path" :item="item" :layout="layout" :enable-preview="isPreview" @open="openItem(item)"/>
         </div>
 
         <div class="flex v-center gap-1 border-top padding-top-1 margin-top-1">
             <small><b>{{items.filter(i => i.mime !== 'folder').length}}</b> Dateien</small>
             <small><b>{{fileSize(items.reduce((a, b) => a + b.size, 0))}}</b> gesamt</small>
+
+            <div class="spacer"></div>
         </div>
-        
-        <!-- {{JSON.stringify(items)}} -->
     </DashboardSubLayout>
 
 
@@ -44,19 +66,51 @@
 </template>
 
 <script setup>
-    import DashboardSubLayout from '@/Layouts/SubLayouts/Dashboard.vue'
     import { Head, Link, useForm } from '@inertiajs/inertia-vue3'
-    import Popup from '@/Components/Form/Popup.vue'
-    import Loader from '@/Components/Form/Loader.vue'
     import { ref, watch, computed } from 'vue'
     import { fileSize } from '@/Utils/String'
+    
+    import DashboardSubLayout from '@/Layouts/SubLayouts/Dashboard.vue'
     import DirectoryItem from '@/Components/Form/MediaLibrary/DirectoryItem.vue'
+    import Breadcrumbs from '@/Components/Form/MediaLibrary/Breadcrumbs.vue'
+    import Popup from '@/Components/Form/Popup.vue'
+    import Loader from '@/Components/Form/Loader.vue'
 
 
 
-    const props = defineProps({
-        items: Object,
-    })
+    // START: Folder Navigation
+    const basePaths = ref([
+        {path: 'public/media', label: 'Öffentlich', icon: 'public', default: true},
+        {path: 'private/media', label: 'Privat', icon: 'lock', default: false},
+    ])
+
+    const workPath = ref(basePaths.value.find(p => p.default).path)
+
+
+
+    const startsWithBasePath = (path) => {
+        return basePaths.value.some(p => path.startsWith(p.path))
+    }
+
+    const openItem = (item) => {
+        if (item.mime === 'folder') return openDirectory(item.path)
+        if (item.mime !== 'folder') return openFile(item)
+    }
+
+    const openDirectory = (path) => {
+        // Block invalid paths
+        if (!startsWithBasePath(path)) return
+
+        workPath.value = path
+
+        // Load new directory
+        throttledFetch()
+    }
+
+    const openFile = (item) => {
+        console.log('open file', item)
+    }
+    // END: Folder Navigation
 
 
 
@@ -65,10 +119,7 @@
 
     // Search parameters
     const loading = ref(false)
-    const searchName = ref('')
-    const searchCategory = ref('')
-    const searchGroup = ref('all')
-    const documents = ref([])
+    const items = ref([])
     
     // View Parameters
     const layout = ref('grid')
@@ -81,17 +132,15 @@
 
         try
         {
-            let response = await axios.get(route('dashboard.admin.docs.search', {
-                name: searchName.value,
-                category: searchCategory.value,
-                group: searchGroup.value,
+            let response = await axios.get(route('dashboard.admin.media.search', {
+                path: workPath.value,
             }))
 
-            documents.value = response.data
+            items.value = response.data
         }
         catch (error)
         {
-            console.log(error.response)
+            console.log(error)
         }
         
         loading.value = false
@@ -101,6 +150,7 @@
 
     const uploadForm = useForm({
         files: null,
+        path: null,
     })
 
 
@@ -109,9 +159,20 @@
         if (files.length <= 0) return
         
         uploadForm.files = files
+        uploadForm.path = workPath.value
 
         uploadForm.post(route('dashboard.admin.media.store'), {
             forceFormData: true,
+            onSuccess() {
+                throttledFetch()
+            },
+        })
+    }
+
+    const storeDirectory = () => {
+        useForm({
+            path: workPath.value + '/' + 'test',
+        }).post(route('dashboard.admin.media.store.directory'), {
             onSuccess() {
                 throttledFetch()
             },
@@ -150,7 +211,7 @@
         grid-template-columns: repeat(auto-fill, minmax(180px, 1fr))
         gap: 1rem
         width: 100%
-        padding: 1rem 0
+        padding: 2rem 0
 
         img
             width: 100%
@@ -158,4 +219,35 @@
             object-fit: contain
             border-radius: var(--radius-m)
             background-color: var(--color-background-soft)
+
+    .view-switcher
+        display: flex
+        user-select: none
+        background: var(--color-background-soft)
+        border-radius: var(--radius-m)
+        overflow: hidden
+        
+    .icon-button
+        display: flex
+        align-items: center
+        justify-content: center
+        width: 3rem
+        height: 2.5rem
+        border-radius: 0
+        cursor: pointer
+        transition: all 100ms ease
+        border: none
+        outline: none
+        background-color: transparent
+        font-family: var(--font-icon)
+        font-size: 1.3rem
+        color: var(--color-text)
+        padding: 0
+
+        &:hover
+            color: var(--color-heading)
+
+        &.active
+            color: var(--color-primary)
+            background-color: #0000000f
 </style>

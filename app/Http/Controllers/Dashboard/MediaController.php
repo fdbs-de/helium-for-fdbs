@@ -13,16 +13,18 @@ use Inertia\Inertia;
 
 class MediaController extends Controller
 {
-    public function indexAdmin()
+    public function index()
     {
-        $rootPath = ['public', 'media'];
+        return Inertia::render('Dashboard/Admin/Media');
+    }
 
-        $directory = new Directory(implode('/', $rootPath));
 
-        return Inertia::render('Dashboard/Admin/Media', [
-            'media' => Media::all(),
-            'items' => $directory->jsonSerialize(),
-        ]);
+
+    public function search(Request $request)
+    {
+        $directory = new Directory($request->path);
+
+        return response()->json($directory->jsonSerialize());
     }
 
 
@@ -34,7 +36,7 @@ class MediaController extends Controller
         foreach ($files as $file) {
             $filename = Str::lower(Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $file->getClientOriginalExtension());
             
-            $path = Storage::putFileAs('public/media', $file, $filename);
+            $path = Storage::putFileAs($request->path, $file, $filename);
 
             // Get the MIME type of the file
             $mediatype = $file->getMimeType();
@@ -42,6 +44,15 @@ class MediaController extends Controller
             // save to database
             Media::create(array_merge($request->validated(), ['path' => $path, 'mediatype' => $mediatype]));
         }
+
+        return back();
+    }
+
+
+
+    public function storeDirectory(Request $request)
+    {
+        Storage::makeDirectory($request->path);
 
         return back();
     }

@@ -162,6 +162,7 @@
         width: 100%
         height: 4.5rem
         z-index: 1000
+        font-family: var(--font-interface)
 
         &.collapsed
             .logo
@@ -309,6 +310,7 @@
         border-bottom: 1px solid rgba(0, 0, 0, 0.1)
         position: relative
         margin-top: 4.5rem
+        font-family: var(--font-interface)
 
         .menu
             width: 300px
@@ -403,6 +405,7 @@
 
         .content
             flex: 1
+            font-family: var(--font-interface)
 
 
 

@@ -49,8 +49,14 @@ Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () 
         Route::put('/dokumente/{document}', [DocumentController::class, 'update'])->name('dashboard.admin.docs.update');
         Route::delete('/dokumente/{document}', [DocumentController::class, 'delete'])->name('dashboard.admin.docs.delete');
         
-        Route::get('/media', [MediaController::class, 'indexAdmin'])->name('dashboard.admin.media');
+        Route::get('/media', [MediaController::class, 'index'])->name('dashboard.admin.media');
+        Route::get('/media/search', [MediaController::class, 'search'])->name('dashboard.admin.media.search');
         Route::post('/media', [MediaController::class, 'store'])->name('dashboard.admin.media.store');
+        Route::put('/media/{media}', [MediaController::class, 'update'])->name('dashboard.admin.media.update');
+        Route::delete('/media/{media}', [MediaController::class, 'delete'])->name('dashboard.admin.media.delete');
+        Route::post('/media/directory', [MediaController::class, 'storeDirectory'])->name('dashboard.admin.media.store.directory');
+        Route::put('/media/directory', [MediaController::class, 'renameDirectory'])->name('dashboard.admin.media.rename.directory');
+        Route::delete('/media/directory', [MediaController::class, 'deleteDirectory'])->name('dashboard.admin.media.delete.directory');
 
         Route::get('/posts', [PostController::class, 'index'])->name('dashboard.admin.posts');
         Route::post('/posts', [PostController::class, 'store'])->name('dashboard.admin.posts.store');

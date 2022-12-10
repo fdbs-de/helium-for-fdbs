@@ -1,7 +1,7 @@
 <template>
-    <div class="wrapper">
+    <div class="wrapper" @dblclick="$emit('open', path.path)">
         <div class="preview-area">
-            <div class="image-preview" v-show="mime.type === 'image' && enablePreview">
+            <div class="image-preview" v-if="mime.type === 'image'" v-show="enablePreview">
                 <img :src="item.url" />
             </div>
             <div class="icon" v-show="(mime.type !== 'image' || !enablePreview)" :style="`color: ${visual.color};`">{{ visual.icon }}</div>
@@ -10,11 +10,32 @@
             {{path.filename}}
         </div>
         <div class="info-area">
-            <div class="filesize" v-if="mime.type !== 'folder'">
-                <span>{{fileSize(item.size)}}</span>
+            <div class="file-info" v-if="mime.type !== 'folder'">
+                <span class="extension" :style="`color: ${visual.color};`">{{path.extension}}</span>
+                <span class="filesize">{{fileSize(item.size)}}</span>
             </div>
             <div class="spacer"></div>
-            <button>more_vert</button>
+            <VDropdown placement="bottom-end">
+                <button>more_vert</button>
+                <template #popper>
+                    <div class="dropdown">
+                        <template v-if="mime.type !== 'folder'">
+                            <mui-button class="dropdown-button" variant="text" label="Details" icon-left="visibility"/>
+                            <mui-button class="dropdown-button" variant="text" label="In neuem Tab öffnen" icon-left="open_in_new" as="a" target="_blank" :href="path.url"/>
+                        </template>
+                        
+                        <mui-button class="dropdown-button" variant="text" label="Pfad kopieren" icon-left="link" @click="copyToClipboard(item.url)"/>
+                        
+                        <template v-if="mime.type !== 'folder'">
+                            <mui-button class="dropdown-button" variant="text" label="Herunterladen" icon-left="download" as="a" target="_blank" :href="path.url" download/>
+                        </template>
+
+                        <mui-button class="dropdown-button" variant="text" label="Umbenennen" icon-left="edit"/>
+                        <div class="divider"></div>
+                        <mui-button class="dropdown-button" variant="text" color="error" label="Löschen" icon-left="delete"/>
+                    </div>
+                </template>
+            </VDropdown>
         </div>
     </div>
 </template>
@@ -62,8 +83,17 @@
             filename,
             extension,
             name,
+            url: new URL(props.item.url, window.location.origin).href,
         }
     })
+
+
+
+    // START: Copy to Clipboard
+    const copyToClipboard = (text) => {
+        navigator.clipboard.writeText(text)
+    }
+    // END: Copy to Clipboard
 </script>
 
 <style lang="sass" scoped>
@@ -149,11 +179,40 @@
             width: 100%
             padding: .5rem .5rem .5rem 1rem
 
-            .filesize
+            .file-info
                 display: flex
-                flex-direction: column
-                font-size: .8rem
-                font-family: monospace
+                align-items: center
+                gap: .5rem
+
+                .extension
+                    position: relative
+                    max-width: 3rem
+                    height: 1.2rem
+                    line-height: 1.2rem
+                    padding: 0 .3rem
+                    font-size: .7rem
+                    font-family: var(--font-heading)
+                    font-weight: 600
+                    text-transform: uppercase
+                    color: var(--color-heading)
+                    overflow: hidden
+                    text-overflow: ellipsis
+                    white-space: nowrap
+                    border-radius: var(--radius-s)
+
+                    &::after
+                        content: ''
+                        position: absolute
+                        top: 0
+                        left: 0
+                        width: 100%
+                        height: 100%
+                        background: currentColor
+                        opacity: .2
+                        border-radius: inherit
+
+                .filesize
+                    font-size: .8rem
 
             button
                 font-family: var(--font-icon)
@@ -172,4 +231,20 @@
                 &:hover
                     background: #00000010
                     color: var(--color-heading)
+
+    .dropdown
+        display: flex
+        flex-direction: column
+        padding-block: .5rem
+
+        .divider
+            height: 0
+            margin-block: .5rem
+            border-top: 1px solid var(--color-border)
+
+    .dropdown-button
+        height: 3rem !important
+        border-radius: 0 !important
+        justify-content: flex-start !important
+        --primary: var(--color-text) !important
 </style>

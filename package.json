@@ -38,6 +38,7 @@
         "@tiptap/starter-kit": "^2.0.0-beta.202",
         "@tiptap/vue-3": "^2.0.0-beta.202",
         "dayjs": "^1.11.3",
+        "floating-vue": "^2.0.0-beta.20",
         "focus-trap": "^6.9.4",
         "focus-trap-vue": "^3.3.0",
         "marketier-ui": "^2.0.2",
