@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper" @dblclick="$emit('open', path.path)">
+    <div class="wrapper" :class="{'selected': isSelected}">
         <div class="preview-area">
             <div class="image-preview" v-if="mime.type === 'image'" v-show="enablePreview">
                 <img :src="item.url" />
@@ -16,7 +16,7 @@
             </div>
             <div class="spacer"></div>
             <VDropdown placement="bottom-end">
-                <button>more_vert</button>
+                <button @click.stop>more_vert</button>
                 <template #popper>
                     <div class="dropdown">
                         <template v-if="mime.type !== 'folder'">
@@ -32,7 +32,7 @@
 
                         <mui-button class="dropdown-button" variant="text" label="Umbenennen" icon-left="edit"/>
                         <div class="divider"></div>
-                        <mui-button class="dropdown-button" variant="text" color="error" label="Löschen" icon-left="delete"/>
+                        <mui-button class="dropdown-button" variant="text" color="error" label="Löschen" icon-left="delete" @click="$emit('delete', item)"/>
                     </div>
                 </template>
             </VDropdown>
@@ -52,6 +52,10 @@
         enablePreview: {
             type: Boolean,
             default: false,
+        },
+        selection: {
+            type: Array,
+            default: () => [],
         },
     })
 
@@ -87,6 +91,10 @@
         }
     })
 
+    const isSelected = computed(() => {
+        return props.selection.includes(props.item.path)
+    })
+
 
 
     // START: Copy to Clipboard
@@ -104,6 +112,29 @@
         background: var(--color-background-soft)
         border-radius: var(--radius-m)
         user-select: none
+        cursor: pointer
+        position: relative
+
+        &::after
+            content: ''
+            box-sizing: border-box
+            position: absolute
+            top: 0
+            left: 0
+            width: 100%
+            height: 100%
+            border-radius: inherit
+            border: 1px solid transparent
+            pointer-events: none
+            transition: border-width 200ms ease-in-out
+
+        &:hover::after
+            border-color: var(--color-info)
+
+        &.selected::after
+            border-width: 3px
+            border-color: var(--color-info)
+            background: rgb(lightblue, .1)
 
         .preview-area
             aspect-ratio: 1

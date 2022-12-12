@@ -13,18 +13,23 @@ use Inertia\Inertia;
 
 class MediaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return Inertia::render('Dashboard/Admin/Media');
+        $path = $request->path ? urldecode($request->path) : 'public/media';
+        $directory = new Directory($path);
+        
+        return Inertia::render('Dashboard/Admin/Media', [
+            'items' => $directory->jsonSerialize(),
+            'path' => $path,
+        ]);
     }
 
 
 
-    public function search(Request $request)
+    public function search()
     {
-        $directory = new Directory($request->path);
 
-        return response()->json($directory->jsonSerialize());
+        return back();
     }
 
 
@@ -53,6 +58,36 @@ class MediaController extends Controller
     public function storeDirectory(Request $request)
     {
         Storage::makeDirectory($request->path);
+
+        return back();
+    }
+
+
+
+    public function delete(Request $request)
+    {
+        $paths = $request->paths;
+        
+        foreach ($paths as $path)
+        {
+            if (!Storage::exists($path)) continue;
+
+            $mime = Storage::mimeType($path);
+
+            if (!$mime)
+            {
+                // delete from storage
+                Storage::deleteDirectory($path);
+            }
+            else
+            {
+                // delete from storage
+                Storage::delete($path);
+
+                // delete from database
+                Media::where('path', $path)->delete();
+            }
+        }
 
         return back();
     }

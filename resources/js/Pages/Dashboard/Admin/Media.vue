@@ -3,26 +3,15 @@
 
     <DashboardSubLayout title="Media Library" area="Adminbereich">
         <div class="flex v-center gap-1">
-            <VDropdown placement="bottom-start">
-                <mui-button icon-left="upload" label="Neu"/>
-                <template #popper>
-                    <div class="flex padding-1 vertical">
-                        <mui-button class="dropdown-button" variant="text" label="Neue Datei" icon-left="upload" as="label" for="file-upload"/>
-                        <input type="file" id="file-upload" style="display: none" multiple @input="uploadFiles($event.target.files)">
-
-                        <mui-button class="dropdown-button" variant="text" label="Neuer Ordner" icon-left="create_new_folder" @click="storeDirectory()"/>
-                    </div>
-                </template>
-            </VDropdown>
-            
-            <Breadcrumbs :path="workPath" :base-paths="basePaths" @open="openDirectory($event)"/>
+            <Actions v-show="selection.length >= 1" :selection="selection" @deselect="deselectAll()" @delete="$refs.deletePopup.open()" />
+            <Breadcrumbs v-show="selection.length <= 0" :path="path" :base-paths="basePaths" @open="openDirectory($event)"/>
 
             <div class="spacer"></div>
 
             <div class="flex v-center">
-                <button class="icon-button">search</button>
+                <button class="icon-button" aria-hidden="true" v-tooltip="'In Dateien suchen'">search</button>
                 <VDropdown placement="bottom-end">
-                    <button class="icon-button">settings</button>
+                    <button class="icon-button" v-tooltip="'Ansichtseinstellungen'">settings</button>
                     <template #popper>
                         <div class="flex padding-1 vertical">
                             <mui-toggle type="switch" prepend-label="Bildvorschau" v-model="isPreview" />
@@ -32,16 +21,39 @@
             </div>
 
             <div class="view-switcher">
-                <button class="icon-button" @click="layout = 'list'" :class="{'active': layout === 'list'}">view_list</button>
-                <button class="icon-button" @click="layout = 'grid'" :class="{'active': layout === 'grid'}">grid_view</button>
-                <button class="icon-button" @click="layout = 'icon'" :class="{'active': layout === 'icon'}">grid_on</button>
+                <button class="icon-button" @click="layout = 'list'" :class="{'active': layout === 'list'}" v-tooltip="'Listenansicht'">view_list</button>
+                <button class="icon-button" @click="layout = 'grid'" :class="{'active': layout === 'grid'}" v-tooltip="'Kachelansicht'">grid_view</button>
+                <button class="icon-button" @click="layout = 'icon'" :class="{'active': layout === 'icon'}" v-tooltip="'Iconansicht'">grid_on</button>
             </div>
-            
-            <Loader class="loader" v-show="loading" />
         </div>
+
+        <template #fab>
+            <VDropdown placement="top-end">
+                <button class="fab" aria-hidden="true" title="Neu...">add</button>
+                <template #popper>
+                    <div class="flex padding-1 vertical">
+                        <mui-button class="dropdown-button" variant="text" label="Neue Dateien" icon-left="upload" as="label" for="file-upload"/>
+                        <input type="file" id="file-upload" style="display: none" multiple @input="uploadFiles($event.target.files, path)">
+
+                        <mui-button class="dropdown-button" variant="text" label="Neuer Ordner" icon-left="create_new_folder" @click="storeDirectory(path)"/>
+                    </div>
+                </template>
+            </VDropdown>
+        </template>
         
         <div class="grid">
-            <DirectoryItem v-for="item in items" :key="item.path" :item="item" :layout="layout" :enable-preview="isPreview" @open="openItem(item)"/>
+            <DirectoryItem
+                v-for="item in items"
+                :key="item.path"
+                :item="item"
+                :layout="layout"
+                :enable-preview="isPreview"
+                :selection="selection"
+                @dblclick.exact="openItem(item)"
+                @click.exact="setSelection(item)"
+                @click.ctrl="toggleSelection(item)"
+                @delete="deleteItem(item)"
+                />
         </div>
 
         <div class="flex v-center gap-1 border-top padding-top-1 margin-top-1">
@@ -54,27 +66,42 @@
 
 
 
-    <!-- <Popup ref="deleteDocumentPopup" title="Dokument löschen?">
-        <form class="confirm-popup-wrapper" @submit.prevent="deleteDocument">
-            <p>Möchten Sie das Dokument "<b>{{documentForm.name}}</b>" entgültig löschen?</p>
+    <Popup ref="deletePopup" title="Elemente löschen?">
+        <form class="confirm-popup-wrapper" @submit.prevent="deleteItems">
+            <p>Möchten Sie wirklich <b>{{selection.length}} Elemente</b> entgültig löschen?</p>
             <div class="confirm-popup-footer">
-                <mui-button variant="contained" label="Abbrechen" @click="$refs.deleteDocumentPopup.close()"/>
+                <mui-button type="button" variant="contained" label="Abbrechen" @click="$refs.deletePopup.close()"/>
                 <mui-button type="submit" variant="filled" color="error" label="Entgültig löschen"/>
             </div>
         </form>
-    </Popup> -->
+    </Popup>
 </template>
 
 <script setup>
-    import { Head, Link, useForm } from '@inertiajs/inertia-vue3'
+    import { Head, Link, useForm, usePage } from '@inertiajs/inertia-vue3'
     import { ref, watch, computed } from 'vue'
+    import { Inertia } from '@inertiajs/inertia'
     import { fileSize } from '@/Utils/String'
     
     import DashboardSubLayout from '@/Layouts/SubLayouts/Dashboard.vue'
     import DirectoryItem from '@/Components/Form/MediaLibrary/DirectoryItem.vue'
     import Breadcrumbs from '@/Components/Form/MediaLibrary/Breadcrumbs.vue'
+    import Actions from '@/Components/Form/MediaLibrary/Actions.vue'
     import Popup from '@/Components/Form/Popup.vue'
-    import Loader from '@/Components/Form/Loader.vue'
+
+
+
+    const { items, path } = defineProps({
+        items: Array,
+        path: String,
+    })
+
+
+
+    // START: View Parameters
+    const layout = ref('grid')
+    const isPreview = ref(false)
+    // END: View Parameters
 
 
 
@@ -83,8 +110,6 @@
         {path: 'public/media', label: 'Öffentlich', icon: 'public', default: true},
         {path: 'private/media', label: 'Privat', icon: 'lock', default: false},
     ])
-
-    const workPath = ref(basePaths.value.find(p => p.default).path)
 
 
 
@@ -101,10 +126,14 @@
         // Block invalid paths
         if (!startsWithBasePath(path)) return
 
-        workPath.value = path
-
-        // Load new directory
-        throttledFetch()
+        Inertia.visit(route('dashboard.admin.media', { path: encodeURIComponent(path) }), {
+            preserveState: true,
+            preserveScroll: true,
+            onSuccess() {
+                // Reset selection
+                deselectAll()
+            },
+        })
     }
 
     const openFile = (item) => {
@@ -114,89 +143,87 @@
 
 
 
-    const uploadDocumentPopup = ref(null)
-    const deleteDocumentPopup = ref(null)
-
-    // Search parameters
-    const loading = ref(false)
-    const items = ref([])
-    
-    // View Parameters
-    const layout = ref('grid')
-    const isPreview = ref(false)
-
-
-
-    const fetch = async () => {
-        loading.value = true
-
-        try
-        {
-            let response = await axios.get(route('dashboard.admin.media.search', {
-                path: workPath.value,
-            }))
-
-            items.value = response.data
-        }
-        catch (error)
-        {
-            console.log(error)
-        }
-        
-        loading.value = false
-    }
-
-
-
+    // START: Upload Document
     const uploadForm = useForm({
         files: null,
         path: null,
     })
 
-
-
-    const uploadFiles = (files) => {
+    const uploadFiles = (files, path) => {
         if (files.length <= 0) return
         
         uploadForm.files = files
-        uploadForm.path = workPath.value
+        uploadForm.path = path
 
         uploadForm.post(route('dashboard.admin.media.store'), {
             forceFormData: true,
             onSuccess() {
-                throttledFetch()
+                uploadForm.reset()
             },
         })
     }
+    // END: Upload Document
 
-    const storeDirectory = () => {
+
+
+    // START: Create Directory
+    const storeDirectory = (path) => {
         useForm({
-            path: workPath.value + '/' + 'test',
-        }).post(route('dashboard.admin.media.store.directory'), {
+            path: path + '/' + 'test',
+        }).post(route('dashboard.admin.media.store.directory'))
+    }
+    // END: Create Directory
+
+
+
+    // START: Selection
+    const selection = ref([])
+
+    const toggleSelection = (item) => {
+        if (selection.value.includes(item.path))
+        {
+            selection.value = selection.value.filter(p => p !== item.path)
+        }
+        else
+        {
+            selection.value.push(item.path)
+        }
+    }
+
+    const setSelection = (item) => {
+        selection.value = [item.path]
+    }
+
+    const selectAll = () => {
+        selection.value = items.map(i => i.path)
+    }
+
+    const deselectAll = () => {
+        selection.value = []
+    }
+    // END: Selection
+
+
+
+    // START: Delete Item
+    const deletePopup = ref(null)
+
+    const deleteItem = (item) => {
+        setSelection(item)
+        deletePopup.value.open()
+    }
+    
+    const deleteItems = () => {
+        useForm({
+            paths: selection.value,
+        }).delete(route('dashboard.admin.media.delete'), {
             onSuccess() {
-                throttledFetch()
+                deletePopup.value.close()
+                deselectAll()
             },
         })
     }
-
-    // const deleteDocument = () => {
-    //     documentForm.delete(route('dashboard.admin.media.delete', documentForm.id), {
-    //         onSuccess() {
-    //             closeUploadDocumentPopup()
-    //             deleteDocumentPopup.value.close()
-    //             throttledFetch()
-    //         },
-    //     })
-    // }
-
-
-
-    //////////////
-    // On Mount //
-    //////////////
-
-    const throttledFetch = _.throttle(fetch, 300)
-    fetch()
+    // END: Delete Item
 </script>
 
 <style lang="sass" scoped>
@@ -205,6 +232,23 @@
         bottom: -2px
         height: 2px
         left: 0
+
+    .fab
+        height: 4rem
+        width: 4rem
+        border: none
+        background: var(--color-primary)
+        border-radius: 50%
+        box-shadow: var(--shadow-elevation-medium)
+        display: flex
+        align-items: center
+        justify-content: center
+        cursor: pointer
+        user-select: none
+        font-family: var(--font-icon)
+        font-size: 2rem
+        color: white
+
 
     .grid
         display: grid
@@ -248,6 +292,6 @@
             color: var(--color-heading)
 
         &.active
-            color: var(--color-primary)
+            color: black
             background-color: #0000000f
 </style>

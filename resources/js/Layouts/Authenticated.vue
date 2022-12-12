@@ -3,10 +3,7 @@
     <div class="header" :class="{'collapsed': isCollapsed, 'open': isOpen}">
         <div class="logo">
             <Link class="logo-link" :href="route('home')">
-                <div class="icon">
-                    <img src="/images/branding/icon_white_dashboard.svg" alt="FDBS Icon">
-                </div>
-                <div class="text">Loginbereich</div>
+                <img src="/images/branding/logo_sloganless.svg" alt="FDBS Logo">
             </Link>
             <!-- <button class="toggle-collaps" :title="isCollapsed ? 'Menü ausklappen' : 'Menü einklappen'" @click="isCollapsed = !isCollapsed">
                 <div class="icon" :class="{'collapsed': isCollapsed}" aria-hidden="true">chevron_left</div>
@@ -160,9 +157,11 @@
         top: 0
         left: 0
         width: 100%
-        height: 4.5rem
+        height: 3.5rem
         z-index: 1000
         font-family: var(--font-interface)
+        box-shadow: var(--shadow-elevation-low)
+        background: var(--color-background)
 
         &.collapsed
             .logo
@@ -174,8 +173,7 @@
             width: 300px
             display: flex
             align-items: center
-            background: var(--color-primary)
-            color: white
+            color: var(--color-heading)
             user-select: none
             position: relative
             z-index: 1
@@ -183,28 +181,16 @@
             transition: width 200ms cubic-bezier(0.22, 0.61, 0.36, 1)
 
             .logo-link
-                width: 100%
                 height: 100%
+                padding: .75rem
                 display: flex
                 align-items: center
                 color: inherit
                 overflow: hidden
 
-                .icon
+                img
                     height: 100%
-                    aspect-ratio: 1/1
-                    display: flex
-                    align-items: center
-                    justify-content: center
-
-                    img
-                        height: 1.75rem
-                        aspect-ratio: 1/1
-                        object-fit: contain
-
-                .text
-                    font-family: var(--font-heading)
-                    font-weight: 600
+                    object-fit: contain
 
             .toggle-collaps
                 cursor: pointer
@@ -240,9 +226,6 @@
             flex: 1
             display: flex
             align-items: center
-            background: #eeeeeedd
-            backdrop-filter: blur(14px)
-            border-bottom: 1px solid #ffffff99
 
             .limiter
                 display: flex
@@ -268,13 +251,13 @@
                 gap: 1rem
                 user-select: none
                 font-family: var(--font-heading)
-                font-size: 1.2rem
+                font-size: 1rem
 
                 .chevron
                     font-family: var(--font-icon)
 
                 .main
-                    color: var(--color-primary)
+                    color: var(--color-heading)
                     font-weight: 600
 
             .toggle-open
@@ -309,14 +292,13 @@
         min-height: 100vh
         border-bottom: 1px solid rgba(0, 0, 0, 0.1)
         position: relative
-        margin-top: 4.5rem
+        margin-top: 3.5rem
         font-family: var(--font-interface)
 
         .menu
             width: 300px
-            background: #eeeeeedd
-            backdrop-filter: blur(14px)
-            border-right: 1px solid #ffffff99
+            background: var(--color-background)
+            box-shadow: var(--shadow-elevation-low)
             display: flex
             flex-direction: column
             gap: 2rem
@@ -339,7 +321,7 @@
             .menu-group
                 display: flex
                 flex-direction: column
-                color: var(--color-heading)
+                gap: 2px
 
                 .group-label
                     height: 2rem
@@ -348,12 +330,9 @@
                     overflow: hidden
                     text-overflow: ellipsis
                     padding: 0 1rem
-                    margin-bottom: 1rem
-                    border-bottom: 1px solid rgba(0, 0, 0, 0.1)
-                    color: var(--color-heading)
-                    letter-spacing: .5px
-                    text-transform: uppercase
-                    font-size: .8rem
+                    margin-bottom: .5rem
+                    border-bottom: 1px solid var(--color-border)
+                    font-size: .9rem
                     font-weight: 600
                     will-change: height
                     transition: height 200ms cubic-bezier(0.22, 0.61, 0.36, 1)
@@ -365,24 +344,21 @@
                 user-select: none
                 cursor: pointer
                 position: relative
-                color: var(--color-heading)
+                color: var(--color-text)
 
                 &::before
                     content: ''
                     position: absolute
                     top: 0
-                    left: 0
-                    width: calc(100% - .5rem)
+                    left: .5rem
+                    width: calc(100% - 1rem)
                     height: 100%
-                    border-radius: 0 3rem 3rem 0
-                    background: #ffffff00
+                    border-radius: var(--radius-m)
+                    background: var(--color-background)
 
-                &:hover,
-                &.active
-                    color: var(--color-primary)
-
-                    &::before
-                        background: #ffffff99
+                &:hover::before,
+                &.active::before
+                    background: var(--color-background-soft)
 
                 .icon
                     width: 4.5rem
@@ -395,12 +371,16 @@
                     line-height: 1
                     font-family: var(--font-icon)
                     position: relative
+                    opacity: .9
 
                 .text
                     position: relative
                     overflow: hidden
                     text-overflow: ellipsis
                     white-space: nowrap
+                    font-weight: 500
+                    font-size: .9rem
+                    color: var(--color-heading)
                     transition: all 200ms cubic-bezier(0.22, 0.61, 0.36, 1)
 
         .content
@@ -462,8 +442,4 @@
 
                 &.open
                     transform: translateX(0)
-
-                .menu-item::before
-                    width: 100%
-                    border-radius: 0
 </style>

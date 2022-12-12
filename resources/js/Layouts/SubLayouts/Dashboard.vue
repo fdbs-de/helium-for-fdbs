@@ -7,6 +7,10 @@
                         <slot name="head"/>
                     </div>
                     <slot />
+
+                    <div class="fab" v-if="$slots.fab">
+                        <slot name="fab" />
+                    </div>
                 </div>
             </div>
         </section>
@@ -70,6 +74,12 @@
                     &.active
                         background: var(--color-primary)
                         color: var(--color-background)
+
+        .fab
+            position: fixed
+            bottom: 3rem
+            right: 3rem
+            z-index: 1000
 
     @media only screen and (max-width: 900px)
         #content-section

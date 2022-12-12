@@ -1,21 +1,21 @@
 <template>
     <div class="breadcrumbs">
         <div class="root-crumb">
+            <button class="breadcrumb root-button" @click="$emit('open', basePath.path)">
+                <div class="icon">{{basePath.icon}}</div>
+                <div class="label">{{basePath.label}}</div>
+            </button>
             <VDropdown placement="bottom-end">
-                <button class="breadcrumb root">
+                <button class="breadcrumb root-chevron" v-tooltip="'Stammordner wechseln'">
                     <div class="icon">expand_more</div>
                 </button>
                 <template #popper>
-                    <div class="flex padding-1 vertical">
+                    <div class="flex padding-block-1 vertical">
                         <mui-button class="dropdown-button" variant="text" label="Öffentlich" icon-left="public" @click="$emit('open', 'public/media')"/>
                         <mui-button class="dropdown-button" variant="text" label="Privat" icon-left="lock" @click="$emit('open', 'private/media')"/>
                     </div>
                 </template>
             </VDropdown>
-            <button class="breadcrumb root" @click="$emit('open', basePath.path)">
-                <div class="icon">{{basePath.icon}}</div>
-                <div class="label">{{basePath.label}}</div>
-            </button>
         </div>
         
         <button class="breadcrumb chevron" v-for="breadcrumb in breadcrumbs" :key="breadcrumb.path" @click="$emit('open', breadcrumb.path)">
@@ -47,7 +47,7 @@
 
 
     const basePath = computed(() => {
-        return props.basePaths.find(p => props.path.startsWith(p.path))
+        return props.basePaths.find(p => props.path.startsWith(p.path)) || {path: '', label: '', icon: ''}
     })
 
     const breadcrumbs = computed(() => {
@@ -69,8 +69,6 @@
 
             acc.push({path, label: currentCrumb})
 
-            console.log(path)
-
             return acc
         }, [])
 
@@ -81,44 +79,60 @@
     .breadcrumbs
         display: flex
         align-items: center
-        gap: 1rem
+        gap: 2rem
+        user-select: none
 
         .root-crumb
             display: flex
             align-items: center
 
         .breadcrumb
-            height: 2rem
+            height: 2.5rem
             background: transparent
             border: none
             display: flex
             gap: .5rem
-            padding: 0 .5rem
-            border-radius: var(--radius-s)
+            padding: 0 1rem
+            border-radius: var(--radius-m)
             align-items: center
             margin: 0
             cursor: pointer
-            font-size: .8rem
+            font-size: .9rem
             color: var(--color-text)
             font-family: inherit
             position: relative
+            border: 1px solid var(--color-background-soft)
 
             .icon
                 font-family: var(--font-icon)
                 font-size: 1.25rem
 
             &:hover
-                color: var(--color-primary)
+                color: var(--color-heading)
                 background: var(--color-background-soft)
 
             &.chevron::after
-                content: 'chevron_right'
+                content: '/'
                 position: absolute
                 top: 50%
-                left: -.5rem
-                color: var(--color-text)
+                left: -1rem
+                color: #00000070
                 transform: translate(-50%, -50%)
                 user-select: none
                 pointer-events: none
-                font-family: var(--font-icon)
+
+            &.root-button,
+            &.root-chevron
+                background: var(--color-background-soft)
+
+            &.root-chevron
+                padding: 0 .25rem
+                border-left: 1px solid var(--color-border)
+                border-top-left-radius: 0
+                border-bottom-left-radius: 0
+
+            &.root-button
+                width: 130px
+                border-top-right-radius: 0
+                border-bottom-right-radius: 0
 </style>
