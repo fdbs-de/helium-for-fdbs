@@ -70,6 +70,7 @@
         display: flex
         flex-direction: column
         background: var(--color-background)
+        box-shadow: var(--shadow-elevation-low)
         border-radius: var(--radius-l)
 
         .header
@@ -78,7 +79,7 @@
             flex-wrap: wrap
             padding: 1rem
             gap: 1rem
-            background: var(--color-background-soft)
+            border-bottom: 1px solid var(--color-border)
             border-top-left-radius: inherit
             border-top-right-radius: inherit
 
@@ -105,13 +106,13 @@
                 display: flex
                 height: 1.75rem
                 border-radius: var(--radius-s)
-                background: var(--color-background)
+                background: var(--color-background-soft)
                 align-items: stretch
 
                 > button
                     padding: 0 1rem
                     border: none
-                    background: var(--color-background)
+                    background: var(--color-background-soft)
                     color: var(--color-text)
                     font-family: var(--font-heading)
                     font-size: 0.9rem

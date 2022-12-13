@@ -37,6 +37,7 @@
     .welcome-wrapper
         margin-bottom: 2rem
         padding: 2rem
+        background: var(--color-background)
         box-shadow: var(--shadow-elevation-low)
         border-radius: var(--radius-xl)
 

@@ -109,7 +109,8 @@
         display: flex
         flex-direction: column
         align-items: center
-        background: var(--color-background-soft)
+        background: var(--color-background)
+        box-shadow: var(--shadow-elevation-low)
         border-radius: var(--radius-m)
         user-select: none
         cursor: pointer

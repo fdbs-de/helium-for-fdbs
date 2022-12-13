@@ -10,7 +10,7 @@
                     <div class="icon">expand_more</div>
                 </button>
                 <template #popper>
-                    <div class="flex padding-block-1 vertical">
+                    <div class="flex padding-1 vertical">
                         <mui-button class="dropdown-button" variant="text" label="Öffentlich" icon-left="public" @click="$emit('open', 'public/media')"/>
                         <mui-button class="dropdown-button" variant="text" label="Privat" icon-left="lock" @click="$emit('open', 'private/media')"/>
                     </div>
@@ -101,7 +101,7 @@
             color: var(--color-text)
             font-family: inherit
             position: relative
-            border: 1px solid var(--color-background-soft)
+            border: 1px solid var(--color-border)
 
             .icon
                 font-family: var(--font-icon)
@@ -109,7 +109,9 @@
 
             &:hover
                 color: var(--color-heading)
-                background: var(--color-background-soft)
+                border-color: transparent
+                background: var(--color-background)
+                box-shadow: var(--shadow-elevation-low)
 
             &.chevron::after
                 content: '/'
@@ -123,7 +125,9 @@
 
             &.root-button,
             &.root-chevron
-                background: var(--color-background-soft)
+                border: none
+                background: var(--color-background)
+                box-shadow: var(--shadow-elevation-low)
 
             &.root-chevron
                 padding: 0 .25rem

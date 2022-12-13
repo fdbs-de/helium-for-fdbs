@@ -1,7 +1,7 @@
 <template>
     <Head title="Media Library" />
 
-    <DashboardSubLayout title="Media Library" area="Adminbereich">
+    <AdminLayout title="Media Library">
         <div class="flex v-center gap-1">
             <Actions v-show="selection.length >= 1" :selection="selection" @deselect="deselectAll()" @delete="$refs.deletePopup.open()" />
             <Breadcrumbs v-show="selection.length <= 0" :path="path" :base-paths="basePaths" @open="openDirectory($event)"/>
@@ -9,7 +9,7 @@
             <div class="spacer"></div>
 
             <div class="flex v-center">
-                <button class="icon-button" aria-hidden="true" v-tooltip="'In Dateien suchen'">search</button>
+                <!-- <button class="icon-button" aria-hidden="true" v-tooltip="'In Dateien suchen'">search</button> -->
                 <VDropdown placement="bottom-end">
                     <button class="icon-button" v-tooltip="'Ansichtseinstellungen'">settings</button>
                     <template #popper>
@@ -29,7 +29,7 @@
 
         <template #fab>
             <VDropdown placement="top-end">
-                <button class="fab" aria-hidden="true" title="Neu...">add</button>
+                <button class="fab-button" aria-hidden="true" title="Neu...">add</button>
                 <template #popper>
                     <div class="flex padding-1 vertical">
                         <mui-button class="dropdown-button" variant="text" label="Neue Dateien" icon-left="upload" as="label" for="file-upload"/>
@@ -62,7 +62,7 @@
 
             <div class="spacer"></div>
         </div>
-    </DashboardSubLayout>
+    </AdminLayout>
 
 
 
@@ -83,7 +83,7 @@
     import { Inertia } from '@inertiajs/inertia'
     import { fileSize } from '@/Utils/String'
     
-    import DashboardSubLayout from '@/Layouts/SubLayouts/Dashboard.vue'
+    import AdminLayout from '@/Layouts/Admin.vue'
     import DirectoryItem from '@/Components/Form/MediaLibrary/DirectoryItem.vue'
     import Breadcrumbs from '@/Components/Form/MediaLibrary/Breadcrumbs.vue'
     import Actions from '@/Components/Form/MediaLibrary/Actions.vue'
@@ -233,22 +233,6 @@
         height: 2px
         left: 0
 
-    .fab
-        height: 4rem
-        width: 4rem
-        border: none
-        background: var(--color-primary)
-        border-radius: 50%
-        box-shadow: var(--shadow-elevation-medium)
-        display: flex
-        align-items: center
-        justify-content: center
-        cursor: pointer
-        user-select: none
-        font-family: var(--font-icon)
-        font-size: 2rem
-        color: white
-
 
     .grid
         display: grid
@@ -267,7 +251,8 @@
     .view-switcher
         display: flex
         user-select: none
-        background: var(--color-background-soft)
+        background: var(--color-background)
+        box-shadow: var(--shadow-elevation-low)
         border-radius: var(--radius-m)
         overflow: hidden
         

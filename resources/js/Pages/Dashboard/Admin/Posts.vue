@@ -1,12 +1,12 @@
 <template>
     <Head title="Posts verwalten" />
 
-    <DashboardSubLayout title="Posts verwalten" area="Adminbereich">
-        <template #head>
+    <AdminLayout title="Posts verwalten" area="Adminbereich">
+        <!-- <template #head>
             <div class="spacer"></div>
             <mui-button icon-left="add" label="Neue Kategorie" size="small" variant="contained" @click="openCategory()"/>
             <mui-button icon-left="add" label="Neuer Post" size="small" @click="openItem()"/>
-        </template>
+        </template> -->
 
         <div class="grid">
             <div class="row">
@@ -54,7 +54,19 @@
                 <span>{{post.pinned ? 'Ja' : 'Nein'}}</span>
             </button>
         </div>
-    </DashboardSubLayout>
+
+        <template #fab>
+            <VDropdown placement="top-end">
+                <button class="fab-button" aria-hidden="true" title="Neu...">add</button>
+                <template #popper>
+                    <div class="flex padding-1 vertical">
+                        <mui-button class="dropdown-button" variant="text" label="Neue Kategorie" icon-left="dashboard_customize" @click="openCategory()"/>
+                        <mui-button class="dropdown-button" variant="text" label="Neuer Post" icon-left="post_add" @click="openItem()"/>
+                    </div>
+                </template>
+            </VDropdown>
+        </template>
+    </AdminLayout>
 
 
 
@@ -213,7 +225,7 @@
 </template>
 
 <script setup>
-    import DashboardSubLayout from '@/Layouts/SubLayouts/Dashboard.vue'
+    import AdminLayout from '@/Layouts/Admin.vue'
     import { Head, useForm, usePage } from '@inertiajs/inertia-vue3'
     import Popup from '@/Components/Form/Popup.vue'
     import BlogInput from '@/Components/Form/BlogInput.vue'

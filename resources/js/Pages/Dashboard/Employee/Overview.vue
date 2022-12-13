@@ -5,7 +5,7 @@
         <div class="posts-container">
             <!-- <h2 class="margin-0 margin-top-3 text-align-center">News und Termine</h2> -->
 
-            <Calendar class="padding-bottom-2" :entries="appointments" :groups="['Allgemein', 'Audits', 'Vertrieb', 'Messen']"/>
+            <Calendar :entries="appointments" :groups="['Allgemein', 'Audits', 'Vertrieb', 'Messen']"/>
             
             <article class="post-wrapper" v-for="post in posts" :key="post.id">
                 <Tag v-if="post.pinned" class="pinned" icon="push_pin" color="green" label="Angepinnt"/>
@@ -70,7 +70,6 @@
             font-size: 1.15rem
 
     .posts-container
-        padding-top: 1rem
         gap: 2rem
         display: flex
         flex-direction: column
@@ -82,7 +81,8 @@
             border-radius: var(--radius-m)
             gap: 1rem
             padding: 1rem
-            background: var(--color-background-soft)
+            background: var(--color-background)
+            box-shadow: var(--shadow-elevation-low)
 
             .pinned
                 display: inline-flex

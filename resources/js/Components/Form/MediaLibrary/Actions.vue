@@ -27,7 +27,8 @@
         align-items: center
         user-select: none
         border-radius: var(--radius-m)
-        background: var(--color-background-soft)
+        background: var(--color-background)
+        box-shadow: var(--shadow-elevation-low)
         font-size: .9rem
         overflow: hidden
 

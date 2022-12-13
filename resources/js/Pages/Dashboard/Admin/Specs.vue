@@ -1,7 +1,7 @@
 <template>
     <Head title="Dashboard: Spezifikationen verwalten" />
 
-    <DashboardSubLayout title="Spezifikationen verwalten" area="Adminbereich">
+    <AdminLayout title="Spezifikationen verwalten" area="Adminbereich">
         <template #head>
             <mui-input class="search-input" type="search" no-border placeholder="Suchen" icon-left="search" v-model="search" @input="throttledFetch" />
             <div class="spacer"></div>
@@ -9,9 +9,8 @@
             <mui-button as="label" for="files-input" role="button" tabindex="0" size="small" icon-left="upload" label="Dateien hochladen"/>
             <Loader class="loader" v-show="loading" />
             
-            <input type="file" id="files-input" ref="filesInput" multiple @input="upload($event.target.files)" accept="application/pdf,application/vnd.ms-excel" />
         </template>
-
+        
         <div class="selection-wrapper">
             <span class="text">Auswahl: <b>{{selection.length}}</b></span>
             <div class="inner-wrapper">
@@ -19,9 +18,9 @@
                 <mui-button size="small" variant="filled" color="error" label="Löschen" :disabled="!selection.length" @click="deleteSelection"/>
             </div>
         </div>
-
+        
         <PaginationBar class="top-pagination-bar" v-if="pagination.data.length" :from="pagination.from" :to="pagination.to" :total="pagination.total" @prev="prevPage" @next="nextPage"/>
-
+        
         <div class="grid" v-if="pagination.data.length">
             <div class="row" v-for="item in pagination.data" :key="item.name">
                 <span>
@@ -33,18 +32,22 @@
                 </span>
             </div>
         </div>
-
+        
         <div class="placeholder" v-else>
             Es wurden keine Spezifikationen gefunden.
         </div>
-
+        
         <PaginationBar class="margin-top-1" v-if="pagination.data.length" :from="pagination.from" :to="pagination.to" :total="pagination.total" @prev="prevPage" @next="nextPage"/>
         
-    </DashboardSubLayout>
+        <template #fab>
+            <button class="fab-button" aria-hidden="true" title="Neue Spezifikation" as="label" for="files-input">add</button>
+            <input type="file" id="files-input" ref="filesInput" multiple @input="upload($event.target.files)" accept="application/pdf,application/vnd.ms-excel" />
+        </template>
+    </AdminLayout>
 </template>
 
 <script setup>
-    import DashboardSubLayout from '@/Layouts/SubLayouts/Dashboard.vue'
+    import AdminLayout from '@/Layouts/Admin.vue'
     import { Head, Link, useForm } from '@inertiajs/inertia-vue3'
     import { Inertia } from '@inertiajs/inertia'
     import Loader from '@/Components/Form/Loader.vue'

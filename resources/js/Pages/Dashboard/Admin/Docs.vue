@@ -1,7 +1,7 @@
 <template>
     <Head title="Dashboard: Dokumente verwalten" />
 
-    <DashboardSubLayout title="Dokumente verwalten" area="Adminbereich">
+    <AdminLayout title="Dokumente verwalten" area="Adminbereich">
         <template #head>
             <div class="flex gap-1 v-center wrap flex-1">
                 <mui-input class="search-input" type="search" no-border placeholder="Suchen" icon-left="search" v-model="searchName" @input="throttledFetch"/>
@@ -18,8 +18,6 @@
                 </select>
                 
                 <div class="spacer"></div>
-
-                <mui-button icon-left="add" label="Neues Dokument" size="small" @click="openUploadDocumentPopup()"/>
             </div>
 
             <Loader class="loader" v-show="loading" />
@@ -49,7 +47,11 @@
                 <i v-else title="Keine Kategorie">Keine Kategorie</i>
             </button>
         </div>
-    </DashboardSubLayout>
+
+        <template #fab>
+            <button class="fab-button" aria-hidden="true" title="Neues Dokument" @click="openUploadDocumentPopup()">add</button>
+        </template>
+    </AdminLayout>
 
 
 
@@ -143,7 +145,7 @@
 </template>
 
 <script setup>
-    import DashboardSubLayout from '@/Layouts/SubLayouts/Dashboard.vue'
+    import AdminLayout from '@/Layouts/Admin.vue'
     import { Head, Link, useForm } from '@inertiajs/inertia-vue3'
     import { Inertia } from '@inertiajs/inertia'
     import Popup from '@/Components/Form/Popup.vue'

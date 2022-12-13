@@ -70,3 +70,4 @@ Route::get('docs/{document:slug}/cover', [DocumentController::class, 'showCover'
 
 require __DIR__.'/auth.php';
 require __DIR__.'/dashboard.php';
+require __DIR__.'/admin.php';
