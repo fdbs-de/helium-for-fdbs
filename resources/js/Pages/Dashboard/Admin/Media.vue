@@ -23,7 +23,7 @@
             <div class="view-switcher">
                 <button class="icon-button" @click="layout = 'list'" :class="{'active': layout === 'list'}" v-tooltip="'Listenansicht'">view_list</button>
                 <button class="icon-button" @click="layout = 'grid'" :class="{'active': layout === 'grid'}" v-tooltip="'Kachelansicht'">grid_view</button>
-                <button class="icon-button" @click="layout = 'icon'" :class="{'active': layout === 'icon'}" v-tooltip="'Iconansicht'">grid_on</button>
+                <!-- <button class="icon-button" @click="layout = 'icon'" :class="{'active': layout === 'icon'}" v-tooltip="'Iconansicht'">grid_on</button> -->
             </div>
         </div>
 
@@ -35,7 +35,7 @@
                         <mui-button class="dropdown-button" variant="text" label="Neue Dateien" icon-left="upload" as="label" for="file-upload"/>
                         <input type="file" id="file-upload" style="display: none" multiple @input="uploadFiles($event.target.files, path)">
 
-                        <mui-button class="dropdown-button" variant="text" label="Neuer Ordner" icon-left="create_new_folder" @click="storeDirectory(path)"/>
+                        <mui-button class="dropdown-button" variant="text" label="Neuer Ordner" icon-left="create_new_folder" @click="openCreateDirectoryPopup(path)"/>
                     </div>
                 </template>
             </VDropdown>
@@ -49,10 +49,12 @@
                 :layout="layout"
                 :enable-preview="isPreview"
                 :selection="selection"
-                @dblclick.exact="openItem(item)"
                 @click.exact="setSelection(item)"
                 @click.ctrl="toggleSelection(item)"
-                @delete="deleteItem(item)"
+                @dblclick.exact="openItem(item)"
+                @open="openItem(item)"
+                @delete="openDeletePopup(item)"
+                @rename="openRenamePopup(item)"
                 />
         </div>
 
@@ -65,6 +67,26 @@
     </AdminLayout>
 
 
+
+    <Popup ref="createDirectoryPopup" title="Ordner erstellen">
+        <form class="confirm-popup-wrapper" @submit.prevent="storeDirectory(path)">
+            <mui-input class="w-100" v-model="createDirectoryForm.name" :prefix="createDirectoryForm.prefix" label="Name" required />
+            <div class="confirm-popup-footer">
+                <mui-button type="button" variant="contained" label="Abbrechen" @click="$refs.createDirectoryPopup.close()" />
+                <mui-button type="submit" variant="filled" label="Ordner erstellen" />
+            </div>
+        </form>
+    </Popup>
+
+    <Popup ref="renamePopup" title="Umbennenen">
+        <form class="confirm-popup-wrapper" @submit.prevent="renameItem">
+            <mui-input class="w-100" v-model="renameForm.new_name" :prefix="renameForm.prefix" label="Name" required />
+            <div class="confirm-popup-footer">
+                <mui-button type="button" variant="contained" label="Abbrechen" @click="$refs.renamePopup.close()" />
+                <mui-button type="submit" variant="filled" label="Umbennenen" />
+            </div>
+        </form>
+    </Popup>
 
     <Popup ref="deletePopup" title="Elemente löschen?">
         <form class="confirm-popup-wrapper" @submit.prevent="deleteItems">
@@ -81,7 +103,8 @@
     import { Head, Link, useForm, usePage } from '@inertiajs/inertia-vue3'
     import { ref, watch, computed } from 'vue'
     import { Inertia } from '@inertiajs/inertia'
-    import { fileSize } from '@/Utils/String'
+    import { fileSize, lastCharacters } from '@/Utils/String'
+    import DirectoryItemClass from '@/Components/Form/MediaLibrary/DirectoryItem.js'
     
     import AdminLayout from '@/Layouts/Admin.vue'
     import DirectoryItem from '@/Components/Form/MediaLibrary/DirectoryItem.vue'
@@ -91,10 +114,14 @@
 
 
 
-    const { items, path } = defineProps({
+    const props = defineProps({
         items: Array,
         path: String,
     })
+
+    const path = computed(() => props.path)
+    const items_ = computed(() => props.items)
+    const items = computed(() => items_.value.map(item => new DirectoryItemClass(item)))
 
 
 
@@ -118,15 +145,15 @@
     }
 
     const openItem = (item) => {
-        if (item.mime === 'folder') return openDirectory(item.path)
-        if (item.mime !== 'folder') return openFile(item)
+        if (item.mime.type === 'folder') return openDirectory(item.path.path)
+        if (item.mime.type !== 'folder') return openFile(item)
     }
 
     const openDirectory = (path) => {
         // Block invalid paths
         if (!startsWithBasePath(path)) return
 
-        Inertia.visit(route('dashboard.admin.media', { path: encodeURIComponent(path) }), {
+        Inertia.visit(route('admin.media', { path: encodeURIComponent(path) }), {
             preserveState: true,
             preserveScroll: true,
             onSuccess() {
@@ -143,6 +170,35 @@
 
 
 
+    // START: Selection
+    const selection = ref([])
+
+    const toggleSelection = (item) => {
+        if (selection.value.includes(item.path.path))
+        {
+            selection.value = selection.value.filter(p => p !== item.path.path)
+        }
+        else
+        {
+            selection.value.push(item.path.path)
+        }
+    }
+
+    const setSelection = (item) => {
+        selection.value = [item.path.path]
+    }
+
+    const selectAll = () => {
+        selection.value = itemObjects.map(i => i.path.path)
+    }
+
+    const deselectAll = () => {
+        selection.value = []
+    }
+    // END: Selection
+
+
+
     // START: Upload Document
     const uploadForm = useForm({
         files: null,
@@ -155,7 +211,7 @@
         uploadForm.files = files
         uploadForm.path = path
 
-        uploadForm.post(route('dashboard.admin.media.store'), {
+        uploadForm.post(route('admin.media.store.file'), {
             forceFormData: true,
             onSuccess() {
                 uploadForm.reset()
@@ -167,48 +223,70 @@
 
 
     // START: Create Directory
+    const createDirectoryPopup = ref(null)
+
+    const createDirectoryForm = useForm({
+        prefix: '',
+        name: null,
+        path: null,
+    })
+
+    const openCreateDirectoryPopup = (path) => {
+        createDirectoryForm.prefix = lastCharacters(path, 20) + '/'
+        createDirectoryPopup.value.open()
+    }
+
     const storeDirectory = (path) => {
-        useForm({
-            path: path + '/' + 'test',
-        }).post(route('dashboard.admin.media.store.directory'))
+        createDirectoryForm.path = path + '/' + createDirectoryForm.name
+        createDirectoryForm.post(route('admin.media.store.directory'), {
+            onSuccess() {
+                createDirectoryForm.reset()
+                createDirectoryPopup.value.close()
+            },
+        })
     }
     // END: Create Directory
 
 
 
-    // START: Selection
-    const selection = ref([])
+    // START: Rename Item
+    const renamePopup = ref(null)
 
-    const toggleSelection = (item) => {
-        if (selection.value.includes(item.path))
-        {
-            selection.value = selection.value.filter(p => p !== item.path)
-        }
-        else
-        {
-            selection.value.push(item.path)
-        }
+    const renameForm = useForm({
+        prefix: '',
+        current_name: null,
+        new_name: null,
+        current_path: null,
+        new_path: null,
+    })
+
+    const openRenamePopup = (item) => {
+        let prefix = item.path.path.substring(0, item.path.path.length - item.path.filename.length)
+
+        renameForm.prefix = lastCharacters(prefix, 20)
+        renameForm.new_name = item.path.filename
+        renameForm.current_name = item.path.filename
+        renameForm.current_path = item.path.path
+        renamePopup.value.open()
     }
 
-    const setSelection = (item) => {
-        selection.value = [item.path]
+    const renameItem = () => {
+        renameForm.new_path = renameForm.current_path.substring(0, renameForm.current_path.length - renameForm.current_name.length) + renameForm.new_name
+        renameForm.put(route('admin.media.rename'), {
+            onSuccess() {
+                renameForm.reset()
+                renamePopup.value.close()
+            },
+        })
     }
-
-    const selectAll = () => {
-        selection.value = items.map(i => i.path)
-    }
-
-    const deselectAll = () => {
-        selection.value = []
-    }
-    // END: Selection
+    // END: Rename Item
 
 
 
     // START: Delete Item
     const deletePopup = ref(null)
 
-    const deleteItem = (item) => {
+    const openDeletePopup = (item) => {
         setSelection(item)
         deletePopup.value.open()
     }
@@ -216,10 +294,10 @@
     const deleteItems = () => {
         useForm({
             paths: selection.value,
-        }).delete(route('dashboard.admin.media.delete'), {
+        }).delete(route('admin.media.delete'), {
             onSuccess() {
-                deletePopup.value.close()
                 deselectAll()
+                deletePopup.value.close()
             },
         })
     }

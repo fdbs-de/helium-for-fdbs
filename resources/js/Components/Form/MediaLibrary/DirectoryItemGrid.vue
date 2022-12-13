@@ -1,17 +1,17 @@
 <template>
     <div class="wrapper" :class="{'selected': isSelected}">
         <div class="preview-area">
-            <div class="image-preview" v-if="mime.type === 'image'" v-show="enablePreview">
+            <div class="image-preview" v-if="item.mime.type === 'image'" v-show="enablePreview">
                 <img :src="item.url" />
             </div>
-            <div class="icon" v-show="(mime.type !== 'image' || !enablePreview)" :style="`color: ${visual.color};`">{{ visual.icon }}</div>
+            <div class="icon" v-show="(item.mime.type !== 'image' || !enablePreview)" :style="`color: ${item.visual.color};`">{{ item.visual.icon }}</div>
         </div>
-        <div class="title-area" :title="path.filename">
-            {{path.filename}}
-        </div>
+
+        <div class="title-area" :title="item.path.filename">{{ item.path.filename }}</div>
+
         <div class="info-area">
-            <div class="file-info" v-if="mime.type !== 'folder'">
-                <span class="extension" :style="`color: ${visual.color};`">{{path.extension}}</span>
+            <div class="file-info" v-if="item.mime.type !== 'folder'">
+                <span class="extension" :style="`color: ${item.visual.color};`">{{ item.path.extension }}</span>
                 <span class="filesize">{{fileSize(item.size)}}</span>
             </div>
             <div class="spacer"></div>
@@ -19,18 +19,18 @@
                 <button @click.stop>more_vert</button>
                 <template #popper>
                     <div class="dropdown">
-                        <template v-if="mime.type !== 'folder'">
-                            <mui-button class="dropdown-button" variant="text" label="Details" icon-left="visibility"/>
-                            <mui-button class="dropdown-button" variant="text" label="In neuem Tab öffnen" icon-left="open_in_new" as="a" target="_blank" :href="path.url"/>
+                        <template v-if="item.mime.type !== 'folder'">
+                            <mui-button class="dropdown-button" variant="text" label="Details" icon-left="visibility" @click="$emit('open', item)"/>
+                            <mui-button class="dropdown-button" variant="text" label="In neuem Tab öffnen" icon-left="open_in_new" as="a" target="_blank" :href="item.path.url"/>
                         </template>
                         
                         <mui-button class="dropdown-button" variant="text" label="Pfad kopieren" icon-left="link" @click="copyToClipboard(item.url)"/>
                         
-                        <template v-if="mime.type !== 'folder'">
-                            <mui-button class="dropdown-button" variant="text" label="Herunterladen" icon-left="download" as="a" target="_blank" :href="path.url" download/>
+                        <template v-if="item.mime.type !== 'folder'">
+                            <mui-button class="dropdown-button" variant="text" label="Herunterladen" icon-left="download" as="a" target="_blank" :href="item.path.url" download/>
                         </template>
 
-                        <mui-button class="dropdown-button" variant="text" label="Umbenennen" icon-left="edit"/>
+                        <mui-button class="dropdown-button" variant="text" label="Umbenennen" icon-left="edit" @click="$emit('rename', item)"/>
                         <div class="divider"></div>
                         <mui-button class="dropdown-button" variant="text" color="error" label="Löschen" icon-left="delete" @click="$emit('delete', item)"/>
                     </div>
@@ -59,40 +59,8 @@
         },
     })
 
-    const mime = computed(() => {
-        let mime = props.item.mime.split('/')
-        return {
-            type: mime[0] || null,
-            subtype: mime[1] || null,
-        }
-    })
-
-    const visual = computed(() => {
-        if (mime.value.type === 'folder') return { icon: 'folder', color: '#2f3542'}
-        if (mime.value.type === 'image') return { icon: 'landscape', color: '#3498db'}
-        if (mime.value.type === 'video') return { icon: 'videocam', color: '#8e44ad'}
-        if (mime.value.type === 'audio') return { icon: 'music_note', color: '#27ae60'}
-        if (mime.value.subtype === 'pdf') return { icon: 'notes', color: '#eb4d4b'}
-        return { icon: 'widgets', color: '#57606f'}
-    })
-
-    const path = computed(() => {
-        let path = props.item.path.split('/')
-        let filename = path[path.length - 1]
-        let extension = filename.split('.').pop()
-        let name = filename.replace('.' + extension, '')
-
-        return {
-            path: props.item.path,
-            filename,
-            extension,
-            name,
-            url: new URL(props.item.url, window.location.origin).href,
-        }
-    })
-
     const isSelected = computed(() => {
-        return props.selection.includes(props.item.path)
+        return props.selection.includes(props.item.path.path)
     })
 
 
@@ -135,7 +103,6 @@
         &.selected::after
             border-width: 3px
             border-color: var(--color-info)
-            background: rgb(lightblue, .1)
 
         .preview-area
             aspect-ratio: 1

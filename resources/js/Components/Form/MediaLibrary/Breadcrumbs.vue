@@ -87,13 +87,9 @@
             align-items: center
 
         .breadcrumb
-            height: 2.5rem
             background: transparent
             border: none
             display: flex
-            gap: .5rem
-            padding: 0 1rem
-            border-radius: var(--radius-m)
             align-items: center
             margin: 0
             cursor: pointer
@@ -101,17 +97,11 @@
             color: var(--color-text)
             font-family: inherit
             position: relative
-            border: 1px solid var(--color-border)
-
-            .icon
-                font-family: var(--font-icon)
-                font-size: 1.25rem
+            padding: 0
+            border: none
 
             &:hover
-                color: var(--color-heading)
-                border-color: transparent
-                background: var(--color-background)
-                box-shadow: var(--shadow-elevation-low)
+                color: var(--color-primary)
 
             &.chevron::after
                 content: '/'
@@ -123,20 +113,42 @@
                 user-select: none
                 pointer-events: none
 
-            &.root-button,
-            &.root-chevron
-                border: none
-                background: var(--color-background)
-                box-shadow: var(--shadow-elevation-low)
+        .root-crumb
+            height: 2.5rem
+            border: none
+            display: flex
+            align-items: center
+            margin: 0
+            cursor: pointer
+            font-size: .9rem
+            color: var(--color-text)
+            font-family: inherit
+            border-radius: var(--radius-m)
+            background: var(--color-background)
+            background: var(--color-background)
+            box-shadow: var(--shadow-elevation-low)
 
-            &.root-chevron
+            .icon
+                font-family: var(--font-icon)
+                font-size: 1.25rem
+
+            &:hover
+                color: var(--color-primary)
+
+            .root-chevron
+                height: 100%
+                align-self: stretch
                 padding: 0 .25rem
                 border-left: 1px solid var(--color-border)
                 border-top-left-radius: 0
                 border-bottom-left-radius: 0
 
-            &.root-button
+            .root-button
+                height: 100%
                 width: 130px
+                padding: 0 .5rem
+                gap: .5rem
+                display: flex
                 border-top-right-radius: 0
                 border-bottom-right-radius: 0
 </style>

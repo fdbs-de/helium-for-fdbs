@@ -39,7 +39,7 @@ class MediaController extends Controller
         $files = $request->file('files');
 
         foreach ($files as $file) {
-            $filename = Str::lower(Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $file->getClientOriginalExtension());
+            $filename = $file->getClientOriginalName();
             
             $path = Storage::putFileAs($request->path, $file, $filename);
 
@@ -58,6 +58,31 @@ class MediaController extends Controller
     public function storeDirectory(Request $request)
     {
         Storage::makeDirectory($request->path);
+
+        return back();
+    }
+
+
+
+    public function rename(Request $request)
+    {
+        $current_path = $request->current_path;
+        $new_path = $request->new_path;
+
+        if (!Storage::exists($current_path)) return back();
+
+        // rename item
+        Storage::move($current_path, $new_path);
+        
+
+        // check if item is a file and update the database
+        $mime = Storage::mimeType($current_path);
+        
+        if ($mime)
+        {
+            // update database
+            Media::where('path', $current_path)->update(['path' => $new_path]);
+        }
 
         return back();
     }

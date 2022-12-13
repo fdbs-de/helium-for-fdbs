@@ -26,7 +26,7 @@
             <div class="vertical-separator"></div>
 
             <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('link') }" @click="openLinkDialog()">link</button>
-            <!-- <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('image') }" @click="openImageDialog()">image</button> -->
+            <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('image') }" @click="openImageDialog()">image</button>
             <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('blockquote') }" @click="editor.chain().focus().toggleBlockquote().run()">format_quote</button>
             <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('code') }" @click="editor.chain().focus().toggleCode().run()">code</button>
             
@@ -54,6 +54,15 @@
                     <option value="_self">Gleiches Fenster</option>
                 </select>
                 <mui-button type="button" label="Link speichern" @click="insertLink()" />
+            </div>
+        </div>
+
+        <div class="dialog-wrapper" v-show="imageForm.isOpen">
+            <div class="background" @click="imageForm.isOpen = false"></div>
+            <div class="dialog-content">
+                <mui-input type="text" label="Bild URL" v-model="imageForm.url" />
+                <mui-input type="text" label="Alt-Text" v-model="imageForm.alt" />
+                <mui-button type="button" label="Bild speichern" @click="insertImage()" />
             </div>
         </div>
     </div>
@@ -127,6 +136,7 @@
                     rel: '',
                 },
                 imageForm: {
+                    isOpen: false,
                     url: '',
                     alt: '',
                 },
@@ -233,7 +243,8 @@
                 this.imageForm.url = this.editor.getAttributes('image').src || ''
                 this.imageForm.alt = this.editor.getAttributes('image').alt || ''
                 // this.imageForm.aspect = ''
-                this.$refs.imageDialog.open()
+                this.imageForm.isOpen = true
+                // this.$refs.imageDialog.open()
             },
 
             insertImage() {
@@ -242,7 +253,9 @@
                     alt: this.imageForm.alt,
                 }).run()
 
-                this.$refs.imageDialog.close()
+                this.imageForm.isOpen = false
+
+                // this.$refs.imageDialog.close()
             },
         },
 

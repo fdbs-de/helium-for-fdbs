@@ -35,7 +35,7 @@
                     <div class="icon" aria-hidden="true">article</div>
                     <div class="text">Posts</div>
                 </Link>
-                <Link class="menu-item" :href="route('dashboard.admin.media')" :class="{'active': is('dashboard.admin.media')}">
+                <Link class="menu-item" :href="route('admin.media')" :class="{'active': is('admin.media')}">
                     <div class="icon" aria-hidden="true">folder_open</div>
                     <div class="text">Medien</div>
                 </Link>
@@ -214,7 +214,7 @@
             .menu-group
                 display: flex
                 flex-direction: column
-                gap: 2px
+                gap: 3px
 
                 .group-label
                     height: 2rem

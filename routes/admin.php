@@ -39,13 +39,13 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'panelaccess:admin'])->g
     Route::put('/dokumente/{document}', [DocumentController::class, 'update'])->name('dashboard.admin.docs.update');
     Route::delete('/dokumente/{document}', [DocumentController::class, 'delete'])->name('dashboard.admin.docs.delete');
     
-    Route::get('/media/search', [MediaController::class, 'search'])->name('dashboard.admin.media.search');
-    Route::post('/media', [MediaController::class, 'store'])->name('dashboard.admin.media.store');
-    Route::put('/media/{media}', [MediaController::class, 'update'])->name('dashboard.admin.media.update');
-    Route::delete('/media', [MediaController::class, 'delete'])->name('dashboard.admin.media.delete');
-    Route::post('/media/directory', [MediaController::class, 'storeDirectory'])->name('dashboard.admin.media.store.directory');
-    Route::put('/media/directory', [MediaController::class, 'renameDirectory'])->name('dashboard.admin.media.rename.directory');
-    Route::get('/media/{path?}', [MediaController::class, 'index'])->name('dashboard.admin.media');
+    Route::post('/media', [MediaController::class, 'store'])->name('admin.media.store.file');
+    Route::post('/media/directory', [MediaController::class, 'storeDirectory'])->name('admin.media.store.directory');
+    Route::put('/media/rename', [MediaController::class, 'rename'])->name('admin.media.rename');
+    Route::put('/media/{media}', [MediaController::class, 'update'])->name('admin.media.update.file');
+    Route::delete('/media', [MediaController::class, 'delete'])->name('admin.media.delete');
+    Route::get('/media/search', [MediaController::class, 'search'])->name('admin.media.search');
+    Route::get('/media/{path?}', [MediaController::class, 'index'])->name('admin.media');
 
     Route::get('/posts', [PostController::class, 'index'])->name('dashboard.admin.posts');
     Route::post('/posts', [PostController::class, 'store'])->name('dashboard.admin.posts.store');
