@@ -41,7 +41,7 @@
             </VDropdown>
         </template>
         
-        <div class="grid">
+        <div class="item-wrapper" :class="layout" v-show="exists && items.length >= 1">
             <DirectoryItem
                 v-for="item in items"
                 :key="item.path"
@@ -49,16 +49,19 @@
                 :layout="layout"
                 :enable-preview="isPreview"
                 :selection="selection"
-                @click.exact="setSelection(item)"
+                @contextmenu.prevent.exact="setSelection(item)"
+                @contextmenu.prevent.ctrl="toggleSelection(item)"
                 @click.ctrl="toggleSelection(item)"
-                @dblclick.exact="openItem(item)"
+                @click.exact="openItem(item)"
                 @open="openItem(item)"
                 @delete="openDeletePopup(item)"
                 @rename="openRenamePopup(item)"
                 />
         </div>
+        <small v-show="exists && items.length <= 0" class="w-100 flex h-center padding-inline-2 padding-block-5">Dieser Ordner ist leer</small>
+        <small v-show="!exists" class="w-100 flex h-center padding-inline-2 padding-block-5">Dieser Ordner existiert nicht</small>
 
-        <div class="flex v-center gap-1 border-top padding-top-1 margin-top-1">
+        <div class="flex v-center gap-1 border-top padding-top-1">
             <small><b>{{items.filter(i => i.mime !== 'folder').length}}</b> Dateien</small>
             <small><b>{{fileSize(items.reduce((a, b) => a + b.size, 0))}}</b> gesamt</small>
 
@@ -117,6 +120,7 @@
     const props = defineProps({
         items: Array,
         path: String,
+        exists: Boolean,
     })
 
     const path = computed(() => props.path)
@@ -164,7 +168,7 @@
     }
 
     const openFile = (item) => {
-        console.log('open file', item)
+        // console.log('open file', item)
     }
     // END: Folder Navigation
 
@@ -312,19 +316,22 @@
         left: 0
 
 
-    .grid
-        display: grid
-        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr))
-        gap: 1rem
+    .item-wrapper
         width: 100%
-        padding: 2rem 0
+        margin-block: 2rem
 
-        img
-            width: 100%
-            aspect-ratio: 1
-            object-fit: contain
+        &.grid
+            gap: 1rem
+            display: grid
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr))
+
+        &.list
+            padding: 1rem 0
             border-radius: var(--radius-m)
-            background-color: var(--color-background-soft)
+            background: var(--color-background)
+            box-shadow: var(--shadow-elevation-low)
+            display: flex
+            flex-direction: column
 
     .view-switcher
         display: flex

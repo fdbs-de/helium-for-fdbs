@@ -33,7 +33,7 @@
             <div class="menu-group" v-if="user.can_access_customer_panel">
                 <div class="group-label">Kundenbereich</div>
                 <Link class="menu-item" :href="route('dashboard.customer.specs')" :class="{'active': is('dashboard.customer.specs')}">
-                    <div class="icon" aria-hidden="true">fact_check</div>
+                    <div class="icon" aria-hidden="true">cloud_done</div>
                     <div class="text">Spezifikationen</div>
                 </Link>
                 <Link class="menu-item" :href="route('dashboard.customer.offers')" :class="{'active': is('dashboard.customer.offers')}">
@@ -56,11 +56,11 @@
                     <div class="icon" aria-hidden="true">workspace_premium</div>
                     <div class="text">Qualitätsmanagement</div>
                 </Link>
-                <a class="menu-item" target="_blank" href="#">
+                <!-- <a class="menu-item" target="_blank" href="#">
                     <div class="icon" aria-hidden="true">travel_explore</div>
                     <div class="text">Firmenwiki</div>
                     <div class="external">open_in_new</div>
-                </a>
+                </a> -->
                 <a class="menu-item" target="_blank" :href="route('docs', 'organigramm')">
                     <div class="icon" aria-hidden="true">lan</div>
                     <div class="text">Organigramm</div>

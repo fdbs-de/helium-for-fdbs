@@ -4,6 +4,7 @@
 
 <script setup>
     import DirectoryItemGrid from '@/Components/Form/MediaLibrary/DirectoryItemGrid.vue'
+    import DirectoryItemList from '@/Components/Form/MediaLibrary/DirectoryItemList.vue'
     import { computed } from 'vue'
 
     const props = defineProps({
@@ -29,7 +30,7 @@
         switch (props.layout)
         {
             case 'grid': return DirectoryItemGrid
-            case 'list': return DirectoryItemGrid
+            case 'list': return DirectoryItemList
             default: return DirectoryItemGrid
         }
     })

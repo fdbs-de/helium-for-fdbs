@@ -1,12 +1,12 @@
 <template>
     <div class="breadcrumbs">
         <div class="root-crumb">
-            <button class="breadcrumb root-button" @click="$emit('open', basePath.path)">
+            <button class="root-button" @click="$emit('open', basePath.path)">
                 <div class="icon">{{basePath.icon}}</div>
                 <div class="label">{{basePath.label}}</div>
             </button>
             <VDropdown placement="bottom-end">
-                <button class="breadcrumb root-chevron" v-tooltip="'Stammordner wechseln'">
+                <button class="root-chevron" v-tooltip="'Stammordner wechseln'">
                     <div class="icon">expand_more</div>
                 </button>
                 <template #popper>
@@ -82,10 +82,6 @@
         gap: 2rem
         user-select: none
 
-        .root-crumb
-            display: flex
-            align-items: center
-
         .breadcrumb
             background: transparent
             border: none
@@ -93,7 +89,7 @@
             align-items: center
             margin: 0
             cursor: pointer
-            font-size: .9rem
+            font-size: 1rem
             color: var(--color-text)
             font-family: inherit
             position: relative
@@ -114,12 +110,10 @@
                 pointer-events: none
 
         .root-crumb
-            height: 2.5rem
             border: none
             display: flex
             align-items: center
             margin: 0
-            cursor: pointer
             font-size: .9rem
             color: var(--color-text)
             font-family: inherit
@@ -128,27 +122,37 @@
             background: var(--color-background)
             box-shadow: var(--shadow-elevation-low)
 
-            .icon
-                font-family: var(--font-icon)
-                font-size: 1.25rem
 
-            &:hover
-                color: var(--color-primary)
+            .root-button,
+            .root-chevron
+                height: 2.5rem
+                align-self: stretch
+                display: flex
+                align-items: center
+                border: none
+                background: transparent
+                padding: 0 .75rem
+                gap: .5rem
+                color: inherit
+                font-family: inherit
+                font-size: inherit
+                cursor: pointer
+
+                &:hover
+                    color: var(--color-primary)
+
+                .icon
+                    font-family: var(--font-icon)
+                    font-size: 1.25rem
 
             .root-chevron
-                height: 100%
-                align-self: stretch
                 padding: 0 .25rem
                 border-left: 1px solid var(--color-border)
                 border-top-left-radius: 0
                 border-bottom-left-radius: 0
 
             .root-button
-                height: 100%
                 width: 130px
-                padding: 0 .5rem
-                gap: .5rem
-                display: flex
                 border-top-right-radius: 0
                 border-bottom-right-radius: 0
 </style>

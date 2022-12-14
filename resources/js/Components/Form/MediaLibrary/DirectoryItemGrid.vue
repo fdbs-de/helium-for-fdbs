@@ -19,10 +19,10 @@
                 <button @click.stop>more_vert</button>
                 <template #popper>
                     <div class="dropdown">
-                        <template v-if="item.mime.type !== 'folder'">
+                        <!-- <template v-if="item.mime.type !== 'folder'">
                             <mui-button class="dropdown-button" variant="text" label="Details" icon-left="visibility" @click="$emit('open', item)"/>
                             <mui-button class="dropdown-button" variant="text" label="In neuem Tab öffnen" icon-left="open_in_new" as="a" target="_blank" :href="item.path.url"/>
-                        </template>
+                        </template> -->
                         
                         <mui-button class="dropdown-button" variant="text" label="Pfad kopieren" icon-left="link" @click="copyToClipboard(item.url)"/>
                         

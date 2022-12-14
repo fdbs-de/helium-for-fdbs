@@ -134,7 +134,8 @@
                     color: var(--color-primary)
 
             &:hover:not(.head)
-                background: var(--color-background-soft)
+                background: var(--color-background)
+                box-shadow: var(--shadow-elevation-low)
 
     @media only screen and (max-width: 500px)
         .grid

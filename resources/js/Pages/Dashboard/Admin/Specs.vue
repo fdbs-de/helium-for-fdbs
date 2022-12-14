@@ -39,10 +39,10 @@
         
         <PaginationBar class="margin-top-1" v-if="pagination.data.length" :from="pagination.from" :to="pagination.to" :total="pagination.total" @prev="prevPage" @next="nextPage"/>
         
-        <template #fab>
+        <input type="file" id="files-input" ref="filesInput" multiple @input="upload($event.target.files)" accept="application/pdf,application/vnd.ms-excel" />
+        <!-- <template #fab>
             <button class="fab-button" aria-hidden="true" title="Neue Spezifikation" as="label" for="files-input">add</button>
-            <input type="file" id="files-input" ref="filesInput" multiple @input="upload($event.target.files)" accept="application/pdf,application/vnd.ms-excel" />
-        </template>
+        </template> -->
     </AdminLayout>
 </template>
 
@@ -200,7 +200,8 @@
         display: flex
         align-items: center
         height: 3.5rem
-        background: var(--color-background-soft)
+        background: var(--color-background)
+        box-shadow: var(--shadow-elevation-low)
         border-radius: var(--radius-m) var(--radius-m) .2rem .2rem
         margin-top: 1rem
         position: relative
@@ -217,6 +218,8 @@
         margin-top: 2px
         margin-bottom: 1rem
         border-radius: .2rem .2rem var(--radius-m) var(--radius-m)
+        z-index: 1
+        position: relative
 
     .placeholder
         display: flex
@@ -261,7 +264,8 @@
                     color: var(--color-primary)
 
             &:hover:not(.head)
-                background: var(--color-background-soft)
+                background: var(--color-background)
+                box-shadow: var(--shadow-elevation-low)
 
     @media only screen and (max-width: 500px)
         .selection-wrapper

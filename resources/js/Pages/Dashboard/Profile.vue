@@ -141,7 +141,8 @@
             flex-direction: column
             gap: .5rem
             border-radius: var(--radius-m)
-            background: var(--color-background-soft)
+            background: var(--color-background)
+            box-shadow: var(--shadow-elevation-low)
 
             h2
                 margin: 0

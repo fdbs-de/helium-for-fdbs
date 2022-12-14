@@ -42,9 +42,9 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'panelaccess:admin'])->g
     Route::post('/media', [MediaController::class, 'store'])->name('admin.media.store.file');
     Route::post('/media/directory', [MediaController::class, 'storeDirectory'])->name('admin.media.store.directory');
     Route::put('/media/rename', [MediaController::class, 'rename'])->name('admin.media.rename');
-    Route::put('/media/{media}', [MediaController::class, 'update'])->name('admin.media.update.file');
+    // Route::put('/media/{media}', [MediaController::class, 'update'])->name('admin.media.update.file');
     Route::delete('/media', [MediaController::class, 'delete'])->name('admin.media.delete');
-    Route::get('/media/search', [MediaController::class, 'search'])->name('admin.media.search');
+    // Route::get('/media/search', [MediaController::class, 'search'])->name('admin.media.search');
     Route::get('/media/{path?}', [MediaController::class, 'index'])->name('admin.media');
 
     Route::get('/posts', [PostController::class, 'index'])->name('dashboard.admin.posts');

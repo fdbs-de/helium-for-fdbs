@@ -197,7 +197,16 @@
                 z-index: 1
                 will-change: width
                 transition: width 200ms cubic-bezier(0.22, 0.61, 0.36, 1)
-                box-shadow: var(--shadow-elevation-low)
+
+                &::after
+                    content: ''
+                    position: absolute
+                    left: 0
+                    bottom: 0
+                    transform: translateY(100%)
+                    width: 100%
+                    height: 7px
+                    background: linear-gradient(180deg, rgb(black, 0.06) 0%, rgb(black, 0) 100%)
 
                 .logo-link
                     height: 100%

@@ -4,23 +4,27 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Classes\MediaLibrary\Directory;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Media\CreateDirectoryRequest;
 use App\Http\Requests\Media\CreateMediaRequest;
+use App\Http\Requests\Media\DestroyMediaRequest;
+use App\Http\Requests\Media\IndexMediaRequest;
+use App\Http\Requests\Media\RenameMediaRequest;
 use App\Models\Media;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class MediaController extends Controller
 {
-    public function index(Request $request)
+    public function index(IndexMediaRequest $request)
     {
         $path = $request->path ? urldecode($request->path) : 'public/media';
+
         $directory = new Directory($path);
         
         return Inertia::render('Dashboard/Admin/Media', [
             'items' => $directory->jsonSerialize(),
             'path' => $path,
+            'exists' => Storage::exists($path),
         ]);
     }
 
@@ -28,7 +32,6 @@ class MediaController extends Controller
 
     public function search()
     {
-
         return back();
     }
 
@@ -55,7 +58,7 @@ class MediaController extends Controller
 
 
 
-    public function storeDirectory(Request $request)
+    public function storeDirectory(CreateDirectoryRequest $request)
     {
         Storage::makeDirectory($request->path);
 
@@ -64,7 +67,7 @@ class MediaController extends Controller
 
 
 
-    public function rename(Request $request)
+    public function rename(RenameMediaRequest $request)
     {
         $current_path = $request->current_path;
         $new_path = $request->new_path;
@@ -89,7 +92,7 @@ class MediaController extends Controller
 
 
 
-    public function delete(Request $request)
+    public function delete(DestroyMediaRequest $request)
     {
         $paths = $request->paths;
         

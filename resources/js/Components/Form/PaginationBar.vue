@@ -42,7 +42,8 @@
         display: flex
         align-items: center
         padding: .5rem 1rem .5rem 1rem
-        background: var(--color-background-soft)
+        background: var(--color-background)
+        box-shadow: var(--shadow-elevation-low)
         border-radius: var(--radius-m)
         white-space: nowrap
         gap: .5rem
