@@ -113,7 +113,7 @@
             <StaffCard name="Wiebke Peter" job="Stv. Leitung Servicewerkstatt" leader tel="75" image="/images/content/mitarbeiter/wiebke_peter.png" overlay="/images/content/mitarbeiter/wiebke_peter_zeichnung.png"/>
             <StaffCard name="Sabine Barnert" job="Vetriebsinnendienst der Werkstatt" tel="76" image="/images/content/mitarbeiter/sabine_barnert.png" overlay="/images/content/mitarbeiter/sabine_barnert_zeichnung.png"/>
             <StaffCard name="André Hoffmann" job="Fachberater Großküchentechnik" tel="41" image="/images/content/mitarbeiter/missing.png"/>
-            <StaffCard name="Holger Kleinert" job="Fachberater Geräte und Maschinen" tel="14" image="/images/content/mitarbeiter/missing.png"/>
+            <StaffCard name="Holger Kleinert" job="Fachberater Geräte und Maschinen" tel="14" image="/images/content/mitarbeiter/holger_kleinert.png" overlay="/images/content/mitarbeiter/holger_kleinert_zeichnung.png"/>
         </div>
     </TextSubLayout>
 </template>
