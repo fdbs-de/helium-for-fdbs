@@ -44,6 +44,9 @@
         &.color-gray
             color: var(--color-heading)
 
+        &.color-white
+            color: white
+
         .icon
             font-family: var(--font-icon)
             font-size: 1.2em

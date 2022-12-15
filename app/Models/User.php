@@ -27,6 +27,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'enabled_at',
     ];
 
+    protected $appends = [
+        'display_name',
+    ];
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -101,5 +105,13 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getCanAccessEmployeePanelAttribute()
     {
         return $this->is_enabled && (User::find($this->id)->can(Permissions::CAN_ACCESS_ADMIN_PANEL) || $this->is_enabled_employee);
+    }
+
+
+
+    public function getDisplayNameAttribute()
+    {
+        // This should either return the company name or the user's name or null
+        return $this->customerProfile ? $this->customerProfile->company : ($this->employeeProfile ? $this->employeeProfile->first_name . ' ' . $this->employeeProfile->last_name : null);
     }
 }

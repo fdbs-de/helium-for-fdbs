@@ -13,11 +13,21 @@ class EmployeeController extends Controller
     public function indexOverview()
     {
         return Inertia::render('Dashboard/Employee/Overview', [
-            'posts' => Post::where('scope', 'intranet')->where(function($query) {
+            'posts' => Post::with(['category' => function ($query) {
+                $query->select('id', 'name', 'slug');
+            }])
+            ->where('scope', 'intranet')
+            ->where('status', 'published')
+            ->where(function ($query) {
                 $query->whereDate('available_from', '<=', now())->orWhere('available_from', null);
-            })->where(function ($query) {
+            })
+            ->where(function ($query) {
                 $query->whereDate('available_to', '>=', now())->orWhere('available_to', null);
-            })->orderByDesc('pinned')->orderByDesc('created_at')->orderByDesc('updated_at')->get(),
+            })
+            ->orderByDesc('pinned')
+            ->orderByDesc('created_at')
+            ->orderByDesc('updated_at')
+            ->get(),
         ]);
     }
 

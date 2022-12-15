@@ -1,5 +1,6 @@
 @import './utils.sass'
 @import './fonts/proxima-nova.scss'
+@import './fonts/inter.scss'
 @import './fonts/sofia-pro.scss'
 @import './fonts/material-symbols-rounded.scss'
     
@@ -20,6 +21,7 @@ html
 
     --font-heading: 'Sofia Pro', sans-serif
     --font-text: 'Proxima Nova', sans-serif
+    --font-interface: 'Inter', sans-serif
     --font-icon: 'Material Symbols Rounded'
 
     --color-primary: #e00047
@@ -267,6 +269,22 @@ main
     #fingerprint,
     #background use
         fill: var(--color-primary)
+
+.fab-button
+    height: 4rem
+    width: 4rem
+    border: none
+    background: var(--color-primary)
+    border-radius: 50%
+    box-shadow: var(--shadow-elevation-medium)
+    display: flex
+    align-items: center
+    justify-content: center
+    cursor: pointer
+    user-select: none
+    font-family: var(--font-icon)
+    font-size: 2rem
+    color: white
 
 
 

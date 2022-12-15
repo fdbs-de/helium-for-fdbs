@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\Dashboard\DocumentController;
 use App\Http\Controllers\StaticController;
 use Illuminate\Support\Facades\Route;
@@ -20,6 +21,11 @@ Route::view('/ie', 'ie')->name('ie');
 
 Route::get('/', [StaticController::class, 'indexHome'])->name('home');
 Route::get('/philosopie', [StaticController::class, 'indexPhilosophie'])->name('philosophie');
+
+// Route::prefix('/blog')->group(function () {
+//     Route::get('/', [BlogController::class, 'index'])->name('blog');
+//     Route::get('/{post:slug}', [BlogController::class, 'show'])->name('blog.article');
+// });
 
 Route::prefix('/produkte-und-services')->group(function () {
     Route::get('/', [StaticController::class, 'indexProdukteUndServices'])->name('produkte-und-services');
@@ -64,3 +70,4 @@ Route::get('docs/{document:slug}/cover', [DocumentController::class, 'showCover'
 
 require __DIR__.'/auth.php';
 require __DIR__.'/dashboard.php';
+require __DIR__.'/admin.php';

@@ -10,7 +10,7 @@
             <StaffCard class="service-scroll-item" name="Wiebke Peter" job="Stv. Leitung" leader tel="75" image="/images/content/mitarbeiter/wiebke_peter.png" overlay="/images/content/mitarbeiter/wiebke_peter_zeichnung.png"/>
             <StaffCard class="service-scroll-item" name="Sabine Barnert" tel="76" image="/images/content/mitarbeiter/sabine_barnert.png" overlay="/images/content/mitarbeiter/sabine_barnert_zeichnung.png"/>
             <StaffCard class="service-scroll-item" name="André Hoffmann" tel="41" image="/images/content/mitarbeiter/missing.png"/>
-            <StaffCard class="service-scroll-item" name="Holger Kleinert" tel="14" image="/images/content/mitarbeiter/missing.png"/>
+            <StaffCard class="service-scroll-item" name="Holger Kleinert" tel="14" image="/images/content/mitarbeiter/holger_kleinert.png" overlay="/images/content/mitarbeiter/holger_kleinert_zeichnung.png"/>
         </template>
 
         <p><strong>Reparatur und Durchsicht</strong></p>

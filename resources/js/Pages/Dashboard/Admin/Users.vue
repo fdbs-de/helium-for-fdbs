@@ -1,7 +1,7 @@
 <template>
     <Head title="Nutzer verwalten" />
 
-    <DashboardSubLayout title="Nutzer verwalten" area="Adminbereich">
+    <AdminLayout title="Nutzer verwalten">
         <template #head>
             <!-- file input that accepts json -->
             <input ref="importInput" type="file" accept=".json" @change="importUsersFromJSON($event.target.files[0])" />
@@ -16,7 +16,7 @@
             </div>
             
             <button class="row" v-for="user in users" :key="user.id" @click="openUser(user)">
-                <span v-if="user.name">{{user.name}}</span>
+                <span v-if="user.display_name">{{user.display_name}}</span>
                 <i v-else>Kein Name angegeben</i>
 
                 <span>{{user.email}}</span>
@@ -33,7 +33,7 @@
                 </span>
             </button>
         </div>
-    </DashboardSubLayout>
+    </AdminLayout>
 
     <Popup ref="managePopup" class="user-popup" title="Nutzer Ansicht" background-color="var(--color-background-soft)">
         <div class="popup-block popup-error" v-if="hasErrors">
@@ -171,7 +171,7 @@
 </template>
 
 <script setup>
-    import DashboardSubLayout from '@/Layouts/SubLayouts/Dashboard.vue'
+    import AdminLayout from '@/Layouts/Admin.vue'
     import { Head, Link, useForm, usePage } from '@inertiajs/inertia-vue3'
     import Popup from '@/Components/Form/Popup.vue'
     import Tag from '@/Components/Form/Tag.vue'

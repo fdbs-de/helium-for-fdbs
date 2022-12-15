@@ -46,8 +46,9 @@
                 Für mehr Informationen, ein persönliches Gespräch oder Ihr individuelles Angebot, melden Sie
                 sich gerne unter <b>0531 210 55 23</b> oder schreiben Sie eine Email an <a href="mailto:info@fdbs.de">info@fdbs.de</a>.
             </p>
+            
+            <img src="/images/content/mehrwegpflicht/mehrwegloesungen.jpg" alt="Mehrweglösungen" class="w-100 margin-top-3 border-soft radius-l">
         </div>
-        
     </TextSubLayout>
 </template>
 

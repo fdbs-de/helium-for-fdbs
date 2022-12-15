@@ -1,12 +1,12 @@
 <template>
     <Head title="Posts verwalten" />
 
-    <DashboardSubLayout title="Posts verwalten" area="Adminbereich">
-        <template #head>
+    <AdminLayout title="Posts verwalten" area="Adminbereich">
+        <!-- <template #head>
             <div class="spacer"></div>
             <mui-button icon-left="add" label="Neue Kategorie" size="small" variant="contained" @click="openCategory()"/>
             <mui-button icon-left="add" label="Neuer Post" size="small" @click="openItem()"/>
-        </template>
+        </template> -->
 
         <div class="grid">
             <div class="row">
@@ -54,7 +54,19 @@
                 <span>{{post.pinned ? 'Ja' : 'Nein'}}</span>
             </button>
         </div>
-    </DashboardSubLayout>
+
+        <template #fab>
+            <VDropdown placement="top-end">
+                <button class="fab-button" aria-hidden="true" title="Neu...">add</button>
+                <template #popper>
+                    <div class="flex padding-1 vertical">
+                        <mui-button class="dropdown-button" variant="text" label="Neue Kategorie" icon-left="dashboard_customize" @click="openCategory()"/>
+                        <mui-button class="dropdown-button" variant="text" label="Neuer Post" icon-left="post_add" @click="openItem()"/>
+                    </div>
+                </template>
+            </VDropdown>
+        </template>
+    </AdminLayout>
 
 
 
@@ -66,12 +78,29 @@
                     <p v-for="(error, key) in errors" :key="key">{{ error }}</p>
                 </div>
                 
-                <mui-input type="text" label="Titel" border v-model="form.title"/>
+                <mui-input type="text" label="Titel *" required border v-model="form.title"/>
 
                 <BlogInput class="content-input flex-1" v-model="form.content" />
             </div>
 
             <div class="sidebar">
+                <div class="group">
+                    <mui-input type="text" label="URL Titel *" required border v-model="form.slug">
+                        <template #right>
+                            <button type="button" class="input-button" title="Aus Titel generieren" @click="generateSlug">enable</button>
+                        </template>
+                    </mui-input>
+                </div>
+
+                <div class="group">
+                    <div class="flex gap-1 v-center">
+                        <b class="heading flex-1">Hero-Bild</b>
+                        <button type="button" class="icon-button" title="Bild hinzufügen" v-if="form.image === null" @click="form.image = ''">add</button>
+                        <button type="button" class="icon-button" title="Bild entfernen" v-else @click="form.image = null">replay</button>
+                    </div>
+                    <mui-input type="text" label="Bild URL" border clearable v-model="form.image" v-show="form.image !== null" />
+                </div>
+
                 <div class="group">
                     <div class="flex gap-1 v-center">
                         <b class="flex-1">Post anpinnen</b>
@@ -84,7 +113,7 @@
                     <select v-model="form.status">
                         <option value="draft">Entwurf</option>
                         <!-- <option value="pending">Zur Freigabe</option> -->
-                        <option value="public">Veröffentlicht</option>
+                        <option value="published">Veröffentlicht</option>
                         <!-- <option value="hidden">Versteckt</option> -->
                     </select>
                 </div>
@@ -92,7 +121,7 @@
                 <div class="group">
                     <b class="heading">Veröffentlichungsort</b>
                     <select v-model="form.scope">
-                        <option value="public">Blog</option>
+                        <option value="blog">Blog</option>
                         <option value="intranet">Intranet</option>
                         <option value="wiki">Wiki</option>
                     </select>
@@ -166,8 +195,8 @@
                 <div class="group">
                     <b class="heading">Status</b>
                     <select v-model="categoryForm.status">
-                        <option value="private">Privat</option>
-                        <option value="public">Veröffentlicht</option>
+                        <option value="hidden">Privat</option>
+                        <option value="published">Veröffentlicht</option>
                     </select>
                 </div>
                 
@@ -196,11 +225,11 @@
 </template>
 
 <script setup>
-    import DashboardSubLayout from '@/Layouts/SubLayouts/Dashboard.vue'
-    import { Head, Link, useForm, usePage } from '@inertiajs/inertia-vue3'
+    import AdminLayout from '@/Layouts/Admin.vue'
+    import { Head, useForm, usePage } from '@inertiajs/inertia-vue3'
     import Popup from '@/Components/Form/Popup.vue'
-    import Tag from '@/Components/Form/Tag.vue'
     import BlogInput from '@/Components/Form/BlogInput.vue'
+    import { slugify } from '@/Utils/String'
     import { ref, computed } from 'vue'
     import dayjs from 'dayjs'
 
@@ -220,13 +249,18 @@
         title: '',
         slug: '',
         category: null,
-        scope: 'public',
+        scope: 'blog',
+        image: null,
         content: '',
         pinned: false,
         status: 'draft',
         available_from: null,
         available_to: null,
     })
+
+    const generateSlug = () => {
+        form.slug = slugify(form.title)
+    }
 
     const openItem = (item = null) => {
         managePopup.value.open()
@@ -235,7 +269,8 @@
         form.title = item?.title ?? ''
         form.slug = item?.slug ?? ''
         form.category = item?.category?.id ?? null
-        form.scope = item?.scope ?? 'public'
+        form.scope = item?.scope ?? 'blog'
+        form.image = item?.image ?? null
         form.content = item?.content ?? ''
         form.pinned = item?.pinned ?? false
         form.status = item?.status ?? 'draft'
@@ -284,7 +319,7 @@
         name: '',
         slug: '',
         description: '',
-        status: 'public',
+        status: 'published',
     })
 
     const openCategory = (item = null) => {
@@ -294,7 +329,7 @@
         categoryForm.name = item?.name ?? ''
         categoryForm.slug = item?.slug ?? ''
         categoryForm.description = item?.description ?? ''
-        categoryForm.status = item?.status ?? 'public'
+        categoryForm.status = item?.status ?? 'published'
     }
 
     const saveCategory = () => {
@@ -379,13 +414,37 @@
                 background: var(--color-background-soft)
 
     .manage-popup
-        --max-width: 1100px
+        --max-width: 1200px
+
+        .input-button
+            height: 2rem
+            width: 2rem
+            display: flex
+            align-items: center
+            justify-content: center
+            padding: 0
+            margin: 0
+            border: none
+            background: none
+            cursor: pointer
+            user-select: none
+            font-family: var(--font-icon)
+            font-size: 1.35rem
+            text-align: center
+            color: var(--color-text)
+            border-radius: .25rem
+            flex: none
+
+            &:hover,
+            &:focus
+                color: var(--mui-color__)
+                background: var(--mui-background-secondary__)
 
         .layout-wrapper
             display: flex
 
             .sidebar
-                width: 300px
+                width: 350px
                 background: var(--color-background-soft)
                 display: flex
                 flex-direction: column

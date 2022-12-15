@@ -30,7 +30,7 @@ class UpdatePostCategoryRequest extends FormRequest
             'name' => 'required|string|max:255',
             'slug' => 'nullable|string|max:255|unique:post_categories,slug,' . $this->postCategory->id,
             'description' => 'nullable|string',
-            'status' => 'required|string|in:public,private',
+            'status' => 'required|string|in:published,hidden',
         ];
     }
 }

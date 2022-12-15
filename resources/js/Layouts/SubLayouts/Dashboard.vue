@@ -1,5 +1,13 @@
 <template>
     <AuthenticatedLayout :title="title" :area="area">
+        <div id="hero-section">
+            <div class="limiter">
+                <div class="hero-card">
+                    <h1>{{ title }}</h1>
+                </div>
+            </div>
+        </div>
+
         <section id="content-section">
             <div class="limiter">
                 <div class="main-card">
@@ -7,6 +15,10 @@
                         <slot name="head"/>
                     </div>
                     <slot />
+
+                    <div class="fab" v-if="$slots.fab">
+                        <slot name="fab" />
+                    </div>
                 </div>
             </div>
         </section>
@@ -24,15 +36,27 @@
 </script>
 
 <style lang="sass" scoped>
+    #hero-section
+        .hero-card
+            text-align: center
+            background: var(--color-background)
+            border-radius: var(--radius-l)
+            box-shadow: var(--shadow-elevation-low)
+            padding: 1rem
+            height: 8rem
+            display: flex
+            align-items: center
+            justify-content: center
+
+            h1
+                font-size: 1.5rem
+
     #content-section
         margin: 2rem 0
 
         .main-card
-            background: var(--color-background)
             display: flex
             flex-direction: column
-            
-            --mui-background: var(--color-background-soft)
 
             .checkbox
                 --mui-background: var(--color-background)
@@ -44,8 +68,9 @@
                 gap: 1rem
                 padding: 1rem
                 border-radius: var(--radius-l)
-                background: var(--color-background-soft)
-                --mui-background: var(--color-background)
+                background: var(--color-background)
+                box-shadow: var(--shadow-elevation-low)
+                --mui-background: var(--color-background-soft)
                 position: relative
 
                 > a
@@ -70,6 +95,12 @@
                     &.active
                         background: var(--color-primary)
                         color: var(--color-background)
+
+        .fab
+            position: fixed
+            bottom: 3rem
+            right: 3rem
+            z-index: 1000
 
     @media only screen and (max-width: 900px)
         #content-section
