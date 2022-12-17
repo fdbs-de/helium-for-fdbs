@@ -15,7 +15,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Dashboard/Admin/Posts', [
+        return Inertia::render('Dashboard/Admin/Posts/Index', [
             'posts' => Post::with(['category' => function ($query) {
                 $query->select('id', 'name');
             }])->orderBy('created_at', 'desc')->get(),
@@ -23,18 +23,26 @@ class PostController extends Controller
         ]);
     }
 
+    public function create(Post $post)
+    {
+        return Inertia::render('Dashboard/Admin/Posts/Create', [
+            'post' => $post,
+            'categories' => PostCategory::orderBy('name', 'asc')->get(),
+        ]);
+    }
+
     public function store(CreatePostRequest $request)
     {
-        Post::create($request->validated());
+        $post = Post::create($request->validated());
 
-        return back();
+        return redirect()->route('admin.posts.editor', $post);
     }
 
     public function update(UpdatePostRequest $request, Post $post)
     {
         $post->update($request->validated());
 
-        return back();
+        return redirect()->route('admin.posts.editor', $post);
     }
 
     public function delete(DestroyPostRequest $request, Post $post)

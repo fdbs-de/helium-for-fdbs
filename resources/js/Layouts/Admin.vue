@@ -31,7 +31,7 @@
                     <div class="icon" aria-hidden="true">pages</div>
                     <div class="text">Seiten</div>
                 </Link> -->
-                <Link class="menu-item" :href="route('dashboard.admin.posts')" :class="{'active': is('dashboard.admin.posts')}">
+                <Link class="menu-item" :href="route('admin.posts')" :class="{'active': is('admin.posts')}">
                     <div class="icon" aria-hidden="true">article</div>
                     <div class="text">Posts</div>
                 </Link>
@@ -331,10 +331,10 @@
         .hero-card
             text-align: center
             background: var(--color-background)
-            border-radius: var(--radius-l)
+            border-radius: var(--radius-m)
             box-shadow: var(--shadow-elevation-low)
             padding: 1rem
-            height: 8rem
+            height: 5rem
             display: flex
             align-items: center
             justify-content: center
