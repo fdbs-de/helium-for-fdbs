@@ -13,18 +13,43 @@
             </select>
 
             <div class="vertical-separator"></div>
-
+            
+            <!-- <button type="button" class="button icon" :class="{ 'is-active': editor.isActive({textAlign: 'left'}) }" @click="editor.chain().focus().setTextAlign('left').run()">format_align_left</button>
+            <button type="button" class="button icon" :class="{ 'is-active': editor.isActive({textAlign: 'center'}) }" @click="editor.chain().focus().setTextAlign('center').run()">format_align_center</button>
+            <button type="button" class="button icon" :class="{ 'is-active': editor.isActive({textAlign: 'right'}) }" @click="editor.chain().focus().setTextAlign('right').run()">format_align_right</button>
+            
+            <div class="vertical-separator"></div> -->
+            
             <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('bold') }" @click="editor.chain().focus().toggleBold().run()">format_bold</button>
             <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('underline') }" @click="editor.chain().focus().toggleUnderline().run()">format_underlined</button>
             <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('italic') }" @click="editor.chain().focus().toggleItalic().run()">format_italic</button>
-
+            
             <div class="vertical-separator"></div>
             
             <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('bulletList') }" @click="editor.chain().focus().toggleBulletList().run()">format_list_bulleted</button>
             <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('orderedList') }" @click="editor.chain().focus().toggleOrderedList().run()">format_list_numbered</button>
-
+            
             <div class="vertical-separator"></div>
 
+            <VDropdown placement="bottom-start">
+                <button type="button" class="button icon">format_color_fill</button>
+                <template #popper>
+                    <div class="flex padding-1 vertical">
+                        <mui-button variant="text" label="Primärfarbe" @click="editor.chain().focus().setColor('var(--color-primary)').run()"/>
+                        <mui-button variant="text" label="Text Farbe" @click="editor.chain().focus().setColor('var(--color-text)').run()"/>
+                        <mui-button variant="text" label="Überschrift Farbe" @click="editor.chain().focus().setColor('var(--color-heading)').run()"/>
+                        <mui-button variant="text" label="Info" @click="editor.chain().focus().setColor('var(--color-info)').run()"/>
+                        <mui-button variant="text" label="Erfolg" @click="editor.chain().focus().setColor('var(--color-success)').run()"/>
+                        <mui-button variant="text" label="Warnung" @click="editor.chain().focus().setColor('var(--color-warning)').run()"/>
+                        <mui-button variant="text" label="Fehler" @click="editor.chain().focus().setColor('var(--color-error)').run()"/>
+                        <hr>
+                        <mui-button variant="text" label="Zurücksetzen" @click="editor.chain().focus().unsetColor().run()"/>
+                    </div>
+                </template>
+            </VDropdown>
+            
+            <div class="vertical-separator"></div>
+            
             <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('link') }" @click="openLinkDialog()">link</button>
             <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('image') }" @click="openImageDialog()">image</button>
             <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('blockquote') }" @click="editor.chain().focus().toggleBlockquote().run()">format_quote</button>
@@ -35,13 +60,13 @@
             <button type="button" class="button icon" title="Formatierung löschen" @click="editor.chain().focus().clearNodes().unsetAllMarks().run()">format_clear</button>
         </div>
 
-        <editor-content class="editor-content" :editor="editor" />
+        <editor-content class="editor-content formatted-content" :editor="editor" />
 
-        <div class="editor-footer">
+        <!-- <div class="editor-footer">
             <span>{{ editor.storage.characterCount.words() }} Wörter</span>
             <span>•</span>
             <span>{{ editor.storage.characterCount.characters() }} Zeichen</span>
-        </div>
+        </div> -->
 
         <div class="dialog-wrapper" v-show="linkForm.isOpen">
             <div class="background" @click="linkForm.isOpen = false"></div>
@@ -66,48 +91,6 @@
             </div>
         </div>
     </div>
-        
-        
-        
-    <!-- <popup ref="linkDialog" title="Link einfügen oder bearbeiten" @close="editor.chain().focus().run()">
-        <form class="margin-1 flex wrap gap-1 vertical" @submit.prevent>
-            <div class="flex gap-1 wrap">
-                <mui-input class="flex-3" type="text" label="URL" v-model="linkForm.url" />
-                <select class="flex-1" v-model="linkForm.target">
-                    <option value="_blank">Neues Fenster</option>
-                    <option value="_self">Gleiches Fenster</option>
-                </select>
-            </div>
-
-            <mui-input class="flex-1" type="text" label="Rel" v-model="linkForm.rel" />
-
-            <hr>
-
-            <div class="flex gap-1">
-                <mui-button label="Link entfernen" color="error" variant="contained" @click="removeLink()"/>
-                <div class="spacer"></div>
-                <mui-button label="Link speichern" @click="insertLink()"/>
-            </div>
-        </form>
-    </popup>
-
-    <popup ref="imageDialog" title="Bild einfügen" @close="editor.chain().focus().run()">
-        <form class="margin-1 flex wrap gap-1 vertical" @submit.prevent>
-            <mui-input type="text" label="Bild-URL" v-model="imageForm.url"/>
-            <mui-input type="text" label="Alternativ-Text" v-model="imageForm.alt"/>
-            <select v-model="imageForm.aspect">
-                <option value="">Auto</option>
-                <option value="aspect-16-by-9">16 by 9</option>
-                <option value="aspect-4-by-3">4 by 3</option>
-                <option value="aspect-1-by-1">Square</option>
-            </select>
-
-            <div class="flex">
-                <div class="spacer"></div>
-                <mui-button label="Bild einfügen" @click="insertImage()"/>
-            </div>
-        </form>
-    </popup> -->
 </template>
 
 <script>
@@ -117,6 +100,9 @@
     import Image from '@tiptap/extension-image'
     import Underline from '@tiptap/extension-underline'
     import CharacterCount from '@tiptap/extension-character-count'
+    import TextAlign from '@tiptap/extension-text-align'
+    import TextStyle from '@tiptap/extension-text-style'
+    import Color from '@tiptap/extension-color'
     import StarterKit from '@tiptap/starter-kit'
 
     export default {
@@ -169,6 +155,12 @@
                             class: 'content-underline',
                         },
                     }),
+                    TextAlign.configure({
+                        types: ['heading', 'paragraph'],
+                        alignments: ['left', 'center', 'right'],
+                    }),
+                    TextStyle,
+                    Color,
                     CharacterCount,
                 ],
                 content: this.modelValue,
@@ -288,28 +280,27 @@
         flex-direction: column
         background: var(--color-background)
         border-radius: var(--radius-m)
-        border: 1px solid var(--color-border)
+        border: 3px solid var(--color-background-soft)
         position: relative
 
         .editor-controls
             flex: none
             position: relative
             z-index: 1
-            width: 100%
             margin: 0 auto
             display: flex
             flex-wrap: wrap
             align-items: center
             padding: 0 .5rem
-            border-bottom: 1px solid var(--color-border)
             background: var(--color-background-soft)
-            border-radius: var(--radius-m) var(--radius-m) 0 0
+            border-radius: var(--radius-s)
+            margin: 3px
 
             .vertical-separator
                 width: 0
                 border-left: 1px solid var(--color-border)
-                margin: 0 .5rem
-                height: 3.5rem
+                margin: .5rem
+                height: 2.5rem
 
             .select
                 height: 2.5rem
@@ -354,7 +345,7 @@
             height: 100%
             width: 100%
             border-top: none
-            overflow: auto
+            // overflow: auto
 
         .editor-footer
             display: flex

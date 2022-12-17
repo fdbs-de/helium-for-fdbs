@@ -47,10 +47,11 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'panelaccess:admin'])->g
     // Route::get('/media/search', [MediaController::class, 'search'])->name('admin.media.search');
     Route::get('/media/{path?}', [MediaController::class, 'index'])->name('admin.media');
 
-    Route::get('/posts', [PostController::class, 'index'])->name('dashboard.admin.posts');
-    Route::post('/posts', [PostController::class, 'store'])->name('dashboard.admin.posts.store');
-    Route::put('/posts/{post}', [PostController::class, 'update'])->name('dashboard.admin.posts.update');
-    Route::delete('/posts/{post}', [PostController::class, 'delete'])->name('dashboard.admin.posts.delete');
+    Route::get('/posts', [PostController::class, 'index'])->name('admin.posts');
+    Route::get('/posts/editor/{post?}', [PostController::class, 'create'])->name('admin.posts.editor');
+    Route::post('/posts', [PostController::class, 'store'])->name('admin.posts.store');
+    Route::put('/posts/{post}', [PostController::class, 'update'])->name('admin.posts.update');
+    Route::delete('/posts/{post}', [PostController::class, 'delete'])->name('admin.posts.delete');
 
     Route::post('/categories', [PostCategoryController::class, 'store'])->name('dashboard.admin.categories.store');
     Route::put('/categories/{postCategory}', [PostCategoryController::class, 'update'])->name('dashboard.admin.categories.update');

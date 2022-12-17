@@ -19,7 +19,7 @@
                 </div>
             </div>
         </div>
-        <div class="limiter text-limiter" v-html="post.content"></div>
+        <div class="limiter text-limiter formatted-content" v-html="post.content"></div>
         <div class="margin-bottom-4"></div>
     </GuestLayout>
 </template>
