@@ -7,8 +7,12 @@ use App\Http\Controllers\Dashboard\PostCategoryController;
 use App\Http\Controllers\Dashboard\PostController;
 use App\Http\Controllers\Dashboard\SpecController;
 use App\Http\Controllers\Dashboard\UserController;
-use App\Permissions\Permissions;
+use App\Http\Controllers\Wiki\WikiController;
 use Illuminate\Support\Facades\Route;
+
+Route::prefix('wiki')->middleware(['auth', 'verified', 'panelaccess:admin'])->group(function () {
+    Route::get('/', [WikiController::class, 'overview'])->name('wiki');
+});
 
 Route::prefix('admin')->middleware(['auth', 'verified', 'panelaccess:admin'])->group(function () {
     Route::get('/', [AdminController::class, 'redirect'])->name('dashboard.admin');
