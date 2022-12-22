@@ -57,7 +57,8 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'panelaccess:admin'])->g
     Route::post('/posts', [PostController::class, 'store'])->name('admin.posts.store');
     Route::put('/posts/{post}', [PostController::class, 'update'])->name('admin.posts.update');
     Route::delete('/posts/{post}', [PostController::class, 'delete'])->name('admin.posts.delete');
-
+    
+    Route::get('/categories', [PostCategoryController::class, 'index'])->name('admin.categories');
     Route::post('/categories', [PostCategoryController::class, 'store'])->name('dashboard.admin.categories.store');
     Route::put('/categories/{postCategory}', [PostCategoryController::class, 'update'])->name('dashboard.admin.categories.update');
     Route::delete('/categories/{postCategory}', [PostCategoryController::class, 'delete'])->name('dashboard.admin.categories.delete');

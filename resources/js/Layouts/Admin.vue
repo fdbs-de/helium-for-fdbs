@@ -26,15 +26,19 @@
             </div>
             
             <div class="menu-group">
-                <div class="group-label">Inhalte</div>
-                <!-- <Link class="menu-item" :href="route('dashboard.admin.posts')" :class="{'active': is('dashboard.admin.posts')}">
-                    <div class="icon" aria-hidden="true">pages</div>
-                    <div class="text">Seiten</div>
-                </Link> -->
+                <div class="group-label">Allgemein</div>
+                <Link class="menu-item" :href="route('admin.categories')" :class="{'active': is('admin.categories')}">
+                    <div class="icon" aria-hidden="true">category</div>
+                    <div class="text">Kategorien</div>
+                </Link>
                 <Link class="menu-item" :href="route('admin.posts')" :class="{'active': is('admin.posts')}">
-                    <div class="icon" aria-hidden="true">article</div>
+                    <div class="icon" aria-hidden="true">feed</div>
                     <div class="text">Posts</div>
                 </Link>
+                <!-- <Link class="menu-item" :href="route('admin.posts')" :class="{'active': is('admin.posts')}">
+                    <div class="icon" aria-hidden="true">account_tree</div>
+                    <div class="text">Seiten</div>
+                </Link> -->
                 <Link class="menu-item" :href="route('admin.media')" :class="{'active': is('admin.media')}">
                     <div class="icon" aria-hidden="true">folder_open</div>
                     <div class="text">Medien</div>
@@ -48,10 +52,18 @@
                     <div class="text">Spezifikationen</div>
                 </Link>
             </div>
+
+            <!-- <div class="menu-group">
+                <div class="group-label">Apps</div>
+                <Link class="menu-item" :href="route('admin.categories')" :class="{'active': is('admin.categories')}">
+                    <div class="icon" aria-hidden="true">apps</div>
+                    <div class="text">Apps</div>
+                </Link>
+            </div> -->
             
             <div class="menu-group">
                 <div class="group-label">Einstellungen</div>
-                <!-- <Link class="menu-item" :href="route('dashboard.admin.posts')" :class="{'active': is('dashboard.admin.posts')}">
+                <!-- <Link class="menu-item" :href="route('admin.posts')" :class="{'active': is('admin.posts')}">
                     <div class="icon" aria-hidden="true">settings</div>
                     <div class="text">Globale Einstellungen</div>
                 </Link> -->
@@ -298,7 +310,7 @@
 
         .content
             flex: 1
-            padding-block: 1rem
+            padding-bottom: 1rem
             font-family: var(--font-interface)
 
 
@@ -331,7 +343,7 @@
         .hero-card
             text-align: center
             background: var(--color-background)
-            border-radius: var(--radius-m)
+            border-radius: 0 0 var(--radius-m) var(--radius-m)
             box-shadow: var(--shadow-elevation-low)
             padding: 1rem
             height: 5rem
