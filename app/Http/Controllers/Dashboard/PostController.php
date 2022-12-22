@@ -18,7 +18,7 @@ class PostController extends Controller
         return Inertia::render('Dashboard/Admin/Posts/Index', [
             'posts' => Post::with(['category' => function ($query) {
                 $query->select('id', 'name');
-            }])->orderBy('created_at', 'desc')->get(),
+            }])->orderBy('scope')->orderBy('created_at', 'desc')->get(),
             'categories' => PostCategory::withCount('posts')->orderBy('name', 'asc')->get(),
         ]);
     }

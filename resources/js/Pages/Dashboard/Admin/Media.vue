@@ -112,7 +112,7 @@
     import AdminLayout from '@/Layouts/Admin.vue'
     import DirectoryItem from '@/Components/Form/MediaLibrary/DirectoryItem.vue'
     import Breadcrumbs from '@/Components/Form/MediaLibrary/Breadcrumbs.vue'
-    import Actions from '@/Components/Form/MediaLibrary/Actions.vue'
+    import Actions from '@/Components/Form/Actions.vue'
     import Popup from '@/Components/Form/Popup.vue'
 
 

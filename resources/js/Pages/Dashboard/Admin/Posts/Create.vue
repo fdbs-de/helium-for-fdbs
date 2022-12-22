@@ -13,9 +13,9 @@
             
             <select class="header-select" v-model="form.status">
                 <option value="draft">Entwurf</option>
-                <!-- <option value="pending">Zur Freigabe</option> -->
+                <option value="pending">Zur Freigabe</option>
                 <option value="published">Veröffentlicht</option>
-                <!-- <option value="hidden">Versteckt</option> -->
+                <option value="hidden">Versteckt</option>
             </select>
             
             <div class="spacer"></div>
