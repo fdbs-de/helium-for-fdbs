@@ -3,15 +3,15 @@
 
     <AdminLayout :title="form.id ? 'Post bearbeiten' : 'Post erstellen'">
         <div class="card flex v-center gap-1 padding-1 margin-bottom-2">
-            <Link :href="route('admin.posts')">Zurück</Link>
-            <select v-model="form.scope">
+            <Link class="back-button" :href="route('admin.posts')">arrow_back</Link>
+            <select class="header-select" v-model="form.scope">
                 <option value="blog">Blog</option>
                 <option value="intranet">Intranet</option>
                 <option value="wiki">Wiki</option>
                 <option value="jobs">Karriere</option>
             </select>
             
-            <select v-model="form.status">
+            <select class="header-select" v-model="form.status">
                 <option value="draft">Entwurf</option>
                 <!-- <option value="pending">Zur Freigabe</option> -->
                 <option value="published">Veröffentlicht</option>
@@ -219,6 +219,25 @@
         background: var(--color-background)
         box-shadow: var(--shadow-elevation-low)
         border-radius: var(--radius-m)
+
+    .back-button
+        height: 2.5rem
+        width: 2.5rem
+        border-radius: var(--radius-s)
+        background: var(--color-background)
+        display: flex
+        align-items: center
+        justify-content: center
+        font-family: var(--font-icon)
+        font-size: 1.25rem
+
+        &:hover,
+        &:focus
+            background: var(--color-background-soft)
+
+    .header-select
+        height: 2.5rem
+
 
     .hero-image-wrapper
         border-radius: var(--radius-m)
