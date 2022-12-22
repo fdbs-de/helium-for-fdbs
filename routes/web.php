@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\Dashboard\DocumentController;
+use App\Http\Controllers\JobController;
 use App\Http\Controllers\StaticController;
 use Illuminate\Support\Facades\Route;
 
@@ -48,9 +49,9 @@ Route::prefix('/produkte-und-services')->group(function () {
 });
 
 Route::prefix('/karriere')->group(function () {
-    // Route::get('/', [StaticController::class, 'indexKarriere'])->name('karriere');
-    Route::get('/', [StaticController::class, 'indexStellenangebote'])->name('karriere');
-    Route::get('/stellenangebote', [StaticController::class, 'indexStellenangebote'])->name('karriere.stellenangebote');
+    Route::get('/', [JobController::class, 'index'])->name('karriere');
+    Route::get('/stellenangebote', [JobController::class, 'index'])->name('karriere.stellenangebote');
+    Route::get('/stellenangebote/{post:slug}', [JobController::class, 'show'])->name('karriere.stellenangebote.show');
     // Route::get('/studium-und-ausbildung', [StaticController::class, 'indexStudiumAusbildung'])->name('karriere.studium-und-ausbildung');
     // Route::get('/fdbs-als-arbeitgeber', [StaticController::class, 'indexFDBSAlsArbeitgeber'])->name('karriere.fdbs-als-arbeitgeber');
 });

@@ -29,4 +29,13 @@ class WikiController extends Controller
             ->get(),
         ]);
     }
+
+    public function show(Post $post)
+    {
+        return Inertia::render('Wiki/Show', [
+            'post' => $post->load(['category' => function ($query) {
+                $query->select('id', 'name', 'slug');
+            }]),
+        ]);
+    }
 }

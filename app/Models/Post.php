@@ -14,6 +14,7 @@ class Post extends Model
         'title',
         'slug',
         'category',
+        'tags',
         'image',
         'content',
         'pinned',
@@ -26,6 +27,7 @@ class Post extends Model
         'pinned' => 'boolean',
         'available_from' => 'datetime',
         'available_to' => 'datetime',
+        'tags' => 'array',
     ];
 
     protected $attributes = [

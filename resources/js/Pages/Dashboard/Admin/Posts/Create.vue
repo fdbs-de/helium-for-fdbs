@@ -8,6 +8,7 @@
                 <option value="blog">Blog</option>
                 <option value="intranet">Intranet</option>
                 <option value="wiki">Wiki</option>
+                <option value="jobs">Karriere</option>
             </select>
             
             <select v-model="form.status">
@@ -62,6 +63,8 @@
                         <option :value="null">Keine Kategorie</option>
                         <option v-for="category in categories" :key="category.id" :value="category.id">{{category.name}}</option>
                     </select>
+
+                    <mui-input class="flex-1" type="text" label="Tags" v-model="form.tags" />
                 </div>
 
                 <BlogInput class="content-input flex-1" v-model="form.content" />
@@ -131,6 +134,7 @@
         title: '',
         slug: '',
         category: null,
+        tags: '',
         scope: 'blog',
         image: '',
         content: '',
@@ -149,6 +153,7 @@
         form.title = item?.title ?? ''
         form.slug = item?.slug ?? ''
         form.category = item?.category ?? null
+        form.tags = item?.tags ? item?.tags.join(', ') : ''
         form.scope = item?.scope ?? 'blog'
         form.image = item?.image ?? ''
         form.content = item?.content ?? ''
@@ -170,7 +175,10 @@
     }
 
     const storeItem = () => {
-        form.post(route('admin.posts.store'), {
+        form.transform((data) => ({
+            ...data,
+            tags: data.tags.split(',').map(tag => tag.trim()),
+        })).post(route('admin.posts.store'), {
             onSuccess: (data) => {
                 openItem(data?.props?.post)
             },
@@ -178,7 +186,10 @@
     }
 
     const updateItem = () => {
-        form.put(route('admin.posts.update', form.id), {
+        form.transform((data) => ({
+            ...data,
+            tags: data.tags.split(',').map(tag => tag.trim()),
+        })).put(route('admin.posts.update', form.id), {
             onSuccess: (data) => {
                 openItem(data?.props?.post)
             },
