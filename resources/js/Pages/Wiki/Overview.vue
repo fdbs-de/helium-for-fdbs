@@ -60,7 +60,7 @@
                             :name="post.title"
                             :image="post.image"
                             :primary-tag="post.category ? post.category.name : 'Keine Kategorie'"
-                            :link="'#'"
+                            :link="route('wiki.entry', post.slug)"
                         />
                     </div>
                 </div>

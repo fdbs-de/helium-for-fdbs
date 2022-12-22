@@ -27,10 +27,12 @@ class UpdatePostRequest extends FormRequest
     public function rules()
     {
         return [
-            'scope' => ['required', 'string', 'in:blog,intranet,wiki'],
+            'scope' => ['required', 'string', 'in:blog,intranet,wiki,jobs'],
             'title' => ['nullable', 'string', 'max:255'],
             'slug' => ['nullable', 'string', 'max:255', 'unique:posts,slug,' . $this->post->id],
             'category' => ['nullable', 'exists:post_categories,id'],
+            'tags' => ['nullable', 'array'],
+            'tags.*' => ['nullable', 'string'],
             'image' => ['nullable', 'string'],
             'content' => ['nullable', 'string'],
             'pinned' => ['required', 'boolean'],

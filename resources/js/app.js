@@ -44,7 +44,7 @@ dayjs.locale('de')
 createInertiaApp({
     title(title)
     {
-        return `FDBS – ${title}`
+        return `${title} – FDBS`
     },
 
     resolve(name)

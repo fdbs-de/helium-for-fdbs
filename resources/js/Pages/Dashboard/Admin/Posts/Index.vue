@@ -48,7 +48,8 @@
 
                 <span v-if="post.scope === 'intranet'">Intranet</span>
                 <span v-else-if="post.scope === 'blog'">Blog</span>
-                <span v-else-if="post.scope === 'Wiki'">Wiki</span>
+                <span v-else-if="post.scope === 'wiki'">Wiki</span>
+                <span v-else-if="post.scope === 'jobs'">Karriere</span>
                 <i v-else>Kein Veröffentlichungsort</i>
 
                 <span>{{post.pinned ? 'Ja' : 'Nein'}}</span>
