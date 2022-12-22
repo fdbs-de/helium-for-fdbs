@@ -5,7 +5,7 @@
         </Head>
 
         <div class="flex wrap gap-1 margin-bottom-2">
-            <Tag v-if="post.category">Type: {{post.category.name}}</Tag>
+            <Tag v-if="post.category">{{post.category.name}}</Tag>
             <Tag v-for="tag in post.tags" :key="tag">{{tag}}</Tag>
         </div>
 
