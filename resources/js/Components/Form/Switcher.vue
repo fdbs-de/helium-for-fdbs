@@ -1,6 +1,6 @@
 <template>
     <div class="switcher">
-        <button class="switcher-button" v-for="option in options" :key="option.value" @click="$emit('update:modelValue', option.value)" :class="{'active': modelValue === option.value}" v-tooltip="option.tooltip">{{option.icon}}</button>
+        <button class="switcher-button" type="button" v-for="option in options" :key="option.value" @click="$emit('update:modelValue', option.value)" :class="{'active': modelValue === option.value}" v-tooltip="option.tooltip">{{option.icon}}</button>
     </div>
 </template>
 
@@ -25,6 +25,7 @@
         background: var(--color-background)
         box-shadow: var(--shadow-elevation-low)
         border-radius: var(--radius-m)
+        height: 2.5rem
         overflow: hidden
         
         .switcher-button
@@ -32,7 +33,6 @@
             align-items: center
             justify-content: center
             width: 3rem
-            height: 2.5rem
             border-radius: 0
             cursor: pointer
             transition: all 100ms ease
