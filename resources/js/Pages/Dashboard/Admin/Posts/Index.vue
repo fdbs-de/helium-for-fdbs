@@ -59,7 +59,7 @@
     import { Head, useForm, usePage } from '@inertiajs/inertia-vue3'
     import { ref, computed } from 'vue'
     import { Inertia } from '@inertiajs/inertia'
-    import PostClass from '@/Components/Form/Posts/Post.js'
+    import PostClass from '@/Models/Post.js'
     
     import AdminLayout from '@/Layouts/Admin.vue'
     import Switcher from '@/Components/Form/Switcher.vue'

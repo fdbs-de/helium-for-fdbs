@@ -1,34 +1,33 @@
 <template>
-    <Head :title="form.id ? 'Post bearbeiten' : 'Post erstellen'" />
+    <Head :title="form.title || 'Post Titel'" />
 
-    <AdminLayout :title="form.id ? 'Post bearbeiten' : 'Post erstellen'">
-        <div class="card flex v-center gap-1 padding-1 margin-bottom-2">
-            <Link class="back-button" :href="route('admin.posts')">arrow_back</Link>
-            <select class="header-select" v-model="form.scope">
-                <option value="blog">Blog</option>
-                <option value="intranet">Intranet</option>
-                <option value="wiki">Wiki</option>
-                <option value="jobs">Karriere</option>
-            </select>
-            
-            <select class="header-select" v-model="form.status">
-                <option value="draft">Entwurf</option>
-                <option value="pending">Zur Freigabe</option>
-                <option value="published">Veröffentlicht</option>
-                <option value="hidden">Versteckt</option>
-            </select>
-            
-            <div class="spacer"></div>
-            
-            <mui-button type="button" v-if="form.id" label="löschen" color="error" variant="contained" @click="$refs.deletePopup.open()"/>
-            <mui-button v-if="form.id" label="Post Speichern" :loading="form.processing" @click="saveItem()"/>
-            <mui-button v-else label="Post erstellen" :loading="form.processing" @click="saveItem()"/>
-        </div>
-
+    <AdminLayout :title="form.title || 'Post Titel'" :backlink="route('admin.posts')" backlink-text="Zurück zur Übersicht">
         <form class="card flex vertical gap-1 padding-1" @submit.prevent="saveItem()">
             <div class="limiter text-limiter" v-if="hasErrors">
                 <h3><b>Fehler!</b></h3>
                 <p v-for="(error, key) in errors" :key="key">{{ error }}</p>
+            </div>
+
+            <div class="flex v-center gap-1">
+                <Switcher class="header-switcher" v-model="form.scope" :options="[
+                    { value: 'blog', icon: 'public', tooltip: 'Blog' },
+                    { value: 'intranet', icon: 'policy', tooltip: 'Intranet' },
+                    { value: 'wiki', icon: 'travel_explore', tooltip: 'Wiki' },
+                    { value: 'jobs', icon: 'work', tooltip: 'Karriere' },
+                ]"/>
+
+                <div class="spacer"></div>
+
+                <select class="header-select" v-model="form.status">
+                    <option value="draft">Entwurf</option>
+                    <option value="pending">Zur Freigabe</option>
+                    <option value="published">Veröffentlicht</option>
+                    <option value="hidden">Versteckt</option>
+                </select>
+                
+                <!-- <mui-button class="header-button" type="button" v-if="form.id" label="löschen" color="error" variant="contained" @click="$refs.deletePopup.open()"/> -->
+                <mui-button class="header-button" v-if="form.id" label="Post Speichern" :loading="form.processing" @click="saveItem()"/>
+                <mui-button class="header-button" v-else label="Post erstellen" :loading="form.processing" @click="saveItem()"/>
             </div>
 
             <div class="hero-image-wrapper" :class="{'expanded': expanded}">
@@ -73,8 +72,8 @@
                     <div class="group flex-1">
                         <div class="flex gap-1 v-center">
                             <b class="heading flex-1">Veröffentlichungsdatum</b>
-                            <button type="button" class="icon-button" title="Veröffentlichungsdatum hinzufügen" v-if="form.available_from === null" @click="form.available_from = new Date().toISOString().split('T')[0]">add</button>
-                            <button type="button" class="icon-button" title="Veröffentlichungsdatum zurücksetzen" v-else @click="form.available_from = null">replay</button>
+                            <button type="button" class="icon-button pill" title="Veröffentlichungsdatum hinzufügen" v-if="form.available_from === null" @click="form.available_from = new Date().toISOString().split('T')[0]">add</button>
+                            <button type="button" class="icon-button pill" title="Veröffentlichungsdatum zurücksetzen" v-else @click="form.available_from = null">replay</button>
                         </div>
                         <input type="date" class="date-input" v-model="form.available_from" v-show="form.available_from">
                     </div>
@@ -82,8 +81,8 @@
                     <div class="group flex-1">
                         <div class="flex gap-1 v-center">
                             <b class="heading flex-1">Gültigkeitsdatum</b>
-                            <button type="button" class="icon-button" title="Gültigkeitsdatum hinzufügen" v-if="form.available_to === null" @click="form.available_to = new Date().toISOString().split('T')[0]">add</button>
-                            <button type="button" class="icon-button" title="Gültigkeitsdatum zurücksetzen" v-else @click="form.available_to = null">replay</button>
+                            <button type="button" class="icon-button pill" title="Gültigkeitsdatum hinzufügen" v-if="form.available_to === null" @click="form.available_to = new Date().toISOString().split('T')[0]">add</button>
+                            <button type="button" class="icon-button pill" title="Gültigkeitsdatum zurücksetzen" v-else @click="form.available_to = null">replay</button>
                         </div>
                         <input type="date" class="date-input" v-model="form.available_to" v-show="form.available_to">
                     </div>
@@ -106,14 +105,16 @@
 </template>
 
 <script setup>
-    import AdminLayout from '@/Layouts/Admin.vue'
     import { Head, Link, useForm, usePage } from '@inertiajs/inertia-vue3'
-    import Popup from '@/Components/Form/Popup.vue'
-    import BlogInput from '@/Components/Form/BlogInput.vue'
     import { slugify } from '@/Utils/String'
     import { ref, computed, watch } from 'vue'
-    import dayjs from 'dayjs'
     import { Inertia } from '@inertiajs/inertia'
+    import dayjs from 'dayjs'
+
+    import AdminLayout from '@/Layouts/Admin.vue'
+    import Popup from '@/Components/Form/Popup.vue'
+    import Switcher from '@/Components/Form/Switcher.vue'
+    import BlogInput from '@/Components/Form/BlogInput.vue'
 
     const props = defineProps({
         post: Object,
@@ -214,30 +215,24 @@
 </script>
 
 <style lang="sass" scoped>
-
     .card
         background: var(--color-background)
         box-shadow: var(--shadow-elevation-low)
         border-radius: var(--radius-m)
 
-    .back-button
-        height: 2.5rem
-        width: 2.5rem
+    .header-switcher
+        height: 3rem
+        box-shadow: none
+        background: var(--color-background-soft)
         border-radius: var(--radius-s)
-        background: var(--color-background)
-        display: flex
-        align-items: center
-        justify-content: center
-        font-family: var(--font-icon)
-        font-size: 1.25rem
-
-        &:hover,
-        &:focus
-            background: var(--color-background-soft)
 
     .header-select
-        height: 2.5rem
+        height: 3rem
+        color: var(--color-text)
+        cursor: pointer
 
+    .header-button
+        height: 3rem !important
 
     .hero-image-wrapper
         border-radius: var(--radius-m)
@@ -320,7 +315,7 @@
         .heading
             color: var(--color-heading)
 
-    .icon-button
+    .icon-button.pill
         height: 1.5rem
         width: 2.5rem
         display: flex

@@ -78,6 +78,7 @@
             <div id="hero-section">
                 <div class="limiter">
                     <div class="hero-card">
+                        <Link class="back-button" v-if="backlink" :href="backlink" v-tooltip="backlinkText">arrow_back</Link>
                         <h1>{{ title }}</h1>
                     </div>
                 </div>
@@ -112,6 +113,8 @@
     defineProps({
         area: String,
         title: String,
+        backlink: [String, Object, Function],
+        backlinkText: String,
     })
 
 
@@ -310,7 +313,6 @@
 
         .content
             flex: 1
-            padding-bottom: 1rem
             font-family: var(--font-interface)
 
 
@@ -351,8 +353,29 @@
             align-items: center
             justify-content: center
 
+            .back-button
+                display: flex
+                align-items: center
+                justify-content: center
+                width: 3rem
+                height: 2.5rem
+                border-radius: 0
+                cursor: pointer
+                transition: all 100ms ease
+                border: none
+                outline: none
+                background-color: transparent
+                font-family: var(--font-icon)
+                font-size: 1.3rem
+                color: var(--color-text)
+                padding: 0
+
+                &:hover
+                    color: var(--color-heading)
+
             h1
                 font-size: 1.5rem
+                flex: 1
 
     #content-section
         margin: 2rem 0

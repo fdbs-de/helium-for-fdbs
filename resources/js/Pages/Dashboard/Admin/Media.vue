@@ -69,6 +69,11 @@
         </div>
     </AdminLayout>
 
+    <div class="dropzone" @dragover.prevent="dragOver" @drop.prevent="drop" :class="{'active': dragFiles}">
+        <span class="icon" aria-hidden="true">cloud_upload</span>
+        <span>Dateien hierher ziehen</span>
+    </div>
+
 
 
     <Popup ref="createDirectoryPopup" title="Ordner erstellen">
@@ -107,7 +112,7 @@
     import { ref, watch, computed } from 'vue'
     import { Inertia } from '@inertiajs/inertia'
     import { fileSize, lastCharacters } from '@/Utils/String'
-    import DirectoryItemClass from '@/Components/Form/MediaLibrary/DirectoryItem.js'
+    import DirectoryItemClass from '@/Models/DirectoryItem.js'
     
     import AdminLayout from '@/Layouts/Admin.vue'
     import DirectoryItem from '@/Components/Form/MediaLibrary/DirectoryItem.vue'
@@ -204,6 +209,11 @@
 
 
     // START: Upload Document
+    const dragFiles = ref(false)
+
+    window.addEventListener('dragover', () => dragFiles.value = true)
+    window.addEventListener('dragleave', dragLeave)
+
     const uploadForm = useForm({
         files: null,
         path: null,
@@ -221,6 +231,24 @@
                 uploadForm.reset()
             },
         })
+    }
+
+    const dragOver = (e) => {
+        e.preventDefault()
+        dragFiles.value = true
+        console.log('drag over')
+    }
+
+    const dragLeave = (e) => {
+        e.preventDefault()
+        dragFiles.value = false
+        console.log('drag leave')
+    }
+
+    const drop = (e) => {
+        e.preventDefault()
+        dragFiles.value = false
+        uploadFiles(e.dataTransfer.files, path.value)
     }
     // END: Upload Document
 
@@ -315,6 +343,35 @@
         height: 2px
         left: 0
 
+    .dropzone
+        position: fixed
+        top: 0
+        left: 0
+        right: 0
+        bottom: 0
+        background: rgba(0, 0, 0, 0.5)
+        z-index: 1000
+        display: flex
+        align-items: center
+        justify-content: center
+        user-select: none
+        gap: 1rem
+        color: white
+        pointer-events: none
+        opacity: 0
+
+        &.active
+            pointer-events: all
+            opacity: 1
+
+        > span
+            pointer-events: none
+
+        .icon
+            font-size: 3rem
+            line-height: 1
+            color: white
+            font-family: var(--font-icon)
 
     .item-wrapper
         width: 100%
