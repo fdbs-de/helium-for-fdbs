@@ -9,9 +9,9 @@
             <div class="spacer"></div>
 
             <div class="flex v-center">
-                <!-- <button class="icon-button" aria-hidden="true" v-tooltip="'In Dateien suchen'">search</button> -->
+                <!-- <IconButton type="button" icon="search" v-tooltip="'Suchen'" /> -->
                 <VDropdown placement="bottom-end">
-                    <button class="icon-button" v-tooltip="'Ansichtseinstellungen'">settings</button>
+                    <IconButton type="button" icon="settings" v-tooltip="'Ansichtseinstellungen'" />
                     <template #popper>
                         <div class="flex padding-1 vertical">
                             <mui-toggle type="switch" prepend-label="Bildvorschau" v-model="isPreview" />
@@ -20,11 +20,11 @@
                 </VDropdown>
             </div>
 
-            <div class="view-switcher">
-                <button class="icon-button" @click="layout = 'list'" :class="{'active': layout === 'list'}" v-tooltip="'Listenansicht'">view_list</button>
-                <button class="icon-button" @click="layout = 'grid'" :class="{'active': layout === 'grid'}" v-tooltip="'Kachelansicht'">grid_view</button>
-                <!-- <button class="icon-button" @click="layout = 'icon'" :class="{'active': layout === 'icon'}" v-tooltip="'Iconansicht'">grid_on</button> -->
-            </div>
+            <Switcher v-model="layout" :options="[
+                { value: 'list', icon: 'view_list', tooltip: 'Listenansicht' },
+                { value: 'grid', icon: 'grid_view', tooltip: 'Kachelansicht' },
+                // { value: 'icon', icon: 'grid_on', tooltip: 'Iconansicht' },
+            ]"/>
         </div>
 
         <template #fab>
@@ -41,7 +41,7 @@
             </VDropdown>
         </template>
         
-        <div class="item-wrapper" :class="layout" v-show="exists && items.length >= 1">
+        <ListItemLayout class="w-100 margin-block-2" :layout="layout" v-show="exists && items.length >= 1">
             <DirectoryItem
                 v-for="item in items"
                 :key="item.path"
@@ -57,7 +57,7 @@
                 @delete="openDeletePopup(item)"
                 @rename="openRenamePopup(item)"
                 />
-        </div>
+        </ListItemLayout>
         <small v-show="exists && items.length <= 0" class="w-100 flex h-center padding-inline-2 padding-block-5">Dieser Ordner ist leer</small>
         <small v-show="!exists" class="w-100 flex h-center padding-inline-2 padding-block-5">Dieser Ordner existiert nicht</small>
 
@@ -112,11 +112,14 @@
     import { ref, watch, computed } from 'vue'
     import { Inertia } from '@inertiajs/inertia'
     import { fileSize, lastCharacters } from '@/Utils/String'
-    import DirectoryItemClass from '@/Models/DirectoryItem.js'
+    import DirectoryItemInterface from '@/Interfaces/DirectoryItem.js'
     
     import AdminLayout from '@/Layouts/Admin.vue'
+    import ListItemLayout from '@/Components/Layout/ListItemLayout.vue'
     import DirectoryItem from '@/Components/Form/MediaLibrary/DirectoryItem.vue'
     import Breadcrumbs from '@/Components/Form/MediaLibrary/Breadcrumbs.vue'
+    import IconButton from '@/Components/Form/IconButton.vue'
+    import Switcher from '@/Components/Form/Switcher.vue'
     import Actions from '@/Components/Form/Actions.vue'
     import Popup from '@/Components/Form/Popup.vue'
 
@@ -130,7 +133,7 @@
 
     const path = computed(() => props.path)
     const items_ = computed(() => props.items)
-    const items = computed(() => items_.value.map(item => new DirectoryItemClass(item)))
+    const items = computed(() => items_.value.map(item => new DirectoryItemInterface(item)))
 
 
 
@@ -372,53 +375,4 @@
             line-height: 1
             color: white
             font-family: var(--font-icon)
-
-    .item-wrapper
-        width: 100%
-        margin-block: 2rem
-
-        &.grid
-            gap: 1rem
-            display: grid
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr))
-
-        &.list
-            padding: 1rem 0
-            border-radius: var(--radius-m)
-            background: var(--color-background)
-            box-shadow: var(--shadow-elevation-low)
-            display: flex
-            flex-direction: column
-
-    .view-switcher
-        display: flex
-        user-select: none
-        background: var(--color-background)
-        box-shadow: var(--shadow-elevation-low)
-        border-radius: var(--radius-m)
-        overflow: hidden
-        
-    .icon-button
-        display: flex
-        align-items: center
-        justify-content: center
-        width: 3rem
-        height: 2.5rem
-        border-radius: 0
-        cursor: pointer
-        transition: all 100ms ease
-        border: none
-        outline: none
-        background-color: transparent
-        font-family: var(--font-icon)
-        font-size: 1.3rem
-        color: var(--color-text)
-        padding: 0
-
-        &:hover
-            color: var(--color-heading)
-
-        &.active
-            color: black
-            background-color: #0000000f
 </style>

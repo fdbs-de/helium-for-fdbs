@@ -1,4 +1,4 @@
-<script setup>
+<!-- <script setup>
 import BreezeButton from '@/Components/Button.vue';
 import BreezeGuestLayout from '@/Layouts/Guest.vue';
 import BreezeInput from '@/Components/Input.vue';
@@ -40,4 +40,4 @@ const submit = () => {
             </div>
         </form>
     </BreezeGuestLayout>
-</template>
+</template> -->

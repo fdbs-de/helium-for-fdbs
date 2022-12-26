@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-    import Logo from '@/Components/Branding/Logo.vue'
+    import Logo from '@/Components/Logo.vue'
     import Menu from '@/Components/Page/Menu.vue'
     import { Link, usePage } from '@inertiajs/inertia-vue3'
     import { computed } from 'vue'
