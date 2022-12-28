@@ -11,14 +11,6 @@
 
 
 
-        <!-- START: Cookie Consent Tool-->
-        {{-- <script type="application/javascript" src="https://app.usercentrics.eu/latest/main.js" id="rMqB9azKr"></script>
-        <meta data-privacy-proxy-server = "https://privacy-proxy-server.usercentrics.eu">
-        <script type="application/javascript" src="https://privacy-proxy.usercentrics.eu/latest/uc-block.bundle.js"></script> --}}
-        <!-- END: Cookie Consent Tool-->
-
-
-
         <!-- START: Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         <!-- END: Styles -->
@@ -57,7 +49,7 @@
             <script id="_etLoader"
                 type="text/plain"
                 charset="UTF-8"
-                data-cookiecategory="eTracker"
+                data-cookiecategory="etracker"
                 data-block-cookies="true"
                 data-respect-dnt="true"
                 data-secure-code="4aKHpV"
