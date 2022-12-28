@@ -1,27 +1,39 @@
 <template>
     <div class="wrapper item" :class="{'selected': isSelected}">
-        <div class="preview-area" v-tooltip="item.visual.tooltip">
-            <div class="image-preview" v-if="item.visual.image" v-show="enablePreview">
-                <img :src="item.visual.image" />
+        <div class="preview-area" v-tooltip="item.displayVisual.tooltip">
+            <div class="image-preview" v-if="item.image" v-show="enablePreview">
+                <img :src="item.image" />
             </div>
-            <div class="icon" v-show="(!item.visual.image || !enablePreview)" :style="`color: ${item.visual.color};`">{{ item.visual.icon }}</div>
+            <div class="icon" v-show="(!item.image || !enablePreview)" :style="`color: ${item.displayVisual.color};`">{{ item.displayVisual.icon }}</div>
         </div>
 
         <div class="title-area">
             <span v-tooltip="item.name">{{ item.name }}</span>
         </div>
 
-        <div class="metadata-wrapper" v-tooltip="item.info[0]">{{ item.info[0] }}</div>
-        <!-- <div class="metadata-wrapper icon" :style="`color: ${item.status.color};`" v-tooltip="item.status.tooltip">{{ item.status.icon }}</div> -->
+        <div class="metadata-wrapper" v-for="text in item.displayMetadata.texts" :key="text" v-tooltip="text">{{ text }}</div>
+
+        <div class="flex v-center background-soft" style="border-radius: 1rem; padding-inline: .25rem;" v-if="item.displayMetadata.icons.length > 0">
+            <div class="metadata-wrapper icon" v-for="icon in item.displayMetadata.icons" :key="icon.id" :style="`color: ${icon.color};`" v-tooltip="icon.tooltip">{{ icon.icon }}</div>
+        </div>
 
         <VDropdown placement="bottom-end">
             <button @click.stop>more_vert</button>
             <template #popper>
                 <div class="dropdown">
-                    <mui-button class="dropdown-button" variant="text" label="Details" icon-left="visibility" @click="$emit('open', item)"/>
-                    <mui-button class="dropdown-button" variant="text" label="Duplizieren" icon-left="content_copy" @click="$emit('duplicate', item)"/>
-                    <div class="divider"></div>
-                    <mui-button class="dropdown-button" variant="text" color="error" label="Löschen" icon-left="delete" @click="$emit('delete', item)"/>
+                    <div class="group" v-for="(group, i) in item.displayActions" :key="i">
+                        <mui-button
+                            v-close-popper
+                            class="dropdown-button"
+                            variant="text"
+                            v-for="action in group"
+                            :key="action.id"
+                            :label="action.tooltip"
+                            :icon-left="action.icon"
+                            :style="`--color: ${action.color};`"
+                            @click="$emit(action.action, item)"
+                        />
+                    </div>
                 </div>
             </template>
         </VDropdown>
@@ -75,7 +87,7 @@
             border-radius: inherit
             pointer-events: none
             z-index: 1
-            background: var(--color-info)
+            background: var(--color-text)
             opacity: 0
 
         &:hover::after
@@ -168,14 +180,12 @@
         .metadata-wrapper
             flex: none
             font-size: .8rem
-            min-width: 120px
             overflow: hidden
             text-overflow: ellipsis
             white-space: nowrap
 
             &.icon
-                width: auto
-                height: 100%
+                width: 2rem
                 aspect-ratio: 1
                 display: flex
                 align-items: center
@@ -207,16 +217,20 @@
     .dropdown
         display: flex
         flex-direction: column
-        padding-block: .5rem
+        gap: 0
 
-        .divider
-            height: 0
-            margin-block: .5rem
-            border-top: 1px solid var(--color-border)
+        .group
+            display: flex
+            flex-direction: column
+            padding-block: .5rem
+            border-bottom: 1px solid var(--color-border)
 
-    .dropdown-button
-        height: 3rem !important
-        border-radius: 0 !important
-        justify-content: flex-start !important
-        --primary: var(--color-text) !important
+            &::last-child
+                border-bottom: none
+
+            .dropdown-button
+                height: 3rem !important
+                border-radius: 0 !important
+                justify-content: flex-start !important
+                --primary: var(--color) !important
 </style>

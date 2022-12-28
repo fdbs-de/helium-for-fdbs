@@ -33,7 +33,7 @@
         </div>
 
         <ListItemLayout class="w-100 margin-block-2" :layout="layout" v-show="posts.length >= 1">
-            <IconItem
+            <ImageCard
                 v-for="item in filteredPosts"
                 :key="item.id"
                 :item="item"
@@ -49,6 +49,16 @@
         </ListItemLayout>
         <small v-show="posts.length <= 0" class="w-100 flex h-center padding-inline-2 padding-block-5">Keine Posts angelegt</small>
 
+        <div class="flex v-center gap-1 border-top padding-top-1">
+            <small>
+                <b>{{filteredPosts.length}}</b> Posts
+                <template v-if="scope !== null">für den <b>{{ scope }}-Bereich</b></template>
+                <template v-if="scope === null">für alle Bereiche</template>
+            </small>
+        
+            <div class="spacer"></div>
+        </div>
+
         <template #fab>
             <button class="fab-button" aria-hidden="true" title="Neuer Post" @click="openItem()">add</button>
         </template>
@@ -63,7 +73,7 @@
     
     import AdminLayout from '@/Layouts/Admin.vue'
     import ListItemLayout from '@/Components/Layout/ListItemLayout.vue'
-    import IconItem from '@/Components/Form/Posts/IconItem.vue'
+    import ImageCard from '@/Components/Form/Card/ImageCard.vue'
     import IconButton from '@/Components/Form/IconButton.vue'
     import Switcher from '@/Components/Form/Switcher.vue'
     import Actions from '@/Components/Form/Actions.vue'

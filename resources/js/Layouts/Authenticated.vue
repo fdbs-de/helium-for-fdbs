@@ -23,11 +23,11 @@
                     <div class="icon" aria-hidden="true">account_circle</div>
                     <div class="text">Profil</div>
                 </Link>
-                <a class="menu-item" v-if="user.can_access_admin_panel" target="_blank" :href="route('dashboard.admin.users')">
+                <Link class="menu-item" v-if="user.can_access_admin_panel" :href="route('dashboard.admin.users')">
                     <div class="icon" aria-hidden="true">shield</div>
                     <div class="text">Adminbereich</div>
                     <div class="external">open_in_new</div>
-                </a>
+                </Link>
             </div>
 
             <div class="menu-group" v-if="user.can_access_customer_panel">

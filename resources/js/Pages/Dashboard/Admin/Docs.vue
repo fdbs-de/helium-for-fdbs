@@ -1,52 +1,59 @@
 <template>
     <Head title="Dashboard: Dokumente verwalten" />
 
-    <AdminLayout title="Dokumente verwalten" area="Adminbereich">
-        <template #head>
-            <div class="flex gap-1 v-center wrap flex-1">
-                <mui-input class="search-input" type="search" no-border placeholder="Suchen" icon-left="search" v-model="searchName" @input="throttledFetch"/>
-                <select v-model="searchCategory" @change="throttledFetch">
-                    <option value="" selected>Alle Kategorien</option>
-                    <option v-for="category in categories" :key="category" :value="category">{{capitalizeWords(category)}}</option>
-                </select>
-                <select v-model="searchGroup" @change="throttledFetch">
-                    <option value="all" selected>Alle</option>
-                    <option value="">Öffentlich</option>
-                    <option value="customers">Nur Kunden</option>
-                    <option value="employees">Nur Mitarbeiter</option>
-                    <option value="hidden">Versteckt</option>
-                </select>
-                
-                <div class="spacer"></div>
+    <AdminLayout title="Dokumente verwalten">
+
+        <div class="flex v-center gap-1">
+            <Actions v-show="selection.length >= 1" :selection="selection" @deselect="deselectAll()"/>
+            <Switcher v-show="selection.length <= 0" v-model="searchGroup" @update:modelValue="throttledFetch" :options="[
+                { value: 'all', icon: 'apps', tooltip: 'Alle' },
+                { value: '', icon: 'public', tooltip: 'Öffentlich' },
+                { value: 'customers', icon: 'shopping_cart', tooltip: 'Nur Kunden' },
+                { value: 'employees', icon: 'work', tooltip: 'Nur Mitarbeiter' },
+                { value: 'hidden', icon: 'visibility_off', tooltip: 'Versteckt' },
+            ]"/>
+            <select style="height: 2.5rem;" v-model="searchCategory" @change="throttledFetch">
+                <option value="" selected>Alle Kategorien</option>
+                <option v-for="category in categories" :key="category" :value="category">{{capitalizeWords(category)}}</option>
+            </select>
+            <mui-input style="height: 2.5rem;" border class="search-input" type="search" no-border placeholder="Suchen" icon-left="search" v-model="searchName" @input="throttledFetch"/>
+
+            <div class="spacer"></div>
+
+            <div class="flex v-center">
+                <!-- <IconButton type="button" icon="search" v-tooltip="'Suchen'" /> -->
+                <VDropdown placement="bottom-end">
+                    <IconButton type="button" icon="settings" v-tooltip="'Ansichtseinstellungen'" />
+                    <template #popper>
+                        <div class="flex padding-1 vertical">
+                            <mui-toggle type="switch" prepend-label="Bildvorschau" v-model="isPreview" />
+                        </div>
+                    </template>
+                </VDropdown>
             </div>
 
-            <Loader class="loader" v-show="loading" />
-        </template>
-
-        <div class="grid">
-            <div class="row">
-                <b>Cover</b>
-                <b>Sichtbarkeit</b>
-                <b>Name</b>
-                <b>Datei</b>
-                <b>Kategorie</b>
-            </div>
-            
-            <button class="row" v-for="document in documents" :key="document.id" @click="openUploadDocumentPopup(document)">
-                <img v-if="document.has_cover" class="cover" :src="route('docs.cover', document.slug)" :alt="document.cover_alt" width="80" height="50" />
-                <i v-else>Kein Cover</i>
-                
-                <span :title="getGroupName(document.group)">{{getGroupName(document.group)}}</span>
-                
-                <span v-if="document.name" :title="document.name">{{document.name}}</span>
-                <i v-else title="Kein Name">Kein Name</i>
-                
-                <a target="_blank" :href="route('docs', document.slug)" :title="document.filename" @click.stop>{{document.filename}}</a>
-                
-                <span v-if="document.category" :title="document.category">{{document.category}}</span>
-                <i v-else title="Keine Kategorie">Keine Kategorie</i>
-            </button>
+            <Switcher v-model="layout" :options="[
+                { value: 'list', icon: 'view_list', tooltip: 'Listenansicht' },
+                { value: 'grid', icon: 'grid_view', tooltip: 'Kachelansicht' },
+            ]"/>
         </div>
+
+        <ListItemLayout class="w-100 margin-block-2" :layout="layout" v-show="items.length >= 1">
+            <ImageCard
+                v-for="item in items"
+                :key="item.id"
+                :item="item"
+                :layout="layout"
+                :enable-preview="isPreview"
+                :selection="selection"
+                @contextmenu.prevent.exact="setSelection(item)"
+                @contextmenu.prevent.ctrl="toggleSelection(item)"
+                @click.ctrl="toggleSelection(item)"
+                @click.exact="openItem(item)"
+                @open="openItem(item)"
+                />
+        </ListItemLayout>
+        <small v-show="items.length <= 0" class="w-100 flex h-center padding-inline-2 padding-block-5">Keine Dokumente angelegt</small>
 
         <template #fab>
             <button class="fab-button" aria-hidden="true" title="Neues Dokument" @click="openUploadDocumentPopup()">add</button>
@@ -145,14 +152,21 @@
 </template>
 
 <script setup>
-    import AdminLayout from '@/Layouts/Admin.vue'
     import { Head, Link, useForm } from '@inertiajs/inertia-vue3'
     import { Inertia } from '@inertiajs/inertia'
+    import { slugify, capitalizeWords } from '@/Utils/String'
+    import { ref, watch, computed } from 'vue'
+    import DocumentInterface from '@/Interfaces/Document.js'
+
+    import AdminLayout from '@/Layouts/Admin.vue'
+    import ListItemLayout from '@/Components/Layout/ListItemLayout.vue'
+    import ImageCard from '@/Components/Form/Card/ImageCard.vue'
+    import IconButton from '@/Components/Form/IconButton.vue'
+    import Switcher from '@/Components/Form/Switcher.vue'
+    import Actions from '@/Components/Form/Actions.vue'
     import Popup from '@/Components/Form/Popup.vue'
     import Loader from '@/Components/Form/Loader.vue'
     import Tag from '@/Components/Form/Tag.vue'
-    import { slugify, capitalizeWords } from '@/Utils/String'
-    import { ref, watch, computed } from 'vue'
 
 
 
@@ -160,6 +174,45 @@
         // documents: Array,
         categories: Array,
     })
+
+    const items_ = computed(() => documents.value)
+    const items = computed(() => items_.value.map(item => new DocumentInterface(item)))
+
+
+
+    // START: View Parameters
+    const layout = ref('list')
+    const isPreview = ref(true)
+    // END: View Parameters
+
+
+
+    // START: Selection
+    const selection = ref([])
+
+    const toggleSelection = (item) => {
+        if (selection.value.includes(item.id))
+        {
+            selection.value = selection.value.filter(p => p !== item.id)
+        }
+        else
+        {
+            selection.value.push(item.id)
+        }
+    }
+
+    const setSelection = (item) => {
+        selection.value = [item.id]
+    }
+
+    const selectAll = () => {
+        selection.value = itemObjects.map(i => i.id)
+    }
+
+    const deselectAll = () => {
+        selection.value = []
+    }
+    // END: Selection
 
 
 
@@ -245,7 +298,7 @@
 
 
 
-    const openUploadDocumentPopup = (document) => {
+    const openItem = (document) => {
         uploadDocumentPopup.value.open()
 
         if (document)
@@ -363,49 +416,4 @@
         &:focus
             color: var(--mui-color__)
             background: var(--mui-background-secondary__)
-
-    .grid
-        display: grid
-        align-items: center
-        grid-template-columns: minmax(170px, 2fr) minmax(200px, 3fr) minmax(200px, 3fr) minmax(200px, 3fr) minmax(200px, 3fr)
-        grid-auto-rows: 50px
-        gap: .5rem 1rem
-        width: 100%
-        padding: 1rem 0
-        overflow-x: auto
-
-        .row
-            display: contents
-            cursor: pointer
-            text-align: inherit
-            font-family: inherit
-            font-size: inherit
-            color: inherit
-
-            > span,
-            > a
-                overflow: hidden
-                text-overflow: ellipsis
-                white-space: nowrap
-
-            .cover
-                object-fit: contain
-                background: var(--color-background-soft)
-                border-radius: 5px
-
-            .icon
-                font-family: var(--font-icon)
-                font-size: 1.5rem
-                line-height: 1
-                color: var(--color-text)
-                user-select: none
-
-                &.notified
-                    color: var(--color-warning)
-
-                &.active
-                    color: var(--color-primary)
-
-            &:hover
-                background: var(--color-background-soft)
 </style>
