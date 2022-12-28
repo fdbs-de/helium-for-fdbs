@@ -18,7 +18,7 @@
             ]"/>
         </div>
 
-        <ListItemLayout class="w-100 margin-block-2" :layout="layout">
+        <!-- <ListItemLayout class="w-100 margin-block-2" :layout="layout">
             <ImageCard
                 v-for="item in items"
                 :key="item.id"
@@ -32,7 +32,7 @@
                 @click.exact="openItem(item)"
                 @open="openItem(item)"
                 />
-        </ListItemLayout>
+        </ListItemLayout> -->
 
         <div class="grid t">
             <div class="row">

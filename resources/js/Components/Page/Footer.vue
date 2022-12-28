@@ -57,6 +57,7 @@
                 <h3 class="headline primary">Rechtliches</h3>
                 <nav class="navigation">
                     <Link class="link" v-for="item in legalMenu" :key="item.id" :href="item.href">{{item.label}}</Link>
+                    <a class="link" @click.prevent="openCookieDialog()" href="#">Cookie Einstellungen</a>
                 </nav>
             </div>
         </div>
@@ -109,6 +110,12 @@
     const productsMenu = computed(() => {
         return mainMenu.find(e => e.id === 'projekte-und-services')?.children || []
     })
+
+
+
+    const openCookieDialog = () => {
+        document.getElementById('cookie-settings-button').click()
+    }
 
 
     // EASTEREGG START //
