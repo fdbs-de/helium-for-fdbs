@@ -1,84 +1,79 @@
 export default class Post
 {
-    _id
-    _scope
-    _status
-    _title
-    _category
-    _content
-    _image
-    _pinned
+    _item
     _visualDictionary = {
         'blog': { id: 'blog', icon: 'public', color: '#1e90ff', tooltip: 'Blog' },
         'wiki': { id: 'wiki', icon: 'travel_explore', color: '#ff6348', tooltip: 'Wiki' },
         'intranet': { id: 'intranet', icon: 'policy', color: '#8854d0', tooltip: 'Intranet' },
-        'jobs': { id: 'jobs', icon: 'work', color: '#e00047', tooltip: 'Jobs' },
+        'jobs': { id: 'jobs', icon: 'work', color: '#e00047', tooltip: 'Karriere' },
         'unknown': { id: 'unknown', icon: 'help', color: 'var(--color-text)', tooltip: 'Unbekannt' },
     }
     _statusDictionary = {
-        'draft': { id: 'draft', icon: 'add_circle', color: 'var(--color-text)', tooltip: 'Entwurf' },
-        'pending': { id: 'pending', icon: 'schedule', color: 'var(--color-warning)', tooltip: 'Zur Freigabe' },
-        'published': { id: 'published', icon: 'public', color: 'var(--color-info)', tooltip: 'Veröffentlicht' },
-        'hidden': { id: 'hidden', icon: 'block', color: 'var(--color-error)', tooltip: 'Versteckt' },
+        'draft': { id: 'draft', icon: 'draft', color: 'var(--color-text)', tooltip: 'Entwurf' },
+        'pending': { id: 'pending', icon: 'forum', color: 'var(--color-yellow)', tooltip: 'Zur Freigabe' },
+        'published': { id: 'published', icon: 'public', color: 'var(--color-green)', tooltip: 'Veröffentlicht' },
+        'hidden': { id: 'hidden', icon: 'visibility_off', color: 'var(--color-red)', tooltip: 'Versteckt' },
         'unknown': { id: 'unknown', icon: 'help', color: 'var(--color-text)', tooltip: 'Unbekannt' },
     }
 
-    constructor (post)
+    constructor (item)
     {
-        this._id = post.id || null
-        this._scope = post.scope || null
-        this._status = post.status || null
-        this._title = post.title || ''
-        this._category = post.category || ''
-        this._content = post.content || ''
-        this._image = post.image || null
-        this._pinned = post.pinned || false
+        this._item = item || {}
     }
     
     get id ()
     {
-        return this._id
+        return this._item?.id
+    }
+
+    get name ()
+    {
+        return this._item?.title
+    }
+
+    get slug ()
+    {
+        return this._item?.slug
     }
 
     get scope ()
     {
-        return this._scope
-    }
-
-    get status ()
-    {
-        if (Object.keys(this._statusDictionary).includes(this._status)) return this._statusDictionary[this._status]
-        else return this._statusDictionary['unknown']
-    }
-
-    get title ()
-    {
-        return this._title
-    }
-
-    get category ()
-    {
-        return this._category ? this._category : {id: null, name: 'Keine Kategorie'}
-    }
-
-    get content ()
-    {
-        return this._content
+        return this._item?.scope
     }
 
     get image ()
     {
-        return this._image
+        return this._item?.image
     }
 
-    get pinned ()
+    get displayMetadata ()
     {
-        return this._pinned
+        return {
+            texts: [
+                (this._item?.category?.name || 'Keine Kategorie'),
+            ],
+
+            icons: [
+                (this._statusDictionary[this._item?.status] || this._statusDictionary['unknown']),
+            ],
+        }
     }
 
-    get visual ()
+    get displayVisual ()
     {
-        if (Object.keys(this._visualDictionary).includes(this._scope)) return this._visualDictionary[this._scope]
-        else return this._visualDictionary['unknown']
+        return this._visualDictionary[this._item?.scope] || this._visualDictionary['unknown']
+    }
+
+    get displayActions ()
+    {
+        return [
+            [
+                { id: 'open', icon: 'visibility', tooltip: 'Details', color: 'var(--color-text)', action: 'open' },
+                // { id: 'duplicate', icon: 'content_copy', tooltip: 'Duplizieren', color: 'var(--color-text)', action: 'duplicate' },
+            ],
+            // [
+            //     { id: 'delete', icon: 'delete', tooltip: 'Löschen', color: 'var(--color-error)', action: 'delete' },
+            // ]
+        ]
     }
 }

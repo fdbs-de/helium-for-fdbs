@@ -25,25 +25,27 @@
             ]"/>
         </div>
 
-        <div class="grid">
-            <div class="row">
-                <b>Name</b>
-                <b>Beschreibung</b>
-                <b>Status</b>
-                <b>Posts</b>
-            </div>
-        
-            <button class="row" v-for="category in categories" :key="'category'+category.id" @click="openCategory(category)">
-                <span v-if="category.name">{{category.name}}</span>
-                <i v-else>Kein Name angegeben</i>
-        
-                <span v-if="category.description">{{category.description}}</span>
-                <i v-else>Keine Beschreibung angegeben</i>
-        
-                <span>{{category.status}}</span>
+        <ListItemLayout class="w-100 margin-block-2" :layout="layout" v-show="items.length >= 1">
+            <ImageCard
+                v-for="item in items"
+                :key="item.id"
+                :item="item"
+                :layout="layout"
+                :enable-preview="isPreview"
+                :selection="selection"
+                @contextmenu.prevent.exact="setSelection(item)"
+                @contextmenu.prevent.ctrl="toggleSelection(item)"
+                @click.ctrl="toggleSelection(item)"
+                @click.exact="openItem(item)"
+                @open="openItem(item)"
+                />
+        </ListItemLayout>
+        <small v-show="items.length <= 0" class="w-100 flex h-center padding-inline-2 padding-block-5">Keine Kategorien angelegt</small>
 
-                <span>{{category.posts_count}}</span>
-            </button>
+        <div class="flex v-center gap-1 border-top padding-top-1">
+            <small><b>{{items.length}}</b> Kategorien</small>
+        
+            <div class="spacer"></div>
         </div>
 
         <template #fab>
@@ -102,16 +104,25 @@
 <script setup>
     import { Head, useForm, usePage } from '@inertiajs/inertia-vue3'
     import { ref, computed } from 'vue'
+    import PostCategoryInterface from '@/Interfaces/PostCategory.js'
 
     import AdminLayout from '@/Layouts/Admin.vue'
-    import Switcher from '@/Components/Form/Switcher.vue'
-    import Popup from '@/Components/Form/Popup.vue'
+    import ListItemLayout from '@/Components/Layout/ListItemLayout.vue'
+    import ImageCard from '@/Components/Form/Card/ImageCard.vue'
+    import IconButton from '@/Components/Form/IconButton.vue'
     import BlogInput from '@/Components/Form/BlogInput.vue'
-    import IconItem from '@/Components/Form/Posts/IconItem.vue'
+    import Switcher from '@/Components/Form/Switcher.vue'
+    import Actions from '@/Components/Form/Actions.vue'
+    import Popup from '@/Components/Form/Popup.vue'
 
     const props = defineProps({
         categories: Array,
     })
+
+    const items_ = computed(() => props.categories)
+    const items = computed(() => items_.value.map(item => new PostCategoryInterface(item)))
+
+
 
     // START: View Parameters
     const layout = ref('list')
@@ -161,7 +172,7 @@
         status: 'published',
     })
 
-    const openCategory = (item = null) => {
+    const openItem = (item = null) => {
         manageCategoryPopup.value.open()
 
         categoryForm.id = item?.id ?? null
@@ -210,89 +221,6 @@
 </script>
 
 <style lang="sass" scoped>
-
-    .icon-button
-        display: flex
-        align-items: center
-        justify-content: center
-        width: 3rem
-        height: 2.5rem
-        border-radius: 0
-        cursor: pointer
-        transition: all 100ms ease
-        border: none
-        outline: none
-        background-color: transparent
-        font-family: var(--font-icon)
-        font-size: 1.3rem
-        color: var(--color-text)
-        padding: 0
-
-        &:hover
-            color: var(--color-heading)
-
-        &.active
-            color: black
-            background-color: #0000000f
-
-    .item-wrapper
-        width: 100%
-        margin-block: 2rem
-
-        &.grid
-            gap: 1rem
-            display: grid
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr))
-
-        &.list
-            padding: 1rem 0
-            border-radius: var(--radius-m)
-            background: var(--color-background)
-            box-shadow: var(--shadow-elevation-low)
-            display: flex
-            flex-direction: column
-            
-    .grid
-        display: grid
-        align-items: center
-        grid-template-columns: minmax(170px, 2fr) minmax(200px, 3fr) minmax(200px, 3fr) 150px
-        grid-auto-rows: 2.5rem
-        gap: 0 var(--su)
-        width: 100%
-        padding: 1rem
-        overflow-x: auto
-
-        &.three-columns
-            grid-template-columns: minmax(170px, 2fr) minmax(200px, 3fr) 150px
-
-        .row
-            display: contents
-            cursor: pointer
-            text-align: inherit
-            font-family: inherit
-            font-size: inherit
-            color: inherit
-
-            > span
-                overflow: hidden
-                text-overflow: ellipsis
-                white-space: nowrap
-
-            .icon
-                font-family: var(--font-icon)
-                font-size: 1.5rem
-                line-height: 1
-                color: var(--color-text)
-                user-select: none
-
-                &.notified
-                    color: var(--color-warning)
-
-                &.active
-                    color: var(--color-primary)
-
-            &:hover
-                background: var(--color-background-soft)
 
     .manage-popup
         --max-width: 1200px

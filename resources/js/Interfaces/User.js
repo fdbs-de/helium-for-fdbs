@@ -1,17 +1,29 @@
-export default class Post
+export default class User
 {
     _item
     _visualDictionary = {
-        'blog': { id: 'blog', icon: 'public', color: '#1e90ff', tooltip: 'Blog' },
-        'wiki': { id: 'wiki', icon: 'travel_explore', color: '#ff6348', tooltip: 'Wiki' },
-        'intranet': { id: 'intranet', icon: 'policy', color: '#8854d0', tooltip: 'Intranet' },
-        'jobs': { id: 'jobs', icon: 'work', color: '#e00047', tooltip: 'Jobs' },
+        'super-admin': { id: 'super-admin', icon: 'local_police', color: 'var(--color-primary)', tooltip: 'Super Admin' },
+        'admin': { id: 'admin', icon: 'shield', color: 'var(--color-primary)', tooltip: 'Admin' },
+        'editor': { id: 'editor', icon: 'design_services', color: '#8854d0', tooltip: 'Editor' },
+        'registered': { id: 'registered', icon: 'person', color: 'var(--color-text)', tooltip: 'Registriert' },
         'unknown': { id: 'unknown', icon: 'help', color: 'var(--color-text)', tooltip: 'Unbekannt' },
     }
 
     constructor (item)
     {
         this._item = item || {}
+    }
+
+    
+    
+    get mostProminentRole ()
+    {
+        let roles = this._item?.roles?.map(role => role.name)
+        
+        if (roles.includes('Super Admin')) return 'super-admin'
+        if (roles.includes('Admin')) return 'admin'
+        if (roles.includes('Editor')) return 'editor'
+        return 'registered'
     }
 
 
@@ -21,26 +33,60 @@ export default class Post
         return this._item?.id || null
     }
 
+
+
     get name ()
     {
         return this._item?.display_name || this._item?.email || 'Name unbekannt'
     }
 
-    get info ()
+
+
+    get image ()
     {
-        return [
-            this._item?.email || 'E-Mail unbekannt'
-        ]
+        return this._item?.image || null
     }
 
-    get visual ()
+
+
+    get displayMetadata ()
     {
         return {
-            id: null,
-            icon: 'person',
-            color: 'var(--color-text)',
-            tooltip: this._item?.name || 'Unbekannt',
-            image: null,
+            texts: [
+                this._item?.email || 'E-Mail unbekannt'
+            ],
+
+            icons: [
+                { id: 'email', icon: 'mail', tooltip: 'Email Bestätigung', color: this._item?.email_verified_at ? 'var(--color-primary)' :'var(--color-text)'},
+                { id: 'enabled', icon: 'check_circle', tooltip: 'Freigabe', color: this._item?.enabled_at ? 'var(--color-primary)' : 'var(--color-text)'},
+                { id: 'customer', icon: 'shopping_cart', tooltip: 'Kundenkonto (gelb = angelegt; rot = freigegeben)', color: this._item?.customer_profile ? (this._item?.customer_profile?.enabled_at ? 'var(--color-primary)' : 'var(--color-yellow)') : 'var(--color-text)'},
+                { id: 'employee', icon: 'work', tooltip: 'Mitarbeiterkonto (gelb = angelegt; rot = freigegeben)', color: this._item?.employee_profile ? (this._item?.employee_profile?.enabled_at ? 'var(--color-primary)' : 'var(--color-yellow)') : 'var(--color-text)' },
+            ],
         }
+    }
+
+
+
+    get displayVisual ()
+    {
+        return {
+            ...(this._visualDictionary[this.mostProminentRole] || this._visualDictionary['unknown']),
+            tooltip: this._item?.roles?.map(role => role.name).join(' • ') || 'Registriert',
+        }
+    }
+
+
+
+    get displayActions ()
+    {
+        return [
+            [
+                { id: 'open', icon: 'visibility', tooltip: 'Details', color: 'var(--color-text)', action: 'open' },
+                // { id: 'duplicate', icon: 'content_copy', tooltip: 'Duplizieren', color: 'var(--color-text)', action: 'duplicate' },
+            ],
+            // [
+            //     { id: 'delete', icon: 'delete', tooltip: 'Löschen', color: 'var(--color-error)', action: 'delete' },
+            // ]
+        ]
     }
 }

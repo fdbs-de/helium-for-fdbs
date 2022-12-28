@@ -18,7 +18,7 @@
             ]"/>
         </div>
 
-        <!-- <ListItemLayout class="w-100 margin-block-2" :layout="layout">
+        <ListItemLayout class="w-100 margin-block-2" :layout="layout">
             <ImageCard
                 v-for="item in items"
                 :key="item.id"
@@ -32,9 +32,15 @@
                 @click.exact="openItem(item)"
                 @open="openItem(item)"
                 />
-        </ListItemLayout> -->
+        </ListItemLayout>
 
-        <div class="grid t">
+        <div class="flex v-center gap-1 border-top padding-top-1">
+            <small><b>{{items.length}}</b> User</small>
+        
+            <div class="spacer"></div>
+        </div>
+
+        <!-- <div class="grid t">
             <div class="row">
                 <b>Name</b>
                 <b>Email</b>
@@ -59,7 +65,7 @@
                     <div class="icon" title="Mitarbeiterkonto (gelb = angelegt; rot = freigegeben)" :class="{'active': (user.employee_profile || {}).enabled_at, 'notified': user.employee_profile}">work</div>
                 </span>
             </button>
-        </div>
+        </div> -->
     </AdminLayout>
 
     <Popup ref="managePopup" class="user-popup" title="Nutzer Ansicht" background-color="var(--color-background-soft)">
@@ -251,7 +257,7 @@
     const errors = computed(() => usePage().props.value.errors)
     const hasErrors = computed(() => Object.keys(errors.value).length > 0)
 
-    const openUser = (user = null) => {
+    const openItem = (user = null) => {
         managePopup.value.open()
         selectedUser.value = user.id
     }
