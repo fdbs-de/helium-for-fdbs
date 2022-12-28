@@ -15,9 +15,9 @@
             <div class="spacer"></div>
 
             <div class="flex v-center">
-                <!-- <button class="icon-button" aria-hidden="true" v-tooltip="'Suchen'">search</button> -->
+                <!-- <IconButton type="button" icon="search" v-tooltip="'Suchen'" /> -->
                 <VDropdown placement="bottom-end">
-                    <button class="icon-button" v-tooltip="'Ansichtseinstellungen'">settings</button>
+                    <IconButton type="button" icon="settings" v-tooltip="'Ansichtseinstellungen'" />
                     <template #popper>
                         <div class="flex padding-1 vertical">
                             <mui-toggle type="switch" prepend-label="Bildvorschau" v-model="isPreview" />
@@ -32,7 +32,7 @@
             ]"/>
         </div>
 
-        <div class="item-wrapper" :class="layout" v-show="posts.length >= 1">
+        <ListItemLayout class="w-100 margin-block-2" :layout="layout" v-show="posts.length >= 1">
             <IconItem
                 v-for="item in filteredPosts"
                 :key="item.id"
@@ -46,7 +46,7 @@
                 @click.exact="openItem(item)"
                 @open="openItem(item)"
                 />
-        </div>
+        </ListItemLayout>
         <small v-show="posts.length <= 0" class="w-100 flex h-center padding-inline-2 padding-block-5">Keine Posts angelegt</small>
 
         <template #fab>
@@ -59,11 +59,13 @@
     import { Head, useForm, usePage } from '@inertiajs/inertia-vue3'
     import { ref, computed } from 'vue'
     import { Inertia } from '@inertiajs/inertia'
-    import PostClass from '@/Models/Post.js'
+    import PostInterface from '@/Interfaces/Post.js'
     
     import AdminLayout from '@/Layouts/Admin.vue'
-    import Switcher from '@/Components/Form/Switcher.vue'
+    import ListItemLayout from '@/Components/Layout/ListItemLayout.vue'
     import IconItem from '@/Components/Form/Posts/IconItem.vue'
+    import IconButton from '@/Components/Form/IconButton.vue'
+    import Switcher from '@/Components/Form/Switcher.vue'
     import Actions from '@/Components/Form/Actions.vue'
 
     const props = defineProps({
@@ -72,7 +74,7 @@
     })
 
     const posts_ = computed(() => props.posts)
-    const posts = computed(() => posts_.value.map(post => new PostClass(post)))
+    const posts = computed(() => posts_.value.map(post => new PostInterface(post)))
 
 
 
@@ -160,21 +162,4 @@
         &.active
             color: black
             background-color: #0000000f
-
-    .item-wrapper
-        width: 100%
-        margin-block: 2rem
-
-        &.grid
-            gap: 1rem
-            display: grid
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr))
-
-        &.list
-            padding: 1rem 0
-            border-radius: var(--radius-m)
-            background: var(--color-background)
-            box-shadow: var(--shadow-elevation-low)
-            display: flex
-            flex-direction: column
 </style>

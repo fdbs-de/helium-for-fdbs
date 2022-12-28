@@ -2,12 +2,39 @@
     <Head title="Nutzer verwalten" />
 
     <AdminLayout title="Nutzer verwalten">
-        <template #head>
-            <!-- file input that accepts json -->
+        <div class="flex v-center gap-1">
+            <Actions v-show="selection.length >= 1" :selection="selection" @deselect="deselectAll()"/>
             <input ref="importInput" type="file" accept=".json" @change="importUsersFromJSON($event.target.files[0])" />
-        </template>
 
-        <div class="grid">
+            <div class="spacer"></div>
+
+            <div class="flex v-center">
+                <IconButton type="button" icon="search" v-tooltip="'Suchen'"/>
+            </div>
+
+            <Switcher v-model="layout" :options="[
+                { value: 'list', icon: 'view_list', tooltip: 'Listenansicht' },
+                { value: 'grid', icon: 'grid_view', tooltip: 'Kachelansicht' },
+            ]"/>
+        </div>
+
+        <!-- <ListItemLayout class="w-100 margin-block-2" :layout="layout">
+            <ImageCard
+                v-for="item in items"
+                :key="item.id"
+                :item="item"
+                :layout="layout"
+                :enable-preview="isPreview"
+                :selection="selection"
+                @contextmenu.prevent.exact="setSelection(item)"
+                @contextmenu.prevent.ctrl="toggleSelection(item)"
+                @click.ctrl="toggleSelection(item)"
+                @click.exact="openItem(item)"
+                @open="openItem(item)"
+                />
+        </ListItemLayout> -->
+
+        <div class="grid t">
             <div class="row">
                 <b>Name</b>
                 <b>Email</b>
@@ -171,18 +198,28 @@
 </template>
 
 <script setup>
-    import AdminLayout from '@/Layouts/Admin.vue'
     import { Head, Link, useForm, usePage } from '@inertiajs/inertia-vue3'
+    import { ref, computed } from 'vue'
+    import UserInterface from '@/Interfaces/User.js'
+    import zxcvbn from 'zxcvbn'
+
+    import AdminLayout from '@/Layouts/Admin.vue'
+    import ListItemLayout from '@/Components/Layout/ListItemLayout.vue'
+    import Actions from '@/Components/Form/Actions.vue'
+    import Switcher from '@/Components/Form/Switcher.vue'
+    import IconButton from '@/Components/Form/IconButton.vue'
+    import ImageCard from '@/Components/Form/Card/ImageCard.vue'
     import Popup from '@/Components/Form/Popup.vue'
     import Tag from '@/Components/Form/Tag.vue'
-    import { ref, computed } from 'vue'
-    import zxcvbn from 'zxcvbn'
 
     window.zxcvbn = zxcvbn
 
     const props = defineProps({
         users: Array,
     })
+
+    const items_ = computed(() => props.users)
+    const items = computed(() => items_.value.map(item => new UserInterface(item)))
 
 
 
@@ -290,10 +327,46 @@
             })
         }
     }
+
+
+
+    // START: View Parameters
+    const layout = ref('list')
+    const isPreview = ref(false)
+    // END: View Parameters
+
+
+
+    // START: Selection
+    const selection = ref([])
+
+    const toggleSelection = (item) => {
+        if (selection.value.includes(item.path.path))
+        {
+            selection.value = selection.value.filter(p => p !== item.path.path)
+        }
+        else
+        {
+            selection.value.push(item.path.path)
+        }
+    }
+
+    const setSelection = (item) => {
+        selection.value = [item.path.path]
+    }
+
+    const selectAll = () => {
+        selection.value = itemObjects.map(i => i.path.path)
+    }
+
+    const deselectAll = () => {
+        selection.value = []
+    }
+    // END: Selection
 </script>
 
 <style lang="sass" scoped>
-    .grid
+    .grid.t
         display: grid
         align-items: center
         grid-template-columns: minmax(170px, 2fr) minmax(200px, 3fr) minmax(200px, 3fr) 150px

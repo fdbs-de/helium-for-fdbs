@@ -12,9 +12,9 @@
 
 
         <!-- START: Cookie Consent Tool-->
-        <script type="application/javascript" src="https://app.usercentrics.eu/latest/main.js" id="rMqB9azKr"></script>
+        {{-- <script type="application/javascript" src="https://app.usercentrics.eu/latest/main.js" id="rMqB9azKr"></script>
         <meta data-privacy-proxy-server = "https://privacy-proxy-server.usercentrics.eu">
-        <script type="application/javascript" src="https://privacy-proxy.usercentrics.eu/latest/uc-block.bundle.js"></script>
+        <script type="application/javascript" src="https://privacy-proxy.usercentrics.eu/latest/uc-block.bundle.js"></script> --}}
         <!-- END: Cookie Consent Tool-->
 
 
@@ -52,11 +52,20 @@
 
 
 
-        <!-- START: eTracker Analytics -->
         @env('production')
-            <script id="_etLoader" type="text/javascript" charset="UTF-8" data-block-cookies="true" data-respect-dnt="true" data-secure-code="4aKHpV" src="//code.etracker.com/code/e.js" async></script>
+            <!-- START: eTracker Analytics -->
+            <script id="_etLoader"
+                type="text/plain"
+                charset="UTF-8"
+                data-cookiecategory="eTracker"
+                data-block-cookies="true"
+                data-respect-dnt="true"
+                data-secure-code="4aKHpV"
+                src="//code.etracker.com/code/e.js"
+                async>
+            </script>
+            <!-- END: eTracker Analytics -->
         @endenv
-        <!-- END: eTracker Analytics -->
 
 
 
@@ -94,17 +103,19 @@
     </head>
     <body>
         @inertia
+
+        <a id="cookie-settings-button" href="#" data-cc="c-settings">Cookie Einstellungen</a>
         
         <!-- START: Cookie Consent Tool-->
-        {{-- <script src="https://app.cockpit.legal/static/cookieconsent.js"
-            data-cc-tools="Matomo"
-            data-cc-privacy="https://fdbs.de/datenschutz"
-            data-cc-imprint="https://fdbs.de/impressum"
-            data-cc-color="#e00047"
-            data-cc-theme="light"
-            data-cc-language="browser"
-            data-cc-non-eu-consent="false">
-        </script> --}}
+        <script src="https://app.prive.eu/consent"
+                data-cc-tools="etracker"
+                data-cc-privacy="https://fdbs.de/datenschutz"
+                data-cc-imprint="https://fdbs.de/impressum"
+                data-cc-color="#e00047"
+                data-cc-theme="system"
+                data-cc-language="browser"
+                data-cc-non-eu-consent="false">
+        </script>
         <!-- END: Cookie Consent Tool-->
     </body>
 </html>
