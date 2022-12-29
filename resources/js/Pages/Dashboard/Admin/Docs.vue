@@ -1,22 +1,30 @@
 <template>
     <Head title="Dashboard: Dokumente verwalten" />
 
-    <AdminLayout title="Dokumente verwalten">
+    <AdminLayout title="Dokumente verwalten" :loading="loading">
 
         <div class="flex v-center gap-1">
             <Actions v-show="selection.length >= 1" :selection="selection" @deselect="deselectAll()"/>
-            <Switcher v-show="selection.length <= 0" v-model="searchGroup" @update:modelValue="throttledFetch" :options="[
-                { value: 'all', icon: 'apps', tooltip: 'Alle' },
-                { value: '', icon: 'public', tooltip: 'Öffentlich' },
-                { value: 'customers', icon: 'shopping_cart', tooltip: 'Nur Kunden' },
-                { value: 'employees', icon: 'work', tooltip: 'Nur Mitarbeiter' },
-                { value: 'hidden', icon: 'visibility_off', tooltip: 'Versteckt' },
-            ]"/>
-            <select style="height: 2.5rem;" v-model="searchCategory" @change="throttledFetch">
-                <option value="" selected>Alle Kategorien</option>
-                <option v-for="category in categories" :key="category" :value="category">{{capitalizeWords(category)}}</option>
-            </select>
-            <mui-input style="height: 2.5rem;" border class="search-input" type="search" no-border placeholder="Suchen" icon-left="search" v-model="searchName" @input="throttledFetch"/>
+            <mui-input v-show="selection.length <= 0"
+                type="search"
+                class="search-input"
+                placeholder="Suchen"
+                v-model="searchName"
+                @input="throttledFetch">
+                <template #right>
+                    <select style="height: 2.5rem;" v-model="searchCategory" @change="throttledFetch">
+                        <option value="" selected>Alle Kategorien</option>
+                        <option v-for="category in categories" :key="category" :value="category">{{capitalizeWords(category)}}</option>
+                    </select>
+                    <select style="height: 2.5rem;" v-model="searchGroup" @change="throttledFetch">
+                        <option value="all" selected>Alle Gruppen</option>
+                        <option value="">Nur öffentliche</option>
+                        <option value="customers">Nur Kunden</option>
+                        <option value="employees">Nur Mitarbeiter</option>
+                        <option value="hidden">Nur versteckte</option>
+                    </select>
+                </template>
+            </mui-input>
 
             <div class="spacer"></div>
 
@@ -165,7 +173,6 @@
     import Switcher from '@/Components/Form/Switcher.vue'
     import Actions from '@/Components/Form/Actions.vue'
     import Popup from '@/Components/Form/Popup.vue'
-    import Loader from '@/Components/Form/Loader.vue'
     import Tag from '@/Components/Form/Tag.vue'
 
 
@@ -378,12 +385,6 @@
 </script>
 
 <style lang="sass" scoped>
-    .loader
-        position: absolute
-        bottom: -2px
-        height: 2px
-        left: 0
-
     .upload-box
         display: flex
         align-items: center
@@ -392,6 +393,17 @@
         height: 100px
         background: var(--color-background-soft)
         border-radius: .325rem
+
+    .search-input
+        height: 2.5rem !important
+        --mui-background: var(--color-background)
+        border-radius: var(--radius-m) !important
+        box-shadow: var(--shadow-elevation-low)
+
+        select
+            background: transparent
+            border-radius: 0
+            border-left: 1px solid var(--color-border)
 
     .input-button
         height: 2rem
