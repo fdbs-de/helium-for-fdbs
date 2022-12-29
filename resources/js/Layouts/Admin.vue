@@ -80,6 +80,7 @@
                     <div class="hero-card">
                         <Link class="back-button" v-if="backlink" :href="backlink" v-tooltip="backlinkText">arrow_back</Link>
                         <h1>{{ title }}</h1>
+                        <Loader class="loader" v-show="loading" />
                     </div>
                 </div>
             </div>
@@ -103,10 +104,12 @@
 </template>
 
 <script setup>
-    import Footer from '@/Components/Page/Footer.vue'
     import { Link, usePage } from '@inertiajs/inertia-vue3'
     import { ref, computed } from 'vue'
     import { can } from '@/Utils/Permissions'
+
+    import Loader from '@/Components/Form/Loader.vue'
+    import Footer from '@/Components/Page/Footer.vue'
 
 
 
@@ -115,6 +118,10 @@
         title: String,
         backlink: [String, Object, Function],
         backlinkText: String,
+        loading: {
+            type: Boolean,
+            default: false,
+        }
     })
 
 
@@ -352,6 +359,7 @@
             display: flex
             align-items: center
             justify-content: center
+            position: relative
 
             .back-button
                 display: flex
@@ -376,6 +384,13 @@
             h1
                 font-size: 1.5rem
                 flex: 1
+
+            .loader
+                position: absolute
+                bottom: 0
+                left: var(--radius-m)
+                height: 2px
+                width: calc(100% - 2 * var(--radius-m))
 
     #content-section
         margin: 2rem 0
