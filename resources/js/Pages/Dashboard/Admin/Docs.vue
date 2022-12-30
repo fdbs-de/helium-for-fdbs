@@ -64,7 +64,7 @@
         <small v-show="items.length <= 0" class="w-100 flex h-center padding-inline-2 padding-block-5">Keine Dokumente angelegt</small>
 
         <template #fab>
-            <button class="fab-button" aria-hidden="true" title="Neues Dokument" @click="openUploadDocumentPopup()">add</button>
+            <button class="fab-button" aria-hidden="true" title="Neues Dokument" @click="openItem()">add</button>
         </template>
     </AdminLayout>
 
