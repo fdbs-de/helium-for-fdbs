@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -18,6 +19,23 @@ class UserController extends Controller
         return Inertia::render('Dashboard/Admin/Users/Index', [
             'users' => User::with(['roles', 'employeeProfile', 'customerProfile'])->orderBy('created_at', 'desc')->get(),
         ]);
+    }
+
+
+
+    public function search(Request $request)
+    {
+        // You know what... model attributes are not searchable by default and therefor I find them stupid.
+        // Actually, every database column is stupid. I hate SQL :(
+        $users = User::with(['roles', 'employeeProfile', 'customerProfile'])
+        ->where('name', 'like', '%' . $request->name . '%')
+        ->orWhere('email', 'like', '%' . $request->name . '%')
+        ->orderBy('created_at', 'desc')
+        ->limit($request->perPage ?? 20)
+        ->offset($request->perPage * ($request->page ?? 0) - $request->perPage)
+        ->get();
+
+        return response()->json($users);
     }
 
 
