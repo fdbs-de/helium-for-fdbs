@@ -63,6 +63,10 @@
         </ListItemLayout>
         <small v-show="items.length <= 0" class="w-100 flex h-center padding-inline-2 padding-block-5">Keine Dokumente angelegt</small>
 
+        <div class="flex v-center gap-1 border-top padding-top-1">
+            <small><b>{{items.length}}</b> Dokumente</small>
+        </div>
+
         <template #fab>
             <button class="fab-button" aria-hidden="true" title="Neues Dokument" @click="openItem()">add</button>
         </template>

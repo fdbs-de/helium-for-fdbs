@@ -20,6 +20,7 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'panelaccess:admin'])->g
 
     Route::prefix('users')->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('dashboard.admin.users');
+        Route::get('/search', [UserController::class, 'search'])->name('admin.users.search');
         Route::get('/editor/{user?}', [UserController::class, 'create'])->name('admin.users.editor');
         Route::post('/import', [UserController::class, 'importUsers'])->can('create', 'App\Models\User')->name('dashboard.admin.users.import');
         Route::put('/{user}/change-password', [UserController::class, 'changePassword'])->can('update', 'user')->name('dashboard.admin.users.change-password');
