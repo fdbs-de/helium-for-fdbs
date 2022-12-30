@@ -13,10 +13,19 @@ use Inertia\Inertia;
 
 class UserController extends Controller
 {
-    public function indexUsers()
+    public function index()
     {
-        return Inertia::render('Dashboard/Admin/Users', [
+        return Inertia::render('Dashboard/Admin/Users/Index', [
             'users' => User::with(['roles', 'employeeProfile', 'customerProfile'])->orderBy('created_at', 'desc')->get(),
+        ]);
+    }
+
+
+
+    public function create(User $user)
+    {
+        return Inertia::render('Dashboard/Admin/Users/Create', [
+            'user' => $user->load(['roles', 'employeeProfile', 'customerProfile']),
         ]);
     }
 
