@@ -26,7 +26,7 @@
                 <Link class="menu-item" v-if="user.can_access_admin_panel" :href="route('dashboard.admin.users')">
                     <div class="icon" aria-hidden="true">shield</div>
                     <div class="text">Adminbereich</div>
-                    <div class="external">open_in_new</div>
+                    <!-- <div class="external">open_in_new</div> -->
                 </Link>
             </div>
 
