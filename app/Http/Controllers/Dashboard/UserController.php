@@ -27,7 +27,7 @@ class UserController extends Controller
     {
         // You know what... model attributes are not searchable by default and therefor I find them stupid.
         // Actually, every database column is stupid. I hate SQL :(
-        $users = User::with(['roles', 'employeeProfile', 'customerProfile'])
+        $users = User::with(['roles', 'settings', 'employeeProfile', 'customerProfile'])
         ->where('name', 'like', '%' . $request->name . '%')
         ->orWhere('email', 'like', '%' . $request->name . '%')
         ->orderBy('created_at', 'desc')
@@ -43,7 +43,7 @@ class UserController extends Controller
     public function create(User $user)
     {
         return Inertia::render('Dashboard/Admin/Users/Create', [
-            'user' => $user->load(['roles', 'employeeProfile', 'customerProfile']),
+            'user' => $user->load(['roles', 'settings', 'employeeProfile', 'customerProfile']),
         ]);
     }
 
@@ -57,6 +57,22 @@ class UserController extends Controller
 
         $user->password = bcrypt($request->newPassword);
         $user->save();
+
+        return back();
+    }
+
+
+
+    public function setNewsletterSetting(Request $request, User $user)
+    {
+        $request->validate([
+            'newsletter' => 'required|in:generic,customer',
+            'value' => 'required|boolean',
+        ]);
+
+        $newsletter = 'newsletter.subscribed.' . $request->newsletter;
+
+        $user->setSetting($newsletter, $request->value);
 
         return back();
     }

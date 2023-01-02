@@ -73,6 +73,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(EmployeeProfile::class);
     }
 
+    public function settings()
+    {
+        return $this->hasMany(UserSetting::class);
+    }
+
 
 
     public function getIsEnabledAttribute()
@@ -113,5 +118,12 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         // This should either return the company name or the user's name or null
         return $this->customerProfile ? $this->customerProfile->company : ($this->employeeProfile ? $this->employeeProfile->first_name . ' ' . $this->employeeProfile->last_name : null);
+    }
+
+
+
+    public function setSetting($key, $value)
+    {
+        $this->settings()->updateOrCreate(['key' => $key], ['value' => $value]);
     }
 }

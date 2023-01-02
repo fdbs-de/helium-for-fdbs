@@ -12,7 +12,6 @@
                 <div class="flex gap-1 wrap v-center radius-m background-soft padding-1">
                     <div class="flex vertical spacer">
                         <b>Account</b>
-                        <span>{{user.display_name}}</span>
                         <span>
                             {{user.email}}
                             <small v-if="!user.email_verified_at">(Bestätigung ausstehend)</small>
@@ -23,9 +22,8 @@
                         </span>
                     </div>
                     <div class="flex gap-1 v-center">
-                        <mui-button label="Freigeben" v-if="!user.enabled_at" @click="enableUser()"/>
-                        <mui-button label="Sperren" v-else @click="disableUser()"/>
-                        <mui-button label="Löschen" variant="contained" @click="$refs.deleteUserPopup.open()"/>
+                        <mui-button label="Freigeben" icon-left="check_circle" color="success" v-if="!user.enabled_at" @click="enableUser()"/>
+                        <mui-button label="Sperren" icon-left="block" color="error" v-else @click="disableUser()"/>
                     </div>
                 </div>
                 
@@ -36,9 +34,9 @@
                         <span>{{user.customer_profile.customer_id || 'Keine Kundennummer'}}</span>
                     </div>
                     <div class="flex gap-1 v-center">
-                        <mui-button label="Freigeben" v-if="!user.customer_profile.enabled_at" @click="enableCustomer()"/>
-                        <mui-button label="Sperren" v-else @click="disableCustomer()"/>
-                        <mui-button label="Löschen" variant="contained" @click="$refs.deleteCustomerPopup.open()"/>
+                        <mui-button label="Freigeben" icon-left="check_circle" color="success" v-if="!user.customer_profile.enabled_at" @click="enableCustomer()"/>
+                        <mui-button label="Sperren" icon-left="block" color="error" v-else @click="disableCustomer()"/>
+                        <!-- <mui-button label="Löschen" variant="contained" @click="$refs.deleteCustomerPopup.open()"/> -->
                     </div>
                 </div>
                 
@@ -49,17 +47,35 @@
                         <span>{{user.employee_profile.last_name}}</span>
                     </div>
                     <div class="flex gap-1 v-center">
-                        <mui-button label="Freigeben" v-if="!user.employee_profile.enabled_at" @click="enableEmployee()"/>
-                        <mui-button label="Sperren" v-else @click="disableEmployee()"/>
-                        <mui-button label="Löschen" variant="contained" @click="$refs.deleteEmployeePopup.open()"/>
+                        <mui-button label="Freigeben" icon-left="check_circle" color="success" v-if="!user.employee_profile.enabled_at" @click="enableEmployee()"/>
+                        <mui-button label="Sperren" icon-left="block" color="error" v-else @click="disableEmployee()"/>
+                        <!-- <mui-button label="Löschen" variant="contained" @click="$refs.deleteEmployeePopup.open()"/> -->
                     </div>
                 </div>
-                
-                <div class="flex gap-1 wrap v-center">
-                    <mui-toggle type="switch" border label="Admin" :value="user.roles.map(e => e.name).includes('Admin')" @update:modelValue="toggleRole('Admin')"/>
-                    <mui-toggle type="switch" border label="Editor" :value="user.roles.map(e => e.name).includes('Editor')" @update:modelValue="toggleRole('Editor')"/>
-                    <div class="spacer"></div>
-                    <mui-button label="Passwort ändern" @click="$refs.changePasswordPopup.open()"/>
+
+                <div class="flex gap-1 wrap vertical radius-m background-soft padding-1">
+                    <b>Rollen & Berechtigungen</b>
+                    <div class="flex gap-1 wrap v-center">
+                        <mui-toggle border label="Admin" :modelValue="user.roles.map(e => e.name).includes('Admin')" @update:modelValue="toggleRole('Admin')"/>
+                        <mui-toggle border label="Editor" :modelValue="user.roles.map(e => e.name).includes('Editor')" @update:modelValue="toggleRole('Editor')"/>
+                    </div>
+                </div>
+
+                <div class="flex gap-1 wrap vertical radius-m background-soft padding-1">
+                    <b>Newsletter</b>
+                    <div class="flex gap-1 wrap v-center">
+                        <mui-toggle type="switch" border label="Allgemeiner Newsletter" :modelValue="userSettings['newsletter.subscribed.generic']" @update:modelValue="setNewsletter('generic', $event)"/>
+                        <mui-toggle type="switch" border label="Kunden Newsletter" :modelValue="userSettings['newsletter.subscribed.customer']" @update:modelValue="setNewsletter('customer', $event)"/>
+                    </div>
+                </div>
+
+                <div class="flex gap-1 wrap vertical radius-m background-soft padding-1">
+                    <b>Aktionen</b>
+                    <div class="flex gap-1 wrap v-center">
+                        <mui-button label="Nutzer Löschen" color="error" @click="$refs.deleteUserPopup.open()" />
+                        <div class="spacer"></div>
+                        <mui-button label="Passwort ändern" color="info" @click="$refs.changePasswordPopup.open()"/>
+                    </div>
                 </div>
             </div>
         </div>
@@ -149,6 +165,15 @@
 
 
 
+    const userSettings = computed(() => {
+        return props.user.settings.reduce((acc, cur) => {
+            acc[cur.key] = cur.value
+            return acc
+        }, {})
+    })
+
+
+
     const deleteUserPopup = ref(null)
     const deleteCustomerPopup = ref(null)
     const deleteEmployeePopup = ref(null)
@@ -187,6 +212,13 @@
                 changePasswordForm.reset()
             }
         })
+    }
+
+    const setNewsletter = (newsletter, value) => {
+        useForm({
+            newsletter,
+            value,
+        }).put(route('admin.users.settings.newsletter', { user: props.user.id }))
     }
 
     const deleteUser = () => useForm().delete(route('dashboard.admin.users.destroy', { user: props.user.id }), {
