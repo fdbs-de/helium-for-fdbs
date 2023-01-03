@@ -63,22 +63,6 @@ class UserController extends Controller
 
 
 
-    public function setNewsletterSetting(Request $request, User $user)
-    {
-        $request->validate([
-            'newsletter' => 'required|in:generic,customer',
-            'value' => 'required|boolean',
-        ]);
-
-        $newsletter = 'newsletter.subscribed.' . $request->newsletter;
-
-        $user->setSetting($newsletter, $request->value);
-
-        return back();
-    }
-
-
-
     public function importUsers(Request $request)
     {
         $request->validate([

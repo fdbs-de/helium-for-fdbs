@@ -42,14 +42,4 @@ class PostCategory extends Model
     {
         return $this->posts()->count();
     }
-
-    public function getIconAttribute()
-    {
-        return $this->icon ?? 'category';
-    }
-
-    public function getColorAttribute()
-    {
-        return $this->color ?? 'gray';
-    }
 }

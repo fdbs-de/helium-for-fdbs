@@ -218,7 +218,7 @@
         useForm({
             newsletter,
             value,
-        }).put(route('admin.users.settings.newsletter', { user: props.user.id }))
+        }).put(route('admin.newsletter.update', { user: props.user.id }))
     }
 
     const deleteUser = () => useForm().delete(route('dashboard.admin.users.destroy', { user: props.user.id }), {

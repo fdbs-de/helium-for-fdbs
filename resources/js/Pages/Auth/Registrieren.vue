@@ -41,6 +41,11 @@
                     <template v-if="form.is_customer">
                         <mui-input type="text" label="Firma *" v-model="form.customer.company" required autocomplete="company"/>
                         <mui-input type="text" label="Kundennummer *" v-model="form.customer.customer_id" required autocomplete="customer-id"/>
+                        <mui-toggle type="checkbox" class="checkbox" v-model="form.customer.newsletter">
+                            <template #label>
+                                Ich möchte regelmäßig über die neusten Angebote informiert werden.
+                            </template>
+                        </mui-toggle>
                     </template>
                     <div class="spacer"></div>
                     <div class="flex v-center">
@@ -194,6 +199,7 @@
         customer: {
             company: '',
             customer_id: '',
+            newsletter: false,
         },
         employee: {
             first_name: '',

@@ -1,17 +1,11 @@
 <?php
 
-use App\Http\Controllers\Dashboard\AdminController;
 use App\Http\Controllers\Dashboard\CustomerController;
-use App\Http\Controllers\Dashboard\DocumentController;
 use App\Http\Controllers\Dashboard\EmployeeController;
-use App\Http\Controllers\Dashboard\MediaController;
+use App\Http\Controllers\Dashboard\NewsletterController;
 use App\Http\Controllers\Dashboard\OverviewController;
-use App\Http\Controllers\Dashboard\PostCategoryController;
-use App\Http\Controllers\Dashboard\PostController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\SpecController;
-use App\Http\Controllers\Dashboard\UserController;
-use App\Permissions\Permissions;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () {
@@ -19,6 +13,8 @@ Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () 
 
     Route::get('/profile', [ProfileController::class, 'indexProfile'])->name('dashboard.profile');
     Route::put('/profile/change-password', [ProfileController::class, 'changePassword'])->name('dashboard.profile.change-password');
+
+    Route::put('/newsletter', [NewsletterController::class, 'update'])->name('dashboard.newsletter.update');
 
     Route::prefix('mitarbeiter')->middleware(['panelaccess:employee'])->group(function () {
         Route::get('/', [EmployeeController::class, 'indexOverview'])->name('dashboard.employee.overview');
