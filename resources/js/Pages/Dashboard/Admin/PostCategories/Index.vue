@@ -49,7 +49,7 @@
         </div>
 
         <template #fab>
-            <button class="fab-button" aria-hidden="true" title="Neue Kategorie" @click="openCategory()">add</button>
+            <button class="fab-button" aria-hidden="true" title="Neue Kategorie" @click="openItem()">add</button>
         </template>
     </AdminLayout>
 
@@ -64,6 +64,9 @@
                 </div>
                 
                 <mui-input type="text" label="Name" border v-model="categoryForm.name"/>
+                <mui-input type="text" label="Slug" border v-model="categoryForm.slug"/>
+                <mui-input type="text" label="Farbe" border v-model="categoryForm.color"/>
+                <mui-input type="text" label="Icon" border v-model="categoryForm.icon"/>
 
                 <BlogInput class="content-input" v-model="categoryForm.description" />
             </div>
@@ -168,6 +171,8 @@
         id: null,
         name: '',
         slug: '',
+        color: '',
+        icon: '',
         description: '',
         status: 'published',
     })
@@ -178,6 +183,8 @@
         categoryForm.id = item?.id ?? null
         categoryForm.name = item?.name ?? ''
         categoryForm.slug = item?.slug ?? ''
+        categoryForm.color = item?.color ?? ''
+        categoryForm.icon = item?.icon ?? ''
         categoryForm.description = item?.description ?? ''
         categoryForm.status = item?.status ?? 'published'
     }
@@ -187,7 +194,7 @@
     }
 
     const storeCategory = () => {
-        categoryForm.post(route('dashboard.admin.categories.store'), {
+        categoryForm.post(route('admin.categories.store'), {
             onSuccess: () => {
                 manageCategoryPopup.value.close()
             },
@@ -195,7 +202,7 @@
     }
 
     const updateCategory = () => {
-        categoryForm.put(route('dashboard.admin.categories.update', categoryForm.id), {
+        categoryForm.put(route('admin.categories.update', categoryForm.id), {
             onSuccess: () => {
                 manageCategoryPopup.value.close()
             },
@@ -203,7 +210,7 @@
     }
 
     const deleteCategory = () => {
-        categoryForm.delete(route('dashboard.admin.categories.delete', categoryForm.id), {
+        categoryForm.delete(route('admin.categories.delete', categoryForm.id), {
             onSuccess: () => {
                 manageCategoryPopup.value.close()
                 deleteCategoryPopup.value.close()

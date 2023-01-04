@@ -12,7 +12,7 @@
             <b>Vielen Dank für Ihre Registrierung!</b><br><br>
             Bevor Sie Zugriff auf den Loginbereich bekommen, bestätigen Sie bitte Ihre Email-Adresse, indem Sie auf den Link in der Email klicken.<br><br>
             Sobald Sie Ihre Email-Adresse bestätigt haben, können wir Sie freischalten.<br><br>
-            Wenn Sie keine Email erhalten haben, können wir Ihnen die Email-Adresse erneut senden.<br>
+            Wenn Sie keine Email erhalten haben, können wir Ihnen die Email erneut senden.<br>
             <small>(Gucken Sie evtl. auch im Spam Ordner nach)</small>
         </p>
 

@@ -14,7 +14,10 @@
         <div class="limiter text-limiter">
             <div class="flex vertical gap-1 padding-block-3">
                 <h1>{{post.title}}</h1>
-                <div class="flex gap-1 v-center" v-if="post.category">{{post.category.name}}</div>
+                <div class="flex gap-1 v-center" v-if="post.category || post.tags">
+                    <Tag v-if="post.category" :style="'color: '+post.category.color || 'gray'" :icon="post.category.icon || 'category'">{{post.category.name}}</Tag>
+                    <Tag v-for="tag in post.tags" :key="tag" style="color: var(--color-text);" icon="tag">{{tag}}</Tag>
+                </div>
             </div>
         </div>
         <div class="limiter text-limiter formatted-content" v-html="post.content"></div>
@@ -24,9 +27,11 @@
 
 <script setup>
     import { Head, Link } from '@inertiajs/inertia-vue3'
+    import { ref } from 'vue'
+
     import TextSubLayout from '@/Layouts/SubLayouts/Text.vue'
     import WikiLayout from '@/Layouts/Wiki.vue'
-    import { ref } from 'vue'
+    import Tag from '@/Components/Form/Tag.vue'
 
     const props = defineProps({
         post: Object,

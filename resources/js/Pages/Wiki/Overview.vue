@@ -13,36 +13,9 @@
                         <form class="search-bar" action="#" @submit.prevent>
                             <mui-input placeholder="Im Wiki Suchen" clearable/>
                             <div class="tags">
-                                <small>Abteilungen</small>
-
-                                <div class="department" style="color: #10ac84;">
-                                    <div class="icon">badge</div>
-                                    <h3>HR</h3>
-                                </div>
-                    
-                                <div class="department" style="color: #1e90ff;">
-                                    <div class="icon">local_shipping</div>
-                                    <h3>Logistik</h3>
-                                </div>
-                    
-                                <div class="department" style="color: #6c5ce7;">
-                                    <div class="icon">campaign</div>
-                                    <h3>Marketing</h3>
-                                </div>
-                    
-                                <div class="department" style="color: #e84393;">
-                                    <div class="icon">shopping_cart</div>
-                                    <h3>Vertrieb</h3>
-                                </div>
-                    
-                                <div class="department" style="color: #EA2027;">
-                                    <div class="icon">restaurant</div>
-                                    <h3>Fleisch</h3>
-                                </div>
-                    
-                                <div class="department" style="color: #ff6348;">
-                                    <div class="icon">tools_wrench</div>
-                                    <h3>Werkstatt</h3>
+                                <div class="department" v-for="category in categories" :key="category.id" :style="'color: '+category.color">
+                                    <div class="icon">{{category.icon}}</div>
+                                    <h3>{{category.name}}</h3>
                                 </div>
                             </div>
                         </form>
@@ -53,14 +26,16 @@
             <section id="posts">
                 <div class="limiter">
                     <h2>Neueste Beiträge</h2>
-                    <div class="grid">
+                    <div class="grid margin-bottom-4">
                         <Card v-for="post in posts" cover
                             aspect-ratio="16/9"
                             :key="post.id"
                             :name="post.title"
                             :image="post.image"
-                            :primary-tag="post.category ? post.category.name : 'Keine Kategorie'"
-                            :link="route('wiki.entry', post.slug)"
+                            :color="post.category.color"
+                            :primary-tag="post.category.name"
+                            :tags="post.tags"
+                            :link="route('wiki.entry', [post.category.slug, post.slug])"
                         />
                     </div>
                 </div>
@@ -70,14 +45,20 @@
 </template>
 
 <script setup>
-    import WikiLayout from '@/Layouts/Wiki.vue'
     import { Head, Link } from '@inertiajs/inertia-vue3'
-    import Card from '@/Components/Page/Card.vue'
-    import { ref } from 'vue'
+    import PostInterface from '@/Interfaces/Wiki/Post.js'
+    import { computed } from 'vue'
 
-    defineProps({
+    import WikiLayout from '@/Layouts/Wiki.vue'
+    import Card from '@/Components/Page/Card.vue'
+
+    const props = defineProps({
+        categories: Array,
         posts: Array,
     })
+
+    const posts_ = computed(() => props.posts)
+    const posts = computed(() => posts_.value.map(post => new PostInterface(post)))
 </script>
 
 <style lang="sass" scoped>
@@ -126,7 +107,7 @@
             flex-wrap: wrap
             align-items: center
             gap: 1rem
-            padding: .5rem 1rem
+            padding: .5rem
             border-top: 1px solid var(--color-background-soft)
 
         .department
@@ -170,6 +151,6 @@
     section#posts
         .grid
             display: grid
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr))
-            gap: 1rem
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr))
+            gap: 2rem
 </style>

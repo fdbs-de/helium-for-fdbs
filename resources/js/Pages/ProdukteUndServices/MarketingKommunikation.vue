@@ -16,15 +16,15 @@
         </template>
 
         <p>
-            Wir freuen uns, dass Sie Interesse an unseren Produkten haben und möchten Ihnen mit
-            unserer eigenen Website einen kleinen Einblick in unser Produktportfolio geben:<br><br>
-            <a href="https://marketing-bs.de" target="_blank">marketing-bs.de</a>
+            Diese Unterseite befinded sich momentan im Umbruch.<br>
+            Sehr bald werden Sie unsere genialen Marketingleistungen hier finden.
         </p>
     </ServiceSubLayout>
 </template>
 
 <script setup>
     import { Head, Link } from '@inertiajs/inertia-vue3'
+    
     import ServiceSubLayout from '@/Layouts/SubLayouts/Service.vue'
     import StaffCard from '@/Components/Page/StaffCard.vue'
 </script>

@@ -13,8 +13,8 @@
             <div class="flex vertical gap-1 padding-block-3">
                 <h1>{{post.title}}</h1>
                 <div class="flex gap-1 v-center">
-                    <span v-if="post.category">{{post.category.name}}</span>
-                    <span v-if="post.category">•</span>
+                    <Tag v-if="post.category" :style="'color: '+post.category.color || 'gray'" :icon="post.category.icon || 'category'">{{post.category.name}}</Tag>
+                    <Tag v-for="tag in post.tags" :key="tag" style="color: var(--color-text);" icon="tag">{{tag}}</Tag>
                     <span>{{ $dayjs(post.created_at).format('D. MMMM YYYY') }}</span>
                 </div>
             </div>
@@ -26,9 +26,10 @@
 
 <script setup>
     import { Head, Link } from '@inertiajs/inertia-vue3'
-    import TextSubLayout from '@/Layouts/SubLayouts/Text.vue'
-    import GuestLayout from '@/Layouts/Guest.vue'
     import { ref } from 'vue'
+
+    import GuestLayout from '@/Layouts/Guest.vue'
+    import Tag from '@/Components/Form/Tag.vue'
 
     const props = defineProps({
         post: Object,

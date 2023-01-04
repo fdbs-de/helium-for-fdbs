@@ -49,12 +49,11 @@
                         <i v-else>Keine Kundennummer angegeben</i>
                     </div>
                 </div>
-
+                
                 <div class="flex v-center gap">
-                    <span class="flex-1">Status:</span>
+                    <span class="flex-1">Kunden Newsletter:</span>
                     <div class="flex-3 flex gap v-center">
-                        <Tag v-if="$page.props.auth.user.customer_profile.enabled_at" color="green" icon="check_circle">Freigeschaltet</Tag>
-                        <Tag v-else color="yellow" icon="cancel">Freischaltung ausstehend</Tag>
+                        <mui-toggle type="switch" :modelValue="userSettings['newsletter.subscribed.customer']" @update:modelValue="setNewsletter('customer', $event)"/>
                     </div>
                 </div>
             </div>
@@ -112,6 +111,18 @@
 
 
 
+    // START: User Settings
+    const userSettings = computed(() => {
+        return usePage().props.value?.auth?.user?.settings?.reduce((acc, setting) => {
+            acc[setting.key] = setting.value
+            return acc
+        }, {})
+    })
+    // END: User Settings
+
+
+
+    // START: Change Password
     const changePasswordPopup = ref(null)
 
     const changePasswordForm = useForm({
@@ -127,6 +138,18 @@
             },
         })
     }
+    // END: Change Password
+
+
+
+    // START: Newsletter
+    const setNewsletter = (newsletter, value) => {
+        useForm({
+            newsletter,
+            value,
+        }).put(route('dashboard.newsletter.update'))
+    }
+    // END: Newsletter
 </script>
 
 <style lang="sass" scoped>

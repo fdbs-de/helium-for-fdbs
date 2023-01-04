@@ -1,10 +1,6 @@
 export default class PostCategory
 {
     _item
-    _visualDictionary = {
-        'default': { id: 'default', icon: 'category', color: 'var(--color-text)', tooltip: 'Kategorie' },
-        'unknown': { id: 'unknown', icon: 'help', color: 'var(--color-text)', tooltip: 'Unbekannt' },
-    }
     _statusDictionary = {
         'draft': { id: 'draft', icon: 'draft', color: 'var(--color-text)', tooltip: 'Entwurf' },
         'pending': { id: 'pending', icon: 'forum', color: 'var(--color-yellow)', tooltip: 'Zur Freigabe' },
@@ -31,6 +27,16 @@ export default class PostCategory
     get slug ()
     {
         return this._item?.slug
+    }
+
+    get color ()
+    {
+        return this._item?.color
+    }
+
+    get icon ()
+    {
+        return this._item?.icon
     }
 
     get status ()
@@ -63,7 +69,12 @@ export default class PostCategory
 
     get displayVisual ()
     {
-        return this._visualDictionary['default'] || this._visualDictionary['unknown']
+        return {
+            id: 'default',
+            icon: this._item?.icon || 'category',
+            color: this._item?.color || 'var(--color-text)',
+            tooltip: 'Kategorie'
+        }
     }
 
     get displayActions ()

@@ -48,9 +48,31 @@
         
             <div class="spacer"></div>
 
-            <input ref="importInput" type="file" accept=".json" @change="importUsersFromJSON($event.target.files[0])" />
+            <mui-button type="button" variant="text" size="small" label="Newsletter Nutzer" @click="openNewsletterPopup()"/>
+            
+            <mui-button type="button" as="label" variant="text" size="small">
+                Benutzer importieren
+                <input ref="importInput" type="file" accept=".json" style="display: none;" @change="importUsersFromJSON($event.target.files[0])" />
+            </mui-button>
         </div>
     </AdminLayout>
+
+
+
+    <Popup title="Newsletter Emails" ref="newsletterPopup">
+        <div class="flex vertical gap-1 padding-1">
+            <select v-model="newsletterForm.newsletter" @change="getNewsletterData()">
+                <option value="generic">Allgemeiner Newsletter</option>
+                <option value="customer">Kunden Newsletter</option>
+            </select>
+
+            <div class="background-soft padding-1 radius-m h-20" style="overflow-y: auto;">
+                {{ newsletterForm.users.map(e => e.email).join('; ') }}
+            </div>
+
+            <mui-button type="button" size="small" label="In Zwischenablage kopieren" @click="copyToClipboard(newsletterForm.users.map(e => e.email).join('; '))"/>
+        </div>
+    </Popup>
 </template>
 
 <script setup>
@@ -66,13 +88,6 @@
     import IconButton from '@/Components/Form/IconButton.vue'
     import ImageCard from '@/Components/Form/Card/ImageCard.vue'
     import Popup from '@/Components/Form/Popup.vue'
-
-    // const props = defineProps({
-    //     users: Array,
-    // })
-
-    // const items_ = computed(() => props.users)
-    // const items = computed(() => items_.value.map(item => new UserInterface(item)))
 
 
 
@@ -175,9 +190,44 @@
 
 
 
+    // START: Editor
     const openItem = (item = null) => {
         Inertia.visit(route('admin.users.editor', item?.id))
     }
+    // END: Editor
+
+
+
+    // START: Newsletter
+    const newsletterPopup = ref(null)
+
+    const newsletterForm = useForm({
+        newsletter: 'generic',
+        users: [],
+    })
+
+    const openNewsletterPopup = () => {
+        getNewsletterData()
+        newsletterPopup.value.open()
+    }
+
+    const getNewsletterData = async () => {
+        try
+        {
+            let response = await axios.get(route('admin.newsletter.search'), {params: {newsletter: newsletterForm.newsletter}})
+            newsletterForm.users = response.data
+            console.log(response.data)
+        }
+        catch (error)
+        {
+            console.log(error)
+        }
+    }
+
+    const copyToClipboard = (text) => {
+        navigator.clipboard.writeText(text)
+    }
+    // END: Newsletter
 </script>
 
 <style lang="sass" scoped>

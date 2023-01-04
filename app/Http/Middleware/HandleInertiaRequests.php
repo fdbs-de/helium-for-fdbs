@@ -38,7 +38,7 @@ class HandleInertiaRequests extends Middleware
     {
         if ($request->user())
         {
-            $user = User::with(['roles.permissions', 'customerProfile', 'employeeProfile'])->find($request->user()->id);
+            $user = User::with(['roles.permissions', 'settings', 'customerProfile', 'employeeProfile'])->find($request->user()->id);
     
             // Compute the permissions for the current user.
             $permissions = collect($user->roles)->map->permissions->flatten()->pluck('name')->unique()->toArray();

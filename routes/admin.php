@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\NewsletterController;
 use App\Http\Controllers\Dashboard\AdminController;
 use App\Http\Controllers\Dashboard\DocumentController;
 use App\Http\Controllers\Dashboard\MediaController;
@@ -12,24 +13,27 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('wiki')->middleware(['auth', 'verified', 'panelaccess:admin'])->group(function () {
     Route::get('/', [WikiController::class, 'overview'])->name('wiki');
-    Route::get('/{post:slug}', [WikiController::class, 'show'])->name('wiki.entry');
+    Route::get('/{category}/{post:slug}', [WikiController::class, 'show'])->name('wiki.entry');
 });
 
 Route::prefix('admin')->middleware(['auth', 'verified', 'panelaccess:admin'])->group(function () {
     Route::get('/', [AdminController::class, 'redirect'])->name('dashboard.admin');
 
+    Route::prefix('newsletter')->group(function () {
+        Route::get('/search', [NewsletterController::class, 'search'])->name('admin.newsletter.search');
+        Route::put('/{user}', [NewsletterController::class, 'update'])->can('update', 'user')->name('admin.newsletter.update');
+    });
+
     Route::prefix('users')->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('dashboard.admin.users');
         Route::get('/search', [UserController::class, 'search'])->name('admin.users.search');
         Route::get('/editor/{user?}', [UserController::class, 'create'])->name('admin.users.editor');
-
         
         Route::put('/{user}/enable', [UserController::class, 'enableUser'])->can('enable', 'user')->name('dashboard.admin.users.enable');
         Route::put('/{user}/disable', [UserController::class, 'disableUser'])->can('disable', 'user')->name('dashboard.admin.users.disable');
         Route::put('/{user}/assign', [UserController::class, 'assignRole'])->can('manageRole', 'user')->name('dashboard.admin.users.role.assign');
         Route::put('/{user}/revoke', [UserController::class, 'revokeRole'])->can('manageRole', 'user')->name('dashboard.admin.users.role.revoke');
         Route::put('/{user}/change-password', [UserController::class, 'changePassword'])->can('update', 'user')->name('dashboard.admin.users.change-password');
-        Route::put('/{user}/settings/newsletter', [UserController::class, 'setNewsletterSetting'])->can('update', 'user')->name('admin.users.settings.newsletter');
         Route::delete('/{user}', [UserController::class, 'destroyUser'])->can('delete', 'user')->name('dashboard.admin.users.destroy');
         
         Route::post('/import', [UserController::class, 'importUsers'])->can('create', 'App\Models\User')->name('dashboard.admin.users.import');
@@ -69,7 +73,7 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'panelaccess:admin'])->g
     Route::delete('/posts/{post}', [PostController::class, 'delete'])->name('admin.posts.delete');
     
     Route::get('/categories', [PostCategoryController::class, 'index'])->name('admin.categories');
-    Route::post('/categories', [PostCategoryController::class, 'store'])->name('dashboard.admin.categories.store');
-    Route::put('/categories/{postCategory}', [PostCategoryController::class, 'update'])->name('dashboard.admin.categories.update');
-    Route::delete('/categories/{postCategory}', [PostCategoryController::class, 'delete'])->name('dashboard.admin.categories.delete');
+    Route::post('/categories', [PostCategoryController::class, 'store'])->name('admin.categories.store');
+    Route::put('/categories/{postCategory}', [PostCategoryController::class, 'update'])->name('admin.categories.update');
+    Route::delete('/categories/{postCategory}', [PostCategoryController::class, 'delete'])->name('admin.categories.delete');
 });
