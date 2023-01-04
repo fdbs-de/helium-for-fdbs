@@ -178,7 +178,7 @@
     const storeItem = () => {
         form.transform((data) => ({
             ...data,
-            tags: data.tags.split(',').map(tag => tag.trim()),
+            tags: data.tags.split(',').map(tag => tag.trim()).filter(tag => !!tag),
         })).post(route('admin.posts.store'), {
             onSuccess: (data) => {
                 openItem(data?.props?.post)
@@ -189,7 +189,7 @@
     const updateItem = () => {
         form.transform((data) => ({
             ...data,
-            tags: data.tags.split(',').map(tag => tag.trim()),
+            tags: data.tags.split(',').map(tag => tag.trim()).filter(tag => !!tag),
         })).put(route('admin.posts.update', form.id), {
             onSuccess: (data) => {
                 openItem(data?.props?.post)

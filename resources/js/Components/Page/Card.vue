@@ -1,6 +1,6 @@
 <template>
-    <!-- TODO:: use Link for internal links -->
-    <a :href="link" :target="newWindow ? '_blank' : '_self'" class="card-wrapper">
+    <!-- TODO: use Link for internal links -->
+    <a :href="link" :target="newWindow ? '_blank' : '_self'" :style="`--color-card-accent: ${color}`" class="card-wrapper">
         <div class="card-image-wrapper" v-if="image" :class="{'cover': cover}" :style="`aspect-ratio: ${aspectRatio};`">
             <img loading="lazy" :src="image" :alt="alt" class="card-image"/>
 
@@ -11,6 +11,7 @@
         </div>
         <div class="text-wrapper" v-if="name">
             <h2>{{name}}</h2>
+            <slot />
         </div>
     </a>
 </template>
@@ -51,6 +52,10 @@
         alt: {
             type: String
         },
+        color: {
+            type: String,
+            default: 'var(--color-primary)'
+        }
     })
 </script>
 
@@ -70,7 +75,7 @@
         .card-image-wrapper
             width: 100%
             aspect-ratio: 16/9
-            border-bottom: 3px solid var(--color-primary)
+            border-bottom: 3px solid var(--color-card-accent)
             background: var(--color-background-soft)
             box-sizing: content-box
             position: relative
@@ -87,7 +92,7 @@
                 transition: all 200ms ease-out
 
             &.cover
-                background: var(--color-primary)
+                background: var(--color-card-accent)
                 .card-image
                     object-fit: cover
 
@@ -114,7 +119,7 @@
                     backdrop-filter: blur(10px)
 
                     &.primary::after
-                        background: var(--color-primary)
+                        background: var(--color-card-accent)
                         opacity: .9
 
                     &::after
@@ -125,7 +130,7 @@
                         left: 0
                         right: 0
                         border-radius: inherit
-                        background: var(--color-primary-soft)
+                        background: var(--color-card-accent)
                         opacity: .7
                         z-index: -1
                         pointer-events: none
