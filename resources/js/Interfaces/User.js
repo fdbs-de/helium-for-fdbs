@@ -37,7 +37,7 @@ export default class User
 
     get name ()
     {
-        return this._item?.display_name || this._item?.email || 'Name unbekannt'
+        return this._item?.name || 'Name unbekannt'
     }
 
 
@@ -58,9 +58,9 @@ export default class User
 
             icons: [
                 { id: 'email', icon: 'mail', tooltip: 'Email Bestätigung', color: this._item?.email_verified_at ? 'var(--color-primary)' :'var(--color-text)'},
-                { id: 'enabled', icon: 'check_circle', tooltip: 'Freigabe', color: this._item?.enabled_at ? 'var(--color-primary)' : 'var(--color-text)'},
-                { id: 'customer', icon: 'shopping_cart', tooltip: 'Kundenkonto (gelb = angelegt; rot = freigegeben)', color: this._item?.customer_profile ? (this._item?.customer_profile?.enabled_at ? 'var(--color-primary)' : 'var(--color-yellow)') : 'var(--color-text)'},
-                { id: 'employee', icon: 'work', tooltip: 'Mitarbeiterkonto (gelb = angelegt; rot = freigegeben)', color: this._item?.employee_profile ? (this._item?.employee_profile?.enabled_at ? 'var(--color-primary)' : 'var(--color-yellow)') : 'var(--color-text)' },
+                { id: 'enabled', icon: 'check_circle', tooltip: 'Freigabe', color: this._item?.is_enabled ? 'var(--color-primary)' : 'var(--color-text)'},
+                { id: 'customer', icon: 'shopping_cart', tooltip: 'Kunden-Profil', color: this._item?.profiles?.customer ? 'var(--color-primary)' : 'var(--color-text)'},
+                { id: 'employee', icon: 'work', tooltip: 'Mitarbeiter-Profil', color: this._item?.profiles?.employee ? 'var(--color-primary)' : 'var(--color-text)' },
             ],
         }
     }

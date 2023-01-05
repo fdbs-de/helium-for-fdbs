@@ -2,7 +2,7 @@
     <Head title="Unsere aktuellen Angebote" />
 
     <DashboardSubLayout title="Angebote" area="Kundenbereich">
-        <div class="card notification" v-if="!userSettings['newsletter.subscribed.customer']">
+        <div class="card notification" v-if="!$page.props.auth.user.settings_object['newsletter.subscribed.customer']">
             <div class="text">
                 <h2>Unser Kunden Newsletter</h2>
                 <p>
@@ -24,7 +24,7 @@
             />
         </div>
 
-        <small class="margin-top-3" v-if="userSettings['newsletter.subscribed.customer']">
+        <small class="margin-top-3" v-if="$page.props.auth.user.settings_object['newsletter.subscribed.customer']">
             Sie sind für unseren Kunden Newsletter angemeldet.
             Sie können ihn <Link :href="route('dashboard.profile')" @click.prevent="setNewsletter('customer', false)">hier abbestellen</Link>.
         </small>
@@ -41,17 +41,6 @@
     defineProps({
         angebote: Array,
     })
-
-
-
-    // START: User Settings
-    const userSettings = computed(() => {
-        return usePage().props.value?.auth?.user?.settings?.reduce((acc, setting) => {
-            acc[setting.key] = setting.value
-            return acc
-        }, {})
-    })
-    // END: User Settings
 
 
 

@@ -49,19 +49,24 @@ class RegisteredUserController extends Controller
             'employee.last_name'    => 'required_if:is_employee,true|nullable|string|max:255',
         ]);
 
+
+
+        // Create the user
         $user = User::create([
-            'name' => $request->customer['company'] ?? $request->employee['name'] ?? '',
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
+
+
+        // Create the customer profile
         if ($request->is_customer)
         {
             // Deprecated
-            $user->customerProfile()->create([
-                'company' => $request->customer['company'],
-                'customer_id' => $request->customer['customer_id'],
-            ]);
+            // $user->customerProfile()->create([
+            //     'company' => $request->customer['company'],
+            //     'customer_id' => $request->customer['customer_id'],
+            // ]);
 
             $user->setSetting('profile.customer', [
                 'company' => $request->customer['company'],
@@ -71,13 +76,16 @@ class RegisteredUserController extends Controller
             $user->setSetting('newsletter.subscribed.customer', $request->customer['newsletter']);
         }
 
+
+
+        // Create the employee profile
         if ($request->is_employee)
         {
             // Deprecated
-            $user->employeeProfile()->create([
-                'first_name' => $request->employee['first_name'],
-                'last_name' => $request->employee['last_name'],
-            ]);
+            // $user->employeeProfile()->create([
+            //     'first_name' => $request->employee['first_name'],
+            //     'last_name' => $request->employee['last_name'],
+            // ]);
 
             $user->setSetting('profile.employee', [
                 'first_name' => $request->employee['first_name'],
@@ -85,10 +93,18 @@ class RegisteredUserController extends Controller
             ]);
         }
 
+
+
+        // Set the name of the user based on their profiles
+        $user->updateName();
+
+        // Send the verification email
         event(new Registered($user));
 
+        // Log the user in
         Auth::login($user);
 
+        // Redirect the user to the verification email page
         return redirect(RouteServiceProvider::HOME);
     }
 }

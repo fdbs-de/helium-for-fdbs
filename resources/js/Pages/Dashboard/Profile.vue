@@ -31,29 +31,47 @@
 
 
 
-            <div class="group" v-if="$page.props.auth.user.customer_profile">
+            <div class="group" v-if="$page.props.auth.user.profiles.customer">
                 <h2>Kundenprofil</h2>
 
                 <div class="flex v-center gap">
                     <span class="flex-1">Firma:</span>
                     <div class="flex-3 flex gap v-center">
-                        <b v-if="$page.props.auth.user.customer_profile.company">{{$page.props.auth.user.customer_profile.company}}</b>
-                        <i v-else>Keine Firma angegeben</i>
+                        <b>{{$page.props.auth.user.profiles.customer.company || '---'}}</b>
                     </div>
                 </div>
 
                 <div class="flex v-center gap">
                     <span class="flex-1">Kundennummer:</span>
                     <div class="flex-3 flex gap v-center">
-                        <b v-if="$page.props.auth.user.customer_profile.customer_id">{{$page.props.auth.user.customer_profile.customer_id}}</b>
-                        <i v-else>Keine Kundennummer angegeben</i>
+                        <b>{{$page.props.auth.user.profiles.customer.customer_id || '---'}}</b>
                     </div>
                 </div>
                 
                 <div class="flex v-center gap">
                     <span class="flex-1">Kunden Newsletter:</span>
                     <div class="flex-3 flex gap v-center">
-                        <mui-toggle type="switch" :modelValue="userSettings['newsletter.subscribed.customer']" @update:modelValue="setNewsletter('customer', $event)"/>
+                        <mui-toggle type="switch" :modelValue="$page.props.auth.user.settings_object['newsletter.subscribed.customer']" @update:modelValue="setNewsletter('customer', $event)"/>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="group" v-if="$page.props.auth.user.profiles.employee">
+                <h2>Mitarbeiterprofil</h2>
+
+                <div class="flex v-center gap">
+                    <span class="flex-1">Vorname:</span>
+                    <div class="flex-3 flex gap v-center">
+                        <b>{{$page.props.auth.user.profiles.employee.last_name || '---'}}</b>
+                    </div>
+                </div>
+
+                <div class="flex v-center gap">
+                    <span class="flex-1">Nachname:</span>
+                    <div class="flex-3 flex gap v-center">
+                        <b>{{$page.props.auth.user.profiles.employee.first_name || '---'}}</b>
                     </div>
                 </div>
             </div>
@@ -108,17 +126,6 @@
 
     const errors = computed(() => usePage().props.value.errors)
     const hasErrors = computed(() => Object.keys(errors.value).length > 0)
-
-
-
-    // START: User Settings
-    const userSettings = computed(() => {
-        return usePage().props.value?.auth?.user?.settings?.reduce((acc, setting) => {
-            acc[setting.key] = setting.value
-            return acc
-        }, {})
-    })
-    // END: User Settings
 
 
 

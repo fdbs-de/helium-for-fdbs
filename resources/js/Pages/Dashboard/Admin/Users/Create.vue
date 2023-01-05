@@ -1,7 +1,7 @@
 <template>
     <Head title="Nutzer verwalten" />
 
-    <AdminLayout :title="user.display_name || user.email" :backlink="route('dashboard.admin.users')" backlink-text="Zurück zur Übersicht">
+    <AdminLayout :title="user.name" :backlink="route('dashboard.admin.users')" backlink-text="Zurück zur Übersicht">
         <div class="card flex vertical gap-1 padding-1 margin-bottom-2">
             <div class="limiter text-limiter flex vertical gap-1">
                 <div class="popup-block popup-error" v-if="hasErrors">
@@ -22,33 +22,29 @@
                         </span>
                     </div>
                     <div class="flex gap-1 v-center">
-                        <mui-button label="Freigeben" icon-left="check_circle" color="success" v-if="!user.enabled_at" @click="enableUser()"/>
+                        <mui-button label="Freigeben" icon-left="check_circle" color="success" v-if="!user.is_enabled" @click="enableUser()"/>
                         <mui-button label="Sperren" icon-left="block" color="error" v-else @click="disableUser()"/>
                     </div>
                 </div>
                 
-                <div class="flex gap-1 wrap v-center radius-m background-soft padding-1" v-if="user.customer_profile">
+                <div class="flex gap-1 wrap v-center radius-m background-soft padding-1" v-if="user.profiles.customer">
                     <div class="flex vertical spacer">
                         <b>Kundenprofil</b>
-                        <span>{{user.customer_profile.company}}</span>
-                        <span>{{user.customer_profile.customer_id || 'Keine Kundennummer'}}</span>
+                        <span>{{user.profiles.customer.company}}</span>
+                        <span>{{user.profiles.customer.customer_id || 'Keine Kundennummer'}}</span>
                     </div>
                     <div class="flex gap-1 v-center">
-                        <mui-button label="Freigeben" icon-left="check_circle" color="success" v-if="!user.customer_profile.enabled_at" @click="enableCustomer()"/>
-                        <mui-button label="Sperren" icon-left="block" color="error" v-else @click="disableCustomer()"/>
                         <!-- <mui-button label="Löschen" variant="contained" @click="$refs.deleteCustomerPopup.open()"/> -->
                     </div>
                 </div>
                 
-                <div class="flex gap-1 wrap v-center radius-m background-soft padding-1" v-if="user.employee_profile">
+                <div class="flex gap-1 wrap v-center radius-m background-soft padding-1" v-if="user.profiles.employee">
                     <div class="flex vertical spacer">
                         <b>Mitarbeiterprofil</b>
-                        <span>{{user.employee_profile.first_name}}</span>
-                        <span>{{user.employee_profile.last_name}}</span>
+                        <span>{{user.profiles.employee.first_name}}</span>
+                        <span>{{user.profiles.employee.last_name}}</span>
                     </div>
                     <div class="flex gap-1 v-center">
-                        <mui-button label="Freigeben" icon-left="check_circle" color="success" v-if="!user.employee_profile.enabled_at" @click="enableEmployee()"/>
-                        <mui-button label="Sperren" icon-left="block" color="error" v-else @click="disableEmployee()"/>
                         <!-- <mui-button label="Löschen" variant="contained" @click="$refs.deleteEmployeePopup.open()"/> -->
                     </div>
                 </div>
@@ -64,8 +60,8 @@
                 <div class="flex gap-1 wrap vertical radius-m background-soft padding-1">
                     <b>Newsletter</b>
                     <div class="flex gap-1 wrap v-center">
-                        <mui-toggle type="switch" border label="Allgemeiner Newsletter" :modelValue="userSettings['newsletter.subscribed.generic']" @update:modelValue="setNewsletter('generic', $event)"/>
-                        <mui-toggle type="switch" border label="Kunden Newsletter" :modelValue="userSettings['newsletter.subscribed.customer']" @update:modelValue="setNewsletter('customer', $event)"/>
+                        <mui-toggle type="switch" border label="Allgemeiner Newsletter" :modelValue="user.settings_object['newsletter.subscribed.generic']" @update:modelValue="setNewsletter('generic', $event)"/>
+                        <mui-toggle type="switch" border label="Kunden Newsletter" :modelValue="user.settings_object['newsletter.subscribed.customer']" @update:modelValue="setNewsletter('customer', $event)"/>
                     </div>
                 </div>
 
@@ -161,15 +157,6 @@
 
     const props = defineProps({
         user: Object,
-    })
-
-
-
-    const userSettings = computed(() => {
-        return props.user.settings.reduce((acc, cur) => {
-            acc[cur.key] = cur.value
-            return acc
-        }, {})
     })
 
 

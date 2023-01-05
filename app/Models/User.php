@@ -28,7 +28,9 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     protected $appends = [
-        'display_name',
+        'settings_object',
+        'is_enabled',
+        'profiles',
     ];
 
     /**
@@ -53,21 +55,11 @@ class User extends Authenticatable implements MustVerifyEmail
 
 
 
-    /**
-     * Get the customer profile record associated with the user.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
     public function customerProfile()
     {
         return $this->hasOne(CustomerProfile::class);
     }
 
-    /**
-     * Get the employee profile record associated with the user.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
     public function employeeProfile()
     {
         return $this->hasOne(EmployeeProfile::class);
@@ -80,19 +72,32 @@ class User extends Authenticatable implements MustVerifyEmail
 
 
 
+    public function getProfilesAttribute()
+    {
+        $profiles = [];
+        
+        $profiles['customer'] = $this->getSetting('profile.customer');
+        $profiles['employee'] = $this->getSetting('profile.employee');
+
+        return $profiles;
+    }
+
+
+
+    public function getSettingsObjectAttribute()
+    {
+        $settings = $this->settings->mapWithKeys(function ($item) {
+            return [$item['key'] => $item['value']];
+        });
+
+        return $settings;
+    }
+
+
+
     public function getIsEnabledAttribute()
     {
         return $this->enabled_at !== null && $this->enabled_at < now();
-    }
-
-    public function getIsEnabledCustomerAttribute()
-    {
-        return $this->customerProfile && $this->customerProfile->enabled_at !== null && $this->customerProfile->enabled_at < now();
-    }
-
-    public function getIsEnabledEmployeeAttribute()
-    {
-        return $this->employeeProfile && $this->employeeProfile->enabled_at !== null && $this->employeeProfile->enabled_at < now();
     }
 
 
@@ -104,20 +109,35 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getCanAccessCustomerPanelAttribute()
     {
-        return $this->is_enabled && (User::find($this->id)->can(Permissions::CAN_ACCESS_ADMIN_PANEL) || $this->is_enabled_customer || $this->is_enabled_employee);
+        return $this->is_enabled && (User::find($this->id)->can(Permissions::CAN_ACCESS_ADMIN_PANEL) || !!$this->customerProfile || !!$this->employeeProfile);
     }
 
     public function getCanAccessEmployeePanelAttribute()
     {
-        return $this->is_enabled && (User::find($this->id)->can(Permissions::CAN_ACCESS_ADMIN_PANEL) || $this->is_enabled_employee);
+        return $this->is_enabled && (User::find($this->id)->can(Permissions::CAN_ACCESS_ADMIN_PANEL) || !!$this->employeeProfile);
     }
 
 
 
+    /**
+     * Get the user's best fitting name.
+     * @return string|null
+     */
     public function getDisplayNameAttribute()
     {
-        // This should either return the company name or the user's name or null
-        return $this->customerProfile ? $this->customerProfile->company : ($this->employeeProfile ? $this->employeeProfile->first_name . ' ' . $this->employeeProfile->last_name : null);
+        $customerProfile = $this->getSetting('profile.customer');
+        if ($customerProfile)
+        {
+            return $customerProfile['company'];
+        }
+
+        $employeeProfile = $this->getSetting('profile.employee');
+        if ($employeeProfile)
+        {
+            return $employeeProfile['first_name'] . ' ' . $employeeProfile['last_name'];
+        }
+
+        return null;
     }
 
 
@@ -125,5 +145,18 @@ class User extends Authenticatable implements MustVerifyEmail
     public function setSetting($key, $value)
     {
         $this->settings()->updateOrCreate(['key' => $key], ['value' => $value]);
+    }
+
+    public function getSetting($key)
+    {
+        return $this->settings()->firstWhere('key', $key)->value ?? null;
+    }
+
+
+
+    public function updateName()
+    {
+        $this->name = $this->display_name;
+        $this->save();
     }
 }

@@ -11,7 +11,7 @@ use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Wiki\WikiController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('wiki')->middleware(['auth', 'verified', 'panelaccess:admin'])->group(function () {
+Route::prefix('wiki')->middleware(['auth', 'verified', 'role:Super Admin|Admin'])->group(function () {
     Route::get('/', [WikiController::class, 'overview'])->name('wiki');
     Route::get('/{category}/{post:slug}', [WikiController::class, 'show'])->name('wiki.entry');
 });
@@ -29,6 +29,8 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'panelaccess:admin'])->g
         Route::get('/search', [UserController::class, 'search'])->name('admin.users.search');
         Route::get('/editor/{user?}', [UserController::class, 'create'])->name('admin.users.editor');
         
+        Route::patch('/settings', [UserController::class, 'updateSettings'])->name('admin.users.settings');
+
         Route::put('/{user}/enable', [UserController::class, 'enableUser'])->can('enable', 'user')->name('dashboard.admin.users.enable');
         Route::put('/{user}/disable', [UserController::class, 'disableUser'])->can('disable', 'user')->name('dashboard.admin.users.disable');
         Route::put('/{user}/assign', [UserController::class, 'assignRole'])->can('manageRole', 'user')->name('dashboard.admin.users.role.assign');
