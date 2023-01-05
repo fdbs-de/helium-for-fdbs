@@ -1,0 +1,432 @@
+[
+    {
+        "id": "assistents",
+        "name": "Assistents",
+        "employees": [
+            {
+                "name": "Jana Schildhauer",
+                "job": "Assistentin des Vorstands / QM / Ausbildungsleitung",
+                "leader": true,
+                "tel": "44",
+                "image": "/images/content/mitarbeiter/jana_schildhauer.png",
+                "overlay": "/images/content/mitarbeiter/jana_schildhauer_zeichnung.png"
+            }
+        ]
+    },
+    {
+        "id": "buchhaltung",
+        "name": "Buchhaltung",
+        "employees": [
+            {
+                "name": "Robert Heiduk",
+                "job": "Leitung Buchhaltung / Personal",
+                "leader": true,
+                "tel": "37",
+                "image": "/images/content/mitarbeiter/robert_heiduk.png",
+                "overlay": "/images/content/mitarbeiter/robert_heiduk_zeichnung.png"
+            },
+            {
+                "name": "Annette Körner",
+                "job": "Personal & Lohn",
+                "leader": false,
+                "tel": "75",
+                "image": "/images/content/mitarbeiter/annette_koerner.png",
+                "overlay": "/images/content/mitarbeiter/annette_koerner_zeichnung.png"
+            },
+            {
+                "name": "Silke Sanner",
+                "job": "Buchhaltung",
+                "leader": false,
+                "tel": "31",
+                "image": "/images/content/mitarbeiter/silke_sanner.png",
+                "overlay": "/images/content/mitarbeiter/silke_sanner_zeichnung.png"
+            },
+            {
+                "name": "Katja Stöger",
+                "job": "Buchhaltung",
+                "leader": false,
+                "tel": "15",
+                "image": "/images/content/mitarbeiter/katja_stoeger.png",
+                "overlay": "/images/content/mitarbeiter/katja_stoeger_zeichnung.png"
+            }
+        ]
+    },
+    {
+        "id": "controlling",
+        "name": "Controlling",
+        "employees": [
+            {
+                "name": "Meik Binkowski",
+                "job": "Controlling",
+                "leader": true,
+                "tel": "33",
+                "image": "/images/content/mitarbeiter/meik_binkowski.png",
+                "overlay": "/images/content/mitarbeiter/meik_binkowski_zeichnung.png"
+            }
+        ]
+    },
+    {
+        "id": "disposition",
+        "name": "Warendisposition",
+        "employees": [
+            {
+                "name": "Christian Hornig",
+                "job": "Leitung Einkauf / Warendisposition",
+                "leader": true,
+                "tel": "17",
+                "image": "/images/content/mitarbeiter/christian_hornig.png",
+                "overlay": "/images/content/mitarbeiter/christian_hornig_zeichnung.png"
+            },
+            {
+                "name": "Marius Hilger",
+                "job": "Einkauf / Warendisposition",
+                "leader": false,
+                "tel": "46",
+                "image": "/images/content/mitarbeiter/marius_hilger.png",
+                "overlay": "/images/content/mitarbeiter/marius_hilger_zeichnung.png"
+            },
+            {
+                "name": "Maik Kirsch",
+                "job": "Einkauf / Warendisposition",
+                "leader": false,
+                "tel": "68",
+                "image": null
+            },
+            {
+                "name": "Tobias Klenke",
+                "job": "Einkauf / Warendisposition",
+                "leader": false,
+                "tel": "21",
+                "image": "/images/content/mitarbeiter/tobias_klenke.png",
+                "overlay": "/images/content/mitarbeiter/tobias_klenke_zeichnung.png"
+            },
+            {
+                "name": "Nino Storch",
+                "job": "Einkauf / Warendisposition",
+                "leader": false,
+                "tel": "48",
+                "image": "/images/content/mitarbeiter/nino_storch.png",
+                "overlay": "/images/content/mitarbeiter/nino_storch_zeichnung.png"
+            }
+        ]
+    },
+    {
+        "id": "vertrieb",
+        "name": "Vertrieb",
+        "employees": [
+            {
+                "name": "Philipp Rost",
+                "job": "Leitung Vertrieb",
+                "leader": true,
+                "tel": "99",
+                "image": "/images/content/mitarbeiter/philipp_rost.png",
+                "overlay": "/images/content/mitarbeiter/philipp_rost_zeichnung.png"
+            },
+            {
+                "name": "Niklas Figge",
+                "job": "Fachberater Gastronomie & Gemeinschaftsverpflegung",
+                "leader": false,
+                "tel": "80",
+                "image": null
+            },
+            {
+                "name": "Elke Grigat",
+                "job": "Fachberaterin Käse & Salate",
+                "leader": false,
+                "tel": "38",
+                "image": "/images/content/mitarbeiter/elke_grigat.png",
+                "overlay": "/images/content/mitarbeiter/elke_grigat_zeichnung.png"
+            },
+            {
+                "name": "Klaus-Dieter Hoffmann",
+                "job": "Fachberater",
+                "leader": false,
+                "tel": "98",
+                "image": null
+            },
+            {
+                "name": "Marcus König",
+                "job": "Fachberater",
+                "leader": false,
+                "tel": "93",
+                "image": "/images/content/mitarbeiter/marcus_koenig.png",
+                "overlay": "/images/content/mitarbeiter/marcus_koenig_zeichnung.png"
+            },
+            {
+                "name": "Valerij Lehmkuhl",
+                "job": "Fachberater",
+                "leader": false,
+                "tel": "83",
+                "image": null
+            },
+            {
+                "name": "Lutz Nolte",
+                "job": "Fachberater",
+                "leader": false,
+                "tel": "94",
+                "image": "/images/content/mitarbeiter/lutz_nolte.png",
+                "overlay": "/images/content/mitarbeiter/lutz_nolte_zeichnung.png"
+            },
+            {
+                "name": "Kenan Özden",
+                "job": "Fachberater",
+                "leader": false,
+                "tel": "92",
+                "image": "/images/content/mitarbeiter/kenan_oezden.png",
+                "overlay": "/images/content/mitarbeiter/kenan_oezden_zeichnung.png"
+            },
+            {
+                "name": "Andreas Pape",
+                "job": "Fachberater",
+                "leader": false,
+                "tel": "91",
+                "image": "/images/content/mitarbeiter/andreas_pape.png",
+                "overlay": "/images/content/mitarbeiter/andreas_pape_zeichnung.png"
+            },
+            {
+                "name": "Mathias Vetter",
+                "job": "Fachberater",
+                "leader": false,
+                "tel": "95",
+                "image": "/images/content/mitarbeiter/mathias_vetter.png",
+                "overlay": "/images/content/mitarbeiter/mathias_vetter_zeichnung.png"
+            },
+            {
+                "name": "Jens Winkler",
+                "job": "Fachberater",
+                "leader": false,
+                "tel": "97",
+                "image": "/images/content/mitarbeiter/jens_winkler.png",
+                "overlay": "/images/content/mitarbeiter/jens_winkler_zeichnung.png"
+            }
+        ]
+    },
+    {
+        "id": "vertriebsinnendienst",
+        "name": "Vertriebsinnendienst",
+        "employees": [
+            {
+                "name": "Madlen Krause",
+                "job": "Leitung Vertriebsinnendienst",
+                "leader": true,
+                "tel": "18",
+                "image": "/images/content/mitarbeiter/madlen_krause.png",
+                "overlay": "/images/content/mitarbeiter/madlen_krause_zeichnung.png"
+            },
+            {
+                "name": "Phil Bartelt",
+                "job": "Vertriebsinnendienst",
+                "leader": false,
+                "tel": "36",
+                "image": "/images/content/mitarbeiter/phil_bartelt.png",
+                "overlay": "/images/content/mitarbeiter/phil_bartelt_zeichnung.png"
+            },
+            {
+                "name": "Jacqueline Bein",
+                "job": "Vertriebsinnendienst",
+                "leader": false,
+                "tel": "61",
+                "image": null
+            },
+            {
+                "name": "Silke Künstler",
+                "job": "Vertriebsinnendienst",
+                "leader": false,
+                "tel": "23",
+                "image": "/images/content/mitarbeiter/silke_kuenstler.png",
+                "overlay": "/images/content/mitarbeiter/silke_kuenstler_zeichnung.png"
+            },
+            {
+                "name": "Romina Pagano",
+                "job": "Vertriebsinnendienst",
+                "image": "/images/content/mitarbeiter/romina_pagano.png",
+                "overlay": "/images/content/mitarbeiter/romina_pagano_zeichnung.png"
+            },
+            {
+                "name": "Yasmin Ruben",
+                "job": "Vertriebsinnendienst",
+                "leader": false,
+                "tel": "32",
+                "image": "/images/content/mitarbeiter/yasmin_ruben.png",
+                "overlay": "/images/content/mitarbeiter/yasmin_ruben_zeichnung.png"
+            },
+            {
+                "name": "Angela Schrödter",
+                "job": "Vertriebsinnendienst",
+                "leader": false,
+                "tel": "20",
+                "image": "/images/content/mitarbeiter/angela_schroedter.png",
+                "overlay": "/images/content/mitarbeiter/angela_schroedter_zeichnung.png"
+            }
+        ]
+    },
+    {
+        "id": "marketing",
+        "name": "Marketing",
+        "employees": [
+            {
+                "name": "Benjamin Vahle",
+                "job": "Leitung Marketing & Kommunikation",
+                "leader": true,
+                "tel": "16",
+                "image": "/images/content/mitarbeiter/benjamin_vahle.png",
+                "overlay": "/images/content/mitarbeiter/benjamin_vahle_zeichnung.png"
+            },
+            {
+                "name": "Franziska Brandt",
+                "job": "Marketing Manager",
+                "leader": false,
+                "tel": "51",
+                "image": "/images/content/mitarbeiter/franziska_brandt.png",
+                "overlay": "/images/content/mitarbeiter/franziska_brandt_zeichnung.png"
+            },
+            {
+                "name": "Maurice Freuwört",
+                "job": "Web Developer",
+                "leader": false,
+                "tel": "73",
+                "image": "/images/content/mitarbeiter/maurice_freuwoert.png",
+                "overlay": "/images/content/mitarbeiter/maurice_freuwoert_zeichnung.png"
+            },
+            {
+                "name": "Annika Görmann",
+                "job": "Social Media Marketing",
+                "leader": false,
+                "tel": "72",
+                "image": "/images/content/mitarbeiter/annika_goermann.png",
+                "overlay": "/images/content/mitarbeiter/annika_goermann_zeichnung.png"
+            },
+            {
+                "name": "Carolin Götzner",
+                "job": "Printgestaltung & Produktion",
+                "leader": false,
+                "tel": "43",
+                "image": "/images/content/mitarbeiter/carolin_goetzner.png",
+                "overlay": "/images/content/mitarbeiter/carolin_goetzner_zeichnung.png"
+            },
+            {
+                "name": "Julia Kirschner",
+                "job": "Printgestaltung & Produktion",
+                "leader": false,
+                "tel": "13",
+                "image": "/images/content/mitarbeiter/julia_kirschner.png",
+                "overlay": "/images/content/mitarbeiter/julia_kirschner_zeichnung.png"
+            },
+            {
+                "name": "Sophie Quast",
+                "job": "Printgestaltung & Produktion",
+                "leader": false,
+                "tel": "79",
+                "image": null
+            },
+            {
+                "name": "Franziska Wolff",
+                "job": "Printgestaltung & Produktion",
+                "image": "/images/content/mitarbeiter/franziska_wolff.png",
+                "overlay": "/images/content/mitarbeiter/franziska_wolff_zeichnung.png"
+            }
+        ]
+    },
+    {
+        "id": "lager",
+        "name": "Lager",
+        "employees": [
+            {
+                "name": "Philipp Tronnier",
+                "job": "Leitung Lager",
+                "leader": true,
+                "tel": "57",
+                "image": null
+            }
+        ]
+    },
+    {
+        "id": "fuhrpark",
+        "name": "Fuhrpark",
+        "employees": [
+            {
+                "name": "Timo Welskop",
+                "job": "Leitung Fuhrpark",
+                "leader": true,
+                "tel": "56",
+                "image": "/images/content/mitarbeiter/timo_welskop.png",
+                "overlay": "/images/content/mitarbeiter/timo_welskop_zeichnung.png"
+            },
+            {
+                "name": "Kathrin Reviliak",
+                "job": "Stv. Leitung Fuhrpark",
+                "leader": true,
+                "tel": "53",
+                "image": "/images/content/mitarbeiter/kathrin_reviliak.png",
+                "overlay": "/images/content/mitarbeiter/kathrin_reviliak_zeichnung.png"
+            }
+        ]
+    },
+    {
+        "id": "fleisch",
+        "name": "Fleischabteilung",
+        "employees": [
+            {
+                "name": "Tobias Behnstedt",
+                "job": "Leitung Fleischabteilung",
+                "leader": true,
+                "tel": "26",
+                "image": "/images/content/mitarbeiter/tobias_behnstedt.png",
+                "overlay": "/images/content/mitarbeiter/tobias_behnstedt_zeichnung.png"
+            },
+            {
+                "name": "Niels Brandt",
+                "job": "Leitung Fleischabteilung",
+                "leader": true,
+                "tel": "27",
+                "image": "/images/content/mitarbeiter/niels_brandt.png",
+                "overlay": "/images/content/mitarbeiter/niels_brandt_zeichnung.png"
+            }
+        ]
+    },
+    {
+        "id": "service",
+        "name": "Servicewerkstatt",
+        "employees": [
+            {
+                "name": "Marcus Zetzsche",
+                "job": "Leitung Servicewerkstatt",
+                "leader": true,
+                "tel": "12",
+                "image": "/images/content/mitarbeiter/marcus_zetzsche.png",
+                "overlay": "/images/content/mitarbeiter/marcus_zetzsche_zeichnung.png"
+            },
+            {
+                "name": "Wiebke Peter",
+                "job": "Stv. Leitung Servicewerkstatt",
+                "leader": true,
+                "tel": "24",
+                "image": "/images/content/mitarbeiter/wiebke_peter.png",
+                "overlay": "/images/content/mitarbeiter/wiebke_peter_zeichnung.png"
+            },
+            {
+                "name": "Sabine Barnert",
+                "job": "Vetriebsinnendienst der Werkstatt",
+                "leader": false,
+                "tel": "76",
+                "image": "/images/content/mitarbeiter/sabine_barnert.png",
+                "overlay": "/images/content/mitarbeiter/sabine_barnert_zeichnung.png"
+            },
+            {
+                "name": "André Hoffmann",
+                "job": "Fachberater Großküchentechnik",
+                "leader": false,
+                "tel": "41",
+                "image": null
+            },
+            {
+                "name": "Holger Kleinert",
+                "job": "Fachberater Geräte und Maschinen",
+                "leader": false,
+                "tel": "14",
+                "image": "/images/content/mitarbeiter/holger_kleinert.png",
+                "overlay": "/images/content/mitarbeiter/holger_kleinert_zeichnung.png"
+            }
+        ]
+    }
+]

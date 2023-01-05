@@ -66,6 +66,8 @@
 
 <script setup>
     import { Head, Link } from '@inertiajs/inertia-vue3'
+    import departments from '@/Pages/Kontakt.json'
+    
     import ServiceSubLayout from '@/Layouts/SubLayouts/Service.vue'
     import StaffCard from '@/Components/Page/StaffCard.vue'
     import Card from '@/Components/Page/Card.vue'

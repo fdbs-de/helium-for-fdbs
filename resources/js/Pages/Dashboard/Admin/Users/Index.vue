@@ -4,7 +4,7 @@
     <AdminLayout title="Nutzer verwalten" :loading="filter.processing">
         <div class="flex v-center gap-1">
             <Actions v-show="selection.length >= 1" :selection="selection" @deselect="deselectAll()"/>
-            <mui-input v-show="selection.length <= 0" type="search" class="search-input" placeholder="Suchen" v-model="filter.name" @input="getDataThrottled" />
+            <mui-input v-show="selection.length <= 0" type="search" class="search-input" placeholder="Suchen" v-model="filter.name" @input="getDataThrottled" @clear="getDataThrottled"/>
 
             <div class="spacer"></div>
 
@@ -62,7 +62,6 @@
                     <option value="generic">Allgemeiner Newsletter</option>
                     <option value="customer">Kunden Newsletter</option>
                 </select>
-                <div class="spacer"></div>
                 <mui-button type="button" label="In Zwischenablage kopieren" @click="copyToClipboard(newsletterForm.users.map(e => e.email).join('; '))"/>
             </div>
             
@@ -145,7 +144,7 @@
         filter.value.processing = false
     }
 
-    const getDataThrottled = _.throttle(getData, 300)
+    const getDataThrottled = _.throttle(getData, 100)
 
     getData()
     // END: Fetch
