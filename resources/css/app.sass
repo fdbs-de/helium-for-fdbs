@@ -156,6 +156,15 @@ a
     &:hover
         color: var(--color-primary-soft)
 
+fieldset
+    border: 1px solid var(--color-border)
+    border-radius: var(--radius-m)
+    margin: 0
+    padding: 1rem
+
+    legend
+        padding: 0 .5rem
+
 select,
 input[type="date"]
     height: 3rem
@@ -231,12 +240,12 @@ input[type="date"]
 .divider,
 hr
     border: none
-    border-top: 2px solid rgba(0, 0, 0, 0.1)
+    border-top: 1px solid var(--color-border)
     width: 100%
 
     &.vertical
         border: none
-        border-left: 2px solid rgba(0, 0, 0, 0.1)
+        border-left: 1px solid var(--color-border)
         height: 100%
 
 .no-margin

@@ -25,17 +25,31 @@ class UserController extends Controller
 
     public function search(Request $request)
     {
-        // You know what... model attributes are not searchable by default and therefor I find them stupid.
-        // Actually, every database column is stupid. I hate SQL :(
-        $users = User::with(['roles', 'settings', 'employeeProfile', 'customerProfile'])
-        ->where('name', 'like', '%' . $request->name . '%')
-        ->orWhere('email', 'like', '%' . $request->name . '%')
-        ->orderBy('created_at', 'desc')
-        ->limit($request->perPage ?? 20)
-        ->offset($request->perPage * ($request->page ?? 0) - $request->perPage)
-        ->get();
+        $limit = $request->perPage ?? 20;
+        $offset = $request->perPage * ($request->page ?? 0) - $request->perPage;
 
-        return response()->json($users);
+        if (!$request->name)
+        {
+            return response()->json(
+                User::with(['roles', 'settings', 'employeeProfile', 'customerProfile'])
+                ->orderBy('created_at', 'desc')
+                ->limit($limit)
+                ->offset($offset)
+                ->get());
+        }
+
+        return response()->json(
+            User::with(['roles', 'settings', 'employeeProfile', 'customerProfile'])
+            ->whereFuzzy(function ($query) use ($request) {
+                $query
+                ->orWhereFuzzy('name', $request->name)
+                ->orWhereFuzzy('email', $request->name);
+            })
+            ->orderByFuzzy('name')
+            ->orderByFuzzy('email')
+            ->limit($limit)
+            ->offset($offset)
+            ->get());
     }
 
 
@@ -59,49 +73,6 @@ class UserController extends Controller
         $user->save();
 
         return back();
-    }
-
-
-
-    public function importUsers(Request $request)
-    {
-        $request->validate([
-            'users' => 'required|array',
-            'users.*.email' => 'required|email',
-            'users.*.name' => 'required|string|max:255',
-            'users.*.cb_kundennummer' => 'present|nullable|string|max:255',
-            'users.*.approved' => 'required|in:1',
-        ]);
-
-        
-        foreach ($request->input('users') as $user)
-        {
-            $newPassword = Str::random(10);
-
-            if (User::firstWhere('email', $user['email'])) continue;
-            
-            $model = User::create([
-                'email' => $user['email'],
-                'name' => $user['name'],
-                'password' => bcrypt($newPassword),
-            ]);
-
-            $model->enabled_at = now();
-            $model->email_verified_at = now();
-            $model->save();
-
-            $customerProfile = $model->fresh()->customerProfile()->create([
-                'company' => $user['name'],
-                'customer_id' => $user['cb_kundennummer'],
-            ]);
-
-            $customerProfile->enabled_at = now();
-            $customerProfile->save();
-
-            Mail::to($user['email'])->send(new ImportedUserCreated($user['email'], $newPassword));
-        }
-
-        return back()->with('success', 'Users imported successfully');
     }
 
 
@@ -201,6 +172,93 @@ class UserController extends Controller
     public function destroyEmployee(User $user)
     {
         $user->employeeProfile()->delete();
+
+        return back();
+    }
+
+
+
+    public function importUsers(Request $request)
+    {
+        $request->validate([
+            'users' => 'required|array',
+            'users.*.email' => 'required|email',
+            'users.*.name' => 'required|string|max:255',
+            'users.*.cb_kundennummer' => 'present|nullable|string|max:255',
+            'users.*.approved' => 'required|in:1',
+        ]);
+
+        
+        foreach ($request->input('users') as $user)
+        {
+            $newPassword = Str::random(10);
+
+            if (User::firstWhere('email', $user['email'])) continue;
+            
+            $model = User::create([
+                'email' => $user['email'],
+                'name' => $user['name'],
+                'password' => bcrypt($newPassword),
+            ]);
+
+            $model->enabled_at = now();
+            $model->email_verified_at = now();
+            $model->save();
+
+            $customerProfile = $model->fresh()->customerProfile()->create([
+                'company' => $user['name'],
+                'customer_id' => $user['cb_kundennummer'],
+            ]);
+
+            $customerProfile->enabled_at = now();
+            $customerProfile->save();
+
+            Mail::to($user['email'])->send(new ImportedUserCreated($user['email'], $newPassword));
+        }
+
+        return back()->with('success', 'Users imported successfully');
+    }
+
+
+
+    public function updateSettings(Request $request)
+    {
+        $users = User::all();
+
+        foreach ($users as $user)
+        {
+            /**
+             * Fix user profiles
+             * This fix migrates the old user profiles to the new user settings
+             */
+            if ($request->fixProfiles === true)
+            {
+                if ($user->customerProfile)
+                {
+                    $user->setSetting('profile.customer', [
+                        'company' => $user->customerProfile->company,
+                        'customer_id' => $user->customerProfile->customer_id,
+                    ]);
+                }
+                
+                if ($user->employeeProfile)
+                {
+                    $user->setSetting('profile.employee', [
+                        'first_name' => $user->employeeProfile->first_name,
+                        'last_name' => $user->employeeProfile->last_name,
+                    ]);
+                }
+            }
+
+            /**
+             * Update pre-calculated user name
+             * This fix sets the 'name' column to the most appropriate value
+             */
+            if ($request->updateNames === true)
+            {
+                $user->updateName();
+            }
+        }
 
         return back();
     }

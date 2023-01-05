@@ -48,12 +48,8 @@
         
             <div class="spacer"></div>
 
-            <mui-button type="button" variant="text" size="small" label="Newsletter Nutzer" @click="openNewsletterPopup()"/>
-            
-            <mui-button type="button" as="label" variant="text" size="small">
-                Benutzer importieren
-                <input ref="importInput" type="file" accept=".json" style="display: none;" @change="importUsersFromJSON($event.target.files[0])" />
-            </mui-button>
+            <mui-button type="button" variant="text" size="small" label="Newsletter" @click="openNewsletterPopup()"/>
+            <mui-button type="button" variant="text" size="small" label="Einstellungen" @click="openSettingsPopup()"/>
         </div>
     </AdminLayout>
 
@@ -61,17 +57,37 @@
 
     <Popup title="Newsletter Emails" ref="newsletterPopup">
         <div class="flex vertical gap-1 padding-1">
-            <select v-model="newsletterForm.newsletter" @change="getNewsletterData()">
-                <option value="generic">Allgemeiner Newsletter</option>
-                <option value="customer">Kunden Newsletter</option>
-            </select>
-
-            <div class="background-soft padding-1 radius-m h-20" style="overflow-y: auto;">
-                {{ newsletterForm.users.map(e => e.email).join('; ') }}
+            <div class="flex">
+                <select class="flex-1" v-model="newsletterForm.newsletter" @change="getNewsletterData()">
+                    <option value="generic">Allgemeiner Newsletter</option>
+                    <option value="customer">Kunden Newsletter</option>
+                </select>
+                <div class="spacer"></div>
+                <mui-button type="button" label="In Zwischenablage kopieren" @click="copyToClipboard(newsletterForm.users.map(e => e.email).join('; '))"/>
             </div>
-
-            <mui-button type="button" size="small" label="In Zwischenablage kopieren" @click="copyToClipboard(newsletterForm.users.map(e => e.email).join('; '))"/>
+            
+            <div class="background-soft padding-1 radius-m h-20" style="overflow-y: auto;">
+                {{ newsletterForm.users.map(e => e.email).join(';') }}
+            </div>
         </div>
+    </Popup>
+        
+        
+        
+        <Popup title="Einstellungen" ref="settingsPopup">
+            <div class="flex vertical gap-1 padding-1">
+                <h5 class="margin-0">Globale Benutzer Verwaltung</h5>
+                
+                <fieldset class="flex vertical padding-inline-0">
+                    <mui-toggle type="switch" v-model="settingsForm.fixProfiles" label="Profile migrieren" v-tooltip="'Diese Option migriert die alten Benutzerprofile zu den neuen user-settings'"/>
+                    <mui-toggle type="switch" v-model="settingsForm.updateNames" label="Anzeigenamen aktualisieren" v-tooltip="'Diese Option synkronisiert die Anzeigenamen mit den Daten der Benutzerprofile'"/>
+                </fieldset>
+                
+                <div class="flex">
+                    <div class="spacer"></div>
+                    <mui-button type="button" label="Einstellungen speichern" @click="saveSettings()"/>
+                </div>
+            </div>
     </Popup>
 </template>
 
@@ -165,31 +181,6 @@
 
 
 
-    // START: Import
-    const importInput = ref(null)
-
-    const importUsersFromJSON = (file) => {
-        if (!file) return
-
-        const reader = new FileReader()
-        reader.readAsText(file)
-
-        reader.onload = () => {
-            const users = JSON.parse(reader.result)
-            
-            importInput.value.value = null
-
-            useForm({users}).post(route('dashboard.admin.users.import'), {
-                onSuccess() {
-                    console.log(`Successfully imported ${users.length} users`)
-                }
-            })
-        }
-    }
-    // END: Import
-
-
-
     // START: Editor
     const openItem = (item = null) => {
         Inertia.visit(route('admin.users.editor', item?.id))
@@ -228,6 +219,25 @@
         navigator.clipboard.writeText(text)
     }
     // END: Newsletter
+
+
+
+    // START: Global Settings
+    const settingsPopup = ref(null)
+
+    const settingsForm = useForm({
+        fixProfiles: false,
+        updateNames: false,
+    })
+
+    const openSettingsPopup = () => {
+        settingsPopup.value.open()
+    }
+
+    const saveSettings = () => {
+        settingsForm.patch(route('admin.users.settings'))
+    }
+    // END: Global Settings
 </script>
 
 <style lang="sass" scoped>
