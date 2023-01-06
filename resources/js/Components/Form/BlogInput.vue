@@ -31,19 +31,12 @@
             
             <div class="vertical-separator"></div>
 
-            <VDropdown placement="bottom-start">
+            <VDropdown placement="bottom">
                 <button type="button" class="button icon">format_color_fill</button>
                 <template #popper>
-                    <div class="flex padding-1 vertical">
-                        <mui-button variant="text" label="Primärfarbe" @click="editor.chain().focus().setColor('var(--color-primary)').run()"/>
-                        <mui-button variant="text" label="Text Farbe" @click="editor.chain().focus().setColor('var(--color-text)').run()"/>
-                        <mui-button variant="text" label="Überschrift Farbe" @click="editor.chain().focus().setColor('var(--color-heading)').run()"/>
-                        <mui-button variant="text" label="Info" @click="editor.chain().focus().setColor('var(--color-info)').run()"/>
-                        <mui-button variant="text" label="Erfolg" @click="editor.chain().focus().setColor('var(--color-success)').run()"/>
-                        <mui-button variant="text" label="Warnung" @click="editor.chain().focus().setColor('var(--color-warning)').run()"/>
-                        <mui-button variant="text" label="Fehler" @click="editor.chain().focus().setColor('var(--color-error)').run()"/>
-                        <hr>
-                        <mui-button variant="text" label="Zurücksetzen" @click="editor.chain().focus().unsetColor().run()"/>
+                    <div class="dropdown-grid padding-1">
+                        <button type="button" class="swatch blog-editor" v-for="swatch in swatches" :key="swatch.value" v-tooltip="swatch.name" :style="'background: '+swatch.value" @click="editor.chain().focus().setColor(swatch.value).run()"></button>
+                        <button type="button" class="swatch blog-editor fullwidth" @click="editor.chain().focus().unsetColor().run()">Zurücksetzen</button>
                     </div>
                 </template>
             </VDropdown>
@@ -54,6 +47,7 @@
             <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('image') }" @click="openImageDialog()">image</button>
             <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('blockquote') }" @click="editor.chain().focus().toggleBlockquote().run()">format_quote</button>
             <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('code') }" @click="editor.chain().focus().toggleCode().run()">code</button>
+            <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('keyfact') }" @click="openKeyfactDialog()">star</button>
             
             <div class="vertical-separator"></div>
             
@@ -61,12 +55,6 @@
         </div>
 
         <editor-content class="editor-content formatted-content" :editor="editor" />
-
-        <!-- <div class="editor-footer">
-            <span>{{ editor.storage.characterCount.words() }} Wörter</span>
-            <span>•</span>
-            <span>{{ editor.storage.characterCount.characters() }} Zeichen</span>
-        </div> -->
 
         <div class="dialog-wrapper" v-show="linkForm.isOpen">
             <div class="background" @click="linkForm.isOpen = false"></div>
@@ -90,12 +78,22 @@
                 <mui-button type="button" label="Bild speichern" @click="insertImage()" />
             </div>
         </div>
+
+        <div class="dialog-wrapper" v-show="keyfactForm.isOpen">
+            <div class="background" @click="keyfactForm.isOpen = false"></div>
+            <div class="dialog-content">
+                <mui-button type="button" label="Keyfact entfernen" color="error" variant="contained" @click="removeKeyfact()" />
+                <hr>
+                <mui-input type="text" label="Keyfact Icon" v-model="keyfactForm.icon" />
+                <mui-button type="button" label="Keyfact einfügen" @click="insertKeyfact()" />
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
-    import Popup from '@/Components/Form/Popup.vue'
     import { Editor, EditorContent } from '@tiptap/vue-3'
+    import { Node } from '@tiptap/core'
     import Link from '@tiptap/extension-link'
     import Image from '@tiptap/extension-image'
     import Underline from '@tiptap/extension-underline'
@@ -104,6 +102,95 @@
     import TextStyle from '@tiptap/extension-text-style'
     import Color from '@tiptap/extension-color'
     import StarterKit from '@tiptap/starter-kit'
+
+    import Popup from '@/Components/Form/Popup.vue'
+
+    const swatches = [
+        { value: 'var(--color-primary)', name: 'Primärfarbe' },
+        { value: 'var(--color-primary-soft)', name: 'Weiche Primärfarbe' },
+        { value: 'var(--color-text)', name: 'Textfarbe' },
+        { value: 'var(--color-heading)', name: 'Überschriftfarbe' },
+        { value: 'var(--color-info)', name: 'Info' },
+        { value: 'var(--color-success)', name: 'Erfolg' },
+        { value: 'var(--color-warning)', name: 'Warnung' },
+        { value: 'var(--color-error)', name: 'Fehler' },
+    ]
+
+
+
+    const Keyfact = Node.create({
+        name: 'keyfact',
+        group: 'block',
+        content: 'block*',
+        defining: true,
+        draggable: false,
+
+        parseHTML() {
+            return [
+                {
+                    tag: 'div.key-fact',
+                    getAttrs: (element) => {
+                        return {
+                            icon: element.querySelector('span.icon').innerHTML,
+                        }
+                    },
+                },
+            ]
+        },
+        addAttributes() {
+            return {
+                icon: {
+                    default: 'star',
+                },
+            }
+        },
+        renderHTML({ HTMLAttributes }) {
+            return [
+                'div',
+                {
+                    ...HTMLAttributes,
+                    class: 'key-fact',
+                },
+                [
+                    'span',
+                    {
+                        class: 'icon',
+                        'data-icon': HTMLAttributes['icon'],
+                        'contenteditable': 'false',
+                    },
+                    '',
+                ],
+                [
+                    'div',
+                    {
+                        class: 'content',
+                    },
+                    0,
+                ],
+            ]
+        },
+        addCommands() {
+            return {
+                setKeyfact: (icon) => ({ commands }) => {
+                    return commands.wrapIn('keyfact', { icon })
+                },
+
+                unsetKeyfact: () => ({ commands }) => {
+                    return commands.lift('keyfact')
+                },
+
+                toggleKeyfact: (icon) => ({ commands }) => {
+                    return commands.toggleWrap('keyfact', { icon })
+                },
+
+                updateKeyfact: (icon) => ({ commands }) => {
+                    return commands.updateAttributes('keyfact', { icon })
+                },
+            }
+        },
+    })
+
+
 
     export default {
         props: {
@@ -126,6 +213,11 @@
                     url: '',
                     alt: '',
                 },
+                keyfactForm: {
+                    isOpen: false,
+                    icon: 'star',
+                },
+                swatches,
             }
         },
         mounted() {
@@ -162,6 +254,7 @@
                     TextStyle,
                     Color,
                     CharacterCount,
+                    Keyfact,
                 ],
                 content: this.modelValue,
                 onUpdate: () => {
@@ -236,7 +329,6 @@
                 this.imageForm.alt = this.editor.getAttributes('image').alt || ''
                 // this.imageForm.aspect = ''
                 this.imageForm.isOpen = true
-                // this.$refs.imageDialog.open()
             },
 
             insertImage() {
@@ -246,8 +338,23 @@
                 }).run()
 
                 this.imageForm.isOpen = false
+            },
 
-                // this.$refs.imageDialog.close()
+            openKeyfactDialog()
+            {
+                this.keyfactForm.isOpen = true
+            },
+
+            insertKeyfact()
+            {
+                this.editor.chain().focus().setKeyfact(this.keyfactForm.icon).run()
+                this.keyfactForm.isOpen = false
+            },
+
+            removeKeyfact()
+            {
+                this.editor.chain().focus().unsetKeyfact().run()
+                this.keyfactForm.isOpen = false
             },
         },
 
@@ -271,6 +378,35 @@
 </style>
 
 <style lang="sass" scoped>
+    .swatch.blog-editor
+        display: flex
+        align-items: center
+        justify-content: center
+        font-size: 1rem
+        font-family: var(--font-text)
+        color: var(--color-text)
+        padding: 0 .5rem
+        height: 2.5rem
+        aspect-ratio: 1
+        border-radius: 5px
+        cursor: pointer
+        user-select: none
+        border: 2px solid var(--color-background)
+        box-shadow: 0 0 0 1px var(--color-border)
+        background: var(--color-background)
+
+        &:hover
+            box-shadow: 0 0 0 1px var(--color-primary)
+
+        &.fullwidth
+            grid-column: 1 / -1
+            aspect-ratio: unset
+
+    .dropdown-grid
+        display: grid
+        grid-template-columns: repeat(4, 1fr)
+        gap: .5rem
+
     .editor-wrapper
         --color-border: #ccc
         height: 25rem
@@ -330,6 +466,7 @@
                     font-family: var(--font-icon)
                     font-size: 1.5rem
                     line-height: 1
+                    padding: 0
 
                 &:hover,
                 &:focus

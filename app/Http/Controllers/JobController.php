@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\NewJobApplication;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
 class JobController extends Controller
@@ -36,5 +38,49 @@ class JobController extends Controller
                 $query->select('id', 'name', 'slug');
             }]),
         ]);
+    }
+
+    public function showFunnelFahrer()
+    {
+        return Inertia::render('Jobs/Fahrer.funnel');
+    }
+
+    public function storeFunnelFahrer(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:200',
+            'email' => 'nullable|email|max:200',
+            'phone' => 'required|string|max:200',
+            'zip' => 'required|string|max:20',
+            'hasExperience' => 'required|in:Ja,Nein',
+            'experienceAsDriver' => 'required|string|max:30',
+            'nightshift' => 'required|in:Ja,Nein',
+            'driversLicense' => 'required|string|max:10',
+            'hasModul95' => 'required|in:Ja,Nein',
+            'experienceInLanguage' => 'required|string|max:30',
+            'startDate' => 'required|string|max:100',
+            'salary' => 'nullable|string|max:100',
+        ]);
+
+        $formattedDetails = '';
+        $formattedDetails .= 'Stelle:<br><b>LKW Fahrer</b><br><br>';
+        $formattedDetails .= 'Name:<br><b>'.$request->name.'</b><br><br>';
+        $formattedDetails .= 'Email:<br><b>'.$request->email.'</b><br><br>';
+        $formattedDetails .= 'Telefon:<br><b>'.$request->phone.'</b><br><br>';
+        $formattedDetails .= 'Postleitzahl:<br><b>'.$request->zip.'</b><br><br><br>';
+
+        $formattedDetails .= 'Erfahrung als LKW Fahrer:<br><b>'.$request->hasExperience.'</b><br><br>';
+        $formattedDetails .= 'Erfahrung als LKW Fahrer (Jahre):<br><b>'.$request->experienceAsDriver.'</b><br><br>';
+        $formattedDetails .= 'Kann Nachts Fahren:<br><b>'.$request->nightshift.'</b><br><br>';
+        $formattedDetails .= 'Führerschein:<br><b>'.$request->driversLicense.'</b><br><br>';
+        $formattedDetails .= 'Modul 95 Qualifizierung:<br><b>'.$request->hasModul95.'</b><br><br>';
+        $formattedDetails .= 'Deutschkenntnisse:<br><b>'.$request->experienceInLanguage.'</b><br><br><br>';
+
+        $formattedDetails .= 'Frühstes Einstiegsdatum:<br><b>'.$request->startDate.'</b><br><br>';
+        $formattedDetails .= 'Gehaltswunsch (brutto):<br><b>'.($request->salary ?? 'Nicht angegeben').'</b><br><br>';
+
+        Mail::to(config('mail.addresses.job_applications'))->send(new NewJobApplication('LKW Fahrer', $formattedDetails));
+
+        return back();
     }
 }

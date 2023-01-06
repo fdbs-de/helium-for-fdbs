@@ -57,7 +57,7 @@
 
     <Popup title="Newsletter Emails" ref="newsletterPopup">
         <div class="flex vertical gap-1 padding-1">
-            <div class="flex">
+            <div class="flex gap-1 v-center">
                 <select class="flex-1" v-model="newsletterForm.newsletter" @change="getNewsletterData()">
                     <option value="generic">Allgemeiner Newsletter</option>
                     <option value="customer">Kunden Newsletter</option>
@@ -144,7 +144,7 @@
         filter.value.processing = false
     }
 
-    const getDataThrottled = _.throttle(getData, 100)
+    const getDataThrottled = _.throttle(getData, 300)
 
     getData()
     // END: Fetch
