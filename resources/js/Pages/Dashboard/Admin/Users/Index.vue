@@ -4,7 +4,7 @@
     <AdminLayout title="Nutzer verwalten" :loading="filter.processing">
         <div class="flex v-center gap-1">
             <Actions v-show="selection.length >= 1" :selection="selection" @deselect="deselectAll()"/>
-            <mui-input v-show="selection.length <= 0" type="search" class="search-input" placeholder="Suchen" v-model="filter.name" @input="getDataThrottled" />
+            <mui-input v-show="selection.length <= 0" type="search" class="search-input" placeholder="Suchen" v-model="filter.name" @input="getDataThrottled" @clear="getDataThrottled"/>
 
             <div class="spacer"></div>
 
@@ -57,12 +57,11 @@
 
     <Popup title="Newsletter Emails" ref="newsletterPopup">
         <div class="flex vertical gap-1 padding-1">
-            <div class="flex">
+            <div class="flex gap-1 v-center">
                 <select class="flex-1" v-model="newsletterForm.newsletter" @change="getNewsletterData()">
                     <option value="generic">Allgemeiner Newsletter</option>
                     <option value="customer">Kunden Newsletter</option>
                 </select>
-                <div class="spacer"></div>
                 <mui-button type="button" label="In Zwischenablage kopieren" @click="copyToClipboard(newsletterForm.users.map(e => e.email).join('; '))"/>
             </div>
             

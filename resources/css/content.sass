@@ -40,6 +40,36 @@
     li > p
         margin-block: 0
 
+    .key-fact
+        border-radius: var(--radius-m)
+        background: var(--color-background-soft)
+        padding: 1em
+        margin: 1em 0
+        display: flex
+        gap: 1em
+        align-items: center
+
+        .icon
+            font-size: 2em
+            line-height: 1
+            display: flex
+            align-items: center
+            justify-content: center
+            aspect-ratio: 1
+            color: var(--color-primary)
+            font-family: var(--font-icon)
+            user-select: none !important
+
+            &::after
+                content: attr(data-icon)
+
+        .content
+            *:first-child
+                margin-top: 0
+            
+            *:last-child
+                margin-bottom: 0
+
     blockquote.content-blockquote
         background: var(--color-background-soft)
         border-radius: var(--radius-m)

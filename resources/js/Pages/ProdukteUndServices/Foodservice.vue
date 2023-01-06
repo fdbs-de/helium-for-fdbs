@@ -5,13 +5,16 @@
         </Head>
 
         <template #ansprechpartner>
-            <StaffCard class="service-scroll-item" name="Madlen Krause" job="Leitung" leader tel="18" image="/images/content/mitarbeiter/madlen_krause.png" overlay="/images/content/mitarbeiter/madlen_krause_zeichnung.png"/>
-            <StaffCard class="service-scroll-item" name="Phil Bartelt" tel="36" image="/images/content/mitarbeiter/phil_bartelt.png" overlay="/images/content/mitarbeiter/phil_bartelt_zeichnung.png"/>
-            <StaffCard class="service-scroll-item" name="Jacqueline Bein" tel="61" image="/images/content/mitarbeiter/missing.png" />
-            <StaffCard class="service-scroll-item" name="Silke Künstler" tel="23" image="/images/content/mitarbeiter/silke_kuenstler.png" overlay="/images/content/mitarbeiter/silke_kuenstler_zeichnung.png"/>
-            <StaffCard class="service-scroll-item" name="Romina Pagano" image="/images/content/mitarbeiter/romina_pagano.png" overlay="/images/content/mitarbeiter/romina_pagano_zeichnung.png"/>
-            <StaffCard class="service-scroll-item" name="Yasmin Ruben" tel="32" image="/images/content/mitarbeiter/yasmin_ruben.png" overlay="/images/content/mitarbeiter/yasmin_ruben_zeichnung.png"/>
-            <StaffCard class="service-scroll-item" name="Angela Schrödter" tel="20" image="/images/content/mitarbeiter/angela_schroedter.png" overlay="/images/content/mitarbeiter/angela_schroedter_zeichnung.png"/>
+            <StaffCard
+                class="service-scroll-item"
+                v-for="employee in departments.find(e => e.id === 'vertriebsinnendienst').employees"
+                :key="employee.name"
+                :name="employee.name"
+                :job="employee.leader ? 'Leitung' : null"
+                :leader="employee.leader"
+                :tel="employee.tel"
+                :image="employee.image || '/images/content/mitarbeiter/missing.png'"
+                :overlay="employee.overlay"/>
         </template>
 
         <!-- <Alert icon="info" title="Inhalt folgt">
@@ -25,4 +28,5 @@
     import ServiceSubLayout from '@/Layouts/SubLayouts/Service.vue'
     import StaffCard from '@/Components/Page/StaffCard.vue'
     import Alert from '@/Components/Alert.vue'
+    import departments from '@/Pages/Kontakt.json'
 </script>

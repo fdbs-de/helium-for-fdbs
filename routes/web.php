@@ -37,6 +37,7 @@ Route::prefix('/produkte-und-services')->group(function () {
     });
     Route::get('/fachberatung-kaese-und-salate', [StaticController::class, 'indexFachberatungKaeseSalate'])->name('ps.fachberatung-kaese-und-salate');
     Route::get('/marketing-und-kommunikation', [StaticController::class, 'indexMarketingKommunikation'])->name('ps.marketing-und-kommunikation');
+    // Route::get('/mkbs', [StaticController::class, 'indexMKBS'])->name('ps.mkbs');
     Route::get('/technischer-kundendienst', [StaticController::class, 'indexTechnischerKundendienst'])->name('ps.technischer-kundendienst');
     Route::get('/seminare', [StaticController::class, 'indexSeminare'])->name('ps.seminare');
     
@@ -52,8 +53,8 @@ Route::prefix('/karriere')->group(function () {
     Route::get('/', [JobController::class, 'index'])->name('karriere');
     Route::get('/stellenangebote', [JobController::class, 'index'])->name('karriere.stellenangebote');
     Route::get('/stellenangebote/{post:slug}', [JobController::class, 'show'])->name('karriere.stellenangebote.show');
-    // Route::get('/studium-und-ausbildung', [StaticController::class, 'indexStudiumAusbildung'])->name('karriere.studium-und-ausbildung');
-    // Route::get('/fdbs-als-arbeitgeber', [StaticController::class, 'indexFDBSAlsArbeitgeber'])->name('karriere.fdbs-als-arbeitgeber');
+    Route::get('/bewerben-als/lkw-fahrer', [JobController::class, 'showFunnelFahrer'])->middleware(['role:Super Admin|Admin'])->name('karriere.funnel.lkw-fahrer');
+    Route::post('/bewerben-als/lkw-fahrer', [JobController::class, 'storeFunnelFahrer'])->middleware(['role:Super Admin|Admin'])->name('karriere.funnel.lkw-fahrer.store');
 });
 
 Route::get('/kontakt', [StaticController::class, 'indexKontakt'])->name('kontakt');
