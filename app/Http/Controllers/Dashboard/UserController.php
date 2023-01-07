@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -58,6 +59,7 @@ class UserController extends Controller
     {
         return Inertia::render('Dashboard/Admin/Users/Create', [
             'user' => $user->load(['roles', 'settings', 'employeeProfile', 'customerProfile']),
+            'roles' => Role::get(),
         ]);
     }
 

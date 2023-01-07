@@ -23,18 +23,14 @@
                     <div class="icon" aria-hidden="true">groups</div>
                     <div class="text">Benutzer</div>
                 </Link>
+                <Link class="menu-item" :href="route('admin.roles')" :class="{'active': is('admin.roles')}">
+                    <div class="icon" aria-hidden="true">key</div>
+                    <div class="text">Berechtigungen</div>
+                </Link>
             </div>
             
             <div class="menu-group">
                 <div class="group-label">Allgemein</div>
-                <Link class="menu-item" :href="route('admin.categories')" :class="{'active': is('admin.categories')}">
-                    <div class="icon" aria-hidden="true">category</div>
-                    <div class="text">Kategorien</div>
-                </Link>
-                <Link class="menu-item" :href="route('admin.posts')" :class="{'active': is('admin.posts')}">
-                    <div class="icon" aria-hidden="true">feed</div>
-                    <div class="text">Posts</div>
-                </Link>
                 <!-- <Link class="menu-item" :href="route('admin.posts')" :class="{'active': is('admin.posts')}">
                     <div class="icon" aria-hidden="true">account_tree</div>
                     <div class="text">Seiten</div>
@@ -52,6 +48,54 @@
                     <div class="text">Spezifikationen</div>
                 </Link>
             </div>
+
+            <div class="menu-group">
+                <div class="group-label">Blog</div>
+                <Link class="menu-item" :href="route('admin.categories')" :class="{'active': is('admin.categories')}">
+                    <div class="icon" aria-hidden="true">category</div>
+                    <div class="text">Kategorien</div>
+                </Link>
+                <Link class="menu-item" :href="route('admin.posts')" :class="{'active': is('admin.posts')}">
+                    <div class="icon" aria-hidden="true">feed</div>
+                    <div class="text">Posts</div>
+                </Link>
+            </div>
+
+            <!-- <div class="menu-group">
+                <div class="group-label">Karriere</div>
+                <Link class="menu-item" :href="route('admin.categories')" :class="{'active': is('admin.categories')}">
+                    <div class="icon" aria-hidden="true">category</div>
+                    <div class="text">Kategorien</div>
+                </Link>
+                <Link class="menu-item" :href="route('admin.posts')" :class="{'active': is('admin.posts')}">
+                    <div class="icon" aria-hidden="true">feed</div>
+                    <div class="text">Posts</div>
+                </Link>
+            </div>
+
+            <div class="menu-group">
+                <div class="group-label">Intranet</div>
+                <Link class="menu-item" :href="route('admin.categories')" :class="{'active': is('admin.categories')}">
+                    <div class="icon" aria-hidden="true">category</div>
+                    <div class="text">Kategorien</div>
+                </Link>
+                <Link class="menu-item" :href="route('admin.posts')" :class="{'active': is('admin.posts')}">
+                    <div class="icon" aria-hidden="true">feed</div>
+                    <div class="text">Posts</div>
+                </Link>
+            </div>
+            
+            <div class="menu-group">
+                <div class="group-label">Wiki</div>
+                <Link class="menu-item" :href="route('admin.categories')" :class="{'active': is('admin.categories')}">
+                    <div class="icon" aria-hidden="true">category</div>
+                    <div class="text">Kategorien</div>
+                </Link>
+                <Link class="menu-item" :href="route('admin.posts')" :class="{'active': is('admin.posts')}">
+                    <div class="icon" aria-hidden="true">feed</div>
+                    <div class="text">Posts</div>
+                </Link>
+            </div> -->
 
             <!-- <div class="menu-group">
                 <div class="group-label">Apps</div>
@@ -190,7 +234,7 @@
             box-shadow: var(--shadow-elevation-low)
             display: flex
             flex-direction: column
-            gap: 2rem
+            gap: 1rem
             padding-bottom: 1rem
             will-change: width, gap, transform
             transition: width 200ms cubic-bezier(0.22, 0.61, 0.36, 1), gap 200ms, transform 200ms

@@ -3,7 +3,7 @@
 
     <AdminLayout title="Kategorien verwalten">
         <div class="flex v-center gap-1">
-            <Actions v-show="selection.length >= 1" :selection="selection" @deselect="deselectAll()"/>
+            <Actions v-show="selection.length >= 1" :selection="selection" @deselect="deselectAll()" @delete="openDeletePopup()"/>
 
             <div class="spacer"></div>
 
@@ -38,6 +38,8 @@
                 @click.ctrl="toggleSelection(item)"
                 @click.exact="openItem(item)"
                 @open="openItem(item)"
+                @duplicate="duplicateItem(item)"
+                @delete="openDeletePopup(item)"
                 />
         </ListItemLayout>
         <small v-show="items.length <= 0" class="w-100 flex h-center padding-inline-2 padding-block-5">Keine Kategorien angelegt</small>
@@ -55,49 +57,11 @@
 
 
 
-    <Popup ref="manageCategoryPopup" class="manage-popup" :title="categoryForm.id ? 'Kategorie bearbeiten' : 'Kategorie erstellen'">
-        <form @submit.prevent="saveCategory()" class="layout-wrapper">
-            <div class="editor-content">
-                <div class="popup-block popup-error" v-if="hasErrors">
-                    <h3><b>Fehler!</b></h3>
-                    <p v-for="(error, key) in errors" :key="key">{{ error }}</p>
-                </div>
-                
-                <mui-input type="text" label="Name" border v-model="categoryForm.name"/>
-                <mui-input type="text" label="Slug" border v-model="categoryForm.slug"/>
-                <mui-input type="text" label="Farbe" border v-model="categoryForm.color"/>
-                <mui-input type="text" label="Icon" border v-model="categoryForm.icon"/>
-
-                <BlogInput class="content-input" v-model="categoryForm.description" />
-            </div>
-
-            <div class="sidebar">
-                <div class="group">
-                    <b class="heading">Status</b>
-                    <select v-model="categoryForm.status">
-                        <option value="hidden">Privat</option>
-                        <option value="published">Veröffentlicht</option>
-                    </select>
-                </div>
-                
-                <div class="spacer"></div>
-
-                <div class="group no-border">
-                    <mui-button type="button" v-if="categoryForm.id" label="löschen" color="error" variant="contained" @click="$refs.deleteCategoryPopup.open()"/>
-                    <mui-button v-if="categoryForm.id" label="Speichern" :loading="categoryForm.processing"/>
-                    <mui-button v-else label="Kategorie erstellen" :loading="categoryForm.processing"/>
-                </div>
-            </div>
-        </form>
-    </Popup>
-
-
-
-    <Popup ref="deleteCategoryPopup" title="Kategorie löschen?">
-        <form class="confirm-popup-wrapper" @submit.prevent="deleteCategory()">
-            <p>Möchten Sie die Kategorie <b>"{{categoryForm.name}}"</b> entgültig löschen?</p>
+    <Popup ref="deletePopup" title="Elemente löschen?">
+        <form class="confirm-popup-wrapper" @submit.prevent="deleteItems">
+            <p>Möchten Sie wirklich <b>{{selection.length}} Elemente</b> entgültig löschen?</p>
             <div class="confirm-popup-footer">
-                <mui-button type="button" variant="contained" label="Abbrechen" @click="$refs.deleteCategoryPopup.close()" />
+                <mui-button type="button" variant="contained" label="Abbrechen" @click="$refs.deletePopup.close()" />
                 <mui-button type="submit" variant="filled" color="error" label="Entgültig löschen" />
             </div>
         </form>
@@ -107,13 +71,13 @@
 <script setup>
     import { Head, useForm, usePage } from '@inertiajs/inertia-vue3'
     import { ref, computed } from 'vue'
+    import { Inertia } from '@inertiajs/inertia'
     import PostCategoryInterface from '@/Interfaces/PostCategory.js'
 
     import AdminLayout from '@/Layouts/Admin.vue'
     import ListItemLayout from '@/Components/Layout/ListItemLayout.vue'
     import ImageCard from '@/Components/Form/Card/ImageCard.vue'
     import IconButton from '@/Components/Form/IconButton.vue'
-    import BlogInput from '@/Components/Form/BlogInput.vue'
     import Switcher from '@/Components/Form/Switcher.vue'
     import Actions from '@/Components/Form/Actions.vue'
     import Popup from '@/Components/Form/Popup.vue'
@@ -163,61 +127,43 @@
 
 
 
-    // START: Category
-    const manageCategoryPopup = ref(null)
-    const deleteCategoryPopup = ref(null)
-
-    const categoryForm = useForm({
-        id: null,
-        name: '',
-        slug: '',
-        color: '',
-        icon: '',
-        description: '',
-        status: 'published',
-    })
-
+    // START: Editor
     const openItem = (item = null) => {
-        manageCategoryPopup.value.open()
-
-        categoryForm.id = item?.id ?? null
-        categoryForm.name = item?.name ?? ''
-        categoryForm.slug = item?.slug ?? ''
-        categoryForm.color = item?.color ?? ''
-        categoryForm.icon = item?.icon ?? ''
-        categoryForm.description = item?.description ?? ''
-        categoryForm.status = item?.status ?? 'published'
+        Inertia.visit(route('admin.categories.editor', item?.id))
     }
+    // END: Editor
 
-    const saveCategory = () => {
-        categoryForm.id ? updateCategory() : storeCategory()
+
+
+    // START: Delete
+    const deletePopup = ref(null)
+
+    const openDeletePopup = (item = null) => {
+        if (item) setSelection(item)
+        deletePopup.value.open()
     }
-
-    const storeCategory = () => {
-        categoryForm.post(route('admin.categories.store'), {
+    
+    const deleteItems = () => {
+        useForm({ids: selection.value}).delete(route('admin.categories.delete'), {
             onSuccess: () => {
-                manageCategoryPopup.value.close()
+                deletePopup.value.close()
+                deselectAll()
             },
         })
     }
+    // END: Delete
 
-    const updateCategory = () => {
-        categoryForm.put(route('admin.categories.update', categoryForm.id), {
+
+
+    // START: Duplicate
+    const duplicateItem = (item) => {
+        useForm({returnTo: 'current'}).post(route('admin.categories.duplicate', item.id), {
             onSuccess: () => {
-                manageCategoryPopup.value.close()
+                deselectAll()
             },
         })
     }
-
-    const deleteCategory = () => {
-        categoryForm.delete(route('admin.categories.delete', categoryForm.id), {
-            onSuccess: () => {
-                manageCategoryPopup.value.close()
-                deleteCategoryPopup.value.close()
-            },
-        })
-    }
-    // END: Category
+    // END: Duplicate
 
     
     
@@ -228,96 +174,4 @@
 </script>
 
 <style lang="sass" scoped>
-
-    .manage-popup
-        --max-width: 1200px
-
-        .input-button
-            height: 2rem
-            width: 2rem
-            display: flex
-            align-items: center
-            justify-content: center
-            padding: 0
-            margin: 0
-            border: none
-            background: none
-            cursor: pointer
-            user-select: none
-            font-family: var(--font-icon)
-            font-size: 1.35rem
-            text-align: center
-            color: var(--color-text)
-            border-radius: .25rem
-            flex: none
-
-            &:hover,
-            &:focus
-                color: var(--mui-color__)
-                background: var(--mui-background-secondary__)
-
-        .layout-wrapper
-            display: flex
-
-            .sidebar
-                width: 350px
-                background: var(--color-background-soft)
-                display: flex
-                flex-direction: column
-                border-radius: 0 var(--radius-m) var(--radius-m) 0
-
-                .group
-                    display: flex
-                    flex-direction: column
-                    padding: 1rem
-                    gap: 1rem
-                    border-bottom: 1px solid var(--color-border)
-
-                    .heading
-                        color: var(--color-heading)
-
-                    &.no-border
-                        border: none
-
-                select
-                    border: 1px solid var(--color-border)
-
-                .icon-button
-                    height: 1.5rem
-                    width: 2.5rem
-                    display: flex
-                    align-items: center
-                    justify-content: center
-                    user-select: none
-                    font-size: 1.2rem
-                    font-family: var(--font-icon)
-                    color: var(--color-primary)
-                    background: #e0004730
-                    border-radius: var(--radius-xl)
-                    padding: 0
-                    border: none
-                    cursor: pointer
-
-                    &:hover,
-                    &:focus
-                        background: var(--color-primary)
-                        color: var(--color-background)
-
-                .date-input
-                    display: flex
-                    align-items: center
-                    height: 3rem
-                    border-radius: var(--radius-s)
-                    border: 1px solid var(--color-border)
-
-            .editor-content
-                flex: 1
-                padding: 1rem
-                display: flex
-                flex-direction: column
-                gap: 1rem
-                --mui-background: var(--color-background)
-
-                .content-input
-                    height: 35rem
 </style>

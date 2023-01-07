@@ -21,7 +21,7 @@ class PostCategory extends Model
     ];
 
     protected $attributes = [
-        'status' => 'public',
+        'status' => 'published',
     ];
 
 
@@ -41,5 +41,33 @@ class PostCategory extends Model
     public function getPostCountAttribute()
     {
         return $this->posts()->count();
+    }
+
+
+
+    public function duplicate()
+    {
+        $postCategory = $this->replicate()->fill([
+            'name' => $this->name . ' (copy)',
+            'slug' => $this->findAvailableSlug(),
+            'status' => 'hidden',
+        ]);
+        
+        $postCategory->push();
+
+        return $postCategory;
+    }
+
+    public function findAvailableSlug()
+    {
+        $slug = $this->slug;
+        $count = 1;
+
+        while (PostCategory::where('slug', $slug)->exists()) {
+            $slug = $this->slug . '-' . $count;
+            $count++;
+        }
+
+        return $slug;
     }
 }

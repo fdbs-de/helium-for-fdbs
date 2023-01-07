@@ -41,4 +41,33 @@ class Post extends Model
     {
         return $this->belongsTo(PostCategory::class, 'category');
     }
+
+
+
+    public function duplicate() 
+    {
+        $post = $this->replicate()->fill([
+            'title' => $this->title . ' (copy)',
+            'slug' => $this->findAvailableSlug(),
+            'status' => 'draft',
+        ]);
+        
+        $post->push();
+
+        return $post;
+    }
+
+    public function findAvailableSlug()
+    {
+        $slug = $this->slug;
+        $count = 1;
+
+        while (Post::where('slug', $slug)->exists())
+        {
+            $slug = $this->slug . '-' . $count;
+            $count++;
+        }
+
+        return $slug;
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\NewsletterController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Dashboard\AdminController;
 use App\Http\Controllers\Dashboard\DocumentController;
 use App\Http\Controllers\Dashboard\MediaController;
@@ -22,6 +23,14 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'panelaccess:admin'])->g
     Route::prefix('newsletter')->group(function () {
         Route::get('/search', [NewsletterController::class, 'search'])->name('admin.newsletter.search');
         Route::put('/{user}', [NewsletterController::class, 'update'])->can('update', 'user')->name('admin.newsletter.update');
+    });
+
+    Route::prefix('roles')->group(function () {
+        Route::get('/', [RoleController::class, 'index'])->name('admin.roles');
+
+        Route::post('/', [RoleController::class, 'store'])->name('admin.roles.store');
+        Route::put('/{role}', [RoleController::class, 'update'])->name('admin.roles.update');
+        Route::delete('/{role}', [RoleController::class, 'delete'])->name('admin.roles.delete');
     });
 
     Route::prefix('users')->group(function () {
@@ -71,11 +80,14 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'panelaccess:admin'])->g
     Route::get('/posts', [PostController::class, 'index'])->name('admin.posts');
     Route::get('/posts/editor/{post?}', [PostController::class, 'create'])->name('admin.posts.editor');
     Route::post('/posts', [PostController::class, 'store'])->name('admin.posts.store');
+    Route::post('/posts/{post}', [PostController::class, 'duplicate'])->name('admin.posts.duplicate');
     Route::put('/posts/{post}', [PostController::class, 'update'])->name('admin.posts.update');
-    Route::delete('/posts/{post}', [PostController::class, 'delete'])->name('admin.posts.delete');
+    Route::delete('/posts', [PostController::class, 'delete'])->name('admin.posts.delete');
     
     Route::get('/categories', [PostCategoryController::class, 'index'])->name('admin.categories');
+    Route::get('/categories/editor/{category?}', [PostCategoryController::class, 'create'])->name('admin.categories.editor');
     Route::post('/categories', [PostCategoryController::class, 'store'])->name('admin.categories.store');
+    Route::post('/categories/{postCategory}', [PostCategoryController::class, 'duplicate'])->name('admin.categories.duplicate');
     Route::put('/categories/{postCategory}', [PostCategoryController::class, 'update'])->name('admin.categories.update');
-    Route::delete('/categories/{postCategory}', [PostCategoryController::class, 'delete'])->name('admin.categories.delete');
+    Route::delete('/categories', [PostCategoryController::class, 'delete'])->name('admin.categories.delete');
 });

@@ -3,7 +3,7 @@
 
     <AdminLayout title="Posts verwalten">
         <div class="flex v-center gap-1">
-            <Actions v-show="selection.length >= 1" :selection="selection" @deselect="deselectAll()"/>
+            <Actions v-show="selection.length >= 1" :selection="selection" @deselect="deselectAll()" @delete="openDeletePopup()"/>
             <Switcher v-show="selection.length <= 0" v-model="scope" :options="[
                 { value: null, icon: 'apps', tooltip: 'Alle' },
                 { value: 'blog', icon: 'public', tooltip: 'Blog' },
@@ -45,6 +45,8 @@
                 @click.ctrl="toggleSelection(item)"
                 @click.exact="openItem(item)"
                 @open="openItem(item)"
+                @duplicate="duplicateItem(item)"
+                @delete="openDeletePopup(item)"
                 />
         </ListItemLayout>
         <small v-show="posts.length <= 0" class="w-100 flex h-center padding-inline-2 padding-block-5">Keine Posts angelegt</small>
@@ -63,6 +65,18 @@
             <button class="fab-button" aria-hidden="true" title="Neuer Post" @click="openItem()">add</button>
         </template>
     </AdminLayout>
+
+
+
+    <Popup ref="deletePopup" title="Elemente löschen?">
+        <form class="confirm-popup-wrapper" @submit.prevent="deleteItems">
+            <p>Möchten Sie wirklich <b>{{selection.length}} Elemente</b> entgültig löschen?</p>
+            <div class="confirm-popup-footer">
+                <mui-button type="button" variant="contained" label="Abbrechen" @click="$refs.deletePopup.close()" />
+                <mui-button type="submit" variant="filled" color="error" label="Entgültig löschen" />
+            </div>
+        </form>
+    </Popup>
 </template>
 
 <script setup>
@@ -77,6 +91,7 @@
     import IconButton from '@/Components/Form/IconButton.vue'
     import Switcher from '@/Components/Form/Switcher.vue'
     import Actions from '@/Components/Form/Actions.vue'
+    import Popup from '@/Components/Form/Popup.vue'
 
     const props = defineProps({
         posts: Array,
@@ -141,10 +156,43 @@
 
 
 
-    // START: Post
+    // START: Editor
     const openItem = (item = null) => {
         Inertia.visit(route('admin.posts.editor', item?.id))
     }
+    // END: Editor
+
+
+
+    // START: Duplicate
+    const duplicateItem = (item) => {
+        useForm({returnTo: 'current'}).post(route('admin.posts.duplicate', item.id), {
+            onSuccess: () => {
+                deselectAll()
+            },
+        })
+    }
+    // END: Duplicate
+
+
+
+    // START: Delete
+    const deletePopup = ref(null)
+
+    const openDeletePopup = (item = null) => {
+        if (item) setSelection(item)
+        deletePopup.value.open()
+    }
+    
+    const deleteItems = () => {
+        useForm({ids: selection.value}).delete(route('admin.posts.delete'), {
+            onSuccess: () => {
+                deletePopup.value.close()
+                deselectAll()
+            },
+        })
+    }
+    // END: Delete
 </script>
 
 <style lang="sass" scoped>

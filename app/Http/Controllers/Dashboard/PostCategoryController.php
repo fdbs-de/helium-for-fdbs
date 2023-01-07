@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostCategories\CreatePostCategoryRequest;
 use App\Http\Requests\PostCategories\DestroyPostCategoryRequest;
+use App\Http\Requests\PostCategories\DuplicatePostCategoryRequest;
 use App\Http\Requests\PostCategories\UpdatePostCategoryRequest;
 use App\Models\PostCategory;
 use Illuminate\Http\Request;
@@ -19,23 +20,51 @@ class PostCategoryController extends Controller
         ]);
     }
 
+
+
+    public function create(PostCategory $category)
+    {
+        return Inertia::render('Dashboard/Admin/PostCategories/Create', [
+            'item' => $category,
+        ]);
+    }
+
+
+
     public function store(CreatePostCategoryRequest $request)
     {
-        PostCategory::create($request->validated());
+        $postCategory = PostCategory::create($request->validated());
+
+        return redirect()->route('admin.categories.editor', $postCategory);
+    }
+
+
+
+    public function duplicate(DuplicatePostCategoryRequest $request, PostCategory $postCategory)
+    {
+        $postCategory = $postCategory->duplicate();
+
+        if ($request->returnTo === 'editor') {
+            return redirect()->route('admin.categories.editor', $postCategory);
+        }
 
         return back();
     }
+
+
 
     public function update(UpdatePostCategoryRequest $request, PostCategory $postCategory)
     {
         $postCategory->update($request->validated());
 
-        return back();
+        return redirect()->route('admin.categories.editor', $postCategory);
     }
 
-    public function delete(DestroyPostCategoryRequest $request, PostCategory $postCategory)
+
+
+    public function delete(DestroyPostCategoryRequest $request)
     {
-        $postCategory->delete();
+        PostCategory::whereIn('id', $request->ids)->delete();
 
         return back();
     }
