@@ -62,12 +62,6 @@ class RegisteredUserController extends Controller
         // Create the customer profile
         if ($request->is_customer)
         {
-            // Deprecated
-            // $user->customerProfile()->create([
-            //     'company' => $request->customer['company'],
-            //     'customer_id' => $request->customer['customer_id'],
-            // ]);
-
             $user->setSetting('profile.customer', [
                 'company' => $request->customer['company'],
                 'customer_id' => $request->customer['customer_id'],
@@ -81,12 +75,6 @@ class RegisteredUserController extends Controller
         // Create the employee profile
         if ($request->is_employee)
         {
-            // Deprecated
-            // $user->employeeProfile()->create([
-            //     'first_name' => $request->employee['first_name'],
-            //     'last_name' => $request->employee['last_name'],
-            // ]);
-
             $user->setSetting('profile.employee', [
                 'first_name' => $request->employee['first_name'],
                 'last_name' => $request->employee['last_name'],

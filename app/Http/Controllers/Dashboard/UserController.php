@@ -5,18 +5,20 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Mail\ImportedUserCreated;
 use App\Mail\UserEnabled;
+use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Dashboard/Admin/Users/Index', [
+        return Inertia::render('Admin/Users/Index', [
             'users' => User::with(['roles', 'employeeProfile', 'customerProfile'])->orderBy('created_at', 'desc')->get(),
         ]);
     }
@@ -56,9 +58,82 @@ class UserController extends Controller
 
     public function create(User $user)
     {
-        return Inertia::render('Dashboard/Admin/Users/Create', [
+        return Inertia::render('Admin/Users/Create', [
             'user' => $user->load(['roles', 'settings', 'employeeProfile', 'customerProfile']),
+            'roles' => Role::get(),
+            'settings' => [
+                'site.domain' => Setting::firstWhere('key', 'site.domain')->value,
+            ],
         ]);
+    }
+
+
+
+    public function store(Request $request)
+    {
+        return back();
+    }
+
+
+
+    public function update(Request $request, User $user)
+    {
+        $user->email = $request->email;
+        $user->email_verified_at = $request->email_verified_at;
+        $user->enabled_at = $request->enabled_at;
+
+        // Set the user's password
+        if ($request->password)
+        {
+            $user->password = bcrypt($request->password);
+        }
+
+
+
+        // Set the user's roles
+        $user->roles()->sync($request->roles);
+
+        if ($request->profiles['customer']['has_customer_profile'])
+        {
+            $user->setSetting('profile.customer', [
+                'company' => $request->profiles['customer']['company'],
+                'customer_id' => $request->profiles['customer']['customer_id'],
+            ]);
+        }
+        else
+        {
+            $user->unsetSetting('profile.customer');
+        }
+
+
+
+        // Set the user's employee profile
+        if ($request->profiles['employee']['has_employee_profile'])
+        {
+            $user->setSetting('profile.employee', [
+                'first_name' => $request->profiles['employee']['first_name'],
+                'last_name' => $request->profiles['employee']['last_name'],
+            ]);
+        }
+        else
+        {
+            $user->unsetSetting('profile.employee');
+        }
+
+
+
+        // Save the user to the database
+        $user->save();
+
+        // Update the user's name
+        $user->updateName();
+
+
+
+        $user->setSetting('newsletter.subscribed.generic', $request->newsletter['generic']);
+        $user->setSetting('newsletter.subscribed.customer', $request->newsletter['customer']);
+
+        return back();
     }
 
 

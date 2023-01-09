@@ -27,7 +27,8 @@ class DestroyPostCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'ids' => ['required', 'array'],
+            'ids.*' => ['required', 'exists:post_categories,id'],
         ];
     }
 }

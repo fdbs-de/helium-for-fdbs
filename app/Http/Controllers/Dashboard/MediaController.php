@@ -21,7 +21,7 @@ class MediaController extends Controller
 
         $directory = new Directory($path);
         
-        return Inertia::render('Dashboard/Admin/Media', [
+        return Inertia::render('Admin/Media/Index', [
             'items' => $directory->jsonSerialize(),
             'path' => $path,
             'exists' => Storage::exists($path),

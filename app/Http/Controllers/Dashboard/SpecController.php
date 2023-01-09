@@ -18,7 +18,7 @@ class SpecController extends Controller
 
     public function indexAdmin()
     {
-        return Inertia::render('Dashboard/Admin/Specs');
+        return Inertia::render('Admin/Specs/Index');
     }
 
 
