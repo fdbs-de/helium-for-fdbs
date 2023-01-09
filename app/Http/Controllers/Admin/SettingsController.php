@@ -11,7 +11,7 @@ class SettingsController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Dashboard/Admin/Settings/Index', [
+        return Inertia::render('Admin/Settings/Index', [
             'settings' => Setting::get()->keyBy('key')->map->value,
         ]);
     }

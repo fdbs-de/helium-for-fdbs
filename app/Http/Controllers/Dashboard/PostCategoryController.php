@@ -15,7 +15,7 @@ class PostCategoryController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Dashboard/Admin/PostCategories/Index', [
+        return Inertia::render('Admin/PostCategories/Index', [
             'categories' => PostCategory::withCount('posts')->orderBy('name', 'asc')->get(),
         ]);
     }
@@ -24,7 +24,7 @@ class PostCategoryController extends Controller
 
     public function create(PostCategory $category)
     {
-        return Inertia::render('Dashboard/Admin/PostCategories/Create', [
+        return Inertia::render('Admin/PostCategories/Create', [
             'item' => $category,
         ]);
     }

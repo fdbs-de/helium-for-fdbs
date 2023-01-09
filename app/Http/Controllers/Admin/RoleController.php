@@ -14,7 +14,7 @@ class RoleController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Dashboard/Admin/Roles/Index', [
+        return Inertia::render('Admin/Roles/Index', [
             'items' => Role::with('permissions')->orderBy('created_at')->get(),
         ]);
     }

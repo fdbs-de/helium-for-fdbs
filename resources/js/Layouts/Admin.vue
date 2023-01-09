@@ -17,7 +17,7 @@
     <div class="layout">
         <div class="menu" :class="{'open': isOpen}">
             <div class="apps-bar">
-                <Link class="logo" :href="route('dashboard.admin.users')">
+                <Link class="logo" :href="route('admin')">
                     <img src="/images/app/branding/cms_icon_white.svg" alt="Gastro CMS Logo">
                 </Link>
 
@@ -44,11 +44,11 @@
                 </div>
                 
                 <div class="menu-group">
-                    <Link class="menu-item" :href="route('dashboard.admin.users')" :class="{'active': is('dashboard')}">
+                    <Link class="menu-item" :href="route('admin')" :class="{'active': is('admin')}">
                         <div class="icon" aria-hidden="true">dashboard</div>
                         <div class="text">Übersicht</div>
                     </Link>
-                    <Link class="menu-item" :href="route('dashboard.admin.users')" :class="{'active': is('dashboard.admin.users')}">
+                    <Link class="menu-item" :href="route('admin.users')" :class="{'active': is('admin.users')}">
                         <div class="icon" aria-hidden="true">groups</div>
                         <div class="text">Benutzer</div>
                     </Link>
@@ -76,11 +76,11 @@
                         <div class="icon" aria-hidden="true">feed</div>
                         <div class="text">Posts</div>
                     </Link>
-                    <Link class="menu-item" :href="route('dashboard.admin.docs')" :class="{'active': is('dashboard.admin.docs')}">
+                    <Link class="menu-item" :href="route('admin.docs')" :class="{'active': is('admin.docs')}">
                         <div class="icon" aria-hidden="true">folder_open</div>
                         <div class="text">Dokumente</div>
                     </Link>
-                    <Link class="menu-item" :href="route('dashboard.admin.specs')" :class="{'active': is('dashboard.admin.specs')}">
+                    <Link class="menu-item" :href="route('admin.specs')" :class="{'active': is('admin.specs')}">
                         <div class="icon" aria-hidden="true">cloud_done</div>
                         <div class="text">Spezifikationen</div>
                     </Link>
@@ -198,9 +198,9 @@
         font-family: var(--font-interface)
         background: var(--color-background-soft)
 
-        --color-primary: #7158e2 !important
-        --mui-primary: #7158e2 !important
-        --primary: #7158e2 !important
+        --color-primary: #3742fa !important
+        --mui-primary: #3742fa !important
+        --primary: #3742fa !important
 
         .menu
             width: 22rem

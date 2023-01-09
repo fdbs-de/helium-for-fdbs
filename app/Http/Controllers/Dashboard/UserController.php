@@ -17,7 +17,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Dashboard/Admin/Users/Index', [
+        return Inertia::render('Admin/Users/Index', [
             'users' => User::with(['roles', 'employeeProfile', 'customerProfile'])->orderBy('created_at', 'desc')->get(),
         ]);
     }
@@ -57,7 +57,7 @@ class UserController extends Controller
 
     public function create(User $user)
     {
-        return Inertia::render('Dashboard/Admin/Users/Create', [
+        return Inertia::render('Admin/Users/Create', [
             'user' => $user->load(['roles', 'settings', 'employeeProfile', 'customerProfile']),
             'roles' => Role::get(),
         ]);
