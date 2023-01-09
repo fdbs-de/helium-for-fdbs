@@ -2,7 +2,7 @@
     <Head title="Nutzer verwalten" />
 
     <AdminLayout :title="user.name" :backlink="route('admin.users')" backlink-text="Zurück zur Übersicht">
-        <div class="card flex vertical gap-1 padding-1 padding-block-2 margin-bottom-2">
+        <div class="card flex vertical gap-1 padding-block-2 margin-bottom-2">
             <form class="limiter text-limiter flex vertical gap-4" @submit.prevent="saveItem()">
                 <div class="popup-block popup-error" v-if="hasErrors">
                     <h3><b>Fehler!</b></h3>
@@ -11,15 +11,26 @@
                 
                 <fieldset class="flex vertical gap-1">
                     <legend>Allgemeines</legend>
-                    <mui-input type="email" v-model="form.email" label="Email">
-                        <template #right>
-                            <mui-toggle v-tooltip="'Email freigeschaltet'" :modelValue="!!form.email_verified_at" @update:modelValue="form.email_verified_at = $event ? new Date() : null "/>
+                    <mui-input type="email" v-model="form.email" label="Email"/>
+                    <mui-toggle class="checkbox" label="Email freigeschaltet" style="background: var(--color-background-soft)" :modelValue="!!form.email_verified_at" @update:modelValue="form.email_verified_at = $event ? new Date() : null "/>
+                    <mui-toggle class="checkbox" style="background: var(--color-background-soft)" :modelValue="!!form.enabled_at" @update:modelValue="form.enabled_at = $event ? new Date() : null ">
+                        <template #label>
+                            <span>Nutzer freigeschaltet</span><br>
+                            <small class="text-green" v-if="domainMatch && !!user.email_verified_at">(Dieser Nutzer hat eine Domain-Email-Adresse)</small>
                         </template>
-                    </mui-input>
+                    </mui-toggle>
+                    
+                    <Alert type="warning" title="Email ist nicht verifiziert" v-if="!!form.enabled_at && !user.email_verified_at">
+                        <p>
+                            Der Nutzer hat seine Email noch nicht bestätigt.<br>
+                            Vorsicht bei der Freischaltung – es kann sich um einen <b>Bot oder Spam-Account</b> handeln!
+                        </p>
+                    </Alert>
+
                     <hr>
+                    
                     <mui-input type="password" label="Passwort setzen" no-border show-password-score autocomplete="new-password" v-model="form.password"/>
                 </fieldset>
-
                 
                 <fieldset class="flex vertical gap-1">
                     <legend>
@@ -53,22 +64,21 @@
                     <!-- <mui-input type="text" icon-left="search" label="Suchen" />
                     <hr> -->
                     <div class="flex gap-1 wrap">
-                        <mui-toggle v-for="role in roles" :key="role.id" border :label="role.name" :modelValue="form.roles.includes(role.id)" @update:modelValue="toggleRole(role.id)"/>
+                        <mui-toggle
+                            v-for="role in roles"
+                            style="background: var(--color-background-soft)"
+                            :key="role.id"
+                            :label="role.name"
+                            :modelValue="form.roles.includes(role.id)"
+                            @update:modelValue="toggleRole(role.id)"
+                        />
                     </div>
                 </fieldset>
 
                 <fieldset class="flex vertical gap-1">
                     <legend>Benachrichtigungen</legend>
-                    <mui-toggle type="switch" label="Allgemeiner Newsletter" @v-model="form.newsletter.generic"/>
-                    <mui-toggle type="switch" label="Kunden Newsletter" @v-model="form.newsletter.customer"/>
-                </fieldset>
-
-                <fieldset class="flex vertical gap-1">
-                    <legend>Aktionen</legend>
-                    <div class="flex gap-1 wrap">
-                        <mui-button type="button" label="Freigeben" icon-left="check_circle" color="success" v-if="!form.enabled_at" @click="form.enabled_at = new Date()"/>
-                        <mui-button type="button" label="Sperren" icon-left="block" color="error" v-else @click="form.enabled_at = null"/>
-                    </div>
+                    <mui-toggle class="checkbox" label="Allgemeiner Newsletter" style="background: var(--color-background-soft)" @v-model="form.newsletter.generic"/>
+                    <mui-toggle class="checkbox" label="Kunden Newsletter" style="background: var(--color-background-soft)" @v-model="form.newsletter.customer"/>
                 </fieldset>
 
                 <div class="flex v-center gap-1">
@@ -111,12 +121,14 @@
     import AdminLayout from '@/Layouts/Admin.vue'
     import Switcher from '@/Components/Form/Switcher.vue'
     import IconButton from '@/Components/Form/IconButton.vue'
+    import Alert from '@/Components/Alert.vue'
 
     window.zxcvbn = zxcvbn
 
     const props = defineProps({
         user: Object,
         roles: Array,
+        settings: Object,
     })
 
 
@@ -144,6 +156,12 @@
             generic: false,
             customer: false,
         }
+    })
+
+    const domainMatch = computed(() => {
+        if (!props.settings['site.domain']) return false
+
+        return props.user?.email?.endsWith('@' + props.settings['site.domain'])
     })
 
 

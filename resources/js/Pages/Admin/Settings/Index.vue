@@ -2,12 +2,21 @@
     <Head title="Globale Einstellungen" />
 
     <AdminLayout title="Globale Einstellungen">
-        <div class="card flex vertical gap-1 padding-1 padding-block-2 margin-bottom-2">
+        <div class="card flex vertical gap-1 padding-block-2">
             <form class="limiter text-limiter flex vertical gap-4" @submit.prevent="updateSettings()">
                 <div class="popup-block popup-error" v-if="hasErrors">
                     <h3><b>Fehler!</b></h3>
                     <p v-for="(error, key) in errors" :key="key">{{ error }}</p>
                 </div>
+
+                <fieldset class="flex vertical gap-1">
+                    <legend>Seiten Einstellungen</legend>
+                
+                    <mui-input v-model="form.site.name" label="Seitenname" />
+                    <mui-input v-model="form.site.slogan" label="Slogan" />
+                    <mui-input v-model="form.site.domain" label="Domain" placeholder="example.com" />
+                    <mui-input type="textarea" v-model="form.site.description" label="Seitenbeschreibung" />
+                </fieldset>
 
                 <fieldset class="flex vertical gap-1">
                     <legend>Apps aktivieren</legend>
@@ -71,15 +80,25 @@
             intranet: false,
             wiki: false,
         },
+        site: {
+            name: '',
+            slogan: '',
+            domain: '',
+            description: '',
+        },
     })
 
 
 
     const openItem = () => {
-        form.apps.blog = props?.settings['apps.enabled.blog']
-        form.apps.jobs = props?.settings['apps.enabled.jobs']
-        form.apps.intranet = props?.settings['apps.enabled.intranet']
-        form.apps.wiki = props?.settings['apps.enabled.wiki']
+        form.apps.blog = props?.settings['apps.enabled.blog'] || false
+        form.apps.jobs = props?.settings['apps.enabled.jobs'] || false
+        form.apps.intranet = props?.settings['apps.enabled.intranet'] || false
+        form.apps.wiki = props?.settings['apps.enabled.wiki'] || false
+        form.site.domain = props?.settings['site.domain'] || ''
+        form.site.name = props?.settings['site.name'] || ''
+        form.site.slogan = props?.settings['site.slogan'] || ''
+        form.site.description = props?.settings['site.description'] || ''
     }
 
     watch((props) => props?.settings, () => {

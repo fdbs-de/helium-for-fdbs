@@ -1,18 +1,10 @@
 <template>
     <Head title="Globale Einstellungen">
-        <!-- Favicon -->
         <link rel="icon" href="/images/app/branding/favicon.ico" type="image/x-icon">
         <link rel="shortcut icon" href="/images/app/branding/favicon.ico" type="image/x-icon">
     </Head>
 
 
-
-    <button class="toggle-open" :class="{'open': isOpen}" :title="isOpen ? 'Menü ausklappen' : 'Menü einklappen'" @click="isOpen = !isOpen">
-        <svg class="svg-wrapper" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-            <path class="hamburger-path" d="M5 9C5 9 17.5 9 19 9C20.5 9 22.5 7.5 21.5 6C20.5 4.5 18 6 17 7C16 8 7 17 7 17"/>
-            <path class="hamburger-path" d="M5 15.0054C5 15.0054 17.5 15.0054 19 15.0054C20.5 15.0054 22.5 16.5054 21.5 18.0054C20.5 19.5054 18 18.0054 17 17.0054C16 16.0054 7 7.00542 7 7.00542"/>
-        </svg>
-    </button>
 
     <div class="layout">
         <div class="menu" :class="{'open': isOpen}">
@@ -94,6 +86,14 @@
                     <div class="hero-card">
                         <Link class="back-button" v-if="backlink" :href="backlink" v-tooltip="backlinkText">arrow_back</Link>
                         <h1>{{ title }}</h1>
+
+                        <button class="toggle-open" :class="{'open': isOpen}" :title="isOpen ? 'Menü ausklappen' : 'Menü einklappen'" @click="isOpen = !isOpen">
+                            <svg class="svg-wrapper" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                                <path class="hamburger-path" d="M5 9C5 9 17.5 9 19 9C20.5 9 22.5 7.5 21.5 6C20.5 4.5 18 6 17 7C16 8 7 17 7 17"/>
+                                <path class="hamburger-path" d="M5 15.0054C5 15.0054 17.5 15.0054 19 15.0054C20.5 15.0054 22.5 16.5054 21.5 18.0054C20.5 19.5054 18 18.0054 17 17.0054C16 16.0054 7 7.00542 7 7.00542"/>
+                            </svg>
+                        </button>
+
                         <Loader class="loader" v-show="loading" />
                     </div>
                 </div>
@@ -101,15 +101,10 @@
             
             <section id="content-section">
                 <div class="limiter">
-                    <div class="main-card">
-                        <div class="dashboard-nav-bar" v-if="$slots.head">
-                            <slot name="head" />
-                        </div>
-                        <slot />
-            
-                        <div class="fab" v-if="$slots.fab">
-                            <slot name="fab" />
-                        </div>
+                    <slot />
+        
+                    <div class="fab" v-if="$slots.fab">
+                        <slot name="fab" />
                     </div>
                 </div>
             </section>
@@ -156,21 +151,17 @@
 <style lang="sass" scoped>
     .toggle-open
         display: none
-        height: 3rem
-        aspect-ratio: 1
+        width: 3rem
+        height: 2.5rem
         color: inherit
         background: transparent
         border: none
         padding: 0
-        position: fixed
-        top: 0
-        right: 0
+        position: relative
         z-index: 2000
         cursor: pointer
         color: var(--color-heading)
         background: var(--color-background)
-        box-shadow: var(--shadow-elevation-low)
-        border-radius: var(--radius-m)
 
         &.open
             .svg-wrapper .hamburger-path
@@ -414,134 +405,81 @@
             flex: 1
             font-family: var(--font-interface)
 
+            #hero-section
+                .hero-card
+                    text-align: center
+                    background: var(--color-background)
+                    border-radius: 0 0 var(--radius-m) var(--radius-m)
+                    box-shadow: var(--shadow-elevation-low)
+                    padding: 1rem
+                    height: 4rem
+                    display: flex
+                    align-items: center
+                    justify-content: center
+                    position: relative
+
+                    .back-button
+                        display: flex
+                        align-items: center
+                        justify-content: center
+                        width: 3rem
+                        height: 2.5rem
+                        border-radius: 0
+                        cursor: pointer
+                        transition: all 100ms ease
+                        border: none
+                        outline: none
+                        background-color: transparent
+                        font-family: var(--font-icon)
+                        font-size: 1.3rem
+                        color: var(--color-text)
+                        padding: 0
+
+                        &:hover
+                            color: var(--color-heading)
+
+                    h1
+                        font-size: 1.5rem
+                        flex: 1
+
+                    .loader
+                        position: absolute
+                        bottom: 0
+                        left: var(--radius-m)
+                        height: 2px
+                        width: calc(100% - 2 * var(--radius-m))
+
+            #content-section
+                margin: 2rem 0
+
+                .limiter
+                    display: flex
+                    flex-direction: column
+
+                .fab
+                    position: fixed
+                    bottom: 3rem
+                    right: 3rem
+                    z-index: 1000
+
 
 
     @media only screen and (max-width: 900px)
         .toggle-open
             display: flex
 
-            
-
         .layout
-            min-height: 0
-
             .menu
-                width: 280px
+                width: 100%
                 position: fixed
                 z-index: 1000
                 top: 0
-                right: 0
+                left: 0
                 height: 100%
                 overflow-y: auto
-                transform: translateX(100%)
+                transform: translateX(-100%)
+                transition: transform 200ms cubic-bezier(0.22, 0.61, 0.36, 1)
 
                 &.open
                     transform: translateX(0)
-
-
-
-    #hero-section
-        .hero-card
-            text-align: center
-            background: var(--color-background)
-            border-radius: 0 0 var(--radius-m) var(--radius-m)
-            box-shadow: var(--shadow-elevation-low)
-            padding: 1rem
-            height: 4rem
-            display: flex
-            align-items: center
-            justify-content: center
-            position: relative
-
-            .back-button
-                display: flex
-                align-items: center
-                justify-content: center
-                width: 3rem
-                height: 2.5rem
-                border-radius: 0
-                cursor: pointer
-                transition: all 100ms ease
-                border: none
-                outline: none
-                background-color: transparent
-                font-family: var(--font-icon)
-                font-size: 1.3rem
-                color: var(--color-text)
-                padding: 0
-
-                &:hover
-                    color: var(--color-heading)
-
-            h1
-                font-size: 1.5rem
-                flex: 1
-
-            .loader
-                position: absolute
-                bottom: 0
-                left: var(--radius-m)
-                height: 2px
-                width: calc(100% - 2 * var(--radius-m))
-
-    #content-section
-        margin: 2rem 0
-
-        .main-card
-            display: flex
-            flex-direction: column
-
-            .checkbox
-                --mui-background: var(--color-background)
-
-            .dashboard-nav-bar
-                display: flex
-                flex-wrap: wrap
-                align-items: center
-                gap: 1rem
-                padding: 1rem
-                border-radius: var(--radius-l)
-                background: var(--color-background)
-                box-shadow: var(--shadow-elevation-low)
-                --mui-background: var(--color-background-soft)
-                position: relative
-
-                > a
-                    height: 2.5rem
-                    font-size: .8rem
-                    letter-spacing: .05rem
-                    font-weight: 600
-                    text-transform: uppercase
-                    color: var(--color-text)
-                    border-radius: calc(var(--su) * .5)
-                    padding-inline: 1rem
-                    display: flex
-                    align-items: center
-                    cursor: pointer
-                    user-select: none
-
-                    &:hover,
-                    &:focus
-                        background: var(--color-background-soft)
-                        color: var(--color-heading)
-
-                    &.active
-                        background: var(--color-primary)
-                        color: var(--color-background)
-
-        .fab
-            position: fixed
-            bottom: 3rem
-            right: 3rem
-            z-index: 1000
-
-    @media only screen and (max-width: 900px)
-        #content-section
-            margin: 1rem 0
-
-            .main-card
-                .dashboard-nav-bar
-                    flex-direction: column
-                    align-items: flex-start
-                    gap: 1rem
 </style>

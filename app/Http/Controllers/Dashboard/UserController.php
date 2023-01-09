@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Mail\ImportedUserCreated;
 use App\Mail\UserEnabled;
+use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -60,6 +61,9 @@ class UserController extends Controller
         return Inertia::render('Admin/Users/Create', [
             'user' => $user->load(['roles', 'settings', 'employeeProfile', 'customerProfile']),
             'roles' => Role::get(),
+            'settings' => [
+                'site.domain' => Setting::firstWhere('key', 'site.domain')->value,
+            ],
         ]);
     }
 
