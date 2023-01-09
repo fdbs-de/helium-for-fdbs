@@ -58,11 +58,12 @@ class UserController extends Controller
 
     public function create(User $user)
     {
+        $domain = Setting::firstWhere('key', 'site.domain');
         return Inertia::render('Admin/Users/Create', [
             'user' => $user->load(['roles', 'settings', 'employeeProfile', 'customerProfile']),
             'roles' => Role::get(),
             'settings' => [
-                'site.domain' => Setting::firstWhere('key', 'site.domain')->value,
+                'site.domain' => $domain ? $domain->value : null,
             ],
         ]);
     }
