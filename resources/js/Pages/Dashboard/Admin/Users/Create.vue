@@ -2,55 +2,81 @@
     <Head title="Nutzer verwalten" />
 
     <AdminLayout :title="user.name" :backlink="route('dashboard.admin.users')" backlink-text="Zurück zur Übersicht">
-        <div class="card flex vertical gap-1 padding-1 margin-bottom-2">
-            <div class="flex v-center gap-1">
-                <mui-button label="Freigeben" icon-left="check_circle" color="success" v-if="!user.is_enabled" />
-                <mui-button label="Sperren" icon-left="block" color="error" v-else />
-                <div class="spacer"></div>
-                <mui-button class="header-button" v-if="form.id" label="Nutzer Speichern" :loading="form.processing" @click="saveItem()"/>
-                <mui-button class="header-button" v-else label="Nutzer erstellen" :loading="form.processing" @click="saveItem()"/>
-            </div>
-
-            <div class="limiter text-limiter flex vertical gap-2">
+        <div class="card flex vertical gap-1 padding-1 padding-block-2 margin-bottom-2">
+            <form class="limiter text-limiter flex vertical gap-4" @submit.prevent="saveItem()">
                 <div class="popup-block popup-error" v-if="hasErrors">
                     <h3><b>Fehler!</b></h3>
                     <p v-for="(error, key) in errors" :key="key">{{ error }}</p>
                 </div>
-
-                <fieldset class="flex vertical gap-1">
-                    <legend>Allgemeines</legend>
-                    <mui-input v-model="user.name" disabled label="Anzeigename"/>
-                    <mui-input type="email" v-model="form.email" label="Email">
-                        <template #right>
-                            <IconButton icon="check_circle" :class="{'active': form.email_verified_at}"/>
-                        </template>
-                    </mui-input>
-                    <mui-input type="password" label="Passwort" no-border show-password-score v-model="form.password"/>
-                </fieldset>
                 
                 <fieldset class="flex vertical gap-1">
-                    <legend>Kundenprofil</legend>
-                    <mui-input v-model="form.profiles.customer.company" label="Firmenname" />
-                    <mui-input v-model="form.profiles.customer.customer_id" label="Kundennummer" />
+                    <legend>Allgemeines</legend>
+                    <mui-input type="email" v-model="form.email" label="Email">
+                        <template #right>
+                            <mui-toggle v-tooltip="'Email freigeschaltet'" :modelValue="!!form.email_verified_at" @update:modelValue="form.email_verified_at = $event ? new Date() : null "/>
+                        </template>
+                    </mui-input>
+                    <hr>
+                    <mui-input type="password" label="Passwort setzen" no-border show-password-score autocomplete="new-password" v-model="form.password"/>
+                </fieldset>
+
+                
+                <fieldset class="flex vertical gap-1">
+                    <legend>
+                        <mui-toggle type="switch" label="Kundenprofil" border v-model="form.profiles.customer.has_customer_profile"/>
+                    </legend>
+                    <template v-if="form.profiles.customer.has_customer_profile">
+                        <mui-input v-model="form.profiles.customer.company" label="Firmenname" />
+                        <mui-input v-model="form.profiles.customer.customer_id" label="Kundennummer" />
+                    </template>
+                    <span class="flex v-center h-center h-4" v-else>
+                        Kein Kundenprofil angelegt
+                    </span>
+                </fieldset>
+
+                
+                <fieldset class="flex vertical gap-1">
+                    <legend>
+                        <mui-toggle type="switch" label="Mitarbeiterprofil" border v-model="form.profiles.employee.has_employee_profile"/>
+                    </legend>
+                    <template v-if="form.profiles.employee.has_employee_profile">
+                        <mui-input v-model="form.profiles.employee.first_name" label="Vorname" />
+                        <mui-input v-model="form.profiles.employee.last_name" label="Nachname" />
+                    </template>
+                    <span class="flex v-center h-center h-4" v-else>
+                        Kein Mitarbeiterprofil angelegt
+                    </span>
                 </fieldset>
 
                 <fieldset class="flex vertical gap-1">
-                    <legend>Mitarbeiterprofil</legend>
-                    <mui-input v-model="form.profiles.employee.first_name" label="Vorname" />
-                    <mui-input v-model="form.profiles.employee.last_name" label="Nachname" />
+                    <legend>Rollen</legend>
+                    <!-- <mui-input type="text" icon-left="search" label="Suchen" />
+                    <hr> -->
+                    <div class="flex gap-1 wrap">
+                        <mui-toggle v-for="role in roles" :key="role.id" border :label="role.name" :modelValue="form.roles.includes(role.id)" @update:modelValue="toggleRole(role.id)"/>
+                    </div>
                 </fieldset>
 
                 <fieldset class="flex vertical gap-1">
-                    <legend>Berechtigungen</legend>
-                    <mui-toggle v-for="role in roles" :key="role.id" :label="role.name" :modelValue="form.roles.includes(role.name)"/>
-                </fieldset>
-
-                <fieldset class="flex vertical gap-1">
-                    <legend>Newsletter</legend>
+                    <legend>Benachrichtigungen</legend>
                     <mui-toggle type="switch" label="Allgemeiner Newsletter" @v-model="form.newsletter.generic"/>
                     <mui-toggle type="switch" label="Kunden Newsletter" @v-model="form.newsletter.customer"/>
                 </fieldset>
-            </div>
+
+                <fieldset class="flex vertical gap-1">
+                    <legend>Aktionen</legend>
+                    <div class="flex gap-1 wrap">
+                        <mui-button type="button" label="Freigeben" icon-left="check_circle" color="success" v-if="!form.enabled_at" @click="form.enabled_at = new Date()"/>
+                        <mui-button type="button" label="Sperren" icon-left="block" color="error" v-else @click="form.enabled_at = null"/>
+                    </div>
+                </fieldset>
+
+                <div class="flex v-center gap-1">
+                    <div class="spacer"></div>
+                    <mui-button class="header-button" v-if="form.id" label="Nutzer Speichern" size="large" :loading="form.processing"/>
+                    <mui-button class="header-button" v-else label="Nutzer erstellen" size="large" :loading="form.processing"/>
+                </div>
+            </form>
         </div>
         
         <div class="flex v-center gap-1 border-top padding-top-1">
@@ -135,9 +161,9 @@
 
         form.profiles.employee.has_employee_profile = !!props.user.profiles.employee
         form.profiles.employee.first_name = props.user.profiles?.employee?.first_name || ''
-        form.profiles.employee.last_name = props.user.profiles?.employee?.first_name || ''
+        form.profiles.employee.last_name = props.user.profiles?.employee?.last_name || ''
 
-        form.roles = props.user.roles?.map(e => e.name)
+        form.roles = props.user.roles?.map(e => e.id)
 
         form.newsletter.generic = props.user.settings_object['newsletter.subscribed.generic'] || false
         form.newsletter.customer = props.user.settings_object['newsletter.subscribed.customer'] || false
@@ -149,6 +175,41 @@
         immediate: true,
         deep: true
     })
+
+
+
+    const toggleRole = (role) => {
+        if (form.roles.includes(role))
+        {
+            form.roles = form.roles.filter(e => e !== role)
+        }
+        else
+        {
+            form.roles.push(role)
+        }
+    }
+
+
+
+    const saveItem = () => {
+        form.id ? updateItem() : storeItem()
+    }
+
+    const storeItem = () => {
+        form.post(route('admin.users.store'), {
+            onSuccess: (data) => {
+                openItem(data?.props?.post)
+            },
+        })
+    }
+
+    const updateItem = () => {
+        form.put(route('admin.users.update', form.id), {
+            onSuccess: (data) => {
+                openItem(data?.props?.post)
+            },
+        })
+    }
 
 
     

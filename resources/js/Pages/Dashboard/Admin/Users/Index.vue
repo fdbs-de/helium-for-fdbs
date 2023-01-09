@@ -62,11 +62,11 @@
                     <option value="generic">Allgemeiner Newsletter</option>
                     <option value="customer">Kunden Newsletter</option>
                 </select>
-                <mui-button type="button" label="In Zwischenablage kopieren" @click="copyToClipboard(newsletterForm.users.map(e => e.email).join('; '))"/>
+                <mui-button type="button" label="Email-Adressen kopieren" size="large" @click="copyToClipboard(newsletterForm.users.map(e => e.email).join('; '))"/>
             </div>
             
             <div class="background-soft padding-1 radius-m h-20" style="overflow-y: auto;">
-                {{ newsletterForm.users.map(e => e.email).join(';') }}
+                {{ newsletterForm.users.map(e => e.email).join('; ') }}
             </div>
         </div>
     </Popup>

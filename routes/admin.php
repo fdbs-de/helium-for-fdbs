@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\NewsletterController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Dashboard\AdminController;
 use App\Http\Controllers\Dashboard\DocumentController;
 use App\Http\Controllers\Dashboard\MediaController;
@@ -20,6 +21,11 @@ Route::prefix('wiki')->middleware(['auth', 'verified', 'role:Super Admin|Admin']
 Route::prefix('admin')->middleware(['auth', 'verified', 'panelaccess:admin'])->group(function () {
     Route::get('/', [AdminController::class, 'redirect'])->name('dashboard.admin');
 
+    Route::prefix('settings')->group(function () {
+        Route::get('/', [SettingsController::class, 'index'])->name('admin.settings');
+        Route::patch('/', [SettingsController::class, 'update'])->name('admin.settings.update');
+    });
+
     Route::prefix('newsletter')->group(function () {
         Route::get('/search', [NewsletterController::class, 'search'])->name('admin.newsletter.search');
         Route::put('/{user}', [NewsletterController::class, 'update'])->can('update', 'user')->name('admin.newsletter.update');
@@ -37,6 +43,9 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'panelaccess:admin'])->g
         Route::get('/', [UserController::class, 'index'])->name('dashboard.admin.users');
         Route::get('/search', [UserController::class, 'search'])->name('admin.users.search');
         Route::get('/editor/{user?}', [UserController::class, 'create'])->name('admin.users.editor');
+
+        Route::post('/', [UserController::class, 'store'])->name('admin.users.store');
+        Route::put('/{user}', [UserController::class, 'update'])->name('admin.users.update');
         
         Route::patch('/settings', [UserController::class, 'updateSettings'])->name('admin.users.settings');
 

@@ -64,14 +64,14 @@
                 <div class="flex v-center gap">
                     <span class="flex-1">Vorname:</span>
                     <div class="flex-3 flex gap v-center">
-                        <b>{{$page.props.auth.user.profiles.employee.last_name || '---'}}</b>
+                        <b>{{$page.props.auth.user.profiles.employee.first_name || '---'}}</b>
                     </div>
                 </div>
 
                 <div class="flex v-center gap">
                     <span class="flex-1">Nachname:</span>
                     <div class="flex-3 flex gap v-center">
-                        <b>{{$page.props.auth.user.profiles.employee.first_name || '---'}}</b>
+                        <b>{{$page.props.auth.user.profiles.employee.last_name || '---'}}</b>
                     </div>
                 </div>
             </div>

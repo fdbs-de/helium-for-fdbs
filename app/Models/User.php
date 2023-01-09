@@ -147,6 +147,11 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->settings()->updateOrCreate(['key' => $key], ['value' => $value]);
     }
 
+    public function unsetSetting($key)
+    {
+        $this->settings()->where('key', $key)->delete();
+    }
+
     public function getSetting($key)
     {
         return $this->settings()->firstWhere('key', $key)->value ?? null;

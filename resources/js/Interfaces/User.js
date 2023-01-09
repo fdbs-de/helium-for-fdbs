@@ -53,14 +53,14 @@ export default class User
     {
         return {
             texts: [
-                this._item?.email || 'E-Mail unbekannt'
+                this._item?.email || 'Email unbekannt'
             ],
 
             icons: [
-                { id: 'email', icon: 'mail', tooltip: 'Email Bestätigung', color: this._item?.email_verified_at ? 'var(--color-primary)' :'var(--color-text)'},
-                { id: 'enabled', icon: 'check_circle', tooltip: 'Freigabe', color: this._item?.is_enabled ? 'var(--color-primary)' : 'var(--color-text)'},
-                { id: 'customer', icon: 'shopping_cart', tooltip: 'Kunden-Profil', color: this._item?.profiles?.customer ? 'var(--color-primary)' : 'var(--color-text)'},
-                { id: 'employee', icon: 'work', tooltip: 'Mitarbeiter-Profil', color: this._item?.profiles?.employee ? 'var(--color-primary)' : 'var(--color-text)' },
+                { id: 'email', icon: 'mail', tooltip: 'Email Bestätigung', color: this._item?.email_verified_at ? 'var(--color-success)' :'var(--color-text)'},
+                { id: 'enabled', icon: 'check_circle', tooltip: 'Freigabe', color: this._item?.is_enabled ? 'var(--color-success)' : 'var(--color-text)'},
+                { id: 'customer', icon: 'shopping_cart', tooltip: 'Kunden-Profil', color: this._item?.profiles?.customer ? 'var(--color-info)' : 'var(--color-text)'},
+                { id: 'employee', icon: 'work', tooltip: 'Mitarbeiter-Profil', color: this._item?.profiles?.employee ? 'var(--color-info)' : 'var(--color-text)' },
             ],
         }
     }

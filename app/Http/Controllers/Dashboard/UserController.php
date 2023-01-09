@@ -65,6 +65,75 @@ class UserController extends Controller
 
 
 
+    public function store(Request $request)
+    {
+        return back();
+    }
+
+
+
+    public function update(Request $request, User $user)
+    {
+        $user->email = $request->email;
+        $user->email_verified_at = $request->email_verified_at;
+        $user->enabled_at = $request->enabled_at;
+
+        // Set the user's password
+        if ($request->password)
+        {
+            $user->password = bcrypt($request->password);
+        }
+
+
+
+        // Set the user's roles
+        $user->roles()->sync($request->roles);
+
+        if ($request->profiles['customer']['has_customer_profile'])
+        {
+            $user->setSetting('profile.customer', [
+                'company' => $request->profiles['customer']['company'],
+                'customer_id' => $request->profiles['customer']['customer_id'],
+            ]);
+        }
+        else
+        {
+            $user->unsetSetting('profile.customer');
+        }
+
+
+
+        // Set the user's employee profile
+        if ($request->profiles['employee']['has_employee_profile'])
+        {
+            $user->setSetting('profile.employee', [
+                'first_name' => $request->profiles['employee']['first_name'],
+                'last_name' => $request->profiles['employee']['last_name'],
+            ]);
+        }
+        else
+        {
+            $user->unsetSetting('profile.employee');
+        }
+
+
+
+        // Save the user to the database
+        $user->save();
+
+        // Update the user's name
+        $user->updateName();
+
+
+
+        $user->setSetting('newsletter.subscribed.generic', $request->newsletter['generic']);
+        $user->setSetting('newsletter.subscribed.customer', $request->newsletter['customer']);
+
+        return back();
+    }
+
+
+
     public function changePassword(Request $request, User $user)
     {
         $request->validate([
