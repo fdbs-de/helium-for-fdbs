@@ -27,9 +27,9 @@
 
             if ($user)
             {
-                if ($user->can_access_customer_panel) array_push($ziggyGroups, 'customer');
-                if ($user->can_access_employee_panel) array_push($ziggyGroups, 'employee');
-                if ($user->can_access_admin_panel) array_push($ziggyGroups, 'admin');
+                if ($user->access['customer']) array_push($ziggyGroups, 'customer');
+                if ($user->access['employee']) array_push($ziggyGroups, 'employee');
+                if ($user->access['admin']) array_push($ziggyGroups, 'admin');
             }
         @endphp --}}
 

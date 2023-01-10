@@ -14,11 +14,9 @@ class ShowDocumentRequest extends FormRequest
      */
     public function authorize()
     {
-        if ($this->document->group === 'customers' && !$this->user()->can_access_customer_panel) return false;
-        
-        if ($this->document->group === 'employees' && !$this->user()->can_access_employee_panel) return false;
-
-        if ($this->document->group === 'hidden' && !$this->user()->can(Permissions::CAN_ACCESS_ADMIN_PANEL)) return false;
+        if ($this->document->group === 'customers' && !$this->user()->access['customer']) return false;
+        if ($this->document->group === 'employees' && !$this->user()->access['employee']) return false;
+        if ($this->document->group === 'hidden' && !$this->user()->access['admin']) return false;
 
         return true;
     }

@@ -18,9 +18,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Admin/Users/Index', [
-            'users' => User::with(['roles', 'employeeProfile', 'customerProfile'])->orderBy('created_at', 'desc')->get(),
-        ]);
+        return Inertia::render('Admin/Users/Index');
     }
 
 
@@ -33,7 +31,7 @@ class UserController extends Controller
         if (!$request->name)
         {
             return response()->json(
-                User::with(['roles', 'settings', 'employeeProfile', 'customerProfile'])
+                User::with(['roles', 'settings'])
                 ->orderBy('created_at', 'desc')
                 ->limit($limit)
                 ->offset($offset)
@@ -41,7 +39,7 @@ class UserController extends Controller
         }
 
         return response()->json(
-            User::with(['roles', 'settings', 'employeeProfile', 'customerProfile'])
+            User::with(['roles', 'settings'])
             ->whereFuzzy(function ($query) use ($request) {
                 $query
                 ->orWhereFuzzy('name', $request->name)
@@ -60,7 +58,7 @@ class UserController extends Controller
     {
         $domain = Setting::firstWhere('key', 'site.domain');
         return Inertia::render('Admin/Users/Create', [
-            'user' => $user->load(['roles', 'settings', 'employeeProfile', 'customerProfile']),
+            'user' => $user->load(['roles', 'settings']),
             'roles' => Role::get(),
             'settings' => [
                 'site.domain' => $domain ? $domain->value : null,
