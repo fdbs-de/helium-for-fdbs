@@ -16,7 +16,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Admin/Posts/Index', [
+        return Inertia::render('Admin/Apps/Blog/Index', [
             'posts' => Post::with(['category' => function ($query) {
                 $query->select('id', 'name');
             }])->orderBy('scope')->orderBy('created_at', 'desc')->get(),
@@ -28,7 +28,7 @@ class PostController extends Controller
 
     public function create(Post $post)
     {
-        return Inertia::render('Admin/Posts/Create', [
+        return Inertia::render('Admin/Apps/Blog/Create', [
             'post' => $post,
             'categories' => PostCategory::orderBy('name', 'asc')->get(),
         ]);

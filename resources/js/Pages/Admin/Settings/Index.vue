@@ -16,6 +16,11 @@
                     <mui-input v-model="form.site.slogan" label="Slogan" />
                     <mui-input v-model="form.site.domain" label="Domain" placeholder="example.com" />
                     <mui-input type="textarea" v-model="form.site.description" label="Seitenbeschreibung" />
+
+                    <select v-model="form.site.language">
+                        <option value="de">Deutsch</option>
+                        <option value="en">English</option>
+                    </select>
                 </fieldset>
 
                 <fieldset class="flex vertical gap-1">
@@ -85,6 +90,7 @@
             slogan: '',
             domain: '',
             description: '',
+            language: 'de',
         },
     })
 
@@ -95,10 +101,12 @@
         form.apps.jobs = props?.settings['apps.enabled.jobs'] || false
         form.apps.intranet = props?.settings['apps.enabled.intranet'] || false
         form.apps.wiki = props?.settings['apps.enabled.wiki'] || false
+        
         form.site.domain = props?.settings['site.domain'] || ''
         form.site.name = props?.settings['site.name'] || ''
         form.site.slogan = props?.settings['site.slogan'] || ''
         form.site.description = props?.settings['site.description'] || ''
+        form.site.language = props?.settings['site.language'] || 'de'
     }
 
     watch((props) => props?.settings, () => {
