@@ -14,19 +14,16 @@
                 </Link>
 
                 <div class="group">
-                    <div class="app" v-tooltip.right="'Allgemeines'">dashboard</div>
+                    <Link class="app" v-for="item in menu[0]" :key="item.route" :href="item.route" v-tooltip.right="item.label" :class="{'active': is(item.activeWhen)}">{{item.icon}}</Link>
                 </div>
                 <div class="divider"></div>
                 <div class="group">
-                    <div class="app" v-tooltip.right="'Blog'">public</div>
-                    <div class="app" v-tooltip.right="'Intranet'">policy</div>
-                    <div class="app" v-tooltip.right="'Wiki'">travel_explore</div>
-                    <div class="app" v-tooltip.right="'Jobs'">work</div>
+                    <Link class="app" v-for="item in menu[1]" :key="item.route" :href="item.route" v-tooltip.right="item.label" :class="{'active': is(item.activeWhen)}">{{item.icon}}</Link>
                 </div>
                 <div class="spacer"></div>
                 <div class="group">
-                    <Link class="app" v-tooltip.right="'Einstellungen'" :href="route('admin.settings')" :class="{'active': is('admin.settings')}">settings</Link>
-                    <Link class="app" v-tooltip.right="'Profil'" :href="route('dashboard.profile')" :class="{'active': is('dashboard.profile')}">account_circle</Link>
+                    <!-- <div class="app" v-tooltip.right="'Sprache'">language</div> -->
+                    <Link class="app" v-for="item in menu[2]" :key="item.route" :href="item.route" v-tooltip.right="item.label" :class="{'active': is(item.activeWhen)}">{{item.icon}}</Link>
                 </div>
             </div>
 
@@ -34,47 +31,11 @@
                 <div class="website-profile">
                     <a class="redirect-tag" :href="route('home')" target="_blank">FDBS</a>
                 </div>
-                
-                <div class="menu-group">
-                    <Link class="menu-item" :href="route('admin')" :class="{'active': is('admin')}">
-                        <div class="icon" aria-hidden="true">dashboard</div>
-                        <div class="text">Übersicht</div>
-                    </Link>
-                    <Link class="menu-item" :href="route('admin.users')" :class="{'active': is('admin.users')}">
-                        <div class="icon" aria-hidden="true">groups</div>
-                        <div class="text">Benutzer</div>
-                    </Link>
-                    <Link class="menu-item" :href="route('admin.roles')" :class="{'active': is('admin.roles')}">
-                        <div class="icon" aria-hidden="true">key</div>
-                        <div class="text">Berechtigungen</div>
-                    </Link>
-                </div>
-                
-                <div class="menu-group">
-                    <div class="group-label">Allgemein</div>
-                    <!-- <Link class="menu-item" :href="route('admin.posts')" :class="{'active': is('admin.posts')}">
-                        <div class="icon" aria-hidden="true">account_tree</div>
-                        <div class="text">Seiten</div>
-                    </Link> -->
-                    <Link class="menu-item" :href="route('admin.media')" :class="{'active': is('admin.media')}">
-                        <div class="icon" aria-hidden="true">folder_open</div>
-                        <div class="text">Medien</div>
-                    </Link>
-                    <Link class="menu-item" :href="route('admin.categories')" :class="{'active': is('admin.categories')}">
-                        <div class="icon" aria-hidden="true">category</div>
-                        <div class="text">Kategorien</div>
-                    </Link>
-                    <Link class="menu-item" :href="route('admin.posts')" :class="{'active': is('admin.posts')}">
-                        <div class="icon" aria-hidden="true">feed</div>
-                        <div class="text">Posts</div>
-                    </Link>
-                    <Link class="menu-item" :href="route('admin.docs')" :class="{'active': is('admin.docs')}">
-                        <div class="icon" aria-hidden="true">folder_open</div>
-                        <div class="text">Dokumente</div>
-                    </Link>
-                    <Link class="menu-item" :href="route('admin.specs')" :class="{'active': is('admin.specs')}">
-                        <div class="icon" aria-hidden="true">cloud_done</div>
-                        <div class="text">Spezifikationen</div>
+
+                <div class="menu-group" v-for="group in menu.flat().filter(e => e.submenu.length > 0)" :key="group.route" v-show="is(group.activeWhen)">
+                    <Link class="menu-item" v-for="item in group.submenu" :key="item.route" :href="item.route" :class="{'active': is(item.activeWhen)}">
+                        <div class="icon" aria-hidden="true">{{item.icon}}</div>
+                        <div class="text">{{item.label}}</div>
                     </Link>
                 </div>
             </div>
@@ -141,10 +102,39 @@
 
     const isOpen = ref(false)
 
+    const menu = ref([
+        [
+            {label: 'Übersicht', icon: 'dashboard', route: route('admin'), permission: ['view admin'], activeWhen: ['admin', 'admin.users', 'admin.roles', 'admin.media', 'admin.docs', 'admin.specs'], submenu: [
+                {label: 'Dashboard', icon: 'dashboard', route: route('admin'), permission: ['view admin'], activeWhen: ['admin']},
+                {label: 'Benutzer', icon: 'person', route: route('admin.users'), permission: ['view admin'], activeWhen: ['admin.users']},
+                {label: 'Berechtigungen', icon: 'key', route: route('admin.roles'), permission: ['view admin'], activeWhen: ['admin.roles']},
+                {label: 'Medien', icon: 'folder_open', route: route('admin.media'), permission: ['view admin'], activeWhen: ['admin.media']},
+                {label: 'Dokumente', icon: 'folder_open', route: route('admin.docs'), permission: ['view admin'], activeWhen: ['admin.docs']},
+                {label: 'Spezifikationen', icon: 'cloud_done', route: route('admin.specs'), permission: ['view admin'], activeWhen: ['admin.specs']},
+            ]},
+        ],
+        [
+            // {label: 'Seiten', icon: 'pages', route: route('admin.posts'), permission: ['view app pages'], activeWhen: ['admin.pages'], submenu: []},
+            {label: 'Blog', icon: 'public', route: route('admin.posts'), permission: ['view app blog'], activeWhen: ['admin.posts', 'admin.categories'], submenu: [
+                {label: 'Posts', icon: 'feed', route: route('admin.posts'), permission: ['view app blog'], activeWhen: ['admin.posts']},
+                {label: 'Kategorien', icon: 'category', route: route('admin.categories'), permission: ['view app blog'], activeWhen: ['admin.categories']},
+            ]},
+            // {label: 'Intranet', icon: 'policy', route: route('admin.posts'), permission: ['view app intranet'], activeWhen: ['admin.intranet'], submenu: []},
+            // {label: 'Wiki', icon: 'travel_explore', route: route('admin.posts'), permission: ['view app wiki'], activeWhen: ['admin.wiki'], submenu: []},
+            // {label: 'Jobs', icon: 'work', route: route('admin.posts'), permission: ['view app jobs'], activeWhen: ['admin.jobs'], submenu: []},
+        ],
+        [
+            {label: 'Globale Einstellungen', icon: 'settings', route: route('admin.settings'), permission: ['view admin'], activeWhen: ['admin.settings'], submenu: []},
+            {label: 'Profil', icon: 'account_circle', route: route('dashboard.profile'), permission: [], activeWhen: [], submenu: []},
+        ],
+    ])
 
 
-    const is = (routeName) => {
-        return routeName === route().current()
+
+    const is = (routenames) => {
+        if (typeof routenames === 'string') routenames = [routenames]
+
+        return routenames.some(routename => route().current() === routename)
     }
 </script>
 
@@ -441,6 +431,7 @@
                     h1
                         font-size: 1.5rem
                         flex: 1
+                        position: relative
 
                     .loader
                         position: absolute

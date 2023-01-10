@@ -42,18 +42,15 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'panelaccess:admin'])->g
         Route::get('/', [UserController::class, 'index'])->name('admin.users');
         Route::get('/search', [UserController::class, 'search'])->name('admin.users.search');
         Route::get('/editor/{user?}', [UserController::class, 'create'])->name('admin.users.editor');
-
         Route::post('/', [UserController::class, 'store'])->name('admin.users.store');
         Route::put('/{user}', [UserController::class, 'update'])->name('admin.users.update');
-        
-        Route::patch('/settings', [UserController::class, 'updateSettings'])->name('admin.users.settings');
+        Route::delete('/', [UserController::class, 'delete'])->name('admin.users.destroy');
 
         // Route::put('/{user}/enable', [UserController::class, 'enableUser'])->can('enable', 'user')->name('dashboard.admin.users.enable');
         // Route::put('/{user}/disable', [UserController::class, 'disableUser'])->can('disable', 'user')->name('dashboard.admin.users.disable');
         // Route::put('/{user}/assign', [UserController::class, 'assignRole'])->can('manageRole', 'user')->name('dashboard.admin.users.role.assign');
         // Route::put('/{user}/revoke', [UserController::class, 'revokeRole'])->can('manageRole', 'user')->name('dashboard.admin.users.role.revoke');
         // Route::put('/{user}/change-password', [UserController::class, 'changePassword'])->can('update', 'user')->name('dashboard.admin.users.change-password');
-        Route::delete('/{user}', [UserController::class, 'destroyUser'])->can('delete', 'user')->name('admin.users.destroy');
     });
     
     Route::get('/spezifikationen', [SpecController::class, 'indexAdmin'])->name('admin.specs');
