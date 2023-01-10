@@ -7,7 +7,7 @@
                 <div class="card-data">
                     <p>Registrierte Nutzer</p>
                     <h2>
-                        <span>{{getFiller(user_count, 4)}}</span>{{user_count}}
+                        <span>{{getFiller(users.total, 4)}}</span>{{users.total}}
                     </h2>
                 </div>
                 <div class="card-footer">
@@ -20,12 +20,78 @@
                 <div class="card-data">
                     <p>Noch nicht freigegeben Nutzer</p>
                     <h2>
-                        <span>{{getFiller(unverified_user_count, 4)}}</span>{{unverified_user_count}}
+                        <span>{{getFiller(users.disabled, 4)}}</span>{{users.disabled}}
                     </h2>
                 </div>
             </div>
 
             <div class="card spec">
+                <div class="card-data">
+                    <p>Kunden</p>
+                    <h2>
+                        <span>{{getFiller(users.customers, 3)}}</span>{{users.customers}}
+                    </h2>
+                </div>
+            </div>
+
+            <div class="card spec">
+                <div class="card-data">
+                    <p>Mitarbeiter</p>
+                    <h2>
+                        <span>{{getFiller(users.employees, 3)}}</span>{{users.employees}}
+                    </h2>
+                </div>
+            </div>
+        </div>
+
+        <hr class="margin-block-4">
+        
+        <div class="layout">
+            <div class="card main spec purple">
+                <div class="card-data">
+                    <p>Angelegte Posts</p>
+                    <h2>
+                        <span>{{getFiller(posts.total, 4)}}</span>{{posts.total}}
+                    </h2>
+                </div>
+                <div class="card-footer">
+                    <div class="spacer"></div>
+                    <mui-button as="a" :href="route('admin.posts')" size="large" label="Zur Post Übersicht"/>
+                </div>
+            </div>
+
+            <div class="card spec purple">
+                <div class="card-data">
+                    <p>Blog Beiträge</p>
+                    <h2>
+                        <span>{{getFiller(posts.blog, 3)}}</span>{{posts.blog}}
+                    </h2>
+                </div>
+            </div>
+            
+            <div class="card spec purple">
+                <div class="card-data">
+                    <p>Jobangebote</p>
+                    <h2>
+                        <span>{{getFiller(posts.jobs, 3)}}</span>{{posts.jobs}}
+                    </h2>
+                </div>
+            </div>
+            
+            <div class="card spec purple">
+                <div class="card-data">
+                    <p>Wiki Beiträge</p>
+                    <h2>
+                        <span>{{getFiller(posts.wiki, 3)}}</span>{{posts.wiki}}
+                    </h2>
+                </div>
+            </div>
+        </div>
+        
+        <hr class="margin-block-4">
+        
+        <div class="layout">
+            <div class="card main spec orange">
                 <div class="card-data">
                     <p>Spezifikationen</p>
                     <h2>
@@ -34,20 +100,7 @@
                 </div>
                 <div class="card-footer">
                     <div class="spacer"></div>
-                    <mui-button as="a" :href="route('admin.specs')" icon-right="chevron_right" variant="text" label="Zur Speziverwaltung"/>
-                </div>
-            </div>
-
-            <div class="card spec">
-                <div class="card-data">
-                    <p>Angelegte Posts</p>
-                    <h2>
-                        <span>{{getFiller(post_count, 4)}}</span>{{post_count}}
-                    </h2>
-                </div>
-                <div class="card-footer">
-                    <div class="spacer"></div>
-                    <mui-button as="a" :href="route('admin.posts')" icon-right="chevron_right" variant="text" label="Zur Post Übersicht"/>
+                    <mui-button as="a" :href="route('admin.specs')" size="large" label="Zur Speziverwaltung"/>
                 </div>
             </div>
         </div>
@@ -67,6 +120,8 @@
         unverified_user_count: Number,
         post_count: Number,
         spec_count: Number,
+        posts: Object,
+        users: Object,
     })
 
 
@@ -92,6 +147,14 @@
             display: flex
             flex-direction: column
             border-radius: var(--radius-l)
+            --color-local-primary: var(--color-primary)
+            --primary: var(--color-local-primary)
+
+            &.orange
+                --color-local-primary: #ff6348
+
+            &.purple
+                --color-local-primary: #079992
 
             .card-data
                 background: var(--color-background-soft)
@@ -112,7 +175,7 @@
                     margin: 0
                     font-weight: 600
                     font-family: monospace
-                    color: var(--color-primary)
+                    color: var(--color-local-primary)
 
                     span
                         opacity: .3

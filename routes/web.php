@@ -53,8 +53,8 @@ Route::prefix('/karriere')->group(function () {
     Route::get('/', [JobController::class, 'index'])->name('karriere');
     Route::get('/stellenangebote', [JobController::class, 'index'])->name('karriere.stellenangebote');
     Route::get('/stellenangebote/{post:slug}', [JobController::class, 'show'])->name('karriere.stellenangebote.show');
-    Route::get('/bewerben-als/lkw-fahrer', [JobController::class, 'showFunnelFahrer'])->name('karriere.funnel.lkw-fahrer');
-    Route::post('/bewerben-als/lkw-fahrer', [JobController::class, 'storeFunnelFahrer'])->name('karriere.funnel.lkw-fahrer.store');
+    Route::get('/bewerben-als/lkw-fahrer', [JobController::class, 'showFunnelFahrer'])->middleware(['role:Super Admin|Admin'])->name('karriere.funnel.lkw-fahrer');
+    Route::post('/bewerben-als/lkw-fahrer', [JobController::class, 'storeFunnelFahrer'])->middleware(['role:Super Admin|Admin'])->name('karriere.funnel.lkw-fahrer.store');
 });
 
 Route::get('/kontakt', [StaticController::class, 'indexKontakt'])->name('kontakt');
