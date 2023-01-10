@@ -23,14 +23,13 @@
                     <div class="icon" aria-hidden="true">account_circle</div>
                     <div class="text">Profil</div>
                 </Link>
-                <Link class="menu-item" v-if="user.can_access_admin_panel" :href="route('admin')">
+                <Link class="menu-item" v-if="user.access.admin" :href="route('admin')">
                     <div class="icon" aria-hidden="true">shield</div>
                     <div class="text">Adminbereich</div>
-                    <!-- <div class="external">open_in_new</div> -->
                 </Link>
             </div>
 
-            <div class="menu-group" v-if="user.can_access_customer_panel">
+            <div class="menu-group" v-if="user.access.customer">
                 <div class="group-label">Kundenbereich</div>
                 <Link class="menu-item" :href="route('dashboard.customer.specs')" :class="{'active': is('dashboard.customer.specs')}">
                     <div class="icon" aria-hidden="true">cloud_done</div>
@@ -42,7 +41,7 @@
                 </Link>
             </div>
 
-            <div class="menu-group" v-if="user.can_access_employee_panel">
+            <div class="menu-group" v-if="user.access.employee">
                 <div class="group-label">Intranet</div>
                 <Link class="menu-item" :href="route('dashboard.employee.overview')" :class="{'active': is('dashboard.employee.overview')}">
                     <div class="icon" aria-hidden="true">newspaper</div>
@@ -56,7 +55,7 @@
                     <div class="icon" aria-hidden="true">workspace_premium</div>
                     <div class="text">Qualitätsmanagement</div>
                 </Link>
-                <a class="menu-item" v-if="user.can_access_admin_panel" target="_blank" :href="route('wiki')">
+                <a class="menu-item" v-if="user.access.admin" target="_blank" :href="route('wiki')">
                     <div class="icon" aria-hidden="true">travel_explore</div>
                     <div class="text">Firmenwiki</div>
                     <div class="external">open_in_new</div>

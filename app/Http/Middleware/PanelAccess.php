@@ -21,9 +21,9 @@ class PanelAccess
 
         switch ($profile)
         {
-            case 'employee':    if (!$user->can_access_employee_panel)  { return redirect()->route('dashboard.profile'); } break;
-            case 'customer':    if (!$user->can_access_customer_panel)  { return redirect()->route('dashboard.profile'); } break;
-            case 'admin':       if (!$user->can_access_admin_panel)     { return redirect()->route('dashboard.profile'); } break;
+            case 'employee':    if (!$user->access['employee'])  { return redirect()->route('dashboard.profile'); } break;
+            case 'customer':    if (!$user->access['customer'])  { return redirect()->route('dashboard.profile'); } break;
+            case 'admin':       if (!$user->access['admin'])     { return redirect()->route('dashboard.profile'); } break;
             default:            return $next($request); break;
         }
 

@@ -19,7 +19,7 @@ class NewsletterController extends Controller
         // Check if user has customer access and wants to subscribe to customer newsletter
         if ($request->newsletter == 'customer' && $request->value)
         {
-            if (!$request->user()->can_access_customer_panel) return redirect()->back()->with('error', 'Sie sind kein Kunde bei uns.');
+            if (!$request->user()->access['customer']) return redirect()->back()->with('error', 'Sie sind kein Kunde bei uns.');
         }
 
 

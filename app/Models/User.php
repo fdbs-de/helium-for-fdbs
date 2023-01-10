@@ -14,13 +14,7 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use HasRoles, HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
-        'name',
         'email',
         'password',
         'email_verified_at',
@@ -31,67 +25,18 @@ class User extends Authenticatable implements MustVerifyEmail
         'settings_object',
         'is_enabled',
         'profiles',
+        'access',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
         'enabled_at' => 'datetime',
     ];
-
-
-
-    public function customerProfile()
-    {
-        return $this->hasOne(CustomerProfile::class);
-    }
-
-    public function employeeProfile()
-    {
-        return $this->hasOne(EmployeeProfile::class);
-    }
-
-    public function settings()
-    {
-        return $this->hasMany(UserSetting::class);
-    }
-
-
-
-    public function getProfilesAttribute()
-    {
-        $profiles = [];
-        
-        $profiles['customer'] = $this->getSetting('profile.customer');
-        $profiles['employee'] = $this->getSetting('profile.employee');
-
-        return $profiles;
-    }
-
-
-
-    public function getSettingsObjectAttribute()
-    {
-        $settings = $this->settings->mapWithKeys(function ($item) {
-            return [$item['key'] => $item['value']];
-        });
-
-        return $settings;
-    }
 
 
 
@@ -102,45 +47,16 @@ class User extends Authenticatable implements MustVerifyEmail
 
 
 
-    public function getCanAccessAdminPanelAttribute()
+    // START: Settings
+    public function settings()
     {
-        return $this->is_enabled && User::find($this->id)->can(Permissions::CAN_ACCESS_ADMIN_PANEL);
+        return $this->hasMany(UserSetting::class);
     }
 
-    public function getCanAccessCustomerPanelAttribute()
+    public function hasSetting($key)
     {
-        return $this->is_enabled && (User::find($this->id)->can(Permissions::CAN_ACCESS_ADMIN_PANEL) || !!$this->customerProfile || !!$this->employeeProfile);
+        return $this->settings()->where('key', $key)->exists();
     }
-
-    public function getCanAccessEmployeePanelAttribute()
-    {
-        return $this->is_enabled && (User::find($this->id)->can(Permissions::CAN_ACCESS_ADMIN_PANEL) || !!$this->employeeProfile);
-    }
-
-
-
-    /**
-     * Get the user's best fitting name.
-     * @return string|null
-     */
-    public function getDisplayNameAttribute()
-    {
-        $customerProfile = $this->getSetting('profile.customer');
-        if ($customerProfile)
-        {
-            return $customerProfile['company'];
-        }
-
-        $employeeProfile = $this->getSetting('profile.employee');
-        if ($employeeProfile)
-        {
-            return $employeeProfile['first_name'] . ' ' . $employeeProfile['last_name'];
-        }
-
-        return null;
-    }
-
-
 
     public function setSetting($key, $value)
     {
@@ -154,10 +70,93 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getSetting($key)
     {
-        return $this->settings()->firstWhere('key', $key)->value ?? null;
+        if (!$this->hasSetting($key)) return null;
+        return $this->settings()->firstWhere('key', $key)->value;
+    }
+
+    public function getSettingsObjectAttribute()
+    {
+        $settings = $this->settings->mapWithKeys(function ($item) {
+            return [$item['key'] => $item['value']];
+        });
+
+        return $settings;
+    }
+    // END: Settings
+
+
+
+    // START: Profiles
+    public function getProfilesAttribute()
+    {
+        $profiles = [];
+        
+        $profiles['customer'] = $this->getSetting('profile.customer');
+        $profiles['employee'] = $this->getSetting('profile.employee');
+
+        return $profiles;
+    }
+    // END: Profiles
+
+
+
+    private function hasAdminLikePermission()
+    {
+        return User::find($this->id)->can(Permissions::CAN_ACCESS_ADMIN_PANEL);
+    }
+
+    public function getCanAccessAdminPanelAttribute()
+    {
+        if (!$this->is_enabled) return false;
+        if ($this->hasAdminLikePermission()) return true;
+        
+        return false;
+    }
+
+    public function getCanAccessEmployeePanelAttribute()
+    {
+        if (!$this->is_enabled) return false;
+        if (!!$this->profiles['employee']) return true;
+        if ($this->hasAdminLikePermission()) return true;
+
+        return false;
+    }
+    
+    public function getCanAccessCustomerPanelAttribute()
+    {
+        if (!$this->is_enabled) return false;
+        if (!!$this->profiles['employee']) return true;
+        if (!!$this->profiles['customer']) return true;
+        if ($this->hasAdminLikePermission()) return true;
+
+        return false;
+    }
+
+    public function getAccessAttribute()
+    {
+        return [
+            'admin'     => $this->is_enabled && ($this->hasAdminLikePermission()),
+            'employee'  => $this->is_enabled && ($this->hasAdminLikePermission() || !!$this->profiles['employee']),
+            'customer'  => $this->is_enabled && ($this->hasAdminLikePermission() || !!$this->profiles['employee'] || !!$this->profiles['customer']),
+        ];
     }
 
 
+
+    /**
+     * Get the user's best fitting name.
+     * @return string|null
+     */
+    public function getDisplayNameAttribute()
+    {
+        $customerProfile = $this->getSetting('profile.customer');
+        if ($customerProfile) return $customerProfile['company'];
+
+        $employeeProfile = $this->getSetting('profile.employee');
+        if ($employeeProfile) return $employeeProfile['first_name'] . ' ' . $employeeProfile['last_name'];
+
+        return null;
+    }
 
     public function updateName()
     {

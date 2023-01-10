@@ -38,17 +38,13 @@ class HandleInertiaRequests extends Middleware
     {
         if ($request->user())
         {
-            $user = User::with(['roles.permissions', 'settings', 'customerProfile', 'employeeProfile'])->find($request->user()->id);
+            $user = User::with(['roles.permissions', 'settings'])->find($request->user()->id);
     
             // Compute the permissions for the current user.
             $permissions = collect($user->roles)->map->permissions->flatten()->pluck('name')->unique()->toArray();
     
             // merge direct and role permissions
             $user->permissions = $permissions;
-
-            $user->can_access_admin_panel = $user->can_access_admin_panel;
-            $user->can_access_customer_panel = $user->can_access_customer_panel;
-            $user->can_access_employee_panel = $user->can_access_employee_panel;
         }
 
         return array_merge(parent::share($request), [
