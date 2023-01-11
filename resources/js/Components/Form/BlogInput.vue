@@ -1,93 +1,152 @@
 <template>
     <div class="editor-wrapper" v-if="editor">
         <div class="editor-controls">
-            <select class="select" :value="getNodeType" @input="setNodeType">
-                <option value="" disabled>---</option>
-                <option value="paragraph">Text</option>
-                <option value="h1">H1</option>
-                <option value="h2">H2</option>
-                <option value="h3">H3</option>
-                <option value="h4">H4</option>
-                <option value="h5">H5</option>
-                <option value="h6">H6</option>
-            </select>
+            <div class="toolbar">
+                <VDropdown placement="bottom-start">
+                    <button type="button" class="toolbar-button drop">Einfügen</button>
+                    <template #popper>
+                        <div class="dropdown-list">
+                            <button type="button" class="dropdown-button" :class="{ 'active': editor.isActive('image') }" @click="openImageDialog()" v-close-popper>
+                                <div class="icon">image</div>
+                                <div class="label">Bild einfügen</div>
+                                <!-- <div class="secondary-info">ctrl+shift+p</div> -->
+                            </button>
+                            <button type="button" class="dropdown-button" :class="{ 'active': editor.isActive('keyfact') }" @click="openKeyfactDialog()" v-close-popper>
+                                <div class="icon">star</div>
+                                <div class="label">Keyfact einfügen</div>
+                            </button>
 
-            <div class="vertical-separator"></div>
-            
-            <!-- <button type="button" class="button icon" :class="{ 'is-active': editor.isActive({textAlign: 'left'}) }" @click="editor.chain().focus().setTextAlign('left').run()">format_align_left</button>
-            <button type="button" class="button icon" :class="{ 'is-active': editor.isActive({textAlign: 'center'}) }" @click="editor.chain().focus().setTextAlign('center').run()">format_align_center</button>
-            <button type="button" class="button icon" :class="{ 'is-active': editor.isActive({textAlign: 'right'}) }" @click="editor.chain().focus().setTextAlign('right').run()">format_align_right</button>
-            
-            <div class="vertical-separator"></div> -->
-            
-            <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('bold') }" @click="editor.chain().focus().toggleBold().run()">format_bold</button>
-            <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('underline') }" @click="editor.chain().focus().toggleUnderline().run()">format_underlined</button>
-            <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('italic') }" @click="editor.chain().focus().toggleItalic().run()">format_italic</button>
-            
-            <div class="vertical-separator"></div>
-            
-            <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('bulletList') }" @click="editor.chain().focus().toggleBulletList().run()">format_list_bulleted</button>
-            <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('orderedList') }" @click="editor.chain().focus().toggleOrderedList().run()">format_list_numbered</button>
-            
-            <div class="vertical-separator"></div>
+                            <div class="dropdown-divider" v-show="!editor.isActive('link')"></div>
 
-            <VDropdown placement="bottom">
-                <button type="button" class="button icon">format_color_fill</button>
-                <template #popper>
-                    <div class="dropdown-grid padding-1">
-                        <button type="button" class="swatch blog-editor" v-for="swatch in swatches" :key="swatch.value" v-tooltip="swatch.name" :style="'background: '+swatch.value" @click="editor.chain().focus().setColor(swatch.value).run()"></button>
-                        <button type="button" class="swatch blog-editor fullwidth" @click="editor.chain().focus().unsetColor().run()">Zurücksetzen</button>
-                    </div>
-                </template>
-            </VDropdown>
-            
-            <div class="vertical-separator"></div>
-            
-            <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('link') }" @click="openLinkDialog()">link</button>
-            <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('image') }" @click="openImageDialog()">image</button>
-            <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('blockquote') }" @click="editor.chain().focus().toggleBlockquote().run()">format_quote</button>
-            <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('code') }" @click="editor.chain().focus().toggleCode().run()">code</button>
-            <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('keyfact') }" @click="openKeyfactDialog()">star</button>
-            
-            <div class="vertical-separator"></div>
-            
-            <button type="button" class="button icon" title="Formatierung löschen" @click="editor.chain().focus().clearNodes().unsetAllMarks().run()">format_clear</button>
-        </div>
+                            <button type="button" class="dropdown-button" v-show="!editor.isActive('link')" @click="openLinkDialog()" v-close-popper>
+                                <div class="icon">link</div>
+                                <div class="label">Link einfügen</div>
+                            </button>
+                        </div>
+                    </template>
+                </VDropdown>
 
-        <editor-content class="editor-content formatted-content" :editor="editor" />
+                <VDropdown placement="bottom-start">
+                    <button type="button" class="toolbar-button drop">Bearbeiten</button>
+                    <template #popper>
+                        <div class="dropdown-list">
+                            <button type="button" class="dropdown-button" :class="{ 'active': editor.isActive('blockquote') }" @click="editor.chain().focus().toggleBlockquote().run()">
+                                <div class="icon">format_quote</div>
+                                <div class="label">Als <b>Zitat</b> formatieren</div>
+                            </button>
+                            <button type="button" class="dropdown-button" :class="{ 'active': editor.isActive('code') }" @click="editor.chain().focus().toggleCode().run()">
+                                <div class="icon">code</div>
+                                <div class="label">Als <b>Code</b> formatieren</div>
+                            </button>
 
-        <div class="dialog-wrapper" v-show="linkForm.isOpen">
-            <div class="background" @click="linkForm.isOpen = false"></div>
-            <div class="dialog-content">
-                <mui-button type="button" label="Link entfernen" color="error" variant="contained" @click="removeLink()" />
-                <hr>
-                <mui-input type="text" label="URL" v-model="linkForm.url" />
-                <select v-model="linkForm.target">
-                    <option value="_blank">Neues Fenster</option>
-                    <option value="_self">Gleiches Fenster</option>
+                            <div class="dropdown-divider" v-show="editor.isActive('link')"></div>
+
+                            <button type="button" class="dropdown-button" v-show="editor.isActive('link')" @click="openLinkDialog()" v-close-popper>
+                                <div class="icon">link</div>
+                                <div class="label">Link bearbeiten</div>
+                            </button>
+
+                            <div class="dropdown-divider"></div>
+
+                            <button type="button" class="dropdown-button" @click="editor.chain().focus().clearNodes().unsetAllMarks().run()">
+                                <div class="icon">format_clear</div>
+                                <div class="label">Formatierung löschen</div>
+                            </button>
+                        </div>
+                    </template>
+                </VDropdown>
+
+                <div class="spacer"></div>
+
+                <button type="button" class="toolbar-button" v-show="editor.isActive('image')" @click="openImageDialog()">Bild bearbeiten</button>
+                <button type="button" class="toolbar-button" v-show="editor.isActive('link')" @click="openLinkDialog()">Link bearbeiten</button>
+                <button type="button" class="toolbar-button" v-show="editor.isActive('keyfact')" @click="removeKeyfact()">Keyfact entfernen</button>
+            </div>
+
+            <div class="styling-panel" v-show="!isAnyDialogOpen">
+                <select class="select" :value="getNodeType" @input="setNodeType">
+                    <option value="" disabled>---</option>
+                    <option value="paragraph">Paragraph</option>
+                    <option value="h1">Überschrift 1</option>
+                    <option value="h2">Überschrift 2</option>
+                    <option value="h3">Überschrift 3</option>
+                    <option value="h4">Überschrift 4</option>
+                    <option value="h5">Überschrift 5</option>
+                    <option value="h6">Überschrift 6</option>
                 </select>
-                <mui-button type="button" label="Link speichern" @click="insertLink()" />
+                
+                <div class="button-group">
+                    <button type="button" class="button icon" :class="{ 'is-active': editor.isActive({textAlign: 'left'}) }" @click="editor.chain().focus().setTextAlign('left').run()">format_align_left</button>
+                    <button type="button" class="button icon" :class="{ 'is-active': editor.isActive({textAlign: 'center'}) }" @click="editor.chain().focus().setTextAlign('center').run()">format_align_center</button>
+                    <button type="button" class="button icon" :class="{ 'is-active': editor.isActive({textAlign: 'right'}) }" @click="editor.chain().focus().setTextAlign('right').run()">format_align_right</button>
+                </div>
+                
+                <div class="button-group">
+                    <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('bold') }" @click="editor.chain().focus().toggleBold().run()">format_bold</button>
+                    <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('italic') }" @click="editor.chain().focus().toggleItalic().run()">format_italic</button>
+                    <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('underline') }" @click="editor.chain().focus().toggleUnderline().run()">format_underlined</button>
+                </div>
+                
+                <div class="button-group">
+                    <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('bulletList') }" @click="editor.chain().focus().toggleBulletList().run()">format_list_bulleted</button>
+                    <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('orderedList') }" @click="editor.chain().focus().toggleOrderedList().run()">format_list_numbered</button>
+                </div>
+                
+                <div class="button-group">
+                    <VDropdown placement="bottom">
+                        <button type="button" class="button icon">format_color_fill</button>
+                        <template #popper>
+                            <div class="dropdown-grid padding-1">
+                                <button type="button" class="swatch blog-editor" v-for="swatch in swatches" :key="swatch.value" v-tooltip="swatch.name" :style="'background: '+swatch.value" @click="editor.chain().focus().setColor(swatch.value).run()"></button>
+                                <button type="button" class="swatch blog-editor fullwidth" @click="editor.chain().focus().unsetColor().run()">Zurücksetzen</button>
+                            </div>
+                        </template>
+                    </VDropdown>
+                    <button type="button" class="button icon" v-show="!editor.isActive('link')" @click="openLinkDialog()">link</button>
+                    <button type="button" class="button icon" v-show="editor.isActive('link')" @click="removeLink()">link_off</button>
+                </div>
+            </div>
+
+            <div class="property-panel" v-show="imageForm.isOpen">
+                <div class="flex wrap gap-1">
+                    <mui-button type="button" label="Abbrechen" icon-left="close" variant="contained" size="small" @click="imageForm.isOpen = false" />
+                    <div class="spacer"></div>
+                    <mui-button type="button" label="Übernehmen" icon-left="check" size="small" @click="insertImage()" />
+                </div>
+                <div class="flex wrap gap-1">
+                    <mui-input type="text" class="flex-1" label="Bild URL" v-model="imageForm.url" clearable/>
+                    <mui-input type="text" class="flex-1" label="Alt-Text" v-model="imageForm.alt" clearable/>
+                </div>
+            </div>
+
+            <div class="property-panel" v-show="linkForm.isOpen">
+                <div class="flex wrap gap-1">
+                    <mui-button type="button" label="Abbrechen" icon-left="close" variant="contained" size="small" @click="linkForm.isOpen = false" />
+                    <div class="spacer"></div>
+                    <mui-button type="button" label="Übernehmen" icon-left="check" size="small" @click="insertLink()" />
+                </div>
+                <div class="flex wrap gap-1">
+                    <mui-input class="flex-1" type="text" label="URL" v-model="linkForm.url" clearable/>
+                    <select class="flex-1" v-model="linkForm.target">
+                        <option value="_blank">Neues Fenster</option>
+                        <option value="_self">Gleiches Fenster</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="property-panel" v-show="keyfactForm.isOpen">
+                <div class="flex wrap gap-1">
+                    <mui-button type="button" label="Abbrechen" icon-left="close" variant="contained" size="small" @click="keyfactForm.isOpen = false" />
+                    <div class="spacer"></div>
+                    <mui-button type="button" label="Einfügen" icon-left="check" size="small" @click="insertKeyfact()" />
+                </div>
+                <div class="flex wrap gap-1">
+                    <mui-input type="text" class="flex-1" label="Keyfact Icon" v-model="keyfactForm.icon" clearable />
+                </div>
             </div>
         </div>
 
-        <div class="dialog-wrapper" v-show="imageForm.isOpen">
-            <div class="background" @click="imageForm.isOpen = false"></div>
-            <div class="dialog-content">
-                <mui-input type="text" label="Bild URL" v-model="imageForm.url" />
-                <mui-input type="text" label="Alt-Text" v-model="imageForm.alt" />
-                <mui-button type="button" label="Bild speichern" @click="insertImage()" />
-            </div>
-        </div>
-
-        <div class="dialog-wrapper" v-show="keyfactForm.isOpen">
-            <div class="background" @click="keyfactForm.isOpen = false"></div>
-            <div class="dialog-content">
-                <mui-button type="button" label="Keyfact entfernen" color="error" variant="contained" @click="removeKeyfact()" />
-                <hr>
-                <mui-input type="text" label="Keyfact Icon" v-model="keyfactForm.icon" />
-                <mui-button type="button" label="Keyfact einfügen" @click="insertKeyfact()" />
-            </div>
-        </div>
+        <editor-content class="editor-content formatted-content" spellcheck="true" lang="de" :editor="editor" />
     </div>
 </template>
 
@@ -218,6 +277,7 @@
                     icon: 'star',
                 },
                 swatches,
+                isSticky: false,
             }
         },
         mounted() {
@@ -281,6 +341,11 @@
                 if      (this.editor.isActive('paragraph')) return 'paragraph'
                 else if (this.editor.isActive('heading'))   return 'h' + this.editor.getAttributes('heading').level
                 else    return ''
+            },
+
+            isAnyDialogOpen()
+            {
+                return this.linkForm.isOpen || this.imageForm.isOpen || this.keyfactForm.isOpen
             },
         },
 
@@ -383,7 +448,7 @@
         align-items: center
         justify-content: center
         font-size: 1rem
-        font-family: var(--font-text)
+        font-family: var(--font-interface)
         color: var(--color-text)
         padding: 0 .5rem
         height: 2.5rem
@@ -402,131 +467,223 @@
             grid-column: 1 / -1
             aspect-ratio: unset
 
+    .dropdown-divider
+        width: 100%
+        border-bottom: 1px solid var(--color-border)
+        margin: .5rem 0
+
     .dropdown-grid
         display: grid
         grid-template-columns: repeat(4, 1fr)
         gap: .5rem
 
-    .editor-wrapper
-        --color-border: #ccc
-        height: 25rem
+    .dropdown-list
+        display: flex
+        flex-direction: column
+        padding: .5rem 0
 
+    .dropdown-button
+        border: none
+        background: none
+        color: var(--color-text)
+        font-family: var(--font-interface)
+        padding: 0 .5rem
+        text-align: left
+        display: flex
+        align-items: center
+        gap: .5rem
+        height: 2rem
+        min-width: 14rem
+        user-select: none
+        cursor: pointer
+
+        &:hover,
+        &:focus
+            outline: none
+            background: var(--color-background-soft)
+
+        &.active
+            .icon
+                background: var(--color-primary)
+                color: var(--color-background)
+
+        .icon
+            aspect-ratio: 1
+            height: 100%
+            display: flex
+            align-items: center
+            justify-content: center
+            font-family: var(--font-icon)
+            border-radius: var(--radius-s)
+            font-size: 1.1rem
+            font-weight: 300
+            line-height: 1
+
+        .label
+            color: var(--color-heading)
+            font-size: .8rem
+            font-weight: 500
+            flex: 1
+
+        .secondary-info
+            font-size: .7rem
+            
+
+    .editor-wrapper
+        height: 25rem
         width: 100%
         display: flex
         flex-direction: column
         background: var(--color-background)
-        border-radius: var(--radius-m)
-        border: 3px solid var(--color-background-soft)
+        border-radius: var(--radius-s)
         position: relative
 
         .editor-controls
             flex: none
             position: relative
             z-index: 1
-            margin: 0 auto
             display: flex
-            flex-wrap: wrap
-            align-items: center
-            padding: 0 .5rem
-            background: var(--color-background-soft)
-            border-radius: var(--radius-s)
-            margin: 3px
+            flex-direction: column
+            background: var(--color-background)
+            position: sticky
+            top: 0
+            border-top-left-radius: inherit
+            border-top-right-radius: inherit
 
-            .vertical-separator
-                width: 0
-                border-left: 1px solid var(--color-border)
-                margin: .5rem
-                height: 2.5rem
+            &::after
+                content: ''
+                position: absolute
+                left: 2px
+                bottom: 0
+                transform: translateY(100%)
+                width: calc(100% - 4px)
+                height: 8px
+                background: linear-gradient(180deg, rgb(black, 0.07) 0%, rgb(black, 0) 100%)
 
-            .select
-                height: 2.5rem
-                border: none
-                background: var(--color-background-soft)
-                border-radius: var(--radius-m)
-                border: none
-
-            .button
-                position: relative
+            .toolbar
                 display: flex
                 align-items: center
-                height: 2.5rem
-                padding: 0 .75rem
-                user-select: none
-                cursor: pointer
-                text-transform: uppercase
-                font-weight: 500
-                font-family: var(--font-text)
+                gap: 1rem
+                min-height: 2rem
                 background: var(--color-background-soft)
-                border-radius: var(--radius-m)
-                border: none
+                padding: 0 1rem
+                border-top-left-radius: inherit
+                border-top-right-radius: inherit
 
-                &.icon
-                    aspect-ratio: 1
-                    justify-content: center
-                    font-family: var(--font-icon)
-                    font-size: 1.5rem
-                    line-height: 1
+                .spacer
+                    flex: 1
+
+                .toolbar-button
+                    background: none
+                    border: none
                     padding: 0
+                    margin: 0
+                    cursor: pointer
+                    user-select: none
+                    display: flex
+                    align-items: center
+                    font-size:.9rem
+                    font-family: var(--font-interface)
+                    color: var(--color-heading)
 
-                &:hover,
-                &:focus
-                    color: var(--color-primary)
-                    background: rgba(0, 0, 0, 0.05)
-                
-                &.is-active
-                    background: var(--color-primary)
-                    color: var(--color-background)
+                    &.drop::after
+                        content: 'arrow_drop_down'
+                        font-family: var(--font-icon)
+                        font-size: 1.3rem
+                        line-height: 1
+                        user-select: none
+                        pointer-events: none
+                        opacity: .5
+
+                    &:hover,
+                    &:focus
+                        outline: none
+                        color: var(--color-primary)
+
+            .styling-panel
+                display: flex
+                gap: .5rem
+                padding: 1rem .5rem
+                flex-wrap: wrap
+                align-items: center
+                border-left: 2px solid var(--color-background-soft)
+                border-right: 2px solid var(--color-background-soft)
+
+                .select
+                    height: 2.5rem
+                    border: none
+                    background: var(--color-background-soft)
+                    border-radius: var(--radius-m)
+                    border: none
+
+                .button-group
+                    height: 2.5rem
+                    display: flex
+                    align-items: center
+                    padding: 0 .25rem
+                    border-radius: var(--radius-m)
+                    background: var(--color-background-soft)
+
+                .button
+                    position: relative
+                    display: flex
+                    align-items: center
+                    height: 2rem
+                    padding: 0 .75rem
+                    user-select: none
+                    cursor: pointer
+                    font-family: var(--font-interface)
+                    color: var(--color-heading)
+                    background: none
+                    border-radius: var(--radius-s)
+                    border: none
+
+                    &.icon
+                        aspect-ratio: 1.2
+                        justify-content: center
+                        font-family: var(--font-icon)
+                        font-size: 1.3rem
+                        line-height: 1
+                        padding: 0
+
+                    &::after
+                        content: ''
+                        position: absolute
+                        top: 0
+                        left: 0
+                        right: 0
+                        bottom: 0
+                        border-radius: inherit
+                        background: currentColor
+                        opacity: 0
+
+                    &:hover
+                        color: var(--color-primary)
+
+                    &:hover::after
+                        opacity: .1
+                    
+                    &.is-active
+                        background: var(--color-primary)
+                        color: var(--color-background)
+            .property-panel
+                display: flex
+                flex-direction: column
+                gap: 1rem
+                padding: 1rem
+                border-radius: var(--radius-m)
+                position: relative
+                z-index: 1000
+                box-shadow: 0 0 0 100vh rgb(black, 0.5)
+
+
 
         .editor-content
             flex: 1
             height: 100%
             width: 100%
+            border: 2px solid var(--color-background-soft)
             border-top: none
-            // overflow: auto
-
-        .editor-footer
-            display: flex
-            flex-wrap: wrap
-            align-items: center
-            padding: 0 .5rem
-            gap: .5rem
-            font-size: .8rem
-            min-height: 1.75rem
-            border-top: 1px solid var(--color-border)
-            background: var(--color-background-soft)
-            border-radius: 0 0 var(--radius-m) var(--radius-m)
-
-        .dialog-wrapper
-            position: absolute
-            top: 0
-            left: 0
-            width: 100%
-            height: 100%
-            border-radius: inherit
-            display: flex
-            align-items: center
-            justify-content: center
-
-            .background
-                position: absolute
-                top: 0
-                left: 0
-                width: 100%
-                height: 100%
-                background: rgba(0, 0, 0, 0.5)
-                z-index: 1
-                border-radius: inherit
-
-            .dialog-content
-                display: flex
-                flex-direction: column
-                gap: 1rem
-                padding: 1rem
-                background: var(--color-background)
-                width: calc(100% - 2rem)
-                max-width: 500px
-                z-index: 1
-                position: relative
-                border-radius: var(--radius-m)
-                box-shadow: var(--shadow-elevation-medium)
+            border-bottom-left-radius: inherit
+            border-bottom-right-radius: inherit
 </style>
