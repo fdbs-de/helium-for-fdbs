@@ -9,7 +9,7 @@
                 { value: 'blog', icon: 'public', tooltip: 'Blog' },
                 { value: 'intranet', icon: 'policy', tooltip: 'Intranet' },
                 { value: 'wiki', icon: 'travel_explore', tooltip: 'Wiki' },
-                { value: 'jobs', icon: 'work', tooltip: 'Karriere' },
+                { value: 'jobs', icon: 'work', tooltip: 'Jobs' },
             ]"/>
 
             <div class="spacer"></div>

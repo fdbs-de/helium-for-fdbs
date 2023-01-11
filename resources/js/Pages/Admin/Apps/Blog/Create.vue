@@ -13,7 +13,7 @@
                     { value: 'blog', icon: 'public', tooltip: 'Blog' },
                     { value: 'intranet', icon: 'policy', tooltip: 'Intranet' },
                     { value: 'wiki', icon: 'travel_explore', tooltip: 'Wiki' },
-                    { value: 'jobs', icon: 'work', tooltip: 'Karriere' },
+                    { value: 'jobs', icon: 'work', tooltip: 'Jobs' },
                 ]"/>
 
                 <div class="spacer"></div>
@@ -25,9 +25,8 @@
                     <option value="hidden">Versteckt</option>
                 </select>
                 
-                <!-- <mui-button class="header-button" type="button" v-if="form.id" label="löschen" color="error" variant="contained" @click="$refs.deletePopup.open()"/> -->
-                <mui-button class="header-button" v-if="form.id" label="Post Speichern" :loading="form.processing" @click="saveItem()"/>
-                <mui-button class="header-button" v-else label="Post erstellen" :loading="form.processing" @click="saveItem()"/>
+                <mui-button v-if="form.id" label="Post Speichern" size="large" :loading="form.processing" @click="saveItem()"/>
+                <mui-button v-else label="Post erstellen" size="large" :loading="form.processing" @click="saveItem()"/>
             </div>
 
             <div class="hero-image-wrapper" :class="{'expanded': expanded}">
@@ -47,13 +46,13 @@
             <div class="limiter text-limiter flex vertical gap-1">
                 <mui-input type="text" label="Titel *" required v-model="form.title">
                     <template #right>
-                        <button type="button" class="input-button" :class="{'active': form.pinned}" title="Post anpinnen" @click="form.pinned = !form.pinned">push_pin</button>
+                        <button type="button" class="input-button" :class="{'active': form.pinned}" v-tooltip.right="'Post anpinnen'" @click="form.pinned = !form.pinned">push_pin</button>
                     </template>
                 </mui-input>
                 
                 <mui-input type="text" label="Slug *" required v-model="form.slug">
                     <template #right>
-                        <button type="button" class="input-button" title="Aus Titel generieren" @click="generateSlug">auto_awesome</button>
+                        <button type="button" class="input-button" v-tooltip.right="'Aus Titel generieren'" @click="generateSlug">auto_awesome</button>
                     </template>
                 </mui-input>
                 
@@ -66,14 +65,12 @@
                     <mui-input class="flex-1" type="text" label="Tags" v-model="form.tags" />
                 </div>
 
-                <BlogInput class="content-input flex-1" v-model="form.content" />
-
                 <div class="flex gap-1">
                     <div class="group flex-1">
                         <div class="flex gap-1 v-center">
                             <b class="heading flex-1">Veröffentlichungsdatum</b>
-                            <button type="button" class="icon-button pill" title="Veröffentlichungsdatum hinzufügen" v-if="form.available_from === null" @click="form.available_from = new Date().toISOString().split('T')[0]">add</button>
-                            <button type="button" class="icon-button pill" title="Veröffentlichungsdatum zurücksetzen" v-else @click="form.available_from = null">replay</button>
+                            <button type="button" class="icon-button pill" v-tooltip.bottom="'Veröffentlichungsdatum hinzufügen'" v-if="form.available_from === null" @click="form.available_from = new Date().toISOString().split('T')[0]">add</button>
+                            <button type="button" class="icon-button pill" v-tooltip.bottom="'Veröffentlichungsdatum zurücksetzen'" v-else @click="form.available_from = null">replay</button>
                         </div>
                         <input type="date" class="date-input" v-model="form.available_from" v-show="form.available_from">
                     </div>
@@ -81,12 +78,16 @@
                     <div class="group flex-1">
                         <div class="flex gap-1 v-center">
                             <b class="heading flex-1">Gültigkeitsdatum</b>
-                            <button type="button" class="icon-button pill" title="Gültigkeitsdatum hinzufügen" v-if="form.available_to === null" @click="form.available_to = new Date().toISOString().split('T')[0]">add</button>
-                            <button type="button" class="icon-button pill" title="Gültigkeitsdatum zurücksetzen" v-else @click="form.available_to = null">replay</button>
+                            <button type="button" class="icon-button pill" v-tooltip.bottom="'Gültigkeitsdatum hinzufügen'" v-if="form.available_to === null" @click="form.available_to = new Date().toISOString().split('T')[0]">add</button>
+                            <button type="button" class="icon-button pill" v-tooltip.bottom="'Gültigkeitsdatum zurücksetzen'" v-else @click="form.available_to = null">replay</button>
                         </div>
                         <input type="date" class="date-input" v-model="form.available_to" v-show="form.available_to">
                     </div>
                 </div>
+            </div>
+
+            <div class="flex vertical gap-1 margin-top-3">
+                <TextEditor class="content-input flex-1" v-model="form.content" />
             </div>
         </form>
     </AdminLayout>
@@ -114,7 +115,7 @@
     import AdminLayout from '@/Layouts/Admin.vue'
     import Popup from '@/Components/Form/Popup.vue'
     import Switcher from '@/Components/Form/Switcher.vue'
-    import BlogInput from '@/Components/Form/BlogInput.vue'
+    import TextEditor from '@/Components/Form/TextEditor.vue'
 
     const props = defineProps({
         post: Object,
@@ -231,9 +232,6 @@
         color: var(--color-text)
         cursor: pointer
 
-    .header-button
-        height: 3rem !important
-
     .hero-image-wrapper
         border-radius: var(--radius-m)
         background: var(--color-background-soft)
@@ -325,7 +323,7 @@
         font-size: 1.2rem
         font-family: var(--font-icon)
         color: var(--color-primary)
-        background: #e0004730
+        background: #00000020
         border-radius: var(--radius-xl)
         padding: 0
         border: none

@@ -115,7 +115,7 @@
         ],
         [
             // {label: 'Seiten', icon: 'pages', route: route('admin.posts'), permission: ['view app pages'], activeWhen: ['admin.pages'], submenu: []},
-            {label: 'Blog', icon: 'public', route: route('admin.posts'), permission: ['view app blog'], activeWhen: ['admin.posts', 'admin.categories'], submenu: [
+            {label: 'Blog', icon: 'public', route: route('admin.posts'), permission: ['view app blog'], activeWhen: ['admin.posts', 'admin.categories', 'admin.posts.editor', 'admin.categories.editor'], submenu: [
                 {label: 'Posts', icon: 'feed', route: route('admin.posts'), permission: ['view app blog'], activeWhen: ['admin.posts']},
                 {label: 'Kategorien', icon: 'category', route: route('admin.categories'), permission: ['view app blog'], activeWhen: ['admin.categories']},
             ]},

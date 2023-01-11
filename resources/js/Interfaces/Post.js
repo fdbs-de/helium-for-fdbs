@@ -2,10 +2,10 @@ export default class Post
 {
     _item
     _visualDictionary = {
-        'blog': { id: 'blog', icon: 'public', color: '#1e90ff', tooltip: 'Blog' },
-        'wiki': { id: 'wiki', icon: 'travel_explore', color: '#ff6348', tooltip: 'Wiki' },
-        'intranet': { id: 'intranet', icon: 'policy', color: '#8854d0', tooltip: 'Intranet' },
-        'jobs': { id: 'jobs', icon: 'work', color: '#e00047', tooltip: 'Karriere' },
+        'blog': { id: 'blog', icon: 'public', color: '#1e90ff', tooltip: 'Blog Beitrag' },
+        'wiki': { id: 'wiki', icon: 'travel_explore', color: '#ff6348', tooltip: 'Wiki Eintrag' },
+        'intranet': { id: 'intranet', icon: 'policy', color: '#8854d0', tooltip: 'Intranet Post' },
+        'jobs': { id: 'jobs', icon: 'work', color: '#e00047', tooltip: 'Job Angebot' },
         'unknown': { id: 'unknown', icon: 'help', color: 'var(--color-text)', tooltip: 'Unbekannt' },
     }
     _statusDictionary = {
