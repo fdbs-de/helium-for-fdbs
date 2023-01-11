@@ -1,5 +1,5 @@
 <template>
-    <div class="editor-wrapper" v-if="editor">
+    <div class="editor-wrapper" :class="{'fullscreen': isFullscreen}" v-if="editor">
         <div class="editor-controls">
             <div class="toolbar">
                 <VDropdown placement="bottom-start">
@@ -32,11 +32,11 @@
                         <div class="dropdown-list">
                             <button type="button" class="dropdown-button" :class="{ 'active': editor.isActive('blockquote') }" @click="editor.chain().focus().toggleBlockquote().run()">
                                 <div class="icon">format_quote</div>
-                                <div class="label">Als <b>Zitat</b> formatieren</div>
+                                <div class="label">Als Zitat formatieren</div>
                             </button>
                             <button type="button" class="dropdown-button" :class="{ 'active': editor.isActive('code') }" @click="editor.chain().focus().toggleCode().run()">
                                 <div class="icon">code</div>
-                                <div class="label">Als <b>Code</b> formatieren</div>
+                                <div class="label">Als Code formatieren</div>
                             </button>
 
                             <div class="dropdown-divider" v-show="editor.isActive('link')"></div>
@@ -56,11 +56,27 @@
                     </template>
                 </VDropdown>
 
+                <VDropdown placement="bottom-start">
+                    <button type="button" class="toolbar-button drop">Ansicht</button>
+                    <template #popper>
+                        <div class="dropdown-list">
+                            <button type="button" class="dropdown-button" :class="{ 'active': applyLimiter }" @click="applyLimiter = !applyLimiter">
+                                <div class="icon">width_wide</div>
+                                <div class="label">Breite limitieren</div>
+                            </button>
+                        </div>
+                    </template>
+                </VDropdown>
+
                 <div class="spacer"></div>
 
-                <button type="button" class="toolbar-button" v-show="editor.isActive('image')" @click="openImageDialog()">Bild bearbeiten</button>
-                <button type="button" class="toolbar-button" v-show="editor.isActive('link')" @click="openLinkDialog()">Link bearbeiten</button>
-                <button type="button" class="toolbar-button" v-show="editor.isActive('keyfact')" @click="removeKeyfact()">Keyfact entfernen</button>
+                <button type="button" class="toolbar-button color-error" v-show="editor.isActive('keyfact')" @click="removeKeyfact()">Keyfact entfernen</button>
+                <button type="button" class="toolbar-button color-primary" v-show="editor.isActive('image')" @click="openImageDialog()">Bild bearbeiten</button>
+                <button type="button" class="toolbar-button color-primary" v-show="editor.isActive('link')" @click="openLinkDialog()">Link bearbeiten</button>
+
+                <div class="toolbar-toggle-button" @click="toggleFullscreen()" v-if="fullscreenAvailable" v-tooltip.bottom="isFullscreen ? 'Vollbild verlassen' : 'Vollbild'">
+                    {{ isFullscreen ? 'fullscreen_exit' : 'fullscreen' }}
+                </div>
             </div>
 
             <div class="styling-panel" v-show="!isAnyDialogOpen">
@@ -107,46 +123,50 @@
                 </div>
             </div>
 
-            <div class="property-panel" v-show="imageForm.isOpen">
-                <div class="flex wrap gap-1">
-                    <mui-button type="button" label="Abbrechen" icon-left="close" variant="contained" size="small" @click="imageForm.isOpen = false" />
-                    <div class="spacer"></div>
-                    <mui-button type="button" label="Übernehmen" icon-left="check" size="small" @click="insertImage()" />
+            <div class="property-panel" v-show="isAnyDialogOpen">
+                <div class="dialog-limiter" v-show="imageForm.isOpen">
+                    <div class="flex wrap gap-1">
+                        <mui-button type="button" label="Abbrechen" icon-left="close" variant="contained" size="small" @click="imageForm.isOpen = false" />
+                        <div class="spacer"></div>
+                        <mui-button type="button" label="Übernehmen" icon-left="check" size="small" @click="insertImage()" />
+                    </div>
+                    <div class="flex wrap gap-1">
+                        <mui-input type="text" class="flex-1" label="Bild URL" v-model="imageForm.url" clearable/>
+                        <mui-input type="text" class="flex-1" label="Alt-Text" v-model="imageForm.alt" clearable/>
+                    </div>
                 </div>
-                <div class="flex wrap gap-1">
-                    <mui-input type="text" class="flex-1" label="Bild URL" v-model="imageForm.url" clearable/>
-                    <mui-input type="text" class="flex-1" label="Alt-Text" v-model="imageForm.alt" clearable/>
+    
+                <div class="dialog-limiter" v-show="linkForm.isOpen">
+                    <div class="flex wrap gap-1">
+                        <mui-button type="button" label="Abbrechen" icon-left="close" variant="contained" size="small" @click="linkForm.isOpen = false" />
+                        <div class="spacer"></div>
+                        <mui-button type="button" label="Übernehmen" icon-left="check" size="small" @click="insertLink()" />
+                    </div>
+                    <div class="flex wrap gap-1">
+                        <mui-input class="flex-1" type="text" label="URL" v-model="linkForm.url" clearable/>
+                        <select class="flex-1" v-model="linkForm.target">
+                            <option value="_blank">Neues Fenster</option>
+                            <option value="_self">Gleiches Fenster</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-
-            <div class="property-panel" v-show="linkForm.isOpen">
-                <div class="flex wrap gap-1">
-                    <mui-button type="button" label="Abbrechen" icon-left="close" variant="contained" size="small" @click="linkForm.isOpen = false" />
-                    <div class="spacer"></div>
-                    <mui-button type="button" label="Übernehmen" icon-left="check" size="small" @click="insertLink()" />
-                </div>
-                <div class="flex wrap gap-1">
-                    <mui-input class="flex-1" type="text" label="URL" v-model="linkForm.url" clearable/>
-                    <select class="flex-1" v-model="linkForm.target">
-                        <option value="_blank">Neues Fenster</option>
-                        <option value="_self">Gleiches Fenster</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="property-panel" v-show="keyfactForm.isOpen">
-                <div class="flex wrap gap-1">
-                    <mui-button type="button" label="Abbrechen" icon-left="close" variant="contained" size="small" @click="keyfactForm.isOpen = false" />
-                    <div class="spacer"></div>
-                    <mui-button type="button" label="Einfügen" icon-left="check" size="small" @click="insertKeyfact()" />
-                </div>
-                <div class="flex wrap gap-1">
-                    <mui-input type="text" class="flex-1" label="Keyfact Icon" v-model="keyfactForm.icon" clearable />
+    
+                <div class="dialog-limiter" v-show="keyfactForm.isOpen">
+                    <div class="flex wrap gap-1">
+                        <mui-button type="button" label="Abbrechen" icon-left="close" variant="contained" size="small" @click="keyfactForm.isOpen = false" />
+                        <div class="spacer"></div>
+                        <mui-button type="button" label="Einfügen" icon-left="check" size="small" @click="insertKeyfact()" />
+                    </div>
+                    <div class="flex wrap gap-1">
+                        <mui-input type="text" class="flex-1" label="Keyfact Icon" v-model="keyfactForm.icon" clearable />
+                    </div>
                 </div>
             </div>
         </div>
 
-        <editor-content class="editor-content formatted-content" spellcheck="true" lang="de" :editor="editor" />
+        <div class="editor-content">
+            <editor-content class="editor-limiter formatted-content" :class="{'ignore-limiter': !applyLimiter}" spellcheck="true" lang="de" :editor="editor" />
+        </div>
     </div>
 </template>
 
@@ -277,7 +297,9 @@
                     icon: 'star',
                 },
                 swatches,
-                isSticky: false,
+                fullscreenAvailable: false,
+                isFullscreen: false,
+                applyLimiter: true,
             }
         },
         mounted() {
@@ -321,6 +343,16 @@
                     this.$emit('update:modelValue', this.editor.getHTML())
                 },
             })
+
+
+
+            this.isFullscreen = !!document.fullscreenElement
+            this.fullscreenAvailable = document.fullscreenEnabled
+
+            window.addEventListener('fullscreenchange', () => {
+                this.isFullscreen = !!document.fullscreenElement
+                document.documentElement.style.overflowY = this.isFullscreen ? 'hidden' : 'scroll'
+            })
         },
 
         beforeUnmount() {
@@ -350,6 +382,21 @@
         },
 
         methods: {
+            toggleFullscreen()
+            {
+                this.isFullscreen ? this.exitFullscreen() : this.enterFullscreen()
+            },
+
+            enterFullscreen()
+            {
+                document.documentElement.requestFullscreen()
+            },
+
+            exitFullscreen()
+            {
+                document.exitFullscreen()
+            },
+
             setNodeType(e)
             {
                 switch (e.target.value)
@@ -431,11 +478,11 @@
 </script>
 
 <style lang="sass">
-    .editor-content
+    .editor-limiter
         > div.ProseMirror
+            flex: 1
             display: inline-block
             width: 100%
-            min-height: 100%
             padding: 0 1rem
 
             &:focus
@@ -530,13 +577,30 @@
             
 
     .editor-wrapper
-        height: 25rem
+        min-height: 10rem
         width: 100%
         display: flex
         flex-direction: column
         background: var(--color-background)
         border-radius: var(--radius-s)
         position: relative
+
+        &.fullscreen
+            position: fixed
+            top: 0
+            left: 0
+            width: 100vw
+            height: 100vh
+            z-index: 10000
+            border-radius: 0
+            overflow-y: auto
+
+            .editor-content
+                padding: 4rem 2rem
+
+                .editor-limiter
+                    border-radius: var(--radius-s)
+                    box-shadow: var(--shadow-elevation-low)
 
         .editor-controls
             flex: none
@@ -573,7 +637,8 @@
                 .spacer
                     flex: 1
 
-                .toolbar-button
+                .toolbar-button,
+                .toolbar-toggle-button
                     background: none
                     border: none
                     padding: 0
@@ -582,9 +647,24 @@
                     user-select: none
                     display: flex
                     align-items: center
-                    font-size:.9rem
+                    font-size: .9rem
                     font-family: var(--font-interface)
                     color: var(--color-heading)
+
+                    &.color-info
+                        color: var(--color-info)
+
+                    &.color-success
+                        color: var(--color-success)
+
+                    &.color-warning
+                        color: var(--color-warning)
+
+                    &.color-error
+                        color: var(--color-error)
+
+                    &.color-primary
+                        color: var(--color-primary)
 
                     &.drop::after
                         content: 'arrow_drop_down'
@@ -599,6 +679,15 @@
                     &:focus
                         outline: none
                         color: var(--color-primary)
+
+                .toolbar-button:not(.drop)
+                    &:hover
+                        text-decoration: underline
+                        background: var(--color-background-soft)
+
+                .toolbar-toggle-button
+                    font-family: var(--font-icon)
+                    font-size: 1.25rem
 
             .styling-panel
                 display: flex
@@ -669,21 +758,50 @@
             .property-panel
                 display: flex
                 flex-direction: column
+                align-items: center
                 gap: 1rem
                 padding: 1rem
-                border-radius: var(--radius-m)
+                border-left: 2px solid var(--color-background-soft)
+                border-right: 2px solid var(--color-background-soft)
                 position: relative
                 z-index: 1000
-                box-shadow: 0 0 0 100vh rgb(black, 0.5)
+
+                .dialog-limiter
+                    width: 100%
+                    max-width: 700px
+                    display: flex
+                    flex-direction: column
+                    gap: 1rem
+                    padding: 1rem
+                    border-radius: var(--radius-m)
+                    background: var(--color-background)
+                    position: relative
+                    z-index: 1000
+                    box-shadow: 0 0 0 100vh rgb(black, 0.5)
 
 
 
         .editor-content
-            flex: 1
-            height: 100%
             width: 100%
+            flex: 1
+            display: flex
+            flex-direction: column
+            background: var(--color-background-soft)
             border: 2px solid var(--color-background-soft)
             border-top: none
             border-bottom-left-radius: inherit
             border-bottom-right-radius: inherit
+
+            .editor-limiter
+                flex: 1
+                display: flex
+                flex-direction: column
+                width: 100%
+                max-width: 700px
+                margin: 0 auto
+                outline: none
+                background: var(--color-background)
+
+                &.ignore-limiter
+                    max-width: none
 </style>

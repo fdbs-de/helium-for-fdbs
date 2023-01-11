@@ -29,6 +29,11 @@ export default class PostCategory
         return this._item?.slug
     }
 
+    get scope ()
+    {
+        return this._item?.scope
+    }
+
     get color ()
     {
         return this._item?.color

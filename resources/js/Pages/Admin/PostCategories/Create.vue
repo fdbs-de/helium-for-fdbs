@@ -13,7 +13,7 @@
                     { value: 'blog', icon: 'public', tooltip: 'Blog' },
                     { value: 'intranet', icon: 'policy', tooltip: 'Intranet' },
                     { value: 'wiki', icon: 'travel_explore', tooltip: 'Wiki' },
-                    { value: 'jobs', icon: 'work', tooltip: 'Karriere' },
+                    { value: 'jobs', icon: 'work', tooltip: 'Jobs' },
                 ]"/>
 
                 <div class="spacer"></div>
@@ -23,9 +23,8 @@
                     <option value="hidden">Versteckt</option>
                 </select>
                 
-                <!-- <mui-button class="header-button" type="button" v-if="form.id" label="löschen" color="error" variant="contained" @click="$refs.deletePopup.open()"/> -->
-                <mui-button class="header-button" v-if="form.id" label="Kategorie Speichern" :loading="form.processing" @click="saveItem()"/>
-                <mui-button class="header-button" v-else label="Kategorie erstellen" :loading="form.processing" @click="saveItem()"/>
+                <mui-button v-if="form.id" label="Kategorie Speichern" size="large" :loading="form.processing" @click="saveItem()"/>
+                <mui-button v-else label="Kategorie erstellen" size="large" :loading="form.processing" @click="saveItem()"/>
             </div>
 
             <div class="limiter text-limiter flex vertical gap-1">
@@ -33,7 +32,7 @@
                 
                 <mui-input type="text" label="Slug *" required v-model="form.slug">
                     <template #right>
-                        <button type="button" class="input-button" title="Aus Titel generieren" @click="generateSlug">auto_awesome</button>
+                        <button type="button" class="input-button" v-tooltip.right="'Aus Titel generieren'" @click="generateSlug">auto_awesome</button>
                     </template>
                 </mui-input>
 
@@ -43,9 +42,12 @@
                     <mui-input class="flex-1" type="text" label="Farbe" v-model="form.color" />
                     <mui-input class="flex-1" type="text" label="Icon" v-model="form.icon" />
                 </div>
-
-                <BlogInput class="content-input flex-1" v-model="form.description" />
+                
+                <div class="margin-top-3">
+                    <TextEditor class="content-input flex-1" v-model="form.description" />
+                </div>
             </div>
+
         </form>
     </AdminLayout>
 </template>
@@ -57,7 +59,7 @@
 
     import AdminLayout from '@/Layouts/Admin.vue'
     import Switcher from '@/Components/Form/Switcher.vue'
-    import BlogInput from '@/Components/Form/BlogInput.vue'
+    import TextEditor from '@/Components/Form/TextEditor.vue'
 
     const props = defineProps({
         item: Object,
@@ -145,9 +147,6 @@
         height: 3rem
         color: var(--color-text)
         cursor: pointer
-
-    .header-button
-        height: 3rem !important
 
     .hero-image-wrapper
         border-radius: var(--radius-m)
