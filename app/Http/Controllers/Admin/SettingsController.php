@@ -29,7 +29,8 @@ class SettingsController extends Controller
             'site.slogan' => 'present|nullable|string|max:255',
             'site.domain' => 'present|nullable|string|max:255',
             'site.description' => 'present|nullable|string|max:1000',
-            'site.language' => 'required|string|in:en,de'
+            'site.language' => 'required|string|in:en,de',
+            'legal.disclaimer' => 'present|nullable|string|max:1000',
         ]);
         
         Setting::updateOrCreate(
@@ -76,6 +77,12 @@ class SettingsController extends Controller
         Setting::updateOrCreate(
             ['key' => 'site.language'],
             ['value' => $request->site['language']]
+        );
+
+
+        Setting::updateOrCreate(
+            ['key' => 'legal.disclaimer'],
+            ['value' => $request->legal['disclaimer']]
         );
 
         return back();

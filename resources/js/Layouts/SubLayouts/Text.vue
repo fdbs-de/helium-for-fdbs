@@ -1,10 +1,10 @@
 <template>
     <GuestLayout>
         <main>
-            <section id="hero-section">
+            <section id="hero-section" :class="{'large': largeHero}">
                 <div class="limiter">
                     <div class="inner-wrapper" :style="'background-image: url('+(image || '')+')'">
-                        <h1>{{title}}</h1>
+                        <h1 :style="`color: ${color};`" v-if="title">{{title}}</h1>
                     </div>
                 </div>
             </section>
@@ -25,7 +25,15 @@
     defineProps({
         title: String,
         image: String,
+        color: {
+            type: String,
+            default: 'var(--color-primary)'
+        },
         hasSmallLimiter: {
+            type: Boolean,
+            default: false
+        },
+        largeHero: {
             type: Boolean,
             default: false
         },
@@ -36,6 +44,10 @@
     #hero-section
         display: flex
         margin-top: calc(var(--height-header) + 1rem)
+
+        &.large
+            .inner-wrapper
+                height: 500px
 
         .inner-wrapper
             display: flex
@@ -50,10 +62,8 @@
             border-radius: var(--radius-xl)
 
         h1
-            color: var(--color-primary)
             text-align: center
             font-weight: 700
-            text-shadow: 0 0 10px var(--color-background-soft)
 
     #content-section
         padding-block: 4rem

@@ -2,19 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\AdminContactMail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Inertia\Inertia;
 
 class ContactController extends Controller
 {
+    public function index()
+    {
+        return Inertia::render('Kontakt');
+    }
+
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255',
-            'message' => 'required|max:2000',
+            'name' => 'required|string|max:200',
+            'email' => 'required|email',
+            'message' => 'required|string|max:2000',
             'terms' => 'required|accepted',
         ]);
 
-        return back();
+        Mail::to(config('mail.addresses.user_inquiry'))->send(new AdminContactMail($request->name, $request->email, $request->message));
+
+        return back()->with('success', true);
     }
 }
