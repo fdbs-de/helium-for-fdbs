@@ -2,6 +2,9 @@
     <div class="editor-wrapper" :class="{'fullscreen': isFullscreen}" v-if="editor">
         <div class="editor-controls">
             <div class="toolbar">
+                <div class="flex w-100 h-2 v-center color-heading" v-if="label" style="user-select: none">
+                    <small><b>{{ label }}</b></small>
+                </div>
                 <VDropdown placement="bottom-start">
                     <button type="button" class="toolbar-button drop">Einfügen</button>
                     <template #popper>
@@ -274,6 +277,10 @@
     export default {
         props: {
             modelValue: {
+                type: String,
+                default: '',
+            },
+            label: {
                 type: String,
                 default: '',
             },
@@ -627,7 +634,8 @@
             .toolbar
                 display: flex
                 align-items: center
-                gap: 1rem
+                flex-wrap: wrap
+                gap: 0 1rem
                 min-height: 2rem
                 background: var(--color-background-soft)
                 padding: 0 1rem
@@ -704,6 +712,8 @@
                     background: var(--color-background-soft)
                     border-radius: var(--radius-m)
                     border: none
+                    user-select: none
+                    cursor: pointer
 
                 .button-group
                     height: 2.5rem

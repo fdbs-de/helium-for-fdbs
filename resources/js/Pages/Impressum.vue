@@ -5,6 +5,8 @@
         </Head>
 
         <span v-html="text"></span>
+        <p>&nbsp;</p>
+        <div class="formatted-content" v-html="disclaimer"></div>
         <!-- <p>
             <b>Fleischer-Dienst Braunschweig eG</b><br>
             Christian-Pommer-Straße 31/33<br>
@@ -26,8 +28,8 @@
             Vorsitzender des Aufsichtsrats: <b>Frank Schreiber</b><br>
             Genossenschaftsregister: <b>Amtsgericht Braunschweig</b><br>
             Registernummer: <b>GenR 305</b>
-        </p> -->
-        <p>&nbsp;</p>
+        </p>
+        
         <h2>Bildnachweis:</h2>
         <p>
             ©HBS, ©NDABCREATIVITY, ©Cristalov, ©littlewolf1989, ©New Africa, ©ikonoklast_hh,
@@ -36,7 +38,7 @@
             ©Оля Molly, ©Simple Line, ©torik, ©mitay20, ©Екатерина Заносиенко, ©Yana, ©Sell Vector, ©Olga Rai, ©Mihail, ©sahs94,
             ©Valenty, ©Natalia, ©samuii, ©ngupakarti, ©MuhammadZulfan, ©LuckyStep
             - <a href="https://stock.adobe.com" target="_blank" ref="noopener noreferrer">Adobe Stock</a>
-        </p>
+        </p> -->
     </TextSubLayout>
 </template>
 
@@ -44,6 +46,10 @@
     import { Head, Link } from '@inertiajs/inertia-vue3'
     import TextSubLayout from '@/Layouts/SubLayouts/Text.vue'
     import { ref } from 'vue'
+
+    defineProps({
+        disclaimer: String,
+    })
 
     const text = ref('')
 

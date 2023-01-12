@@ -24,6 +24,12 @@
                 </fieldset>
 
                 <fieldset class="flex vertical gap-1">
+                    <legend>Rechtliches</legend>
+                
+                    <TextEditor class="text-editor" label="Disclaimer unter dem Impressum" v-model="form.legal.disclaimer"/>
+                </fieldset>
+
+                <fieldset class="flex vertical gap-1">
                     <legend>Apps aktivieren</legend>
 
                     <mui-toggle class="checkbox" type="switch" v-model="form.apps.blog">
@@ -71,6 +77,7 @@
     import AdminLayout from '@/Layouts/Admin.vue'
     import Switcher from '@/Components/Form/Switcher.vue'
     import IconButton from '@/Components/Form/IconButton.vue'
+    import TextEditor from '@/Components/Form/TextEditor.vue'
 
     const props = defineProps({
         settings: Array,
@@ -92,6 +99,10 @@
             description: '',
             language: 'de',
         },
+        legal: {
+            disclaimer: '',
+            privacy: '',
+        }
     })
 
 
@@ -107,6 +118,8 @@
         form.site.slogan = props?.settings['site.slogan'] || ''
         form.site.description = props?.settings['site.description'] || ''
         form.site.language = props?.settings['site.language'] || 'de'
+
+        form.legal.disclaimer = props?.settings['legal.disclaimer'] || ''
     }
 
     watch((props) => props?.settings, () => {
@@ -138,4 +151,7 @@
         background: var(--color-background)
         box-shadow: var(--shadow-elevation-low)
         border-radius: var(--radius-m)
+
+    .text-editor
+        min-height: 25rem
 </style>
