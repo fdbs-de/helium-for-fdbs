@@ -69,7 +69,7 @@
 
         try
         {
-            let response = await axios.get(route('customer.specs.search', {
+            let response = await axios.get(route('dashboard.customer.specs.search', {
                 page: pagination.value.current_page ?? 1,
                 search: search.value,
             }))

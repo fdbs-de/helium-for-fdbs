@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Roles\CreateRoleRequest;
 use App\Http\Requests\Roles\DestroyRoleRequest;
 use App\Http\Requests\Roles\UpdateRoleRequest;
+use App\Permissions\Permissions;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Spatie\Permission\Models\Role;
@@ -16,6 +17,7 @@ class RoleController extends Controller
     {
         return Inertia::render('Admin/Roles/Index', [
             'items' => Role::with('permissions')->orderBy('created_at')->get(),
+            'permissions' => Permissions::GROUPED_PERMISSIONS,
         ]);
     }
 

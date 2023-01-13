@@ -1,5 +1,5 @@
 <template>
-    <Head title="Globale Einstellungen">
+    <Head>
         <link rel="icon" href="/images/app/branding/favicon.ico" type="image/x-icon">
         <link rel="shortcut icon" href="/images/app/branding/favicon.ico" type="image/x-icon">
     </Head>

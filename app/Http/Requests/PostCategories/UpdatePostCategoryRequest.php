@@ -28,8 +28,8 @@ class UpdatePostCategoryRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'slug' => 'nullable|string|max:255|unique:post_categories,slug,' . $this->postCategory->id,
             'scope' => ['required', 'string', 'in:blog,intranet,wiki,jobs'],
+            'slug' => ['nullable', 'string', 'max:255', 'unique:post_categories,slug,' . $this->postCategory->id . ',id,scope,' . $this->scope],
             'color' => 'nullable|string|max:31',
             'icon' => 'nullable|string|max:31',
             'description' => 'nullable|string',

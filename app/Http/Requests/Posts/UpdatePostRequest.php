@@ -29,8 +29,8 @@ class UpdatePostRequest extends FormRequest
         return [
             'scope' => ['required', 'string', 'in:blog,intranet,wiki,jobs'],
             'title' => ['nullable', 'string', 'max:255'],
-            'slug' => ['nullable', 'string', 'max:255', 'unique:posts,slug,' . $this->post->id],
-            'category' => ['nullable', 'exists:post_categories,id'],
+            'slug' => ['nullable', 'string', 'max:255', 'unique:posts,slug,' . $this->post->id . ',id,scope,' . $this->scope],
+            'category' => ['required', 'integer', 'exists:post_categories,id,scope,' . $this->scope],
             'tags' => ['nullable', 'array'],
             'tags.*' => ['nullable', 'string'],
             'image' => ['nullable', 'string'],

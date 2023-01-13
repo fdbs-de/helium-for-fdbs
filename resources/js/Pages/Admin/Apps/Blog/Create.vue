@@ -58,7 +58,7 @@
                 
                 <div class="flex gap-1 v-center">
                     <select v-model="form.category">
-                        <option :value="null">Keine Kategorie</option>
+                        <option :value="null" disabled>Kategorie auswählen</option>
                         <option v-for="category in categories" :key="category.id" :value="category.id">{{category.name}}</option>
                     </select>
 
@@ -120,6 +120,12 @@
     const props = defineProps({
         post: Object,
         categories: Array,
+    })
+
+
+
+    const categories = computed(() => {
+        return props.categories.filter(e => e.scope === form.scope)
     })
 
 

@@ -11,6 +11,7 @@ use App\Models\Post;
 use App\Models\PostCategory;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Spatie\Permission\Models\Role;
 
 class PostController extends Controller
 {
@@ -31,6 +32,7 @@ class PostController extends Controller
         return Inertia::render('Admin/Apps/Blog/Create', [
             'post' => $post,
             'categories' => PostCategory::orderBy('name', 'asc')->get(),
+            'roles' => Role::orderBy('name', 'asc')->get(),
         ]);
     }
 

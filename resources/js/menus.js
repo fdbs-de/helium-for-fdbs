@@ -1,6 +1,6 @@
 export const mainMenu = [
     { id: 'home', label: 'Home', href: route('home'), children: [] },
-    // { id: 'blog', label: 'Blog', href: route('blog'), children: [] },
+    { id: 'blog', label: 'Blog', href: route('blog'), children: [] },
     { id: 'philosophie', label: 'Philosophie', href: route('philosophie'), children: [] },
     { id: 'projekte-und-services', label: 'Produkte & Services', href: route('produkte-und-services'), children: [
         { id: 'angebote', label: 'Aktuelle Angebote', href: route('ps.angebote'), children: [] },
