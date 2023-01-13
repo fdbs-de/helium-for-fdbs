@@ -26,7 +26,7 @@ Route::get('/philosopie', [StaticController::class, 'indexPhilosophie'])->name('
 
 Route::prefix('/blog')->group(function () {
     Route::get('/', [BlogController::class, 'index'])->name('blog');
-    Route::get('/{post:slug}', [BlogController::class, 'show'])->name('blog.article');
+    Route::get('/{category}/{post}', [BlogController::class, 'show'])->name('blog.article');
 });
 
 Route::prefix('/produkte-und-services')->group(function () {
@@ -64,9 +64,9 @@ Route::prefix('/produkte-und-services')->group(function () {
 Route::prefix('/karriere')->group(function () {
     Route::get('/', [JobController::class, 'index'])->name('karriere');
     Route::get('/stellenangebote', [JobController::class, 'index'])->name('karriere.stellenangebote');
-    Route::get('/stellenangebote/{post:slug}', [JobController::class, 'show'])->name('karriere.stellenangebote.show');
-    Route::get('/bewerben-als/lkw-fahrer', [JobController::class, 'showFunnelFahrer'])->middleware(['role:Super Admin|Admin'])->name('karriere.funnel.lkw-fahrer');
-    Route::post('/bewerben-als/lkw-fahrer', [JobController::class, 'storeFunnelFahrer'])->middleware(['role:Super Admin|Admin'])->name('karriere.funnel.lkw-fahrer.store');
+    Route::get('/stellenangebote/{post}', [JobController::class, 'show'])->name('karriere.stellenangebote.show');
+    Route::get('/bewerben-als/lkw-fahrer', [JobController::class, 'showFunnelFahrer'])->name('karriere.funnel.lkw-fahrer');
+    Route::post('/bewerben-als/lkw-fahrer', [JobController::class, 'storeFunnelFahrer'])->name('karriere.funnel.lkw-fahrer.store');
 });
 
 Route::get('/kontakt', [ContactController::class, 'index'])->name('kontakt');

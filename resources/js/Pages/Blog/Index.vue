@@ -10,10 +10,10 @@
                     aspect-ratio="2.5"
                     :key="post.id"
                     :name="post.title"
-                    :primary-tag="$dayjs(post.created_at).format('D. MMMM YYYY')"
-                    :tags="post.category ? [post.category.name] : null"
-                    :image="post.image || 'https://images.unsplash.com/photo-1605106325682-3482f7c1c9c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=663&q=80'"
-                    :link="post.slug ? route('blog.article', {'post': post.slug}) : '#'"
+                    :primary-tag="post.category.name"
+                    :tags="post.tags"
+                    :image="post.image"
+                    :link="route('blog.article', [post.category.slug, post.slug])"
                 />
             </div>
         </div>
@@ -22,13 +22,19 @@
 
 <script setup>
     import { Head, Link } from '@inertiajs/inertia-vue3'
+    import PostInterface from '@/Interfaces/Wiki/Post.js'
+    import { computed } from 'vue'
+
+    import TextSubLayout from '@/Layouts/SubLayouts/Text.vue'
     import Tag from '@/Components/Form/Tag.vue'
     import Card from '@/Components/Page/Card.vue'
-    import TextSubLayout from '@/Layouts/SubLayouts/Text.vue'
 
     const props = defineProps({
         posts: Array,
     })
+
+    const posts_ = computed(() => props.posts)
+    const posts = computed(() => posts_.value.map(post => new PostInterface(post)))
 </script>
 
 <style lang="sass" scoped>

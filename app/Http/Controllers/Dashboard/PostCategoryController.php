@@ -16,7 +16,7 @@ class PostCategoryController extends Controller
     public function index()
     {
         return Inertia::render('Admin/PostCategories/Index', [
-            'categories' => PostCategory::withCount('posts')->orderBy('name', 'asc')->get(),
+            'categories' => PostCategory::withCount('posts')->orderBy('scope')->orderBy('name', 'asc')->get(),
         ]);
     }
 

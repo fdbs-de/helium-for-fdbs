@@ -31,13 +31,28 @@ class WikiController extends Controller
 
             'categories' => PostCategory::select('id', 'name', 'slug', 'icon', 'color')
             ->where('status', 'published')
+            ->where('scope', 'wiki')
             ->orderBy('name')
             ->get(),
         ]);
     }
 
-    public function show($category, Post $post)
+    public function show($category, $post)
     {
+        $category = ($category === '-') ? null : PostCategory::where('slug', $category)->where('scope', 'wiki')->where('status', 'published')->firstOrFail();
+
+        $post = Post::where('slug', $post)
+            ->where('scope', 'wiki')
+            ->where('status', 'published')
+            ->where('category', optional($category)->id ?? null)
+            ->where(function ($query) {
+                $query->whereDate('available_from', '<=', now())->orWhere('available_from', null);
+            })
+            ->where(function ($query) {
+                $query->whereDate('available_to', '>=', now())->orWhere('available_to', null);
+            })
+            ->firstOrFail();
+
         return Inertia::render('Wiki/Show', [
             'post' => $post->load(['category' => function ($query) {
                 $query->select('id', 'name', 'slug', 'icon', 'color');

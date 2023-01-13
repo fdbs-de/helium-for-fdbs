@@ -26,7 +26,11 @@
                 <div class="options">
                     <button type="button" :class="{'active': form.driversLicense === 'keinen'}" @click="form.driversLicense = 'keinen'">keinen</button>
                     <button type="button" :class="{'active': form.driversLicense === 'C'}" @click="form.driversLicense = 'C'">C</button>
+                </div>
+                
+                <div class="options">
                     <button type="button" :class="{'active': form.driversLicense === 'CE'}" @click="form.driversLicense = 'CE'">CE</button>
+                    <button type="button" :class="{'active': form.driversLicense === 'C und CE'}" @click="form.driversLicense = 'C und CE'">C und CE</button>
                 </div>
             </div>
 

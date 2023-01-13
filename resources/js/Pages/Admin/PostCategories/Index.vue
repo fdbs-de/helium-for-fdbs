@@ -4,6 +4,13 @@
     <AdminLayout title="Kategorien verwalten">
         <div class="flex v-center gap-1">
             <Actions v-show="selection.length >= 1" :selection="selection" @deselect="deselectAll()" @delete="openDeletePopup()"/>
+            <Switcher v-show="selection.length <= 0" v-model="scope" :options="[
+                { value: null, icon: 'apps', tooltip: 'Alle' },
+                { value: 'blog', icon: 'public', tooltip: 'Blog' },
+                { value: 'intranet', icon: 'policy', tooltip: 'Intranet' },
+                { value: 'wiki', icon: 'travel_explore', tooltip: 'Wiki' },
+                { value: 'jobs', icon: 'work', tooltip: 'Jobs' },
+            ]"/>
 
             <div class="spacer"></div>
 
@@ -27,7 +34,7 @@
 
         <ListItemLayout class="w-100 margin-block-2" :layout="layout" v-show="items.length >= 1">
             <ImageCard
-                v-for="item in items"
+                v-for="item in filteredItems"
                 :key="item.id"
                 :item="item"
                 :layout="layout"
@@ -95,6 +102,23 @@
     const layout = ref('list')
     const isPreview = ref(false)
     // END: View Parameters
+
+
+
+    // START: Filter
+    const scope = ref(null)
+
+    const filteredItems = computed(() => {
+        if (scope.value === null)
+        {
+            return items.value
+        }
+        else
+        {
+            return items.value.filter(p => p.scope === scope.value)
+        }
+    })
+    // END: Filter
 
 
 

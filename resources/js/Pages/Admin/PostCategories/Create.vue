@@ -39,7 +39,11 @@
                 
                 
                 <div class="flex gap-1 v-center">
-                    <mui-input class="flex-1" type="text" label="Farbe" v-model="form.color" />
+                    <mui-input class="flex-1" type="text" label="Farbe" v-model="form.color">
+                        <template #right>
+                            <input type="color" v-model="form.color">
+                        </template>
+                    </mui-input>
                     <mui-input class="flex-1" type="text" label="Icon" v-model="form.icon" />
                 </div>
                 
@@ -148,49 +152,6 @@
         color: var(--color-text)
         cursor: pointer
 
-    .hero-image-wrapper
-        border-radius: var(--radius-m)
-        background: var(--color-background-soft)
-        overflow: hidden
-        position: relative
-        width: 100%
-        aspect-ratio: 5
-        transition: all 100ms ease-out
-        --mui-background: var(--color-background)
-
-        &.expanded
-            aspect-ratio: 2.5
-
-        &:hover .hero-image-overlay
-            transform: translateY(0) !important
-
-        .hero-image
-            width: 100%
-            height: 100%
-            object-fit: cover
-            position: absolute
-            top: 0
-            left: 0
-
-        .hero-image-overlay
-            position: absolute
-            left: 0
-            width: 100%
-            transition: transform 100ms ease-out
-            --primary: white
-
-            &.bottom
-                bottom: 0
-                padding-block: 1rem .5rem
-                transform: translateY(100%)
-                background: linear-gradient(0deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%)
-
-            &.top
-                top: 0
-                padding-block: .5rem 1rem
-                transform: translateY(-100%)
-                background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 100%)
-
     .input-button
         height: 2rem
         width: 2rem
@@ -218,44 +179,20 @@
         &.active
             color: var(--color-primary)
 
-    .group
-        display: flex
-        flex-direction: column
-        padding: 1rem
-        gap: 1rem
-        border-radius: var(--radius-s)
-        background: var(--color-background-soft)
-
-        .heading
-            color: var(--color-heading)
-
-    .icon-button.pill
-        height: 1.5rem
-        width: 2.5rem
-        display: flex
-        align-items: center
-        justify-content: center
-        user-select: none
-        font-size: 1.2rem
-        font-family: var(--font-icon)
-        color: var(--color-primary)
-        background: #e0004730
-        border-radius: var(--radius-xl)
-        padding: 0
+    input[type="color"]
+        height: 2rem
+        width: 3.5rem
         border: none
-        cursor: pointer
+        padding: 0
+        margin: 0
+        -webkit-appearance: none
 
-        &:hover,
-        &:focus
-            background: var(--color-primary)
-            color: var(--color-background)
+        &::-webkit-color-swatch-wrapper
+            padding: 0
 
-    .date-input
-        display: flex
-        align-items: center
-        height: 3rem
-        background: var(--color-background)
-        border-radius: var(--radius-s)
+        &::-webkit-color-swatch
+            border-radius: var(--radius-s)
+            border: 1px solid white
         
     .content-input
         min-height: 25rem

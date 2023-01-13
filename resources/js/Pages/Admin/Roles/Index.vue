@@ -27,7 +27,7 @@
                     <mui-button size="large" :loading="form.processing" >Rolle speichern</mui-button>
                 </div>
                 
-                <div class="flex vertical">
+                <div class="flex gap-1 vertical">
                     <mui-toggle class="checkbox" v-for="permission in permissions" :key="permission.name" :modelValue="form.permissions.includes(permission.name)" @update:modelValue="togglePermission(permission.name)">
                         <template #label>
                             <div class="w-100 flex v-center">
@@ -36,6 +36,22 @@
                             </div>
                         </template>
                     </mui-toggle>
+
+                    <fieldset class="flex gap-1 vertical" v-for="(group, key) in groupedPermissions" :key="key">
+                        <legend>{{ group.title }}</legend>
+
+                        <div class="flex vertical" v-for="(subgroup, i) in group.permissions" :key="'permission_group_'+group.title+'_'+i">
+                            <!-- <mui-toggle class="checkbox" v-for="permission in subgroup" :key="permission.name" :modelValue="form.permissions.includes(permission.name)" @update:modelValue="togglePermission(permission.name)"> -->
+                            <mui-toggle class="checkbox" v-for="permission in subgroup" :key="permission.name" :modelValue="form.permissions.includes(permission.name)">
+                                <template #label>
+                                    <div class="w-100 flex v-center">
+                                        <span class="flex-1">{{ permission.label }}</span>
+                                        <div class="icon" v-tooltip="permission.description">info</div>
+                                    </div>
+                                </template>
+                            </mui-toggle>
+                        </div>
+                    </fieldset>
                 </div>
             </form>
 
@@ -62,12 +78,17 @@
 
     const props = defineProps({
         items: Array,
+        permissions: Object,
     })
 
     const search = ref('')
 
     const items = computed(() => {
         return props.items.filter((item) => item.name.toLowerCase().includes(search.value.toLowerCase()))
+    })
+
+    const groupedPermissions = computed(() => {
+        return props.permissions
     })
 
     const permissions = ref([

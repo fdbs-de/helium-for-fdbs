@@ -1,7 +1,7 @@
 export default class Post
 {
     _item
-    _visualDictionary = {
+    _scopeDictionary = {
         'blog': { id: 'blog', icon: 'public', color: '#1e90ff', tooltip: 'Blog Beitrag' },
         'wiki': { id: 'wiki', icon: 'travel_explore', color: '#ff6348', tooltip: 'Wiki Eintrag' },
         'intranet': { id: 'intranet', icon: 'policy', color: '#8854d0', tooltip: 'Intranet Post' },
@@ -11,7 +11,7 @@ export default class Post
     _statusDictionary = {
         'draft': { id: 'draft', icon: 'draft', color: 'var(--color-text)', tooltip: 'Entwurf' },
         'pending': { id: 'pending', icon: 'forum', color: 'var(--color-yellow)', tooltip: 'Zur Freigabe' },
-        'published': { id: 'published', icon: 'public', color: 'var(--color-green)', tooltip: 'Veröffentlicht' },
+        'published': { id: 'published', icon: 'check_circle', color: 'var(--color-green)', tooltip: 'Veröffentlicht' },
         'hidden': { id: 'hidden', icon: 'visibility_off', color: 'var(--color-red)', tooltip: 'Versteckt' },
         'unknown': { id: 'unknown', icon: 'help', color: 'var(--color-text)', tooltip: 'Unbekannt' },
     }
@@ -55,12 +55,20 @@ export default class Post
 
             icons: [
                 (this._statusDictionary[this._item?.status] || this._statusDictionary['unknown']),
+                (this._scopeDictionary[this._item?.scope] || this._scopeDictionary['unknown']),
             ],
         }
     }
 
     get displayVisual ()
     {
+        return {
+            id: 'default',
+            icon: this._item?.icon || 'notes',
+            color: this._item?.color || 'var(--color-text)',
+            tooltip: 'Post'
+        }
+
         return this._visualDictionary[this._item?.scope] || this._visualDictionary['unknown']
     }
 
