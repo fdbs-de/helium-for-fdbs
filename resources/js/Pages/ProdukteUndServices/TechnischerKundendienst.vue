@@ -1,7 +1,7 @@
 <template>
     <ServiceSubLayout title="Technischer Kundendienst" image="/images/content/banner/service_425530867_425530980_436047070_425530651_425530924_425530335.webp">
         <Head>
-            <title>Produkte & Services: Technischer Kundendienst</title>
+            <title>Produkte & Services: Technischer Kundendienst – FDBS</title>
         </Head>
 
         <template #ansprechpartner>

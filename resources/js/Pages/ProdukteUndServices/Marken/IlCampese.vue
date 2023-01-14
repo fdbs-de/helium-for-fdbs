@@ -2,7 +2,7 @@
     <TextSubLayout title="Il Campese" image="/images/content/marken/il-campese/header.jpg" has-small-limiter>
 
         <Head>
-            <title>Il Campese</title>
+            <title>Il Campese – FDBS</title>
         </Head>
 
         <div class="logo-wrapper">

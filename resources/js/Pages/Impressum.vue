@@ -1,7 +1,7 @@
 <template>
     <TextSubLayout title="Impressum" image="/images/content/banner/rechtliches_437198485.webp" has-small-limiter>
         <Head>
-            <title>Impressum</title>
+            <title>Impressum – FDBS</title>
         </Head>
 
         <span v-html="text"></span>

@@ -1,7 +1,7 @@
 <template>
     <TextSubLayout title="FDBS Blog" image="/images/content/banner/rechtliches_437198485.webp">
         <Head>
-            <title>Blog</title>
+            <title>Unsere Blogbeiträge – FDBS Blog</title>
         </Head>
 
         <div class="limiter flex vertical" style="padding: 0">

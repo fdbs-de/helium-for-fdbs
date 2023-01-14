@@ -1,6 +1,6 @@
 <template>
     <FormSubLayout title="Passwort zurücksetzen" @submit="submit">
-        <Head title="Passwort zurücksetzen" />
+        <Head title="Passwort zurücksetzen – FDBS Loginbereich" />
 
         <mui-input type="email" label="Email *" v-model="form.email" required autocomplete="username"/>
         <mui-input type="password" label="Passwort *" v-model="form.password" show-password-score required autocomplete="new-password"/>

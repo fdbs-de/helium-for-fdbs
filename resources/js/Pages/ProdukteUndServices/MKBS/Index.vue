@@ -1,7 +1,7 @@
 <template>
     <GuestLayout>
         <Head>
-            <title>Marketing & Kommunikation</title>
+            <title>Marketing & Kommunikation – FDBS Marketing</title>
         </Head>
 
         <section id="hero">

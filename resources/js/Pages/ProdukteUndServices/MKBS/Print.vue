@@ -1,7 +1,7 @@
 <template>
     <TextSubLayout image="/images/content/mkbs/banner/header_print.png" large-hero has-small-limiter>
         <Head>
-            <title>Print Design</title>
+            <title>Print Design – FDBS Marketing</title>
         </Head>
 
         <h1>Unsere Leistungen im Print</h1>

@@ -1,7 +1,7 @@
 <template>
     <TextSubLayout title="Unsere Marken" image="/images/content/banner/marken_509487561.webp">
         <Head>
-            <title>Produkte & Services: Unsere Marken</title>
+            <title>Produkte & Services: Unsere Marken – FDBS</title>
         </Head>
         <div class="grid">
             <Card cover name="Eichenhof" image="/images/content/marken/eichenhof/eichenhof_card.png" :link="route('ps.marken.eichenhof')"/>

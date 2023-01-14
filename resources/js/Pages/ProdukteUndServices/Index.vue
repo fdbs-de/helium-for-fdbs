@@ -1,7 +1,7 @@
 <template>
     <TextSubLayout title="Unsere Produkte und Services" image="/images/content/banner/produkte_services_229048757.webp">
         <Head>
-            <title>Unsere Produkte & Services</title>
+            <title>Unsere Produkte & Services – FDBS</title>
         </Head>
         <div class="grid">
             <Card name="Unsere Angebote" alt="Unsere Angebote" cover :link="route('ps.angebote')" image="/images/content/services/cover/angebote_cover.png"/>

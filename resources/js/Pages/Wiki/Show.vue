@@ -1,7 +1,7 @@
 <template>
     <WikiLayout>
         <Head>
-            <title>{{post.title}}</title>
+            <title>{{post.title}} – FDBS Wiki</title>
         </Head>
         
         <div class="limiter">

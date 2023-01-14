@@ -1,7 +1,7 @@
 <template>
     <TextSubLayout image="/images/content/mkbs/banner/header_some.png" large-hero has-small-limiter>
         <Head>
-            <title>Social Media Marketing</title>
+            <title>Social Media Marketing – FDBS Marketing</title>
         </Head>
 
         <h1>Unsere Leistungen im Social Media Marketing</h1>

@@ -1,7 +1,7 @@
 <template>
     <TextSubLayout title="Unsere aktuellen Angebote" image="/images/content/banner/angebote_526077708.webp">
         <Head>
-            <title>Unsere aktuellen Angebote</title>
+            <title>Unsere aktuellen Angebote – FDBS</title>
         </Head>
         <div class="grid">
             <Card v-for="angebot in angebote" new-window

@@ -1,6 +1,6 @@
 <template>
     <Head>
-        <title>Kontakt & Ansprechpartner</title>
+        <title>Kontakt & Ansprechpartner – FDBS</title>
     </Head>
 
     <TextSubLayout title="Kontakt & Ansprechpartner" image="/images/content/banner/kontakt_360006987.webp">

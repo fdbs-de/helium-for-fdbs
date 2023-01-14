@@ -1,6 +1,6 @@
 <template>
     <Head>
-        <title>Mehrwegpflicht</title>
+        <title>Mehrwegpflicht – FDBS</title>
     </Head>
 
     <TextSubLayout title="Mehrwegpflicht ab 01.01.2023" image="/images/content/banner/mehrwegpflicht_481353401.webp">

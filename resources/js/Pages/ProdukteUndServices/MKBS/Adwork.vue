@@ -1,7 +1,7 @@
 <template>
     <TextSubLayout image="/images/content/mkbs/banner/header_verpackungen.png" large-hero has-small-limiter>
         <Head>
-            <title>Verpackungen & Verkaufsförderung</title>
+            <title>Verpackungen & Verkaufsförderung – FDBS Marketing</title>
         </Head>
 
         <h1>Unsere Leistungen in Verpackungen & Verkaufsförderung</h1>

@@ -1,7 +1,7 @@
 <template>
     <GuestLayout>
         <Head>
-            <title>The Competence in Foodservice</title>
+            <title>The Competence in Foodservice – FDBS</title>
             <meta name="description" content="Wir sind FDBS – Ihre Kompetenz rund um den Foodservice. Von Food, über Non-Food bis hin zum Marketing und technischen Kundendienst können wir Ihnen helfen.">
         </Head>
 

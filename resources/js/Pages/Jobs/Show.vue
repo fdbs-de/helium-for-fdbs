@@ -1,7 +1,7 @@
 <template>
-    <TextSubLayout :title="'Stellenangebot: '+post.title" image="/images/content/banner/karriere_513169496_482949832.webp" has-small-limiter>
+    <TextSubLayout :title="post.title" image="/images/content/banner/karriere_513169496_482949832.webp" has-small-limiter>
         <Head>
-            <title>Stellenangebot: {{post.title}}</title>
+            <title>{{post.title}} – FDBS Karriere</title>
         </Head>
 
         <div class="flex wrap gap-1 v-center margin-bottom-4">

@@ -2,7 +2,7 @@
     <TextSubLayout title="Eichenhof Markenfleisch" image="/images/content/marken/eichenhof/header.jpg" has-small-limiter>
 
         <Head>
-            <title>Eichenhof Markenfleisch</title>
+            <title>Eichenhof Markenfleisch – FDBS</title>
         </Head>
 
         <div class="logo-wrapper">

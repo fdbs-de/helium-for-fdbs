@@ -42,11 +42,6 @@ dayjs.locale('de')
 // Initialize App      //
 /////////////////////////
 createInertiaApp({
-    title(title)
-    {
-        return `${title} – FDBS`
-    },
-
     resolve(name)
     {
         return require(`./Pages/${name}.vue`)
