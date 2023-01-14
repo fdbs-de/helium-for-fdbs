@@ -1,6 +1,6 @@
 <template>
     <FormSubLayout title="Registrierung" :status="status" @submit="submit" no-padding no-spacing>
-        <Head title="Registrierung" />
+        <Head title="Registrierung – FDBS Loginbereich" />
 
         <div class="step-container">
             <div class="controls-wrapper">

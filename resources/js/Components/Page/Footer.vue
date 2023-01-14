@@ -2,7 +2,6 @@
     <footer>
         <div class="limiter certificate-row">
             <p>Wir sind zertifiziert durch:</p>
-            <div class="divider"></div>
             <div class="wrapper">
                 <a class="cert-wrapper" href="/downloads/zertifikate/qs_zertifikat_2022.pdf" target="_blank" rel="noopener noreferrer" style="border-radius: 0">
                     <img src="/images/assets/zertifikate/qs_logo.webp" alt="QS Zertifizierung">
@@ -108,7 +107,7 @@
     import { ref, computed } from 'vue'
 
     const productsMenu = computed(() => {
-        return mainMenu.find(e => e.id === 'projekte-und-services')?.children || []
+        return mainMenu.find(e => e.id === 'produkte-und-services')?.children || []
     })
 
 
@@ -196,18 +195,14 @@
         background: var(--color-background-soft)
         display: flex
         flex-direction: column
-        gap: calc(var(--su) * 3)
-        padding-top: calc(var(--su) * 3)
+        gap: 3rem
+        padding-top: 3rem
         color: var(--color-text)
-        --color-text: #525858
 
         .certificate-row
             display: flex
             flex-direction: column
-            background: var(--color-background)
-            box-shadow: var(--shadow-elevation-low)
-            border-radius: calc(var(--su) * .5)
-            padding: var(--su)
+            gap: 1rem
             border: 1px solid var(--color-background-soft)
 
             p
@@ -217,12 +212,15 @@
                 display: flex
                 flex-wrap: wrap
                 align-items: center
-                gap: calc(var(--su) * 2)
-                margin-block: calc(var(--su) * 2) var(--su)
+                gap: 2rem
+                padding-bottom: 3rem
+                border-bottom: 2px solid rgba(0,0,0,.1)
 
                 .cert-wrapper
                     height: 5rem
-                    border-radius: calc(var(--su) * .5)
+                    border-radius: var(--radius-m)
+                    background: var(--color-background)
+                    box-shadow: var(--shadow-elevation-low)
                     filter: saturate(0)
 
                     img
@@ -292,7 +290,7 @@
                     opacity: .6
 
                 span
-                    font-weight: 600
+                    font-weight: 400
 
             .spacer
                 flex: 1
@@ -302,11 +300,7 @@
                 gap: var(--su)
                 flex-wrap: wrap
 
-    @media only screen and (max-width: 1300px)
-        footer
-            .certificate-row
-                margin-inline: var(--su)
-                width: calc(100% - var(--su) * 2)
+
 
     @media only screen and (max-width: 1000px)
         footer
@@ -319,11 +313,16 @@
             gap: 0
 
             .certificate-row
-                margin-bottom: 1.5rem
+                // margin-bottom: 1.5rem
 
-                .wrapper .cert-wrapper
-                    height: 3.4rem
-                    border-radius: calc(var(--su) * .3)
+                .wrapper
+                    border-bottom: none
+                    padding-bottom: 0
+                    gap: 1.5rem
+
+                    .cert-wrapper
+                        // height: 3.4rem
+                        border-radius: var(--radius-s)
 
             .link-row
                 grid-template-columns: 1fr

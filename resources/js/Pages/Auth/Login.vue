@@ -1,6 +1,6 @@
 <template>
     <FormSubLayout title="Anmeldung" :status="status" @submit="submit">
-        <Head title="Anmeldung" />
+        <Head title="Anmeldung – FDBS Loginbereich" />
 
         <mui-input type="email" label="Email" v-model="form.email" required autocomplete="username"/>
         <mui-input type="password" label="Passwort" v-model="form.password" required autocomplete="current-password"/>

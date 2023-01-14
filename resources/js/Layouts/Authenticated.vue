@@ -1,4 +1,8 @@
 <template>
+    <Head>
+        <title>{{title || 'Loginbereich'}} – FDBS Loginbereich</title>
+    </Head>
+
     <button class="toggle-open" :class="{'open': isOpen}" :title="isOpen ? 'Menü ausklappen' : 'Menü einklappen'" @click="isOpen = !isOpen">
         <svg class="svg-wrapper" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
             <path class="hamburger-path" d="M5 9C5 9 17.5 9 19 9C20.5 9 22.5 7.5 21.5 6C20.5 4.5 18 6 17 7C16 8 7 17 7 17"/>
@@ -93,7 +97,7 @@
 
 <script setup>
     import Footer from '@/Components/Page/Footer.vue'
-    import { Link, usePage } from '@inertiajs/inertia-vue3'
+    import { Head, Link, usePage } from '@inertiajs/inertia-vue3'
     import { ref, computed } from 'vue'
     import { can } from '@/Utils/Permissions'
 

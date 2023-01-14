@@ -1,7 +1,7 @@
 <template>
     <TextSubLayout title="Unsere Firmenphilosophie" image="/images/content/banner/philosophie_457297988.webp" has-small-limiter>
         <Head>
-            <title>Unsere Firmenphilosophie</title>
+            <title>Unsere Firmenphilosophie – FDBS</title>
         </Head>
 
         <p>

@@ -1,7 +1,7 @@
 <template>
     <TextSubLayout title="Datenschutzerklärung" image="/images/content/banner/rechtliches_437198485.webp" has-small-limiter>
         <Head>
-            <title>Datenschutzerklärung</title>
+            <title>Datenschutzerklärung – FDBS</title>
         </Head>
 
         <!-- <Alert icon="info" title="Datenschutzerklärungen für unsere Social Media Kanäle">

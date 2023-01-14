@@ -1,6 +1,6 @@
 <template>
     <FormSubLayout title="Passwort vergessen" :status="status" @submit="submit">
-        <Head title="Passwort vergessen" />
+        <Head title="Passwort vergessen – FDBS Loginbereich" />
 
         <span>
             <b>Sie haben Ihr Passwort vergessen? Kein Problem!</b><br>

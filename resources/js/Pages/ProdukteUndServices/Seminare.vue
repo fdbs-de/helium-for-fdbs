@@ -1,7 +1,7 @@
 <template>
     <TextSubLayout title="Seminare" image="/images/content/banner/seminare_291711336_335532188.webp" has-small-limiter>
         <Head>
-            <title>Produkte & Services: Seminare</title>
+            <title>Produkte & Services: Seminare – FDBS</title>
         </Head>
         <!-- <div class="grid">
             <Card aspect-ratio="16/9" cover name="AZUBI Bootcamp" alt="AZUBI Bootcamp" primary-tag="14.09.2022" :tags="['Maja Kirsch']" image="/images/content/seminare/azubibootcamp_50245828.jpg" new-window link="/downloads/seminare/azubibootcamp_2022.pdf"/>

@@ -1,7 +1,7 @@
 <template>
     <TextSubLayout image="/images/content/mkbs/banner/header_webentwicklung.png" large-hero has-small-limiter>
         <Head>
-            <title>Web Entwicklung</title>
+            <title>Web Entwicklung – FDBS Marketing</title>
         </Head>
 
         <h1>Unsere Leistungen in der Webentwicklung</h1>

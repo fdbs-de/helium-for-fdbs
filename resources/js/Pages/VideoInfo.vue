@@ -1,7 +1,7 @@
 <template>
     <TextSubLayout title="Videoüberwachung" image="/images/content/banner/rechtliches_437198485.webp" has-small-limiter>
         <Head>
-            <title>Infos zur Videoüberwachung</title>
+            <title>Infos zur Videoüberwachung – FDBS</title>
         </Head>
 
         <Alert icon="info">

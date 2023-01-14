@@ -1,7 +1,7 @@
 <template>
     <WikiLayout>
         <Head>
-            <title>Firmenwiki</title>
+            <title>Firmenwiki – FDBS Wiki</title>
             <meta name="description" content="Wir sind FDBS – Ihre Kompetenz rund um den Foodservice. Von Food, über Non-Food bis hin zum Marketing und technischen Kundendienst können wir Ihnen helfen.">
         </Head>
 

@@ -2,7 +2,7 @@
     <TextSubLayout title="Maxi France" image="/images/content/marken/maxi-france/header.jpg" has-small-limiter>
 
         <Head>
-            <title>Maxi France</title>
+            <title>Maxi France – FDBS</title>
         </Head>
 
         <div class="logo-wrapper">

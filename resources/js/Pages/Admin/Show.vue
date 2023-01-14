@@ -1,6 +1,4 @@
 <template>
-    <Head title="Admin-Übersicht" />
-
     <AdminLayout title="Admin-Übersicht">
         <div class="layout">
             <div class="card main spec">
@@ -20,7 +18,7 @@
                 <div class="card-data">
                     <p>Noch nicht freigegeben Nutzer</p>
                     <h2>
-                        <span>{{getFiller(users.disabled, 4)}}</span>{{users.disabled}}
+                        <span>{{getFiller(users.disabled, 3)}}</span>{{users.disabled}}
                     </h2>
                 </div>
             </div>

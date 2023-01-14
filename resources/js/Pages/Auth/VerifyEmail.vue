@@ -1,7 +1,7 @@
 <template>
     <FormSubLayout title="Email bestätigen" @submit="submit">
         <Head>
-            <title>Email Bestätigung</title>
+            <title>Email Bestätigung – FDBS Loginbereich</title>
         </Head>
 
         <Alert type="info" v-if="verificationLinkSent">

@@ -36,10 +36,10 @@ createServer((page) => createInertiaApp({
     page,
     render: renderToString,
     
-    title(title)
-    {
-        return `FDBS – ${title}`
-    },
+    // title(title)
+    // {
+    //     return `FDBS – ${title}`
+    // },
 
     resolve(name)
     {

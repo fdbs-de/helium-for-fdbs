@@ -1,7 +1,7 @@
 <template>
     <TextSubLayout image="/images/content/mkbs/banner/header_digitalmarketing.png" large-hero has-small-limiter>
         <Head>
-            <title>Digital Marketing</title>
+            <title>Digital Marketing – FDBS Marketing</title>
         </Head>
 
         <h1>Unsere Leistungen im Digital Marketing</h1>

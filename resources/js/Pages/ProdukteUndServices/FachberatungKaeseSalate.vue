@@ -1,7 +1,7 @@
 <template>
     <ServiceSubLayout title="Fachberatung: Käse & Salate" image="/images/content/banner/kaese_456058818_517233479_394966920_451586018.webp">
         <Head>
-            <title>Produkte & Services: Fachberatung Käse & Salate</title>
+            <title>Produkte & Services: Fachberatung Käse & Salate – FDBS</title>
         </Head>
 
         <template #ansprechpartner>

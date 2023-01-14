@@ -1,7 +1,7 @@
 <template>
     <GuestLayout>
         <Head>
-            <title>{{post.title}}</title>
+            <title>{{post.title}} – FDBS Blog</title>
         </Head>
     
         <div class="limiter">

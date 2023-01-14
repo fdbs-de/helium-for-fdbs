@@ -2,9 +2,8 @@
     <Head>
         <link rel="icon" href="/images/app/branding/favicon.ico" type="image/x-icon">
         <link rel="shortcut icon" href="/images/app/branding/favicon.ico" type="image/x-icon">
+        <title>{{title || 'CMS'}} – Gastro CMS</title>
     </Head>
-
-
 
     <div class="layout">
         <div class="menu" :class="{'open': isOpen}">

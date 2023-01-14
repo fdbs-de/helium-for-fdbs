@@ -1,6 +1,6 @@
 <template>
     <Head>
-        <title>Unsere Stellenangebote</title>
+        <title>Unsere Stellenangebote – FDBS Karriere</title>
     </Head>
 
     <TextSubLayout title="Unsere Stellenangebote" image="/images/content/banner/karriere_513169496_482949832.webp">

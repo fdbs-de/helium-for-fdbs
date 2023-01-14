@@ -2,11 +2,13 @@
     <TextSubLayout title="Allgemeine Geschäftsbedingungen" image="/images/content/banner/rechtliches_437198485.webp" has-small-limiter>
 
         <Head>
-            <title>Allgemeine Geschäftsbedingungen</title>
+            <title>Allgemeine Geschäftsbedingungen – FDBS</title>
         </Head>
 
-        <h2>Allgemeine Geschäftsbedingungen der Fleischer-Dienst Braunschweig eG für die Lieferung von Waren an
-            Unternehmer (B2B)</h2>
+        <h2>
+            Allgemeine Geschäftsbedingungen der Fleischer-Dienst Braunschweig eG für die Lieferung von Waren an
+            Unternehmer (B2B)
+        </h2>
         <h3><br />1 Geltungsbereich, Begriffsbestimmungen</h3>
         <p><br />1.1 Diese Allgemeinen Geschäftsbedingungen (nachfolgend „AGB“) der Fleischer-Dienst Braunschweig eG,
             Christian-Pommer-Str. 31 / 33, 38112 Braunschweig (nachfolgend „Verkäufer“), gelten für alle Verträge über
