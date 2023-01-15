@@ -30,8 +30,8 @@ class PostController extends Controller
     public function create(Post $post)
     {
         return Inertia::render('Admin/Apps/Blog/Create', [
-            'post' => $post,
-            'categories' => PostCategory::orderBy('name', 'asc')->get(),
+            'item' => $post->load(['roles']),
+            'categories' => PostCategory::orderBy('created_at')->get(),
             'roles' => Role::orderBy('name', 'asc')->get(),
         ]);
     }
@@ -41,6 +41,7 @@ class PostController extends Controller
     public function store(CreatePostRequest $request)
     {
         $post = Post::create($request->validated());
+        $post->roles()->sync($request->roles);
 
         return redirect()->route('admin.posts.editor', $post);
     }
@@ -64,6 +65,7 @@ class PostController extends Controller
     public function update(UpdatePostRequest $request, Post $post)
     {
         $post->update($request->validated());
+        $post->roles()->sync($request->roles);
 
         return redirect()->route('admin.posts.editor', $post);
     }

@@ -10,6 +10,7 @@ use App\Http\Requests\PostCategories\UpdatePostCategoryRequest;
 use App\Models\PostCategory;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Spatie\Permission\Models\Role;
 
 class PostCategoryController extends Controller
 {
@@ -25,7 +26,8 @@ class PostCategoryController extends Controller
     public function create(PostCategory $category)
     {
         return Inertia::render('Admin/PostCategories/Create', [
-            'item' => $category,
+            'item' => $category->load(['roles']),
+            'roles' => Role::orderBy('created_at')->get(),
         ]);
     }
 
@@ -34,6 +36,7 @@ class PostCategoryController extends Controller
     public function store(CreatePostCategoryRequest $request)
     {
         $postCategory = PostCategory::create($request->validated());
+        $postCategory->roles()->sync($request->roles);
 
         return redirect()->route('admin.categories.editor', $postCategory);
     }
@@ -44,7 +47,8 @@ class PostCategoryController extends Controller
     {
         $postCategory = $postCategory->duplicate();
 
-        if ($request->returnTo === 'editor') {
+        if ($request->returnTo === 'editor')
+        {
             return redirect()->route('admin.categories.editor', $postCategory);
         }
 
@@ -56,6 +60,7 @@ class PostCategoryController extends Controller
     public function update(UpdatePostCategoryRequest $request, PostCategory $postCategory)
     {
         $postCategory->update($request->validated());
+        $postCategory->roles()->sync($request->roles);
 
         return redirect()->route('admin.categories.editor', $postCategory);
     }

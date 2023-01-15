@@ -13,50 +13,27 @@ class WikiController extends Controller
     public function overview()
     {
         return Inertia::render('Wiki/Overview', [
-            'posts' => Post::with(['category' => function ($query) {
-                $query->select('id', 'name', 'slug', 'icon', 'color');
-            }])
-            ->where('scope', 'wiki')
-            ->where('status', 'published')
-            ->where(function ($query) {
-                $query->whereDate('available_from', '<=', now())->orWhere('available_from', null);
-            })
-            ->where(function ($query) {
-                $query->whereDate('available_to', '>=', now())->orWhere('available_to', null);
-            })
+            'posts' => Post::getPublished('wiki')
             ->orderByDesc('pinned')
             ->orderByDesc('created_at')
             ->orderByDesc('updated_at')
             ->get(),
 
-            'categories' => PostCategory::select('id', 'name', 'slug', 'icon', 'color')
-            ->where('status', 'published')
-            ->where('scope', 'wiki')
+            'categories' => PostCategory::getPublished('wiki', request()->user()->roles()->pluck('id')->toArray())
             ->orderBy('name')
             ->get(),
         ]);
     }
 
-    public function show($category, $post)
+    public function show($categorySlug, $postSlug)
     {
-        $category = ($category === '-') ? null : PostCategory::where('slug', $category)->where('scope', 'wiki')->where('status', 'published')->firstOrFail();
+        $category = ($categorySlug === '-') ? null : PostCategory::where('slug', $categorySlug)->where('scope', 'wiki')->where('status', 'published')->firstOrFail();
+        $categoryId = optional($category)->id ?? null;
 
-        $post = Post::where('slug', $post)
-            ->where('scope', 'wiki')
-            ->where('status', 'published')
-            ->where('category', optional($category)->id ?? null)
-            ->where(function ($query) {
-                $query->whereDate('available_from', '<=', now())->orWhere('available_from', null);
-            })
-            ->where(function ($query) {
-                $query->whereDate('available_to', '>=', now())->orWhere('available_to', null);
-            })
-            ->firstOrFail();
+        $post = Post::getPublishedBySlugAndCategory($postSlug, $categoryId, 'wiki')->firstOrFail();
 
         return Inertia::render('Wiki/Show', [
-            'post' => $post->load(['category' => function ($query) {
-                $query->select('id', 'name', 'slug', 'icon', 'color');
-            }]),
+            'post' => $post,
         ]);
     }
 }

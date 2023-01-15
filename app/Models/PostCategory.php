@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Permission\Traits\HasRoles;
 
 class PostCategory extends Model
 {
-    use HasFactory;
+    use HasRoles, HasFactory;
 
     protected $fillable = [
         'name',
@@ -42,6 +43,24 @@ class PostCategory extends Model
     {
         return $this->posts()->count();
     }
+
+
+
+    // START: Queries
+    public static function getPublished($app, $roles = [])
+    {
+        $query = PostCategory::select('id', 'name', 'slug', 'icon', 'color')
+            ->where('scope', $app)
+            ->where('status', 'published')
+            ->where(function ($query) use ($roles) {
+                $query->whereHas('roles', function ($query) use ($roles) {
+                    $query->whereIn('id', $roles);
+                })->orWhereDoesntHave('roles');
+            });
+
+        return $query;
+    }
+    // END: Queries
 
 
 

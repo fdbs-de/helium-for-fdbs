@@ -84,11 +84,28 @@
                         <input type="date" class="date-input" v-model="form.available_to" v-show="form.available_to">
                     </div>
                 </div>
+                
+                <div class="flex vertical background-soft radius-m margin-block-2">
+                    <div class="flex padding-1 gap-1 wrap h-center">
+                        <span v-if="form.roles.length > 0">Nur <b>ausgewählte Benutzer</b> können diesen Eintrag aufrufen</span>
+                        <span v-else><b>Jeder Benutzer</b> kann diesen Eintrag aufrufen</span>
+                    </div>
+                    <div class="flex padding-1 gap-1 wrap border-top">
+                        <mui-button
+                            type="button"
+                            v-for="role in roles"
+                            :key="role.id"
+                            :label="role.name"
+                            :variant="form.roles.includes(role.id) ? 'solid' : 'contained'"
+                            :icon-left="form.roles.includes(role.id) ? 'remove' : 'add'"
+                            size="small"
+                            @click="toggleRole(role.id)"/>
+                    </div>
+                </div>
             </div>
 
-            <div class="flex vertical gap-1 margin-top-3">
-                <TextEditor class="content-input flex-1" v-model="form.content" />
-            </div>
+
+            <TextEditor class="content-input flex-1" v-model="form.content" />
         </form>
     </AdminLayout>
     
@@ -118,8 +135,9 @@
     import TextEditor from '@/Components/Form/TextEditor.vue'
 
     const props = defineProps({
-        post: Object,
+        item: Object,
         categories: Array,
+        roles: Array,
     })
 
 
@@ -144,6 +162,7 @@
         category: null,
         tags: '',
         scope: 'blog',
+        roles: [],
         image: '',
         content: '',
         pinned: false,
@@ -163,6 +182,7 @@
         form.category = item?.category ?? null
         form.tags = item?.tags ? item?.tags.join(', ') : ''
         form.scope = item?.scope ?? 'blog'
+        form.roles = item?.roles.map(e => e.id) ?? []
         form.image = item?.image ?? ''
         form.content = item?.content ?? ''
         form.pinned = item?.pinned ?? false
@@ -171,8 +191,8 @@
         form.available_to = item?.available_to ? dayjs(item?.available_to).format('YYYY-MM-DD') : null
     }
 
-    watch((props) => props?.post, () => {
-        openItem(props?.post)
+    watch((props) => props?.item, () => {
+        openItem(props?.item)
     },{
         immediate: true,
         deep: true
@@ -212,6 +232,14 @@
         })
     }
     // END: Post Form
+
+
+
+    // START: Role Handling
+    const toggleRole = (role) => {
+        form.roles = form.roles.includes(role) ? form.roles.filter(e => e !== role) : [ ...form.roles, role]
+    }
+    // END: Role Handling
 
     
     

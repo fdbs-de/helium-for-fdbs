@@ -1,10 +1,16 @@
 <template>
     <footer>
         <div class="limiter certificate-row">
-            <p>Wir sind zertifiziert durch:</p>
+            <p>Wir sind zertifiziert durch</p>
             <div class="wrapper">
-                <a class="cert-wrapper" href="/downloads/zertifikate/qs_zertifikat_2022.pdf" target="_blank" rel="noopener noreferrer" style="border-radius: 0">
+                <a class="cert-wrapper" href="/downloads/zertifikate/CrefoZert_2021_2030012751_Fleischer_Dienst_Braunschweig_eG.pdf" target="_blank" rel="noopener noreferrer">
+                    <img src="/images/assets/zertifikate/crefo_logo.webp" alt="CreFo Zertifizierung">
+                </a>
+                <a class="cert-wrapper" href="/downloads/zertifikate/qs_zertifikat_2022.pdf" target="_blank" rel="noopener noreferrer">
                     <img src="/images/assets/zertifikate/qs_logo.webp" alt="QS Zertifizierung">
+                </a>
+                <a class="cert-wrapper" href="/downloads/zertifikate/Zertifikat_Orgainvent.pdf" target="_blank" rel="noopener noreferrer">
+                    <img src="/images/assets/zertifikate/orgainvent_logo.webp" alt="Orgainvent Zertifizierung">
                 </a>
                 <a class="cert-wrapper" href="/downloads/zertifikate/Bio_2022_A4.pdf" target="_blank" rel="noopener noreferrer">
                     <img src="/images/assets/zertifikate/bio_logo.webp" alt="Bio Zertifizierung">
@@ -12,17 +18,11 @@
                 <a class="cert-wrapper" href="/downloads/zertifikate/ifs_2022.pdf" target="_blank" rel="noopener noreferrer">
                     <img src="/images/assets/zertifikate/ifs_wholesale_logo.webp" alt="IFS Wholesale Zertifizierung">
                 </a>
-                <a class="cert-wrapper" href="/downloads/zertifikate/Zertifikat_Orgainvent.pdf" target="_blank" rel="noopener noreferrer">
-                    <img src="/images/assets/zertifikate/orgainvent_logo.webp" alt="Orgainvent Zertifizierung">
-                </a>
-                <a class="cert-wrapper" href="/downloads/zertifikate/CrefoZert_2021_2030012751_Fleischer_Dienst_Braunschweig_eG.pdf" target="_blank" rel="noopener noreferrer">
-                    <img src="/images/assets/zertifikate/crefo_logo.webp" alt="CreFo Zertifizierung">
-                </a>
-                <div class="cert-wrapper" href="#" target="_blank" rel="noopener noreferrer">
-                    <img src="/images/assets/zertifikate/itw_logo.webp" alt="Initiative Tierwohl Zertifizierung">
-                </div>
                 <div class="cert-wrapper">
                     <img src="/images/assets/zertifikate/lucid_regnr_text.webp" alt="LUCID Registrierungsnummer: DE3379292435101">
+                </div>
+                <div class="cert-wrapper" href="#" target="_blank" rel="noopener noreferrer">
+                    <img src="/images/assets/zertifikate/itw_logo.webp" alt="Initiative Tierwohl Zertifizierung">
                 </div>
             </div>
         </div>
@@ -65,39 +65,31 @@
             <div class="row">
                 <div class="copyright">
                     <img src="/images/branding/logo_sloganless_black.svg" alt="FDBS Logo">
-                    <span aria-hidden="true">© {{new Date().getFullYear()}}</span>
+                    <!-- <span aria-hidden="true">© {{new Date().getFullYear()}}</span> -->
                 </div>
                 <div class="spacer"></div>
                 <div class="social-wrapper">
                     <a href="https://g.page/r/CWfKbNs4inYXEAg/review" target="_blank">Bewerten Sie uns auf Google</a>
-                    <!-- <span>•</span>
-                    <button class="szb" @click="openPopup()">Hier nicht klicken</button> -->
                     <span>•</span>
-                    <a href="https://www.linkedin.com/company/fdbsfoodservice" target="_blank" rel="opener">LinkedIn</a>
-                    <a href="https://www.xing.com/pages/fleischer-dienst-braunschweig-eg" target="_blank" rel="opener">Xing</a>
-                    <!-- <a href="#" target="_blank" rel="opener">YouTube</a> -->
-                    <a href="https://www.instagram.com/fdbs_foodservice/" target="_blank" rel="opener">Instagram</a>
-                    <a href="https://www.facebook.com/FleischerDienstBraunschweig" target="_blank" rel="opener">Facebook</a>
-                    <a href="https://www.ebay-kleinanzeigen.de/pro/FDBS" target="_blank" rel="opener">Ebay</a>
-                    <a href="https://job38.de/arbeitgeber/fdbs-69115" target="_blank" rel="opener">job38</a>
+                    <a href="https://www.ebay-kleinanzeigen.de/pro/FDBS" target="_blank" rel="opener" title="Ebay">Ebay</a>
+                    <a href="https://job38.de/arbeitgeber/fdbs-69115" target="_blank" rel="opener" title="job38">job38</a>
+                    <span>•</span>
+                    <a href="https://www.linkedin.com/company/fdbsfoodservice" target="_blank" rel="opener" title="LinkedIn">
+                        <img src="/images/assets/social-icons/icon_linkedin.svg" alt="LinkedIn">
+                    </a>
+                    <a href="https://www.xing.com/pages/fleischer-dienst-braunschweig-eg" target="_blank" rel="opener" title="Xing">
+                        <img src="/images/assets/social-icons/icon_xing.svg" alt="Xing">
+                    </a>
+                    <a href="https://www.instagram.com/fdbs_foodservice/" target="_blank" rel="opener" title="Instagram">
+                        <img src="/images/assets/social-icons/icon_instagram.svg" alt="Instagram">
+                    </a>
+                    <a href="https://www.facebook.com/FleischerDienstBraunschweig" target="_blank" rel="opener" title="Facebook">
+                        <img src="/images/assets/social-icons/icon_facebook.svg" alt="Facebook">
+                    </a>
                 </div>
             </div>
         </div>
     </footer>
-
-    <!-- <Popup ref="easteregg_one" class="easteregg_one" @close="clearTimer()">
-        <div class="flex padding-2 gap-2 vertical">
-            <h3 class="margin-0 text-align-center">Sie haben die Selbstzerstörung eingeleitet!</h3>
-            <hr>
-            <div class="flex vertical">
-                <h3 class="margin-0 text-align-center"><b>Selbstzerstörung in:</b></h3>
-                <h2 class="margin-0 text-align-center heading">{{timer}} Sekunden</h2>
-            </div>
-            <hr>
-        </div>
-    </Popup>
-
-    <div class="blend" :class="{'active': isBlack}"></div> -->
 </template>
 
 <script setup>
@@ -115,80 +107,7 @@
     const openCookieDialog = () => {
         document.getElementById('cookie-settings-button').click()
     }
-
-
-    // EASTEREGG START //
-    // const easteregg_one = ref(null)
-    // const timer = ref(0)
-    // let interval = null
-    // const isBlack = ref(false)
-
-    // const openPopup = () => {
-    //     timer.value = 15
-    //     easteregg_one.value.open()
-    //     interval = setInterval(reduceTimer, 1000)
-    // }
-
-    // const reduceTimer = () => {
-    //     timer.value--
-    //     if (timer.value <= 0) closePopup(true)
-    // }
-    
-    // const closePopup = (playAnimation = false) => {
-    //     clearTimer()
-
-    //     setTimeout(() => {
-    //         easteregg_one.value.close()
-    //         if (playAnimation) animation()
-    //     }, 600)
-    // }
-
-    // const clearTimer = () => {
-    //     clearInterval(interval)
-    // }
-
-    // const animation = () => {
-    //     isBlack.value = true
-
-    //     setTimeout(() => {
-    //         isBlack.value = false
-    //     }, 3000)
-    // }
-    // EASTEREGG END //
 </script>
-
-<style lang="sass" scoped>
-    .easteregg_one
-        .heading
-            color: var(--color-primary)
-            font-size: 3rem
-
-    .szb
-        background: none
-        border: none
-        color: var(--color-primary)
-        cursor: pointer
-        font-size: inherit
-        font-weight: inherit
-        font-family: inherit
-        padding: 0
-
-    .blend
-        position: fixed
-        z-index: 9999
-        top: 0
-        left: 0
-        width: 100vw
-        height: 100vh
-        background-color: black
-        opacity: 0
-        transition: opacity 100ms ease-in-out
-        pointer-events: none
-
-        &.active
-            opacity: 1
-            pointer-events: all
-</style>
 
 <style lang="sass" scoped>
     footer
@@ -202,33 +121,39 @@
         .certificate-row
             display: flex
             flex-direction: column
-            gap: 1rem
+            gap: 1.5rem
             border: 1px solid var(--color-background-soft)
 
             p
+                text-align: center
                 margin: 0
+                font-weight: 700
+                font-family: var(--font-heading)
+                color: var(--color-primary)
+                font-size: 1.25rem
 
             .wrapper
                 display: flex
                 flex-wrap: wrap
                 align-items: center
-                gap: 2rem
+                justify-content: center
+                gap: 1.5rem
                 padding-bottom: 3rem
                 border-bottom: 2px solid rgba(0,0,0,.1)
 
                 .cert-wrapper
-                    height: 5rem
+                    height: 6rem
                     border-radius: var(--radius-m)
                     background: var(--color-background)
                     box-shadow: var(--shadow-elevation-low)
                     filter: saturate(0)
+                    padding: .5rem
 
                     img
-                        height: 5rem
-                        width: auto
+                        height: 100%
+                        width: 100%
                         max-width: 100%
-                        object-fit: cover
-                        border-radius: inherit
+                        object-fit: contain
 
                     &:hover,
                     &:focus
@@ -275,13 +200,13 @@
                 display: flex
                 align-items: center
                 height: 5rem
-                gap: var(--su)
+                gap: 1rem
 
             .copyright
                 height: 2rem
                 display: flex
                 align-items: center
-                gap: var(--su)
+                gap: 1rem
                 line-height: 1
 
                 img
@@ -297,8 +222,21 @@
 
             .social-wrapper
                 display: flex
-                gap: var(--su)
+                gap: 1rem
                 flex-wrap: wrap
+                align-items: center
+
+                > a
+                    display: flex
+
+                    &:hover
+                        img
+                            opacity: .8
+
+                    img
+                        margin: .25rem
+                        height: 1.25rem
+                        opacity: .6
 
 
 
@@ -306,23 +244,16 @@
         footer
             .link-row
                 grid-template-columns: repeat(2,minmax(200px,1fr))
-                gap: calc(var(--su) * 3)
+                gap: 3rem
 
     @media only screen and (max-width: 700px)
         footer
             gap: 0
 
             .certificate-row
-                // margin-bottom: 1.5rem
-
                 .wrapper
                     border-bottom: none
                     padding-bottom: 0
-                    gap: 1.5rem
-
-                    .cert-wrapper
-                        // height: 3.4rem
-                        border-radius: var(--radius-s)
 
             .link-row
                 grid-template-columns: 1fr
