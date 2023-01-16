@@ -41,7 +41,7 @@ class PostController extends Controller
     public function store(CreatePostRequest $request)
     {
         $post = Post::create($request->validated());
-        $post->roles()->sync($request->roles);
+        $post->roles()->sync($request->override_category_roles ? $request->roles : []);
 
         return redirect()->route('admin.posts.editor', $post);
     }
@@ -65,7 +65,7 @@ class PostController extends Controller
     public function update(UpdatePostRequest $request, Post $post)
     {
         $post->update($request->validated());
-        $post->roles()->sync($request->roles);
+        $post->roles()->sync($request->override_category_roles ? $request->roles : []);
 
         return redirect()->route('admin.posts.editor', $post);
     }

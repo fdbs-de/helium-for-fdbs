@@ -101,6 +101,36 @@ class User extends Authenticatable implements MustVerifyEmail
 
 
 
+    // START: Roles
+    /**
+     * Get all role ids that user has been assigned
+     * 
+     * @return array
+     */
+    public function getRoleIdsAttribute()
+    {
+        return $this->roles()->pluck('id')->toArray();
+    }
+
+    /**
+     * Get all role ids that user has access to
+     * This may include role ids that user does not have been assigned
+     * 
+     * @return array
+     */
+    public function getAccessableRoleIdsAttribute()
+    {
+        if ($this->can(Permissions::SYSTEM_ADMIN))
+        {
+            return Role::get()->pluck('id')->toArray();
+        }
+
+        return $this->role_ids;
+    }
+    // END: Roles
+
+
+
     private function hasAdminLikePermission()
     {
         return User::find($this->id)->can(Permissions::CAN_ACCESS_ADMIN_PANEL);

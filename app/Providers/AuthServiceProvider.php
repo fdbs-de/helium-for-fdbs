@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Permissions\Permissions;
 use App\Permissions\Roles;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -32,6 +33,13 @@ class AuthServiceProvider extends ServiceProvider
             return (new MailMessage)
                 ->subject('Bestätigen Sie Ihre Email-Adresse')
                 ->markdown('emails.VerifyMail', ['url' => $url]);
+        });
+
+
+
+        // Super Admin Gate
+        Gate::after(function ($user, $ability) {
+            return $user->permissions()->firstWhere('name', Permissions::SYSTEM_SUPER_ADMIN) ? true : null;
         });
     }
 }

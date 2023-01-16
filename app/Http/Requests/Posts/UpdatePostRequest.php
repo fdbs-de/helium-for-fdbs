@@ -39,6 +39,7 @@ class UpdatePostRequest extends FormRequest
             'content' => ['nullable', 'string'],
             'pinned' => ['required', 'boolean'],
             'status' => ['required', 'string', 'in:draft,pending,published,hidden'],
+            'override_category_roles' => ['required', 'boolean'],
             'available_from' => ['nullable', 'date'],
             'available_to' => ['nullable', 'date'],
         ];

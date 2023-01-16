@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Wiki;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Apps\Wiki\ViewPostRequest;
 use App\Models\Post;
 use App\Models\PostCategory;
 use Illuminate\Http\Request;
@@ -10,27 +11,30 @@ use Inertia\Inertia;
 
 class WikiController extends Controller
 {
-    public function overview()
+    public function overview(ViewPostRequest $request)
     {
         return Inertia::render('Wiki/Overview', [
-            'posts' => Post::getPublished('wiki')
+            'posts' => Post::getPublished('wiki', request()->user()->accessable_role_ids)
             ->orderByDesc('pinned')
             ->orderByDesc('created_at')
             ->orderByDesc('updated_at')
             ->get(),
 
-            'categories' => PostCategory::getPublished('wiki', request()->user()->roles()->pluck('id')->toArray())
+            'categories' => PostCategory::getPublished('wiki', request()->user()->accessable_role_ids)
             ->orderBy('name')
             ->get(),
         ]);
     }
 
-    public function show($categorySlug, $postSlug)
+    public function show(ViewPostRequest $request)
     {
+        $postSlug = $request->postSlug;
+        $categorySlug = $request->categorySlug;
+        
         $category = ($categorySlug === '-') ? null : PostCategory::where('slug', $categorySlug)->where('scope', 'wiki')->where('status', 'published')->firstOrFail();
         $categoryId = optional($category)->id ?? null;
 
-        $post = Post::getPublishedBySlugAndCategory($postSlug, $categoryId, 'wiki')->firstOrFail();
+        $post = Post::getPublishedBySlugAndCategory($postSlug, $categoryId, 'wiki', request()->user()->accessable_role_ids)->firstOrFail();
 
         return Inertia::render('Wiki/Show', [
             'post' => $post,

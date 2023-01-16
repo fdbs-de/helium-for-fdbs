@@ -6,6 +6,7 @@ use App\Http\Controllers\Dashboard\NewsletterController;
 use App\Http\Controllers\Dashboard\OverviewController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\SpecController;
+use App\Http\Controllers\Wiki\WikiController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () {
@@ -30,4 +31,11 @@ Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () 
 
         Route::get('/angebote', [CustomerController::class, 'indexOffers'])->name('dashboard.customer.offers');
     });
+});
+
+
+
+Route::prefix('wiki')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [WikiController::class, 'overview'])->name('wiki');
+    Route::get('/{categorySlug}/{postSlug}', [WikiController::class, 'show'])->name('wiki.entry');
 });

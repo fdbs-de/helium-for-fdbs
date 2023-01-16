@@ -14,12 +14,13 @@
                     { value: 'jobs', icon: 'work', tooltip: 'Jobs' },
                 ]"/>
 
-                <div class="spacer"></div>
-
                 <select class="header-select" v-model="form.status">
+                    <option :value="null" disabled>Status auswählen</option>
                     <option value="published">Veröffentlicht</option>
                     <option value="hidden">Versteckt</option>
                 </select>
+
+                <div class="spacer"></div>
                 
                 <mui-button v-if="form.id" label="Kategorie Speichern" size="large" :loading="form.processing" @click="saveItem()"/>
                 <mui-button v-else label="Kategorie erstellen" size="large" :loading="form.processing" @click="saveItem()"/>
@@ -177,7 +178,6 @@
 
     .header-select
         height: 3rem
-        color: var(--color-text)
         cursor: pointer
 
     .input-button
