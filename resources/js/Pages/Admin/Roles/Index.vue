@@ -41,8 +41,7 @@
                         <legend>{{ group.title }}</legend>
 
                         <div class="flex vertical" v-for="(subgroup, i) in group.permissions" :key="'permission_group_'+group.title+'_'+i">
-                            <!-- <mui-toggle class="checkbox" v-for="permission in subgroup" :key="permission.name" :modelValue="form.permissions.includes(permission.name)" @update:modelValue="togglePermission(permission.name)"> -->
-                            <mui-toggle class="checkbox" v-for="permission in subgroup" :key="permission.name" :modelValue="form.permissions.includes(permission.name)">
+                            <mui-toggle class="checkbox" v-for="permission in subgroup" :key="permission.name" :modelValue="form.permissions.includes(permission.name)" @update:modelValue="togglePermission(permission.name)">
                                 <template #label>
                                     <div class="w-100 flex v-center">
                                         <span class="flex-1">{{ permission.label }}</span>

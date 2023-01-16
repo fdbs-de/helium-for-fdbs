@@ -12,17 +12,7 @@ class BlogController extends Controller
     public function index()
     {
         return Inertia::render('Blog/Index', [
-            'posts' => Post::with(['category' => function ($query) {
-                $query->select('id', 'name', 'slug');
-            }])
-            ->where('scope', 'blog')
-            ->where('status', 'published')
-            ->where(function ($query) {
-                $query->whereDate('available_from', '<=', now())->orWhere('available_from', null);
-            })
-            ->where(function ($query) {
-                $query->whereDate('available_to', '>=', now())->orWhere('available_to', null);
-            })
+            'posts' => Post::getPublished('blog')
             ->orderByDesc('pinned')
             ->orderByDesc('created_at')
             ->orderByDesc('updated_at')
@@ -30,26 +20,15 @@ class BlogController extends Controller
         ]);
     }
 
-    public function show($category, $post)
+    public function show($categorySlug, $postSlug)
     {
-        $category = ($category === '-') ? null : PostCategory::where('slug', $category)->where('scope', 'blog')->where('status', 'published')->firstOrFail();
+        $category = ($categorySlug === '-') ? null : PostCategory::where('slug', $categorySlug)->where('scope', 'blog')->where('status', 'published')->firstOrFail();
+        $categoryId = optional($category)->id ?? null;
 
-        $post = Post::where('slug', $post)
-            ->where('scope', 'blog')
-            ->where('status', 'published')
-            ->where('category', optional($category)->id ?? null)
-            ->where(function ($query) {
-                $query->whereDate('available_from', '<=', now())->orWhere('available_from', null);
-            })
-            ->where(function ($query) {
-                $query->whereDate('available_to', '>=', now())->orWhere('available_to', null);
-            })
-            ->firstOrFail();
+        $post = Post::getPublishedBySlugAndCategory($postSlug, $categoryId, 'blog')->firstOrFail();
             
         return Inertia::render('Blog/Post', [
-            'post' => $post->load(['category' => function ($query) {
-                $query->select('id', 'name', 'slug');
-            }])
+            'post' => $post
         ]);
     }
 }

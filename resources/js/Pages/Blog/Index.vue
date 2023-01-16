@@ -22,7 +22,7 @@
 
 <script setup>
     import { Head, Link } from '@inertiajs/inertia-vue3'
-    import PostInterface from '@/Interfaces/Wiki/Post.js'
+    import PostInterface from '@/Interfaces/Blog/Post.js'
     import { computed } from 'vue'
 
     import TextSubLayout from '@/Layouts/SubLayouts/Text.vue'

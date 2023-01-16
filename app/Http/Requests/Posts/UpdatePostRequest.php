@@ -28,6 +28,8 @@ class UpdatePostRequest extends FormRequest
     {
         return [
             'scope' => ['required', 'string', 'in:blog,intranet,wiki,jobs'],
+            'roles' => ['nullable', 'array'],
+            'roles.*' => ['nullable', 'exists:roles,id'],
             'title' => ['nullable', 'string', 'max:255'],
             'slug' => ['nullable', 'string', 'max:255', 'unique:posts,slug,' . $this->post->id . ',id,scope,' . $this->scope],
             'category' => ['required', 'integer', 'exists:post_categories,id,scope,' . $this->scope],
@@ -37,6 +39,7 @@ class UpdatePostRequest extends FormRequest
             'content' => ['nullable', 'string'],
             'pinned' => ['required', 'boolean'],
             'status' => ['required', 'string', 'in:draft,pending,published,hidden'],
+            'override_category_roles' => ['required', 'boolean'],
             'available_from' => ['nullable', 'date'],
             'available_to' => ['nullable', 'date'],
         ];

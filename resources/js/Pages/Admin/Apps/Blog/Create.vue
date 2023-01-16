@@ -2,7 +2,7 @@
     <Head :title="form.title || 'Post Titel'" />
 
     <AdminLayout :title="form.title || 'Post Titel'" :backlink="route('admin.posts')" backlink-text="Zurück zur Übersicht">
-        <form class="card flex vertical gap-1 padding-1" @submit.prevent="saveItem()">
+        <form class="card flex vertical gap-3 padding-1" @submit.prevent="saveItem()">
             <div class="limiter text-limiter" v-if="hasErrors">
                 <h3><b>Fehler!</b></h3>
                 <p v-for="(error, key) in errors" :key="key">{{ error }}</p>
@@ -16,14 +16,20 @@
                     { value: 'jobs', icon: 'work', tooltip: 'Jobs' },
                 ]"/>
 
-                <div class="spacer"></div>
+                <select class="header-select" v-model="form.category">
+                    <option :value="null" disabled>Kategorie auswählen</option>
+                    <option v-for="category in categories" :key="category.id" :value="category.id">{{category.name}}</option>
+                </select>
 
                 <select class="header-select" v-model="form.status">
+                    <option :value="null" disabled>Status auswählen</option>
                     <option value="draft">Entwurf</option>
                     <option value="pending">Zur Freigabe</option>
                     <option value="published">Veröffentlicht</option>
                     <option value="hidden">Versteckt</option>
                 </select>
+                
+                <div class="spacer"></div>
                 
                 <mui-button v-if="form.id" label="Post Speichern" size="large" :loading="form.processing" @click="saveItem()"/>
                 <mui-button v-else label="Post erstellen" size="large" :loading="form.processing" @click="saveItem()"/>
@@ -43,7 +49,7 @@
                 </div>
             </div>
 
-            <div class="limiter text-limiter flex vertical gap-1">
+            <div class="limiter text-limiter flex vertical gap-1 margin-block-2">
                 <mui-input type="text" label="Titel *" required v-model="form.title">
                     <template #right>
                         <button type="button" class="input-button" :class="{'active': form.pinned}" v-tooltip.right="'Post anpinnen'" @click="form.pinned = !form.pinned">push_pin</button>
@@ -56,13 +62,27 @@
                     </template>
                 </mui-input>
                 
-                <div class="flex gap-1 v-center">
-                    <select v-model="form.category">
-                        <option :value="null" disabled>Kategorie auswählen</option>
-                        <option v-for="category in categories" :key="category.id" :value="category.id">{{category.name}}</option>
-                    </select>
+                <mui-input type="text" label="Tags" v-model="form.tags" />
 
-                    <mui-input class="flex-1" type="text" label="Tags" v-model="form.tags" />
+                <div class="flex vertical background-soft radius-m">
+                    <div class="flex padding-1 gap-1 wrap h-center">
+                        <mui-toggle type="switch" label="Berechtigungen überschreiben" v-model="form.override_category_roles"/>
+                    </div>
+                    <div class="flex padding-1 gap-1 wrap h-center border-top" v-show="form.override_category_roles">
+                        <span v-if="form.roles.length > 0">Nur <b>ausgewählte Benutzer</b> können diesen Eintrag aufrufen</span>
+                        <span v-else><b>Jeder Benutzer</b> kann diesen Eintrag aufrufen</span>
+                    </div>
+                    <div class="flex padding-1 gap-1 wrap border-top" v-show="form.override_category_roles">
+                        <mui-button
+                            type="button"
+                            v-for="role in roles"
+                            :key="role.id"
+                            :label="role.name"
+                            :variant="form.roles.includes(role.id) ? 'solid' : 'contained'"
+                            :icon-left="form.roles.includes(role.id) ? 'remove' : 'add'"
+                            size="small"
+                            @click="toggleRole(role.id)"/>
+                    </div>
                 </div>
 
                 <div class="flex gap-1">
@@ -85,8 +105,8 @@
                     </div>
                 </div>
             </div>
-
-            <div class="flex vertical gap-1 margin-top-3">
+            
+            <div class="limiter text-limiter flex vertical gap-1">
                 <TextEditor class="content-input flex-1" v-model="form.content" />
             </div>
         </form>
@@ -118,8 +138,9 @@
     import TextEditor from '@/Components/Form/TextEditor.vue'
 
     const props = defineProps({
-        post: Object,
+        item: Object,
         categories: Array,
+        roles: Array,
     })
 
 
@@ -144,10 +165,12 @@
         category: null,
         tags: '',
         scope: 'blog',
+        roles: [],
         image: '',
         content: '',
         pinned: false,
         status: 'draft',
+        override_category_roles: false,
         available_from: null,
         available_to: null,
     })
@@ -163,16 +186,18 @@
         form.category = item?.category ?? null
         form.tags = item?.tags ? item?.tags.join(', ') : ''
         form.scope = item?.scope ?? 'blog'
+        form.roles = item?.roles.map(e => e.id) ?? []
         form.image = item?.image ?? ''
         form.content = item?.content ?? ''
         form.pinned = item?.pinned ?? false
         form.status = item?.status ?? 'draft'
+        form.override_category_roles = item?.override_category_roles ?? false
         form.available_from = item?.available_from ? dayjs(item?.available_from).format('YYYY-MM-DD') : null
         form.available_to = item?.available_to ? dayjs(item?.available_to).format('YYYY-MM-DD') : null
     }
 
-    watch((props) => props?.post, () => {
-        openItem(props?.post)
+    watch((props) => props?.item, () => {
+        openItem(props?.item)
     },{
         immediate: true,
         deep: true
@@ -188,7 +213,7 @@
             tags: data.tags.split(',').map(tag => tag.trim()).filter(tag => !!tag),
         })).post(route('admin.posts.store'), {
             onSuccess: (data) => {
-                openItem(data?.props?.post)
+                openItem(data?.props?.item)
             },
         })
     }
@@ -199,7 +224,7 @@
             tags: data.tags.split(',').map(tag => tag.trim()).filter(tag => !!tag),
         })).put(route('admin.posts.update', form.id), {
             onSuccess: (data) => {
-                openItem(data?.props?.post)
+                openItem(data?.props?.item)
             },
         })
     }
@@ -212,6 +237,14 @@
         })
     }
     // END: Post Form
+
+
+
+    // START: Role Handling
+    const toggleRole = (role) => {
+        form.roles = form.roles.includes(role) ? form.roles.filter(e => e !== role) : [ ...form.roles, role]
+    }
+    // END: Role Handling
 
     
     
@@ -235,7 +268,6 @@
 
     .header-select
         height: 3rem
-        color: var(--color-text)
         cursor: pointer
 
     .hero-image-wrapper

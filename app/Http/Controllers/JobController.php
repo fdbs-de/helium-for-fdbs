@@ -13,17 +13,7 @@ class JobController extends Controller
     public function index()
     {
         return Inertia::render('Jobs/Index', [
-            'posts' => Post::with(['category' => function ($query) {
-                $query->select('id', 'name', 'slug');
-            }])
-            ->where('scope', 'jobs')
-            ->where('status', 'published')
-            ->where(function ($query) {
-                $query->whereDate('available_from', '<=', now())->orWhere('available_from', null);
-            })
-            ->where(function ($query) {
-                $query->whereDate('available_to', '>=', now())->orWhere('available_to', null);
-            })
+            'posts' => Post::getPublished('jobs')
             ->orderByDesc('pinned')
             ->orderByDesc('created_at')
             ->orderByDesc('updated_at')
@@ -31,23 +21,12 @@ class JobController extends Controller
         ]);
     }
     
-    public function show($post)
+    public function show($postSlug)
     {
-        $post = Post::where('slug', $post)
-            ->where('scope', 'jobs')
-            ->where('status', 'published')
-            ->where(function ($query) {
-                $query->whereDate('available_from', '<=', now())->orWhere('available_from', null);
-            })
-            ->where(function ($query) {
-                $query->whereDate('available_to', '>=', now())->orWhere('available_to', null);
-            })
-            ->firstOrFail();
+        $post = Post::getPublishedBySlug($postSlug, 'jobs')->firstOrFail();
 
         return Inertia::render('Jobs/Show', [
-            'post' => $post->load(['category' => function ($query) {
-                $query->select('id', 'name', 'slug', 'icon', 'color');
-            }]),
+            'post' => $post,
         ]);
     }
 

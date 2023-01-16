@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Models\Role;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -97,6 +98,36 @@ class User extends Authenticatable implements MustVerifyEmail
         return $profiles;
     }
     // END: Profiles
+
+
+
+    // START: Roles
+    /**
+     * Get all role ids that user has been assigned
+     * 
+     * @return array
+     */
+    public function getRoleIdsAttribute()
+    {
+        return $this->roles()->pluck('id')->toArray();
+    }
+
+    /**
+     * Get all role ids that user has access to
+     * This may include role ids that user does not have been assigned
+     * 
+     * @return array
+     */
+    public function getAccessableRoleIdsAttribute()
+    {
+        if ($this->can(Permissions::SYSTEM_ADMIN))
+        {
+            return Role::get()->pluck('id')->toArray();
+        }
+
+        return $this->role_ids;
+    }
+    // END: Roles
 
 
 

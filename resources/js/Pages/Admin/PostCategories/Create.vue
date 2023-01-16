@@ -1,7 +1,5 @@
 <template>
-    <Head :title="form.name || 'Kategorie Name'" />
-
-    <AdminLayout :title="form.name || 'Kategorie Name'" :backlink="route('admin.categories')" backlink-text="Zurück zur Übersicht">
+    <AdminLayout :title="(form.name || 'Unbenannte Kategorie') + ' – Kategorie bearbeiten'" :backlink="route('admin.categories')" backlink-text="Zurück zur Übersicht">
         <form class="card flex vertical gap-1 padding-1" @submit.prevent="saveItem()">
             <div class="limiter text-limiter" v-if="hasErrors">
                 <h3><b>Fehler!</b></h3>
@@ -16,27 +14,27 @@
                     { value: 'jobs', icon: 'work', tooltip: 'Jobs' },
                 ]"/>
 
-                <div class="spacer"></div>
-
                 <select class="header-select" v-model="form.status">
+                    <option :value="null" disabled>Status auswählen</option>
                     <option value="published">Veröffentlicht</option>
                     <option value="hidden">Versteckt</option>
                 </select>
+
+                <div class="spacer"></div>
                 
                 <mui-button v-if="form.id" label="Kategorie Speichern" size="large" :loading="form.processing" @click="saveItem()"/>
                 <mui-button v-else label="Kategorie erstellen" size="large" :loading="form.processing" @click="saveItem()"/>
             </div>
 
             <div class="limiter text-limiter flex vertical gap-1">
-                <mui-input type="text" label="Name *" required v-model="form.name"/>
-                
-                <mui-input type="text" label="Slug *" required v-model="form.slug">
-                    <template #right>
-                        <button type="button" class="input-button" v-tooltip.right="'Aus Titel generieren'" @click="generateSlug">auto_awesome</button>
-                    </template>
-                </mui-input>
-
-                
+                <div class="flex gap-1 v-center">
+                    <mui-input type="text" class="flex-1" label="Name *" required v-model="form.name"/>
+                    <mui-input type="text" class="flex-1" label="Slug *" required v-model="form.slug">
+                        <template #right>
+                            <button type="button" class="input-button" v-tooltip.right="'Aus Titel generieren'" @click="generateSlug">auto_awesome</button>
+                        </template>
+                    </mui-input>
+                </div>
                 
                 <div class="flex gap-1 v-center">
                     <mui-input class="flex-1" type="text" label="Farbe" v-model="form.color">
@@ -46,10 +44,26 @@
                     </mui-input>
                     <mui-input class="flex-1" type="text" label="Icon" v-model="form.icon" />
                 </div>
-                
-                <div class="margin-top-3">
-                    <TextEditor class="content-input flex-1" v-model="form.description" />
+
+                <div class="flex vertical background-soft radius-m margin-block-2">
+                    <div class="flex padding-1 gap-1 wrap h-center">
+                        <span v-if="form.roles.length > 0">Nur <b>ausgewählte Benutzer</b> können diese Kategorie aufrufen</span>
+                        <span v-else><b>Jeder Benutzer</b> kann diese Kategorie aufrufen</span>
+                    </div>
+                    <div class="flex padding-1 gap-1 wrap border-top">
+                        <mui-button
+                            type="button"
+                            v-for="role in roles"
+                            :key="role.id"
+                            :label="role.name"
+                            :variant="form.roles.includes(role.id) ? 'solid' : 'contained'"
+                            :icon-left="form.roles.includes(role.id) ? 'remove' : 'add'"
+                            size="small"
+                            @click="toggleRole(role.id)"/>
+                    </div>
                 </div>
+
+                <TextEditor class="content-input flex-1" v-model="form.description" />
             </div>
 
         </form>
@@ -67,6 +81,7 @@
 
     const props = defineProps({
         item: Object,
+        roles: Array,
     })
 
 
@@ -79,13 +94,10 @@
         color: '',
         icon: '',
         scope: 'blog',
+        roles: [],
         description: '',
         status: 'draft',
     })
-
-    const generateSlug = () => {
-        form.slug = slugify(form.name)
-    }
 
     const openItem = (item = null) => {
         form.id = item?.id ?? null
@@ -94,6 +106,7 @@
         form.color = item?.color ?? ''
         form.icon = item?.icon ?? ''
         form.scope = item?.scope ?? 'blog'
+        form.roles = item?.roles.map(e => e.id) ?? []
         form.description = item?.description ?? ''
         form.status = item?.status ?? 'published'
     }
@@ -125,7 +138,23 @@
             },
         })
     }
-    // END: Post Form
+    // END: Item Form
+
+
+
+    // START: Slug Generator
+    const generateSlug = () => {
+        form.slug = slugify(form.name)
+    }
+    // END: Slug Generator
+
+
+
+    // START: Role Handling
+    const toggleRole = (role) => {
+        form.roles = form.roles.includes(role) ? form.roles.filter(e => e !== role) : [ ...form.roles, role]
+    }
+    // END: Role Handling
 
     
     
@@ -149,7 +178,6 @@
 
     .header-select
         height: 3rem
-        color: var(--color-text)
         cursor: pointer
 
     .input-button

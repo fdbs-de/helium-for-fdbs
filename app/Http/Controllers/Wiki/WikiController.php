@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Wiki;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Apps\Wiki\ViewPostRequest;
 use App\Models\Post;
 use App\Models\PostCategory;
 use Illuminate\Http\Request;
@@ -10,53 +11,33 @@ use Inertia\Inertia;
 
 class WikiController extends Controller
 {
-    public function overview()
+    public function overview(ViewPostRequest $request)
     {
         return Inertia::render('Wiki/Overview', [
-            'posts' => Post::with(['category' => function ($query) {
-                $query->select('id', 'name', 'slug', 'icon', 'color');
-            }])
-            ->where('scope', 'wiki')
-            ->where('status', 'published')
-            ->where(function ($query) {
-                $query->whereDate('available_from', '<=', now())->orWhere('available_from', null);
-            })
-            ->where(function ($query) {
-                $query->whereDate('available_to', '>=', now())->orWhere('available_to', null);
-            })
+            'posts' => Post::getPublished('wiki', request()->user()->accessable_role_ids)
             ->orderByDesc('pinned')
             ->orderByDesc('created_at')
             ->orderByDesc('updated_at')
             ->get(),
 
-            'categories' => PostCategory::select('id', 'name', 'slug', 'icon', 'color')
-            ->where('status', 'published')
-            ->where('scope', 'wiki')
+            'categories' => PostCategory::getPublished('wiki', request()->user()->accessable_role_ids)
             ->orderBy('name')
             ->get(),
         ]);
     }
 
-    public function show($category, $post)
+    public function show(ViewPostRequest $request)
     {
-        $category = ($category === '-') ? null : PostCategory::where('slug', $category)->where('scope', 'wiki')->where('status', 'published')->firstOrFail();
+        $postSlug = $request->postSlug;
+        $categorySlug = $request->categorySlug;
+        
+        $category = ($categorySlug === '-') ? null : PostCategory::where('slug', $categorySlug)->where('scope', 'wiki')->where('status', 'published')->firstOrFail();
+        $categoryId = optional($category)->id ?? null;
 
-        $post = Post::where('slug', $post)
-            ->where('scope', 'wiki')
-            ->where('status', 'published')
-            ->where('category', optional($category)->id ?? null)
-            ->where(function ($query) {
-                $query->whereDate('available_from', '<=', now())->orWhere('available_from', null);
-            })
-            ->where(function ($query) {
-                $query->whereDate('available_to', '>=', now())->orWhere('available_to', null);
-            })
-            ->firstOrFail();
+        $post = Post::getPublishedBySlugAndCategory($postSlug, $categoryId, 'wiki', request()->user()->accessable_role_ids)->firstOrFail();
 
         return Inertia::render('Wiki/Show', [
-            'post' => $post->load(['category' => function ($query) {
-                $query->select('id', 'name', 'slug', 'icon', 'color');
-            }]),
+            'post' => $post,
         ]);
     }
 }

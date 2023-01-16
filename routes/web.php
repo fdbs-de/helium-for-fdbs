@@ -26,7 +26,7 @@ Route::get('/philosopie', [StaticController::class, 'indexPhilosophie'])->name('
 
 Route::prefix('/blog')->group(function () {
     Route::get('/', [BlogController::class, 'index'])->name('blog');
-    Route::get('/{category}/{post}', [BlogController::class, 'show'])->name('blog.article');
+    Route::get('/{categorySlug}/{postSlug}', [BlogController::class, 'show'])->name('blog.article');
 });
 
 Route::prefix('/produkte-und-services')->group(function () {
@@ -64,7 +64,7 @@ Route::prefix('/produkte-und-services')->group(function () {
 Route::prefix('/karriere')->group(function () {
     Route::get('/', [JobController::class, 'index'])->name('karriere');
     Route::get('/stellenangebote', [JobController::class, 'index'])->name('karriere.stellenangebote');
-    Route::get('/stellenangebote/{post}', [JobController::class, 'show'])->name('karriere.stellenangebote.show');
+    Route::get('/stellenangebote/{postSlug}', [JobController::class, 'show'])->name('karriere.stellenangebote.show');
     Route::get('/bewerben-als/lkw-fahrer', [JobController::class, 'showFunnelFahrer'])->name('karriere.funnel.lkw-fahrer');
     Route::post('/bewerben-als/lkw-fahrer', [JobController::class, 'storeFunnelFahrer'])->name('karriere.funnel.lkw-fahrer.store');
 });
