@@ -15,24 +15,36 @@ use Spatie\Permission\Models\Role;
 
 class PostController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return Inertia::render('Admin/Apps/Blog/Index', [
+        return Inertia::render('Admin/Apps/Shared/Posts/Index', [
             'posts' => Post::with(['category' => function ($query) {
                 $query->select('id', 'name');
-            }])->orderBy('scope')->orderBy('created_at', 'desc')->get(),
-            'categories' => PostCategory::withCount('posts')->orderBy('name', 'asc')->get(),
+            }])
+            ->where('scope', $request->app['id'])
+            ->orderBy('created_at', 'desc')
+            ->get(),
+
+            'categories' => PostCategory::withCount('posts')
+            ->where('scope', $request->app['id'])
+            ->orderBy('name', 'asc')
+            ->get(),
+            'app' => $request->app['route'],
         ]);
     }
 
 
 
-    public function create(Post $post)
+    public function create(Request $request, Post $post)
     {
-        return Inertia::render('Admin/Apps/Blog/Create', [
+        return Inertia::render('Admin/Apps/Shared/Posts/Create', [
             'item' => $post->load(['roles']),
-            'categories' => PostCategory::orderBy('created_at')->get(),
+            'categories' => PostCategory::orderBy('created_at')
+            ->where('scope', $request->app['id'])
+            ->orderBy('name', 'asc')
+            ->get(),
             'roles' => Role::orderBy('name', 'asc')->get(),
+            'app' => $request->app['route'],
         ]);
     }
 
@@ -43,7 +55,7 @@ class PostController extends Controller
         $post = Post::create($request->validated());
         $post->roles()->sync($request->override_category_roles ? $request->roles : []);
 
-        return redirect()->route('admin.posts.editor', $post);
+        return redirect()->route('admin.'.$request->app['route'].'.posts.editor', $post);
     }
 
 
@@ -54,7 +66,7 @@ class PostController extends Controller
 
         if ($request->returnTo === 'editor')
         {
-            return redirect()->route('admin.posts.editor', $post);
+            return redirect()->route('admin.'.$request->app['route'].'.posts.editor', $post);
         }
 
         return back();
@@ -67,7 +79,7 @@ class PostController extends Controller
         $post->update($request->validated());
         $post->roles()->sync($request->override_category_roles ? $request->roles : []);
 
-        return redirect()->route('admin.posts.editor', $post);
+        return redirect()->route('admin.'.$request->app['route'].'.posts.editor', $post);
     }
 
 

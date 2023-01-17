@@ -127,7 +127,7 @@
 
     const menu = ref([
         [
-            {label: 'Übersicht', color: 'var(--color-background)', icon: 'dashboard', route: route('admin'), permission: [], activeWhen: ['admin', 'admin.users', 'admin.roles', 'admin.media', 'admin.docs', 'admin.specs'], submenu: [
+            {label: 'Übersicht', color: 'var(--color-background)', icon: 'speed', route: route('admin'), permission: [], activeWhen: ['admin', 'admin.users', 'admin.roles', 'admin.media', 'admin.docs', 'admin.specs'], submenu: [
                 {label: 'Dashboard', icon: 'dashboard', route: route('admin'), permission: [], activeWhen: ['admin']},
                 {label: 'Benutzer', icon: 'person', route: route('admin.users'), permission: ['system.view.users'], activeWhen: ['admin.users']},
                 {label: 'Berechtigungen', icon: 'key', route: route('admin.roles'), permission: ['system.view.roles'], activeWhen: ['admin.roles']},
@@ -137,27 +137,25 @@
             ]},
         ],
         [
-            {label: 'Blog', color: 'var(--color-app-blog-on-dark)', icon: 'newspaper', route: route('admin.posts'), permission: ['app.blog.access.admin.panel'], activeWhen: ['admin.posts', 'admin.categories', 'admin.posts.editor', 'admin.categories.editor'], submenu: [
-                {label: 'Beiträge', icon: 'feed', route: route('admin.posts'), permission: ['view app blog'], activeWhen: ['admin.posts']},
-                {label: 'Kategorien', icon: 'category', route: route('admin.categories'), permission: ['view app blog'], activeWhen: ['admin.categories']},
+            // {label: 'Seiten', color: 'var(--color-app-pages-on-dark)', icon: 'web', route: route('admin.blog.posts'), permission: ['app.pages.access.admin.panel'], activeWhen: ['admin.pages.pages'], submenu: []},
+            {label: 'Blog', color: 'var(--color-app-blog-on-dark)', icon: 'newspaper', route: route('admin.blog.posts'), permission: ['app.blog.access.admin.panel'], activeWhen: ['admin.blog.posts', 'admin.blog.categories', 'admin.blog.posts.editor', 'admin.blog.categories.editor'], submenu: [
+                {label: 'Beiträge', icon: 'feed', route: route('admin.blog.posts'), permission: ['view app blog'], activeWhen: ['admin.blog.posts', 'admin.blog.posts.editor']},
+                {label: 'Kategorien', icon: 'category', route: route('admin.blog.categories'), permission: ['view app blog'], activeWhen: ['admin.blog.categories', 'admin.blog.categories.editor']},
             ]},
-            {label: 'Intranet', color: 'var(--color-app-intranet-on-dark)', icon: 'domain', route: route('admin.posts'), permission: ['app.intranet.access.admin.panel'], activeWhen: ['admin.intranet'], submenu: [
-                {label: 'Beiträge', icon: 'feed', route: route('admin.posts'), permission: ['view app blog'], activeWhen: ['admin.posts']},
-                {label: 'Kategorien', icon: 'category', route: route('admin.categories'), permission: ['view app blog'], activeWhen: ['admin.categories']},
+            // {label: 'Ecommerce', color: 'var(--color-app-ecommerce-on-dark)', icon: 'shopping_cart', route: route('admin.blog.posts'), permission: ['app.ecommerce.access.admin.panel'], activeWhen: ['admin.ecommerce.overview'], submenu: []},
+            {label: 'Jobs', color: 'var(--color-app-jobs-on-dark)', icon: 'work', route: route('admin.jobs.posts'), permission: ['app.jobs.access.admin.panel'], activeWhen: ['admin.jobs.posts', 'admin.jobs.categories', 'admin.jobs.posts.editor', 'admin.jobs.categories.editor'], submenu: [
+                {label: 'Stellenangebote', icon: 'feed', route: route('admin.jobs.posts'), permission: ['app.jobs.view.offers'], activeWhen: ['admin.jobs.posts', 'admin.jobs.posts.editor']},
+                {label: 'Kategorien', icon: 'category', route: route('admin.jobs.categories'), permission: ['app.jobs.view.categories'], activeWhen: ['admin.jobs.categories', 'admin.jobs.categories.editor']},
             ]},
-            {label: 'Jobs', color: 'var(--color-app-jobs-on-dark)', icon: 'work', route: route('admin.posts'), permission: ['app.jobs.access.admin.panel'], activeWhen: ['admin.jobs'], submenu: [
-                {label: 'Stellenangebote', icon: 'feed', route: route('admin.posts'), permission: ['view app blog'], activeWhen: ['admin.posts']},
-                {label: 'Kategorien', icon: 'category', route: route('admin.categories'), permission: ['view app blog'], activeWhen: ['admin.categories']},
+            {label: 'Intranet', color: 'var(--color-app-intranet-on-dark)', icon: 'domain', route: route('admin.intranet.posts'), permission: ['app.intranet.access.admin.panel'], activeWhen: ['admin.intranet.posts', 'admin.intranet.categories', 'admin.intranet.posts.editor', 'admin.intranet.categories.editor'], submenu: [
+                {label: 'Posts', icon: 'feed', route: route('admin.intranet.posts'), permission: ['app.intranet.view.posts'], activeWhen: ['admin.intranet.posts', 'admin.intranet.posts.editor']},
+                {label: 'Kategorien', icon: 'category', route: route('admin.intranet.categories'), permission: ['app.intranet.view.categories'], activeWhen: ['admin.intranet.categories', 'admin.intranet.categories.editor']},
             ]},
-            {label: 'Wiki', color: 'var(--color-app-wiki-on-dark)', icon: 'local_library', route: route('admin.posts'), permission: ['app.wiki.access.admin.panel'], activeWhen: ['admin.wiki'], submenu: [
-                {label: 'Einträge', icon: 'feed', route: route('admin.posts'), permission: ['view app blog'], activeWhen: ['admin.posts']},
-                {label: 'Kategorien', icon: 'category', route: route('admin.categories'), permission: ['view app blog'], activeWhen: ['admin.categories']},
+            {label: 'Wiki', color: 'var(--color-app-wiki-on-dark)', icon: 'local_library', route: route('admin.wiki.posts'), permission: ['app.wiki.access.admin.panel'], activeWhen: ['admin.wiki.posts', 'admin.wiki.categories', 'admin.wiki.posts.editor', 'admin.wiki.categories.editor'], submenu: [
+                {label: 'Einträge', icon: 'feed', route: route('admin.wiki.posts'), permission: ['app.wiki.view.pages'], activeWhen: ['admin.wiki.posts', 'admin.wiki.posts.editor']},
+                {label: 'Kategorien', icon: 'category', route: route('admin.wiki.categories'), permission: ['app.wiki.view.categories'], activeWhen: ['admin.wiki.categories', 'admin.wiki.categories.editor']},
             ]},
-            // {label: 'Seiten', color: 'var(--color-app-pages-on-dark)', icon: 'pages', route: route('admin.posts'), permission: ['app.pages.access.admin.panel'], activeWhen: ['admin.pages'], submenu: [
-            //     {label: 'Seiten', icon: 'feed', route: route('admin.posts'), permission: ['view app blog'], activeWhen: ['admin.posts']},
-            //     {label: 'Kategorien', icon: 'category', route: route('admin.categories'), permission: ['view app blog'], activeWhen: ['admin.categories']},
-            // ]},
-            // {label: 'Marketing', color: 'var(--color-app-marketing-on-dark)', icon: 'podcasts', route: route('admin.posts'), permission: ['app.marketing.access.admin.panel'], activeWhen: ['admin.marketing'], submenu: []},
+            // {label: 'Marketing', color: 'var(--color-app-marketing-on-dark)', icon: 'cell_tower', route: route('admin.blog.posts'), permission: ['app.marketing.access.admin.panel'], activeWhen: ['admin.marketing.overview'], submenu: []},
         ],
         [
             {label: 'Globale Einstellungen', color: 'var(--color-background)', icon: 'settings', route: route('admin.settings'), permission: ['system.view.settings'], activeWhen: ['admin.settings'], submenu: []},

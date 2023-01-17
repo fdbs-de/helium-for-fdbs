@@ -16,7 +16,16 @@ class SelectApp
      */
     public function handle(Request $request, Closure $next, string $app)
     {
-        $request->add('app', $app);
+        $appRepository = [
+            'blog' => ['id' => 'blog', 'name' => 'Blog', 'route' => 'blog'],
+            'wiki' => ['id' => 'wiki', 'name' => 'Wiki', 'route' => 'wiki'],
+            'jobs' => ['id' => 'jobs', 'name' => 'Jobs', 'route' => 'jobs'],
+            'intranet' => ['id' => 'intranet', 'name' => 'Intranet', 'route' => 'intranet'],
+        ];
+
+        if (!array_key_exists($app, $appRepository)) abort(404);
+
+        $request->merge(['app' => $appRepository[$app]]);
         
         return $next($request);
     }

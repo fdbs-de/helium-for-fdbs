@@ -1,7 +1,7 @@
 <template>
     <Head :title="form.title || 'Post Titel'" />
 
-    <AdminLayout :title="form.title || 'Post Titel'" :backlink="route('admin.posts')" backlink-text="Zurück zur Übersicht">
+    <AdminLayout :title="form.title || 'Post Titel'" :backlink="route('admin.'+app+'.posts')" backlink-text="Zurück zur Übersicht">
         <form class="card flex vertical gap-3 padding-1" @submit.prevent="saveItem()">
             <div class="limiter text-limiter" v-if="hasErrors">
                 <h3><b>Fehler!</b></h3>
@@ -9,13 +9,6 @@
             </div>
 
             <div class="flex v-center gap-1">
-                <Switcher class="header-switcher" v-model="form.scope" :options="[
-                    { value: 'blog', icon: 'public', tooltip: 'Blog' },
-                    { value: 'intranet', icon: 'policy', tooltip: 'Intranet' },
-                    { value: 'wiki', icon: 'travel_explore', tooltip: 'Wiki' },
-                    { value: 'jobs', icon: 'work', tooltip: 'Jobs' },
-                ]"/>
-
                 <select class="header-select" v-model="form.category">
                     <option :value="null" disabled>Kategorie auswählen</option>
                     <option v-for="category in categories" :key="category.id" :value="category.id">{{category.name}}</option>
@@ -109,18 +102,6 @@
             </div>
         </form>
     </AdminLayout>
-    
-
-
-    <Popup ref="deletePopup" title="Post löschen?">
-        <form class="confirm-popup-wrapper" @submit.prevent="deleteItem()">
-            <p>Möchten Sie den Post <b>"{{form.title}}"</b> entgültig löschen?</p>
-            <div class="confirm-popup-footer">
-                <mui-button type="button" variant="contained" label="Abbrechen" @click="$refs.deletePopup.close()"/>
-                <mui-button type="submit" variant="filled" color="error" label="Entgültig löschen"/>
-            </div>
-        </form>
-    </Popup>
 </template>
 
 <script setup>
@@ -139,12 +120,7 @@
         item: Object,
         categories: Array,
         roles: Array,
-    })
-
-
-
-    const categories = computed(() => {
-        return props.categories.filter(e => e.scope === form.scope)
+        app: String,
     })
 
 
@@ -154,15 +130,12 @@
 
 
     // START: Post Form
-    const deletePopup = ref(null)
-
     const form = useForm({
         id: null,
         title: '',
         slug: '',
         category: null,
         tags: '',
-        scope: 'blog',
         roles: [],
         image: '',
         content: '',
@@ -183,7 +156,6 @@
         form.slug = item?.slug ?? ''
         form.category = item?.category ?? null
         form.tags = item?.tags ? item?.tags.join(', ') : ''
-        form.scope = item?.scope ?? 'blog'
         form.roles = item?.roles.map(e => e.id) ?? []
         form.image = item?.image ?? ''
         form.content = item?.content ?? ''
@@ -209,7 +181,7 @@
         form.transform((data) => ({
             ...data,
             tags: data.tags.split(',').map(tag => tag.trim()).filter(tag => !!tag),
-        })).post(route('admin.posts.store'), {
+        })).post(route('admin.'+props.app+'.posts.store'), {
             onSuccess: (data) => {
                 openItem(data?.props?.item)
             },
@@ -220,17 +192,9 @@
         form.transform((data) => ({
             ...data,
             tags: data.tags.split(',').map(tag => tag.trim()).filter(tag => !!tag),
-        })).put(route('admin.posts.update', form.id), {
+        })).put(route('admin.'+props.app+'.posts.update', form.id), {
             onSuccess: (data) => {
                 openItem(data?.props?.item)
-            },
-        })
-    }
-
-    const deleteItem = () => {
-        form.delete(route('admin.posts.delete', form.id), {
-            onSuccess: () => {
-                deletePopup.value.close()
             },
         })
     }

@@ -1,5 +1,5 @@
 <template>
-    <AdminLayout :title="(form.name || 'Unbenannte Kategorie') + ' – Kategorie bearbeiten'" :backlink="route('admin.categories')" backlink-text="Zurück zur Übersicht">
+    <AdminLayout :title="(form.name || 'Unbenannte Kategorie') + ' – Kategorie bearbeiten'" :backlink="route('admin.'+app+'.categories')" backlink-text="Zurück zur Übersicht">
         <form class="card flex vertical gap-1 padding-1" @submit.prevent="saveItem()">
             <div class="limiter text-limiter" v-if="hasErrors">
                 <h3><b>Fehler!</b></h3>
@@ -7,13 +7,6 @@
             </div>
 
             <div class="flex v-center gap-1">
-                <Switcher class="header-switcher" v-model="form.scope" :options="[
-                    { value: 'blog', icon: 'public', tooltip: 'Blog' },
-                    { value: 'intranet', icon: 'policy', tooltip: 'Intranet' },
-                    { value: 'wiki', icon: 'travel_explore', tooltip: 'Wiki' },
-                    { value: 'jobs', icon: 'work', tooltip: 'Jobs' },
-                ]"/>
-
                 <select class="header-select" v-model="form.status">
                     <option :value="null" disabled>Status auswählen</option>
                     <option value="published">Veröffentlicht</option>
@@ -82,6 +75,7 @@
     const props = defineProps({
         item: Object,
         roles: Array,
+        app: String,
     })
 
 
@@ -93,7 +87,6 @@
         slug: '',
         color: '',
         icon: '',
-        scope: 'blog',
         roles: [],
         description: '',
         status: 'draft',
@@ -105,7 +98,6 @@
         form.slug = item?.slug ?? ''
         form.color = item?.color ?? ''
         form.icon = item?.icon ?? ''
-        form.scope = item?.scope ?? 'blog'
         form.roles = item?.roles.map(e => e.id) ?? []
         form.description = item?.description ?? ''
         form.status = item?.status ?? 'published'
@@ -123,7 +115,7 @@
     }
 
     const storeItem = () => {
-        form.post(route('admin.categories.store'), {
+        form.post(route('admin.'+props.app+'.categories.store'), {
             onSuccess: (data) => {
                 console.log(data?.props?.item)
                 openItem(data?.props?.item)
@@ -132,7 +124,7 @@
     }
 
     const updateItem = () => {
-        form.put(route('admin.categories.update', form.id), {
+        form.put(route('admin.'+props.app+'.categories.update', form.id), {
             onSuccess: (data) => {
                 openItem(data?.props?.item)
             },

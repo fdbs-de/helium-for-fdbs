@@ -20,6 +20,16 @@ class UpdatePostCategoryRequest extends FormRequest
     }
 
     /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge(['scope' => $this->app['id']]);
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, mixed>
@@ -27,8 +37,8 @@ class UpdatePostCategoryRequest extends FormRequest
     public function rules()
     {
         return [
+            'scope' => ['required'],
             'name' => 'required|string|max:255',
-            'scope' => ['required', 'string', 'in:blog,intranet,wiki,jobs'],
             'roles' => ['nullable', 'array'],
             'roles.*' => ['nullable', 'exists:roles,id'],
             'slug' => ['nullable', 'string', 'max:255', 'unique:post_categories,slug,' . $this->postCategory->id . ',id,scope,' . $this->scope],

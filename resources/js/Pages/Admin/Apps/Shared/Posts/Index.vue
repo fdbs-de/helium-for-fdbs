@@ -1,30 +1,23 @@
 <template>
-    <Head title="Kategorien verwalten" />
+    <Head title="Posts verwalten" />
 
-    <AdminLayout title="Kategorien verwalten">
+    <AdminLayout title="Posts verwalten">
         <div class="flex v-center gap-1">
             <Actions v-show="selection.length >= 1" :selection="selection" @deselect="deselectAll()" @delete="openDeletePopup()"/>
-            <Switcher v-show="selection.length <= 0" v-model="scope" :options="[
-                { value: null, icon: 'apps', tooltip: 'Alle' },
-                { value: 'blog', icon: 'public', tooltip: 'Blog' },
-                { value: 'intranet', icon: 'policy', tooltip: 'Intranet' },
-                { value: 'wiki', icon: 'travel_explore', tooltip: 'Wiki' },
-                { value: 'jobs', icon: 'work', tooltip: 'Jobs' },
-            ]"/>
 
             <div class="spacer"></div>
 
-            <!-- <div class="flex v-center">
-                <button class="icon-button" aria-hidden="true" v-tooltip="'Suchen'">search</button>
+            <div class="flex v-center">
+                <!-- <IconButton type="button" icon="search" v-tooltip="'Suchen'" /> -->
                 <VDropdown placement="bottom-end">
-                    <button class="icon-button" v-tooltip="'Ansichtseinstellungen'">settings</button>
+                    <IconButton type="button" icon="settings" v-tooltip="'Ansichtseinstellungen'" />
                     <template #popper>
                         <div class="flex padding-1 vertical">
                             <mui-toggle type="switch" prepend-label="Bildvorschau" v-model="isPreview" />
                         </div>
                     </template>
                 </VDropdown>
-            </div> -->
+            </div>
 
             <Switcher v-model="layout" :options="[
                 { value: 'list', icon: 'view_list', tooltip: 'Listenansicht' },
@@ -32,9 +25,9 @@
             ]"/>
         </div>
 
-        <ListItemLayout class="w-100 margin-block-2" :layout="layout" v-show="items.length >= 1">
+        <ListItemLayout class="w-100 margin-block-2" :layout="layout" v-show="posts.length >= 1">
             <ImageCard
-                v-for="item in filteredItems"
+                v-for="item in posts"
                 :key="item.id"
                 :item="item"
                 :layout="layout"
@@ -49,16 +42,18 @@
                 @delete="openDeletePopup(item)"
                 />
         </ListItemLayout>
-        <small v-show="items.length <= 0" class="w-100 flex h-center padding-inline-2 padding-block-5">Keine Kategorien angelegt</small>
+        <small v-show="posts.length <= 0" class="w-100 flex h-center padding-inline-2 padding-block-5">Keine Posts angelegt</small>
 
         <div class="flex v-center gap-1 border-top padding-top-1">
-            <small><b>{{items.length}}</b> Kategorien</small>
+            <small>
+                <b>{{posts.length}}</b> Posts
+            </small>
         
             <div class="spacer"></div>
         </div>
 
         <template #fab>
-            <button class="fab-button" aria-hidden="true" title="Neue Kategorie" @click="openItem()">add</button>
+            <button class="fab-button" aria-hidden="true" title="Neuer Post" @click="openItem()">add</button>
         </template>
     </AdminLayout>
 
@@ -79,8 +74,8 @@
     import { Head, useForm, usePage } from '@inertiajs/inertia-vue3'
     import { ref, computed } from 'vue'
     import { Inertia } from '@inertiajs/inertia'
-    import PostCategoryInterface from '@/Interfaces/PostCategory.js'
-
+    import PostInterface from '@/Interfaces/Post.js'
+    
     import AdminLayout from '@/Layouts/Admin.vue'
     import ListItemLayout from '@/Components/Layout/ListItemLayout.vue'
     import ImageCard from '@/Components/Form/Card/ImageCard.vue'
@@ -90,11 +85,13 @@
     import Popup from '@/Components/Form/Popup.vue'
 
     const props = defineProps({
+        posts: Array,
         categories: Array,
+        app: String,
     })
 
-    const items_ = computed(() => props.categories)
-    const items = computed(() => items_.value.map(item => new PostCategoryInterface(item)))
+    const posts_ = computed(() => props.posts)
+    const posts = computed(() => posts_.value.map(post => new PostInterface(post)))
 
 
 
@@ -102,23 +99,6 @@
     const layout = ref('list')
     const isPreview = ref(false)
     // END: View Parameters
-
-
-
-    // START: Filter
-    const scope = ref(null)
-
-    const filteredItems = computed(() => {
-        if (scope.value === null)
-        {
-            return items.value
-        }
-        else
-        {
-            return items.value.filter(p => p.scope === scope.value)
-        }
-    })
-    // END: Filter
 
 
 
@@ -153,9 +133,21 @@
 
     // START: Editor
     const openItem = (item = null) => {
-        Inertia.visit(route('admin.categories.editor', item?.id))
+        Inertia.visit(route('admin.'+props.app+'.posts.editor', item?.id))
     }
     // END: Editor
+
+
+
+    // START: Duplicate
+    const duplicateItem = (item) => {
+        useForm({returnTo: 'current'}).post(route('admin.'+props.app+'.posts.duplicate', item.id), {
+            onSuccess: () => {
+                deselectAll()
+            },
+        })
+    }
+    // END: Duplicate
 
 
 
@@ -168,7 +160,7 @@
     }
     
     const deleteItems = () => {
-        useForm({ids: selection.value}).delete(route('admin.categories.delete'), {
+        useForm({ids: selection.value}).delete(route('admin.'+props.app+'.posts.delete'), {
             onSuccess: () => {
                 deletePopup.value.close()
                 deselectAll()
@@ -176,26 +168,31 @@
         })
     }
     // END: Delete
-
-
-
-    // START: Duplicate
-    const duplicateItem = (item) => {
-        useForm({returnTo: 'current'}).post(route('admin.categories.duplicate', item.id), {
-            onSuccess: () => {
-                deselectAll()
-            },
-        })
-    }
-    // END: Duplicate
-
-    
-    
-    // START: Error Handling
-    const errors = computed(() => usePage().props.value.errors)
-    const hasErrors = computed(() => Object.keys(errors.value).length > 0)
-    // END: Error Handling
 </script>
 
 <style lang="sass" scoped>
+
+    .icon-button
+        display: flex
+        align-items: center
+        justify-content: center
+        width: 3rem
+        height: 2.5rem
+        border-radius: 0
+        cursor: pointer
+        transition: all 100ms ease
+        border: none
+        outline: none
+        background-color: transparent
+        font-family: var(--font-icon)
+        font-size: 1.3rem
+        color: var(--color-text)
+        padding: 0
+
+        &:hover
+            color: var(--color-heading)
+
+        &.active
+            color: black
+            background-color: #0000000f
 </style>

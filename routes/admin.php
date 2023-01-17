@@ -78,41 +78,89 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
     ////////////
     //  APPS  //
     ////////////
-    // Route::prefix('blog')->middleware('select_app:blog')->group(function () {
-    //     Route::prefix('posts')->group(function () {
-    //         Route::get('/', [PostController::class, 'index'])->name('admin.blog.posts');
-    //         Route::get('/editor/{post?}', [PostController::class, 'create'])->name('admin.blog.posts.editor');
-    //         Route::post('/', [PostController::class, 'store'])->name('admin.blog.posts.store');
-    //         Route::post('/{post}', [PostController::class, 'duplicate'])->name('admin.blog.posts.duplicate');
-    //         Route::put('/{post}', [PostController::class, 'update'])->name('admin.blog.posts.update');
-    //         Route::delete('/', [PostController::class, 'delete'])->name('admin.blog.posts.delete');
-    //     });
+    Route::prefix('blog')->middleware('select.app:blog')->group(function () {
+        Route::prefix('posts')->group(function () {
+            Route::get('/', [PostController::class, 'index'])->name('admin.blog.posts');
+            Route::get('/editor/{post?}', [PostController::class, 'create'])->name('admin.blog.posts.editor');
+            Route::post('/', [PostController::class, 'store'])->name('admin.blog.posts.store');
+            Route::post('/{post}', [PostController::class, 'duplicate'])->name('admin.blog.posts.duplicate');
+            Route::put('/{post}', [PostController::class, 'update'])->name('admin.blog.posts.update');
+            Route::delete('/', [PostController::class, 'delete'])->name('admin.blog.posts.delete');
+        });
         
-    //     Route::prefix('categories')->group(function () {
-    //         Route::get('/', [PostCategoryController::class, 'index'])->name('admin.blog.categories');
-    //         Route::get('/editor/{category?}', [PostCategoryController::class, 'create'])->name('admin.blog.categories.editor');
-    //         Route::post('/', [PostCategoryController::class, 'store'])->name('admin.blog.categories.store');
-    //         Route::post('/{postCategory}', [PostCategoryController::class, 'duplicate'])->name('admin.blog.categories.duplicate');
-    //         Route::put('/{postCategory}', [PostCategoryController::class, 'update'])->name('admin.blog.categories.update');
-    //         Route::delete('/', [PostCategoryController::class, 'delete'])->name('admin.blog.categories.delete');
-    //     });
-    // });
-
-    Route::prefix('posts')->group(function () {
-        Route::get('/', [PostController::class, 'index'])->name('admin.posts');
-        Route::get('/editor/{post?}', [PostController::class, 'create'])->name('admin.posts.editor');
-        Route::post('/', [PostController::class, 'store'])->name('admin.posts.store');
-        Route::post('/{post}', [PostController::class, 'duplicate'])->name('admin.posts.duplicate');
-        Route::put('/{post}', [PostController::class, 'update'])->name('admin.posts.update');
-        Route::delete('/', [PostController::class, 'delete'])->name('admin.posts.delete');
+        Route::prefix('categories')->group(function () {
+            Route::get('/', [PostCategoryController::class, 'index'])->name('admin.blog.categories');
+            Route::get('/editor/{category?}', [PostCategoryController::class, 'create'])->name('admin.blog.categories.editor');
+            Route::post('/', [PostCategoryController::class, 'store'])->name('admin.blog.categories.store');
+            Route::post('/{postCategory}', [PostCategoryController::class, 'duplicate'])->name('admin.blog.categories.duplicate');
+            Route::put('/{postCategory}', [PostCategoryController::class, 'update'])->name('admin.blog.categories.update');
+            Route::delete('/', [PostCategoryController::class, 'delete'])->name('admin.blog.categories.delete');
+        });
     });
 
-    Route::prefix('categories')->group(function () {
-        Route::get('/', [PostCategoryController::class, 'index'])->name('admin.categories');
-        Route::get('/editor/{category?}', [PostCategoryController::class, 'create'])->name('admin.categories.editor');
-        Route::post('/', [PostCategoryController::class, 'store'])->name('admin.categories.store');
-        Route::post('/{postCategory}', [PostCategoryController::class, 'duplicate'])->name('admin.categories.duplicate');
-        Route::put('/{postCategory}', [PostCategoryController::class, 'update'])->name('admin.categories.update');
-        Route::delete('/', [PostCategoryController::class, 'delete'])->name('admin.categories.delete');
+
+
+    Route::prefix('wiki')->middleware('select.app:wiki')->group(function () {
+        Route::prefix('posts')->group(function () {
+            Route::get('/', [PostController::class, 'index'])->name('admin.wiki.posts');
+            Route::get('/editor/{post?}', [PostController::class, 'create'])->name('admin.wiki.posts.editor');
+            Route::post('/', [PostController::class, 'store'])->name('admin.wiki.posts.store');
+            Route::post('/{post}', [PostController::class, 'duplicate'])->name('admin.wiki.posts.duplicate');
+            Route::put('/{post}', [PostController::class, 'update'])->name('admin.wiki.posts.update');
+            Route::delete('/', [PostController::class, 'delete'])->name('admin.wiki.posts.delete');
+        });
+
+        Route::prefix('categories')->group(function () {
+            Route::get('/', [PostCategoryController::class, 'index'])->name('admin.wiki.categories');
+            Route::get('/editor/{category?}', [PostCategoryController::class, 'create'])->name('admin.wiki.categories.editor');
+            Route::post('/', [PostCategoryController::class, 'store'])->name('admin.wiki.categories.store');
+            Route::post('/{postCategory}', [PostCategoryController::class, 'duplicate'])->name('admin.wiki.categories.duplicate');
+            Route::put('/{postCategory}', [PostCategoryController::class, 'update'])->name('admin.wiki.categories.update');
+            Route::delete('/', [PostCategoryController::class, 'delete'])->name('admin.wiki.categories.delete');
+        });
+    });
+
+
+
+    Route::prefix('jobs')->middleware('select.app:jobs')->group(function () {
+        Route::prefix('posts')->group(function () {
+            Route::get('/', [PostController::class, 'index'])->name('admin.jobs.posts');
+            Route::get('/editor/{post?}', [PostController::class, 'create'])->name('admin.jobs.posts.editor');
+            Route::post('/', [PostController::class, 'store'])->name('admin.jobs.posts.store');
+            Route::post('/{post}', [PostController::class, 'duplicate'])->name('admin.jobs.posts.duplicate');
+            Route::put('/{post}', [PostController::class, 'update'])->name('admin.jobs.posts.update');
+            Route::delete('/', [PostController::class, 'delete'])->name('admin.jobs.posts.delete');
+        });
+
+        Route::prefix('categories')->group(function () {
+            Route::get('/', [PostCategoryController::class, 'index'])->name('admin.jobs.categories');
+            Route::get('/editor/{category?}', [PostCategoryController::class, 'create'])->name('admin.jobs.categories.editor');
+            Route::post('/', [PostCategoryController::class, 'store'])->name('admin.jobs.categories.store');
+            Route::post('/{postCategory}', [PostCategoryController::class, 'duplicate'])->name('admin.jobs.categories.duplicate');
+            Route::put('/{postCategory}', [PostCategoryController::class, 'update'])->name('admin.jobs.categories.update');
+            Route::delete('/', [PostCategoryController::class, 'delete'])->name('admin.jobs.categories.delete');
+        });
+    });
+
+
+
+    Route::prefix('intranet')->middleware('select.app:intranet')->group(function () {
+        Route::prefix('posts')->group(function () {
+            Route::get('/', [PostController::class, 'index'])->name('admin.intranet.posts');
+            Route::get('/editor/{post?}', [PostController::class, 'create'])->name('admin.intranet.posts.editor');
+            Route::post('/', [PostController::class, 'store'])->name('admin.intranet.posts.store');
+            Route::post('/{post}', [PostController::class, 'duplicate'])->name('admin.intranet.posts.duplicate');
+            Route::put('/{post}', [PostController::class, 'update'])->name('admin.intranet.posts.update');
+            Route::delete('/', [PostController::class, 'delete'])->name('admin.intranet.posts.delete');
+        });
+
+        Route::prefix('categories')->group(function () {
+            Route::get('/', [PostCategoryController::class, 'index'])->name('admin.intranet.categories');
+            Route::get('/editor/{category?}', [PostCategoryController::class, 'create'])->name('admin.intranet.categories.editor');
+            Route::post('/', [PostCategoryController::class, 'store'])->name('admin.intranet.categories.store');
+            Route::post('/{postCategory}', [PostCategoryController::class, 'duplicate'])->name('admin.intranet.categories.duplicate');
+            Route::put('/{postCategory}', [PostCategoryController::class, 'update'])->name('admin.intranet.categories.update');
+            Route::delete('/', [PostCategoryController::class, 'delete'])->name('admin.intranet.categories.delete');
+        });
     });
 });

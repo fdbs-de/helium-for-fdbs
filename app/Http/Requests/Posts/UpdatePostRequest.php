@@ -20,6 +20,16 @@ class UpdatePostRequest extends FormRequest
     }
 
     /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge(['scope' => $this->app['id']]);
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, mixed>
@@ -27,7 +37,7 @@ class UpdatePostRequest extends FormRequest
     public function rules()
     {
         return [
-            'scope' => ['required', 'string', 'in:blog,intranet,wiki,jobs'],
+            'scope' => ['required'],
             'roles' => ['nullable', 'array'],
             'roles.*' => ['nullable', 'exists:roles,id'],
             'title' => ['nullable', 'string', 'max:255'],

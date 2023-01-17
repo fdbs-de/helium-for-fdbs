@@ -10,9 +10,10 @@
                     aspect-ratio="2.5"
                     :key="post.id"
                     :name="post.title"
+                    :image="post.image"
+                    :color="post.category.color"
                     :primary-tag="post.category.name"
                     :tags="post.tags"
-                    :image="post.image"
                     :link="route('blog.article', [post.category.slug, post.slug])"
                 />
             </div>

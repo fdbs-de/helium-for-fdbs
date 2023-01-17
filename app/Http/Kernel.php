@@ -67,7 +67,7 @@ class Kernel extends HttpKernel
         
         'enabled' => \App\Http\Middleware\Enabled::class,
         'panelaccess' => \App\Http\Middleware\PanelAccess::class,
-        'select_app' => \App\Http\Middleware\SelectApp::class,
+        'select.app' => \App\Http\Middleware\SelectApp::class,
 
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
         'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
