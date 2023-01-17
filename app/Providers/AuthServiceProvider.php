@@ -37,9 +37,9 @@ class AuthServiceProvider extends ServiceProvider
 
 
 
-        // Super Admin Gate
+        // Admin Gate
         Gate::after(function ($user, $ability) {
-            return $user->permissions()->firstWhere('name', Permissions::SYSTEM_SUPER_ADMIN) ? true : null;
+            return $user->hasAnyPermission([Permissions::SYSTEM_SUPER_ADMIN, Permissions::SYSTEM_ADMIN]);
         });
     }
 }

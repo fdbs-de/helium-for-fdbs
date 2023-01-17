@@ -27,7 +27,7 @@
                     <div class="icon" aria-hidden="true">account_circle</div>
                     <div class="text">Profil</div>
                 </Link>
-                <Link class="menu-item" v-if="user.access.admin" :href="route('admin')">
+                <Link class="menu-item" v-if="can('system.access.admin.panel')" :href="route('admin')">
                     <div class="icon" aria-hidden="true">shield</div>
                     <div class="text">Adminbereich</div>
                 </Link>
@@ -59,7 +59,7 @@
                     <div class="icon" aria-hidden="true">workspace_premium</div>
                     <div class="text">Qualitätsmanagement</div>
                 </Link>
-                <a class="menu-item" v-if="user.access.admin" target="_blank" :href="route('wiki')">
+                <a class="menu-item" v-if="can('app.wiki.access.frontend')" target="_blank" :href="route('wiki')">
                     <div class="icon" aria-hidden="true">travel_explore</div>
                     <div class="text">Firmenwiki</div>
                     <div class="external">open_in_new</div>
@@ -99,7 +99,7 @@
     import Footer from '@/Components/Page/Footer.vue'
     import { Head, Link, usePage } from '@inertiajs/inertia-vue3'
     import { ref, computed } from 'vue'
-    import { can } from '@/Utils/Permissions'
+    import { can, canAny } from '@/Utils/Permissions'
 
 
 

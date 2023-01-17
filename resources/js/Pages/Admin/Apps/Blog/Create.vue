@@ -85,24 +85,22 @@
                     </div>
                 </div>
 
-                <div class="flex gap-1">
-                    <div class="group flex-1">
-                        <div class="flex gap-1 v-center">
-                            <b class="heading flex-1">Veröffentlichungsdatum</b>
-                            <button type="button" class="icon-button pill" v-tooltip.bottom="'Veröffentlichungsdatum hinzufügen'" v-if="form.available_from === null" @click="form.available_from = new Date().toISOString().split('T')[0]">add</button>
-                            <button type="button" class="icon-button pill" v-tooltip.bottom="'Veröffentlichungsdatum zurücksetzen'" v-else @click="form.available_from = null">replay</button>
-                        </div>
-                        <input type="date" class="date-input" v-model="form.available_from" v-show="form.available_from">
+                <div class="group">
+                    <div class="flex gap-1 v-center">
+                        <b class="heading flex-1">Veröffentlichungsdatum</b>
+                        <button type="button" class="icon-button pill" v-tooltip.bottom="'Veröffentlichungsdatum hinzufügen'" v-if="form.available_from === null" @click="form.available_from = new Date().toISOString().split('T')[0]">add</button>
+                        <button type="button" class="icon-button pill" v-tooltip.bottom="'Veröffentlichungsdatum zurücksetzen'" v-else @click="form.available_from = null">replay</button>
                     </div>
-            
-                    <div class="group flex-1">
-                        <div class="flex gap-1 v-center">
-                            <b class="heading flex-1">Gültigkeitsdatum</b>
-                            <button type="button" class="icon-button pill" v-tooltip.bottom="'Gültigkeitsdatum hinzufügen'" v-if="form.available_to === null" @click="form.available_to = new Date().toISOString().split('T')[0]">add</button>
-                            <button type="button" class="icon-button pill" v-tooltip.bottom="'Gültigkeitsdatum zurücksetzen'" v-else @click="form.available_to = null">replay</button>
-                        </div>
-                        <input type="date" class="date-input" v-model="form.available_to" v-show="form.available_to">
+                    <input type="date" class="date-input" v-model="form.available_from" v-show="form.available_from">
+                </div>
+        
+                <div class="group">
+                    <div class="flex gap-1 v-center">
+                        <b class="heading flex-1">Gültigkeitsdatum</b>
+                        <button type="button" class="icon-button pill" v-tooltip.bottom="'Gültigkeitsdatum hinzufügen'" v-if="form.available_to === null" @click="form.available_to = new Date().toISOString().split('T')[0]">add</button>
+                        <button type="button" class="icon-button pill" v-tooltip.bottom="'Gültigkeitsdatum zurücksetzen'" v-else @click="form.available_to = null">replay</button>
                     </div>
+                    <input type="date" class="date-input" v-model="form.available_to" v-show="form.available_to">
                 </div>
             </div>
             

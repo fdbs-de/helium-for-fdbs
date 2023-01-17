@@ -14,7 +14,7 @@ class ViewPostRequest extends FormRequest
      */
     public function authorize()
     {
-        if (!$this->user()->canAny([Permissions::SYSTEM_ADMIN, Permissions::APP_WIKI_ACCESS_FRONTEND])) return false;
+        if (!$this->user()->can(Permissions::APP_WIKI_ACCESS_FRONTEND)) return false;
 
         return true;
     }
