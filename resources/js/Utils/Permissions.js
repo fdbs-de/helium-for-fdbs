@@ -2,7 +2,7 @@ import { usePage } from '@inertiajs/inertia-vue3'
 
 function getPermissions()
 {
-    return Object.values(usePage().props.value?.auth?.user?.permissions || {})
+    return usePage().props.value?.auth?.user?.permission_list || []
 }
 
 

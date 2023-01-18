@@ -127,9 +127,9 @@
 
     const menu = ref([
         [
-            {label: 'Übersicht', color: 'var(--color-background)', icon: 'speed', route: route('admin'), permission: [], activeWhen: ['admin', 'admin.users', 'admin.roles', 'admin.media', 'admin.docs', 'admin.specs'], submenu: [
+            {label: 'Übersicht', color: 'var(--color-background)', icon: 'speed', route: route('admin'), permission: [], activeWhen: ['admin', 'admin.users', 'admin.users.editor', 'admin.roles', 'admin.media', 'admin.docs', 'admin.specs'], submenu: [
                 {label: 'Dashboard', icon: 'dashboard', route: route('admin'), permission: [], activeWhen: ['admin']},
-                {label: 'Benutzer', icon: 'person', route: route('admin.users'), permission: ['system.view.users'], activeWhen: ['admin.users']},
+                {label: 'Benutzer', icon: 'person', route: route('admin.users'), permission: ['system.view.users'], activeWhen: ['admin.users', 'admin.users.editor']},
                 {label: 'Berechtigungen', icon: 'key', route: route('admin.roles'), permission: ['system.view.roles'], activeWhen: ['admin.roles']},
                 {label: 'Medien', icon: 'folder_open', route: route('admin.media'), permission: ['system.view.media'], activeWhen: ['admin.media']},
                 {label: 'Dokumente', icon: 'folder_open', route: route('admin.docs'), permission: ['edit docs'], activeWhen: ['admin.docs']},

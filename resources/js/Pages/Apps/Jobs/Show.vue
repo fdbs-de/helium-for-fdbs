@@ -12,7 +12,7 @@
                 v-if="post.tags.map(e => e.toLowerCase()).includes('schnellbewerbung')"
                 as="a"
                 size="large"
-                label="Jetzt bewerben"
+                label="Jetzt in unter 1 Minute bewerben!"
                 icon-right="send"
                 :href="route('karriere.funnel.lkw-fahrer')"
                 />
@@ -21,7 +21,7 @@
         <div class="formatted-content" v-html="post.content"></div>
 
         <div class="flex margin-top-4" v-if="post.tags.map(e => e.toLowerCase()).includes('schnellbewerbung')">
-            <mui-button as="a" class="flex-1" size="large" label="Jetzt bewerben" icon-right="send" :href="route('karriere.funnel.lkw-fahrer')" />
+            <mui-button as="a" class="flex-1" size="large" label="Jetzt in unter 1 Minute bewerben!" icon-right="send" :href="route('karriere.funnel.lkw-fahrer')" />
         </div>
     </TextSubLayout>
 </template>
