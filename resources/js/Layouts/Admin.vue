@@ -13,16 +13,40 @@
                 </Link>
 
                 <div class="group">
-                    <Link class="app" v-for="item in menu[0]" :key="item.route" :href="item.route" v-tooltip.right="item.label" :class="{'active': is(item.activeWhen)}">{{item.icon}}</Link>
+                    <Link class="app"
+                        v-for="item in menu[0].filter(e => canAny(e.permission))"
+                        :key="item.route"
+                        :href="item.route"
+                        :style="`color: ${item.color};`"
+                        v-tooltip.right="item.label"
+                        :class="{'active': is(item.activeWhen)}">
+                        {{item.icon}}
+                    </Link>
                 </div>
                 <div class="divider"></div>
                 <div class="group">
-                    <Link class="app" v-for="item in menu[1]" :key="item.route" :href="item.route" v-tooltip.right="item.label" :class="{'active': is(item.activeWhen)}">{{item.icon}}</Link>
+                    <Link class="app"
+                        v-for="item in menu[1].filter(e => canAny(e.permission))"
+                        :key="item.route"
+                        :href="item.route"
+                        :style="`color: ${item.color};`"
+                        v-tooltip.right="item.label"
+                        :class="{'active': is(item.activeWhen)}">
+                        {{item.icon}}
+                    </Link>
                 </div>
                 <div class="spacer"></div>
                 <div class="group">
                     <!-- <div class="app" v-tooltip.right="'Sprache'">language</div> -->
-                    <Link class="app" v-for="item in menu[2]" :key="item.route" :href="item.route" v-tooltip.right="item.label" :class="{'active': is(item.activeWhen)}">{{item.icon}}</Link>
+                    <Link class="app"
+                        v-for="item in menu[2].filter(e => canAny(e.permission))"
+                        :key="item.route"
+                        :href="item.route"
+                        :style="`color: ${item.color};`"
+                        v-tooltip.right="item.label"
+                        :class="{'active': is(item.activeWhen)}">
+                        {{item.icon}}
+                    </Link>
                 </div>
             </div>
 
@@ -31,8 +55,8 @@
                     <a class="redirect-tag" :href="route('home')" target="_blank">FDBS</a>
                 </div>
 
-                <div class="menu-group" v-for="group in menu.flat().filter(e => e.submenu.length > 0)" :key="group.route" v-show="is(group.activeWhen)">
-                    <Link class="menu-item" v-for="item in group.submenu" :key="item.route" :href="item.route" :class="{'active': is(item.activeWhen)}">
+                <div class="menu-group" v-for="group in menu.flat().filter(e => (canAny(e.permission) && e.submenu.length > 0))" :key="group.route" v-show="is(group.activeWhen)">
+                    <Link class="menu-item" v-for="item in group.submenu.filter(e => canAny(e.permission))" :key="item.route" :href="item.route" :class="{'active': is(item.activeWhen)}">
                         <div class="icon" aria-hidden="true">{{item.icon}}</div>
                         <div class="text">{{item.label}}</div>
                     </Link>
@@ -75,7 +99,7 @@
 <script setup>
     import { Head, Link, usePage } from '@inertiajs/inertia-vue3'
     import { ref, computed } from 'vue'
-    import { can } from '@/Utils/Permissions'
+    import { can, canAny } from '@/Utils/Permissions'
 
     import Loader from '@/Components/Form/Loader.vue'
     import Footer from '@/Components/Page/Footer.vue'
@@ -103,28 +127,39 @@
 
     const menu = ref([
         [
-            {label: 'Übersicht', icon: 'dashboard', route: route('admin'), permission: ['view admin'], activeWhen: ['admin', 'admin.users', 'admin.roles', 'admin.media', 'admin.docs', 'admin.specs'], submenu: [
-                {label: 'Dashboard', icon: 'dashboard', route: route('admin'), permission: ['view admin'], activeWhen: ['admin']},
-                {label: 'Benutzer', icon: 'person', route: route('admin.users'), permission: ['view admin'], activeWhen: ['admin.users']},
-                {label: 'Berechtigungen', icon: 'key', route: route('admin.roles'), permission: ['view admin'], activeWhen: ['admin.roles']},
-                {label: 'Medien', icon: 'folder_open', route: route('admin.media'), permission: ['view admin'], activeWhen: ['admin.media']},
-                {label: 'Dokumente', icon: 'folder_open', route: route('admin.docs'), permission: ['view admin'], activeWhen: ['admin.docs']},
-                {label: 'Spezifikationen', icon: 'cloud_done', route: route('admin.specs'), permission: ['view admin'], activeWhen: ['admin.specs']},
+            {label: 'Übersicht', color: 'var(--color-background)', icon: 'speed', route: route('admin'), permission: [], activeWhen: ['admin', 'admin.users', 'admin.users.editor', 'admin.roles', 'admin.media', 'admin.docs', 'admin.specs'], submenu: [
+                {label: 'Dashboard', icon: 'dashboard', route: route('admin'), permission: [], activeWhen: ['admin']},
+                {label: 'Benutzer', icon: 'person', route: route('admin.users'), permission: ['system.view.users'], activeWhen: ['admin.users', 'admin.users.editor']},
+                {label: 'Berechtigungen', icon: 'key', route: route('admin.roles'), permission: ['system.view.roles'], activeWhen: ['admin.roles']},
+                {label: 'Medien', icon: 'folder_open', route: route('admin.media'), permission: ['system.view.media'], activeWhen: ['admin.media']},
+                {label: 'Dokumente', icon: 'folder_open', route: route('admin.docs'), permission: ['edit docs'], activeWhen: ['admin.docs']},
+                {label: 'Spezifikationen', icon: 'cloud_done', route: route('admin.specs'), permission: ['edit specs'], activeWhen: ['admin.specs']},
             ]},
         ],
         [
-            // {label: 'Seiten', icon: 'pages', route: route('admin.posts'), permission: ['view app pages'], activeWhen: ['admin.pages'], submenu: []},
-            {label: 'Blog', icon: 'public', route: route('admin.posts'), permission: ['view app blog'], activeWhen: ['admin.posts', 'admin.categories', 'admin.posts.editor', 'admin.categories.editor'], submenu: [
-                {label: 'Posts', icon: 'feed', route: route('admin.posts'), permission: ['view app blog'], activeWhen: ['admin.posts']},
-                {label: 'Kategorien', icon: 'category', route: route('admin.categories'), permission: ['view app blog'], activeWhen: ['admin.categories']},
+            // {label: 'Seiten', color: 'var(--color-app-pages-on-dark)', icon: 'web', route: route('admin.blog.posts'), permission: ['app.pages.access.admin.panel'], activeWhen: ['admin.pages.pages'], submenu: []},
+            {label: 'Blog', color: 'var(--color-app-blog-on-dark)', icon: 'newspaper', route: route('admin.blog.posts'), permission: ['app.blog.access.admin.panel'], activeWhen: ['admin.blog.posts', 'admin.blog.categories', 'admin.blog.posts.editor', 'admin.blog.categories.editor'], submenu: [
+                {label: 'Beiträge', icon: 'feed', route: route('admin.blog.posts'), permission: ['view app blog'], activeWhen: ['admin.blog.posts', 'admin.blog.posts.editor']},
+                {label: 'Kategorien', icon: 'category', route: route('admin.blog.categories'), permission: ['view app blog'], activeWhen: ['admin.blog.categories', 'admin.blog.categories.editor']},
             ]},
-            // {label: 'Intranet', icon: 'policy', route: route('admin.posts'), permission: ['view app intranet'], activeWhen: ['admin.intranet'], submenu: []},
-            // {label: 'Wiki', icon: 'travel_explore', route: route('admin.posts'), permission: ['view app wiki'], activeWhen: ['admin.wiki'], submenu: []},
-            // {label: 'Jobs', icon: 'work', route: route('admin.posts'), permission: ['view app jobs'], activeWhen: ['admin.jobs'], submenu: []},
+            // {label: 'Ecommerce', color: 'var(--color-app-ecommerce-on-dark)', icon: 'shopping_cart', route: route('admin.blog.posts'), permission: ['app.ecommerce.access.admin.panel'], activeWhen: ['admin.ecommerce.overview'], submenu: []},
+            {label: 'Jobs', color: 'var(--color-app-jobs-on-dark)', icon: 'work', route: route('admin.jobs.posts'), permission: ['app.jobs.access.admin.panel'], activeWhen: ['admin.jobs.posts', 'admin.jobs.categories', 'admin.jobs.posts.editor', 'admin.jobs.categories.editor'], submenu: [
+                {label: 'Stellenangebote', icon: 'feed', route: route('admin.jobs.posts'), permission: ['app.jobs.view.offers'], activeWhen: ['admin.jobs.posts', 'admin.jobs.posts.editor']},
+                {label: 'Kategorien', icon: 'category', route: route('admin.jobs.categories'), permission: ['app.jobs.view.categories'], activeWhen: ['admin.jobs.categories', 'admin.jobs.categories.editor']},
+            ]},
+            {label: 'Intranet', color: 'var(--color-app-intranet-on-dark)', icon: 'domain', route: route('admin.intranet.posts'), permission: ['app.intranet.access.admin.panel'], activeWhen: ['admin.intranet.posts', 'admin.intranet.categories', 'admin.intranet.posts.editor', 'admin.intranet.categories.editor'], submenu: [
+                {label: 'Posts', icon: 'feed', route: route('admin.intranet.posts'), permission: ['app.intranet.view.posts'], activeWhen: ['admin.intranet.posts', 'admin.intranet.posts.editor']},
+                {label: 'Kategorien', icon: 'category', route: route('admin.intranet.categories'), permission: ['app.intranet.view.categories'], activeWhen: ['admin.intranet.categories', 'admin.intranet.categories.editor']},
+            ]},
+            {label: 'Wiki', color: 'var(--color-app-wiki-on-dark)', icon: 'local_library', route: route('admin.wiki.posts'), permission: ['app.wiki.access.admin.panel'], activeWhen: ['admin.wiki.posts', 'admin.wiki.categories', 'admin.wiki.posts.editor', 'admin.wiki.categories.editor'], submenu: [
+                {label: 'Einträge', icon: 'feed', route: route('admin.wiki.posts'), permission: ['app.wiki.view.pages'], activeWhen: ['admin.wiki.posts', 'admin.wiki.posts.editor']},
+                {label: 'Kategorien', icon: 'category', route: route('admin.wiki.categories'), permission: ['app.wiki.view.categories'], activeWhen: ['admin.wiki.categories', 'admin.wiki.categories.editor']},
+            ]},
+            // {label: 'Marketing', color: 'var(--color-app-marketing-on-dark)', icon: 'cell_tower', route: route('admin.blog.posts'), permission: ['app.marketing.access.admin.panel'], activeWhen: ['admin.marketing.overview'], submenu: []},
         ],
         [
-            {label: 'Globale Einstellungen', icon: 'settings', route: route('admin.settings'), permission: ['view admin'], activeWhen: ['admin.settings'], submenu: []},
-            {label: 'Profil', icon: 'account_circle', route: route('dashboard.profile'), permission: [], activeWhen: [], submenu: []},
+            {label: 'Globale Einstellungen', color: 'var(--color-background)', icon: 'settings', route: route('admin.settings'), permission: ['system.view.settings'], activeWhen: ['admin.settings'], submenu: []},
+            {label: 'Profil', color: 'var(--color-background)', icon: 'account_circle', route: route('dashboard.profile'), permission: [], activeWhen: [], submenu: []},
         ],
     ])
 
@@ -192,7 +227,7 @@
             display: flex
             
             .apps-bar
-                background: var(--color-primary)
+                background: var(--color-heading)
                 width: 4rem
                 color: white
                 display: flex
@@ -249,7 +284,7 @@
                         color: inherit
                         font-size: 1.5rem
                         font-family: var(--font-icon)
-                        font-weight: 400
+                        font-weight: lighter !important
                         position: relative
                         border-radius: var(--radius-m)
                         user-select: none
@@ -304,6 +339,7 @@
                         height: 2rem
                         padding: 0 1rem
                         background: var(--color-background-soft)
+                        color: var(--color-heading)
                         border-radius: 2rem
                         font-size: .8rem
                         font-weight: 600
@@ -311,8 +347,12 @@
                         &::after
                             content: 'open_in_new'
                             line-height: 1
-                            font-size: 1rem
+                            font-size: .8rem
                             font-family: var(--font-icon)
+                            opacity: .7
+
+                        &:hover
+                            color: var(--color-primary)
 
                 .menu-group
                     display: flex

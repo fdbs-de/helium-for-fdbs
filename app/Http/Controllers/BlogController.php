@@ -11,7 +11,7 @@ class BlogController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Blog/Index', [
+        return Inertia::render('Apps/Blog/Index', [
             'posts' => Post::getPublished('blog')
             ->orderByDesc('pinned')
             ->orderByDesc('created_at')
@@ -27,7 +27,7 @@ class BlogController extends Controller
 
         $post = Post::getPublishedBySlugAndCategory($postSlug, $categoryId, 'blog')->firstOrFail();
             
-        return Inertia::render('Blog/Post', [
+        return Inertia::render('Apps/Blog/Show', [
             'post' => $post
         ]);
     }

@@ -13,7 +13,7 @@ class WikiController extends Controller
 {
     public function overview(ViewPostRequest $request)
     {
-        return Inertia::render('Wiki/Overview', [
+        return Inertia::render('Apps/Wiki/Overview', [
             'posts' => Post::getPublished('wiki', request()->user()->accessable_role_ids)
             ->orderByDesc('pinned')
             ->orderByDesc('created_at')
@@ -36,7 +36,7 @@ class WikiController extends Controller
 
         $post = Post::getPublishedBySlugAndCategory($postSlug, $categoryId, 'wiki', request()->user()->accessable_role_ids)->firstOrFail();
 
-        return Inertia::render('Wiki/Show', [
+        return Inertia::render('Apps/Wiki/Show', [
             'post' => $post,
         ]);
     }

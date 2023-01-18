@@ -14,9 +14,17 @@ class UpdatePostRequest extends FormRequest
      */
     public function authorize()
     {
-        if (!$this->user()->can(Permissions::CAN_EDIT_POSTS)) return false;
-
         return true;
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge(['scope' => $this->app['id']]);
     }
 
     /**
@@ -27,7 +35,7 @@ class UpdatePostRequest extends FormRequest
     public function rules()
     {
         return [
-            'scope' => ['required', 'string', 'in:blog,intranet,wiki,jobs'],
+            'scope' => ['required'],
             'roles' => ['nullable', 'array'],
             'roles.*' => ['nullable', 'exists:roles,id'],
             'title' => ['nullable', 'string', 'max:255'],

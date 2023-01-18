@@ -54,7 +54,7 @@
                 </div>
                 <div class="card-footer">
                     <div class="spacer"></div>
-                    <mui-button as="a" :href="route('admin.posts')" size="large" label="Zur Post Übersicht"/>
+                    <!-- <mui-button as="a" :href="route('admin.posts')" size="large" label="Zur Post Übersicht"/> -->
                 </div>
             </div>
 

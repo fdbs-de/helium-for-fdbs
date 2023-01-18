@@ -12,7 +12,7 @@ class JobController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Jobs/Index', [
+        return Inertia::render('Apps/Jobs/Index', [
             'posts' => Post::getPublished('jobs')
             ->orderByDesc('pinned')
             ->orderByDesc('created_at')
@@ -25,14 +25,14 @@ class JobController extends Controller
     {
         $post = Post::getPublishedBySlug($postSlug, 'jobs')->firstOrFail();
 
-        return Inertia::render('Jobs/Show', [
+        return Inertia::render('Apps/Jobs/Show', [
             'post' => $post,
         ]);
     }
 
     public function showFunnelFahrer()
     {
-        return Inertia::render('Jobs/Fahrer.funnel');
+        return Inertia::render('Apps/Jobs/Fahrer.funnel');
     }
 
     public function storeFunnelFahrer(Request $request)

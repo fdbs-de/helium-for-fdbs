@@ -14,8 +14,6 @@ class DestroyPostCategoryRequest extends FormRequest
      */
     public function authorize()
     {
-        if (!$this->user()->can(Permissions::CAN_EDIT_POSTS)) return false;
-
         return true;
     }
 

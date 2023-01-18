@@ -14,9 +14,17 @@ class CreatePostCategoryRequest extends FormRequest
      */
     public function authorize()
     {
-        if (!$this->user()->can(Permissions::CAN_EDIT_POSTS)) return false;
-
         return true;
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge(['scope' => $this->app['id']]);
     }
 
     /**
@@ -27,8 +35,8 @@ class CreatePostCategoryRequest extends FormRequest
     public function rules()
     {
         return [
+            'scope' => ['required'],
             'name' => 'required|string|max:255',
-            'scope' => ['required', 'string', 'in:blog,intranet,wiki,jobs'],
             'roles' => ['nullable', 'array'],
             'roles.*' => ['nullable', 'exists:roles,id'],
             'slug' => ['nullable', 'string', 'max:255', 'unique:post_categories,slug,NULL,id,scope,' . $this->scope],

@@ -14,20 +14,25 @@ use Spatie\Permission\Models\Role;
 
 class PostCategoryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return Inertia::render('Admin/PostCategories/Index', [
-            'categories' => PostCategory::withCount('posts')->orderBy('scope')->orderBy('name', 'asc')->get(),
+        return Inertia::render('Admin/Apps/Shared/Categories/Index', [
+            'categories' => PostCategory::withCount('posts')
+            ->where('scope', $request->app['id'])
+            ->orderBy('name', 'asc')
+            ->get(),
+            'app' => $request->app['route'],
         ]);
     }
 
 
 
-    public function create(PostCategory $category)
+    public function create(Request $request, PostCategory $category)
     {
-        return Inertia::render('Admin/PostCategories/Create', [
+        return Inertia::render('Admin/Apps/Shared/Categories/Create', [
             'item' => $category->load(['roles']),
             'roles' => Role::orderBy('created_at')->get(),
+            'app' => $request->app['route'],
         ]);
     }
 
@@ -38,7 +43,7 @@ class PostCategoryController extends Controller
         $postCategory = PostCategory::create($request->validated());
         $postCategory->roles()->sync($request->roles);
 
-        return redirect()->route('admin.categories.editor', $postCategory);
+        return redirect()->route('admin.'.$request->app['route'].'.categories.editor', $postCategory);
     }
 
 
@@ -49,7 +54,7 @@ class PostCategoryController extends Controller
 
         if ($request->returnTo === 'editor')
         {
-            return redirect()->route('admin.categories.editor', $postCategory);
+            return redirect()->route('admin.'.$request->app['route'].'.categories.editor', $postCategory);
         }
 
         return back();
@@ -62,7 +67,7 @@ class PostCategoryController extends Controller
         $postCategory->update($request->validated());
         $postCategory->roles()->sync($request->roles);
 
-        return redirect()->route('admin.categories.editor', $postCategory);
+        return redirect()->route('admin.'.$request->app['route'].'.categories.editor', $postCategory);
     }
 
 
