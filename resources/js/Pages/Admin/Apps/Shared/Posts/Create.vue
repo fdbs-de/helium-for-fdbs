@@ -43,6 +43,8 @@
             </div>
 
             <div class="limiter text-limiter flex vertical gap-1 margin-block-2">
+                <mui-button label="Bild auswählen" @click="$refs.picker.open((file) => {form.image = file})"/>
+
                 <mui-input type="text" label="Titel *" required v-model="form.title">
                     <template #right>
                         <button type="button" class="input-button" :class="{'active': form.pinned}" v-tooltip.right="'Post anpinnen'" @click="form.pinned = !form.pinned">push_pin</button>
@@ -102,6 +104,8 @@
             </div>
         </form>
     </AdminLayout>
+
+    <Picker ref="picker"/>
 </template>
 
 <script setup>
@@ -115,6 +119,7 @@
     import Popup from '@/Components/Form/Popup.vue'
     import Switcher from '@/Components/Form/Switcher.vue'
     import TextEditor from '@/Components/Form/TextEditor.vue'
+    import Picker from '@/Components/Form/MediaLibrary/Picker.vue'
 
     const props = defineProps({
         item: Object,
