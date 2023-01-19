@@ -328,30 +328,9 @@
         ]
     },
     {
-        "id": "lager",
-        "name": "Lager",
-        "employees": [
-            {
-                "name": "Philipp Tronnier",
-                "job": "Leitung Lager",
-                "leader": true,
-                "tel": "57",
-                "image": null
-            }
-        ]
-    },
-    {
         "id": "fuhrpark",
         "name": "Fuhrpark",
         "employees": [
-            {
-                "name": "Timo Welskop",
-                "job": "Leitung Fuhrpark",
-                "leader": true,
-                "tel": "56",
-                "image": "/images/content/mitarbeiter/timo_welskop.png",
-                "overlay": "/images/content/mitarbeiter/timo_welskop_zeichnung.png"
-            },
             {
                 "name": "Kathrin Reviliak",
                 "job": "Stv. Leitung Fuhrpark",

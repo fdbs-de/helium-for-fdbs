@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin.panel'])->group(function () {
     Route::get('/', [AdminController::class, 'show'])->name('admin');
 
+    // Route::get('/generate-dir-cache', [AdminController::class, 'generateDirCache']);
+
     Route::prefix('settings')->group(function () {
         Route::get('/', [SettingsController::class, 'index'])
         ->middleware('can:system.view.settings')
