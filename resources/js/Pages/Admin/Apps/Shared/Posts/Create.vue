@@ -43,7 +43,7 @@
             </div>
 
             <div class="limiter text-limiter flex vertical gap-1 margin-block-2">
-                <mui-button label="Bild auswählen" @click="$refs.picker.open((file) => {form.image = file})"/>
+                <!-- <mui-button label="Bild auswählen" @click="$refs.picker.open((file) => {form.image = file})"/> -->
 
                 <mui-input type="text" label="Titel *" required v-model="form.title">
                     <template #right>
