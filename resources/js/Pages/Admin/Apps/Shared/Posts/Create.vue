@@ -186,6 +186,7 @@
             ...data,
             tags: data.tags.split(',').map(tag => tag.trim()).filter(tag => !!tag),
         })).post(route('admin.'+props.app+'.posts.store'), {
+            preserveScroll: true,
             onSuccess: (data) => {
                 openItem(data?.props?.item)
             },
@@ -197,6 +198,7 @@
             ...data,
             tags: data.tags.split(',').map(tag => tag.trim()).filter(tag => !!tag),
         })).put(route('admin.'+props.app+'.posts.update', form.id), {
+            preserveScroll: true,
             onSuccess: (data) => {
                 openItem(data?.props?.item)
             },
