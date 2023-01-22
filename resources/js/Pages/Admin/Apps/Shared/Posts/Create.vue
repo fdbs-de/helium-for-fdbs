@@ -34,13 +34,13 @@
                         </template>
                     </mui-input>
 
-                    <mui-input type="text" label="Slug *" required v-model="form.slug">
+                    <mui-input type="text" class="margin-bottom-2" label="Slug *" required v-model="form.slug">
                         <template #right>
                             <button type="button" class="input-button" v-tooltip.right="'Aus Titel generieren'" @click="generateSlug">auto_awesome</button>
                         </template>
                     </mui-input>
 
-                    <TextEditor class="content-input margin-top-2 flex-1" v-model="form.content" />
+                    <TextEditor class="content-input flex-1" v-model="form.content" />
                 </div>
                 <div class="meta-section">
                     <mui-button v-if="form.id" label="Post Speichern" size="large" :loading="form.processing" @click="saveItem()" />
