@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests\Media;
 
-use App\Permissions\Permissions;
-use App\Rules\MediaLibrary\MediaPath;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RenameMediaRequest extends FormRequest
@@ -26,8 +24,7 @@ class RenameMediaRequest extends FormRequest
     public function rules()
     {
         return [
-            'current_path' => ['required', 'string', new MediaPath],
-            'new_path' => ['required', 'string', new MediaPath],
+            'name' => ['required', 'string', 'regex:/^[^\/]+$/'],
         ];
     }
 }

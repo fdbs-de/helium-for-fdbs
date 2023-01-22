@@ -2,29 +2,138 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Classes\MediaLibrary\Directory;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Media\CreateDirectoryRequest;
 use App\Http\Requests\Media\CreateMediaRequest;
 use App\Http\Requests\Media\DestroyMediaRequest;
-use App\Http\Requests\Media\IndexMediaRequest;
 use App\Http\Requests\Media\RenameMediaRequest;
+use App\Http\Resources\MediaResource;
 use App\Models\Media;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class MediaController extends Controller
 {
-    public function index(IndexMediaRequest $request)
-    {
-        $path = $request->path ? urldecode($request->path) : 'public/media';
+    private const DRIVES = [
+        ['path' => 'public/media', 'status' => 'public'],
+        ['path' => 'private/media', 'status' => 'private'],
+    ];
 
-        $directory = new Directory($path);
-        
+
+
+    public function setupMediaDrives()
+    {
+        foreach (self::DRIVES as $drive)
+        {
+            if (!Storage::exists($drive['path']))
+            {
+                Storage::makeDirectory($drive['path']);
+            }
+
+            Media::updateOrCreate([
+                'path' => $drive['path']
+            ], [
+                'mediatype' => 'folder',
+                'status' => $drive['status'],
+                'belongs_to' => null,
+            ]);
+        }
+
+        return true;
+    }
+
+
+
+    public function generateMediaCache()
+    {
+        // Delete all media that no longer exists on the disk
+        foreach (Media::all() as $media)
+        {
+            if (Storage::exists($media->path)) continue;
+
+            $media->delete();
+        }
+
+
+
+        // Scan all media drives
+        foreach (self::DRIVES as $drive)
+        {
+            $media = Media::getRoot($drive['status']);
+            
+            if (!$media) continue;
+            if (!Storage::exists($drive['path'])) continue;
+
+            $this->getMediaContents($media->path, $media->id, $media->status);
+        }
+
+
+
+        return back();
+    }
+
+
+
+    private function getMediaContents($path, $belongsTo, $status)
+    {
+        $directories = Storage::directories($path);
+        $files = Storage::files($path);
+
+        foreach ($files as $key => $value)
+        {
+            $mimeType = Storage::mimeType($value);
+
+            Media::updateOrCreate([
+                'path' => $value
+            ], [
+                'mediatype' => $mimeType,
+                'status' => $status,
+                'belongs_to' => $belongsTo,
+            ]);
+        }
+
+        foreach ($directories as $key => $value)
+        {
+            $newDirectory = Media::updateOrCreate([
+                'path' => $value
+            ], [
+                'mediatype' => 'folder',
+                'status' => $status,
+                'belongs_to' => $belongsTo,
+            ]);
+
+            $this->getMediaContents($value, $newDirectory->id, $status);
+        }
+    }
+
+
+
+    public function indexPublic(Media $media)
+    {
+        if (!$media->id)
+        {
+            $media = Media::getRoot('public');
+        }
+
+        if (!$media) abort(404);
+        if ($media->mediatype !== 'folder') abort(404);
+
+
+
+        $path = [];
+        $parent = $media;
+
+        while ($parent)
+        {
+            array_unshift($path, $parent);
+            $parent = $parent->parent;
+        }
+
+
+
         return Inertia::render('Admin/Media/Index', [
-            'items' => $directory->jsonSerialize(),
-            'path' => $path,
-            'exists' => Storage::exists($path),
+            'items' => MediaResource::collection($media->children),
+            'breadcrumbs' => $path,
         ]);
     }
 
@@ -37,20 +146,22 @@ class MediaController extends Controller
 
 
 
-    public function store(CreateMediaRequest $request)
+    public function storeFiles(CreateMediaRequest $request, Media $media)
     {
         $files = $request->file('files');
 
-        foreach ($files as $file) {
+        foreach ($files as $file)
+        {
             $filename = $file->getClientOriginalName();
             
-            $path = Storage::putFileAs($request->path, $file, $filename);
+            $path = Storage::putFileAs($media->path, $file, $filename);
 
-            // Get the MIME type of the file
-            $mediatype = $file->getMimeType();
-            
             // save to database
-            Media::create(array_merge($request->validated(), ['path' => $path, 'mediatype' => $mediatype]));
+            $media->children()->create([
+                'path' => $path,
+                'mediatype' => $file->getMimeType(),
+                'systus' => $media->status,
+            ]);
         }
 
         return back();
@@ -58,63 +169,42 @@ class MediaController extends Controller
 
 
 
-    public function storeDirectory(CreateDirectoryRequest $request)
+    public function storeDirectory(CreateDirectoryRequest $request, Media $media)
     {
-        Storage::makeDirectory($request->path);
+        $path = $media->path . '/' . $request->name;
+
+        Storage::makeDirectory($path);
+
+        // save to database
+        $media->children()->create([
+            'path' => $path,
+            'mediatype' => 'folder',
+            'systus' => $media->status,
+        ]);
 
         return back();
     }
 
 
 
-    public function rename(RenameMediaRequest $request)
+    public function rename(RenameMediaRequest $request, Media $media)
     {
-        $current_path = $request->current_path;
-        $new_path = $request->new_path;
+        $new_path = $media->parent->path . '/' . $request->name;
+        $old_path = $media->path;
 
-        if (!Storage::exists($current_path)) return back();
-
-        // rename item
-        Storage::move($current_path, $new_path);
-        
-
-        // check if item is a file and update the database
-        $mime = Storage::mimeType($current_path);
-        
-        if ($mime)
-        {
-            // update database
-            Media::where('path', $current_path)->update(['path' => $new_path]);
-        }
+        $media->move($old_path, $new_path);
 
         return back();
     }
+
 
 
 
     public function delete(DestroyMediaRequest $request)
     {
-        $paths = $request->paths;
-        
-        foreach ($paths as $path)
+        foreach ($request->ids as $id)
         {
-            if (!Storage::exists($path)) continue;
-
-            $mime = Storage::mimeType($path);
-
-            if (!$mime)
-            {
-                // delete from storage
-                Storage::deleteDirectory($path);
-            }
-            else
-            {
-                // delete from storage
-                Storage::delete($path);
-
-                // delete from database
-                Media::where('path', $path)->delete();
-            }
+            Media::find($id)->delete();
         }
 
         return back();

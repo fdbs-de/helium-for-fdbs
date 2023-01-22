@@ -16,16 +16,22 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin.panel'])->group(function () {
     Route::get('/', [AdminController::class, 'show'])->name('admin');
 
-    // Route::get('/generate-dir-cache', [AdminController::class, 'generateDirCache']);
+    Route::get('/generate-dir-cache', [AdminController::class, 'generateDirCache']);
 
     Route::prefix('settings')->group(function () {
-        Route::get('/', [SettingsController::class, 'index'])
-        ->middleware('can:system.view.settings')
-        ->name('admin.settings');
+        Route::middleware('can:system.view.settings')->group(function () {
+            Route::get('/general', [SettingsController::class, 'indexGeneral'])->name('admin.settings.general');
+            Route::get('/apps', [SettingsController::class, 'indexApps'])->name('admin.settings.apps');
+            Route::get('/media', [SettingsController::class, 'indexMedia'])->name('admin.settings.media');
+            Route::get('/legal', [SettingsController::class, 'indexLegal'])->name('admin.settings.legal');
+        });
 
-        Route::patch('/', [SettingsController::class, 'update'])
-        ->middleware('can:system.edit.settings')
-        ->name('admin.settings.update');
+        Route::middleware('can:system.edit.settings')->group(function () {
+            Route::patch('/general', [SettingsController::class, 'updateGeneral'])->name('admin.settings.update.general');
+            Route::patch('/apps', [SettingsController::class, 'updateApps'])->name('admin.settings.update.apps');
+            Route::patch('/media', [SettingsController::class, 'updateMedia'])->name('admin.settings.update.media');
+            Route::patch('/legal', [SettingsController::class, 'updateLegal'])->name('admin.settings.update.legal');
+        });
     });
 
     Route::prefix('newsletter')->group(function () {
@@ -104,7 +110,11 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
     });
 
     Route::prefix('media')->group(function () {
-        Route::get('/{path?}', [MediaController::class, 'index'])
+        Route::patch('/cache', [MediaController::class, 'generateMediaCache'])
+        ->middleware('can:system.edit.media')
+        ->name('admin.media.generate.cache');
+
+        Route::get('/public/{media?}', [MediaController::class, 'indexPublic'])
         ->middleware('can:system.view.media')
         ->name('admin.media');
         
@@ -112,21 +122,21 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
         // ->middleware('can:system.view.media')
         // ->name('admin.media.search');
         
-        Route::post('/', [MediaController::class, 'store'])
+        Route::post('/{media}/files', [MediaController::class, 'storeFiles'])
         ->middleware('can:system.upload.media')
-        ->name('admin.media.store.file');
+        ->name('admin.media.store.files');
         
-        Route::post('/directory', [MediaController::class, 'storeDirectory'])
+        Route::post('/{media}/directory', [MediaController::class, 'storeDirectory'])
         ->middleware('can:system.upload.media')
         ->name('admin.media.store.directory');
         
-        Route::put('/rename', [MediaController::class, 'rename'])
+        Route::put('/{media}/rename', [MediaController::class, 'rename'])
         ->middleware('can:system.edit.media')
-        ->name('admin.media.rename');
+        ->name('admin.media.update.rename');
         
-        // Route::put('/{media}', [MediaController::class, 'update'])
-        // ->middleware('can:system.edit.media')
-        // ->name('admin.media.update.file');
+        Route::put('/{media}', [MediaController::class, 'update'])
+        ->middleware('can:system.edit.media')
+        ->name('admin.media.update');
         
         Route::delete('/', [MediaController::class, 'delete'])
         ->middleware('can:system.delete.media')
