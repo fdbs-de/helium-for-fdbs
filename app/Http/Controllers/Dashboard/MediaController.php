@@ -9,6 +9,7 @@ use App\Http\Requests\Media\DestroyMediaRequest;
 use App\Http\Requests\Media\RenameMediaRequest;
 use App\Http\Resources\MediaResource;
 use App\Models\Media;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
@@ -108,7 +109,7 @@ class MediaController extends Controller
 
 
 
-    public function indexPublic(Media $media)
+    public function indexPublic(Request $request, Media $media)
     {
         if (!$media->id)
         {
@@ -129,7 +130,14 @@ class MediaController extends Controller
             $parent = $parent->parent;
         }
 
+        $data = [
+            'items' => MediaResource::collection($media->children),
+            'breadcrumbs' => $path,
+        ];
 
+
+
+        if ($request->wantsJson()) return $data;
 
         return Inertia::render('Admin/Media/Index', [
             'items' => MediaResource::collection($media->children),

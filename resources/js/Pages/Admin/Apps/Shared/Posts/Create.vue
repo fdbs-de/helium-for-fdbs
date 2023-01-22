@@ -2,30 +2,10 @@
     <Head :title="form.title || 'Post Titel'" />
 
     <AdminLayout :title="form.title || 'Post Titel'" :backlink="route('admin.'+app+'.posts')" backlink-text="Zurück zur Übersicht">
-        <form class="card flex vertical gap-3 padding-1" @submit.prevent="saveItem()">
+        <form class="card flex vertical gap-4 padding-1" @submit.prevent="saveItem()">
             <div class="limiter text-limiter" v-if="hasErrors">
                 <h3><b>Fehler!</b></h3>
                 <p v-for="(error, key) in errors" :key="key">{{ error }}</p>
-            </div>
-
-            <div class="flex v-center gap-1">
-                <select class="header-select" v-model="form.category">
-                    <option :value="null" disabled>Kategorie auswählen</option>
-                    <option v-for="category in categories" :key="category.id" :value="category.id">{{category.name}}</option>
-                </select>
-
-                <select class="header-select" v-model="form.status">
-                    <option :value="null" disabled>Status auswählen</option>
-                    <option value="draft">Entwurf</option>
-                    <option value="pending">Zur Freigabe</option>
-                    <option value="published">Veröffentlicht</option>
-                    <option value="hidden">Versteckt</option>
-                </select>
-                
-                <div class="spacer"></div>
-                
-                <mui-button v-if="form.id" label="Post Speichern" size="large" :loading="form.processing" @click="saveItem()"/>
-                <mui-button v-else label="Post erstellen" size="large" :loading="form.processing" @click="saveItem()"/>
             </div>
 
             <div class="hero-image-wrapper" :class="{'expanded': expanded}">
@@ -37,70 +17,89 @@
                 </div>
                 <div class="hero-image-overlay bottom">
                     <div class="limiter text-limiter">
-                        <mui-input type="text" class="flex-1" label="Bild URL" clearable border v-model="form.image" />
+                        <mui-input type="text" class="flex-1" label="Bild URL" clearable border v-model="form.image">
+                            <template #right>
+                                <button type="button" class="input-button" @click="$refs.picker.open((file) => { form.image = file })">folder_open</button>
+                            </template>
+                        </mui-input>
                     </div>
                 </div>
             </div>
 
-            <div class="limiter text-limiter flex vertical gap-1 margin-block-2">
-                <!-- <mui-button label="Bild auswählen" @click="$refs.picker.open((file) => {form.image = file})"/> -->
+            <div class="post-layout">
+                <div class="content-section">
+                    <mui-input type="text" label="Titel *" required v-model="form.title">
+                        <template #right>
+                            <button type="button" class="input-button" :class="{'active': form.pinned}" v-tooltip.right="'Post anpinnen'" @click="form.pinned = !form.pinned">push_pin</button>
+                        </template>
+                    </mui-input>
 
-                <mui-input type="text" label="Titel *" required v-model="form.title">
-                    <template #right>
-                        <button type="button" class="input-button" :class="{'active': form.pinned}" v-tooltip.right="'Post anpinnen'" @click="form.pinned = !form.pinned">push_pin</button>
-                    </template>
-                </mui-input>
-                
-                <mui-input type="text" label="Slug *" required v-model="form.slug">
-                    <template #right>
-                        <button type="button" class="input-button" v-tooltip.right="'Aus Titel generieren'" @click="generateSlug">auto_awesome</button>
-                    </template>
-                </mui-input>
-                
-                <mui-input type="text" label="Tags" v-model="form.tags" />
+                    <mui-input type="text" label="Slug *" required v-model="form.slug">
+                        <template #right>
+                            <button type="button" class="input-button" v-tooltip.right="'Aus Titel generieren'" @click="generateSlug">auto_awesome</button>
+                        </template>
+                    </mui-input>
 
-                <div class="flex vertical background-soft radius-m">
-                    <div class="flex padding-1 gap-1 wrap h-center">
-                        <mui-toggle type="switch" label="Berechtigungen überschreiben" v-model="form.override_category_roles"/>
-                    </div>
-                    <div class="flex padding-1 gap-1 wrap h-center border-top" v-show="form.override_category_roles">
-                        <span v-if="form.roles.length > 0">Nur <b>ausgewählte Benutzer</b> können diesen Eintrag aufrufen</span>
-                        <span v-else><b>Jeder Benutzer</b> kann diesen Eintrag aufrufen</span>
-                    </div>
-                    <div class="flex padding-1 gap-1 wrap border-top" v-show="form.override_category_roles">
-                        <mui-button
-                            type="button"
-                            v-for="role in roles"
-                            :key="role.id"
-                            :label="role.name"
-                            :variant="form.roles.includes(role.id) ? 'solid' : 'contained'"
-                            :icon-left="form.roles.includes(role.id) ? 'remove' : 'add'"
-                            size="small"
-                            @click="toggleRole(role.id)"/>
-                    </div>
+                    <TextEditor class="content-input margin-top-2 flex-1" v-model="form.content" />
                 </div>
+                <div class="meta-section">
+                    <mui-button v-if="form.id" label="Post Speichern" size="large" :loading="form.processing" @click="saveItem()" />
+                    <mui-button v-else label="Post erstellen" size="large" :loading="form.processing" @click="saveItem()" />
 
-                <div class="group">
-                    <div class="flex gap-1 v-center">
-                        <b class="heading flex-1">Veröffentlichungsdatum</b>
-                        <button type="button" class="icon-button pill" v-tooltip.bottom="'Veröffentlichungsdatum hinzufügen'" v-if="form.available_from === null" @click="form.available_from = new Date().toISOString().split('T')[0]">add</button>
-                        <button type="button" class="icon-button pill" v-tooltip.bottom="'Veröffentlichungsdatum zurücksetzen'" v-else @click="form.available_from = null">replay</button>
-                    </div>
-                    <input type="date" class="date-input" v-model="form.available_from" v-show="form.available_from">
-                </div>
+                    <select class="header-select" v-model="form.status">
+                        <option :value="null" disabled>Status auswählen</option>
+                        <option value="draft">Entwurf</option>
+                        <option value="pending">Zur Freigabe</option>
+                        <option value="published">Veröffentlicht</option>
+                        <option value="hidden">Versteckt</option>
+                    </select>
+
+                    <select class="header-select margin-top-2" v-model="form.category">
+                        <option :value="null" disabled>Kategorie auswählen</option>
+                        <option v-for="category in categories" :key="category.id" :value="category.id">{{category.name}}</option>
+                    </select>
+                    
+                    <mui-input type="text" label="Tags" v-model="form.tags" />
         
-                <div class="group">
-                    <div class="flex gap-1 v-center">
-                        <b class="heading flex-1">Gültigkeitsdatum</b>
-                        <button type="button" class="icon-button pill" v-tooltip.bottom="'Gültigkeitsdatum hinzufügen'" v-if="form.available_to === null" @click="form.available_to = new Date().toISOString().split('T')[0]">add</button>
-                        <button type="button" class="icon-button pill" v-tooltip.bottom="'Gültigkeitsdatum zurücksetzen'" v-else @click="form.available_to = null">replay</button>
+                    <div class="group margin-top-2">
+                        <div class="flex gap-1 v-center">
+                            <b class="heading flex-1">Veröffentlichungsdatum</b>
+                            <button type="button" class="icon-button pill" v-tooltip.bottom="'Veröffentlichungsdatum hinzufügen'" v-if="form.available_from === null" @click="form.available_from = new Date().toISOString().split('T')[0]">add</button>
+                            <button type="button" class="icon-button pill" v-tooltip.bottom="'Veröffentlichungsdatum zurücksetzen'" v-else @click="form.available_from = null">replay</button>
+                        </div>
+                        <input type="date" class="date-input" v-model="form.available_from" v-show="form.available_from">
                     </div>
-                    <input type="date" class="date-input" v-model="form.available_to" v-show="form.available_to">
-                </div>
-            </div>
             
-            <div class="limiter text-limiter flex vertical gap-1">
-                <TextEditor class="content-input flex-1" v-model="form.content" />
+                    <div class="group">
+                        <div class="flex gap-1 v-center">
+                            <b class="heading flex-1">Gültigkeitsdatum</b>
+                            <button type="button" class="icon-button pill" v-tooltip.bottom="'Gültigkeitsdatum hinzufügen'" v-if="form.available_to === null" @click="form.available_to = new Date().toISOString().split('T')[0]">add</button>
+                            <button type="button" class="icon-button pill" v-tooltip.bottom="'Gültigkeitsdatum zurücksetzen'" v-else @click="form.available_to = null">replay</button>
+                        </div>
+                        <input type="date" class="date-input" v-model="form.available_to" v-show="form.available_to">
+                    </div>
+
+                    <div class="flex vertical background-soft radius-m margin-top-2">
+                        <div class="flex padding-1 gap-1 wrap h-center">
+                            <mui-toggle type="switch" label="Berechtigungen überschreiben" v-model="form.override_category_roles"/>
+                        </div>
+                        <div class="flex padding-1 gap-1 wrap h-center border-top" v-show="form.override_category_roles">
+                            <span v-if="form.roles.length > 0">Nur <b>ausgewählte Benutzer</b> können diesen Eintrag aufrufen</span>
+                            <span v-else><b>Jeder Benutzer</b> kann diesen Eintrag aufrufen</span>
+                        </div>
+                        <div class="flex padding-1 gap-1 wrap border-top" v-show="form.override_category_roles">
+                            <mui-button
+                                type="button"
+                                v-for="role in roles"
+                                :key="role.id"
+                                :label="role.name"
+                                :variant="form.roles.includes(role.id) ? 'solid' : 'contained'"
+                                :icon-left="form.roles.includes(role.id) ? 'remove' : 'add'"
+                                size="small"
+                                @click="toggleRole(role.id)"/>
+                        </div>
+                    </div>
+                </div>
             </div>
         </form>
     </AdminLayout>
@@ -280,6 +279,25 @@
                 transform: translateY(-100%)
                 background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 100%)
 
+    .post-layout
+        display: flex
+        gap: 4rem
+        align-items: flex-start
+
+        .meta-section
+            flex: 1
+            display: flex
+            flex-direction: column
+            gap: 1rem
+            position: sticky
+            top: 1rem
+
+        .content-section
+            flex: 2
+            display: flex
+            flex-direction: column
+            gap: 1rem
+
     .input-button
         height: 2rem
         width: 2rem
@@ -347,5 +365,5 @@
         border-radius: var(--radius-s)
         
     .content-input
-        min-height: 25rem
+        min-height: 35rem
 </style>
