@@ -120,7 +120,7 @@
             z-index: 1
             transform-origin: left
             transform: scaleX(0)
-            transition: transform 200ms ease-in-out
+            transition: transform 100ms ease-in-out
 
         &.selected::before
             transform: scaleX(1)

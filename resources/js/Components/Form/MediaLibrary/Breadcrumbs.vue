@@ -27,7 +27,7 @@
             }
         })
 
-        breadcrumbs[0].name = 'Storage'
+        if (breadcrumbs.length > 0) breadcrumbs[0].name = 'Storage'
         
         return breadcrumbs
     })
