@@ -136,7 +136,7 @@
                 {label: 'Spezifikationen', icon: 'cloud_done', route: route('admin.specs'), permission: ['edit specs'], activeWhen: ['admin.specs']},
             ]},
             {label: 'Medien Manager', color: 'var(--color-background)', icon: 'upload', route: route('admin.media'), permission: ['system.view.media'], activeWhen: ['admin.media'], submenu: [
-                {label: 'Öffentliche Ablage', icon: 'public', route: route('admin.media'), permission: ['system.view.media'], activeWhen: ['admin.media']},
+                {label: 'Öffentliche Ablage', icon: 'home_storage', route: route('admin.media'), permission: ['system.view.media'], activeWhen: ['admin.media']},
                 // {label: 'Private Ablage', icon: 'lock', route: route('admin.media'), permission: ['system.view.media'], activeWhen: ['admin.media.private']},
             ]},
         ],
@@ -162,7 +162,12 @@
             // {label: 'Marketing', color: 'var(--color-app-marketing-on-dark)', icon: 'cell_tower', route: route('admin.blog.posts'), permission: ['app.marketing.access.admin.panel'], activeWhen: ['admin.marketing.overview'], submenu: []},
         ],
         [
-            {label: 'Globale Einstellungen', color: 'var(--color-background)', icon: 'settings', route: route('admin.settings'), permission: ['system.view.settings'], activeWhen: ['admin.settings'], submenu: []},
+            {label: 'Globale Einstellungen', color: 'var(--color-background)', icon: 'settings', route: route('admin.settings.general'), permission: ['system.view.settings'], activeWhen: ['admin.settings.general', 'admin.settings.apps', 'admin.settings.media', 'admin.settings.legal'], submenu: [
+                {label: 'Allgemein', icon: 'settings', route: route('admin.settings.general'), permission: [], activeWhen: ['admin.settings.general']},
+                {label: 'Apps', icon: 'apps', route: route('admin.settings.apps'), permission: [], activeWhen: ['admin.settings.apps']},
+                {label: 'Medien', icon: 'upload', route: route('admin.settings.media'), permission: [], activeWhen: ['admin.settings.media']},
+                {label: 'Rechtliches', icon: 'gavel', route: route('admin.settings.legal'), permission: [], activeWhen: ['admin.settings.legal']},
+            ]},
             {label: 'Profil', color: 'var(--color-background)', icon: 'account_circle', route: route('dashboard.profile'), permission: [], activeWhen: [], submenu: []},
         ],
     ])

@@ -2,7 +2,7 @@
     <div class="wrapper" :class="{'selected': isSelected}">
         <div class="preview-area">
             <div class="image-preview" v-if="item.mime.type === 'image'" v-show="enablePreview">
-                <img :src="item.url" />
+                <img :src="item.path.url" />
             </div>
             <div class="icon" v-show="(item.mime.type !== 'image' || !enablePreview)" :style="`color: ${item.visual.color};`">{{ item.visual.icon }}</div>
         </div>
@@ -13,9 +13,9 @@
             <span class="extension">{{ item.path.extension }}</span>
         </div>
 
-        <div class="filesize-wrapper" v-if="item.mime.type !== 'folder'">
+        <!-- <div class="filesize-wrapper" v-if="item.mime.type !== 'folder'">
             <span class="filesize">{{ fileSize(item.size) }}</span>
-        </div>
+        </div> -->
 
         <VDropdown placement="bottom-end">
             <button @click.stop>more_vert</button>
@@ -26,15 +26,19 @@
                         <mui-button class="dropdown-button" variant="text" label="In neuem Tab öffnen" icon-left="open_in_new" as="a" target="_blank" :href="item.path.url"/>
                     </template> -->
                     
-                    <mui-button class="dropdown-button" variant="text" label="Pfad kopieren" icon-left="link" @click="copyToClipboard(item.url)"/>
+                    <mui-button class="dropdown-button" variant="text" label="Pfad kopieren" icon-left="language" @click="copyToClipboard(item.path.url)"/>
+                    <mui-button class="dropdown-button" variant="text" label="ID kopieren" icon-left="beenhere" @click="copyToClipboard(item.id)"/>
+
+                    <div class="divider"></div>
                     
                     <template v-if="item.mime.type !== 'folder'">
-                        <mui-button class="dropdown-button" variant="text" label="Herunterladen" icon-left="download" as="a" target="_blank" :href="item.path.url" download/>
+                        <mui-button class="dropdown-button" variant="text" label="Herunterladen" icon-left="download" as="a" target="_blank" :href="item.path.url" download v-close-popper/>
                     </template>
+                    <mui-button class="dropdown-button" variant="text" label="Umbenennen" icon-left="edit" @click="$emit('rename', item)" v-close-popper/>
 
-                    <mui-button class="dropdown-button" variant="text" label="Umbenennen" icon-left="edit" @click="$emit('rename', item)"/>
                     <div class="divider"></div>
-                    <mui-button class="dropdown-button" variant="text" color="error" label="Löschen" icon-left="delete" @click="$emit('delete', item)"/>
+
+                    <mui-button class="dropdown-button" variant="text" color="error" label="Löschen" icon-left="delete" @click="$emit('delete', item)" v-close-popper/>
                 </div>
             </template>
         </VDropdown>
@@ -61,7 +65,7 @@
     })
 
     const isSelected = computed(() => {
-        return props.selection.includes(props.item.path.path)
+        return props.selection.includes(props.item.id)
     })
 
 

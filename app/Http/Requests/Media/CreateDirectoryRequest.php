@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests\Media;
 
-use App\Permissions\Permissions;
-use App\Rules\MediaLibrary\MediaPath;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateDirectoryRequest extends FormRequest
@@ -26,7 +24,7 @@ class CreateDirectoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'path' => ['required', 'string', new MediaPath],
+            'name' => ['required', 'string', 'regex:/^[^\/]+$/'],
         ];
     }
 }

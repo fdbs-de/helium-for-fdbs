@@ -1,7 +1,7 @@
 <template>
     <!-- TODO: use Link for internal links -->
     <a :href="link" :target="newWindow ? '_blank' : '_self'" :style="`--color-card-accent: ${color}`" class="card-wrapper">
-        <div class="card-image-wrapper" v-if="image" :class="{'cover': cover}" :style="`aspect-ratio: ${aspectRatio};`">
+        <div class="card-image-wrapper" v-if="image" :class="{'cover': cover, 'effect': effect}" :style="`aspect-ratio: ${aspectRatio};`">
             <img loading="lazy" :src="image" :alt="alt" class="card-image"/>
 
             <div class="tag-wrapper" v-if="primaryTag || tags.length">
@@ -24,6 +24,10 @@
             type: String
         },
         cover: {
+            type: Boolean,
+            default: false
+        },
+        effect: {
             type: Boolean,
             default: false
         },
@@ -71,6 +75,7 @@
         transition: all 200ms ease-out
         position: relative
         cursor: pointer
+        color: var(--color-text)
 
         .card-image-wrapper
             width: 100%
@@ -88,8 +93,10 @@
                 position: absolute
                 top: -2px
                 left: -2px
-                filter: saturate(0)
                 transition: all 200ms ease-out
+
+                &.effect
+                    filter: saturate(0)
 
             &.cover
                 background: var(--color-card-accent)
@@ -136,7 +143,7 @@
                         pointer-events: none
 
         .text-wrapper
-            padding: 2rem 1rem
+            padding: 1rem
             gap: 1rem
             display: flex
             flex-direction: column
@@ -145,7 +152,7 @@
 
             h2
                 font-size: 1.35rem
-                margin: 0
+                margin: .5rem 0
 
         &:hover,
         &:focus

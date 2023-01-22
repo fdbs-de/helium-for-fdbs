@@ -2,7 +2,7 @@
     <div class="wrapper" :class="{'selected': isSelected}">
         <div class="preview-area">
             <div class="image-preview" v-if="item.mime.type === 'image'" v-show="enablePreview">
-                <img :src="item.url" />
+                <img :src="item.path.url" />
             </div>
             <div class="icon" v-show="(item.mime.type !== 'image' || !enablePreview)" :style="`color: ${item.visual.color};`">{{ item.visual.icon }}</div>
         </div>
@@ -12,7 +12,7 @@
         <div class="info-area">
             <div class="file-info" v-if="item.mime.type !== 'folder'">
                 <span class="extension" :style="`color: ${item.visual.color};`">{{ item.path.extension }}</span>
-                <span class="filesize">{{fileSize(item.size)}}</span>
+                <!-- <span class="filesize">{{fileSize(item.size)}}</span> -->
             </div>
             <div class="spacer"></div>
             <VDropdown placement="bottom-end">
@@ -24,15 +24,19 @@
                             <mui-button class="dropdown-button" variant="text" label="In neuem Tab öffnen" icon-left="open_in_new" as="a" target="_blank" :href="item.path.url"/>
                         </template> -->
                         
-                        <mui-button class="dropdown-button" variant="text" label="Pfad kopieren" icon-left="link" @click="copyToClipboard(item.url)"/>
+                        <mui-button class="dropdown-button" variant="text" label="Pfad kopieren" icon-left="language" @click="copyToClipboard(item.path.url)"/>
+                        <mui-button class="dropdown-button" variant="text" label="ID kopieren" icon-left="beenhere" @click="copyToClipboard(item.id)"/>
                         
-                        <template v-if="item.mime.type !== 'folder'">
-                            <mui-button class="dropdown-button" variant="text" label="Herunterladen" icon-left="download" as="a" target="_blank" :href="item.path.url" download/>
-                        </template>
-
-                        <mui-button class="dropdown-button" variant="text" label="Umbenennen" icon-left="edit" @click="$emit('rename', item)"/>
                         <div class="divider"></div>
-                        <mui-button class="dropdown-button" variant="text" color="error" label="Löschen" icon-left="delete" @click="$emit('delete', item)"/>
+
+                        <template v-if="item.mime.type !== 'folder'">
+                            <mui-button class="dropdown-button" variant="text" label="Herunterladen" icon-left="download" as="a" target="_blank" :href="item.path.url" download v-close-popper/>
+                        </template>
+                        <mui-button class="dropdown-button" variant="text" label="Umbenennen" icon-left="edit" @click="$emit('rename', item)" v-close-popper/>
+                        
+                        <div class="divider"></div>
+                        
+                        <mui-button class="dropdown-button" variant="text" color="error" label="Löschen" icon-left="delete" @click="$emit('delete', item)" v-close-popper/>
                     </div>
                 </template>
             </VDropdown>
@@ -60,7 +64,7 @@
     })
 
     const isSelected = computed(() => {
-        return props.selection.includes(props.item.path.path)
+        return props.selection.includes(props.item.id)
     })
 
 
@@ -124,9 +128,13 @@
                 justify-content: center
                 position: relative
                 --height: 10%
-                background-image: linear-gradient(45deg, #b4b4b4 25%, transparent 25%), linear-gradient(-45deg, #b4b4b4 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #b4b4b4 75%), linear-gradient(-45deg, transparent 75%, #b4b4b4 75%)
+                background-image: linear-gradient(45deg, #ddd 25%, transparent 25%), linear-gradient(-45deg, #ddd 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #ddd 75%), linear-gradient(-45deg, transparent 75%, #ddd 75%)
                 background-size: calc(var(--height) / 2) calc(var(--height) / 2)
                 background-position: 0 0, 0 calc(var(--height) / 4), calc(var(--height) / 4) calc(var(--height) / 4 * -1), calc(var(--height) / 4 * -1) 0px
+
+                &:hover
+                    img
+                        object-fit: contain
 
                 img
                     width: 100%

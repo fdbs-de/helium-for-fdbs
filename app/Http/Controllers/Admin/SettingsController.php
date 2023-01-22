@@ -9,50 +9,42 @@ use Inertia\Inertia;
 
 class SettingsController extends Controller
 {
-    public function index()
+    private function getSettings()
     {
-        return Inertia::render('Admin/Settings/Index', [
-            'settings' => Setting::get()->keyBy('key')->map->value,
-        ]);
+        return Setting::get()->keyBy('key')->map->value;
+    }
+
+    public function indexGeneral()
+    {
+        return Inertia::render('Admin/Settings/General', ['settings' => self::getSettings()]);
+    }
+
+    public function indexApps()
+    {
+        return Inertia::render('Admin/Settings/Apps', ['settings' => self::getSettings()]);
+    }
+
+    public function indexMedia()
+    {
+        return Inertia::render('Admin/Settings/Media', ['settings' => self::getSettings()]);
+    }
+
+    public function indexLegal()
+    {
+        return Inertia::render('Admin/Settings/Legal', ['settings' => self::getSettings()]);
     }
 
 
 
-    public function update(Request $request)
+    public function updateGeneral(Request $request)
     {
         $request->validate([
-            'apps.blog' => 'required|boolean',
-            'apps.jobs' => 'required|boolean',
-            'apps.intranet' => 'required|boolean',
-            'apps.wiki' => 'required|boolean',
             'site.name' => 'present|nullable|string|max:255',
             'site.slogan' => 'present|nullable|string|max:255',
             'site.domain' => 'present|nullable|string|max:255',
             'site.description' => 'present|nullable|string|max:1000',
             'site.language' => 'required|string|in:en,de',
-            'legal.disclaimer' => 'present|nullable|string|max:1000',
         ]);
-        
-        Setting::updateOrCreate(
-            ['key' => 'apps.enabled.blog'],
-            ['value' => $request->apps['blog']]
-        );
-
-        Setting::updateOrCreate(
-            ['key' => 'apps.enabled.jobs'],
-            ['value' => $request->apps['jobs']]
-        );
-
-        Setting::updateOrCreate(
-            ['key' => 'apps.enabled.intranet'],
-            ['value' => $request->apps['intranet']]
-        );
-
-        Setting::updateOrCreate(
-            ['key' => 'apps.enabled.wiki'],
-            ['value' => $request->apps['wiki']]
-        );
-
 
         Setting::updateOrCreate(
             ['key' => 'site.name'],
@@ -79,6 +71,50 @@ class SettingsController extends Controller
             ['value' => $request->site['language']]
         );
 
+        return back();
+    }
+
+
+
+    public function updateApps(Request $request)
+    {
+        $request->validate([
+            'apps.blog' => 'required|boolean',
+            'apps.jobs' => 'required|boolean',
+            'apps.intranet' => 'required|boolean',
+            'apps.wiki' => 'required|boolean',
+        ]);
+        
+        Setting::updateOrCreate(
+            ['key' => 'apps.enabled.blog'],
+            ['value' => $request->apps['blog']]
+        );
+
+        Setting::updateOrCreate(
+            ['key' => 'apps.enabled.jobs'],
+            ['value' => $request->apps['jobs']]
+        );
+
+        Setting::updateOrCreate(
+            ['key' => 'apps.enabled.intranet'],
+            ['value' => $request->apps['intranet']]
+        );
+
+        Setting::updateOrCreate(
+            ['key' => 'apps.enabled.wiki'],
+            ['value' => $request->apps['wiki']]
+        );
+
+        return back();
+    }
+
+
+
+    public function updateLegal(Request $request)
+    {
+        $request->validate([
+            'legal.disclaimer' => 'present|nullable|string|max:1000',
+        ]);
 
         Setting::updateOrCreate(
             ['key' => 'legal.disclaimer'],

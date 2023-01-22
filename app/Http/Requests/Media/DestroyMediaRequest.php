@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests\Media;
 
-use App\Permissions\Permissions;
-use App\Rules\MediaLibrary\MediaPath;
 use Illuminate\Foundation\Http\FormRequest;
 
 class DestroyMediaRequest extends FormRequest
@@ -26,8 +24,8 @@ class DestroyMediaRequest extends FormRequest
     public function rules()
     {
         return [
-            'paths' => ['required', 'array'],
-            'paths.*' => ['required', 'string', new MediaPath],
+            'ids' => ['required', 'array'],
+            'ids.*' => ['required', 'exists:media,id'],
         ];
     }
 }

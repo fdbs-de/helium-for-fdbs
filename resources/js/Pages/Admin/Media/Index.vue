@@ -4,7 +4,7 @@
     <AdminLayout title="Media Library">
         <div class="flex v-center gap-1">
             <Actions v-show="selection.length >= 1" :selection="selection" @deselect="deselectAll()" @delete="$refs.deletePopup.open()" />
-            <Breadcrumbs v-show="selection.length <= 0" :path="path" :base-paths="basePaths" @open="openDirectory($event)"/>
+            <Breadcrumbs v-show="selection.length <= 0" :breadcrumbs="breadcrumbs" @open="openDirectory($event)"/>
 
             <div class="spacer"></div>
 
@@ -32,19 +32,19 @@
                 <button class="fab-button" aria-hidden="true" title="Neu...">add</button>
                 <template #popper>
                     <div class="flex padding-1 vertical">
-                        <mui-button class="dropdown-button" variant="text" label="Neue Dateien" icon-left="upload" as="label" for="file-upload"/>
-                        <input type="file" id="file-upload" style="display: none" multiple @input="uploadFiles($event.target.files, path)">
+                        <mui-button class="dropdown-button" variant="text" label="Neue Dateien" icon-left="upload" as="label" for="file-upload" v-close-popper/>
+                        <input type="file" id="file-upload" style="display: none" multiple @input="storeFiles($event.target.files, workingDirectory.id)">
 
-                        <mui-button class="dropdown-button" variant="text" label="Neuer Ordner" icon-left="create_new_folder" @click="openCreateDirectoryPopup(path)"/>
+                        <mui-button class="dropdown-button" variant="text" label="Neuer Ordner" icon-left="create_new_folder" @click="openCreateDirectoryPopup()" v-close-popper/>
                     </div>
                 </template>
             </VDropdown>
         </template>
         
-        <ListItemLayout class="w-100 margin-block-2" :layout="layout" v-show="exists && items.length >= 1">
+        <ListItemLayout class="w-100 margin-block-2" :layout="layout" v-show="items.length >= 1">
             <DirectoryItem
                 v-for="item in items"
-                :key="item.path"
+                :key="item.id"
                 :item="item"
                 :layout="layout"
                 :enable-preview="isPreview"
@@ -58,12 +58,11 @@
                 @rename="openRenamePopup(item)"
                 />
         </ListItemLayout>
-        <small v-show="exists && items.length <= 0" class="w-100 flex h-center padding-inline-2 padding-block-5">Dieser Ordner ist leer</small>
-        <small v-show="!exists" class="w-100 flex h-center padding-inline-2 padding-block-5">Dieser Ordner existiert nicht</small>
+        <small v-show="items.length <= 0" class="w-100 flex h-center padding-inline-2 padding-block-5">Dieser Ordner ist leer</small>
 
         <div class="flex v-center gap-1 border-top padding-top-1">
             <small><b>{{items.filter(i => i.mime !== 'folder').length}}</b> Dateien</small>
-            <small><b>{{fileSize(items.reduce((a, b) => a + b.size, 0))}}</b> gesamt</small>
+            <!-- <small><b>{{fileSize(items.reduce((a, b) => a + b.size, 0))}}</b> gesamt</small> -->
 
             <div class="spacer"></div>
         </div>
@@ -77,8 +76,8 @@
 
 
     <Popup ref="createDirectoryPopup" title="Ordner erstellen">
-        <form class="confirm-popup-wrapper" @submit.prevent="storeDirectory(path)">
-            <mui-input class="w-100" v-model="createDirectoryForm.name" :prefix="createDirectoryForm.prefix" label="Name" required />
+        <form class="confirm-popup-wrapper" @submit.prevent="storeDirectory(createDirectoryForm.name, workingDirectory.id)">
+            <mui-input class="w-100" v-model="createDirectoryForm.name" label="Name" required />
             <div class="confirm-popup-footer">
                 <mui-button type="button" variant="contained" label="Abbrechen" @click="$refs.createDirectoryPopup.close()" />
                 <mui-button type="submit" variant="filled" label="Ordner erstellen" />
@@ -87,8 +86,8 @@
     </Popup>
 
     <Popup ref="renamePopup" title="Umbennenen">
-        <form class="confirm-popup-wrapper" @submit.prevent="renameItem">
-            <mui-input class="w-100" v-model="renameForm.new_name" :prefix="renameForm.prefix" label="Name" required />
+        <form class="confirm-popup-wrapper" @submit.prevent="renameItem(renameForm.name, renameForm.item)">
+            <mui-input class="w-100" v-model="renameForm.name" label="Name" required />
             <div class="confirm-popup-footer">
                 <mui-button type="button" variant="contained" label="Abbrechen" @click="$refs.renamePopup.close()" />
                 <mui-button type="submit" variant="filled" label="Umbennenen" />
@@ -112,7 +111,6 @@
     import { ref, watch, computed } from 'vue'
     import { Inertia } from '@inertiajs/inertia'
     import { fileSize, lastCharacters } from '@/Utils/String'
-    import DirectoryItemInterface from '@/Interfaces/DirectoryItem.js'
     
     import AdminLayout from '@/Layouts/Admin.vue'
     import ListItemLayout from '@/Components/Layout/ListItemLayout.vue'
@@ -127,56 +125,38 @@
 
     const props = defineProps({
         items: Array,
-        path: String,
-        exists: Boolean,
+        breadcrumbs: Array,
     })
 
-    const path = computed(() => props.path)
-    const items_ = computed(() => props.items)
-    const items = computed(() => items_.value.map(item => new DirectoryItemInterface(item)))
+    const workingDirectory = computed(() => props.breadcrumbs[props.breadcrumbs?.length - 1] ?? {})
 
 
 
     // START: View Parameters
     const layout = ref('grid')
-    const isPreview = ref(false)
+    const isPreview = ref(true)
     // END: View Parameters
 
 
 
     // START: Folder Navigation
-    const basePaths = ref([
-        {path: 'public/media', label: 'Öffentlich', icon: 'public', default: true},
-        {path: 'private/media', label: 'Privat', icon: 'lock', default: false},
-    ])
-
-
-
-    const startsWithBasePath = (path) => {
-        return basePaths.value.some(p => path.startsWith(p.path))
-    }
-
     const openItem = (item) => {
-        if (item.mime.type === 'folder') return openDirectory(item.path.path)
+        if (item.mime.type === 'folder') return openDirectory(item)
         if (item.mime.type !== 'folder') return openFile(item)
     }
 
-    const openDirectory = (path) => {
-        // Block invalid paths
-        if (!startsWithBasePath(path)) return
-
-        Inertia.visit(route('admin.media', { path: encodeURIComponent(path) }), {
+    const openDirectory = (item) => {
+        Inertia.visit(route('admin.media', [item.id]), {
             preserveState: true,
             preserveScroll: true,
             onSuccess() {
-                // Reset selection
                 deselectAll()
             },
         })
     }
 
     const openFile = (item) => {
-        // console.log('open file', item)
+        console.log(item)
     }
     // END: Folder Navigation
 
@@ -186,22 +166,22 @@
     const selection = ref([])
 
     const toggleSelection = (item) => {
-        if (selection.value.includes(item.path.path))
+        if (selection.value.includes(item.id))
         {
-            selection.value = selection.value.filter(p => p !== item.path.path)
+            selection.value = selection.value.filter(p => p !== item.id)
         }
         else
         {
-            selection.value.push(item.path.path)
+            selection.value.push(item.id)
         }
     }
 
     const setSelection = (item) => {
-        selection.value = [item.path.path]
+        selection.value = [item.id]
     }
 
     const selectAll = () => {
-        selection.value = itemObjects.map(i => i.path.path)
+        selection.value = itemObjects.map(i => i.id)
     }
 
     const deselectAll = () => {
@@ -219,16 +199,14 @@
 
     const uploadForm = useForm({
         files: null,
-        path: null,
     })
 
-    const uploadFiles = (files, path) => {
+    const storeFiles = (files, directoryId) => {
         if (files.length <= 0) return
         
         uploadForm.files = files
-        uploadForm.path = path
 
-        uploadForm.post(route('admin.media.store.file'), {
+        uploadForm.post(route('admin.media.store.files', directoryId), {
             forceFormData: true,
             onSuccess() {
                 uploadForm.reset()
@@ -239,19 +217,17 @@
     const dragOver = (e) => {
         e.preventDefault()
         dragFiles.value = true
-        console.log('drag over')
     }
 
     const dragLeave = (e) => {
         e.preventDefault()
         dragFiles.value = false
-        console.log('drag leave')
     }
 
     const drop = (e) => {
         e.preventDefault()
         dragFiles.value = false
-        uploadFiles(e.dataTransfer.files, path.value)
+        storeFiles(e.dataTransfer.files, workingDirectory.value.id)
     }
     // END: Upload Document
 
@@ -261,19 +237,15 @@
     const createDirectoryPopup = ref(null)
 
     const createDirectoryForm = useForm({
-        prefix: '',
-        name: null,
-        path: null,
+        name: '',
     })
 
-    const openCreateDirectoryPopup = (path) => {
-        createDirectoryForm.prefix = lastCharacters(path, 20) + '/'
+    const openCreateDirectoryPopup = () => {
         createDirectoryPopup.value.open()
     }
 
-    const storeDirectory = (path) => {
-        createDirectoryForm.path = path + '/' + createDirectoryForm.name
-        createDirectoryForm.post(route('admin.media.store.directory'), {
+    const storeDirectory = (name, directoryId) => {
+        useForm({name}).post(route('admin.media.store.directory', directoryId), {
             onSuccess() {
                 createDirectoryForm.reset()
                 createDirectoryPopup.value.close()
@@ -288,26 +260,18 @@
     const renamePopup = ref(null)
 
     const renameForm = useForm({
-        prefix: '',
-        current_name: null,
-        new_name: null,
-        current_path: null,
-        new_path: null,
+        name: '',
+        item: null,
     })
 
     const openRenamePopup = (item) => {
-        let prefix = item.path.path.substring(0, item.path.path.length - item.path.filename.length)
-
-        renameForm.prefix = lastCharacters(prefix, 20)
-        renameForm.new_name = item.path.filename
-        renameForm.current_name = item.path.filename
-        renameForm.current_path = item.path.path
+        renameForm.name = item.path.filename
+        renameForm.item = item
         renamePopup.value.open()
     }
 
-    const renameItem = () => {
-        renameForm.new_path = renameForm.current_path.substring(0, renameForm.current_path.length - renameForm.current_name.length) + renameForm.new_name
-        renameForm.put(route('admin.media.rename'), {
+    const renameItem = (name, item) => {
+        useForm({name}).put(route('admin.media.update.rename', item.id), {
             onSuccess() {
                 renameForm.reset()
                 renamePopup.value.close()
@@ -328,11 +292,15 @@
     
     const deleteItems = () => {
         useForm({
-            paths: selection.value,
+            ids: selection.value,
         }).delete(route('admin.media.delete'), {
             onSuccess() {
                 deselectAll()
                 deletePopup.value.close()
+            },
+
+            onError(e) {
+                console.log(e);
             },
         })
     }
