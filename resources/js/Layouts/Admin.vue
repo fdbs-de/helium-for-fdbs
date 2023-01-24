@@ -160,7 +160,7 @@
             ]},
             {label: 'Wiki', color: 'var(--color-app-wiki-on-dark)', icon: 'local_library', route: route('admin.wiki.posts'), permission: ['app.wiki.access.admin.panel'], activeWhen: ['admin.wiki.posts', 'admin.wiki.categories', 'admin.wiki.posts.editor', 'admin.wiki.categories.editor'], submenu: [
                 {label: 'Einträge', icon: 'feed', route: route('admin.wiki.posts'), permission: ['app.wiki.view.pages'], activeWhen: ['admin.wiki.posts', 'admin.wiki.posts.editor']},
-                {label: 'Kategorien', icon: 'category', route: route('admin.wiki.categories'), permission: ['app.wiki.view.categories'], activeWhen: ['admin.wiki.categories', 'admin.wiki.categories.editor']},
+                {label: 'Workspaces', icon: 'workspaces', route: route('admin.wiki.categories'), permission: ['app.wiki.view.categories'], activeWhen: ['admin.wiki.categories', 'admin.wiki.categories.editor']},
             ]},
             // {label: 'Marketing', color: 'var(--color-app-marketing-on-dark)', icon: 'cell_tower', route: route('admin.blog.posts'), permission: ['app.marketing.access.admin.panel'], activeWhen: ['admin.marketing.overview'], submenu: []},
         ],

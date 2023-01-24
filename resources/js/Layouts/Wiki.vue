@@ -3,11 +3,11 @@
         <div class="menu" :class="{'open': isOpen}">
             <div class="apps-bar">
                 <Link class="logo" :href="route('wiki')">
-                    <img src="/images/branding/icon_dashboard.svg" alt="FDBS Logo">
+                    <img src="/images/branding/icon_white_dashboard.svg" alt="FDBS Logo">
                 </Link>
 
                 <div class="group">
-                    <Link class="app" :href="route('wiki')" v-tooltip.right="'Übersicht'" :class="{'active': is('wiki')}">dashboard</Link>
+                    <Link class="app" :href="route('wiki')" v-tooltip.right="'Übersicht'" :class="{'active': is(['wiki', 'wiki.entry'])}">dashboard</Link>
                 </div>
 
                 <!-- <div class="divider"></div>
@@ -33,8 +33,7 @@
 
             <div class="menu-bar">
                 <div class="top-bar">
-                    <!-- <mui-input type="search" class="searchbar" placeholder="Im Wiki Suchen"/> -->
-                    <small class="flex-1 flex h-center">Suche kommt bald</small>
+                    <mui-input type="search" class="searchbar" icon-left="search" placeholder="Im Wiki Suchen"/>
                 </div>
 
                 <div class="menu-group">
@@ -48,6 +47,16 @@
                         <div class="text">Neueste Einträge</div>
                     </Link> -->
                 </div>
+
+                <div class="divider"></div>
+                
+                <div class="menu-scroll-container">
+                    <div class="menu-group">
+                        <Link class="menu-item" v-for="item in posts" :key="item.id" :href="route('wiki.entry', [item.category.slug, item.slug])" :class="{'active': is('wiki.entry')}">
+                            <div class="text padding-inline-1" v-tooltip.right="item.title">{{ item.title }}</div>
+                        </Link>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -59,15 +68,16 @@
                     <div class="hero-card" :style="'background-image: url('+(image || '')+')'">
                         <div class="hero-card-info-wrapper">
                             <Link class="back-button" v-if="backlink" :href="backlink" v-tooltip="backlinkText">arrow_back</Link>
-                            <h1>{{ title }}</h1>
-                        </div>
 
-                        <button class="toggle-open" :class="{'open': isOpen}" :title="isOpen ? 'Menü ausklappen' : 'Menü einklappen'" @click="isOpen = !isOpen">
-                            <svg class="svg-wrapper" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-                                <path class="hamburger-path" d="M5 9C5 9 17.5 9 19 9C20.5 9 22.5 7.5 21.5 6C20.5 4.5 18 6 17 7C16 8 7 17 7 17"/>
-                                <path class="hamburger-path" d="M5 15.0054C5 15.0054 17.5 15.0054 19 15.0054C20.5 15.0054 22.5 16.5054 21.5 18.0054C20.5 19.5054 18 18.0054 17 17.0054C16 16.0054 7 7.00542 7 7.00542"/>
-                            </svg>
-                        </button>
+                            <h1>{{ title }}</h1>
+
+                            <button class="toggle-open" :class="{'open': isOpen}" :title="isOpen ? 'Menü ausklappen' : 'Menü einklappen'" @click="isOpen = !isOpen">
+                                <svg class="svg-wrapper" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path class="hamburger-path" d="M5 9C5 9 17.5 9 19 9C20.5 9 22.5 7.5 21.5 6C20.5 4.5 18 6 17 7C16 8 7 17 7 17"/>
+                                    <path class="hamburger-path" d="M5 15.0054C5 15.0054 17.5 15.0054 19 15.0054C20.5 15.0054 22.5 16.5054 21.5 18.0054C20.5 19.5054 18 18.0054 17 17.0054C16 16.0054 7 7.00542 7 7.00542"/>
+                                </svg>
+                            </button>
+                        </div>
 
                         <Loader class="loader" v-show="loading" />
                     </div>
@@ -99,6 +109,8 @@
 
     defineProps({
         categories: Array,
+        posts: Array,
+
         title: String,
         image: String,
         backlink: [String, Object, Function],
@@ -123,28 +135,26 @@
 <style lang="sass" scoped>
     .toggle-open
         display: none
-        width: 2.4rem
-        height: 2.4rem
+        width: 3rem
+        height: 2.5rem
         color: inherit
         background: transparent
         border: none
         padding: 0
-        position: fixed
-        top: .75rem
-        right: 1rem
+        position: relative
         z-index: 2000
         cursor: pointer
-        color: var(--color-heading)
-        background: var(--color-background)
-        border-radius: var(--radius-m)
-        box-shadow: var(--shadow-elevation-low)
 
         &.open
+            position: fixed
+            top: .75rem
+            right: .75rem
+            color: var(--color-heading)
             .svg-wrapper .hamburger-path
                 stroke-dashoffset: -23.8
 
         .svg-wrapper
-            height: 70%
+            height: 80%
             aspect-ratio: 1
             color: inherit
             position: absolute
@@ -179,9 +189,9 @@
             display: flex
             
             .apps-bar
-                background: var(--color-background-soft)
+                background: var(--color-heading)
                 width: 4rem
-                color: var(--color-heading)
+                color: var(--color-background)
                 display: flex
                 flex-direction: column
 
@@ -218,7 +228,7 @@
                     width: 100%
                     border: none
                     margin: 0
-                    border-bottom: 1px solid #00000033
+                    border-bottom: 1px solid #ffffff33
 
                 .group
                     flex: none
@@ -261,11 +271,11 @@
 
             .menu-bar
                 flex: 1
+                width: calc(100% - 4rem)
                 background: var(--color-background)
                 display: flex
                 flex-direction: column
                 gap: 1rem
-                padding-bottom: 1rem
 
                 .top-bar
                     position: relative
@@ -287,6 +297,32 @@
                     .searchbar
                         flex: 1
                         height: 2.5rem
+
+                .menu-scroll-container
+                    overflow-y: auto
+                    flex: 1
+                    display: flex
+                    flex-direction: column
+                    gap: 1rem
+                    padding-bottom: 1rem
+
+                    &::-webkit-scrollbar
+                        width: 6px
+                        height: 6px
+
+                    &::-webkit-scrollbar-track
+                        background: var(--color-background)
+
+                    &::-webkit-scrollbar-thumb
+                        background: #00000050
+                        border-radius: 3px
+                        background-clip: content-box
+                        border: 2px solid transparent
+
+                        &:hover
+                            background: var(--color-text)
+                            border: 0px solid transparent
+                            border-radius: 1px
 
                 .menu-group
                     display: flex
@@ -476,9 +512,6 @@
 
             .hero-card
                 border-radius: 0 !important
-
-                .hero-card-info-wrapper
-                    padding-right: 4rem !important
 
             &.has-image
                 .hero-card

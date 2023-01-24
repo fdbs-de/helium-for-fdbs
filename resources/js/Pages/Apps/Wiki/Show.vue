@@ -1,16 +1,16 @@
 <template>
-    <WikiLayout :backlink="route('wiki')" backlink-text="Zurück zur Übersicht" :title="post.title" :image="post.image">
+    <WikiLayout :backlink="route('wiki')" backlink-text="Zurück zur Übersicht" :image="post.image">
         <Head>
             <title>{{post.title}} – FDBS Wiki</title>
         </Head>
 
         <div class="card padding-block-2">
             <div class="limiter text-limiter">
-                <div class="flex vertical gap-1 padding-block-1">
-                    <div class="flex gap-1 v-center" v-if="post.category || post.tags">
-                        <Tag v-if="post.category" :style="'color: '+post.category.color || 'gray'" :icon="post.category.icon || 'category'">{{post.category.name}}</Tag>
-                        <Tag v-for="tag in post.tags" :key="tag" style="color: var(--color-text);" icon="tag">{{tag}}</Tag>
-                    </div>
+                <h1>{{post.title}}</h1>
+
+                <div class="flex gap-1 v-center" v-if="post.category || post.tags">
+                    <Tag v-if="post.category" :style="'color: '+post.category.color || 'gray'" :icon="post.category.icon || 'category'">{{post.category.name}}</Tag>
+                    <Tag v-for="tag in post.tags" :key="tag" style="color: var(--color-text);" icon="tag">{{tag}}</Tag>
                 </div>
     
                 <div class="formatted-content" v-html="post.content"></div>
@@ -37,4 +37,10 @@
         background: var(--color-background)
         border-radius: var(--radius-m)
         box-shadow: var(--shadow-elevation-low)
+
+        h1
+            font-size: clamp(1.5rem, 5vw, 2rem)
+            font-weight: 600
+            margin: 0
+            margin-bottom: 2rem
 </style>
