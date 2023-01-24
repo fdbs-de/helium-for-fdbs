@@ -1,5 +1,5 @@
 <template>
-    <WikiLayout :categories="categories" title="Firmenwiki">
+    <WikiLayout :categories="categories" :posts="posts" title="Firmenwiki">
         <Head>
             <title>Firmenwiki – FDBS Wiki</title>
         </Head>
