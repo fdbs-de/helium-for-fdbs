@@ -134,7 +134,7 @@
         try
         {
             let response = await axios.get(route(fetchURL.value, {...filter.value, ...pagination.value}))
-            items.value = response?.data?.map(item => new ItemInterface(item))
+            items.value = response?.data
         }
         catch (error)
         {

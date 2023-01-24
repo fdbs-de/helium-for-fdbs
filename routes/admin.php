@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\Apps\Pages\MenuController;
+use App\Http\Controllers\Admin\Apps\Pages\PageController;
 use App\Http\Controllers\Admin\NewsletterController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingsController;
@@ -148,6 +150,22 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
     ////////////
     //  APPS  //
     ////////////
+    Route::prefix('pages')->middleware(['can:app.pages.access.admin.panel'])->group(function () {
+        Route::prefix('pages')->group(function () {
+            Route::get('/', [PageController::class, 'index'])
+            ->middleware('can:app.pages.view.pages')
+            ->name('admin.pages.pages');
+        });
+
+        Route::prefix('menus')->group(function () {
+            Route::get('/', [MenuController::class, 'index'])
+            ->middleware('can:app.pages.view.menus')
+            ->name('admin.pages.menus');
+        });
+    });
+
+
+
     Route::prefix('blog')->middleware(['select.app:blog', 'can:app.blog.access.admin.panel'])->group(function () {
         Route::prefix('posts')->group(function () {
             Route::get('/', [PostController::class, 'index'])
@@ -200,7 +218,6 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
             ->middleware('can:app.blog.delete.categories')
             ->name('admin.blog.categories.delete');
         });
-
     });
 
 

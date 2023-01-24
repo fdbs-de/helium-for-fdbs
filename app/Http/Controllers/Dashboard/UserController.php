@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use App\Mail\ImportedUserCreated;
 use App\Mail\UserEnabled;
 use App\Models\Setting;
@@ -31,25 +32,31 @@ class UserController extends Controller
         if (!$request->name)
         {
             return response()->json(
-                User::with(['roles', 'settings'])
-                ->orderBy('created_at', 'desc')
-                ->limit($limit)
-                ->offset($offset)
-                ->get());
+                UserResource::collection(
+                    User::with(['roles', 'settings'])
+                    ->orderBy('created_at', 'desc')
+                    ->limit($limit)
+                    ->offset($offset)
+                    ->get()
+                )
+            );
         }
 
         return response()->json(
-            User::with(['roles', 'settings'])
-            ->whereFuzzy(function ($query) use ($request) {
-                $query
-                ->orWhereFuzzy('name', $request->name)
-                ->orWhereFuzzy('email', $request->name);
-            })
-            ->orderByFuzzy('name')
-            ->orderByFuzzy('email')
-            ->limit($limit)
-            ->offset($offset)
-            ->get());
+            UserResource::collection(
+                User::with(['roles', 'settings'])
+                ->whereFuzzy(function ($query) use ($request) {
+                    $query
+                    ->orWhereFuzzy('name', $request->name)
+                    ->orWhereFuzzy('email', $request->name);
+                })
+                ->orderByFuzzy('name')
+                ->orderByFuzzy('email')
+                ->limit($limit)
+                ->offset($offset)
+                ->get()
+            )
+        );
     }
 
 
