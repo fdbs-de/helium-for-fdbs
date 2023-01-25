@@ -3,26 +3,26 @@
         <div class="menu" :class="{'open': isOpen}">
             <div class="apps-bar">
                 <Link class="logo" :href="route('wiki')">
-                    <img src="/images/branding/icon_white_dashboard.svg" alt="FDBS Logo">
+                    <img src="/images/branding/icon_dashboard.svg" alt="FDBS Logo">
                 </Link>
 
                 <div class="group">
-                    <Link class="app" :href="route('wiki')" v-tooltip.right="'Übersicht'" :class="{'active': is(['wiki', 'wiki.entry'])}">dashboard</Link>
+                    <Link class="app" :href="route('wiki', {category: 'all'})" v-tooltip.right="'Übersicht'" :class="{'active': is(['wiki', 'wiki.entry']) && category == 'all'}">dashboard</Link>
                 </div>
 
-                <!-- <div class="divider"></div>
+                <div class="divider"></div>
 
                 <div class="group">
                     <Link class="app"
                         v-for="item in categories"
                         :key="item.id"
-                        :href="route('wiki.category', item.slug)"
-                        :style="`color: ${item.color};`"
+                        :href="route('wiki', {category: item.id})"
+                        
                         v-tooltip.right="item.name"
-                        :class="{'active': false}">
+                        :class="{'active': is('wiki') && category == item.id}">
                         {{item.icon}}
                     </Link>
-                </div> -->
+                </div>
 
                 <div class="spacer"></div>
 
@@ -33,27 +33,30 @@
 
             <div class="menu-bar">
                 <div class="top-bar">
-                    <mui-input type="search" class="searchbar" icon-left="search" placeholder="Im Wiki Suchen"/>
+                    <!-- <mui-input type="search" class="searchbar" icon-left="search" placeholder="Im Wiki Suchen"/> -->
+                    <small class="flex-1 flex wrap h-center">
+                        Suche ist noch nicht verfügbar
+                    </small>
                 </div>
 
                 <div class="menu-group">
-                    <Link class="menu-item" :href="route('wiki')" :class="{'active': is('wiki')}">
+                    <Link class="menu-item" :href="route('wiki', {category, sort: 'all'})" :class="{'active': is('wiki') && sort === 'all'}">
                         <div class="icon" aria-hidden="true">bookmarks</div>
                         <div class="text">Alle Einträge</div>
                     </Link>
 
-                    <!-- <Link class="menu-item" :href="route('wiki')" :class="{'active': is('wiki.recent')}">
+                    <Link class="menu-item" :href="route('wiki', {category, sort: 'recent'})" :class="{'active': is('wiki') && sort === 'recent'}">
                         <div class="icon" aria-hidden="true">update</div>
                         <div class="text">Neueste Einträge</div>
-                    </Link> -->
+                    </Link>
                 </div>
 
                 <div class="divider"></div>
                 
                 <div class="menu-scroll-container">
                     <div class="menu-group">
-                        <Link class="menu-item" v-for="item in posts" :key="item.id" :href="route('wiki.entry', [item.category.slug, item.slug])" :class="{'active': is('wiki.entry')}">
-                            <div class="text padding-inline-1" v-tooltip.right="item.title">{{ item.title }}</div>
+                        <Link class="menu-entry" v-for="item in posts" :key="item.id" :href="route('wiki.entry', [item.category.slug, item.slug])">
+                            <div class="text" v-tooltip.right="item.title">{{ item.title }}</div>
                         </Link>
                     </div>
                 </div>
@@ -125,6 +128,17 @@
 
 
 
+    // START: Parameters
+    const params = new Proxy(new URLSearchParams(window.location.search), {
+        get: (searchParams, prop) => searchParams.get(prop),
+    })
+
+    const category = computed(() => params.category || 'all')
+    const sort = computed(() => params.sort || 'all')
+    // END: Parameters
+
+
+
     const is = (routenames) => {
         if (typeof routenames === 'string') routenames = [routenames]
 
@@ -175,10 +189,6 @@
         font-family: var(--font-interface)
         background: var(--color-background-soft)
 
-        --color-primary: #3742fa !important
-        --mui-primary: #3742fa !important
-        --primary: #3742fa !important
-
         .menu
             width: 22rem
             height: 100vh
@@ -189,9 +199,9 @@
             display: flex
             
             .apps-bar
-                background: var(--color-heading)
+                background: var(--color-background-soft)
                 width: 4rem
-                color: var(--color-background)
+                color: var(--color-heading)
                 display: flex
                 flex-direction: column
 
@@ -228,7 +238,7 @@
                     width: 100%
                     border: none
                     margin: 0
-                    border-bottom: 1px solid #ffffff33
+                    border-bottom: 1px solid #00000033
 
                 .group
                     flex: none
@@ -343,7 +353,8 @@
                         will-change: height
                         transition: height 200ms cubic-bezier(0.22, 0.61, 0.36, 1)
 
-                .menu-item
+                .menu-item,
+                .menu-entry
                     display: flex
                     align-items: center
                     height: 3rem
@@ -388,7 +399,7 @@
                         font-weight: 500
                         font-size: .9rem
                         color: var(--color-heading)
-                        transition: all 200ms cubic-bezier(0.22, 0.61, 0.36, 1)
+                        transition: transform 200ms cubic-bezier(0.22, 0.61, 0.36, 1)
 
                     .external
                         flex: none
@@ -399,6 +410,22 @@
                         opacity: .9
                         margin-inline: .5rem
                         padding-right: 1rem
+
+                .menu-entry
+                    height: 2rem
+
+                    &::before
+                        border-radius: 0
+                        left: 0
+                        width: 100%
+
+                    &:hover
+                        .text
+                            transform: translateX(.5rem)
+
+                    .text
+                        font-size: .8rem
+                        padding-inline: 1rem
 
         .content
             flex: 1

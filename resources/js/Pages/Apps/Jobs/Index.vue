@@ -28,6 +28,7 @@
             <div class="grid" v-if="filteredJobs.length">
                 <Card v-for="job in filteredJobs" cover
                     aspect-ratio="16/9"
+                    tag-position="beneath-image"
                     :key="job.id"
                     :name="job.title"
                     :image="job.image"

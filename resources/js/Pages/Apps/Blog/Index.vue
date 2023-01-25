@@ -8,6 +8,7 @@
             <div class="article-grid">
                 <Card class="article-card" v-for="post in posts" cover
                     aspect-ratio="2.5"
+                    tag-position="beneath-image"
                     :key="post.id"
                     :name="post.title"
                     :image="post.image"

@@ -5,16 +5,22 @@
         </Head>
 
         <div class="grid margin-bottom-4">
-            <Card v-for="post in posts" cover
-                aspect-ratio="16/9"
+            <Card v-for="post in posts" cover tag-position="beneath-image"
+                aspect-ratio="2"
                 :key="post.id"
-                :name="post.title"
                 :image="post.image"
                 :color="post.category.color"
                 :primary-tag="post.category.name"
-                :tags="post.tags"
+                :effect="post.status !== 'published'"
                 :link="route('wiki.entry', [post.category.slug, post.slug])"
-            />
+                :warning="post.status !== 'published' ? 'Dieser Eintrag ist nicht veröffentlicht. Du hast die Berechtigungen, ihn trotzdem zu sehen.' : ''"
+            >
+            <div class="flex-1 flex wrap vertical">
+                <h2 style="font-size: 1.25rem; margin: 0;">{{ post.title }}</h2>
+                <div class="spacer"></div>
+                <small style="margin-top: .5rem" v-if="post.tags.length">{{ post.tags.map(tag => '#'+tag).join(' ') }}</small>
+            </div>
+            </Card>
         </div>
     </WikiLayout>
 </template>
@@ -26,6 +32,7 @@
 
     import WikiLayout from '@/Layouts/Wiki.vue'
     import Card from '@/Components/Page/Card.vue'
+    import Tag from '@/Components/Form/Tag.vue'
 
     const props = defineProps({
         categories: Array,

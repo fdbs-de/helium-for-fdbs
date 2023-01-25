@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Permissions\Permissions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Permission\Models\Role;
@@ -52,44 +53,23 @@ class Post extends Model
 
 
     // START: Queries
-    public static function getPublished($apps, $roles = null)
+    public static function getPublished($apps, User $user, $search = [], $strict = false)
     {
         // if apps is string, convert to array
         if (is_string($apps)) $apps = [$apps];
 
 
 
-        // if roles is string, convert to array
-        if (is_string($roles)) $roles = [$roles];
-
-        // if roles is null, set to empty array
-        if (is_null($roles)) $roles = [];
+        // get roles
+        $roles = $user->accessable_role_ids ?? [];
 
         // if roles is "all", get all roles
-        if ($roles === "all") $roles = Role::all()->pluck('id')->toArray();
+        if (key_exists('roles', $search) && $search['roles'] === "all") $roles = Role::all()->pluck('id')->toArray();
 
-        return Post::
-        with([
-            'category' => function ($query) {
-                $query->select('id', 'name', 'slug', 'icon', 'color');
-            },
-        ])
+
+
+        $query = Post::with(['category' => function ($query) { $query->select('id', 'name', 'slug', 'icon', 'color'); }])
         ->whereIn('scope', $apps)
-        ->where('status', 'published')
-
-        ->where(function ($query) {
-            $query
-            ->whereDate('available_from', '<=', now())
-            ->orWhere('available_from', null);
-        })
-
-        ->where(function ($query) {
-            $query
-            ->whereDate('available_to', '>=', now())
-            ->orWhere('available_to', null);
-        })
-
-        // First check for "override_category_roles"
         ->where(function ($query) use ($roles) {
 
             // If true, query for posts that either dont have roles or match roles with the user
@@ -123,25 +103,45 @@ class Post extends Model
                 });
             });
         });
-    }
 
-    public static function getPublishedByCategory($category, $apps, $roles = null)
-    {
-        return Post::getPublished($apps, $roles)
-            ->where('category', $category);
-    }
 
-    public static function getPublishedBySlug($slug, $apps, $roles = null)
-    {
-        return Post::getPublished($apps, $roles)
-            ->where('slug', $slug);
-    }
 
-    public static function getPublishedBySlugAndCategory($slug, $category, $apps, $roles = null)
-    {
-        return Post::getPublished($apps, $roles)
-            ->where('slug', $slug)
-            ->where('category', $category);
+        // START: Strict Mode
+        if (!$user->can(Permissions::APP_WIKI_ACCESS_ADMIN_PANEL) || !$user->can(Permissions::APP_WIKI_VIEW_CATEGORIES) || $strict === true)
+        {
+            $query
+            ->where('status', 'published')
+            ->where(function ($query) {
+                $query
+                ->whereDate('available_from', '<=', now())
+                ->orWhere('available_from', null);
+            })
+            ->where(function ($query) {
+                $query
+                ->whereDate('available_to', '>=', now())
+                ->orWhere('available_to', null);
+            });
+        }
+        // END: Strict Mode
+
+
+
+        // START: Filter
+        if (key_exists('category', $search)) $query->where('category', $search['category']);
+        if (key_exists('slug', $search)) $query->where('slug', $search['slug']);
+        // END: Filter
+
+
+
+        // START: Search
+        if (key_exists('content', $search))
+        {
+        }
+        // END: Search
+
+
+
+        return $query;
     }
     // END: Queries
 
