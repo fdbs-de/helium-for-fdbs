@@ -152,7 +152,7 @@
             // {label: 'Ecommerce', color: 'var(--color-app-ecommerce-on-dark)', icon: 'shopping_cart', route: route('admin.blog.posts'), permission: ['app.ecommerce.access.admin.panel'], activeWhen: ['admin.ecommerce.overview'], submenu: []},
             {label: 'Jobs', color: 'var(--color-app-jobs-on-dark)', icon: 'work', route: route('admin.jobs.posts'), permission: ['app.jobs.access.admin.panel'], activeWhen: ['admin.jobs.posts', 'admin.jobs.categories', 'admin.jobs.posts.editor', 'admin.jobs.categories.editor'], submenu: [
                 {label: 'Stellenangebote', icon: 'feed', route: route('admin.jobs.posts'), permission: ['app.jobs.view.offers'], activeWhen: ['admin.jobs.posts', 'admin.jobs.posts.editor']},
-                {label: 'Kategorien', icon: 'category', route: route('admin.jobs.categories'), permission: ['app.jobs.view.categories'], activeWhen: ['admin.jobs.categories', 'admin.jobs.categories.editor']},
+                {label: 'Anstellungs Arten', icon: 'category', route: route('admin.jobs.categories'), permission: ['app.jobs.view.categories'], activeWhen: ['admin.jobs.categories', 'admin.jobs.categories.editor']},
             ]},
             {label: 'Intranet', color: 'var(--color-app-intranet-on-dark)', icon: 'domain', route: route('admin.intranet.posts'), permission: ['app.intranet.access.admin.panel'], activeWhen: ['admin.intranet.posts', 'admin.intranet.categories', 'admin.intranet.posts.editor', 'admin.intranet.categories.editor'], submenu: [
                 {label: 'Posts', icon: 'feed', route: route('admin.intranet.posts'), permission: ['app.intranet.view.posts'], activeWhen: ['admin.intranet.posts', 'admin.intranet.posts.editor']},

@@ -1,16 +1,22 @@
 <template>
     <!-- TODO: use Link for internal links -->
     <a :href="link" :target="newWindow ? '_blank' : '_self'" :style="`--color-card-accent: ${color}`" class="card-wrapper">
-        <div class="card-image-wrapper" v-if="image" :class="{'cover': cover, 'effect': effect}" :style="`aspect-ratio: ${aspectRatio};`">
+        <div class="card-image-wrapper" v-if="image" :class="{'cover': cover, 'effect': effect, 'no-border': tagPosition == 'beneath-image'}" :style="`aspect-ratio: ${aspectRatio};`">
             <img loading="lazy" :src="image" :alt="alt" class="card-image"/>
 
-            <div class="tag-wrapper" v-if="primaryTag || tags.length">
+            <div class="warning-wrapper" v-if="warning" v-tooltip="warning">Wichtig</div>
+
+            <div class="tag-wrapper" v-if="tagPosition === 'image' && (primaryTag || tags.length)">
                 <div class="tag primary" v-if="primaryTag">{{primaryTag}}</div>
                 <div class="tag" v-for="(tag, i) in tags" :key="i">{{tag}}</div>
             </div>
         </div>
-        <div class="text-wrapper" v-if="name">
-            <h2>{{name}}</h2>
+        <div class="tag-wrapper" v-if="tagPosition === 'beneath-image' && (primaryTag || tags.length)">
+            <div class="tag primary" v-if="primaryTag">{{primaryTag}}</div>
+            <div class="tag" v-for="(tag, i) in tags" :key="i">{{tag}}</div>
+        </div>
+        <div class="text-wrapper" v-if="name || $slots.default">
+            <h2 v-if="name">{{name}}</h2>
             <slot />
         </div>
     </a>
@@ -39,6 +45,10 @@
             type: Boolean,
             default: false
         },
+        tagPosition: {
+            type: String,
+            default: 'image'
+        },
         primaryTag: {
             type: String,
             default: null
@@ -55,6 +65,10 @@
         },
         alt: {
             type: String
+        },
+        warning: {
+            type: String,
+            default: null
         },
         color: {
             type: String,
@@ -95,13 +109,36 @@
                 left: -2px
                 transition: all 200ms ease-out
 
-                &.effect
+            &.no-border
+                border: none
+
+            &.effect
+                .card-image
                     filter: saturate(0)
 
             &.cover
                 background: var(--color-card-accent)
                 .card-image
                     object-fit: cover
+
+            .warning-wrapper
+                position: absolute
+                top: 1rem
+                right: 1rem
+                height: 1.5rem
+                padding-inline: .75rem
+                display: flex
+                justify-content: center
+                align-items: center
+                background: var(--color-warning)
+                color: var(--color-background)
+                border-radius: 40px
+                font-size: .7rem
+                text-transform: uppercase
+                font-weight: 600
+                letter-spacing: .05rem
+                z-index: 1
+                user-select: none
 
             .tag-wrapper
                 position: absolute
@@ -142,7 +179,35 @@
                         z-index: -1
                         pointer-events: none
 
+        > .tag-wrapper
+            color: var(--color-card-accent)
+            display: flex
+            flex-wrap: wrap
+            gap: .5rem
+            padding: .5rem 1rem
+            font-size: .8rem
+            position: relative
+
+            &::before
+                content: ""
+                position: absolute
+                top: 0
+                left: 0
+                right: 0
+                bottom: 0
+                background: currentColor
+                opacity: .2
+                z-index: 0
+
+            .tag
+                position: relative
+                z-index: 1
+
+            .tag.primary
+                font-weight: 600
+
         .text-wrapper
+            flex: 1
             padding: 1rem
             gap: 1rem
             display: flex
