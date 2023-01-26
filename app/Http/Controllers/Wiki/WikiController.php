@@ -17,6 +17,7 @@ class WikiController extends Controller
         $search = [];
         
         if ($request->category && $request->category !== 'all') $search['category'] = $request->category;
+        if ($request->search) $search['query'] = $request->search;
 
         $posts = Post::getPublished('wiki', request()->user(), $search, false);
         // END: Filter
