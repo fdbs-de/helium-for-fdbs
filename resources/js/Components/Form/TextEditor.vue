@@ -9,21 +9,17 @@
                     <button type="button" class="toolbar-button drop">Einfügen</button>
                     <template #popper>
                         <div class="dropdown-list">
-                            <button type="button" class="dropdown-button" :class="{ 'active': editor.isActive('image') }" @click="openImageDialog()" v-close-popper>
+                            <button type="button" class="dropdown-button" @click="openImageDialog()" v-close-popper>
                                 <div class="icon">image</div>
                                 <div class="label">Bild einfügen</div>
-                                <!-- <div class="secondary-info">ctrl+shift+p</div> -->
                             </button>
-                            <button type="button" class="dropdown-button" :class="{ 'active': editor.isActive('keyfact') }" @click="openKeyfactDialog()" v-close-popper>
+                            <button type="button" class="dropdown-button" @click="editor.chain().focus().insertTable({ rows: 3, cols: 3}).run()" v-close-popper>
+                                <div class="icon">table</div>
+                                <div class="label">Tabelle einfügen</div>
+                            </button>
+                            <button type="button" class="dropdown-button" @click="openKeyfactDialog()" v-close-popper>
                                 <div class="icon">star</div>
                                 <div class="label">Keyfact einfügen</div>
-                            </button>
-
-                            <div class="dropdown-divider" v-show="!editor.isActive('link')"></div>
-
-                            <button type="button" class="dropdown-button" v-show="!editor.isActive('link')" @click="openLinkDialog()" v-close-popper>
-                                <div class="icon">link</div>
-                                <div class="label">Link einfügen</div>
                             </button>
                         </div>
                     </template>
@@ -33,20 +29,28 @@
                     <button type="button" class="toolbar-button drop">Bearbeiten</button>
                     <template #popper>
                         <div class="dropdown-list">
+                            <button type="button" class="dropdown-button" @click="editor.chain().focus().undo().run()" :disabled="!editor.can().undo()">
+                                <div class="icon">undo</div>
+                                <div class="label">Rückgangig</div>
+                                <div class="secondary-info">CTRL + Z</div>
+                            </button>
+                            <button type="button" class="dropdown-button" @click="editor.chain().focus().redo().run()" :disabled="!editor.can().redo()">
+                                <div class="icon">redo</div>
+                                <div class="label">Wiederholen</div>
+                                <div class="secondary-info">CTRL + Y</div>
+                            </button>
+                            
+                            <div class="dropdown-divider"></div>
+
                             <button type="button" class="dropdown-button" :class="{ 'active': editor.isActive('blockquote') }" @click="editor.chain().focus().toggleBlockquote().run()">
                                 <div class="icon">format_quote</div>
                                 <div class="label">Als Zitat formatieren</div>
+                                <div class="secondary-info">CTRL + SHIFT + B</div>
                             </button>
                             <button type="button" class="dropdown-button" :class="{ 'active': editor.isActive('code') }" @click="editor.chain().focus().toggleCode().run()">
                                 <div class="icon">code</div>
                                 <div class="label">Als Code formatieren</div>
-                            </button>
-
-                            <div class="dropdown-divider" v-show="editor.isActive('link')"></div>
-
-                            <button type="button" class="dropdown-button" v-show="editor.isActive('link')" @click="openLinkDialog()" v-close-popper>
-                                <div class="icon">link</div>
-                                <div class="label">Link bearbeiten</div>
+                                <div class="secondary-info">CTRL + E</div>
                             </button>
 
                             <div class="dropdown-divider"></div>
@@ -76,13 +80,16 @@
                 <button type="button" class="toolbar-button color-error" v-show="editor.isActive('keyfact')" @click="removeKeyfact()">Keyfact entfernen</button>
                 <button type="button" class="toolbar-button color-primary" v-show="editor.isActive('image')" @click="openImageDialog()">Bild bearbeiten</button>
                 <button type="button" class="toolbar-button color-primary" v-show="editor.isActive('link')" @click="openLinkDialog()">Link bearbeiten</button>
+                <button type="button" class="toolbar-button color-primary" v-show="editor.isActive('table')" @click="tableToolbar = true">Tabelle bearbeiten</button>
 
                 <div class="toolbar-toggle-button" @click="toggleFullscreen()" v-if="fullscreenAvailable" v-tooltip.bottom="isFullscreen ? 'Vollbild verlassen' : 'Vollbild'">
                     {{ isFullscreen ? 'fullscreen_exit' : 'fullscreen' }}
                 </div>
             </div>
 
-            <div class="styling-panel" v-show="!isAnyDialogOpen">
+
+
+            <div class="styling-panel" v-show="!isAnyDialogOpen && !tableToolbar">
                 <select class="select" :value="getNodeType" @input="setNodeType">
                     <option value="" disabled>---</option>
                     <option value="paragraph">Paragraph</option>
@@ -121,10 +128,42 @@
                             </div>
                         </template>
                     </VDropdown>
-                    <button type="button" class="button icon" v-show="!editor.isActive('link')" @click="openLinkDialog()">link</button>
+                    <button type="button" class="button icon" @click="openLinkDialog()">link</button>
                     <button type="button" class="button icon" v-show="editor.isActive('link')" @click="removeLink()">link_off</button>
                 </div>
             </div>
+
+            <div class="styling-panel" v-show="!isAnyDialogOpen && tableToolbar">
+                <div class="button-group">
+                    <button type="button" class="button icon" @click="tableToolbar = false" v-tooltip="'Formatierungs-Leiste'">arrow_back</button>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="button icon" @click="editor.chain().focus().addColumnBefore().run()" v-tooltip="'Neue Spalte rechts'">chevron_left</button>
+                    <button type="button" class="button icon" @click="editor.chain().focus().addColumnAfter().run()" v-tooltip="'Neue Spalte link'">chevron_right</button>
+                    <button type="button" class="button icon" @click="editor.chain().focus().deleteColumn().run()" v-tooltip="'Spalte löschen'">delete</button>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="button icon" @click="editor.chain().focus().addRowBefore().run()" v-tooltip="'Neue Zeile drüber'">expand_less</button>
+                    <button type="button" class="button icon" @click="editor.chain().focus().addRowAfter().run()" v-tooltip="'Neue Zeile drunter'">expand_more</button>
+                    <button type="button" class="button icon" @click="editor.chain().focus().deleteRow().run()" v-tooltip="'Zeile löschen'">delete</button>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="button" @click="editor.chain().focus().mergeOrSplit().run()">Zelle Zusammenführen</button>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="button icon" @click="editor.chain().focus().toggleHeaderCell().run()" v-tooltip="'Überschrift Zelle'">title</button>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="button icon" @click="editor.chain().focus().deleteTable().run()" v-tooltip="'Tabelle löschen'">delete</button>
+                </div>
+            </div>
+
+
 
             <div class="property-panel" v-show="isAnyDialogOpen">
                 <div class="dialog-limiter" v-show="imageForm.isOpen">
@@ -134,7 +173,11 @@
                         <mui-button type="button" label="Übernehmen" icon-left="check" size="small" @click="insertImage()" />
                     </div>
                     <div class="flex wrap gap-1">
-                        <mui-input type="text" class="flex-1" label="Bild URL" v-model="imageForm.url" clearable/>
+                        <mui-input type="text" class="flex-1" label="Bild URL" v-model="imageForm.url" clearable>
+                            <template #right>
+                                <button type="button" class="input-button" @click="$refs.picker.open((file) => { imageForm.url = file })">folder_open</button>
+                            </template>
+                        </mui-input>
                         <mui-input type="text" class="flex-1" label="Alt-Text" v-model="imageForm.alt" clearable/>
                     </div>
                 </div>
@@ -167,9 +210,15 @@
             </div>
         </div>
 
+
+
         <div class="editor-content">
             <editor-content class="editor-limiter formatted-content" :class="{'ignore-limiter': !applyLimiter}" spellcheck="true" lang="de" :editor="editor" />
         </div>
+
+
+
+        <Picker ref="picker" />
     </div>
 </template>
 
@@ -182,10 +231,14 @@
     import CharacterCount from '@tiptap/extension-character-count'
     import TextAlign from '@tiptap/extension-text-align'
     import TextStyle from '@tiptap/extension-text-style'
+    import Table from '@tiptap/extension-table'
+    import TableCell from '@tiptap/extension-table-cell'
+    import TableHeader from '@tiptap/extension-table-header'
+    import TableRow from '@tiptap/extension-table-row'
     import Color from '@tiptap/extension-color'
     import StarterKit from '@tiptap/starter-kit'
 
-    import Popup from '@/Components/Form/Popup.vue'
+    import Picker from '@/Components/Form/MediaLibrary/Picker.vue'
 
     const swatches = [
         { value: 'var(--color-primary)', name: 'Primärfarbe' },
@@ -303,6 +356,7 @@
                     isOpen: false,
                     icon: 'star',
                 },
+                tableToolbar: false,
                 swatches,
                 fullscreenAvailable: false,
                 isFullscreen: false,
@@ -344,6 +398,12 @@
                     Color,
                     CharacterCount,
                     Keyfact,
+                    Table.configure({
+                        resizable: false,
+                    }),
+                    TableRow,
+                    TableHeader,
+                    TableCell,
                 ],
                 content: this.modelValue,
                 onUpdate: () => {
@@ -479,7 +539,7 @@
 
         components: {
             EditorContent,
-            Popup,
+            Picker,
         },
     }
 </script>
@@ -561,6 +621,11 @@
                 background: var(--color-primary)
                 color: var(--color-background)
 
+        &:disabled
+            opacity: .7
+            cursor: unset
+            background: none
+
         .icon
             aspect-ratio: 1
             height: 100%
@@ -580,7 +645,9 @@
             flex: 1
 
         .secondary-info
-            font-size: .7rem
+            font-size: .6rem
+            font-weight: 600
+            padding-inline: .5rem
             
 
     .editor-wrapper
@@ -604,10 +671,6 @@
 
             .editor-content
                 padding: 4rem 2rem
-
-                .editor-limiter
-                    border-radius: var(--radius-s)
-                    box-shadow: var(--shadow-elevation-low)
 
         .editor-controls
             flex: none
@@ -703,8 +766,8 @@
                 padding: 1rem .5rem
                 flex-wrap: wrap
                 align-items: center
-                border-left: 2px solid var(--color-background-soft)
-                border-right: 2px solid var(--color-background-soft)
+                border-left: 1px solid var(--color-background-soft)
+                border-right: 1px solid var(--color-background-soft)
 
                 .select
                     height: 2.5rem
@@ -771,8 +834,8 @@
                 align-items: center
                 gap: 1rem
                 padding: 1rem
-                border-left: 2px solid var(--color-background-soft)
-                border-right: 2px solid var(--color-background-soft)
+                border-left: 1px solid var(--color-background-soft)
+                border-right: 1px solid var(--color-background-soft)
                 position: relative
                 z-index: 1000
 
@@ -797,10 +860,11 @@
             display: flex
             flex-direction: column
             background: var(--color-background-soft)
-            border: 2px solid var(--color-background-soft)
+            border: 1px solid var(--color-background-soft)
             border-top: none
             border-bottom-left-radius: inherit
             border-bottom-right-radius: inherit
+            padding: 2rem
 
             .editor-limiter
                 flex: 1
@@ -811,7 +875,36 @@
                 margin: 0 auto
                 outline: none
                 background: var(--color-background)
+                border-radius: var(--radius-s)
+                box-shadow: var(--shadow-elevation-low)
 
                 &.ignore-limiter
                     max-width: none
+
+    .input-button
+        height: 2rem
+        width: 2rem
+        display: flex
+        align-items: center
+        justify-content: center
+        padding: 0
+        margin: 0
+        border: none
+        background: none
+        cursor: pointer
+        user-select: none
+        font-family: var(--font-icon)
+        font-size: 1.35rem
+        text-align: center
+        color: var(--color-text)
+        border-radius: .25rem
+        flex: none
+
+        &:hover,
+        &:focus
+            color: var(--mui-color__)
+            background: var(--mui-background-secondary__)
+
+        &.active
+            color: var(--color-primary)
 </style>
