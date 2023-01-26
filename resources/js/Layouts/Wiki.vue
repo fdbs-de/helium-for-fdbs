@@ -33,10 +33,9 @@
 
             <div class="menu-bar">
                 <div class="top-bar">
-                    <!-- <mui-input type="search" class="searchbar" icon-left="search" placeholder="Im Wiki Suchen"/> -->
-                    <small class="flex-1 flex wrap h-center">
-                        Suche ist noch nicht verfügbar
-                    </small>
+                    <form @submit.prevent="search()">
+                        <mui-input type="search" class="searchbar" icon-left="search" placeholder="Im Wiki Suchen" v-model="searchInput"/>
+                    </form>
                 </div>
 
                 <div class="menu-group">
@@ -107,6 +106,7 @@
 
     import Loader from '@/Components/Form/Loader.vue'
     import Footer from '@/Components/Page/Footer.vue'
+import { Inertia } from '@inertiajs/inertia'
 
 
 
@@ -135,7 +135,16 @@
 
     const category = computed(() => params.category || 'all')
     const sort = computed(() => params.sort || 'all')
+    const searchParam = ref(params.search || '')
+    const searchInput = ref(searchParam.value)
     // END: Parameters
+
+
+
+    // START: Search
+    const search = () => {
+        Inertia.visit(route('wiki', {category: category.value, sort: sort.value, search: searchInput.value}))
+    }
 
 
 

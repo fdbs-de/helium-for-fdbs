@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
+use Laravel\Scout\Searchable;
 
 class Post extends Model
 {
-    use HasRoles, HasFactory;
+    use HasRoles, HasFactory, Searchable;
 
     protected $fillable = [
         'scope',
@@ -49,6 +50,19 @@ class Post extends Model
         return $this->belongsTo(PostCategory::class, 'category');
     }
     // END: Relationships
+
+
+
+    // START: Searchable
+    public function toSearchableArray()
+    {
+        return [
+            'id' => (int) $this->id,
+            'title' => $this->title,
+            'content' => $this->content,
+            'tags' => implode(' ', $this->tags),
+        ];
+    }
 
 
 
@@ -134,8 +148,19 @@ class Post extends Model
 
 
         // START: Search
-        if (key_exists('content', $search))
+        if (key_exists('query', $search))
         {
+            // This setup is not ideal;
+            // TODO: integrate it better with the query builder
+            // $ids = Post::search($search['query'])->get()->pluck('id')->toArray();
+            // $query->whereIn('id', $ids);
+
+            $query->whereFuzzy(function ($query) use ($search) {
+                $query
+                ->orWhereFuzzy('title', $search['query'])
+                ->orWhereFuzzy('content', $search['query'])
+                ->orWhereFuzzy('tags', $search['query']);
+            });
         }
         // END: Search
 
