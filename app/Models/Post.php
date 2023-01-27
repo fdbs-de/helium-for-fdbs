@@ -67,7 +67,7 @@ class Post extends Model
 
 
     // START: Queries
-    public static function getPublished($apps, User $user, $search = [], $strict = false)
+    public static function getPublished($apps, User $user = null, $search = [], $strict = false)
     {
         // if apps is string, convert to array
         if (is_string($apps)) $apps = [$apps];
@@ -75,7 +75,7 @@ class Post extends Model
 
 
         // get roles
-        $roles = $user->accessable_role_ids ?? [];
+        $roles = $user ? $user->accessable_role_ids : [];
 
         // if roles is "all", get all roles
         if (key_exists('roles', $search) && $search['roles'] === "all") $roles = Role::all()->pluck('id')->toArray();
@@ -121,7 +121,7 @@ class Post extends Model
 
 
         // START: Strict Mode
-        if (!$user->can(Permissions::APP_WIKI_ACCESS_ADMIN_PANEL) || !$user->can(Permissions::APP_WIKI_VIEW_CATEGORIES) || $strict === true)
+        if (!$user || !$user->can(Permissions::APP_WIKI_ACCESS_ADMIN_PANEL) || !$user->can(Permissions::APP_WIKI_VIEW_CATEGORIES) || $strict === true)
         {
             $query
             ->where('status', 'published')
