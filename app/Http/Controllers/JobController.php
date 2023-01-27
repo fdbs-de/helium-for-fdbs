@@ -13,7 +13,7 @@ class JobController extends Controller
     public function index()
     {
         return Inertia::render('Apps/Jobs/Index', [
-            'posts' => Post::getPublished('jobs', request()->user(), ['roles' => 'all'])
+            'posts' => Post::getPublished('jobs', null, ['roles' => 'all'])
             ->orderByDesc('pinned')
             ->orderByDesc('created_at')
             ->orderByDesc('updated_at')
@@ -23,7 +23,7 @@ class JobController extends Controller
     
     public function show($postSlug)
     {
-        $post = Post::getPublished('jobs', request()->user(), ['roles' => 'all', 'slug' => $postSlug])->firstOrFail();
+        $post = Post::getPublished('jobs', null, ['roles' => 'all', 'slug' => $postSlug])->firstOrFail();
 
         return Inertia::render('Apps/Jobs/Show', [
             'post' => $post,
