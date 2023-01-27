@@ -11,7 +11,8 @@ use Laravel\Scout\Searchable;
 
 class Post extends Model
 {
-    use HasRoles, HasFactory, Searchable;
+    // use HasRoles, HasFactory, Searchable;
+    use HasRoles, HasFactory;
 
     protected $fillable = [
         'scope',
@@ -63,6 +64,7 @@ class Post extends Model
             'tags' => implode(' ', $this->tags),
         ];
     }
+    // END: Searchable
 
 
 
