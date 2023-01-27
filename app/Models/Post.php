@@ -50,6 +50,11 @@ class Post extends Model
     {
         return $this->belongsTo(PostCategory::class, 'category');
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'post_user')->withPivot('role');
+    }
     // END: Relationships
 
 

@@ -87,6 +87,15 @@ class User extends Authenticatable implements MustVerifyEmail
 
 
 
+    // START: Posts
+    public function posts()
+    {
+        return $this->belongsToMany(Post::class, 'post_user')->withPivot('role');
+    }
+    // END: Posts
+
+
+
     // START: Profiles
     public function getProfilesAttribute()
     {
