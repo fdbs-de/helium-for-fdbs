@@ -141,10 +141,11 @@
             ]},
         ],
         [
-            // {label: 'Seiten', color: 'var(--color-app-pages-on-dark)', icon: 'web', route: route('admin.pages.pages'), permission: ['app.pages.access.admin.panel'], activeWhen: ['admin.pages.pages', 'admin.pages.pages.editor', 'admin.pages.menus', 'admin.pages.menus.editor'], submenu: [
-            //     {label: 'Seiten', icon: 'web', route: route('admin.pages.pages'), permission: ['app.pages.view.pages'], activeWhen: ['admin.pages.pages', 'admin.pages.pages.editor']},
-            //     {label: 'Menüs', icon: 'account_tree', route: route('admin.pages.menus'), permission: ['app.pages.view.menus'], activeWhen: ['admin.pages.menus', 'admin.pages.menus.editor']},
-            // ]},
+            {label: 'Seiten', color: 'var(--color-app-pages-on-dark)', icon: 'web', route: route('admin.pages.pages'), permission: ['app.pages.access.admin.panel'], activeWhen: ['admin.pages.pages', 'admin.pages.pages.editor', 'admin.pages.menus', 'admin.pages.menus.editor'], submenu: [
+                {label: 'Seiten', icon: 'web', route: route('admin.pages.pages'), permission: ['app.pages.view.pages'], activeWhen: ['admin.pages.pages']},
+                {label: 'Komponenten', icon: 'widgets', route: route('admin.pages.pages'), permission: ['app.pages.view.pages'], activeWhen: ['admin.pages.components']},
+                {label: 'Menüs', icon: 'list', route: route('admin.pages.menus'), permission: ['app.pages.view.menus'], activeWhen: ['admin.pages.menus', 'admin.pages.menus.editor']},
+            ]},
             {label: 'Blog', color: 'var(--color-app-blog-on-dark)', icon: 'newspaper', route: route('admin.blog.posts'), permission: ['app.blog.access.admin.panel'], activeWhen: ['admin.blog.posts', 'admin.blog.categories', 'admin.blog.posts.editor', 'admin.blog.categories.editor'], submenu: [
                 {label: 'Beiträge', icon: 'feed', route: route('admin.blog.posts'), permission: ['app.blog.view.posts'], activeWhen: ['admin.blog.posts', 'admin.blog.posts.editor']},
                 {label: 'Kategorien', icon: 'category', route: route('admin.blog.categories'), permission: ['app.blog.view.categories'], activeWhen: ['admin.blog.categories', 'admin.blog.categories.editor']},

@@ -3,47 +3,72 @@
 
     <div class="main-layout">
         <div class="tab-layout">
-            <IconButton icon="arrow_back" />
+            <IconButton :is="Link" :href="route('admin.pages.pages')" icon="arrow_back" @click="exitFullscreen()"/>
 
-            <button class="tab active">
-                <div class="icon">language</div>
-                <div class="title">Startseite</div>
-                <button class="indicator" @click.stop>
+            <button class="tab" v-for="tab in editor.tabs" :key="tab.id" :class="{'active': tab.active}" @click="editor.selectTab(tab.id)">
+                <div class="icon">{{ tab.icon }}</div>
+                <div class="title">
+                    <span v-if="tab.title">{{ tab.title }}</span>
+                    <i v-else>Unbenannt</i>
+                </div>
+                <button class="indicator" @click.stop="editor.closeTab(tab.id)">
                     <div class="icon">close</div>
                 </button>
                 <div class="corner start"></div>
                 <div class="corner end"></div>
             </button>
 
-            <button class="tab">
-                <div class="icon">language</div>
-                <div class="title">Datenschutz</div>
-                <button class="indicator" @click.stop>
-                    <div class="icon">close</div>
-                </button>
-                <div class="corner start"></div>
-                <div class="corner end"></div>
-            </button>
+            <IconButton icon="add" @click="editor.openBlankTab()" v-show="!editor.hasBlankTab"/>
 
             <div class="spacer"></div>
 
-            <IconButton icon="fullscreen" />
+            <IconButton class="small" :icon="isFullscreen ? 'fullscreen_exit' : 'fullscreen'" @click="toggleFullscreen()"/>
+            <IconButton class="small" icon="more_vert" />
         </div>
-        <div class="page-layout">
+
+
+
+        <div class="new-tab-layout" v-if="editor.tab && ['new-tab'].includes(editor.tab.type)">
+            <div class="new-button-wrapper">
+                <div class="limiter text-limiter">
+                    <button class="new-button page" @click="editor.tab.useAs('page-editor', {})">
+                        <div class="icon">add</div>
+                        <span class="text">Neue Seite</span>
+                        <span class="subtext">Inhaltsseiten</span>
+                    </button>
+                    <button class="new-button component" @click="editor.tab.useAs('component-editor', {})">
+                        <div class="icon">add</div>
+                        <span class="text">Neues Komponent</span>
+                        <span class="subtext">Komponenten und Layouts</span>
+                    </button>
+                </div>
+            </div>
+            <div class="pages-wrapper">
+                <div class="limiter text-limiter">
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="page-editor-layout" v-if="editor.tab && ['page-editor', 'component-editor'].includes(editor.tab.type)">
             <div class="tool-bar">
                 <div class="start">
                     <mui-button class="with-label" variant="contained" icon-left="add" label="Neu"/>
                     <div class="spacer"></div>
-                    <IconButton icon="undo" />
-                    <IconButton icon="redo" disabled/>
-                    <IconButton icon="history" />
+                    <IconButton icon="undo" :disabled="editor.tab.history.length <= 0" />
+                    <IconButton icon="redo" :disabled="editor.tab.history.length <= 0" />
+                    <IconButton icon="history" :disabled="editor.tab.history.length <= 0" />
                 </div>
                 <div class="center">
                     <div class="breakpoint-selector">
-                        <IconButton icon="desktop_windows" class="active"/>
-                        <IconButton icon="computer" />
-                        <IconButton icon="stay_current_landscape" />
-                        <IconButton icon="stay_current_portrait" />
+                        <IconButton
+                            v-for="breakpoint in editor.breakpoints"
+                            :key="breakpoint.id"
+                            :icon="breakpoint.icon"
+                            :class="{'active': breakpoint.id == editor.tab.selected.breakpoint}"
+                            @click="editor.tab.selectBreakpoint(breakpoint.id)"
+                        />
                     </div>
                 </div>
                 <div class="end">
@@ -55,20 +80,72 @@
                     <mui-button class="with-label" variant="contained" label="Speichern" />
                 </div>
             </div>
-            <div class="navigator"></div>
-            <div class="viewport-wrapper"></div>
-            <div class="inspector"></div>
+
+            <div class="navigator">
+            </div>
+
+            <div class="viewport-wrapper">
+            </div>
+
+            <div class="inspector">
+                <div class="input-group horizontal slim">
+                    <span class="title">Inspect Element</span>
+                    <div class="spacer"></div>
+                    <IconButton icon="content_copy" />
+                    <IconButton icon="disabled_visible" />
+                    <IconButton icon="more_vert" />
+                    <IconButton class="error" icon="delete" />
+                </div>
+                <div class="input-group">
+                    <mui-input placeholder="Titel" v-model="editor.tab.title"/>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script setup>
-    import { Head, useForm, usePage } from '@inertiajs/inertia-vue3'
-    import { ref, computed } from 'vue'
+    import { Head, Link, useForm, usePage } from '@inertiajs/inertia-vue3'
+    import { ref, onMounted } from 'vue'
     import { Inertia } from '@inertiajs/inertia'
+    import Editor from '@/Classes/Apps/Pages/Editor.js'
 
     import IconButton from '@/Components/Apps/Pages/IconButton.vue'
     import Popup from '@/Components/Form/Popup.vue'
+
+    const editor = ref(new Editor({
+        openNewOnLaunch: true,
+        openNewOnLastClose: true
+    }))
+
+
+
+    // START: Fullscreen
+    const isFullscreen = ref(false)
+    const fullscreenAvailable = ref(false)
+
+    onMounted(() => {
+        isFullscreen.value = !!document.fullscreenElement
+        fullscreenAvailable.value = document.fullscreenEnabled
+    })
+
+    window.addEventListener('fullscreenchange', () => {
+        isFullscreen.value = !!document.fullscreenElement
+        document.documentElement.style.overflowY = this.isFullscreen ? 'hidden' : 'scroll'
+    })
+
+    const toggleFullscreen = () => {
+        isFullscreen.value ? exitFullscreen() : enterFullscreen()
+    }
+
+    const enterFullscreen = () => {
+        document.documentElement.requestFullscreen()
+    }
+
+    const exitFullscreen = () => {
+        document.exitFullscreen()
+    }
+    // END: Fullscreen
 </script>
 
 <style lang="sass">
@@ -99,11 +176,17 @@
         display: flex
         background: var(--color-background-dark-soft)
         color: var(--color-heading-on-background-dark)
+        padding-right: .5rem
 
-        > button:not(.tab)
-            border-radius: 0
+        > button:not(.tab),
+        > a:not(.tab)
+            border-radius: var(--radius-s)
             height: 100%
             width: 3.5rem
+
+        > button.small
+            width: auto
+            aspect-ratio: 1
 
         .tab
             flex: 1
@@ -120,10 +203,19 @@
             color: var(--color-text-on-background-dark)
             background: transparent
             border: none
-            border-radius: var(--radius-m) var(--radius-m) 0 0
+            border-radius: var(--radius-m)
+            user-select: none
+
+            &:hover
+                background: #ffffff10
+                .indicator
+                    .icon
+                        transform: scale(1) !important
+                        opacity: 1 !important
 
             &.active
                 z-index: 1
+                border-radius: var(--radius-m) var(--radius-m) 0 0
                 color: var(--color-heading-on-background-dark)
                 background: var(--color-background-dark)
 
@@ -168,6 +260,7 @@
                 display: flex
                 align-items: center
                 justify-content: center
+                color: var(--color-text-on-background-dark)
 
             > .title
                 flex: 1
@@ -193,8 +286,68 @@
                     display: flex
                     align-items: center
                     justify-content: center
+                    transition: all 80ms ease-in-out
+                    transform: scale(0)
+                    opacity: 0
 
-    .page-layout
+    .new-tab-layout
+        flex: 1
+        background: var(--color-background-dark-soft)
+        display: flex
+        flex-direction: column
+
+        .new-button-wrapper
+            width: 100%
+            padding-block: 8rem 4rem
+            background: var(--color-background-dark)
+
+            .limiter
+                display: flex
+                gap: 2rem
+
+            .new-button
+                flex: 1
+                aspect-ratio: 16/9
+                border-radius: var(--radius-l)
+                display: flex
+                flex-direction: column
+                align-items: center
+                justify-content: center
+                color: var(--color-background)
+                gap: .25rem
+                margin: 0
+                padding: 0
+                border: none
+                cursor: pointer
+                transition: all 80ms ease-in-out
+
+                &:hover
+                    box-shadow: var(--shadow-elevation-high)
+
+                &.page
+                    background: var(--color-app-pages-on-dark)
+
+                &.component
+                    background: #ff6348
+
+                .icon
+                    font-family: var(--font-icon)
+                    font-size: 2.5rem
+                    opacity: .7
+                    line-height: 1
+                    margin-bottom: 1rem
+
+                .text
+                    font-size: 1.1rem
+                    font-weight: 600
+                    font-family: var(--font-heading)
+
+                .subtext
+                    font-weight: 400
+                    font-family: var(--font-text)
+                    opacity: .8
+
+    .page-editor-layout
         flex: 1
         display: grid
         grid-template-columns: 22rem 1fr 22rem
@@ -260,4 +413,31 @@
             grid-area: inspector
             background: var(--color-background)
             box-shadow: var(--shadow-elevation-low)
+            color: var(--color-heading)
+
+            .input-group
+                padding: 1.5rem 1rem
+                display: flex
+                flex-direction: column
+                border-bottom: 1px solid var(--color-border)
+
+                &.slim
+                    padding: 1rem
+
+                &.horizontal
+                    flex-direction: row
+                    align-items: center
+
+                .title
+                    font-size: .8rem
+                    font-weight: 600
+                    letter-spacing: .05rem
+                    text-transform: uppercase
+                    color: var(--color-text)
+
+                .spacer
+                    flex: 1
+
+                > button.error
+                    color: var(--color-error)
 </style>
