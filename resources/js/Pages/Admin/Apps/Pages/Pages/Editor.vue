@@ -54,7 +54,7 @@
         <div class="page-editor-layout" v-if="editor.tab && ['page-editor', 'component-editor'].includes(editor.tab.type)">
             <div class="tool-bar">
                 <div class="start">
-                    <mui-button class="with-label" variant="contained" icon-left="add" label="Neu"/>
+                    <mui-button class="with-label" variant="contained" icon-left="add" label="Neu" @click="editor.addElement('raw', 'div', {name: 'New Element', allowed_inner: ['raw']})"/>
                     <div class="spacer"></div>
                     <IconButton icon="undo" :disabled="editor.tab.history.length <= 0" />
                     <IconButton icon="redo" :disabled="editor.tab.history.length <= 0" />
@@ -82,6 +82,13 @@
             </div>
 
             <div class="navigator">
+                <NavigatorElement
+                    v-for="element in editor.tab.elements"
+                    :key="element.id"
+                    :element="element"
+                    :selection="editor.tab.selected.elements"
+                    @select="editor.tab.setElementSelection($event)"
+                />
             </div>
 
             <div class="viewport-wrapper">
@@ -111,6 +118,7 @@
     import Editor from '@/Classes/Apps/Pages/Editor.js'
 
     import IconButton from '@/Components/Apps/Pages/IconButton.vue'
+    import NavigatorElement from '@/Components/Apps/Pages/NavigatorElement.vue'
     import Popup from '@/Components/Form/Popup.vue'
 
     const editor = ref(new Editor({
@@ -404,6 +412,7 @@
             grid-area: navigator
             background: var(--color-background)
             box-shadow: var(--shadow-elevation-low)
+            padding: .5rem
 
         .viewport-wrapper
             grid-area: viewport
