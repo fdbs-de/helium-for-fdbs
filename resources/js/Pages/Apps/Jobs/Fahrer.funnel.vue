@@ -154,11 +154,12 @@
 
 
     const sendClick = (objectString, type = '') => {
-        console.log(objectString, type)
-
+        
         const _etracker = window._etracker
-
+        
         if (!_etracker) return
+        
+        console.log(objectString, type)
 
         _etracker.sendEvent(new et_ClickEvent(objectString, type))
     }
