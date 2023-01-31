@@ -5,7 +5,7 @@
         </Head>
 
         <form class="form" @submit.prevent="submit">
-            <div class="form-step">
+            <div class="form-step" @click="sendClick('funnel-has-experience', form.hasExperience)">
                 <h2 class="question">Hast du bereits Erfahrung als LKW Fahrer? *</h2>
                 <div class="options">
                     <button type="button" :class="{'active': form.hasExperience === 'Nein'}" @click="form.hasExperience = 'Nein'">Nein</button>
@@ -13,15 +13,7 @@
                 </div>
             </div>
     
-            <div class="form-step" v-show="form.hasExperience">
-                <h2 class="question">Bist du bereit nachts zu arbeiten? *</h2>
-                <div class="options">
-                    <button type="button" :class="{'active': form.nightshift === 'Nein'}" @click="form.nightshift = 'Nein'">Nein</button>
-                    <button type="button" :class="{'active': form.nightshift === 'Ja'}" @click="form.nightshift = 'Ja'">Ja</button>
-                </div>
-            </div>
-    
-            <div class="form-step" v-show="isNightshiftValid && form.nightshift">
+            <div class="form-step" v-show="form.hasExperience" @click="sendClick('funnel-drivers-license', form.driversLicense)">
                 <h2 class="question">Welchen Führerschein hast du? *</h2>
                 <div class="options">
                     <button type="button" :class="{'active': form.driversLicense === 'keinen'}" @click="form.driversLicense = 'keinen'">keinen</button>
@@ -34,7 +26,7 @@
                 </div>
             </div>
 
-            <div class="form-step" v-show="isNightshiftValid && isDriversLicenseValid && form.driversLicense">
+            <div class="form-step" v-show="isDriversLicenseValid && form.driversLicense" @click="sendClick('funnel-has-modul-95', form.hasModul95)">
                 <h2 class="question">Besitzt du eine gültige Modul 95 Qualifizierung? *</h2>
                 <div class="options">
                     <button type="button" :class="{'active': form.hasModul95 === 'Nein'}" @click="form.hasModul95 = 'Nein'">Nein</button>
@@ -42,7 +34,7 @@
                 </div>
             </div>
     
-            <div class="form-step" v-show="isNightshiftValid && isDriversLicenseValid && form.hasModul95">
+            <div class="form-step" v-show="isDriversLicenseValid && form.hasModul95" @click="sendClick('funnel-experience-as-driver', form.experienceAsDriver)">
                 <h2 class="question">Wie viele Jahre Berufserfahrung kannst du vorweisen? *</h2>
                 <div class="options">
                     <button type="button" :class="{'active': form.experienceAsDriver === 'keine'}" @click="form.experienceAsDriver = 'keine'">keine</button>
@@ -55,7 +47,7 @@
                 </div>
             </div>
     
-            <div class="form-step" v-show="isNightshiftValid && isDriversLicenseValid && form.experienceAsDriver">
+            <div class="form-step" v-show="isDriversLicenseValid && form.experienceAsDriver" @click="sendClick('funnel-experience-in-language', form.experienceInLanguage)">
                 <h2 class="question">Wie sind deine Deutschkenntnisse? *</h2>
                 <div class="options">
                     <button type="button" :class="{'active': form.experienceInLanguage === 'nicht so gut'}" @click="form.experienceInLanguage = 'nicht so gut'">nicht so gut</button>
@@ -68,18 +60,18 @@
                 </div>
             </div>
     
-            <div class="form-step" v-show="isNightshiftValid && isDriversLicenseValid && form.experienceInLanguage">
+            <div class="form-step" v-show="isDriversLicenseValid && form.experienceInLanguage">
                 <h2 class="question">Dein Gehaltswunsch (brutto) (optional)</h2>
                 <div class="options">
                     <mui-input class="flex-1" border v-model="form.salary" label="Gehaltswunsch"/>
                 </div>
                 <h2 class="question">Frühestmögliches Eintrittsdatum *</h2>
                 <div class="options">
-                    <mui-input class="flex-1" border required v-model="form.startDate" label="Eintrittsdatum *"/>
+                    <mui-input class="flex-1" border required v-model="form.startDate" label="Eintrittsdatum *" @update:modelValue="sendClick('funnel-start-date')"/>
                 </div>
             </div>
     
-            <div class="form-step" v-show="isNightshiftValid && isDriversLicenseValid && form.startDate">
+            <div class="form-step" v-show="isDriversLicenseValid && form.startDate">
                 <h2 class="question">Wie können wir dich am besten für ein Gespräch erreichen?</h2>
                 <mui-input border required v-model="form.name" label="Name *"/>
                 <mui-input border v-model="form.email" label="Email"/>
@@ -96,12 +88,7 @@
 
             <small>* Diese Felder musst du verpflichtend ausfüllen</small>
 
-            <div class="form-step error" v-show="!isNightshiftValid">
-                <h2 class="question">Leider können wir dir keine Stelle anbieten</h2>
-                <p>Wir suchen zurzeit ausschließlich Fahrer, die auch nachts fahren können.</p>
-            </div>
-
-            <div class="form-step error" v-show="isNightshiftValid && !isDriversLicenseValid">
+            <div class="form-step error" v-show="!isDriversLicenseValid">
                 <h2 class="question">Leider können wir dir keine Stelle anbieten</h2>
                 <p>Wir suchen zurzeit ausschließlich Fahrer, die über eine gültige Fahrerlaubnis verfügen.</p>
             </div>
@@ -117,7 +104,6 @@
 
     const form = useForm({
         hasExperience: null,
-        nightshift: null,
         driversLicense: null,
         hasModul95: null,
         experienceAsDriver: null,
@@ -131,17 +117,12 @@
         gdpr: false,
     })
 
-    const isNightshiftValid = computed(() => {
-        return form.nightshift === 'Nein' ? false : true
-    })
-
     const isDriversLicenseValid = computed(() => {
         return form.driversLicense === 'keinen' ? false : true
     })
 
     const isValid = computed(() => {
         if (!form.hasExperience) return false
-        if (form.nightshift !== 'Ja') return false
         if (!form.driversLicense) return false
         if (!form.hasModul95) return false
         if (!form.experienceAsDriver) return false
@@ -156,12 +137,30 @@
     })
 
     const submit = () => {
+        sendClick('funnel-submit', 'start')
+
         form.post(route('karriere.funnel.lkw-fahrer.store'), {
             preserveScroll: true,
             onSuccess: () => {
                 form.reset()
+                sendClick('funnel-submit', 'success')
+            },
+            onError: () => {
+                sendClick('funnel-submit', 'error')
             },
         })
+    }
+
+
+
+    const sendClick = (objectString, type = '') => {
+        console.log(objectString, type)
+
+        const _etracker = window._etracker
+
+        if (!_etracker) return
+
+        _etracker.sendEvent(new et_ClickEvent(objectString, type))
     }
 </script>
 
