@@ -155,6 +155,10 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
             Route::get('/', [PageController::class, 'index'])
             ->middleware('can:app.pages.view.pages')
             ->name('admin.pages.pages');
+
+            Route::get('/editor', [PageController::class, 'editor'])
+            ->middleware('can:app.pages.view.pages')
+            ->name('admin.pages.pages.editor');
         });
 
         Route::prefix('menus')->group(function () {

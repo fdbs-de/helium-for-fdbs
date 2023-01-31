@@ -44,13 +44,14 @@ class JobController extends Controller
             'zip' => 'required|string|max:20',
             'hasExperience' => 'required|in:Ja,Nein',
             'experienceAsDriver' => 'required|string|max:30',
-            'nightshift' => 'required|in:Ja,Nein',
             'driversLicense' => 'required|string|max:10',
             'hasModul95' => 'required|in:Ja,Nein',
             'experienceInLanguage' => 'required|string|max:30',
             'startDate' => 'required|string|max:100',
             'salary' => 'nullable|string|max:100',
         ]);
+
+        // TODO: this is dangerous, xss or html injection is possible
 
         $formattedDetails = '';
         $formattedDetails .= 'Stelle: <b>LKW Fahrer</b><br>';
@@ -61,7 +62,6 @@ class JobController extends Controller
 
         $formattedDetails .= 'Erfahrung als LKW Fahrer: <b>'.$request->hasExperience.'</b><br>';
         $formattedDetails .= 'Erfahrung als LKW Fahrer (Jahre): <b>'.$request->experienceAsDriver.'</b><br>';
-        $formattedDetails .= 'Kann nachts Fahren: <b>'.$request->nightshift.'</b><br>';
         $formattedDetails .= 'Führerschein: <b>'.$request->driversLicense.'</b><br>';
         $formattedDetails .= 'Modul 95 Qualifizierung: <b>'.$request->hasModul95.'</b><br>';
         $formattedDetails .= 'Deutschkenntnisse: <b>'.$request->experienceInLanguage.'</b><br><br>';

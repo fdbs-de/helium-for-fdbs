@@ -1,6 +1,7 @@
 require('./bootstrap')
 
 import { createApp, h } from 'vue'
+import { createPinia } from 'pinia'
 import { createInertiaApp } from '@inertiajs/inertia-vue3'
 import { InertiaProgress } from '@inertiajs/progress'
 
@@ -50,11 +51,13 @@ createInertiaApp({
     setup({ el, app, props, plugin })
     {
         const application = createApp({ render: () => h(app, props) })
+        const pinia = createPinia()
 
         application.use(plugin)
         application.use(MarketierUI)
         application.use(FloatingVue)
         application.use(i18n)
+        application.use(pinia)
         application.mixin({ methods: { route, can } })
         application.config.globalProperties.$dayjs = dayjs
 

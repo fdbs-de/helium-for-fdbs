@@ -14,4 +14,13 @@ class PageController extends Controller
             'items' => [],
         ]);
     }
+
+
+
+    public function editor(Request $request)
+    {
+        return Inertia::render('Admin/Apps/Pages/Pages/Editor', [
+            'item' => [],
+        ]);
+    }
 }
