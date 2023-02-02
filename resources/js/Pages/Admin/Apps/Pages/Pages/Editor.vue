@@ -81,11 +81,24 @@
                 </div>
             </div>
 
-            <div class="navigator grid" v-if="newElementPanel">
+            <div class="navigator" v-if="newElementPanel">
                 <mui-button variant="contained" icon-left="close" label="Schließen" @click="newElementPanel = false"/>
-                <mui-button variant="contained" icon-left="add" label="Blank Element" @click="editor.tab.addElement(new BlankElement({name: 'Blank Element'}))"/>
-                <mui-button variant="contained" icon-left="add" label="Link Element" @click="editor.tab.addElement(new LinkElement({name: 'Link Element'}))"/>
-                <mui-button variant="contained" icon-left="add" label="Image Element" @click="editor.tab.addElement(new ImageElement({name: 'Image Element'}))"/>
+                <div class="grid">
+                    <button class="item-button" @click="addElement('blank')">
+                        <div class="icon">grid_view</div>
+                        Blank Element
+                    </button>
+
+                    <button class="item-button" @click="addElement('link')">
+                        <div class="icon">link</div>
+                        Link Element
+                    </button>
+
+                    <button class="item-button" @click="addElement('image')">
+                        <div class="icon">image</div>
+                        Image Element
+                    </button>
+                </div>
             </div>
 
             <div class="navigator" v-else>
@@ -139,6 +152,25 @@
     // START: UI State
     const newElementPanel = ref(false)
     // END: UI State
+
+
+
+    // START: Methods
+    const addElement = (name) => {
+        let element = null
+
+        switch (name)
+        {
+            case 'blank': element = new BlankElement({name: 'Blank Element'}); break
+            case 'link': element = new LinkElement({name: 'Link Element'}); break
+            case 'image': element = new ImageElement({name: 'Image Element'}); break
+            default: element = new Element(); break
+        }
+
+        editor.value.tab.addElement(element)
+
+        newElementPanel.value = false
+    }
 
 
 
@@ -427,6 +459,37 @@
             background: var(--color-background)
             box-shadow: var(--shadow-elevation-low)
             padding: .5rem
+
+            .grid
+                display: grid
+                grid-template-columns: 1fr 1fr
+                gap: .5rem
+
+                .item-button
+                    margin: 0
+                    padding: 1rem 0
+                    border: 1px solid var(--color-background-soft)
+                    background: var(--color-background)
+                    display: flex
+                    flex-direction: column
+                    gap: .5rem
+                    align-items: center
+                    justify-content: center
+                    cursor: pointer
+                    transition: all 80ms ease-in-out
+                    font-family: var(--font-heading)
+                    font-size: .8rem
+                    border-radius: var(--radius-m)
+                    color: inherit
+                    user-select: none
+
+                    &:hover
+                        background: var(--color-background-soft)
+
+                    .icon
+                        font-size: 1.75rem
+                        font-family: var(--font-icon)
+                        opacity: .7
 
         .viewport-wrapper
             grid-area: viewport
