@@ -54,7 +54,7 @@
         <div class="page-editor-layout" v-if="editor.tab && ['page-editor', 'component-editor'].includes(editor.tab.type)">
             <div class="tool-bar">
                 <div class="start">
-                    <mui-button class="with-label" variant="contained" icon-left="add" label="Neu" @click="editor.addElement('raw', 'div', {name: 'New Element', allowed_inner: ['raw']})"/>
+                    <mui-button class="with-label" variant="contained" icon-left="add" label="Neu" @click="newElementPanel = true"/>
                     <div class="spacer"></div>
                     <IconButton icon="undo" :disabled="editor.tab.history.length <= 0" />
                     <IconButton icon="redo" :disabled="editor.tab.history.length <= 0" />
@@ -81,10 +81,17 @@
                 </div>
             </div>
 
-            <div class="navigator">
+            <div class="navigator grid" v-if="newElementPanel">
+                <mui-button variant="contained" icon-left="close" label="Schließen" @click="newElementPanel = false"/>
+                <mui-button variant="contained" icon-left="add" label="Blank Element" @click="editor.tab.addElement(new BlankElement({name: 'Blank Element'}))"/>
+                <mui-button variant="contained" icon-left="add" label="Link Element" @click="editor.tab.addElement(new LinkElement({name: 'Link Element'}))"/>
+                <mui-button variant="contained" icon-left="add" label="Image Element" @click="editor.tab.addElement(new ImageElement({name: 'Image Element'}))"/>
+            </div>
+
+            <div class="navigator" v-else>
                 <NavigatorElement
                     v-for="element in editor.tab.elements"
-                    :key="element.id"
+                    :key="element.elementId"
                     :element="element"
                     :selection="editor.tab.selected.elements"
                     @select="editor.tab.setElementSelection($event)"
@@ -116,6 +123,7 @@
     import { ref, onMounted } from 'vue'
     import { Inertia } from '@inertiajs/inertia'
     import Editor from '@/Classes/Apps/Pages/Editor.js'
+    import { BlankElement, LinkElement, ImageElement} from '@/Classes/Apps/Pages/BaseElements.js'
 
     import IconButton from '@/Components/Apps/Pages/IconButton.vue'
     import NavigatorElement from '@/Components/Apps/Pages/NavigatorElement.vue'
@@ -125,6 +133,12 @@
         openNewOnLaunch: true,
         openNewOnLastClose: true
     }))
+
+
+
+    // START: UI State
+    const newElementPanel = ref(false)
+    // END: UI State
 
 
 

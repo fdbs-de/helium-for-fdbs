@@ -44,7 +44,7 @@ export default class Tab
 
         function flatten (element)
         {
-            elements[element.element_id] = element
+            elements[element.elementId] = element
 
             element.inner.forEach(flatten)
         }
@@ -78,19 +78,31 @@ export default class Tab
 
 
 
-    addElement (type, subtype, data = {})
+    addElement (element)
     {
-        let element = new Element(type, subtype, data)
+        // Add inner element
+        if (this.selected.elements.length === 1)
+        {
+            let selectedElement = this.flattenedElements[this.selected.elements[0]]
 
+            if (selectedElement.allowedInner.includes(element.elementType))
+            {
+                selectedElement.addElement(element)
+
+                return this
+            }
+        }
+
+        // Add root element
         this.elements.push(element)
 
-        return element
+        return this
     }
 
 
 
     setElementSelection (element)
     {
-        this.selected.elements = [element.element_id]
+        this.selected.elements = [element.elementId]
     }
 }
