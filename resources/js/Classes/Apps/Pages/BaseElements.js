@@ -45,7 +45,7 @@ export class ImageElement extends Element
         this.setOption('src', '')
         this.setOption('alt', '')
 
-        this.setMeta('displayIcon', 'image')
+        this.setMeta('displayIcon', 'landscape')
         this.setMeta('displayText', 'Image')
     }
 }

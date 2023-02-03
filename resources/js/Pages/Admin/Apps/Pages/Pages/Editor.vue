@@ -54,7 +54,8 @@
         <div class="page-editor-layout" v-if="editor.tab && ['page-editor', 'component-editor'].includes(editor.tab.type)">
             <div class="tool-bar">
                 <div class="start">
-                    <mui-button class="with-label" variant="contained" icon-left="add" label="Neu" @click="newElementPanel = true"/>
+                    <mui-button class="with-label" variant="contained" icon-left="add" label="Neu" v-if="!newElementPanel" @click="newElementPanel = true"/>
+                    <mui-button class="with-label" variant="contained" icon-left="close" label="Schließen" v-else @click="newElementPanel = false"/>
                     <div class="spacer"></div>
                     <IconButton icon="undo" :disabled="editor.tab.history.length <= 0" />
                     <IconButton icon="redo" :disabled="editor.tab.history.length <= 0" />
@@ -82,21 +83,55 @@
             </div>
 
             <div class="navigator" v-if="newElementPanel">
-                <mui-button variant="contained" icon-left="close" label="Schließen" @click="newElementPanel = false"/>
                 <div class="grid">
                     <button class="item-button" @click="addElement('blank')">
                         <div class="icon">grid_view</div>
-                        Blank Element
+                        Blank
+                    </button>
+
+                    <button class="item-button" @click="addElement('image')">
+                        <div class="icon">text_fields</div>
+                        Text
+                    </button>
+
+                    <button class="item-button" @click="addElement('image')">
+                        <div class="icon">format_h1</div>
+                        Heading
                     </button>
 
                     <button class="item-button" @click="addElement('link')">
                         <div class="icon">link</div>
-                        Link Element
+                        Link
                     </button>
 
                     <button class="item-button" @click="addElement('image')">
-                        <div class="icon">image</div>
-                        Image Element
+                        <div class="icon">landscape</div>
+                        Image
+                    </button>
+
+                    <button class="item-button" @click="addElement('image')">
+                        <div class="icon">movie</div>
+                        Video
+                    </button>
+
+                    <button class="item-button" @click="addElement('image')">
+                        <div class="icon">Map</div>
+                        Iframe
+                    </button>
+
+                    <button class="item-button" @click="addElement('link')">
+                        <div class="icon">mouse</div>
+                        Button
+                    </button>
+
+                    <button class="item-button" @click="addElement('image')">
+                        <div class="icon">data_object</div>
+                        Code
+                    </button>
+
+                    <button class="item-button" @click="addElement('image')">
+                        <div class="icon">variables</div>
+                        Content Slot
                     </button>
                 </div>
             </div>
@@ -121,7 +156,7 @@
                     <IconButton icon="content_copy" />
                     <IconButton icon="disabled_visible" />
                     <IconButton icon="more_vert" />
-                    <IconButton class="error" icon="delete" />
+                    <IconButton class="error" icon="delete" @click="editor.tab.removeElement(editor.tab.selected.elements[0])"/>
                 </div>
                 <div class="input-group">
                     <mui-input placeholder="Titel" v-model="editor.tab.title"/>

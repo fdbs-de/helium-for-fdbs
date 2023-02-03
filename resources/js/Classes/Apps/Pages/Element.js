@@ -17,6 +17,7 @@ export default class Element
         this.styles = {}
         this.allowedInner = []
         this.inner = []
+        this.breadcrumbs = []
 
         this.options = {
             changeableWrapper: false,
@@ -26,7 +27,7 @@ export default class Element
         }
 
         this.editorMeta = {
-            expanded: false,
+            expanded: true,
             displayIcon: 'grid_view',
             displayText: 'Blank Element',
             displayColor: 'grey',
