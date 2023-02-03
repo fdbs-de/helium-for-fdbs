@@ -38,18 +38,19 @@ export default class Tab
         return this.history.length > 0
     }
 
-    get flattenedElements ()
+    get flatElementList ()
     {
         let elements = {}
 
-        function flatten (element)
+        function flatten (element, breadcrumbs)
         {
-            elements[element.element_id] = element
+            element.breadcrumbs = [...breadcrumbs]
+            elements[element.elementId] = element
 
-            element.inner.forEach(flatten)
+            element.inner.forEach(e => flatten(e, [...breadcrumbs, element.elementId]))
         }
 
-        this.elements.forEach(flatten)
+        this.elements.forEach(e => flatten(e, [null]))
 
         return elements
     }
@@ -78,19 +79,82 @@ export default class Tab
 
 
 
-    addElement (type, subtype, data = {})
+    addElement (element)
     {
-        let element = new Element(type, subtype, data)
+        // Add inner element
+        if (this.selected.elements.length === 1)
+        {
+            let selectedElement = this.flatElementList[this.selected.elements[0]]
 
+            if (!selectedElement) return this
+
+            this._addElement(selectedElement, element)
+
+            return this
+        }
+
+        // Add root element
         this.elements.push(element)
 
-        return element
+        return this
+    }
+
+    _addElement (targetElement, insertElement)
+    {
+        // Try to add element to target element if possible
+        if (targetElement.allowedInner.includes(insertElement.elementType))
+        {
+            targetElement.addElement(insertElement)
+
+            return true
+        }
+
+
+        
+        // Find parent element id
+        let parentId = targetElement.breadcrumbs[targetElement.breadcrumbs.length - 1]
+
+        // Return if no parent element id
+        if (!parentId) return false
+
+        // Get parent element
+        let parentElement = this.flatElementList[parentId]
+
+        // Return if no parent element
+        if (!parentElement) return false
+
+        // Add insert element to parent
+        return this._addElement(parentElement, insertElement)
+    }
+
+
+
+    removeElement (elementId)
+    {
+        this.elements = this.elements.filter(e => e.elementId !== elementId)
+
+        for (const element of this.elements)
+        {
+            this._removeElement(element, elementId)
+        }
+
+        return this
+    }
+
+    _removeElement (targetElement, elementId)
+    {
+        targetElement.inner = targetElement.inner.filter(e => e.elementId !== elementId)
+
+        for (const element of targetElement.inner)
+        {
+            this._removeElement(element, elementId)
+        }
     }
 
 
 
     setElementSelection (element)
     {
-        this.selected.elements = [element.element_id]
+        this.selected.elements = [element.elementId]
     }
 }

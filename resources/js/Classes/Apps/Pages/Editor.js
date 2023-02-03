@@ -138,30 +138,6 @@ export default class Editor
         // Return success
         return true
     }
-
-
-
-    addElement(type, subtype, data = {})
-    {
-        // return if no tab is selected
-        if (!this.tab) return false
-
-        // Add inner element
-        if (this.tab.selected.elements.length === 1)
-        {
-            let elementId = this.tab.selected.elements[0]
-
-            let element = this.tab.flattenedElements[elementId]
-
-            if (element.allowed_inner.includes(type))
-            {
-                return element.addElement(type, subtype, data)
-            }
-        }
-
-        // Add root element
-        return this.tab.addElement(type, subtype, data)
-    }
     // END: Methods
 
 

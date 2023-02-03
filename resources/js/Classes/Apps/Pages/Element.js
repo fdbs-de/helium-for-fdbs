@@ -2,43 +2,68 @@ import { randomInt } from '@/Utils/Number'
 
 export default class Element
 {
-    constructor (type, subtype, data = {})
+    constructor (type, wrapper = null, data = {})
     {
-        this.element_id = randomInt(10000000, 99999999)
-        this.element_type = type
-        this.element_subtype = subtype
+        if (!['raw', 'components', 'text'].includes(type)) throw new Error('Invalid element type')
+
+        this.elementId = randomInt(10000000, 99999999)
+
+        this.elementType = type
+        this.wrapper = wrapper || null
         this.name = data.name || ''
-        this.id = data.id || 'element-'+this.element_id
+        this.id = data.id || 'element-'+this.elementId
         this.classes = data.classes || ''
-        this.styles = data.styles || {}
-        this.allowed_inner = data.allowed_inner || []
-        this.inner = data.inner || []
 
-        this.expanded = false
+        this.styles = {}
+        this.allowedInner = []
+        this.inner = []
+        this.breadcrumbs = []
+
+        this.options = {
+            changeableWrapper: false,
+            src: false,
+            alt: false,
+            href: false,
+        }
+
+        this.editorMeta = {
+            expanded: true,
+            displayIcon: 'grid_view',
+            displayText: 'Blank Element',
+            displayColor: 'grey',
+        }
     }
 
 
 
-    get icon ()
+    setAllowedInner (allowedInner)
     {
-        return 'grid_view'
+        this.allowedInner = allowedInner
+    }
+
+    setOption (key, value)
+    {
+        this.options[key] = value
+    }
+
+    setMeta (key, value)
+    {
+        this.editorMeta[key] = value
     }
 
 
 
-    addElement (type, subtype, data = {})
+    addElement (element)
     {
-        let element = new Element(type, subtype, data)
-
         this.inner.push(element)
 
-        return element
+        return this
     }
 
 
 
     toggleExpanded ()
     {
-        this.expanded = !this.expanded
+        this.editorMeta.expanded = !this.editorMeta.expanded
     }
 }

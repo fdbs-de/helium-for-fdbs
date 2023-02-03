@@ -54,7 +54,8 @@
         <div class="page-editor-layout" v-if="editor.tab && ['page-editor', 'component-editor'].includes(editor.tab.type)">
             <div class="tool-bar">
                 <div class="start">
-                    <mui-button class="with-label" variant="contained" icon-left="add" label="Neu" @click="editor.addElement('raw', 'div', {name: 'New Element', allowed_inner: ['raw']})"/>
+                    <mui-button class="with-label" variant="contained" icon-left="add" label="Neu" v-if="!newElementPanel" @click="newElementPanel = true"/>
+                    <mui-button class="with-label" variant="contained" icon-left="close" label="Schließen" v-else @click="newElementPanel = false"/>
                     <div class="spacer"></div>
                     <IconButton icon="undo" :disabled="editor.tab.history.length <= 0" />
                     <IconButton icon="redo" :disabled="editor.tab.history.length <= 0" />
@@ -81,10 +82,64 @@
                 </div>
             </div>
 
-            <div class="navigator">
+            <div class="navigator" v-if="newElementPanel">
+                <div class="grid">
+                    <button class="item-button" @click="addElement('blank')">
+                        <div class="icon">grid_view</div>
+                        Blank
+                    </button>
+
+                    <button class="item-button" @click="addElement('image')">
+                        <div class="icon">text_fields</div>
+                        Text
+                    </button>
+
+                    <button class="item-button" @click="addElement('image')">
+                        <div class="icon">format_h1</div>
+                        Heading
+                    </button>
+
+                    <button class="item-button" @click="addElement('link')">
+                        <div class="icon">link</div>
+                        Link
+                    </button>
+
+                    <button class="item-button" @click="addElement('image')">
+                        <div class="icon">landscape</div>
+                        Image
+                    </button>
+
+                    <button class="item-button" @click="addElement('image')">
+                        <div class="icon">movie</div>
+                        Video
+                    </button>
+
+                    <button class="item-button" @click="addElement('image')">
+                        <div class="icon">Map</div>
+                        Iframe
+                    </button>
+
+                    <button class="item-button" @click="addElement('link')">
+                        <div class="icon">mouse</div>
+                        Button
+                    </button>
+
+                    <button class="item-button" @click="addElement('image')">
+                        <div class="icon">data_object</div>
+                        Code
+                    </button>
+
+                    <button class="item-button" @click="addElement('image')">
+                        <div class="icon">variables</div>
+                        Content Slot
+                    </button>
+                </div>
+            </div>
+
+            <div class="navigator" v-else>
                 <NavigatorElement
                     v-for="element in editor.tab.elements"
-                    :key="element.id"
+                    :key="element.elementId"
                     :element="element"
                     :selection="editor.tab.selected.elements"
                     @select="editor.tab.setElementSelection($event)"
@@ -101,7 +156,7 @@
                     <IconButton icon="content_copy" />
                     <IconButton icon="disabled_visible" />
                     <IconButton icon="more_vert" />
-                    <IconButton class="error" icon="delete" />
+                    <IconButton class="error" icon="delete" @click="editor.tab.removeElement(editor.tab.selected.elements[0])"/>
                 </div>
                 <div class="input-group">
                     <mui-input placeholder="Titel" v-model="editor.tab.title"/>
@@ -116,6 +171,7 @@
     import { ref, onMounted } from 'vue'
     import { Inertia } from '@inertiajs/inertia'
     import Editor from '@/Classes/Apps/Pages/Editor.js'
+    import { BlankElement, LinkElement, ImageElement} from '@/Classes/Apps/Pages/BaseElements.js'
 
     import IconButton from '@/Components/Apps/Pages/IconButton.vue'
     import NavigatorElement from '@/Components/Apps/Pages/NavigatorElement.vue'
@@ -125,6 +181,31 @@
         openNewOnLaunch: true,
         openNewOnLastClose: true
     }))
+
+
+
+    // START: UI State
+    const newElementPanel = ref(false)
+    // END: UI State
+
+
+
+    // START: Methods
+    const addElement = (name) => {
+        let element = null
+
+        switch (name)
+        {
+            case 'blank': element = new BlankElement({name: 'Blank Element'}); break
+            case 'link': element = new LinkElement({name: 'Link Element'}); break
+            case 'image': element = new ImageElement({name: 'Image Element'}); break
+            default: element = new Element(); break
+        }
+
+        editor.value.tab.addElement(element)
+
+        newElementPanel.value = false
+    }
 
 
 
@@ -413,6 +494,37 @@
             background: var(--color-background)
             box-shadow: var(--shadow-elevation-low)
             padding: .5rem
+
+            .grid
+                display: grid
+                grid-template-columns: 1fr 1fr
+                gap: .5rem
+
+                .item-button
+                    margin: 0
+                    padding: 1rem 0
+                    border: 1px solid var(--color-background-soft)
+                    background: var(--color-background)
+                    display: flex
+                    flex-direction: column
+                    gap: .5rem
+                    align-items: center
+                    justify-content: center
+                    cursor: pointer
+                    transition: all 80ms ease-in-out
+                    font-family: var(--font-heading)
+                    font-size: .8rem
+                    border-radius: var(--radius-m)
+                    color: inherit
+                    user-select: none
+
+                    &:hover
+                        background: var(--color-background-soft)
+
+                    .icon
+                        font-size: 1.75rem
+                        font-family: var(--font-icon)
+                        opacity: .7
 
         .viewport-wrapper
             grid-area: viewport

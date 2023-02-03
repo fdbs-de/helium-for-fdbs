@@ -32,8 +32,8 @@
                 <h3 class="headline primary">Abholmarkt</h3>
                 <div class="content">
                     <b>Öffnungszeiten:</b><br>
-                    Mo - Do: 06:00 - 16:00<br>
-                    Fr: 06:00 - 14:00<br>
+                    Mo - Do: 06:00 - 15:00<br>
+                    Fr: 06:00 - 12:00<br>
                     <br>
                     <b>Bestellhotline:</b><br>
                     0531 210 55 23<br>
@@ -72,6 +72,7 @@
                     <a href="https://g.page/r/CWfKbNs4inYXEAg/review" target="_blank">Bewerten Sie uns auf Google</a>
                     <span>•</span>
                     <a href="https://www.ebay-kleinanzeigen.de/pro/FDBS" target="_blank" rel="opener" title="Ebay">Ebay</a>
+                    <span>•</span>
                     <a href="https://job38.de/arbeitgeber/fdbs-69115" target="_blank" rel="opener" title="job38">job38</a>
                     <span>•</span>
                     <a href="https://www.linkedin.com/company/fdbsfoodservice" target="_blank" rel="opener" title="LinkedIn">

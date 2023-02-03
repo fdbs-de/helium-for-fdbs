@@ -1,14 +1,14 @@
 <template>
-    <div class="element-wrapper" :class="{'selected': selection.includes(element.element_id), 'expanded': element.expanded}">
+    <div class="element-wrapper" :class="{'selected': selection.includes(element.elementId), 'expanded': element.editorMeta.expanded}">
         <div class="inner-info" @click="$emit('select', element)">
-            <div class="icon">{{ element.icon }}</div>
+            <div class="icon">{{ element.editorMeta.displayIcon }}</div>
             <div class="name">{{ element.name }}</div>
             <IconButton icon="expand_more" v-if="element.inner.length > 0" @click="element.toggleExpanded()"/>
         </div>
-        <div class="children" v-show="element.expanded">
+        <div class="children" v-show="element.editorMeta.expanded">
             <NavigatorElement
                 v-for="child in element.inner"
-                :key="child.element_id"
+                :key="child.elementId"
                 :element="child"
                 :selection="selection"
                 @select="$emit('select', $event)"
