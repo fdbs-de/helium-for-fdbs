@@ -3,8 +3,12 @@ import Element from '@/Classes/Apps/Pages/Element.js'
 
 export default class Tab
 {
+    tabTypes = ['new-tab', 'page-editor', 'component-editor']
+
     constructor (type, data = {})
     {
+        if (!this.tabTypes.includes(type)) throw new Error('Invalid tab type')
+
         this.id = randomInt(10000000, 99999999)
         this.active = false
 
@@ -19,16 +23,19 @@ export default class Tab
             breakpoint: 0,
             elements: [],
         }
+
+        this.ui = {
+            newElementPanel: false,
+        }
     }
 
 
 
     get icon ()
     {
+        if (this.type == 'new-tab') return 'layers'
         if (this.type == 'page-editor') return 'language'
         if (this.type == 'component-editor') return 'widgets'
-        if (this.type == 'new-tab') return 'layers'
-        if (this.type == 'home') return 'home'
 
         return 'help'
     }
@@ -37,6 +44,8 @@ export default class Tab
     {
         return this.history.length > 0
     }
+
+
 
     get flatElementList ()
     {
@@ -57,17 +66,21 @@ export default class Tab
 
 
 
-    selectBreakpoint (breakpoint)
+    get selectedElements ()
     {
-        this.selected.breakpoint = breakpoint
+        return this.selected.elements.map(id => this.flatElementList[id]).filter(e => e)
     }
 
+
+    
     useAs (type, data)
     {
+        if (!this.tabTypes.includes(type)) throw new Error('Invalid tab type')
+
         this.type = type
         this.loadData(data)
     }
-
+    
     loadData (data)
     {
         this.version = data.version || '0.0.1'
@@ -77,6 +90,13 @@ export default class Tab
         this.elements = data.elements || []
     }
 
+
+
+    toggleNewElementPanel ()
+    {
+        this.ui.newElementPanel = !this.ui.newElementPanel
+    }
+    
 
 
     addElement (element)
@@ -138,6 +158,8 @@ export default class Tab
             this._removeElement(element, elementId)
         }
 
+        this.cleanElementSelection()
+
         return this
     }
 
@@ -156,5 +178,100 @@ export default class Tab
     setElementSelection (element)
     {
         this.selected.elements = [element.elementId]
+    }
+
+    addElementSelection (element)
+    {
+        if (this.selected.elements.includes(element.elementId)) return
+
+        this.selected.elements.push(element.elementId)
+    }
+
+    toggleElementSelection (element)
+    {
+        if (this.selected.elements.includes(element.elementId))
+        {
+            this.selected.elements = this.selected.elements.filter(e => e !== element.elementId)
+        }
+        else
+        {
+            this.selected.elements.push(element.elementId)
+        }
+    }
+
+    cleanElementSelection ()
+    {
+        this.selected.elements = this.selected.elements.filter(e => this.flatElementList[e])
+    }
+
+
+
+    get inspectorFixtures ()
+    {
+        let elements = this.selectedElements
+        let fixtures = {}
+
+        if (elements.length === 0) return fixtures
+
+        if (elements.some(e => e.hasOwnProperty('name')))
+        {
+            fixtures['elementName'] = {
+                type: 'text',
+                label: 'Element name',
+                value: this.getCommonElementValue(elements.map(e => e.name)),
+            }
+        }
+
+        if (elements.some(e => e.hasOwnProperty('id')))
+        {
+            fixtures['cssId'] = {
+                type: 'text',
+                label: 'CSS ID',
+                value: this.getCommonElementValue(elements.map(e => e.id)),
+            }
+        }
+
+        if (elements.some(e => e.hasOwnProperty('classes')))
+        {
+            fixtures['cssClasses'] = {
+                type: 'text',
+                label: 'CSS classes',
+                value: this.getCommonElementValue(elements.map(e => e.classes)),
+            }
+        }
+
+        if (elements.every(e => e.options?.hasOwnProperty('changeableWrapper') && e.options.changeableWrapper !== false) && this.isCommonElementValue(elements.map(e => e.wrapper)))
+        {
+            fixtures['wrapper'] = {
+                type: 'select',
+                label: 'Wrapper',
+                value: this.getCommonElementValue(elements.map(e => e.wrapper), null),
+                options: elements[0].options.changeableWrapper,
+            }
+        }
+
+        return fixtures
+    }
+
+    isCommonElementValue (values)
+    {
+        return values.every(v => v === values[0])
+    }
+
+    getCommonElementValue (values, fallbackValue = '–')
+    {
+        if (values.every(v => v === values[0])) return values[0]
+
+        return fallbackValue
+    }
+
+
+
+    setElementsValue (key, value)
+    {
+        for (const element of this.selectedElements)
+        {
+            element[key] = value
+        }
     }
 }

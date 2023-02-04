@@ -17,6 +17,7 @@ export default class Element
         this.styles = {}
         this.allowedInner = []
         this.inner = []
+        this.innerContent = null
         this.breadcrumbs = []
 
         this.options = {
@@ -24,6 +25,8 @@ export default class Element
             src: false,
             alt: false,
             href: false,
+            target: false,
+            content: false,
         }
 
         this.editorMeta = {
