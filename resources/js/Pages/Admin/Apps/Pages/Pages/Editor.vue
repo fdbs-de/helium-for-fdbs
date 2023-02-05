@@ -156,41 +156,73 @@
                     <IconButton class="error" icon="delete" @click="editor.tab.removeElement(editor.tab.selected.elements[0])"/>
                 </div>
 
-                <div class="input-group" v-if="editor.tab.inspectorFixtures.elementName">
+                <div class="input-group">
                     <mui-input
                         class="default-text-input"
-                        placeholder="Element Name"
                         icon-left="label"
-                        :modelValue="editor.tab.inspectorFixtures.elementName.value"
+                        v-if="editor.tab.inspectorFixtures.name"
+                        :placeholder="editor.tab.inspectorFixtures.name.name"
+                        :modelValue="editor.tab.inspectorFixtures.name.value"
                         @update:modelValue="editor.tab.setElementsValue('name', $event)"
                     />
                 </div>
                 
-                <div class="input-group" v-if="editor.tab.inspectorFixtures.wrapper || editor.tab.inspectorFixtures.cssId || editor.tab.inspectorFixtures.cssClasses">
+                <div class="input-group" v-if="editor.tab.inspectorFixtures.wrapper || editor.tab.inspectorFixtures.id || editor.tab.inspectorFixtures.classes">
                     <select class="default-select" v-if="editor.tab.inspectorFixtures.wrapper">
-                        <option :value="null" disabled>Wrapper Tag</option>
+                        <option :value="null" disabled>{{ editor.tab.inspectorFixtures.wrapper.name }}</option>
                         <option v-for="option in editor.tab.inspectorFixtures.wrapper.options" :value="option">{{ option }}</option>
                     </select>
 
                     <mui-input
                         class="default-text-input"
-                        placeholder="CSS ID"
-                        v-if="editor.tab.inspectorFixtures.cssId"
-                        :modelValue="editor.tab.inspectorFixtures.cssId.value"
+                        v-if="editor.tab.inspectorFixtures.id"
+                        :placeholder="editor.tab.inspectorFixtures.id.name"
+                        :modelValue="editor.tab.inspectorFixtures.id.value"
                         @update:modelValue="editor.tab.setElementsValue('id', $event)"
                     />
 
                     <mui-input
                         class="default-text-area"
                         type="textarea"
-                        placeholder="CSS Klassen"
-                        v-if="editor.tab.inspectorFixtures.cssClasses"
-                        :modelValue="editor.tab.inspectorFixtures.cssClasses.value"
+                        v-if="editor.tab.inspectorFixtures.classes"
+                        :label="editor.tab.inspectorFixtures.classes.name"
+                        :modelValue="editor.tab.inspectorFixtures.classes.value"
                         @update:modelValue="editor.tab.setElementsValue('classes', $event)"
                     />
                 </div>
 
                 <div class="input-group">
+                    <mui-input
+                        class="default-text-input"
+                        v-if="editor.tab.inspectorFixtures.href"
+                        :placeholder="editor.tab.inspectorFixtures.href.name"
+                        :modelValue="editor.tab.inspectorFixtures.href.value"
+                        @update:modelValue="editor.tab.setElementsValue('styles', $event)"
+                    />
+
+                    <select class="default-select" v-if="editor.tab.inspectorFixtures.target">
+                        <option :value="null" disabled>{{ editor.tab.inspectorFixtures.target.name }}</option>
+                        <option v-for="option in editor.tab.inspectorFixtures.target.options" :value="option">{{ option }}</option>
+                    </select>
+
+                    <mui-input
+                        class="default-text-input"
+                        v-if="editor.tab.inspectorFixtures.src"
+                        :placeholder="editor.tab.inspectorFixtures.src.name"
+                        :modelValue="editor.tab.inspectorFixtures.src.value"
+                        @update:modelValue="editor.tab.setElementsValue('src', $event)">
+                        <template #right>
+                            <button type="button" class="input-button" @click="$refs.picker.open((file) => { editor.tab.inspectorFixtures.src.value = file })">folder_open</button>
+                        </template>
+                    </mui-input>
+
+                    <mui-input
+                        class="default-text-input"
+                        v-if="editor.tab.inspectorFixtures.alt"
+                        :placeholder="editor.tab.inspectorFixtures.alt.name"
+                        :modelValue="editor.tab.inspectorFixtures.alt.value"
+                        @update:modelValue="editor.tab.setElementsValue('alt', $event)"
+                    />
                 </div>
 
                 <!-- <div class="input-group slim">
