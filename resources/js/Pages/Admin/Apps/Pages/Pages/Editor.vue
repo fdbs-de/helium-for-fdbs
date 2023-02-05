@@ -85,19 +85,14 @@
 
             <div class="navigator" v-show="editor.tab.ui.newElementPanel">
                 <div class="grid">
-                    <button class="item-button" @click="addElement('blank')">
-                        <div class="icon">grid_view</div>
-                        Blank
+                    <button class="item-button" @click="addElement('layout')">
+                        <div class="icon">align_horizontal_left</div>
+                        Layout
                     </button>
 
                     <button class="item-button" @click="addElement('text')">
-                        <div class="icon">subject</div>
-                        Text
-                    </button>
-
-                    <button class="item-button" @click="addElement('heading')">
                         <div class="icon">title</div>
-                        Heading
+                        Text
                     </button>
 
                     <button class="item-button" @click="addElement('link')">
@@ -180,7 +175,6 @@
                     <mui-input
                         class="default-text-input"
                         placeholder="CSS ID"
-                        icon-left="tag"
                         v-if="editor.tab.inspectorFixtures.cssId"
                         :modelValue="editor.tab.inspectorFixtures.cssId.value"
                         @update:modelValue="editor.tab.setElementsValue('id', $event)"
@@ -190,7 +184,6 @@
                         class="default-text-area"
                         type="textarea"
                         placeholder="CSS Klassen"
-                        icon-left="data_object"
                         v-if="editor.tab.inspectorFixtures.cssClasses"
                         :modelValue="editor.tab.inspectorFixtures.cssClasses.value"
                         @update:modelValue="editor.tab.setElementsValue('classes', $event)"
@@ -217,9 +210,8 @@
     import { Inertia } from '@inertiajs/inertia'
     import Editor from '@/Classes/Apps/Pages/Editor.js'
     import {
-        BlankElement,
+        LayoutElement,
         TextElement,
-        HeadingElement,
         LinkElement,
         ImageElement,
         VideoElement,
@@ -287,6 +279,12 @@
     hotkeys('alt+8', (event, handler) => { event.preventDefault(); editor.value.selectBreakpoint(7) })
     hotkeys('alt+9', (event, handler) => { event.preventDefault(); editor.value.selectBreakpoint(8) })
     hotkeys('alt+0', (event, handler) => { event.preventDefault(); editor.value.selectBreakpoint(9) })
+    hotkeys('alt+enter', (event, handler) => { event.preventDefault(); addElement('layout') })
+    hotkeys('alt+t', (event, handler) => { event.preventDefault(); addElement('text') })
+    hotkeys('alt+l', (event, handler) => { event.preventDefault(); addElement('link') })
+    hotkeys('alt+i', (event, handler) => { event.preventDefault(); addElement('image') })
+    hotkeys('alt+v', (event, handler) => { event.preventDefault(); addElement('video') })
+    hotkeys('alt+b', (event, handler) => { event.preventDefault(); addElement('button') })
 
 
 
@@ -311,20 +309,19 @@
 
         switch (name)
         {
-            case 'blank': element = new BlankElement({name: 'Blank Element'}); break
-            case 'text': element = new TextElement({name: 'Text Element'}); break
-            case 'heading': element = new HeadingElement({name: 'Heading Element'}); break
-            case 'link': element = new LinkElement({name: 'Link Element'}); break
-            case 'image': element = new ImageElement({name: 'Image Element'}); break
-            case 'video': element = new VideoElement({name: 'Video Element'}); break
-            case 'iframe': element = new IFrameElement({name: 'IFrame Element'}); break
-            case 'button': element = new ButtonElement({name: 'Button Element'}); break
-            case 'code': element = new CodeElement({name: 'Code Element'}); break
-            case 'slot': element = new SlotElement({name: 'Slot Element'}); break
+            case 'layout': element = new LayoutElement({name: 'Layout'}); break
+            case 'text': element = new TextElement({name: 'Text'}); break
+            case 'link': element = new LinkElement({name: 'Link'}); break
+            case 'image': element = new ImageElement({name: 'Image'}); break
+            case 'video': element = new VideoElement({name: 'Video'}); break
+            case 'iframe': element = new IFrameElement({name: 'IFrame'}); break
+            case 'button': element = new ButtonElement({name: 'Button'}); break
+            case 'code': element = new CodeElement({name: 'Code'}); break
+            case 'slot': element = new SlotElement({name: 'Content Slot'}); break
             default: return null;
         }
 
-        editor.value.tab.addElement(element)
+        editor.value.tab.addElement(element, true)
         editor.value.tab.ui.newElementPanel = false
     }
     // END: Methods

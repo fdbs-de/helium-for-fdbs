@@ -99,7 +99,7 @@ export default class Tab
     
 
 
-    addElement (element)
+    addElement (element, selectImmediately = false)
     {
         // Add inner element
         if (this.selected.elements.length === 1)
@@ -109,12 +109,14 @@ export default class Tab
             if (!selectedElement) return this
 
             this._addElement(selectedElement, element)
-
-            return this
+        }
+        else
+        {
+            // Add root element
+            this.elements.push(element)
         }
 
-        // Add root element
-        this.elements.push(element)
+        if (selectImmediately) this.setElementSelection(element)
 
         return this
     }

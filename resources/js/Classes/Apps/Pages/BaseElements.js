@@ -2,16 +2,19 @@ import Element from '@/Classes/Apps/Pages/Element.js'
 
 
 
-export class BlankElement extends Element
+export class LayoutElement extends Element
 {
-    constructor (data)
+    constructor(options)
     {
-        super('raw', 'div', data)
+        super('raw', 'div', options)
 
-        this.setAllowedInner(['raw', 'components', 'text'])
-
-        this.setOption('content', ['text'])
-        this.setOption('changeableWrapper', [
+        this
+        .setAllowedInner(['raw', 'components', 'text', 'rich-text', 'code'])
+        .setOption('canChangeContent', true)
+        .setOption('canChangeLayout', true)
+        .setOption('canDisableWrapper', true)
+        .setOption('canChangeWrapper', true)
+        .setOption('wrapperOptions', [
             'div',
             'span',
             'header',
@@ -28,37 +31,36 @@ export class BlankElement extends Element
             'figure',
             'figcaption',
         ])
-
-        this.setMeta('displayIcon', 'grid_view')
-        this.setMeta('displayText', 'Blank Element')
+        .setMeta('displayIcon', 'align_horizontal_left')
+        .setMeta('displayText', 'Layout Element')
     }
 }
 
 
 
-export class TextElement extends Element {
-    constructor(data) {
-        super('text', 'p', data)
+export class TextElement extends Element
+{
+    constructor(options)
+    {
+        super('text', 'p', options)
 
-        this.setOption('content', ['text', 'rich-text'])
-        this.setOption('changeableWrapper', ['p', 'span', 'div'])
-
-        this.setMeta('displayIcon', 'subject')
-        this.setMeta('displayText', 'Text')
-    }
-}
-
-
-
-export class HeadingElement extends Element {
-    constructor(data) {
-        super('text', 'h1', data)
-
-        this.setOption('content', ['text', 'rich-text'])
-        this.setOption('changeableWrapper', ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'])
-
-        this.setMeta('displayIcon', 'title')
-        this.setMeta('displayText', 'Heading')
+        this
+        .setAllowedInner(['text', 'rich-text'])
+        .setOption('canChangeContent', true)
+        .setOption('canDisableWrapper', true)
+        .setOption('canChangeWrapper', true)
+        .setOption('wrapperOptions', [
+            'p',
+            'span',
+            'h1',
+            'h2',
+            'h3',
+            'h4',
+            'h5',
+            'h6',
+        ])
+        .setMeta('displayIcon', 'title')
+        .setMeta('displayText', 'Text')
     }
 }
 
@@ -66,17 +68,22 @@ export class HeadingElement extends Element {
 
 export class LinkElement extends Element
 {
-    constructor (data)
+    constructor (options)
     {
-        super('raw', 'a', data)
+        super('raw', 'a', options)
 
-        this.setAllowedInner(['raw', 'components', 'text'])
-
-        this.setOption('content', ['text'])
-        this.setOption('href', '')
-
-        this.setMeta('displayIcon', 'link')
-        this.setMeta('displayText', 'Link')
+        this
+        .setAllowedInner(['raw', 'components', 'text', 'rich-text', 'code'])
+        .setOption('canChangeContent', true)
+        .setOption('canChangeHref', true)
+        .setOption('canChangeTarget', true)
+        .setOption('canDisableWrapper', false)
+        .setOption('canChangeWrapper', false)
+        .setOption('wrapperOptions', [
+            'a',
+        ])
+        .setMeta('displayIcon', 'link')
+        .setMeta('displayText', 'Link')
     }
 }
 
@@ -84,15 +91,21 @@ export class LinkElement extends Element
 
 export class ImageElement extends Element
 {
-    constructor (data)
+    constructor (options)
     {
-        super('raw', 'img', data)
+        super('raw', 'img', options)
 
-        this.setOption('src', '')
-        this.setOption('alt', '')
-
-        this.setMeta('displayIcon', 'landscape')
-        this.setMeta('displayText', 'Image')
+        this
+        .setAllowedInner([])
+        .setOption('canChangeSrc', true)
+        .setOption('canChangeAlt', true)
+        .setOption('canDisableWrapper', false)
+        .setOption('canChangeWrapper', false)
+        .setOption('wrapperOptions', [
+            'img',
+        ])
+        .setMeta('displayIcon', 'landscape')
+        .setMeta('displayText', 'Image')
     }
 }
 
@@ -100,15 +113,21 @@ export class ImageElement extends Element
 
 export class VideoElement extends Element
 {
-    constructor (data)
+    constructor (options)
     {
-        super('raw', 'video', data)
+        super('raw', 'video', options)
 
-        this.setOption('src', '')
-        this.setOption('alt', '')
-
-        this.setMeta('displayIcon', 'movie')
-        this.setMeta('displayText', 'Video')
+        this
+        .setAllowedInner([])
+        .setOption('canChangeSrc', true)
+        .setOption('canChangeAlt', true)
+        .setOption('canDisableWrapper', false)
+        .setOption('canChangeWrapper', false)
+        .setOption('wrapperOptions', [
+            'video',
+        ])
+        .setMeta('displayIcon', 'movie')
+        .setMeta('displayText', 'Video')
     }
 }
 
@@ -116,14 +135,20 @@ export class VideoElement extends Element
 
 export class IFrameElement extends Element
 {
-    constructor (data)
+    constructor (options)
     {
-        super('raw', 'iframe', data)
+        super('raw', 'iframe', options)
 
-        this.setOption('src', '')
-
-        this.setMeta('displayIcon', 'map')
-        this.setMeta('displayText', 'Iframe')
+        this
+        .setAllowedInner([])
+        .setOption('canChangeSrc', true)
+        .setOption('canDisableWrapper', false)
+        .setOption('canChangeWrapper', false)
+        .setOption('wrapperOptions', [
+            'iframe',
+        ])
+        .setMeta('displayIcon', 'map')
+        .setMeta('displayText', 'Iframe')
     }
 }
 
@@ -131,17 +156,23 @@ export class IFrameElement extends Element
 
 export class ButtonElement extends Element
 {
-    constructor (data)
+    constructor (options)
     {
-        super('raw', 'button', data)
+        super('raw', 'button', options)
 
-        this.setAllowedInner(['raw', 'components', 'text'])
-
-        this.setOption('content', ['text'])
-        this.setOption('changeableWrapper', ['button', 'a'])
-
-        this.setMeta('displayIcon', 'radio_button_checked')
-        this.setMeta('displayText', 'Button')
+        this
+        .setAllowedInner(['raw', 'components', 'text', 'rich-text', 'code'])
+        .setOption('canChangeContent', true)
+        .setOption('canChangeHref', true)
+        .setOption('canChangeTarget', true)
+        .setOption('canDisableWrapper', false)
+        .setOption('canChangeWrapper', true)
+        .setOption('wrapperOptions', [
+            'button',
+            'a',
+        ])
+        .setMeta('displayIcon', 'mouse')
+        .setMeta('displayText', 'Button')
     }
 }
 
@@ -149,14 +180,34 @@ export class ButtonElement extends Element
 
 export class CodeElement extends Element
 {
-    constructor (data)
+    constructor (options)
     {
-        super('raw', 'div', data)
+        super('code', 'div', options)
 
-        this.setOption('content', ['code'])
-
-        this.setMeta('displayIcon', 'data_object')
-        this.setMeta('displayText', 'Code')
+        this
+        .setAllowedInner(['code'])
+        .setOption('canChangeContent', true)
+        .setOption('canDisableWrapper', true)
+        .setOption('canChangeWrapper', true)
+        .setOption('wrapperOptions', [
+            'div',
+            'span',
+            'header',
+            'footer',
+            'main',
+            'section',
+            'article',
+            'aside',
+            'nav',
+            'blockquote',
+            'pre',
+            'code',
+            'address',
+            'figure',
+            'figcaption',
+        ])
+        .setMeta('displayIcon', 'data_object')
+        .setMeta('displayText', 'Code')
     }
 }
 
@@ -164,11 +215,33 @@ export class CodeElement extends Element
 
 export class SlotElement extends Element
 {
-    constructor (data)
+    constructor (options)
     {
-        super('raw', 'div', data)
+        super('raw', 'div', options)
 
-        this.setMeta('displayIcon', 'variables')
-        this.setMeta('displayText', 'Content Slot')
+        this
+        .setAllowedInner(['raw', 'components', 'text', 'rich-text', 'code'])
+        .setOption('canChangeContent', false)
+        .setOption('canDisableWrapper', true)
+        .setOption('canChangeWrapper', true)
+        .setOption('wrapperOptions', [
+            'div',
+            'span',
+            'header',
+            'footer',
+            'main',
+            'section',
+            'article',
+            'aside',
+            'nav',
+            'blockquote',
+            'pre',
+            'code',
+            'address',
+            'figure',
+            'figcaption',
+        ])
+        .setMeta('displayIcon', 'variables')
+        .setMeta('displayText', 'Content Slot')
     }
 }
