@@ -58,4 +58,7 @@
 
         &:hover:not(:disabled)::after
             opacity: 0.1
+
+        &.active
+            background: var(--color-background-soft)
 </style>

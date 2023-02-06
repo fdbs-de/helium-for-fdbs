@@ -1,12 +1,15 @@
+// import Class from ''
+
 
 
 export default class Fixture
 {
     constructor ()
     {
-        this.name = ''
+        this.label = ''
         this.type = null
         this.value = null
+        this.available = true
     }
 
 
@@ -18,15 +21,6 @@ export default class Fixture
         if (values.every(v => v === values[0])) return values[0]
 
         return null
-    }
-
-
-
-    setValue (value)
-    {
-        this.value = value
-
-        return this
     }
 
     setCommonValue (values)

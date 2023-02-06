@@ -93,6 +93,25 @@ html
         border: 0px solid transparent
         border-radius: 1px
 
+.small-scrollbar
+    &::-webkit-scrollbar
+        width: 6px
+        height: 6px
+
+    &::-webkit-scrollbar-track
+        background: var(--color-background)
+
+    &::-webkit-scrollbar-thumb
+        background: #00000050
+        border-radius: 3px
+        background-clip: content-box
+        border: 2px solid transparent
+
+        &:hover
+            background: var(--color-text)
+            border: 0px solid transparent
+            border-radius: 1px
+
 body
     margin: 0
     padding: 0

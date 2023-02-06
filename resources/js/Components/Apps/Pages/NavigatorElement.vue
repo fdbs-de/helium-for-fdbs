@@ -30,10 +30,12 @@
 </template>
 
 <script setup>
-    import Element from '@/Classes/Apps/Pages/Element.js'
+    import Element from '@/Classes/Apps/Pages/Elements/Element.js'
 
     import IconButton from '@/Components/Apps/Pages/IconButton.vue'
 
+
+    
     const props = defineProps({
         element: Element,
         selection: Array,

@@ -4,13 +4,13 @@ import Fixture from '@/Classes/Apps/Pages/Fixtures/Fixture.js'
 
 export default class SelectFixture extends Fixture
 {
-    constructor (name, values = [])
+    constructor (label)
     {
         super()
 
-        this.name = name
+        this.label = label
         this.type = 'select'
-        this.value = this._commonValue(values)
+        this.value = null
         this.options = []
 
         return this

@@ -83,6 +83,8 @@
                 </div>
             </div>
 
+
+
             <div class="navigator" v-show="editor.tab.ui.newElementPanel">
                 <div class="grid">
                     <button class="item-button" @click="addElement('layout')">
@@ -143,11 +145,15 @@
                 />
             </div>
 
+
+
             <div class="viewport-wrapper">
                 <iframe class="viewport" :style="`max-width: ${editor.breakpoint.width}px;`"></iframe>
             </div>
 
-            <div class="inspector">
+
+
+            <div class="inspector small-scrollbar">
                 <div class="input-group horizontal slim">
                     <div class="spacer"></div>
                     <IconButton icon="content_copy" />
@@ -157,77 +163,104 @@
                 </div>
 
                 <div class="input-group">
-                    <mui-input
-                        class="default-text-input"
-                        icon-left="label"
-                        v-if="editor.tab.inspectorFixtures.name"
-                        :placeholder="editor.tab.inspectorFixtures.name.name"
-                        :modelValue="editor.tab.inspectorFixtures.name.value"
-                        @update:modelValue="editor.tab.setElementsValue('name', $event)"
-                    />
-                </div>
-                
-                <div class="input-group" v-if="editor.tab.inspectorFixtures.wrapper || editor.tab.inspectorFixtures.id || editor.tab.inspectorFixtures.classes">
-                    <select class="default-select" v-if="editor.tab.inspectorFixtures.wrapper">
-                        <option :value="null" disabled>{{ editor.tab.inspectorFixtures.wrapper.name }}</option>
-                        <option v-for="option in editor.tab.inspectorFixtures.wrapper.options" :value="option">{{ option }}</option>
-                    </select>
-
-                    <mui-input
-                        class="default-text-input"
-                        v-if="editor.tab.inspectorFixtures.id"
-                        :placeholder="editor.tab.inspectorFixtures.id.name"
-                        :modelValue="editor.tab.inspectorFixtures.id.value"
-                        @update:modelValue="editor.tab.setElementsValue('id', $event)"
-                    />
-
-                    <mui-input
-                        class="default-text-area"
-                        type="textarea"
-                        v-if="editor.tab.inspectorFixtures.classes"
-                        :label="editor.tab.inspectorFixtures.classes.name"
-                        :modelValue="editor.tab.inspectorFixtures.classes.value"
-                        @update:modelValue="editor.tab.setElementsValue('classes', $event)"
-                    />
+                    <mui-input class="default-text-input" :placeholder="editor.tab.inspector.fixtures.name.label" v-model="editor.tab.inspector.fixtures.name.value"/>
                 </div>
 
                 <div class="input-group">
-                    <mui-input
-                        class="default-text-input"
-                        v-if="editor.tab.inspectorFixtures.href"
-                        :placeholder="editor.tab.inspectorFixtures.href.name"
-                        :modelValue="editor.tab.inspectorFixtures.href.value"
-                        @update:modelValue="editor.tab.setElementsValue('styles', $event)"
-                    />
-
-                    <select class="default-select" v-if="editor.tab.inspectorFixtures.target">
-                        <option :value="null" disabled>{{ editor.tab.inspectorFixtures.target.name }}</option>
-                        <option v-for="option in editor.tab.inspectorFixtures.target.options" :value="option">{{ option }}</option>
+                    <div class="flex">
+                        <IconButton icon="east"
+                            :class="{'active': editor.tab.inspector.fixtures.style_layout.flexDirection == 'row'}"
+                            @click="editor.tab.inspector.fixtures.style_layout.flexDirection = 'row'"
+                            />
+                        <IconButton icon="south"
+                            :class="{'active': editor.tab.inspector.fixtures.style_layout.flexDirection == 'column'}"
+                            @click="editor.tab.inspector.fixtures.style_layout.flexDirection = 'column'"
+                            />
+                        <div class="spacer"></div>
+                        <IconButton icon="wrap_text"
+                            :class="{'active': editor.tab.inspector.fixtures.style_layout.value['flex-wrap'] == 'wrap'}"
+                            @click="editor.tab.inspector.fixtures.style_layout.value['flex-wrap'] = editor.tab.inspector.fixtures.style_layout.value['flex-wrap'] == 'wrap' ? 'nowrap' : 'wrap'"
+                            />
+                    </div>
+                    <div class="flex gap-1 v-center">
+                        <div class="flex-1 flex vertical gap-1">
+                            <mui-input class="default-text-input w-100" icon-left="horizontal_distribute" placeholder="Vertical" v-model="editor.tab.inspector.fixtures.style_layout.value.gap[0]"/>
+                            <mui-input class="default-text-input w-100" icon-left="vertical_distribute" placeholder="Horizontal" v-model="editor.tab.inspector.fixtures.style_layout.value.gap[1]"/>
+                        </div>
+                        <div class="align-matrix" :class="{
+                            'vertical': editor.tab.inspector.fixtures.style_layout.flexDirection === 'column',
+                            'horizontal': editor.tab.inspector.fixtures.style_layout.flexDirection !== 'column',
+                        }">
+                            <button class="h-left v-top"
+                                :class="{ 'active': editor.tab.inspector.fixtures.style_layout.matrix === 'left:top'}"
+                                @click="editor.tab.inspector.fixtures.style_layout.matrix = 'left:top'">
+                                <div class="icon"><div class="indicator"></div></div>
+                            </button>
+                            <button class="h-left v-center"
+                                :class="{ 'active': editor.tab.inspector.fixtures.style_layout.matrix === 'center:top'}"
+                                @click="editor.tab.inspector.fixtures.style_layout.matrix = 'center:top'">
+                                <div class="icon"><div class="indicator"></div></div>
+                            </button>
+                            <button class="h-left v-bottom"
+                                :class="{ 'active': editor.tab.inspector.fixtures.style_layout.matrix === 'right:top'}"
+                                @click="editor.tab.inspector.fixtures.style_layout.matrix = 'right:top'">
+                                <div class="icon"><div class="indicator"></div></div>
+                            </button>
+                            <button class="h-center v-top"
+                                :class="{ 'active': editor.tab.inspector.fixtures.style_layout.matrix === 'left:center'}"
+                                @click="editor.tab.inspector.fixtures.style_layout.matrix = 'left:center'">
+                                <div class="icon"><div class="indicator"></div></div>
+                            </button>
+                            <button class="h-center v-center"
+                                :class="{ 'active': editor.tab.inspector.fixtures.style_layout.matrix === 'center:center'}"
+                                @click="editor.tab.inspector.fixtures.style_layout.matrix = 'center:center'">
+                                <div class="icon"><div class="indicator"></div></div>
+                            </button>
+                            <button class="h-center v-bottom"
+                                :class="{ 'active': editor.tab.inspector.fixtures.style_layout.matrix === 'right:center'}"
+                                @click="editor.tab.inspector.fixtures.style_layout.matrix = 'right:center'">
+                                <div class="icon"><div class="indicator"></div></div>
+                            </button>
+                            <button class="h-right v-top"
+                                :class="{ 'active': editor.tab.inspector.fixtures.style_layout.matrix === 'left:bottom'}"
+                                @click="editor.tab.inspector.fixtures.style_layout.matrix = 'left:bottom'">
+                                <div class="icon"><div class="indicator"></div></div>
+                            </button>
+                            <button class="h-right v-center"
+                                :class="{ 'active': editor.tab.inspector.fixtures.style_layout.matrix === 'center:bottom'}"
+                                @click="editor.tab.inspector.fixtures.style_layout.matrix = 'center:bottom'">
+                                <div class="icon"><div class="indicator"></div></div>
+                            </button>
+                            <button class="h-right v-bottom"
+                                :class="{ 'active': editor.tab.inspector.fixtures.style_layout.matrix === 'right:bottom'}"
+                                @click="editor.tab.inspector.fixtures.style_layout.matrix = 'right:bottom'">
+                                <div class="icon"><div class="indicator"></div></div>
+                            </button>
+                        </div>
+                        <!-- <IconButton icon="more_vert" /> -->
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <select class="default-select">
+                        <option :value="null" disabled>Wrapper Tag</option>
+                        <option v-for="option in editor.tab.inspector.fixtures.wrapper.options" :value="option">{{ option }}</option>
                     </select>
 
-                    <mui-input
-                        class="default-text-input"
-                        v-if="editor.tab.inspectorFixtures.src"
-                        :placeholder="editor.tab.inspectorFixtures.src.name"
-                        :modelValue="editor.tab.inspectorFixtures.src.value"
-                        @update:modelValue="editor.tab.setElementsValue('src', $event)">
-                        <template #right>
-                            <button type="button" class="input-button" @click="$refs.picker.open((file) => { editor.tab.inspectorFixtures.src.value = file })">folder_open</button>
-                        </template>
-                    </mui-input>
-
-                    <mui-input
-                        class="default-text-input"
-                        v-if="editor.tab.inspectorFixtures.alt"
-                        :placeholder="editor.tab.inspectorFixtures.alt.name"
-                        :modelValue="editor.tab.inspectorFixtures.alt.value"
-                        @update:modelValue="editor.tab.setElementsValue('alt', $event)"
-                    />
+                    <mui-input class="default-text-input" placeholder="ID" />
+                    <mui-input class="default-text-area" type="textarea" placeholder="Klassen" />
                 </div>
 
-                <!-- <div class="input-group slim">
-                    {{ editor.tab.inspectorFixtures }}
-                </div> -->
+                <div class="input-group">
+                    <mui-input class="default-text-input" placeholder="URL" />
+                    <select class="default-select">
+                        <option :value="null" disabled>Target</option>
+                        <option v-for="option in editor.tab.inspector.fixtures.attr_target.options" :value="option">{{ option }}</option>
+                    </select>
+
+                    <mui-input class="default-text-input" placeholder="Source" />
+                    <mui-input class="default-text-input" placeholder="Alt Text" />
+                </div>
             </div>
         </div>
     </div>
@@ -251,7 +284,7 @@
         ButtonElement,
         CodeElement,
         SlotElement
-    } from '@/Classes/Apps/Pages/BaseElements.js'
+    } from '@/Classes/Apps/Pages/Elements/BaseElements.js'
 
     import IconButton from '@/Components/Apps/Pages/IconButton.vue'
     import NavigatorElement from '@/Components/Apps/Pages/NavigatorElement.vue'
@@ -259,14 +292,12 @@
     import TextEditor from '@/Components/Form/TextEditor.vue'
     import Popup from '@/Components/Form/Popup.vue'
 
+
+
     const editor = ref(new Editor({
         openNewOnLaunch: true,
         openNewOnLastClose: true
     }))
-
-
-
-    const content = ref('')
 
 
 
@@ -592,6 +623,7 @@
 
     .page-editor-layout
         flex: 1
+        height: calc(100% - 2.25rem)
         display: grid
         grid-template-columns: 22rem 1fr 22rem
         grid-template-rows: 4rem 1fr
@@ -697,6 +729,7 @@
 
         .inspector
             grid-area: inspector
+            height: 100%
             background: var(--color-background)
             box-shadow: var(--shadow-elevation-low)
             color: var(--color-heading)
@@ -706,7 +739,7 @@
                 padding: 1rem
                 display: flex
                 flex-direction: column
-                gap: .5rem
+                gap: 1rem
                 border-bottom: 1px solid var(--color-border)
 
                 &.horizontal
@@ -736,4 +769,112 @@
 
                 .default-text-area
                     --base-height: 7.5rem
+
+
+
+                .align-matrix
+                    height: 6rem
+                    width: 6rem
+                    display: grid
+                    grid-template-columns: 1fr 1fr 1fr
+                    grid-template-rows: 1fr 1fr 1fr
+                    border-radius: var(--radius-m)
+                    background: var(--color-background-soft)
+                    anti-aliasing: none
+
+                    &.vertical > button
+                        .icon
+                            flex-direction: column
+
+                        &.v-top .icon
+                            align-items: flex-start
+
+                        &.v-center .icon
+                            align-items: center
+
+                        &.v-bottom .icon
+                            align-items: flex-end
+
+                        &:hover .icon,
+                        &.active .icon
+                            &::before,
+                            .indicator,
+                            &::after
+                                display: block
+                                width: var(--size)
+                                height: 2px
+
+                    &.horizontal > button
+                        .icon
+                            flex-direction: row
+
+                        &.h-left .icon
+                            align-items: flex-start
+
+                        &.h-center .icon
+                            align-items: center
+
+                        &.h-right .icon
+                            align-items: flex-end
+
+                        &:hover .icon,
+                        &.active .icon
+                            &::before,
+                            .indicator,
+                            &::after
+                                display: block
+                                width: 2px
+                                height: var(--size)
+
+                    > button
+                        position: relative
+                        display: flex
+                        align-items: center
+                        justify-content: center
+                        border: 0
+                        padding: 0
+                        background: transparent
+                        border-radius: var(--radius-m)
+                        cursor: pointer
+                        color: var(--color-border)
+
+                        &:hover
+                            color: var(--color-text)
+
+                        &.active
+                            color: var(--color-heading)
+
+                        .icon
+                            display: flex
+                            align-items: center
+                            justify-content: center
+                            gap: 3px
+
+
+
+                            &::before
+                                content: ""
+                                display: none
+                                width: 2px
+                                height: 2px
+                                border-radius: 4px
+                                background: currentColor
+                                --size: 8px
+
+                            .indicator
+                                height: 4px
+                                width: 4px
+                                background: currentColor
+                                border-radius: 4px
+                                --size: 16px
+
+                            &::after
+                                content: ""
+                                display: none
+                                width: 2px
+                                height: 2px
+                                border-radius: 4px
+                                background: currentColor
+                                --size: 12px
+
 </style>
