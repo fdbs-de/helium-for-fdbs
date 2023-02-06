@@ -5,22 +5,27 @@ import Inspector from '@/Classes/Apps/Pages/Inspector'
 
 export default class Tab
 {
-    tabTypes = ['new-tab', 'page-editor', 'component-editor']
-
     constructor (type, data = {})
     {
-        if (!this.tabTypes.includes(type)) throw new Error('Invalid tab type')
+        // Valid tab types
+        this.tabTypes = ['new-tab', 'page-editor', 'component-editor']
 
-        this.id = randomInt(10000000, 99999999)
+        // Basic data
+        this.id = null
+        this.type = null
         this.active = false
-
-        this.version = data.version || '0.0.1'
-        this.title = data.title || ''
-        this.type = type
-        this.url = data.url || null
-        this.history = data.history || []
-        this.elements = data.elements || []
-        this.inspector = new Inspector()
+        this.inspector = new Inspector(this)
+        this.history = []
+        this.elements = []
+        
+        // Generate tab ID and set type
+        this.generateId()
+        this.setType(type)
+        
+        // Page data
+        this.title = null
+        this.url = null
+        this.version = null
 
         this.selected = {
             breakpoint: 0,
@@ -30,6 +35,29 @@ export default class Tab
         this.ui = {
             newElementPanel: false,
         }
+
+        return this
+    }
+
+
+
+    generateId ()
+    {
+        this.id = 'TID-'+randomInt(0, 9999999999).toString().padStart(10, '0')
+
+        return this
+    }
+
+    setType (type)
+    {
+        if (!this.tabTypes.includes(type))
+        {
+            throw new Error('Invalid tab type')
+        }
+
+        this.type = type
+
+        return this
     }
 
 
@@ -54,12 +82,10 @@ export default class Tab
     {
         let elements = {}
 
-        function flatten (element, breadcrumbs)
+        function flatten (element)
         {
-            element.breadcrumbs = [...breadcrumbs]
             elements[element.elementId] = element
-
-            element.inner.forEach(e => flatten(e, [...breadcrumbs, element.elementId]))
+            element.inner.forEach(e => flatten(e))
         }
 
         this.elements.forEach(e => flatten(e, [null]))
@@ -68,20 +94,12 @@ export default class Tab
     }
 
 
-
-    get selectedElements ()
-    {
-        return this.selected.elements.map(id => this.flatElementList[id]).filter(e => e)
-    }
-
-
     
     useAs (type, data)
     {
-        if (!this.tabTypes.includes(type)) throw new Error('Invalid tab type')
+        this.setType(type).loadData(data)
 
-        this.type = type
-        this.loadData(data)
+        return this
     }
     
     loadData (data)
@@ -91,6 +109,8 @@ export default class Tab
         this.url = data.url || null
         this.history = data.history || []
         this.elements = data.elements || []
+
+        return this
     }
 
 
@@ -104,63 +124,44 @@ export default class Tab
 
     addElement (element, selectImmediately = false)
     {
-        // Add inner element
-        if (this.selected.elements.length === 1)
-        {
-            let selectedElement = this.flatElementList[this.selected.elements[0]]
-
-            if (!selectedElement) return this
-
-            this._addElement(selectedElement, element)
-        }
-        else
-        {
-            // Add root element
-            this.elements.push(element)
-        }
+        let target = this.selected.elements.length === 1 ? this.flatElementList[this.selected.elements[0]] : null
+        
+        this.addElementRecursive(target, element)
 
         if (selectImmediately) this.setElementSelection(element)
 
         return this
     }
 
-    _addElement (targetElement, insertElement)
+    addElementRecursive (target, element)
     {
-        // Try to add element to target element if possible
-        if (targetElement.allowedInner.includes(insertElement.elementType))
+        // Try insert to target
+        if (target?.allowedInner?.includes(element.elementType))
         {
-            targetElement.addElement(insertElement)
-
-            return true
+            return target.addElement(element)
         }
 
+        // Try insert to parent
+        if (target?.parent)
+        {
+            return this.addElementRecursive(target.parent, element)
+        }
 
-        
-        // Find parent element id
-        let parentId = targetElement.breadcrumbs[targetElement.breadcrumbs.length - 1]
+        // Insert to root
+        this.elements.push(element.setParent(null))
 
-        // Return if no parent element id
-        if (!parentId) return false
-
-        // Get parent element
-        let parentElement = this.flatElementList[parentId]
-
-        // Return if no parent element
-        if (!parentElement) return false
-
-        // Add insert element to parent
-        return this._addElement(parentElement, insertElement)
+        return element
     }
 
 
 
-    removeElement (elementId)
+    removeElements (elementIds)
     {
-        this.elements = this.elements.filter(e => e.elementId !== elementId)
+        this.elements = this.elements.filter(e => !elementIds.includes(e.elementId))
 
         for (const element of this.elements)
         {
-            this._removeElement(element, elementId)
+            this._removeElements(element, elementIds)
         }
 
         this.cleanElementSelection()
@@ -168,17 +169,22 @@ export default class Tab
         return this
     }
 
-    _removeElement (targetElement, elementId)
+    _removeElements (targetElement, elementIds)
     {
-        targetElement.inner = targetElement.inner.filter(e => e.elementId !== elementId)
+        targetElement.inner = targetElement.inner.filter(e => !elementIds.includes(e.elementId))
 
         for (const element of targetElement.inner)
         {
-            this._removeElement(element, elementId)
+            this._removeElements(element, elementIds)
         }
     }
 
 
+
+    get selectedElements ()
+    {
+        return this.selected.elements.map(id => this.flatElementList[id]).filter(e => e)
+    }
 
     setElementSelection (element)
     {
@@ -204,8 +210,59 @@ export default class Tab
         }
     }
 
+    rootElementSelection ()
+    {
+        let elements = this.elements
+
+        this.clearElementSelection()
+
+        for (const element of elements)
+        {
+            this.addElementSelection(element)
+        }
+    }
+
+    childrenElementSelection ()
+    {
+        let elements = this.selectedElements
+
+        if (elements.length <= 0) return this.rootElementSelection()
+
+        // Clear if any element has children
+        if (elements.some(e => e.inner?.length > 0)) this.clearElementSelection()
+        
+        for (const element of elements)
+        {
+            for (const child of element.inner)
+            {
+                this.addElementSelection(child)
+            }
+        }
+    }
+
+    parentElementSelection ()
+    {
+        let elements = this.selectedElements
+
+        if (elements.length <= 0) return
+
+        this.clearElementSelection()
+        
+        for (const element of elements)
+        {
+            if (!element.parent) continue
+
+            this.addElementSelection(element.parent)
+        }
+    }
+
     cleanElementSelection ()
     {
         this.selected.elements = this.selected.elements.filter(e => this.flatElementList[e])
+    }
+
+    clearElementSelection ()
+    {
+        this.selected.elements = []
     }
 }

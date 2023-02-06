@@ -11,23 +11,25 @@ import { randomInt } from '@/Utils/Number'
  */
 export default class Element
 {
-    elementTypes = ['raw', 'components', 'text', 'rich-text', 'code']
-
     constructor (type, wrapper = null, options = null)
     {
-        if (!this.elementTypes.includes(type))
-        {
-            throw new Error('Invalid element type')
-        }
+        // Valid element types
+        this.elementTypes = ['raw', 'components', 'text', 'rich-text', 'code']
         
+
+
+        // Parent reference
+        this.parent = null
+
         // Basic data
-        this.elementId = randomInt(10000000, 99999999)
-        this.elementType = type
+        this.elementId = null
+        this.elementType = null
         this.wrapper = wrapper
         this.name = options?.name || ''
 
-        // Cached data
-        this.breadcrumbs = []
+        // Generate element ID and set type
+        this.generateId()
+        this.setElementType(type)
         
         // Render data
         this.id = ''
@@ -35,7 +37,9 @@ export default class Element
         this.allowedInner = []
         this.inner = []
         this.innerContent = null
-        this.styles = {}
+        this.styles = {
+            default: {},
+        }
         this.attributes = {
             src: '',
             alt: '',
@@ -68,6 +72,38 @@ export default class Element
             displayText: 'Blank Element',
             displayColor: 'grey',
         }
+
+        return this
+    }
+
+
+
+    generateId ()
+    {
+        this.elementId = 'EID-'+randomInt(0, 9999999999).toString().padStart(10, '0')
+
+        return this
+    }
+
+    setElementType (type)
+    {
+        if (!this.elementTypes.includes(type))
+        {
+            throw new Error('Invalid element type')
+        }
+
+        this.elementType = type
+
+        return this
+    }
+
+
+
+    setParent(parent)
+    {
+        this.parent = parent
+        
+        return this
     }
 
 
@@ -123,7 +159,7 @@ export default class Element
 
     addElement (element)
     {
-        this.inner.push(element)
+        this.inner.push(element.setParent(this))
 
         return this
     }

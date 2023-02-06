@@ -23,6 +23,50 @@ export default class LayoutFixture extends Fixture
 
 
 
+    get flexWrap ()
+    {
+        return this.value['flex-wrap']
+    }
+
+    set flexWrap (value)
+    {
+        this.value['flex-wrap'] = value
+        this.onChange()
+    }
+
+
+
+    get xGap ()
+    {
+        return this.value['gap'][0]
+    }
+
+    set xGap (value)
+    {
+        this.value['gap'][0] = value
+        this.throttledOnChange()
+    }
+
+
+
+    get yGap ()
+    {
+        return this.value['gap'][1]
+    }
+
+    set yGap (value)
+    {
+        this.value['gap'][1] = value
+        this.throttledOnChange()
+    }
+
+
+
+    get flexDirection ()
+    {
+        return this.value['flex-direction']
+    }
+
     set flexDirection (value)
     {
         // Swap align-items and justify-content if the flex-direction changes
@@ -33,11 +77,8 @@ export default class LayoutFixture extends Fixture
         
         // Set the new flex-direction
         this.value['flex-direction'] = value
-    }
 
-    get flexDirection ()
-    {
-        return this.value['flex-direction']
+        this.onChange()
     }
 
 
@@ -55,7 +96,6 @@ export default class LayoutFixture extends Fixture
             'center': 'center',
             'flex-end': 'bottom',
         }
-
         
         if (this.value['flex-direction'] === 'row')
         {
@@ -71,7 +111,6 @@ export default class LayoutFixture extends Fixture
 
             return `${yAlign}:${xAlign}`
         }
-
     }
 
     set matrix (value)
@@ -97,5 +136,7 @@ export default class LayoutFixture extends Fixture
             this.value['align-items'] = dict[xAlign]
             this.value['justify-content'] = dict[yAlign]
         }
+
+        this.onChange()
     }
 }

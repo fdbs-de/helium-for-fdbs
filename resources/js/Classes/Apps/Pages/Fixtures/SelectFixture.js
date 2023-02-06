@@ -10,10 +10,23 @@ export default class SelectFixture extends Fixture
 
         this.label = label
         this.type = 'select'
-        this.value = null
         this.options = []
+        this._value = null
 
         return this
+    }
+
+
+
+    get value ()
+    {
+        return this._value
+    }
+
+    set value (value)
+    {
+        this._value = value
+        this.onChange()
     }
 
 

@@ -178,14 +178,14 @@
                             />
                         <div class="spacer"></div>
                         <IconButton icon="wrap_text"
-                            :class="{'active': editor.tab.inspector.fixtures.style_layout.value['flex-wrap'] == 'wrap'}"
-                            @click="editor.tab.inspector.fixtures.style_layout.value['flex-wrap'] = editor.tab.inspector.fixtures.style_layout.value['flex-wrap'] == 'wrap' ? 'nowrap' : 'wrap'"
+                            :class="{'active': editor.tab.inspector.fixtures.style_layout.flexWrap == 'wrap'}"
+                            @click="editor.tab.inspector.fixtures.style_layout.flexWrap = editor.tab.inspector.fixtures.style_layout.flexWrap == 'wrap' ? 'nowrap' : 'wrap'"
                             />
                     </div>
                     <div class="flex gap-1 v-center">
                         <div class="flex-1 flex vertical gap-1">
-                            <mui-input class="default-text-input w-100" icon-left="horizontal_distribute" placeholder="Vertical" v-model="editor.tab.inspector.fixtures.style_layout.value.gap[0]"/>
-                            <mui-input class="default-text-input w-100" icon-left="vertical_distribute" placeholder="Horizontal" v-model="editor.tab.inspector.fixtures.style_layout.value.gap[1]"/>
+                            <mui-input class="default-text-input w-100" icon-left="horizontal_distribute" placeholder="Vertical" v-model="editor.tab.inspector.fixtures.style_layout.xGap"/>
+                            <mui-input class="default-text-input w-100" icon-left="vertical_distribute" placeholder="Horizontal" v-model="editor.tab.inspector.fixtures.style_layout.yGap"/>
                         </div>
                         <div class="align-matrix" :class="{
                             'vertical': editor.tab.inspector.fixtures.style_layout.flexDirection === 'column',
@@ -242,24 +242,24 @@
                 </div>
                 
                 <div class="input-group">
-                    <select class="default-select">
+                    <select class="default-select" v-model="editor.tab.inspector.fixtures.wrapper.value">
                         <option :value="null" disabled>Wrapper Tag</option>
                         <option v-for="option in editor.tab.inspector.fixtures.wrapper.options" :value="option">{{ option }}</option>
                     </select>
 
-                    <mui-input class="default-text-input" placeholder="ID" />
-                    <mui-input class="default-text-area" type="textarea" placeholder="Klassen" />
+                    <mui-input class="default-text-input" placeholder="ID" v-model="editor.tab.inspector.fixtures.id.value"/>
+                    <mui-input class="default-text-area" type="textarea" placeholder="Klassen" v-model="editor.tab.inspector.fixtures.classes.value"/>
                 </div>
 
                 <div class="input-group">
-                    <mui-input class="default-text-input" placeholder="URL" />
-                    <select class="default-select">
+                    <mui-input class="default-text-input" placeholder="URL" v-model="editor.tab.inspector.fixtures.attr_href.value"/>
+                    <select class="default-select" v-model="editor.tab.inspector.fixtures.attr_target.value">
                         <option :value="null" disabled>Target</option>
                         <option v-for="option in editor.tab.inspector.fixtures.attr_target.options" :value="option">{{ option }}</option>
                     </select>
 
-                    <mui-input class="default-text-input" placeholder="Source" />
-                    <mui-input class="default-text-input" placeholder="Alt Text" />
+                    <mui-input class="default-text-input" placeholder="Source" v-model="editor.tab.inspector.fixtures.attr_src.value"/>
+                    <mui-input class="default-text-input" placeholder="Alt Text" v-model="editor.tab.inspector.fixtures.attr_alt.value"/>
                 </div>
             </div>
         </div>
@@ -348,6 +348,11 @@
     hotkeys('alt+i', (event, handler) => { event.preventDefault(); addElement('image') })
     hotkeys('alt+v', (event, handler) => { event.preventDefault(); addElement('video') })
     hotkeys('alt+b', (event, handler) => { event.preventDefault(); addElement('button') })
+    hotkeys('alt+up', (event, handler) => { event.preventDefault(); console.log('MOVE SELECTION UP') })
+    hotkeys('alt+down', (event, handler) => { event.preventDefault(); console.log('MOVE SELECTION DOWN') })
+    hotkeys('enter', (event, handler) => { event.preventDefault(); editor.value.tab.childrenElementSelection() })
+    hotkeys('shift+enter', (event, handler) => { event.preventDefault(); editor.value.tab.parentElementSelection() })
+    hotkeys('esc', (event, handler) => { event.preventDefault(); editor.value.tab.clearElementSelection() })
 
 
 
@@ -361,7 +366,7 @@
     hotkeys('ctrl+shift+z', (event, handler) => { event.preventDefault(); console.log('REDO') })
 
     hotkeys('shift+n', (event, handler) => { event.preventDefault(); editor.value.tab.toggleNewElementPanel(); })
-    hotkeys('delete, backspace', (event, handler) => { event.preventDefault(); editor.value.tab.removeElement(editor.value.tab.selected.elements[0]) })
+    hotkeys('delete, backspace', (event, handler) => { event.preventDefault(); editor.value.tab.removeElements(editor.value.tab.selected.elements) })
     // END: Keyboard Shortcuts
 
 

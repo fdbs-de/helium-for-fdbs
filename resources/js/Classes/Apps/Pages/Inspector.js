@@ -6,22 +6,30 @@ import LayoutFixture from '@/Classes/Apps/Pages/Fixtures/LayoutFixture'
 
 export default class Inspector
 {
-    constructor ()
+    constructor (parentTab)
     {
+        this.parentTab = parentTab
         this.fixtures = {
-            'name': new TextFixture('Name'),
-            'id': new TextFixture('ID'),
-            'classes': new TextFixture('Classes'),
-            'wrapper': new SelectFixture('Wrapper'),
-            'content': new TextFixture('Content'),
+            'name': new TextFixture('Name').setInspector(this),
+            'id': new TextFixture('ID').setInspector(this),
+            'classes': new TextFixture('Classes').setInspector(this),
+            'wrapper': new SelectFixture('Wrapper').setInspector(this),
+            'content': new TextFixture('Content').setInspector(this),
 
-            'style_layout': new LayoutFixture('Layout'),
+            'style_layout': new LayoutFixture('Layout').setInspector(this),
             
-            'attr_href': new TextFixture('Href'),
-            'attr_target': new SelectFixture('Target'),
-            'attr_rel': new TextFixture('Rel'),
-            'attr_alt': new TextFixture('Alt'),
-            'attr_src': new TextFixture('Src'),
+            'attr_href': new TextFixture('Href').setInspector(this),
+            'attr_target': new SelectFixture('Target').setInspector(this),
+            'attr_rel': new TextFixture('Rel').setInspector(this),
+            'attr_alt': new TextFixture('Alt').setInspector(this),
+            'attr_src': new TextFixture('Src').setInspector(this),
         }
+    }
+
+
+
+    applyChanges ()
+    {
+        // console.log(this.parentTab?.selectedElements)
     }
 }

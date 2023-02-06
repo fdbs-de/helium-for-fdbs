@@ -1,32 +1,34 @@
-// import Class from ''
+import _ from 'lodash'
 
 
 
 export default class Fixture
 {
-    constructor ()
+    constructor (inspector = null)
     {
+        this.inspector = inspector
         this.label = ''
         this.type = null
-        this.value = null
         this.available = true
-    }
-
-
-
-    _commonValue (values)
-    {
-        if (values.length === 0) return null
-        
-        if (values.every(v => v === values[0])) return values[0]
-
-        return null
-    }
-
-    setCommonValue (values)
-    {
-        this.value = this._commonValue(values)
+        this._value = null
 
         return this
     }
+
+
+
+    setInspector (inspector)
+    {
+        this.inspector = inspector
+        return this
+    }
+
+
+
+    onChange ()
+    {
+        this.inspector?.applyChanges()
+    }
+
+    throttledOnChange = _.throttle(this.onChange, 700)
 }

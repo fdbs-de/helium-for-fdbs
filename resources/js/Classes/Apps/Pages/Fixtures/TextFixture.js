@@ -10,8 +10,21 @@ export default class TextFixture extends Fixture
 
         this.label = label
         this.type = 'text'
-        this.value = ''
+        this._value = ''
 
         return this
+    }
+
+
+
+    get value ()
+    {
+        return this._value
+    }
+
+    set value (value)
+    {
+        this._value = value
+        this.throttledOnChange()
     }
 }
