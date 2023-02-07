@@ -4,7 +4,7 @@ import Fixture from '@/Classes/Apps/Pages/Fixtures/Fixture.js'
 
 export default class LayoutFixture extends Fixture
 {
-    constructor (label)
+    constructor(label)
     {
         super()
 
@@ -23,12 +23,12 @@ export default class LayoutFixture extends Fixture
 
 
 
-    get flexWrap ()
+    get flexWrap()
     {
         return this.value['flex-wrap']
     }
 
-    set flexWrap (value)
+    set flexWrap(value)
     {
         this.value['flex-wrap'] = value
         this.onChange()
@@ -36,12 +36,12 @@ export default class LayoutFixture extends Fixture
 
 
 
-    get xGap ()
+    get xGap()
     {
         return this.value['gap'][0]
     }
 
-    set xGap (value)
+    set xGap(value)
     {
         this.value['gap'][0] = value
         this.throttledOnChange()
@@ -49,12 +49,12 @@ export default class LayoutFixture extends Fixture
 
 
 
-    get yGap ()
+    get yGap()
     {
         return this.value['gap'][1]
     }
 
-    set yGap (value)
+    set yGap(value)
     {
         this.value['gap'][1] = value
         this.throttledOnChange()
@@ -62,12 +62,25 @@ export default class LayoutFixture extends Fixture
 
 
 
-    get flexDirection ()
+    get gap()
+    {
+        if (!this.xGap) return null
+
+        if (!this.yGap) return this.xGap
+
+        if (this.xGap === this.yGap) return this.xGap
+
+        return `${this.xGap} ${this.yGap}`
+    }
+
+
+
+    get flexDirection()
     {
         return this.value['flex-direction']
     }
 
-    set flexDirection (value)
+    set flexDirection(value)
     {
         // Swap align-items and justify-content if the flex-direction changes
         if (value !== this.value['flex-direction'])
@@ -83,7 +96,7 @@ export default class LayoutFixture extends Fixture
 
 
 
-    get matrix ()
+    get matrix()
     {
         let xDict = {
             'flex-start': 'left',
@@ -113,7 +126,7 @@ export default class LayoutFixture extends Fixture
         }
     }
 
-    set matrix (value)
+    set matrix(value)
     {
         let dict = {
             'left': 'flex-start',
@@ -138,5 +151,20 @@ export default class LayoutFixture extends Fixture
         }
 
         this.onChange()
+    }
+
+
+
+    serializeValue()
+    {
+        let obj = {}
+
+        if (this.flexDirection) obj['flex-direction'] = this.flexDirection
+        if (this.flexWrap) obj['flex-wrap'] = this.flexWrap
+        if (this.value['justify-content']) obj['justify-content'] = this.value['justify-content']
+        if (this.value['align-items']) obj['align-items'] = this.value['align-items']
+        if (this.gap) obj['gap'] = this.gap
+
+        return obj
     }
 }

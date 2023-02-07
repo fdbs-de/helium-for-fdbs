@@ -4,7 +4,7 @@ import Fixture from '@/Classes/Apps/Pages/Fixtures/Fixture.js'
 
 export default class TextFixture extends Fixture
 {
-    constructor (label)
+    constructor(label)
     {
         super()
 
@@ -17,14 +17,21 @@ export default class TextFixture extends Fixture
 
 
 
-    get value ()
+    get value()
     {
         return this._value
     }
 
-    set value (value)
+    set value(value)
     {
         this._value = value
         this.throttledOnChange()
+    }
+
+
+
+    serializeValue()
+    {
+        return this._value
     }
 }

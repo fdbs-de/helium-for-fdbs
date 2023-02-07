@@ -159,7 +159,7 @@
                     <IconButton icon="content_copy" />
                     <IconButton icon="disabled_visible" />
                     <IconButton icon="more_vert" />
-                    <IconButton class="error" icon="delete" @click="editor.tab.removeElement(editor.tab.selected.elements[0])"/>
+                    <IconButton class="error" icon="delete" @click="editor.tab.removeElements(editor.tab.selected.elements)"/>
                 </div>
 
                 <div class="input-group">
@@ -298,6 +298,13 @@
         openNewOnLaunch: true,
         openNewOnLastClose: true
     }))
+    
+    editor.value.addEventListener('tab:inspector:change', (event) => {
+        for (const element of editor.value.tab.selectedElements)
+        {
+            element.applyChanges(event)
+        }
+    })
 
 
 

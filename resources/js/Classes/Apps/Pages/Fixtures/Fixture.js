@@ -1,12 +1,14 @@
 import _ from 'lodash'
+import EventListener from '@/Classes/EventListener'
 
 
 
-export default class Fixture
+export default class Fixture extends EventListener
 {
-    constructor (inspector = null)
+    constructor()
     {
-        this.inspector = inspector
+        super()
+
         this.label = ''
         this.type = null
         this.available = true
@@ -17,18 +19,17 @@ export default class Fixture
 
 
 
-    setInspector (inspector)
+    serializeValue()
     {
-        this.inspector = inspector
-        return this
+        return this._value
     }
 
 
 
-    onChange ()
+    onChange()
     {
-        this.inspector?.applyChanges()
+        this.dispatchEvent('change')
     }
 
-    throttledOnChange = _.throttle(this.onChange, 700)
+    throttledOnChange = _.throttle(this.onChange, 500)
 }

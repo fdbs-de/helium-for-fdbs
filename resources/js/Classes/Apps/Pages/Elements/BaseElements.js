@@ -56,7 +56,7 @@ export class TextElement extends Element
 {
     constructor(options)
     {
-        super('text', 'p', options)
+        super('raw', 'p', options)
 
         this
         .setAllowedInner(['text', 'rich-text'])
@@ -196,7 +196,7 @@ export class CodeElement extends Element
 {
     constructor (options)
     {
-        super('code', 'div', options)
+        super('raw', 'div', options)
 
         this
         .setAllowedInner(['code'])
@@ -234,7 +234,7 @@ export class SlotElement extends Element
         super('raw', 'div', options)
 
         this
-        .setAllowedInner(['raw', 'components', 'text', 'rich-text', 'code'])
+        .setAllowedInner([])
         .setOption('canChangeContent', false)
         .setOption('canDisableWrapper', true)
         .setOption('canChangeWrapper', true)

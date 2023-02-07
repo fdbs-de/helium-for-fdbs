@@ -157,9 +157,34 @@ export default class Element
 
 
 
+    applyChanges (values)
+    {
+        if (values.hasOwnProperty('name') && this.canOption('canChangeName')) this.name = values.name
+        if (values.hasOwnProperty('id') && this.canOption('canChangeId')) this.id = values.id
+        if (values.hasOwnProperty('classes') && this.canOption('canChangeClasses')) this.classes = values.classes
+        if (values.hasOwnProperty('wrapper') && this.canOption('canChangeWrapper')) this.wrapper = values.wrapper
+        if (values.hasOwnProperty('innerContent') && this.canOption('canChangeContent')) this.innerContent = values.innerContent
+        if (values.hasOwnProperty('src') && this.canOption('canChangeSrc')) this.attributes.src = values.attr.src
+        if (values.hasOwnProperty('alt') && this.canOption('canChangeAlt')) this.attributes.alt = values.attr.alt
+    }
+
+
+
     addElement (element)
     {
         this.inner.push(element.setParent(this))
+
+        return this
+    }
+
+    removeElements (elementIds)
+    {
+        this.inner = this.inner.filter(element => !elementIds.includes(element.elementId))
+
+        for (let element of this.inner)
+        {
+            element.removeElements(elementIds)
+        }
 
         return this
     }

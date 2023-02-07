@@ -1,9 +1,14 @@
 import Tab from '@/Classes/Apps/Pages/Tab'
+import EventListener from '@/Classes/EventListener'
 
-export default class Editor
+
+
+export default class Editor extends EventListener
 {
     constructor(options = {})
     {
+        super()
+
         this.breakpoints = [
             {
                 id: 0,
@@ -73,6 +78,10 @@ export default class Editor
 
         // Open new tab on launch
         if (this.options.openNewOnLaunch) this.openBlankTab()
+
+
+
+        return this
     }
 
 
@@ -109,9 +118,9 @@ export default class Editor
 
 
 
-    addTab(type, data = {}, selectImmediately = false)
+    addTab(type, data = null, selectImmediately = false)
     {
-        let tab = new Tab(type, data)
+        let tab = new Tab(type, data).addEventListener('inspector:change', (event) => this.dispatchEvent('tab:inspector:change', event))
 
         this.tabs.push(tab)
 

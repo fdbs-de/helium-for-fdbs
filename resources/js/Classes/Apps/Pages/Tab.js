@@ -1,20 +1,26 @@
 import { randomInt } from '@/Utils/Number'
 import Inspector from '@/Classes/Apps/Pages/Inspector'
+import EventListener from '@/Classes/EventListener'
 
 
 
-export default class Tab
+export default class Tab extends EventListener
 {
-    constructor (type, data = {})
+    constructor (type, data = null)
     {
+        super()
+
         // Valid tab types
         this.tabTypes = ['new-tab', 'page-editor', 'component-editor']
+
+        // Proxy
+        this.proxy = null
 
         // Basic data
         this.id = null
         this.type = null
         this.active = false
-        this.inspector = new Inspector(this)
+        this.inspector = new Inspector()
         this.history = []
         this.elements = []
         
@@ -23,7 +29,7 @@ export default class Tab
         this.setType(type)
         
         // Page data
-        this.title = null
+        this.title = data?.title || null
         this.url = null
         this.version = null
 
@@ -36,19 +42,22 @@ export default class Tab
             newElementPanel: false,
         }
 
+        // Add event listeners
+        this.inspector.addEventListener('change', (event) => this.dispatchEvent('inspector:change', event))
+
         return this
     }
 
 
 
-    generateId ()
+    generateId()
     {
         this.id = 'TID-'+randomInt(0, 9999999999).toString().padStart(10, '0')
 
         return this
     }
 
-    setType (type)
+    setType(type)
     {
         if (!this.tabTypes.includes(type))
         {
@@ -69,11 +78,6 @@ export default class Tab
         if (this.type == 'component-editor') return 'widgets'
 
         return 'help'
-    }
-
-    get hasUnsavedChanges ()
-    {
-        return this.history.length > 0
     }
 
 
@@ -104,79 +108,16 @@ export default class Tab
     
     loadData (data)
     {
-        this.version = data.version || '0.0.1'
         this.title = data.title || ''
         this.url = data.url || null
-        this.history = data.history || []
         this.elements = data.elements || []
 
         return this
     }
 
-
-
     toggleNewElementPanel ()
     {
         this.ui.newElementPanel = !this.ui.newElementPanel
-    }
-    
-
-
-    addElement (element, selectImmediately = false)
-    {
-        let target = this.selected.elements.length === 1 ? this.flatElementList[this.selected.elements[0]] : null
-        
-        this.addElementRecursive(target, element)
-
-        if (selectImmediately) this.setElementSelection(element)
-
-        return this
-    }
-
-    addElementRecursive (target, element)
-    {
-        // Try insert to target
-        if (target?.allowedInner?.includes(element.elementType))
-        {
-            return target.addElement(element)
-        }
-
-        // Try insert to parent
-        if (target?.parent)
-        {
-            return this.addElementRecursive(target.parent, element)
-        }
-
-        // Insert to root
-        this.elements.push(element.setParent(null))
-
-        return element
-    }
-
-
-
-    removeElements (elementIds)
-    {
-        this.elements = this.elements.filter(e => !elementIds.includes(e.elementId))
-
-        for (const element of this.elements)
-        {
-            this._removeElements(element, elementIds)
-        }
-
-        this.cleanElementSelection()
-
-        return this
-    }
-
-    _removeElements (targetElement, elementIds)
-    {
-        targetElement.inner = targetElement.inner.filter(e => !elementIds.includes(e.elementId))
-
-        for (const element of targetElement.inner)
-        {
-            this._removeElements(element, elementIds)
-        }
     }
 
 
@@ -264,5 +205,54 @@ export default class Tab
     clearElementSelection ()
     {
         this.selected.elements = []
+    }
+
+
+
+    addElement (element, selectImmediately = false)
+    {
+        let target = this.selected.elements.length === 1 ? this.flatElementList[this.selected.elements[0]] : null
+        
+        this.addElementRecursive(target, element)
+
+        if (selectImmediately) this.setElementSelection(element)
+
+        return this
+    }
+
+    addElementRecursive (target, element)
+    {
+        // Try insert to target
+        if (target?.allowedInner?.includes(element.elementType))
+        {
+            return target.addElement(element)
+        }
+
+        // Try insert to parent
+        if (target?.parent)
+        {
+            return this.addElementRecursive(target.parent, element)
+        }
+
+        // Insert to root
+        this.elements.push(element.setParent(null))
+
+        return element
+    }
+
+
+
+    removeElements (elementIds)
+    {
+        this.elements = this.elements.filter(element => !elementIds.includes(element.elementId))
+
+        for (const element of this.elements)
+        {
+            element.removeElements(elementIds)
+        }
+
+        this.cleanElementSelection()
+
+        return this
     }
 }

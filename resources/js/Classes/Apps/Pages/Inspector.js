@@ -1,35 +1,70 @@
 import TextFixture from '@/Classes/Apps/Pages/Fixtures/TextFixture'
 import SelectFixture from '@/Classes/Apps/Pages/Fixtures/SelectFixture'
 import LayoutFixture from '@/Classes/Apps/Pages/Fixtures/LayoutFixture'
+import EventListener from '@/Classes/EventListener'
+import { ref } from 'vue'
 
 
 
-export default class Inspector
+export default class Inspector extends EventListener
 {
-    constructor (parentTab)
+    constructor ()
     {
-        this.parentTab = parentTab
-        this.fixtures = {
-            'name': new TextFixture('Name').setInspector(this),
-            'id': new TextFixture('ID').setInspector(this),
-            'classes': new TextFixture('Classes').setInspector(this),
-            'wrapper': new SelectFixture('Wrapper').setInspector(this),
-            'content': new TextFixture('Content').setInspector(this),
+        super()
 
-            'style_layout': new LayoutFixture('Layout').setInspector(this),
+        this.fixtures = {
+            // General
+            'name': new TextFixture('Name'),
+            'id': new TextFixture('ID'),
+            'classes': new TextFixture('Classes'),
+            'wrapper': new SelectFixture('Wrapper'),
+            'innerContent': new TextFixture('Content'),
+
+            // Styles
+            'style_layout': new LayoutFixture('Layout'),
             
-            'attr_href': new TextFixture('Href').setInspector(this),
-            'attr_target': new SelectFixture('Target').setInspector(this),
-            'attr_rel': new TextFixture('Rel').setInspector(this),
-            'attr_alt': new TextFixture('Alt').setInspector(this),
-            'attr_src': new TextFixture('Src').setInspector(this),
+            // Attributes
+            'attr_href': new TextFixture('Href'),
+            'attr_target': new SelectFixture('Target'),
+            'attr_rel': new TextFixture('Rel'),
+            'attr_alt': new TextFixture('Alt'),
+            'attr_src': new TextFixture('Src'),
+        }
+
+
+
+        for (let key in this.fixtures)
+        {
+            this.fixtures[key].addEventListener('change', () => this.dispatchEvent('change', this.serializeValues()))
         }
     }
 
 
 
-    applyChanges ()
+    serializeValues ()
     {
-        // console.log(this.parentTab?.selectedElements)
+        let values = {
+            attr: {},
+            styles: {},
+        }
+        
+        for (let key in this.fixtures)
+        {
+            if (key.startsWith('attr_'))
+            {
+                values.attr[key.replace('attr_', '')] = this.fixtures[key].serializeValue()
+                continue
+            }
+
+            if (key.startsWith('style_'))
+            {
+                values.styles = {...values.styles, ...this.fixtures[key].serializeValue()}
+                continue
+            }
+
+            values[key] = this.fixtures[key].serializeValue()
+        }
+
+        return values
     }
 }
