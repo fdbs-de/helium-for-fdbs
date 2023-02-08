@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Http\Resources\PersonalUserResource;
 use App\Models\Document;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -36,10 +37,10 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request)
     {
+        // Prepare the user data
         if ($request->user())
         {
-            $user = $request->user()->refresh()->load(['settings']);
-            $user->permission_list = $user->getAllPermissions()->pluck('name')->toArray();
+            $user = new PersonalUserResource($request->user());
         }
 
         return array_merge(parent::share($request), [

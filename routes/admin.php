@@ -69,13 +69,7 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
         
         Route::delete('/', [UserController::class, 'delete'])
         ->middleware('can:system.delete.users')
-        ->name('admin.users.destroy');
-
-        // Route::put('/{user}/enable', [UserController::class, 'enableUser'])->can('enable', 'user')->name('dashboard.admin.users.enable');
-        // Route::put('/{user}/disable', [UserController::class, 'disableUser'])->can('disable', 'user')->name('dashboard.admin.users.disable');
-        // Route::put('/{user}/assign', [UserController::class, 'assignRole'])->can('manageRole', 'user')->name('dashboard.admin.users.role.assign');
-        // Route::put('/{user}/revoke', [UserController::class, 'revokeRole'])->can('manageRole', 'user')->name('dashboard.admin.users.role.revoke');
-        // Route::put('/{user}/change-password', [UserController::class, 'changePassword'])->can('update', 'user')->name('dashboard.admin.users.change-password');
+        ->name('admin.users.delete');
     });
 
     Route::prefix('roles')->group(function () {
