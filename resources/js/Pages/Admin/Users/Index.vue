@@ -105,8 +105,8 @@
 <script setup>
     import { Head, Link, useForm, usePage } from '@inertiajs/inertia-vue3'
     import { Inertia } from '@inertiajs/inertia'
-    import { ref, computed } from 'vue'
-    import ItemInterface from '@/Interfaces/User.js'
+    import { ref, watch, computed } from 'vue'
+    import LocalSetting from '@/Classes/Managers/LocalSetting'
 
     import AdminLayout from '@/Layouts/Admin.vue'
     import ListItemLayout from '@/Components/Layout/ListItemLayout.vue'
@@ -118,9 +118,16 @@
 
 
 
+    // START: Settings Parameters
+    const scope = 'users.index'
+    // END: Settings Parameters
+
     // START: View Parameters
-    const layout = ref('list')
-    const isPreview = ref(false)
+    const layout = ref(LocalSetting.get(scope, 'view.layout', 'list'))
+    watch(layout, (value) => LocalSetting.set(scope, 'view.layout', value), { immediate: true })
+
+    const isPreview = ref(LocalSetting.get(scope, 'view.hasPreview', false))
+    watch(isPreview, (value) => LocalSetting.set(scope, 'view.hasPreview', value), { immediate: true })
     // END: View Parameters
 
 
@@ -128,25 +135,45 @@
     // START: Fetch
     const fetchURL = ref('admin.users.search')
     const items = ref([])
+    const latestSearch = ref(0)
+
 
     const filter = ref({
-        name: '',
-        order: ['name', 'asc'],
+        name: LocalSetting.get(scope, 'filter.name', ''),
+        order: LocalSetting.get(scope, 'filter.order', ['name', 'asc']),
         processing: false,
     })
 
+    watch(filter, (value) => {
+        LocalSetting.set(scope, 'filter.name', value.name)
+        LocalSetting.set(scope, 'filter.order', value.order)
+    }, { deep: true, immediate: true })
+
+
     const pagination = ref({
-        page: 1,
-        perPage: 20,
+        page: LocalSetting.get(scope, 'pagination.page', 1),
+        perPage: LocalSetting.get(scope, 'pagination.perPage', 20),
     })
+
+    watch(pagination, (value) => {
+        LocalSetting.set(scope, 'pagination.page', value.page)
+        LocalSetting.set(scope, 'pagination.perPage', value.perPage)
+    }, { deep: true, immediate: true })
+
 
     const getData = async () => {
         filter.value.processing = true
+        let requestTime = new Date().getTime()
 
         try
         {
             let response = await axios.get(route(fetchURL.value, {...filter.value, ...pagination.value}))
-            items.value = response?.data
+
+            if (requestTime > latestSearch.value)
+            {
+                items.value = response?.data
+                latestSearch.value = requestTime
+            }
         }
         catch (error)
         {

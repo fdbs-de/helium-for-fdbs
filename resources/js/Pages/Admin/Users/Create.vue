@@ -189,10 +189,7 @@
 
     watch((props) => props?.user, () => {
         openItem(props?.user)
-    },{
-        immediate: true,
-        deep: true
-    })
+    },{ immediate: true, deep: true })
 
 
 
@@ -215,6 +212,7 @@
 
     const storeItem = () => {
         form.post(route('admin.users.store'), {
+            preserveScroll: true,
             onSuccess: (data) => {
                 openItem(data?.props?.post)
             },
@@ -223,6 +221,7 @@
 
     const updateItem = () => {
         form.put(route('admin.users.update', form.id), {
+            preserveScroll: true,
             onSuccess: (data) => {
                 openItem(data?.props?.post)
             },
