@@ -1,27 +1,41 @@
 <template>
-    <div class="element-wrapper" :class="{'selected': selection.includes(element.elementId), 'expanded': element.editorMeta.expanded}">
-        <div class="inner-info" @click="$emit('select', element)">
+    <div
+        class="element-wrapper"
+        :class="{
+            'selected': selection.includes(element.elementId),
+            'expanded': element.editorMeta.expanded
+        }"
+    >
+        <div
+            class="inner-info"
+            @click.exact="$emit('select:set', element)"
+            @click.ctrl="$emit('select:toggle', element)"
+        >
             <div class="icon">{{ element.editorMeta.displayIcon }}</div>
             <div class="name">{{ element.name }}</div>
             <IconButton icon="expand_more" v-if="element.inner.length > 0" @click="element.toggleExpanded()"/>
         </div>
+
         <div class="children" v-show="element.editorMeta.expanded">
             <NavigatorElement
                 v-for="child in element.inner"
                 :key="child.elementId"
                 :element="child"
                 :selection="selection"
-                @select="$emit('select', $event)"
+                @select:set="$emit('select:set', $event)"
+                @select:toggle="$emit('select:toggle', $event)"
             />
         </div>
     </div>
 </template>
 
 <script setup>
-    import Element from '@/Classes/Apps/Pages/Element.js'
+    import Element from '@/Classes/Apps/Pages/Elements/Element.js'
 
     import IconButton from '@/Components/Apps/Pages/IconButton.vue'
 
+
+    
     const props = defineProps({
         element: Element,
         selection: Array,
@@ -34,6 +48,7 @@
         flex-direction: column
         cursor: pointer
         transition: background-color 100ms ease-in-out
+        user-select: none
 
         &.selected
             > .inner-info
@@ -47,7 +62,6 @@
         .inner-info
             display: flex
             align-items: center
-            border-radius: var(--radius-s)
 
             &:hover
                 background-color: var(--color-background-soft)
@@ -57,9 +71,10 @@
                 align-items: center
                 justify-content: center
                 height: 2.5rem
-                width: 2.5rem
+                width: 3rem
                 font-size: 1.25rem
                 line-height: 1
+                color: var(--color-text)
                 font-family: var(--font-icon)
 
             .name
@@ -67,9 +82,14 @@
                 overflow: hidden
                 text-overflow: ellipsis
                 white-space: nowrap
-                font-size: 1rem
+                font-size: .9rem
                 font-weight: 500
-                padding-inline: .25rem
+
+            > button
+                height: 1.5rem
+                width: 1.5rem
+                margin: .5rem
+                border-radius: var(--radius-s)
 
         .children
             display: flex

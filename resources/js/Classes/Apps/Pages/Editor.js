@@ -1,46 +1,69 @@
 import Tab from '@/Classes/Apps/Pages/Tab'
+import EventListener from '@/Classes/EventListener'
 
-export default class Editor
+
+
+export default class Editor extends EventListener
 {
     constructor(options = {})
     {
+        super()
+
         this.breakpoints = [
             {
                 id: 0,
                 name: 'Desktop',
-                icon: 'desktop_windows',
-                width: 1920,
-                height: 1080,
+                tooltip: '<b>Desktop</b><br>\> 1100px',
+                icon: 'monitor',
+                width: null,
+                height: null,
                 orientation: 'landscape',
                 default: true,
-                touch: false
+                touch: false,
             },
             {
                 id: 1,
                 name: 'Laptop',
+                tooltip: '<b>Laptop</b><br>< 1100px',
                 icon: 'computer',
-                width: 912,
-                height: 1024,
+                width: 1100,
+                height: null,
                 orientation: 'landscape',
-                touch: false
+                default: false,
+                touch: false,
             },
             {
                 id: 2,
-                name: 'Mobile (Landscape)',
-                icon: 'stay_current_landscape',
-                width: 740,
-                height: 360,
-                orientation: 'landscape',
-                touch: true
+                name: 'Tablet',
+                tooltip: '<b>Tablet</b><br>< 900px',
+                icon: 'tablet_android',
+                width: 900,
+                height: null,
+                orientation: 'portrait',
+                default: false,
+                touch: true,
             },
             {
                 id: 3,
-                name: 'Mobile (Portrait)',
+                name: 'Mobile Landscape',
+                tooltip: '<b>Mobile Landscape</b><br>< 700px',
+                icon: 'stay_current_landscape',
+                width: 700,
+                height: null,
+                orientation: 'landscape',
+                default: false,
+                touch: true,
+            },
+            {
+                id: 4,
+                name: 'Mobile Portrait',
+                tooltip: '<b>Mobile Portrait</b><br>< 360px',
                 icon: 'stay_current_portrait',
                 width: 360,
-                height: 740,
+                height: null,
                 orientation: 'portrait',
-                touch: true
+                default: false,
+                touch: true,
             }
         ]
     
@@ -55,11 +78,14 @@ export default class Editor
 
         // Open new tab on launch
         if (this.options.openNewOnLaunch) this.openBlankTab()
+
+
+
+        return this
     }
 
 
 
-    // START: Getters
     get hasBlankTab()
     {
         return this.tabs.find(tab => tab.type == 'new-tab') != null
@@ -67,10 +93,34 @@ export default class Editor
 
 
 
-    // START: Methods
-    addTab(type, data = {}, selectImmediately = false)
+    selectBreakpoint(index)
     {
-        let tab = new Tab(type, data)
+        // Check if index is in range
+        if (index < 0 || index >= this.breakpoints.length) return false
+
+        // Check if a tab is selected
+        if (!this.tab) return false 
+        
+        // Set breakpoint
+        this.tab.selected.breakpoint = index
+        
+        return true
+    }
+
+    get breakpoint()
+    {
+        return (
+            this.breakpoints[this.tab.selected.breakpoint] ||
+            this.breakpoints.find(breakpoint => breakpoint.default) ||
+            null
+        )
+    }
+
+
+
+    addTab(type, data = null, selectImmediately = false)
+    {
+        let tab = new Tab(type, data).addEventListener('inspector:change', (event) => this.dispatchEvent('tab:inspector:change', event))
 
         this.tabs.push(tab)
 
@@ -102,6 +152,31 @@ export default class Editor
 
         // Select new tab
         if (this.tab) this.tab.active = true
+    }
+
+    selectTabByIndex(index)
+    {
+        if (index < 0 || index >= this.tabs.length) return false
+
+        this.selectTab(this.tabs[index].id)
+    }
+
+    selectPreviousTab()
+    {
+        if (!this.tab) return false
+
+        let tabIndex = this.tabs.findIndex(tab => tab.id == this.tab.id)
+
+        this.selectTabByIndex(tabIndex - 1)
+    }
+
+    selectNextTab()
+    {
+        if (!this.tab) return false
+
+        let tabIndex = this.tabs.findIndex(tab => tab.id == this.tab.id)
+
+        this.selectTabByIndex(tabIndex + 1)
     }
 
     closeTab(id, selectNextBest = true)
@@ -138,7 +213,6 @@ export default class Editor
         // Return success
         return true
     }
-    // END: Methods
 
 
 

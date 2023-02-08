@@ -13,7 +13,7 @@ class DestroyUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class DestroyUserRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'ids' => ['required', 'array'],
+            'ids.*' => ['required', 'integer', 'exists:users,id'],
         ];
     }
 }

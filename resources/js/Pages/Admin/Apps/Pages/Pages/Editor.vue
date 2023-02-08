@@ -22,8 +22,8 @@
 
             <div class="spacer"></div>
 
-            <IconButton class="small" :icon="isFullscreen ? 'fullscreen_exit' : 'fullscreen'" @click="toggleFullscreen()"/>
-            <IconButton class="small" icon="more_vert" />
+            <IconButton class="small" :icon="isFullscreen ? 'fullscreen_exit' : 'fullscreen'" v-tooltip="'Vollbild (Strg+Shift+Alt+F)'" @click="toggleFullscreen()"/>
+            <!-- <IconButton class="small" icon="more_vert" /> -->
         </div>
 
 
@@ -38,7 +38,7 @@
                     </button>
                     <button class="new-button component" @click="editor.tab.useAs('component-editor', {})">
                         <div class="icon">add</div>
-                        <span class="text">Neues Komponent</span>
+                        <span class="text">Neue Komponente</span>
                         <span class="subtext">Komponenten und Layouts</span>
                     </button>
                 </div>
@@ -54,49 +54,47 @@
         <div class="page-editor-layout" v-if="editor.tab && ['page-editor', 'component-editor'].includes(editor.tab.type)">
             <div class="tool-bar">
                 <div class="start">
-                    <mui-button class="with-label" variant="contained" icon-left="add" label="Neu" v-if="!newElementPanel" @click="newElementPanel = true"/>
-                    <mui-button class="with-label" variant="contained" icon-left="close" label="Schließen" v-else @click="newElementPanel = false"/>
+                    <mui-button class="with-label" variant="contained" icon-left="add" label="Neu" v-show="!editor.tab.ui.newElementPanel" @click="editor.tab.toggleNewElementPanel()"/>
+                    <mui-button class="with-label" variant="contained" icon-left="close" label="Schließen" v-show="editor.tab.ui.newElementPanel" @click="editor.tab.toggleNewElementPanel()"/>
                     <div class="spacer"></div>
-                    <IconButton icon="undo" :disabled="editor.tab.history.length <= 0" />
-                    <IconButton icon="redo" :disabled="editor.tab.history.length <= 0" />
-                    <IconButton icon="history" :disabled="editor.tab.history.length <= 0" />
+                    <IconButton icon="undo" v-tooltip.bottom="'Rückgangig (Strg+Z)'" :disabled="editor.tab.history.length <= 0" />
+                    <IconButton icon="redo" v-tooltip.bottom="'Wiederherstellen (Strg+Y)'" :disabled="editor.tab.history.length <= 0" />
+                    <IconButton icon="history" v-tooltip.bottom="'Bearbeitungsverlauf'" :disabled="editor.tab.history.length <= 0" />
                 </div>
                 <div class="center">
                     <div class="breakpoint-selector">
                         <IconButton
-                            v-for="breakpoint in editor.breakpoints"
+                            v-for="(breakpoint, index) in editor.breakpoints"
                             :key="breakpoint.id"
                             :icon="breakpoint.icon"
-                            :class="{'active': breakpoint.id == editor.tab.selected.breakpoint}"
-                            @click="editor.tab.selectBreakpoint(breakpoint.id)"
+                            :class="{'active': index == editor.tab.selected.breakpoint}"
+                            v-tooltip.bottom="{content: breakpoint.tooltip, html: true}"
+                            @click="editor.selectBreakpoint(index)"
                         />
                     </div>
                 </div>
                 <div class="end">
-                    <IconButton icon="settings" />
-                    <IconButton icon="data_object" />
-                    <IconButton icon="upload" />
-                    <IconButton icon="visibility" />
+                    <IconButton icon="settings" v-tooltip.bottom="'Seiten Einstellungen'"/>
+                    <IconButton icon="data_object" v-tooltip.bottom="'Stylesheets'"/>
+                    <IconButton icon="upload" v-tooltip.bottom="'Medien Manager'" @click="$refs.picker.open()"/>
+                    <IconButton icon="visibility" v-tooltip.bottom="'Vorschau'"/>
                     <div class="spacer"></div>
-                    <mui-button class="with-label" variant="contained" label="Speichern" />
+                    <mui-button class="with-label" variant="contained" label="Speichern" v-tooltip.bottom="'Speichern (Strg+S)'"/>
                 </div>
             </div>
 
-            <div class="navigator" v-if="newElementPanel">
+
+
+            <div class="navigator" v-show="editor.tab.ui.newElementPanel">
                 <div class="grid">
-                    <button class="item-button" @click="addElement('blank')">
-                        <div class="icon">grid_view</div>
-                        Blank
+                    <button class="item-button" @click="addElement('layout')">
+                        <div class="icon">align_horizontal_left</div>
+                        Layout
                     </button>
 
-                    <button class="item-button" @click="addElement('image')">
-                        <div class="icon">text_fields</div>
+                    <button class="item-button" @click="addElement('text')">
+                        <div class="icon">title</div>
                         Text
-                    </button>
-
-                    <button class="item-button" @click="addElement('image')">
-                        <div class="icon">format_h1</div>
-                        Heading
                     </button>
 
                     <button class="item-button" @click="addElement('link')">
@@ -109,84 +107,274 @@
                         Image
                     </button>
 
-                    <button class="item-button" @click="addElement('image')">
+                    <button class="item-button" @click="addElement('video')">
                         <div class="icon">movie</div>
                         Video
                     </button>
 
-                    <button class="item-button" @click="addElement('image')">
+                    <button class="item-button" @click="addElement('iframe')">
                         <div class="icon">Map</div>
                         Iframe
                     </button>
 
-                    <button class="item-button" @click="addElement('link')">
+                    <button class="item-button" @click="addElement('button')">
                         <div class="icon">mouse</div>
                         Button
                     </button>
 
-                    <button class="item-button" @click="addElement('image')">
+                    <button class="item-button" @click="addElement('code')">
                         <div class="icon">data_object</div>
                         Code
                     </button>
 
-                    <button class="item-button" @click="addElement('image')">
+                    <button class="item-button" @click="addElement('slot')">
                         <div class="icon">variables</div>
                         Content Slot
                     </button>
                 </div>
             </div>
 
-            <div class="navigator" v-else>
+            <div class="navigator" v-show="!editor.tab.ui.newElementPanel">
                 <NavigatorElement
                     v-for="element in editor.tab.elements"
                     :key="element.elementId"
                     :element="element"
                     :selection="editor.tab.selected.elements"
-                    @select="editor.tab.setElementSelection($event)"
+                    @select:set="editor.tab.setElementSelection($event)"
+                    @select:toggle="editor.tab.toggleElementSelection($event)"
                 />
             </div>
 
+
+
             <div class="viewport-wrapper">
+                <iframe class="viewport" :style="`max-width: ${editor.breakpoint.width}px;`"></iframe>
             </div>
 
-            <div class="inspector">
+
+
+            <div class="inspector small-scrollbar">
                 <div class="input-group horizontal slim">
-                    <span class="title">Inspect Element</span>
                     <div class="spacer"></div>
                     <IconButton icon="content_copy" />
                     <IconButton icon="disabled_visible" />
                     <IconButton icon="more_vert" />
-                    <IconButton class="error" icon="delete" @click="editor.tab.removeElement(editor.tab.selected.elements[0])"/>
+                    <IconButton class="error" icon="delete" @click="editor.tab.removeElements(editor.tab.selected.elements)"/>
                 </div>
+
                 <div class="input-group">
-                    <mui-input placeholder="Titel" v-model="editor.tab.title"/>
+                    <mui-input class="default-text-input" :placeholder="editor.tab.inspector.fixtures.name.label" v-model="editor.tab.inspector.fixtures.name.value"/>
+                </div>
+
+                <div class="input-group">
+                    <div class="flex">
+                        <IconButton icon="east"
+                            :class="{'active': editor.tab.inspector.fixtures.style_layout.flexDirection == 'row'}"
+                            @click="editor.tab.inspector.fixtures.style_layout.flexDirection = 'row'"
+                            />
+                        <IconButton icon="south"
+                            :class="{'active': editor.tab.inspector.fixtures.style_layout.flexDirection == 'column'}"
+                            @click="editor.tab.inspector.fixtures.style_layout.flexDirection = 'column'"
+                            />
+                        <div class="spacer"></div>
+                        <IconButton icon="wrap_text"
+                            :class="{'active': editor.tab.inspector.fixtures.style_layout.flexWrap == 'wrap'}"
+                            @click="editor.tab.inspector.fixtures.style_layout.flexWrap = editor.tab.inspector.fixtures.style_layout.flexWrap == 'wrap' ? 'nowrap' : 'wrap'"
+                            />
+                    </div>
+                    <div class="flex gap-1 v-center">
+                        <div class="flex-1 flex vertical gap-1">
+                            <mui-input class="default-text-input w-100" icon-left="horizontal_distribute" placeholder="Vertical" v-model="editor.tab.inspector.fixtures.style_layout.xGap"/>
+                            <mui-input class="default-text-input w-100" icon-left="vertical_distribute" placeholder="Horizontal" v-model="editor.tab.inspector.fixtures.style_layout.yGap"/>
+                        </div>
+                        <div class="align-matrix" :class="{
+                            'vertical': editor.tab.inspector.fixtures.style_layout.flexDirection === 'column',
+                            'horizontal': editor.tab.inspector.fixtures.style_layout.flexDirection !== 'column',
+                        }">
+                            <button class="h-left v-top"
+                                :class="{ 'active': editor.tab.inspector.fixtures.style_layout.matrix === 'left:top'}"
+                                @click="editor.tab.inspector.fixtures.style_layout.matrix = 'left:top'">
+                                <div class="icon"><div class="indicator"></div></div>
+                            </button>
+                            <button class="h-left v-center"
+                                :class="{ 'active': editor.tab.inspector.fixtures.style_layout.matrix === 'center:top'}"
+                                @click="editor.tab.inspector.fixtures.style_layout.matrix = 'center:top'">
+                                <div class="icon"><div class="indicator"></div></div>
+                            </button>
+                            <button class="h-left v-bottom"
+                                :class="{ 'active': editor.tab.inspector.fixtures.style_layout.matrix === 'right:top'}"
+                                @click="editor.tab.inspector.fixtures.style_layout.matrix = 'right:top'">
+                                <div class="icon"><div class="indicator"></div></div>
+                            </button>
+                            <button class="h-center v-top"
+                                :class="{ 'active': editor.tab.inspector.fixtures.style_layout.matrix === 'left:center'}"
+                                @click="editor.tab.inspector.fixtures.style_layout.matrix = 'left:center'">
+                                <div class="icon"><div class="indicator"></div></div>
+                            </button>
+                            <button class="h-center v-center"
+                                :class="{ 'active': editor.tab.inspector.fixtures.style_layout.matrix === 'center:center'}"
+                                @click="editor.tab.inspector.fixtures.style_layout.matrix = 'center:center'">
+                                <div class="icon"><div class="indicator"></div></div>
+                            </button>
+                            <button class="h-center v-bottom"
+                                :class="{ 'active': editor.tab.inspector.fixtures.style_layout.matrix === 'right:center'}"
+                                @click="editor.tab.inspector.fixtures.style_layout.matrix = 'right:center'">
+                                <div class="icon"><div class="indicator"></div></div>
+                            </button>
+                            <button class="h-right v-top"
+                                :class="{ 'active': editor.tab.inspector.fixtures.style_layout.matrix === 'left:bottom'}"
+                                @click="editor.tab.inspector.fixtures.style_layout.matrix = 'left:bottom'">
+                                <div class="icon"><div class="indicator"></div></div>
+                            </button>
+                            <button class="h-right v-center"
+                                :class="{ 'active': editor.tab.inspector.fixtures.style_layout.matrix === 'center:bottom'}"
+                                @click="editor.tab.inspector.fixtures.style_layout.matrix = 'center:bottom'">
+                                <div class="icon"><div class="indicator"></div></div>
+                            </button>
+                            <button class="h-right v-bottom"
+                                :class="{ 'active': editor.tab.inspector.fixtures.style_layout.matrix === 'right:bottom'}"
+                                @click="editor.tab.inspector.fixtures.style_layout.matrix = 'right:bottom'">
+                                <div class="icon"><div class="indicator"></div></div>
+                            </button>
+                        </div>
+                        <!-- <IconButton icon="more_vert" /> -->
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <select class="default-select" v-model="editor.tab.inspector.fixtures.wrapper.value">
+                        <option :value="null" disabled>Wrapper Tag</option>
+                        <option v-for="option in editor.tab.inspector.fixtures.wrapper.options" :value="option">{{ option }}</option>
+                    </select>
+
+                    <mui-input class="default-text-input" placeholder="ID" v-model="editor.tab.inspector.fixtures.id.value"/>
+                    <mui-input class="default-text-area" type="textarea" placeholder="Klassen" v-model="editor.tab.inspector.fixtures.classes.value"/>
+                </div>
+
+                <div class="input-group">
+                    <mui-input class="default-text-input" placeholder="URL" v-model="editor.tab.inspector.fixtures.attr_href.value"/>
+                    <select class="default-select" v-model="editor.tab.inspector.fixtures.attr_target.value">
+                        <option :value="null" disabled>Target</option>
+                        <option v-for="option in editor.tab.inspector.fixtures.attr_target.options" :value="option">{{ option }}</option>
+                    </select>
+
+                    <mui-input class="default-text-input" placeholder="Source" v-model="editor.tab.inspector.fixtures.attr_src.value"/>
+                    <mui-input class="default-text-input" placeholder="Alt Text" v-model="editor.tab.inspector.fixtures.attr_alt.value"/>
                 </div>
             </div>
         </div>
     </div>
+
+    <Picker ref="picker" />
 </template>
 
 <script setup>
     import { Head, Link, useForm, usePage } from '@inertiajs/inertia-vue3'
-    import { ref, onMounted } from 'vue'
+    import { ref, onMounted, computed } from 'vue'
+    import hotkeys from 'hotkeys-js'
     import { Inertia } from '@inertiajs/inertia'
     import Editor from '@/Classes/Apps/Pages/Editor.js'
-    import { BlankElement, LinkElement, ImageElement} from '@/Classes/Apps/Pages/BaseElements.js'
+    import {
+        LayoutElement,
+        TextElement,
+        LinkElement,
+        ImageElement,
+        VideoElement,
+        IFrameElement,
+        ButtonElement,
+        CodeElement,
+        SlotElement
+    } from '@/Classes/Apps/Pages/Elements/BaseElements.js'
 
     import IconButton from '@/Components/Apps/Pages/IconButton.vue'
     import NavigatorElement from '@/Components/Apps/Pages/NavigatorElement.vue'
+    import Picker from '@/Components/Form/MediaLibrary/Picker.vue'
+    import TextEditor from '@/Components/Form/TextEditor.vue'
     import Popup from '@/Components/Form/Popup.vue'
+
+
 
     const editor = ref(new Editor({
         openNewOnLaunch: true,
         openNewOnLastClose: true
     }))
+    
+    editor.value.addEventListener('tab:inspector:change', (event) => {
+        for (const element of editor.value.tab.selectedElements)
+        {
+            element.applyChanges(event)
+        }
+    })
 
 
 
-    // START: UI State
-    const newElementPanel = ref(false)
-    // END: UI State
+    // START: Keyboard Shortcuts
+    hotkeys('ctrl+s', (event, handler) => { event.preventDefault(); console.log('SAVE') })
+    hotkeys('ctrl+shift+s', (event, handler) => { event.preventDefault(); console.log('SAVE AS') })
+    hotkeys('ctrl+alt+n', (event, handler) => { event.preventDefault(); editor.value.openBlankTab() })
+    hotkeys('ctrl+alt+w', (event, handler) => { event.preventDefault(); editor.value.closeTab(editor.value.tab.id) })
+    hotkeys('ctrl+alt+right', (event, handler) => { event.preventDefault(); editor.value.selectNextTab() })
+    hotkeys('ctrl+alt+left', (event, handler) => { event.preventDefault(); editor.value.selectPreviousTab() })
+    hotkeys('ctrl+alt+shift+f, f11', (event, handler) => { event.preventDefault(); toggleFullscreen() })
+
+
+
+    // New Tab specific
+    hotkeys('ctrl+alt+p', (event, handler) => {
+        event.preventDefault()
+        
+        if (editor.value.tab.type !== 'new-tab') return
+        
+        editor.value.tab.useAs('page-editor', {})
+    })
+
+    hotkeys('ctrl+alt+c', (event, handler) => {
+        event.preventDefault()
+        
+        if (editor.value.tab.type !== 'new-tab') return
+        
+        editor.value.tab.useAs('component-editor', {})
+    })
+
+
+
+    // Page Editor specific
+    hotkeys('alt+1', (event, handler) => { event.preventDefault(); editor.value.selectBreakpoint(0) })
+    hotkeys('alt+2', (event, handler) => { event.preventDefault(); editor.value.selectBreakpoint(1) })
+    hotkeys('alt+3', (event, handler) => { event.preventDefault(); editor.value.selectBreakpoint(2) })
+    hotkeys('alt+4', (event, handler) => { event.preventDefault(); editor.value.selectBreakpoint(3) })
+    hotkeys('alt+5', (event, handler) => { event.preventDefault(); editor.value.selectBreakpoint(4) })
+    hotkeys('alt+6', (event, handler) => { event.preventDefault(); editor.value.selectBreakpoint(5) })
+    hotkeys('alt+7', (event, handler) => { event.preventDefault(); editor.value.selectBreakpoint(6) })
+    hotkeys('alt+8', (event, handler) => { event.preventDefault(); editor.value.selectBreakpoint(7) })
+    hotkeys('alt+9', (event, handler) => { event.preventDefault(); editor.value.selectBreakpoint(8) })
+    hotkeys('alt+0', (event, handler) => { event.preventDefault(); editor.value.selectBreakpoint(9) })
+    hotkeys('alt+enter', (event, handler) => { event.preventDefault(); addElement('layout') })
+    hotkeys('alt+t', (event, handler) => { event.preventDefault(); addElement('text') })
+    hotkeys('alt+l', (event, handler) => { event.preventDefault(); addElement('link') })
+    hotkeys('alt+i', (event, handler) => { event.preventDefault(); addElement('image') })
+    hotkeys('alt+v', (event, handler) => { event.preventDefault(); addElement('video') })
+    hotkeys('alt+b', (event, handler) => { event.preventDefault(); addElement('button') })
+    hotkeys('alt+up', (event, handler) => { event.preventDefault(); console.log('MOVE SELECTION UP') })
+    hotkeys('alt+down', (event, handler) => { event.preventDefault(); console.log('MOVE SELECTION DOWN') })
+    hotkeys('enter', (event, handler) => { event.preventDefault(); editor.value.tab.childrenElementSelection() })
+    hotkeys('shift+enter', (event, handler) => { event.preventDefault(); editor.value.tab.parentElementSelection() })
+    hotkeys('esc', (event, handler) => { event.preventDefault(); editor.value.tab.clearElementSelection() })
+
+
+
+    hotkeys('ctrl+c', (event, handler) => { event.preventDefault(); console.log('COPY') })
+    hotkeys('ctrl+d', (event, handler) => { event.preventDefault(); console.log('DUPLICATE') })
+    hotkeys('ctrl+x', (event, handler) => { event.preventDefault(); console.log('CUT') })
+    hotkeys('ctrl+v', (event, handler) => { event.preventDefault(); console.log('PASTE') })
+
+    hotkeys('ctrl+z', (event, handler) => { event.preventDefault(); console.log('UNDO') })
+    hotkeys('ctrl+y', (event, handler) => { event.preventDefault(); console.log('REDO') })
+    hotkeys('ctrl+shift+z', (event, handler) => { event.preventDefault(); console.log('REDO') })
+
+    hotkeys('shift+n', (event, handler) => { event.preventDefault(); editor.value.tab.toggleNewElementPanel(); })
+    hotkeys('delete, backspace', (event, handler) => { event.preventDefault(); editor.value.tab.removeElements(editor.value.tab.selected.elements) })
+    // END: Keyboard Shortcuts
 
 
 
@@ -196,16 +384,22 @@
 
         switch (name)
         {
-            case 'blank': element = new BlankElement({name: 'Blank Element'}); break
-            case 'link': element = new LinkElement({name: 'Link Element'}); break
-            case 'image': element = new ImageElement({name: 'Image Element'}); break
-            default: element = new Element(); break
+            case 'layout': element = new LayoutElement({name: 'Layout'}); break
+            case 'text': element = new TextElement({name: 'Text'}); break
+            case 'link': element = new LinkElement({name: 'Link'}); break
+            case 'image': element = new ImageElement({name: 'Image'}); break
+            case 'video': element = new VideoElement({name: 'Video'}); break
+            case 'iframe': element = new IFrameElement({name: 'IFrame'}); break
+            case 'button': element = new ButtonElement({name: 'Button'}); break
+            case 'code': element = new CodeElement({name: 'Code'}); break
+            case 'slot': element = new SlotElement({name: 'Content Slot'}); break
+            default: return null;
         }
 
-        editor.value.tab.addElement(element)
-
-        newElementPanel.value = false
+        editor.value.tab.addElement(element, true)
+        editor.value.tab.ui.newElementPanel = false
     }
+    // END: Methods
 
 
 
@@ -220,7 +414,6 @@
 
     window.addEventListener('fullscreenchange', () => {
         isFullscreen.value = !!document.fullscreenElement
-        document.documentElement.style.overflowY = this.isFullscreen ? 'hidden' : 'scroll'
     })
 
     const toggleFullscreen = () => {
@@ -355,6 +548,9 @@
                 flex: 1
                 font-size: .9rem
                 letter-spacing: .05rem
+                white-space: nowrap
+                overflow: hidden
+                text-overflow: ellipsis
 
             .indicator
                 display: flex
@@ -389,6 +585,7 @@
             width: 100%
             padding-block: 8rem 4rem
             background: var(--color-background-dark)
+            user-select: none
 
             .limiter
                 display: flex
@@ -438,6 +635,7 @@
 
     .page-editor-layout
         flex: 1
+        height: calc(100% - 2.25rem)
         display: grid
         grid-template-columns: 22rem 1fr 22rem
         grid-template-rows: 4rem 1fr
@@ -493,12 +691,13 @@
             grid-area: navigator
             background: var(--color-background)
             box-shadow: var(--shadow-elevation-low)
-            padding: .5rem
+            padding: 1rem 0
 
             .grid
                 display: grid
                 grid-template-columns: 1fr 1fr
                 gap: .5rem
+                padding: 0 1rem
 
                 .item-button
                     margin: 0
@@ -528,26 +727,37 @@
 
         .viewport-wrapper
             grid-area: viewport
+            display: flex
+            flex-direction: column
+            align-items: center
             padding: 1rem
+
+            iframe.viewport
+                width: 100%
+                min-height: 20rem
+                background: white
+                border: 0
+                box-shadow: var(--shadow-elevation-low)
 
         .inspector
             grid-area: inspector
+            height: 100%
             background: var(--color-background)
             box-shadow: var(--shadow-elevation-low)
             color: var(--color-heading)
+            overflow-y: auto
 
             .input-group
-                padding: 1.5rem 1rem
+                padding: 1rem
                 display: flex
                 flex-direction: column
+                gap: 1rem
                 border-bottom: 1px solid var(--color-border)
-
-                &.slim
-                    padding: 1rem
 
                 &.horizontal
                     flex-direction: row
                     align-items: center
+                    gap: 0
 
                 .title
                     font-size: .8rem
@@ -555,10 +765,128 @@
                     letter-spacing: .05rem
                     text-transform: uppercase
                     color: var(--color-text)
+                    user-select: none
 
                 .spacer
                     flex: 1
 
                 > button.error
                     color: var(--color-error)
+
+                .default-text-input
+                    height: 2.5rem
+
+                .default-select
+                    height: 2.5rem
+
+                .default-text-area
+                    --base-height: 7.5rem
+
+
+
+                .align-matrix
+                    height: 6rem
+                    width: 6rem
+                    display: grid
+                    grid-template-columns: 1fr 1fr 1fr
+                    grid-template-rows: 1fr 1fr 1fr
+                    border-radius: var(--radius-m)
+                    background: var(--color-background-soft)
+                    anti-aliasing: none
+
+                    &.vertical > button
+                        .icon
+                            flex-direction: column
+
+                        &.v-top .icon
+                            align-items: flex-start
+
+                        &.v-center .icon
+                            align-items: center
+
+                        &.v-bottom .icon
+                            align-items: flex-end
+
+                        &:hover .icon,
+                        &.active .icon
+                            &::before,
+                            .indicator,
+                            &::after
+                                display: block
+                                width: var(--size)
+                                height: 2px
+
+                    &.horizontal > button
+                        .icon
+                            flex-direction: row
+
+                        &.h-left .icon
+                            align-items: flex-start
+
+                        &.h-center .icon
+                            align-items: center
+
+                        &.h-right .icon
+                            align-items: flex-end
+
+                        &:hover .icon,
+                        &.active .icon
+                            &::before,
+                            .indicator,
+                            &::after
+                                display: block
+                                width: 2px
+                                height: var(--size)
+
+                    > button
+                        position: relative
+                        display: flex
+                        align-items: center
+                        justify-content: center
+                        border: 0
+                        padding: 0
+                        background: transparent
+                        border-radius: var(--radius-m)
+                        cursor: pointer
+                        color: var(--color-border)
+
+                        &:hover
+                            color: var(--color-text)
+
+                        &.active
+                            color: var(--color-heading)
+
+                        .icon
+                            display: flex
+                            align-items: center
+                            justify-content: center
+                            gap: 3px
+
+
+
+                            &::before
+                                content: ""
+                                display: none
+                                width: 2px
+                                height: 2px
+                                border-radius: 4px
+                                background: currentColor
+                                --size: 8px
+
+                            .indicator
+                                height: 4px
+                                width: 4px
+                                background: currentColor
+                                border-radius: 4px
+                                --size: 16px
+
+                            &::after
+                                content: ""
+                                display: none
+                                width: 2px
+                                height: 2px
+                                border-radius: 4px
+                                background: currentColor
+                                --size: 12px
+
 </style>

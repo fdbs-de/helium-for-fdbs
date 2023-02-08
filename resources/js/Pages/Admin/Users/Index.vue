@@ -3,7 +3,7 @@
 
     <AdminLayout title="Nutzer verwalten" :loading="filter.processing">
         <div class="flex v-center gap-1">
-            <Actions v-show="selection.length >= 1" :selection="selection" @deselect="deselectAll()"/>
+            <Actions v-show="selection.length >= 1" :selection="selection" @deselect="deselectAll()" @delete="openDeletePopup()"/>
             <mui-input v-show="selection.length <= 0" type="search" class="search-input" placeholder="Suchen" v-model="filter.name" @input="getDataThrottled" @clear="getDataThrottled"/>
 
             <div class="spacer"></div>
@@ -55,6 +55,18 @@
 
 
 
+    <Popup ref="deletePopup" title="Benutzer löschen?">
+        <form class="confirm-popup-wrapper" @submit.prevent="deleteItems">
+            <p>Möchten Sie wirklich <b>{{selection.length}} Benutzer</b> entgültig löschen?</p>
+            <div class="confirm-popup-footer">
+                <mui-button type="button" variant="contained" label="Abbrechen" @click="$refs.deletePopup.close()" />
+                <mui-button type="submit" variant="filled" color="error" label="Entgültig löschen" />
+            </div>
+        </form>
+    </Popup>
+
+
+
     <Popup title="Newsletter Emails" ref="newsletterPopup">
         <div class="flex vertical gap-1 padding-1">
             <div class="flex gap-1 v-center">
@@ -73,20 +85,20 @@
         
         
         
-        <Popup title="Einstellungen" ref="settingsPopup">
-            <div class="flex vertical gap-1 padding-1">
-                <h5 class="margin-0">Globale Benutzer Verwaltung</h5>
-                
-                <fieldset class="flex vertical padding-inline-0">
-                    <mui-toggle type="switch" v-model="settingsForm.fixProfiles" label="Profile migrieren" v-tooltip="'Diese Option migriert die alten Benutzerprofile zu den neuen user-settings'"/>
-                    <mui-toggle type="switch" v-model="settingsForm.updateNames" label="Anzeigenamen aktualisieren" v-tooltip="'Diese Option synkronisiert die Anzeigenamen mit den Daten der Benutzerprofile'"/>
-                </fieldset>
-                
-                <div class="flex">
-                    <div class="spacer"></div>
-                    <mui-button type="button" label="Einstellungen speichern" @click="saveSettings()"/>
-                </div>
+    <Popup title="Einstellungen" ref="settingsPopup">
+        <div class="flex vertical gap-1 padding-1">
+            <h5 class="margin-0">Globale Benutzer Verwaltung</h5>
+            
+            <fieldset class="flex vertical padding-inline-0">
+                <mui-toggle type="switch" v-model="settingsForm.fixProfiles" label="Profile migrieren" v-tooltip="'Diese Option migriert die alten Benutzerprofile zu den neuen user-settings'"/>
+                <mui-toggle type="switch" v-model="settingsForm.updateNames" label="Anzeigenamen aktualisieren" v-tooltip="'Diese Option synkronisiert die Anzeigenamen mit den Daten der Benutzerprofile'"/>
+            </fieldset>
+            
+            <div class="flex">
+                <div class="spacer"></div>
+                <mui-button type="button" label="Einstellungen speichern" @click="saveSettings()"/>
             </div>
+        </div>
     </Popup>
 </template>
 
@@ -188,6 +200,27 @@
 
 
 
+    // START: Delete
+    const deletePopup = ref(null)
+
+    const openDeletePopup = (item = null) => {
+        if (item) setSelection(item)
+        deletePopup.value.open()
+    }
+    
+    const deleteItems = () => {
+        useForm({ids: selection.value}).delete(route('admin.users.delete'), {
+            onSuccess: () => {
+                deletePopup.value.close()
+                deselectAll()
+                getData()
+            },
+        })
+    }
+    // END: Delete
+
+
+
     // START: Newsletter
     const newsletterPopup = ref(null)
 
@@ -206,7 +239,6 @@
         {
             let response = await axios.get(route('admin.newsletter.search'), {params: {newsletter: newsletterForm.newsletter}})
             newsletterForm.users = response.data
-            console.log(response.data)
         }
         catch (error)
         {
