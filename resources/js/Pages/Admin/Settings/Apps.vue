@@ -8,8 +8,26 @@
         </div>
 
         <div class="grid">
+            <Card cover image="/images/app/applications/app_cover_pages.png" name="Pages" color="var(--color-app-pages-on-light)">
+                <span>Folgt</span>
+                <mui-button class="w-100" label="Aktivieren" size="large" v-if="form.apps.blog === false" @click="updateSettings('blog', true)"/>
+                <mui-button class="w-100" label="Deaktivieren" size="large" variant="contained" color="error" v-if="form.apps.blog === true" @click="updateSettings('blog', false)"/>
+            </Card>
+
             <Card cover image="/images/app/applications/app_cover_blog.png" name="Blog" color="var(--color-app-blog-on-light)">
                 <span>Die Blog-App erlaubt es, Blog-Beiträge auf der Website zu veröffentlichen.</span>
+                <mui-button class="w-100" label="Aktivieren" size="large" v-if="form.apps.blog === false" @click="updateSettings('blog', true)"/>
+                <mui-button class="w-100" label="Deaktivieren" size="large" variant="contained" color="error" v-if="form.apps.blog === true" @click="updateSettings('blog', false)"/>
+            </Card>
+
+            <Card cover image="/images/app/applications/app_cover_forms.png" name="Forms" color="var(--color-app-forms-on-light)">
+                <span>Folgt</span>
+                <mui-button class="w-100" label="Aktivieren" size="large" v-if="form.apps.blog === false" @click="updateSettings('blog', true)"/>
+                <mui-button class="w-100" label="Deaktivieren" size="large" variant="contained" color="error" v-if="form.apps.blog === true" @click="updateSettings('blog', false)"/>
+            </Card>
+
+            <Card cover image="/images/app/applications/app_cover_ecommerce.png" name="Ecommerce" color="var(--color-app-ecommerce-on-light)">
+                <span>Folgt</span>
                 <mui-button class="w-100" label="Aktivieren" size="large" v-if="form.apps.blog === false" @click="updateSettings('blog', true)"/>
                 <mui-button class="w-100" label="Deaktivieren" size="large" variant="contained" color="error" v-if="form.apps.blog === true" @click="updateSettings('blog', false)"/>
             </Card>
@@ -30,6 +48,12 @@
                 <span>Die Wiki-App erlaubt es, eine interne Wissensdatenbank einzurichten.</span>
                 <mui-button class="w-100" label="Aktivieren" size="large" v-if="form.apps.wiki === false" @click="updateSettings('wiki', true)"/>
                 <mui-button class="w-100" label="Deaktivieren" size="large" variant="contained" color="error" v-if="form.apps.wiki === true" @click="updateSettings('wiki', false)"/>
+            </Card>
+
+            <Card cover image="/images/app/applications/app_cover_marketing.png" name="Marketing" color="var(--color-app-marketing-on-light)">
+                <span>Folgt</span>
+                <mui-button class="w-100" label="Aktivieren" size="large" v-if="form.apps.blog === false" @click="updateSettings('blog', true)"/>
+                <mui-button class="w-100" label="Deaktivieren" size="large" variant="contained" color="error" v-if="form.apps.blog === true" @click="updateSettings('blog', false)"/>
             </Card>
         </div>
     </AdminLayout>

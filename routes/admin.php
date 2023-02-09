@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\Apps\Forms\FormController;
 use App\Http\Controllers\Admin\Apps\Pages\MenuController;
 use App\Http\Controllers\Admin\Apps\Pages\PageController;
 use App\Http\Controllers\Admin\NewsletterController;
@@ -159,6 +160,24 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
             Route::get('/', [MenuController::class, 'index'])
             ->middleware('can:app.pages.view.menus')
             ->name('admin.pages.menus');
+        });
+    });
+
+
+
+    Route::prefix('forms')->middleware(['can:app.forms.access.admin.panel'])->group(function () {
+        Route::prefix('forms')->group(function () {
+            Route::get('/', [FormController::class, 'index'])
+            ->middleware('can:app.forms.view.forms')
+            ->name('admin.forms.overview');
+
+            Route::get('/editor/{post?}', [FormController::class, 'create'])
+            ->middleware('can:app.forms.view.forms')
+            ->name('admin.forms.forms.editor');
+
+            Route::post('/', [FormController::class, 'store'])
+            ->middleware('can:app.forms.create.forms')
+            ->name('admin.forms.forms.store');
         });
     });
 

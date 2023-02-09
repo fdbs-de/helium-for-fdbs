@@ -12,8 +12,6 @@ class Permissions
     public const CAN_EDIT_DOCS = 'edit docs';
     public const CAN_EDIT_POSTS = 'edit posts';
 
-    // Available apps: pages, wiki, intranet, blog, jobs
-
     /**
      * System permissions:
      */
@@ -64,6 +62,22 @@ class Permissions
     public const APP_PAGES_CREATE_MENUS = 'app.pages.create.menus';
     public const APP_PAGES_EDIT_MENUS = 'app.pages.edit.menus';
     public const APP_PAGES_DELETE_MENUS = 'app.pages.delete.menus';
+
+
+
+    /**
+     * App specific permissions (Forms):
+     */
+    public const APP_FORMS_ACCESS_FRONTEND = 'app.forms.access.frontend';
+    public const APP_FORMS_ACCESS_ADMIN_PANEL = 'app.forms.access.admin.panel';
+
+    public const APP_FORMS_VIEW_FORMS = 'app.forms.view.forms';
+    public const APP_FORMS_CREATE_FORMS = 'app.forms.create.forms';
+    public const APP_FORMS_EDIT_FORMS = 'app.forms.edit.forms';
+    public const APP_FORMS_DELETE_FORMS = 'app.forms.delete.forms';
+
+    public const APP_FORMS_VIEW_SUBMISSIONS = 'app.forms.view.submissions';
+    public const APP_FORMS_DELETE_SUBMISSIONS = 'app.forms.delete.submissions';
 
 
 
@@ -189,7 +203,7 @@ class Permissions
             'title' => 'Pages',
             'permissions' => [
                 [
-                    ['name' => self::APP_PAGES_ACCESS_FRONTEND, 'label' => 'Zutritt zum Pages', 'description' => 'Der Benutzer hat Zugriff auf das Pages Frontend.'],
+                    ['name' => self::APP_PAGES_ACCESS_FRONTEND, 'label' => 'Zutritt zu Pages', 'description' => 'Der Benutzer hat Zugriff auf das Pages Frontend.'],
                     ['name' => self::APP_PAGES_ACCESS_ADMIN_PANEL, 'label' => 'Zutritt zum Pages Admin Bereich', 'description' => 'Der Benutzer hat Zugriff auf den Pages Admin Bereich.'],
                 ],
                 [
@@ -203,6 +217,26 @@ class Permissions
                     ['name' => self::APP_PAGES_CREATE_MENUS, 'label' => 'Menüs erstellen', 'description' => 'Der Benutzer kann Menüs erstellen.'],
                     ['name' => self::APP_PAGES_EDIT_MENUS, 'label' => 'Menüs bearbeiten', 'description' => 'Der Benutzer kann Menüs bearbeiten.'],
                     ['name' => self::APP_PAGES_DELETE_MENUS, 'label' => 'Menüs löschen', 'description' => 'Der Benutzer kann Menüs löschen.'],
+                ],
+            ],
+        ],
+
+        'app.forms' => [
+            'title' => 'Forms',
+            'permissions' => [
+                [
+                    ['name' => self::APP_FORMS_ACCESS_FRONTEND, 'label' => 'Zutritt zu Forms', 'description' => 'Der Benutzer hat Zugriff auf das Forms Frontend.'],
+                    ['name' => self::APP_FORMS_ACCESS_ADMIN_PANEL, 'label' => 'Zutritt zum Forms Admin Bereich', 'description' => 'Der Benutzer hat Zugriff auf den Forms Admin Bereich.'],
+                ],
+                [
+                    ['name' => self::APP_FORMS_VIEW_FORMS, 'label' => 'Formulare anzeigen', 'description' => 'Der Benutzer kann Formulare ansehen.'],
+                    ['name' => self::APP_FORMS_CREATE_FORMS, 'label' => 'Formulare erstellen', 'description' => 'Der Benutzer kann Formulare erstellen.'],
+                    ['name' => self::APP_FORMS_EDIT_FORMS, 'label' => 'Formulare bearbeiten', 'description' => 'Der Benutzer kann Formulare bearbeiten.'],
+                    ['name' => self::APP_FORMS_DELETE_FORMS, 'label' => 'Formulare löschen', 'description' => 'Der Benutzer kann Formulare löschen.'],
+                ],
+                [
+                    ['name' => self::APP_FORMS_VIEW_SUBMISSIONS, 'label' => 'Einsendungen anzeigen', 'description' => 'Der Benutzer kann Einsendungen ansehen.'],
+                    ['name' => self::APP_FORMS_DELETE_SUBMISSIONS, 'label' => 'Einsendungen löschen', 'description' => 'Der Benutzer kann Einsendungen löschen.'],
                 ],
             ],
         ],
