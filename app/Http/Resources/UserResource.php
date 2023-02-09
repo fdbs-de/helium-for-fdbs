@@ -13,6 +13,22 @@ class UserResource extends JsonResource
 
 
 
+    private function getProfiles($model)
+    {
+        $profiles = [];
+
+        // $model->profiles is a json object
+        // $model->profiles['profileName'] is either an object or null
+        foreach ($model->profiles as $profileName => $profile)
+        {
+            if ($profile) $profiles[] = $profileName;
+        }
+
+        return $profiles;
+    }
+
+
+
     private function getVisual($model)
     {
         $visual = [
@@ -73,9 +89,11 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            // 'email_verified_at' => $this->email_verified_at,
+            'email_verified_at' => $this->email_verified_at,
+            'is_enabled' => $this->is_enabled,
             'image' => '/images/app/defaults/user.png',
             'roles' => $this->roles,
+            'profiles' => $this->getProfiles($this),
             'permissions' => $this->getPermissions($this),
             'displayVisual' => $this->getVisual($this),
             'displayMetadata' => $this->getMetadata($this),
