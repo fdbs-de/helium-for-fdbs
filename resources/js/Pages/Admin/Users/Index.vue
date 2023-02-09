@@ -8,39 +8,73 @@
 
             <div class="spacer"></div>
 
-            <!-- <div class="flex v-center">
-                <IconButton type="button" icon="search" v-tooltip="'Suchen'"/>
-            </div> -->
-
-            <mui-input type="number" class="search-input w-4" v-model="pagination.page" :min="1" @input="getDataThrottled" />
-            <select class="search-input w-4" v-model="pagination.perPage" @change="getDataThrottled">
+            <mui-input type="number" class="search-input w-5" v-model="pagination.page" :min="1" @input="getDataThrottled" />
+            <select class="search-input w-5" v-model="pagination.perPage" @change="getDataThrottled">
                 <option :value="20">20</option>
                 <option :value="50">50</option>
                 <option :value="100">100</option>
                 <option :value="1000000">alle</option>
             </select>
-
-            <Switcher v-model="layout" :options="[
-                { value: 'list', icon: 'view_list', tooltip: 'Listenansicht' },
-                { value: 'grid', icon: 'grid_view', tooltip: 'Kachelansicht' },
-            ]"/>
         </div>
 
-        <ListItemLayout class="w-100 margin-block-2" :layout="layout" v-show="items.length >= 1">
-            <ImageCard
-                v-for="item in items"
-                :key="item.id"
-                :item="item"
-                :layout="layout"
-                :enable-preview="isPreview"
-                :selection="selection"
-                @contextmenu.prevent.exact="setSelection(item)"
-                @contextmenu.prevent.ctrl="toggleSelection(item)"
-                @click.ctrl="toggleSelection(item)"
-                @click.exact="openItem(item)"
-                @open="openItem(item)"
-                />
-        </ListItemLayout>
+        <div class="table-wrapper" v-show="items.length > 0">
+            <table class="list">
+                <thead>
+                    <tr>
+                        <th class="w-3">
+                            <mui-toggle class="checkbox" v-tooltip="'Alle Auswählen / Abwählen'" @update:modelValue="$event ? selectAll() : deselectAll()"/>
+                        </th>
+                        <th>Anzeigename</th>
+                        <th>Email</th>
+                        <th>Rollen</th>
+                        <th>Profile</th>
+                        <th>Status</th>
+                        <th>Aktionen</th>
+                    </tr>
+                </thead>
+    
+                <tbody>
+                    <tr
+                        v-for="item in items"
+                        :key="item.id"
+                        :class="{ 'selected': selection.includes(item.id) }"
+                        @click.exact="toggleSelection(item)"
+                        @dblclick="openItem(item)"
+                        >
+                        <td>
+                            <mui-toggle class="checkbox" :modelValue="selection.includes(item.id)" @update:modelValue="toggleSelection(item)" @click.stop/>
+                        </td>
+                        <td v-tooltip="item.name">{{item.name}}</td>
+                        <td v-tooltip="item.email">{{item.email}}</td>
+                        <td>
+                            <div class="flex v-center wrap" style="gap: .5rem; padding-block: .5rem">
+                                <Tag v-for="role in item.roles" :label="role.name" shape="pill"/>
+                                <Tag v-if="item.roles.length <= 0" label="Keine Rolle" variant="contained" shape="pill" color="var(--color-text)"/>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="flex v-center wrap" style="gap: .5rem; padding-block: .5rem">
+                                <Tag v-for="profile in item.profiles" :key="profile" :label="capitalizeWords(profile)" shape="pill" color="var(--color-text)"/>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="flex gap-1 v-center">
+                                <span class="property icon green" v-tooltip="'Email Bestätigt'" v-if="item.email_verified_at">mail</span>
+                                <span class="property icon" v-tooltip="'Emailbestätigung ausstehend'" v-else>mail</span>
+                                <span class="property icon green" v-tooltip="'Nutzer freigegeben'" v-if="item.is_enabled">check_circle</span>
+                                <span class="property icon" v-tooltip="'Nutzerfreigabe ausstehend'" v-else>check_circle</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="action-wrapper">
+                                <IconButton type="button" icon="delete" style="color: var(--color-error);" v-tooltip="'Löschen'" @click.stop="openDeletePopup(item)"/>
+                                <IconButton is="a" icon="edit" v-tooltip="'Bearbeiten'" :href="route('admin.users.editor', item.id)" @click.stop/>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <small v-show="items.length <= 0" class="w-100 flex h-center padding-inline-2 padding-block-5">Keine User angelegt</small>
 
         <div class="flex v-center gap-1 border-top padding-top-1">
@@ -106,6 +140,7 @@
     import { Head, Link, useForm, usePage } from '@inertiajs/inertia-vue3'
     import { Inertia } from '@inertiajs/inertia'
     import { ref, watch, computed } from 'vue'
+    import { capitalizeWords } from '@/Utils/String'
     import LocalSetting from '@/Classes/Managers/LocalSetting'
 
     import AdminLayout from '@/Layouts/Admin.vue'
@@ -115,6 +150,7 @@
     import IconButton from '@/Components/Form/IconButton.vue'
     import ImageCard from '@/Components/Form/Card/ImageCard.vue'
     import Popup from '@/Components/Form/Popup.vue'
+    import Tag from '@/Components/Form/Tag.vue'
 
 
 
@@ -209,7 +245,7 @@
     }
 
     const selectAll = () => {
-        selection.value = itemObjects.map(i => i.id)
+        selection.value = items.value.map(i => i.id)
     }
 
     const deselectAll = () => {
@@ -304,4 +340,73 @@
         --mui-background: var(--color-background)
         border-radius: var(--radius-m) !important
         box-shadow: var(--shadow-elevation-low)
+
+    .table-wrapper
+        background: var(--color-background)
+        border-radius: var(--radius-m)
+        box-shadow: var(--shadow-elevation-low)
+        padding-block: 1rem
+        margin: 2rem 0
+
+    table.list
+        padding: 0
+        width: 100%
+        border-collapse: collapse
+        border-spacing: 0
+
+        tbody tr
+            cursor: pointer
+
+            &:hover,
+            &.selected
+                background: var(--color-background-soft)
+
+        thead,
+        tbody
+            border-bottom: 1px solid var(--color-border)
+
+        thead tr th,
+        tbody tr td
+            padding: 0
+            height: 3rem
+            text-align: left
+            overflow: hidden
+            text-overflow: ellipsis
+            white-space: nowrap
+            padding-inline: .5rem
+            max-width: 300px
+
+            &:last-child
+                text-align: right
+                padding-right: 1rem
+
+            .pfp
+                width: 2rem
+                height: 2rem
+                border-radius: 50%
+
+            .checkbox
+                width: 100%
+                justify-content: center
+                --mui-background: var(--color-background)
+
+            .property
+                user-select: none
+
+                &.icon
+                    font-size: 1.25rem
+                    font-family: var(--font-icon)
+
+                &.green
+                    color: var(--color-success)
+
+            .action-wrapper
+                display: inline-flex
+                align-items: center
+                border-radius: var(--radius-m)
+                background: var(--color-background-soft)
+                
+                a,
+                button
+                    height: 2rem
 </style>

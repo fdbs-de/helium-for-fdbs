@@ -1,19 +1,45 @@
 <template>
-    <div class="wrapper" :class="'color-'+color">
+    <div
+        :class="[
+            `wrapper`,
+            `shape-${shape}`,
+            `variant-${variant}`,
+            {
+                'has-border': border,
+                'uppercase': uppercase,
+            },
+        ]"
+        :style="`color: ${color};`"
+        v-tooltip="label"
+    >
         <div class="icon" v-if="icon" aria-hidden="true">{{icon}}</div>
-        <span>
-            <slot>{{label}}</slot>
-        </span>
+        <span class="text"><slot>{{label}}</slot></span>
     </div>
 </template>
 
 <script setup>
     defineProps({
-        icon: String,
+        border: {
+            type: Boolean,
+            default: false,
+        },
+        uppercase: {
+            type: Boolean,
+            default: false,
+        },
         color: {
             type: String,
-            default: 'red',
+            default: 'var(--color-heading)',
         },
+        shape: {
+            type: String,
+            default: 'square',
+        },
+        variant: {
+            type: String,
+            default: 'filled',
+        },
+        icon: String,
         label: String,
     })
 </script>
@@ -21,35 +47,72 @@
 <style lang="sass" scoped>
     .wrapper
         font-size: .8rem
-        padding: .05rem .4rem
-        display: flex
+        padding: .05rem .5rem
+        display: inline-flex
         align-items: center
         gap: .4rem
-        border-radius: .2rem
         user-select: none
-        border: 1px solid currentColor
+        position: relative
+        user-select: none
 
-        &.color-red
-            color: var(--color-red)
+        &::after
+            content: ''
+            position: absolute
+            top: 0
+            left: 0
+            width: 100%
+            height: 100%
+            border-radius: inherit
+            background-color: currentColor
+            opacity: 0
 
-        &.color-green
-            color: var(--color-green)
+        &.has-border
+            border: 1px solid currentColor
 
-        &.color-yellow
-            color: var(--color-yellow)
+        &.uppercase
+            .text
+                text-transform: uppercase
+                font-size: .9em
+                font-weight: 600
 
-        &.color-blue
-            color: var(--color-blue)
 
-        &.color-gray
-            color: var(--color-heading)
 
-        &.color-white
-            color: white
+        &.variant-filled
+            background-color: currentColor
+
+            .text
+                color: var(--color-background)
+
+        &.variant-contained
+            &::after
+                opacity: .1
+
+            .text
+                color: currentColor
+                
+        &.variant-text
+            .text
+                color: currentColor
+
+
+
+        &.shape-square
+            border-radius: .2rem
+
+        &.shape-pill
+            border-radius: 1rem
+            padding-inline: .75rem
+
+
 
         .icon
             font-family: var(--font-icon)
-            font-size: 1.2em
+            font-size: 1.25em
             line-height: 1
-            user-select: none
+            position: relative
+            z-index: 1
+
+        .text
+            position: relative
+            z-index: 1
 </style>
