@@ -18,44 +18,74 @@
                     </template>
                 </VDropdown>
             </div>
-
-            <Switcher v-model="layout" :options="[
-                { value: 'list', icon: 'view_list', tooltip: 'Listenansicht' },
-                { value: 'grid', icon: 'grid_view', tooltip: 'Kachelansicht' },
-            ]"/>
         </div>
 
-        <ListItemLayout class="w-100 margin-block-2" :layout="layout" v-show="items.length >= 1">
-            <ImageCard
-                v-for="item in items"
-                :key="item.id"
-                :item="item"
-                :layout="layout"
-                :enable-preview="isPreview"
-                :selection="selection"
-                @contextmenu.prevent.exact="setSelection(item)"
-                @contextmenu.prevent.ctrl="toggleSelection(item)"
-                @click.ctrl="toggleSelection(item)"
-                @click.exact="openItem(item)"
-                @open="openItem(item)"
-                @duplicate="duplicateItem(item)"
-                @delete="openDeletePopup(item)"
-                />
-        </ListItemLayout>
-        <small v-show="items.length <= 0" class="w-100 flex h-center padding-inline-2 padding-block-5">Keine Kategorien angelegt</small>
+        <div class="table-wrapper" v-show="items.length > 0">
+            <table class="list">
+                <thead>
+                    <tr>
+                        <th class="w-3">
+                            <mui-toggle class="checkbox" v-tooltip="'Alle Auswählen / Abwählen'" @update:modelValue="$event ? selectAll() : deselectAll()"/>
+                        </th>
+                        <th>Name</th>
+                        <th>Seiten</th>
+                        <th>Felder</th>
+                        <th>Status</th>
+                        <th>Aktionen</th>
+                    </tr>
+                </thead>
+    
+                <tbody>
+                    <tr
+                        v-for="item in items"
+                        :key="item.id"
+                        :class="{ 'selected': selection.includes(item.id) }"
+                        @click.exact="toggleSelection(item)"
+                        @dblclick="openItem(item)"
+                        >
+                        <td>
+                            <mui-toggle class="checkbox" :modelValue="selection.includes(item.id)" @update:modelValue="toggleSelection(item)" @click.stop/>
+                        </td>
+                        <td v-tooltip="item.name">{{item.name}}</td>
+                        <td>{{item.pages.length}}</td>
+                        <td>{{item.input_count}}</td>
+                        <td>
+                            <Tag :label="capitalizeWords(item.status)" variant="contained" shape="pill"/>
+                        </td>
+                        <td>
+                            <div class="action-wrapper">
+                                <IconButton type="button" icon="delete" style="color: var(--color-error);" v-tooltip="'Löschen'" @click.stop="openDeletePopup(item)"/>
+                                <IconButton is="a" icon="edit" v-tooltip="'Bearbeiten'" :href="route('admin.forms.forms.editor', item.id)" @click.stop/>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <small v-show="items.length <= 0" class="w-100 flex h-center padding-inline-2 padding-block-5">Keine Formulare angelegt</small>
 
         <div class="flex v-center gap-1 border-top padding-top-1">
-            <small><b>{{items.length}}</b> Kategorien</small>
+            <small><b>{{items.length}}</b> Formulare</small>
         
             <div class="spacer"></div>
         </div>
 
         <template #fab>
-            <button class="fab-button" aria-hidden="true" title="Neue Kategorie" @click="openItem()">add</button>
+            <button class="fab-button" aria-hidden="true" title="Neues Formular" @click="$refs.newItemPopup.open()">add</button>
         </template>
     </AdminLayout>
 
 
+
+    <Popup ref="newItemPopup" title="Neues Formular erstellen">
+        <form class="confirm-popup-wrapper" @submit.prevent="storeNewItem">
+            <mui-input v-model="newItemForm.name" label="Name" />
+            <div class="confirm-popup-footer">
+                <mui-button type="button" variant="contained" label="Abbrechen" @click="$refs.newItemPopup.close()" />
+                <mui-button type="submit" variant="filled" label="Neu Erstellen" />
+            </div>
+        </form>
+    </Popup>
 
     <Popup ref="deletePopup" title="Elemente löschen?">
         <form class="confirm-popup-wrapper" @submit.prevent="deleteItems">
@@ -72,22 +102,18 @@
     import { Head, useForm, usePage } from '@inertiajs/inertia-vue3'
     import { ref, computed } from 'vue'
     import { Inertia } from '@inertiajs/inertia'
-    import PostCategoryInterface from '@/Interfaces/PostCategory.js'
+    import { capitalizeWords } from '@/Utils/String'
 
     import AdminLayout from '@/Layouts/Admin.vue'
-    import ListItemLayout from '@/Components/Layout/ListItemLayout.vue'
-    import ImageCard from '@/Components/Form/Card/ImageCard.vue'
     import IconButton from '@/Components/Form/IconButton.vue'
     import Switcher from '@/Components/Form/Switcher.vue'
     import Actions from '@/Components/Form/Actions.vue'
     import Popup from '@/Components/Form/Popup.vue'
+    import Tag from '@/Components/Form/Tag.vue'
 
     const props = defineProps({
         items: Array,
     })
-
-    // const items_ = computed(() => props.categories)
-    // const items = computed(() => items_.value.map(item => new PostCategoryInterface(item)))
 
 
 
@@ -117,7 +143,7 @@
     }
 
     const selectAll = () => {
-        selection.value = itemObjects.map(i => i.id)
+        selection.value = props.items.map(i => i.id)
     }
 
     const deselectAll = () => {
@@ -128,10 +154,29 @@
 
 
     // START: Editor
-    const openItem = (item = null) => {
-        // Inertia.visit(route('admin.'+props.app+'.categories.editor', item?.id))
+    const openItem = (item) => {
+        Inertia.visit(route('admin.forms.forms.editor', item.id))
     }
     // END: Editor
+
+
+
+    // START: New Item
+    const newItemPopup = ref(null)
+
+    const newItemForm = useForm({
+        name: '',
+    })
+    
+    const storeNewItem = () => {
+        newItemForm.post(route('admin.forms.forms.store'), {
+            onSuccess: () => {
+                newItemPopup.value.close()
+                newItemForm.reset()
+            },
+        })
+    }
+    // END: New Item
 
 
 
@@ -144,12 +189,12 @@
     }
     
     const deleteItems = () => {
-        // useForm({ids: selection.value}).delete(route('admin.'+props.app+'.categories.delete'), {
-        //     onSuccess: () => {
-        //         deletePopup.value.close()
-        //         deselectAll()
-        //     },
-        // })
+        useForm({ids: selection.value}).delete(route('admin.forms.forms.delete'), {
+            onSuccess: () => {
+                deletePopup.value.close()
+                deselectAll()
+            },
+        })
     }
     // END: Delete
 
@@ -174,4 +219,72 @@
 </script>
 
 <style lang="sass" scoped>
+    .table-wrapper
+        background: var(--color-background)
+        border-radius: var(--radius-m)
+        box-shadow: var(--shadow-elevation-low)
+        padding-block: 1rem
+        margin: 2rem 0
+
+    table.list
+        padding: 0
+        width: 100%
+        border-collapse: collapse
+        border-spacing: 0
+
+        tbody tr
+            cursor: pointer
+
+            &:hover,
+            &.selected
+                background: var(--color-background-soft)
+
+        thead,
+        tbody
+            border-bottom: 1px solid var(--color-border)
+
+        thead tr th,
+        tbody tr td
+            padding: 0
+            height: 3rem
+            text-align: left
+            overflow: hidden
+            text-overflow: ellipsis
+            white-space: nowrap
+            padding-inline: .5rem
+            max-width: 300px
+
+            &:last-child
+                text-align: right
+                padding-right: 1rem
+
+            .pfp
+                width: 2rem
+                height: 2rem
+                border-radius: 50%
+
+            .checkbox
+                width: 100%
+                justify-content: center
+                --mui-background: var(--color-background)
+
+            .property
+                user-select: none
+
+                &.icon
+                    font-size: 1.25rem
+                    font-family: var(--font-icon)
+
+                &.green
+                    color: var(--color-success)
+
+            .action-wrapper
+                display: inline-flex
+                align-items: center
+                border-radius: var(--radius-m)
+                background: var(--color-background-soft)
+                
+                a,
+                button
+                    height: 2rem
 </style>

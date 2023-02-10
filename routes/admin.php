@@ -169,15 +169,19 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
         Route::prefix('forms')->group(function () {
             Route::get('/', [FormController::class, 'index'])
             ->middleware('can:app.forms.view.forms')
-            ->name('admin.forms.overview');
+            ->name('admin.forms.forms.overview');
 
-            Route::get('/editor/{post?}', [FormController::class, 'create'])
+            Route::get('/editor/{form?}', [FormController::class, 'editor'])
             ->middleware('can:app.forms.view.forms')
             ->name('admin.forms.forms.editor');
 
             Route::post('/', [FormController::class, 'store'])
             ->middleware('can:app.forms.create.forms')
             ->name('admin.forms.forms.store');
+
+            Route::delete('/', [FormController::class, 'delete'])
+            ->middleware('can:app.forms.delete.forms')
+            ->name('admin.forms.forms.delete');
         });
     });
 
