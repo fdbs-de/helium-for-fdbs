@@ -1,5 +1,6 @@
 import Tab from '@/Classes/Editor/Tab'
 import FormPage from '@/Classes/Apps/Forms/FormPage'
+import FormAction from '@/Classes/Apps/Forms/FormAction'
 
 
 
@@ -22,6 +23,41 @@ export default class FormTab extends Tab
         this.actions = []
         this.pages = []
 
+        this.selection = {
+            page: null,
+            input: null,
+            action: null,
+        }
+
+        return this
+    }
+
+
+
+    selectAction(action)
+    {
+        this.selection.action = action
+        this.selection.page = null
+        this.selection.input = null
+
+        return this
+    }
+
+    selectPage(page)
+    {
+        this.selection.action = null
+        this.selection.page = page
+        this.selection.input = null
+
+        return this
+    }
+
+    selectInput(input)
+    {
+        this.selection.action = null
+        this.selection.page = null
+        this.selection.input = input
+
         return this
     }
 
@@ -34,11 +70,43 @@ export default class FormTab extends Tab
         return this
     }
 
+    removePage(page)
+    {
+        this.pages = this.pages.filter(p => p.localId != page.localId)
+
+        if (this.selection.page == page) this.selection.page = null
+
+        return this
+    }
+
+
+
+    removeInput(input)
+    {
+        for (let page of this.pages)
+        {
+            page.removeInput(input)
+        }
+
+        if (this.selection.input == input) this.selection.input = null
+
+        return this
+    }
+
 
 
     addAction(action)
     {
         this.actions.push(action)
+
+        return this
+    }
+
+    removeAction(action)
+    {
+        this.actions = this.actions.filter(a => a.localId != action.localId)
+
+        if (this.selection.action == action) this.selection.action = null
 
         return this
     }
@@ -61,12 +129,14 @@ export default class FormTab extends Tab
         this.title = data.name
         this.status = data.status
 
-        for (let page of data.pages) {
+        for (let page of data.pages)
+        {
             this.addPage(new FormPage().hydrate(page))
         }
 
-        for (let action of data.actions) {
-            // this.addAction(action)
+        for (let action of data.actions)
+        {
+            this.addAction(new FormAction().hydrate(action))
         }
 
         return this

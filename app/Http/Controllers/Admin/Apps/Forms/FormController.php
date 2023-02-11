@@ -43,6 +43,66 @@ class FormController extends Controller
 
 
 
+    public function update(Request $request, Form $form)
+    {
+        $form->update([
+            'name' => $request->title,
+            'status' => $request->status,
+        ]);
+
+
+
+        foreach ($request->pages as $index => $page)
+        {
+            $formPage = $form->pages()->updateOrCreate([
+                'id' => $page['id'],
+            ], [
+                'title' => $page['title'],
+                'order' => $index,
+            ]);
+
+
+
+            foreach ($page['inputs'] as $input)
+            {
+                $formPage->inputs()->updateOrCreate([
+                    'id' => $input['id'],
+                ], [
+                    'type' => $input['type'],
+                    'key' => $input['key'],
+                    'options' => $input['options'],
+                    'validation' => $input['validation'],
+                ]);
+            }
+
+            // Remove deleted inputs (aka. inputs that are not in the request anymore)
+            $formPage->inputs()->whereNotIn('id', collect($page['inputs'])->pluck('id')->toArray())->delete();
+        }
+
+        // Remove deleted pages (aka. pages that are not in the request anymore)
+        $form->pages()->whereNotIn('id', collect($request->pages)->pluck('id')->toArray())->delete();
+
+
+
+        foreach ($request->actions as $index => $action)
+        {
+            $form->actions()->updateOrCreate([
+                'id' => $action['id'],
+            ], [
+                'type' => $action['type'],
+                'options' => $action['options'],
+                'order' => $index,
+            ]);
+        }
+
+        // Remove deleted actions (aka. actions that are not in the request anymore)
+        $form->actions()->whereNotIn('id', collect($request->actions)->pluck('id')->toArray())->delete();
+
+        return back();
+    }
+
+
+
     public function delete(DestroyFormRequest $request)
     {
         Form::whereIn('id', $request->ids)->delete();

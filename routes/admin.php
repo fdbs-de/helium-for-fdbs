@@ -179,6 +179,10 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
             ->middleware('can:app.forms.create.forms')
             ->name('admin.forms.forms.store');
 
+            Route::put('/{form}', [FormController::class, 'update'])
+            ->middleware('can:app.forms.edit.forms')
+            ->name('admin.forms.forms.update');
+
             Route::delete('/', [FormController::class, 'delete'])
             ->middleware('can:app.forms.delete.forms')
             ->name('admin.forms.forms.delete');

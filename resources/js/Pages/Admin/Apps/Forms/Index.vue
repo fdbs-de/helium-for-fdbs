@@ -27,6 +27,7 @@
                         <th class="w-3">
                             <mui-toggle class="checkbox" v-tooltip="'Alle Auswählen / Abwählen'" @update:modelValue="$event ? selectAll() : deselectAll()"/>
                         </th>
+                        <th>ID</th>
                         <th>Name</th>
                         <th>Seiten</th>
                         <th>Felder</th>
@@ -46,6 +47,7 @@
                         <td>
                             <mui-toggle class="checkbox" :modelValue="selection.includes(item.id)" @update:modelValue="toggleSelection(item)" @click.stop/>
                         </td>
+                        <td>{{item.id}}</td>
                         <td v-tooltip="item.name">{{item.name}}</td>
                         <td>{{item.pages.length}}</td>
                         <td>{{item.input_count}}</td>

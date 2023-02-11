@@ -18,7 +18,7 @@ export default class FormPage extends EventListener
         
         // Page data
         this.id = null
-        this.title = null
+        this.title = ''
         this.inputs = []
 
         return this
@@ -38,6 +38,13 @@ export default class FormPage extends EventListener
     addInput(input)
     {
         this.inputs.push(input)
+
+        return this
+    }
+
+    removeInput(input)
+    {
+        this.inputs = this.inputs.filter(i => i.localId != input.localId)
 
         return this
     }
