@@ -103,7 +103,7 @@ export default class FormInput extends EventListener
             placeholder: this.isType(['text', 'select',]),
             helpText: this.isType(['text', 'select',]),
             description: this.isType(['acceptance',]),
-            options: this.isType(['select', 'checkbox', 'radio',]),
+            options: this.isType(['select', 'radio',]),
             step: this.isType('text') && this.isSubtype('number'),
             
             errorMessage: true,

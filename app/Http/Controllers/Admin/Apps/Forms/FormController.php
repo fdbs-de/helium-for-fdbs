@@ -15,7 +15,7 @@ class FormController extends Controller
     public function test(Request $request)
     {
         return Inertia::render('Test', [
-            'form' => new FormResource(Form::find(5)),
+            'form' => new FormResource(Form::find(7)),
         ]);
     }
 
