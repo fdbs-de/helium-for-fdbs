@@ -1,5 +1,5 @@
 <template>
-    <component :is="is" class="icon-button">
+    <component :is="is" type="button" class="icon-button">
         <slot>{{ icon }}</slot>
     </component>
 </template>

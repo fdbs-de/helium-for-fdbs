@@ -56,7 +56,7 @@ export default class FormTab extends Tab
     {
         this.selection.action = null
         this.selection.page = null
-        this.selection.input = input
+        this.selection.input = this.selection.input == input ? null : input
 
         return this
     }

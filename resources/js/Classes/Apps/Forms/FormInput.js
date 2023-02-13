@@ -9,8 +9,11 @@ export default class FormInput extends EventListener
     {
         super()
 
-        // Valid input types
-        this.inputTypes = ['text', 'email', 'tel', 'password', 'number', 'textarea', 'select', 'checkbox', 'radio']
+        // Type register
+        this.types = {
+            input: ['text', 'select', 'checkbox', 'radio', 'acceptance'],
+            text: ['text', 'email', 'tel', 'password', 'number', 'textarea'],
+        }
 
         // Basic data
         this.localId = null
@@ -29,12 +32,18 @@ export default class FormInput extends EventListener
             max: null,
         }
         this.options = {
-            label: '',
+            type: 'text',
+            defaultValue: '',
+            label: 'New Input',
+            ariaLabel: '',
             placeholder: '',
             helpText: '',
+            description: '',
             step: 1,
             options: [],
-            ariaLabel: '',
+        }
+        this.editorMeta = {
+            expanded: false,
         }
 
         return this
@@ -55,15 +64,53 @@ export default class FormInput extends EventListener
     {
         return this.type
     }
-
+    
     set inputType(type)
     {
-        if (!this.inputTypes.includes(type))
+        if (!this.types.input.includes(type))
         {
             throw new Error(`Invalid input type: ${type}`)
         }
-
+        
         this.type = type
+    }
+
+    isType(types)
+    {
+        if (!Array.isArray(types)) types = [types]
+        
+        return types.includes(this.type)
+    }
+
+    isSubtype(types)
+    {
+        if (!Array.isArray(types)) types = [types]
+
+        return types.includes(this.options.type)
+    }
+    
+
+
+    get hasFixtures()
+    {
+        return {
+            textSubtypes: this.isType('text'),
+
+            defaultTextValue: this.isType(['text',]),
+            defaultBooleanValue: this.isType(['acceptance',]),
+            label: this.isType(['text', 'select', 'checkbox', 'radio', 'acceptance',]),
+            ariaLabel: this.isType(['text', 'select', 'checkbox', 'radio', 'acceptance',]),
+            placeholder: this.isType(['text', 'select',]),
+            helpText: this.isType(['text', 'select',]),
+            description: this.isType(['acceptance',]),
+            options: this.isType(['select', 'checkbox', 'radio',]),
+            step: this.isType('text') && this.isSubtype('number'),
+            
+            errorMessage: true,
+            required: this.isType(['text', 'select', 'checkbox', 'radio', 'acceptance',]),
+            min: this.isType('text') && this.isSubtype('number'),
+            max: this.isType('text') && this.isSubtype('number'),
+        }
     }
 
 
@@ -72,16 +119,50 @@ export default class FormInput extends EventListener
     {
         switch (this.type)
         {
-            case 'text': return 'input'
-            case 'email': return 'email'
-            case 'tel': return 'phone'
-            case 'password': return 'lock'
-            case 'number': return 'unfold_more'
-            case 'textarea': return 'notes'
+            case 'text': return 'notes'
             case 'select': return 'checklist'
             case 'checkbox': return 'check_box'
             case 'radio': return 'radio_button_checked'
+            case 'acceptance': return 'policy'
         }
+    }
+
+
+
+    addOption(label = '', value = '')
+    {
+        this.options.options.push({
+            label,
+            value,
+            selected: false,
+        })
+
+        return this
+    }
+
+    removeOption(index)
+    {
+        this.options.options.splice(index, 1)
+
+        return this
+    }
+
+    toggleDefaultOption(index)
+    {
+        this.options.options.forEach((option, i) => {
+            option.selected = (i == index) && !option.selected
+        })
+
+        return this
+    }
+
+
+
+    toggleExpanded()
+    {
+        this.editorMeta.expanded = !this.editorMeta.expanded
+
+        return this
     }
 
 

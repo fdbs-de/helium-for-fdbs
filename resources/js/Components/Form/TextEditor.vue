@@ -1,79 +1,81 @@
 <template>
-    <div class="editor-wrapper" :class="{'fullscreen': isFullscreen}" v-if="editor">
+    <div class="editor-wrapper" :class="{'fullscreen': isFullscreen, 'simplified': simplified, 'sticky': sticky}" v-if="editor">
         <div class="editor-controls">
             <div class="toolbar">
                 <div class="flex w-100 h-2 v-center color-heading" v-if="label" style="user-select: none">
                     <small><b>{{ label }}</b></small>
                 </div>
-                <VDropdown placement="bottom-start">
-                    <button type="button" class="toolbar-button drop">Einfügen</button>
-                    <template #popper>
-                        <div class="dropdown-list">
-                            <button type="button" class="dropdown-button" @click="openImageDialog()" v-close-popper>
-                                <div class="icon">image</div>
-                                <div class="label">Bild einfügen</div>
-                            </button>
-                            <button type="button" class="dropdown-button" @click="editor.chain().focus().insertTable({ rows: 3, cols: 3}).run()" v-close-popper>
-                                <div class="icon">table</div>
-                                <div class="label">Tabelle einfügen</div>
-                            </button>
-                            <button type="button" class="dropdown-button" @click="openKeyfactDialog()" v-close-popper>
-                                <div class="icon">star</div>
-                                <div class="label">Keyfact einfügen</div>
-                            </button>
-                        </div>
-                    </template>
-                </VDropdown>
-
-                <VDropdown placement="bottom-start">
-                    <button type="button" class="toolbar-button drop">Bearbeiten</button>
-                    <template #popper>
-                        <div class="dropdown-list">
-                            <button type="button" class="dropdown-button" @click="editor.chain().focus().undo().run()" :disabled="!editor.can().undo()">
-                                <div class="icon">undo</div>
-                                <div class="label">Rückgangig</div>
-                                <div class="secondary-info">CTRL + Z</div>
-                            </button>
-                            <button type="button" class="dropdown-button" @click="editor.chain().focus().redo().run()" :disabled="!editor.can().redo()">
-                                <div class="icon">redo</div>
-                                <div class="label">Wiederholen</div>
-                                <div class="secondary-info">CTRL + Y</div>
-                            </button>
-                            
-                            <div class="dropdown-divider"></div>
-
-                            <button type="button" class="dropdown-button" :class="{ 'active': editor.isActive('blockquote') }" @click="editor.chain().focus().toggleBlockquote().run()">
-                                <div class="icon">format_quote</div>
-                                <div class="label">Als Zitat formatieren</div>
-                                <div class="secondary-info">CTRL + SHIFT + B</div>
-                            </button>
-                            <button type="button" class="dropdown-button" :class="{ 'active': editor.isActive('code') }" @click="editor.chain().focus().toggleCode().run()">
-                                <div class="icon">code</div>
-                                <div class="label">Als Code formatieren</div>
-                                <div class="secondary-info">CTRL + E</div>
-                            </button>
-
-                            <div class="dropdown-divider"></div>
-
-                            <button type="button" class="dropdown-button" @click="editor.chain().focus().clearNodes().unsetAllMarks().run()">
-                                <div class="icon">format_clear</div>
-                                <div class="label">Formatierung löschen</div>
-                            </button>
-                        </div>
-                    </template>
-                </VDropdown>
-
-                <VDropdown placement="bottom-start">
-                    <button type="button" class="toolbar-button drop">Ansicht</button>
-                    <template #popper>
-                        <div class="dropdown-list">
-                            <button type="button" class="dropdown-button" :class="{ 'active': applyLimiter }" @click="applyLimiter = !applyLimiter">
-                                <div class="icon">width_wide</div>
-                                <div class="label">Breite limitieren</div>
-                            </button>
-                        </div>
-                    </template>
-                </VDropdown>
+                <template v-if="!simplified">
+                    <VDropdown placement="bottom-start">
+                        <button type="button" class="toolbar-button drop">Einfügen</button>
+                        <template #popper>
+                            <div class="dropdown-list">
+                                <button type="button" class="dropdown-button" @click="openImageDialog()" v-close-popper>
+                                    <div class="icon">image</div>
+                                    <div class="label">Bild einfügen</div>
+                                </button>
+                                <button type="button" class="dropdown-button" @click="editor.chain().focus().insertTable({ rows: 3, cols: 3}).run()" v-close-popper>
+                                    <div class="icon">table</div>
+                                    <div class="label">Tabelle einfügen</div>
+                                </button>
+                                <button type="button" class="dropdown-button" @click="openKeyfactDialog()" v-close-popper>
+                                    <div class="icon">star</div>
+                                    <div class="label">Keyfact einfügen</div>
+                                </button>
+                            </div>
+                        </template>
+                    </VDropdown>
+    
+                    <VDropdown placement="bottom-start">
+                        <button type="button" class="toolbar-button drop">Bearbeiten</button>
+                        <template #popper>
+                            <div class="dropdown-list">
+                                <button type="button" class="dropdown-button" @click="editor.chain().focus().undo().run()" :disabled="!editor.can().undo()">
+                                    <div class="icon">undo</div>
+                                    <div class="label">Rückgangig</div>
+                                    <div class="secondary-info">CTRL + Z</div>
+                                </button>
+                                <button type="button" class="dropdown-button" @click="editor.chain().focus().redo().run()" :disabled="!editor.can().redo()">
+                                    <div class="icon">redo</div>
+                                    <div class="label">Wiederholen</div>
+                                    <div class="secondary-info">CTRL + Y</div>
+                                </button>
+                                
+                                <div class="dropdown-divider"></div>
+    
+                                <button type="button" class="dropdown-button" :class="{ 'active': editor.isActive('blockquote') }" @click="editor.chain().focus().toggleBlockquote().run()">
+                                    <div class="icon">format_quote</div>
+                                    <div class="label">Als Zitat formatieren</div>
+                                    <div class="secondary-info">CTRL + SHIFT + B</div>
+                                </button>
+                                <button type="button" class="dropdown-button" :class="{ 'active': editor.isActive('code') }" @click="editor.chain().focus().toggleCode().run()">
+                                    <div class="icon">code</div>
+                                    <div class="label">Als Code formatieren</div>
+                                    <div class="secondary-info">CTRL + E</div>
+                                </button>
+    
+                                <div class="dropdown-divider"></div>
+    
+                                <button type="button" class="dropdown-button" @click="editor.chain().focus().clearNodes().unsetAllMarks().run()">
+                                    <div class="icon">format_clear</div>
+                                    <div class="label">Formatierung löschen</div>
+                                </button>
+                            </div>
+                        </template>
+                    </VDropdown>
+    
+                    <VDropdown placement="bottom-start">
+                        <button type="button" class="toolbar-button drop">Ansicht</button>
+                        <template #popper>
+                            <div class="dropdown-list">
+                                <button type="button" class="dropdown-button" :class="{ 'active': applyLimiter }" @click="applyLimiter = !applyLimiter">
+                                    <div class="icon">width_wide</div>
+                                    <div class="label">Breite limitieren</div>
+                                </button>
+                            </div>
+                        </template>
+                    </VDropdown>
+                </template>
 
                 <div class="spacer"></div>
 
@@ -82,7 +84,10 @@
                 <button type="button" class="toolbar-button color-primary" v-show="editor.isActive('link')" @click="openLinkDialog()">Link bearbeiten</button>
                 <button type="button" class="toolbar-button color-primary" v-show="editor.isActive('table')" @click="tableToolbar = true">Tabelle bearbeiten</button>
 
-                <div class="toolbar-toggle-button" @click="toggleFullscreen()" v-if="fullscreenAvailable" v-tooltip.bottom="isFullscreen ? 'Vollbild verlassen' : 'Vollbild'">
+                <div class="toolbar-toggle-button"
+                    @click="toggleFullscreen()"
+                    v-if="fullscreenAvailable"
+                    v-tooltip.bottom="isFullscreen ? 'Vollbild verlassen' : 'Vollbild'">
                     {{ isFullscreen ? 'fullscreen_exit' : 'fullscreen' }}
                 </div>
             </div>
@@ -101,7 +106,7 @@
                     <option value="h6">Überschrift 6</option>
                 </select>
                 
-                <div class="button-group">
+                <div class="button-group" v-if="!simplified">
                     <button type="button" class="button icon" :class="{ 'is-active': editor.isActive({textAlign: 'left'}) }" @click="editor.chain().focus().setTextAlign('left').run()">format_align_left</button>
                     <button type="button" class="button icon" :class="{ 'is-active': editor.isActive({textAlign: 'center'}) }" @click="editor.chain().focus().setTextAlign('center').run()">format_align_center</button>
                     <button type="button" class="button icon" :class="{ 'is-active': editor.isActive({textAlign: 'right'}) }" @click="editor.chain().focus().setTextAlign('right').run()">format_align_right</button>
@@ -113,7 +118,7 @@
                     <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('underline') }" @click="editor.chain().focus().toggleUnderline().run()">format_underlined</button>
                 </div>
                 
-                <div class="button-group">
+                <div class="button-group" v-if="!simplified">
                     <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('bulletList') }" @click="editor.chain().focus().toggleBulletList().run()">format_list_bulleted</button>
                     <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('orderedList') }" @click="editor.chain().focus().toggleOrderedList().run()">format_list_numbered</button>
                 </div>
@@ -336,6 +341,14 @@
             label: {
                 type: String,
                 default: '',
+            },
+            simplified: {
+                type: Boolean,
+                default: false,
+            },
+            sticky: {
+                type: Boolean,
+                default: true,
             },
         },
         data() {
@@ -659,6 +672,24 @@
         border-radius: var(--radius-s)
         position: relative
 
+        &.sticky
+            .editor-controls
+                position: sticky
+
+        &.simplified
+            .editor-controls
+                border-bottom: 1px solid var(--color-background-soft)
+
+                &::after
+                    display: none
+
+            .editor-content
+                padding: 0
+
+                .editor-limiter
+                    border-radius: 0 0 2px 2px
+                    box-shadow: none
+
         &.fullscreen
             position: fixed
             top: 0
@@ -679,7 +710,7 @@
             display: flex
             flex-direction: column
             background: var(--color-background)
-            position: sticky
+            position: relative
             top: 0
             border-top-left-radius: inherit
             border-top-right-radius: inherit

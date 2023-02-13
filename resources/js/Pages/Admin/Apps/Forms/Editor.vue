@@ -25,41 +25,32 @@
                     <div class="flex gap-1 v-center">
                         <mui-input type="text" class="flex-1" label="Name" required v-model="editor.tab.title"/>
                     </div>
-
-                    <fieldset class="flex gap-1 vertical">
-                        <legend>Seiten</legend>
-
-                        <fieldset class="flex gap-1 vertical" v-for="page in editor.tab.pages">
-                            <legend class="flex v-center gap-1">
-                                {{ page.title }}
-                                <span class="flex radius-m background-soft">
-                                    <IconButton type="button" icon="edit" @click="editor.tab.selectPage(page)"/>
-                                    <IconButton type="button" icon="delete" style="color: var(--color-error)" @click="editor.tab.removePage(page)" />
-                                </span>
-                            </legend>
-                            
-                            <fieldset class="flex vertical" v-for="input in page.inputs">
-                                <legend class="flex v-center gap-1">
-                                    <Tag shape="pill" color="var(--color-heading)" :icon="input.icon">{{ input.options.label }}</Tag>
-                                    <span class="flex radius-m background-soft">
-                                        <IconButton type="button" icon="edit" @click="editor.tab.selectInput(input)"/>
-                                        <IconButton type="button" icon="delete" style="color: var(--color-error)" @click="editor.tab.removeInput(input)"/>
-                                    </span>
-                                </legend>
-                                <span>Name: {{ input.key }}</span>
-                                <span>Typ: {{ input.inputType }}</span>
-                                <span>
-                                    Ausfüllen:
-                                    <Tag shape="pill" variant="contained" color="var(--color-red)" v-if="input.validation.required">Verpflichtend</Tag>
-                                    <Tag shape="pill" variant="contained" color="var(--color-green)" v-else>Optional</Tag>
-                                </span>
-                            </fieldset>
-                            
-                            <mui-button type="button" label="Feld hinzufügen" @click="addInput(page)"/>
-                        </fieldset>
-            
-                        <mui-button type="button" label="Seite hinzufügen" @click="addPage(editor.tab)"/>
+                    
+                    <fieldset class="flex vertical" v-for="page in editor.tab.pages">
+                        <legend class="flex v-center gap-1">
+                            <!-- {{ page.title }} -->
+                            <!-- <span class="flex radius-m background-soft">
+                                <IconButton type="button" icon="edit" @click="editor.tab.selectPage(page)"/>
+                                <IconButton type="button" icon="delete" style="color: var(--color-error)" @click="editor.tab.removePage(page)" />
+                            </span> -->
+                            Felder
+                        </legend>
+                        
+                        <InputElement
+                            v-for="input in page.inputs"
+                            :key="input.localId"
+                            :input="input"
+                            :selected="editor.tab.selection.input == input"
+                            @select:toggle="editor.tab.selectInput(input)"
+                            @delete="page.removeInput(input)"
+                        />
+                        
+                        <div class="flex gap-1 v-center margin-top-1">
+                            <!-- <mui-button type="button" class="flex-1" icon-left="add" variant="contained" label="Seite" @click="addPage(editor.tab)"/> -->
+                            <mui-button type="button" class="flex-1" icon-left="add" variant="filled" label="Feld" @click="addInput(page)"/>
+                        </div>
                     </fieldset>
+        
                     
 
 
@@ -68,7 +59,7 @@
 
                         <fieldset class="flex gap-1 vertical" v-for="action in editor.tab.actions">
                             <div class="flex v-center gap-1">
-                                <span class="flex-1">{{ action.type }}</span>
+                                <span class="flex-1">{{ capitalizeWords(action.type) }}</span>
                                 <IconButton type="button" icon="edit" @click="editor.tab.selectAction(action)"/>
                                 <IconButton type="button" icon="delete" style="color: var(--color-error)" @click="editor.tab.removeAction(action)"/>
                             </div>
@@ -88,6 +79,8 @@
                             <option value="show-message">Nachricht anzeigen</option>
                         </select>
 
+                        <hr>
+
                         <template v-if="editor.tab.selection.action.type === 'send-mail'">
                             <mui-input type="text" label="Empfänger" v-model="editor.tab.selection.action.options.mail.to"/>
                             <mui-input type="text" label="CC" v-model="editor.tab.selection.action.options.mail.cc"/>
@@ -95,46 +88,17 @@
                             <mui-input type="text" label="Absender" v-model="editor.tab.selection.action.options.mail.from"/>
                             <mui-input type="text" label="Absendername" v-model="editor.tab.selection.action.options.mail.fromName"/>
                             <mui-input type="text" label="Betreff" v-model="editor.tab.selection.action.options.mail.subject"/>
-                            <mui-input type="textarea" label="Inhalt" v-model="editor.tab.selection.action.options.mail.body"/>
+                            <mui-input type="textarea" label="Inhalt" v-model="editor.tab.selection.action.options.mail.message"/>
                         </template>
 
                         <template v-if="editor.tab.selection.action.type === 'show-message'">
                             <mui-input type="text" label="Titel" v-model="editor.tab.selection.action.options.message.title"/>
-                            <mui-input type="textarea" label="Inhalt" v-model="editor.tab.selection.action.options.message.body"/>
+                            <mui-input type="textarea" label="Inhalt" v-model="editor.tab.selection.action.options.message.message"/>
                         </template>
-
-                        <hr>
-
-                        <mui-button type="button" label="Aktion löschen" color="error" @click="editor.tab.removeAction(editor.tab.selection.action)"/>
                     </template>
 
                     <template v-if="editor.tab.selection.page">
                         <mui-input type="text" label="Seitentitel" required v-model="editor.tab.selection.page.title"/>
-                        <mui-button type="button" label="Seite löschen" color="error" @click="editor.tab.removePage(editor.tab.selection.page)"/>
-                    </template>
-
-                    <template v-if="editor.tab.selection.input">
-                        <select v-model="editor.tab.selection.input.inputType">
-                            <option :value="null" disabled>Feldtyp auswählen</option>
-                            <option value="text">Text</option>
-                            <option value="email">Email</option>
-                            <option value="tel">Telefon</option>
-                            <option value="password">Passwort</option>
-                            <option value="number">Zahl</option>
-                            <option value="textarea">Textbereich</option>
-                            <option value="select">Select</option>
-                            <option value="checkbox">Checkbox</option>
-                            <option value="radio">Radio</option>
-                        </select>
-                        <mui-input type="text" label="Label" v-model="editor.tab.selection.input.options.label"/>
-                        <mui-input type="text" label="Feldname" required v-model="editor.tab.selection.input.key"/>
-                        <mui-input type="text" label="Placeholder" v-model="editor.tab.selection.input.options.placeholder"/>
-                        <mui-input type="text" label="Hilfetext" v-model="editor.tab.selection.input.options.helpText"/>
-                        <hr>
-                        <mui-toggle label="Pflichtfeld" v-model="editor.tab.selection.input.validation.required"/>
-                        <mui-input type="text" label="Fehlermeldung" v-model="editor.tab.selection.input.validation.errorMessage"/>
-                        <hr>
-                        <mui-button type="button" label="Feld löschen" color="error" @click="editor.tab.removeInput(editor.tab.selection.input)"/>
                     </template>
                 </div>
             </div>
@@ -144,7 +108,7 @@
 
 <script setup>
     import { Head, Link, useForm, usePage } from '@inertiajs/inertia-vue3'
-    import { slugify } from '@/Utils/String'
+    import { capitalizeWords, slugify } from '@/Utils/String'
     import { ref, computed, watch } from 'vue'
     import FormEditor from '@/Classes/Apps/Forms/FormEditor'
     import FormTab from '@/Classes/Apps/Forms/FormTab'
@@ -157,6 +121,7 @@
     import TextEditor from '@/Components/Form/TextEditor.vue'
     import Tag from '@/Components/Form/Tag.vue'
     import IconButton from '@/Components/Apps/Pages/IconButton.vue'
+    import InputElement from '@/Components/Apps/Forms/InputElement.vue'
 
     const props = defineProps({
         item: Object,
@@ -200,18 +165,17 @@
     const storeItem = () => {
         useForm(editor.value.tab.serialize())
         .post(route('admin.forms.forms.store'), {
+            preserveScroll: true,
             onSuccess: (data) => {
-                console.log(data?.props?.item)
-                openItem(data?.props?.item)
+                // openItem(data?.props?.item)
             },
         })
     }
 
     const updateItem = () => {
-        console.log(editor.value.tab.serialize())
-        // return false
         useForm(editor.value.tab.serialize())
         .put(route('admin.forms.forms.update', editor.value.tab.id), {
+            preserveScroll: true,
             onSuccess: (data) => {
                 // openItem(data?.props?.item)
             },

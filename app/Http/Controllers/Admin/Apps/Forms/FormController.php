@@ -12,6 +12,29 @@ use Inertia\Inertia;
 
 class FormController extends Controller
 {
+    public function test(Request $request)
+    {
+        return Inertia::render('Test', [
+            'form' => new FormResource(Form::find(5)),
+        ]);
+    }
+
+    public function submit(Request $request, Form $form)
+    {
+        $returnValue = [];
+
+        $form->actions()->orderBy('order')->get()->each(function ($action) use ($request) {
+            $returnValue[] = $action->run($request);
+        });
+
+        return back()->with('messages', $returnValue);
+    }
+
+
+
+
+
+
     public function index(Request $request)
     {
         return Inertia::render('Admin/Apps/Forms/Index', [

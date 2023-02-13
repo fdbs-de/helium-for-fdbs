@@ -29,11 +29,11 @@ export default class FormAction extends EventListener
                 from: '',
                 fromName: '',
                 subject: '',
-                body: '',
+                message: '',
             },
             message: {
                 title: '',
-                body: '',
+                message: '',
             },
         }
 
