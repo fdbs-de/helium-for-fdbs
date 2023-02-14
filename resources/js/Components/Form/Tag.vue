@@ -80,18 +80,21 @@
         &.variant-filled
             background-color: currentColor
 
-            .text
+            .text,
+            .icon
                 color: var(--color-background)
 
         &.variant-contained
             &::after
                 opacity: .1
 
-            .text
+            .text,
+            .icon
                 color: currentColor
                 
         &.variant-text
-            .text
+            .text,
+            .icon
                 color: currentColor
 
 
