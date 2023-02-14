@@ -85,10 +85,10 @@
                             <mui-input type="text" label="Empfänger" v-model="editor.tab.selection.action.options.mail.to"/>
                             <mui-input type="text" label="CC" v-model="editor.tab.selection.action.options.mail.cc"/>
                             <mui-input type="text" label="BCC" v-model="editor.tab.selection.action.options.mail.bcc"/>
-                            <mui-input type="text" label="Absender" v-model="editor.tab.selection.action.options.mail.from"/>
-                            <mui-input type="text" label="Absendername" v-model="editor.tab.selection.action.options.mail.fromName"/>
+                            <mui-input type="text" label="Antworten an" v-model="editor.tab.selection.action.options.mail.replyTo"/>
+                            <mui-input type="text" label="Antworten an Name" v-model="editor.tab.selection.action.options.mail.replyToName"/>
                             <mui-input type="text" label="Betreff" v-model="editor.tab.selection.action.options.mail.subject"/>
-                            <mui-input type="textarea" label="Inhalt" v-model="editor.tab.selection.action.options.mail.message"/>
+                            <TextEditor label="Inhalt" v-model="editor.tab.selection.action.options.mail.message"/>
                         </template>
 
                         <template v-if="editor.tab.selection.action.type === 'show-message'">
@@ -177,7 +177,7 @@
         .put(route('admin.forms.forms.update', editor.value.tab.id), {
             preserveScroll: true,
             onSuccess: (data) => {
-                // openItem(data?.props?.item)
+                editor.value.tab.hydrate(data?.props?.item)
             },
         })
     }

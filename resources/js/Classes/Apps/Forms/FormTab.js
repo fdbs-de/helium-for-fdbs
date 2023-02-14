@@ -129,11 +129,13 @@ export default class FormTab extends Tab
         this.title = data.name
         this.status = data.status
 
+        this.pages = []
         for (let page of data.pages)
         {
             this.addPage(new FormPage().hydrate(page))
         }
 
+        this.actions = []
         for (let action of data.actions)
         {
             this.addAction(new FormAction().hydrate(action))

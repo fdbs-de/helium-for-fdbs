@@ -30,11 +30,14 @@
             </div>
             <div class="group">
                 <mui-input type="text" label="Label" v-model="input.options.label" v-if="input.hasFixtures.label"/>
+                <div class="flex gap-1 v-center wrap">
+                    <mui-toggle label="Label anzeigen" v-model="input.options.showLabel" v-if="input.hasFixtures.showLabel" />
+                </div>
                 <mui-input type="text" label="Placeholder" v-model="input.options.placeholder" v-if="input.hasFixtures.placeholder"/>
                 <!-- <mui-input type="text" label="Vorgabewert" v-model="input.options.defaultValue" v-if="input.hasFixtures.defaultTextValue"/> -->
                 <TextEditor label="Beschreibung" v-model="input.options.description" v-if="input.hasFixtures.description"/>
             </div>
-            <div class="group">
+            <div class="group" v-if="input.hasFixtures.options">
                 <div class="flex gap-1 v-center" v-for="(option, index) in input.options.options">
                     <mui-toggle :modelValue="option.selected" @update:modelValue="input.toggleDefaultOption(index)"/>
                     <mui-input class="flex-1" type="text" placeholder="Label" v-model="option.label"/>
@@ -105,13 +108,10 @@
             --color-input-type: #f368e0
 
         &.type-checkbox
-            --color-input-type: #10ac84
+            --color-input-type: #ffa502
 
         &.type-radio
-            --color-input-type: #10ac84
-
-        &.type-acceptance
-            --color-input-type: #ffa502
+            --color-input-type: #00b894
 
         .input-head
             cursor: pointer

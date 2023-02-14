@@ -34,4 +34,18 @@ class Form extends Model
     {
         return $this->hasMany(FormAction::class);
     }
+
+
+
+    public function getValidationsAttribute()
+    {
+        $validations = [];
+
+        foreach ($this->inputs as $input)
+        {
+            $validations[$input->key] = $input->Rules;
+        }
+
+        return $validations;
+    }
 }

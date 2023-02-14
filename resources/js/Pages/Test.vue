@@ -9,7 +9,9 @@
                 <div v-for="input in page.inputs" :key="input.id">
                     <template v-if="input.type == 'text' && input.options.type !== 'textarea'">
                         <label class="flex vertical">
-                            <b>{{ input.options.label }} <span class="color-red" v-if="input.validation.required">*</span></b>
+                            <b v-show="input.options.showLabel">
+                                {{ input.options.label }} <span class="color-red" v-if="input.validation.required">*</span>
+                            </b>
                             <input
                                 class="app-forms-input"
                                 :type="input.options.type"
@@ -25,7 +27,9 @@
 
                     <template v-if="input.type == 'text' && input.options.type === 'textarea'">
                         <label class="flex vertical">
-                            <b>{{ input.options.label }} <span class="color-red" v-if="input.validation.required">*</span></b>
+                            <b v-show="input.options.showLabel">
+                                {{ input.options.label }} <span class="color-red" v-if="input.validation.required">*</span>
+                            </b>
                             <textarea
                                 class="app-forms-textarea"
                                 :name="input.key"
@@ -38,20 +42,12 @@
                         </label>
                     </template>
 
-                    <template v-if="input.type == 'acceptance'">
-                        <label class="flex vertical">
-                            <b>{{ input.options.label }} <span class="color-red" v-if="input.validation.required">*</span></b>
-                            <div class="flex gap-1 v-center">
-                                <input type="checkbox" :name="input.key" :value="input.value" :required="input.validation.required" />
-                                <span v-html="input.options.description" class="formatted-content"></span>
-                            </div>
-                        </label>
-                    </template>
-
                     <template v-if="input.type == 'select'">
                         <label class="flex vertical">
-                            <b>{{ input.options.label }} <span class="color-red" v-if="input.validation.required">*</span></b>
-                            <select class="app-forms-select" :value="input.options.options.find(e => e.selected).value" v-model="input.value" :name="input.key" :required="input.validation.required">
+                            <b v-show="input.options.showLabel">
+                                {{ input.options.label }} <span class="color-red" v-if="input.validation.required">*</span>
+                            </b>
+                            <select class="app-forms-select" v-model="input.value" :name="input.key" :required="input.validation.required">
                                 <option v-for="option in input.options.options" :value="option.value" :key="option.value">{{ option.label }}</option>
                             </select>
                         </label>
@@ -59,17 +55,21 @@
 
                     <template v-if="input.type == 'checkbox'">
                         <div class="flex vertical">
-                            <b>{{ input.options.label }} <span class="color-red" v-if="input.validation.required">*</span></b>
+                            <b v-show="input.options.showLabel">
+                                {{ input.options.label }} <span class="color-red" v-if="input.validation.required">*</span>
+                            </b>
                             <label class="flex gap-1 v-center">
-                                <input type="checkbox" :name="input.key" :value="input.value" :required="input.validation.required" />
-                                <span v-html="input.options.label" class="formatted-content"></span>
+                                <input type="checkbox" :name="input.key" value="checked" v-model="input.value" :required="input.validation.required" />
+                                <span v-html="input.options.description" class="formatted-content"></span>
                             </label>
                         </div>
                     </template>
 
                     <template v-if="input.type == 'radio'">
                         <div class="flex vertical">
-                            <b>{{ input.options.label }} <span class="color-red" v-if="input.validation.required">*</span></b>
+                            <b v-show="input.options.showLabel">
+                                {{ input.options.label }} <span class="color-red" v-if="input.validation.required">*</span>
+                            </b>
                             <label class="flex gap-1 v-center" v-for="option in input.options.options" :key="option.value">
                                 <input type="radio" :name="input.key" :value="option.value" :required="input.validation.required" :checked="option.selected" v-model="input.value"/>
                                 <span v-html="option.label" class="formatted-content"></span>
@@ -118,39 +118,23 @@
 </script>
 
 <style lang="sass" scoped>
-    .app-forms-input
-        width: 100%
-        height: auto
-        padding: .5rem
-        border: 1px solid var(--color-border)
-        border-radius: var(--radius-s)
-        font-size: 1rem
-        line-height: 1.5
-        color: var(--color-text)
-        background: var(--color-background)
-
-    .app-forms-textarea
-        width: 100%
-        height: 10rem
-        resize: none
-        padding: .5rem
-        border: 1px solid var(--color-border)
-        border-radius: var(--radius-s)
-        font-size: 1rem
-        line-height: 1.5
-        color: var(--color-text)
-        background: var(--color-background)
-
+    .app-forms-input,
+    .app-forms-textarea,
     .app-forms-select
         width: 100%
         height: auto
         padding: .5rem
-        border: 1px solid var(--color-border)
+        border: none
         border-radius: var(--radius-s)
         font-size: 1rem
         line-height: 1.5
         color: var(--color-text)
-        background: var(--color-background)
+        background: var(--color-background-soft)
+        font-family: var(--font-text)
+
+    .app-forms-textarea
+        height: 10rem
+        resize: none
 
     .app-forms-input:focus,
     .app-forms-textarea:focus,

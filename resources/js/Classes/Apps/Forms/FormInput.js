@@ -11,7 +11,7 @@ export default class FormInput extends EventListener
 
         // Type register
         this.types = {
-            input: ['text', 'select', 'checkbox', 'radio', 'acceptance'],
+            input: ['text', 'select', 'checkbox', 'radio'],
             text: ['text', 'email', 'tel', 'password', 'number', 'textarea'],
         }
 
@@ -35,6 +35,7 @@ export default class FormInput extends EventListener
             type: 'text',
             defaultValue: '',
             label: 'New Input',
+            showLabel: true,
             ariaLabel: '',
             placeholder: '',
             helpText: '',
@@ -97,17 +98,17 @@ export default class FormInput extends EventListener
             textSubtypes: this.isType('text'),
 
             defaultTextValue: this.isType(['text',]),
-            defaultBooleanValue: this.isType(['acceptance',]),
-            label: this.isType(['text', 'select', 'checkbox', 'radio', 'acceptance',]),
-            ariaLabel: this.isType(['text', 'select', 'checkbox', 'radio', 'acceptance',]),
+            label: true,
+            showLabel: true,
+            ariaLabel: true,
             placeholder: this.isType(['text', 'select',]),
             helpText: this.isType(['text', 'select',]),
-            description: this.isType(['acceptance',]),
+            description: this.isType(['checkbox',]),
             options: this.isType(['select', 'radio',]),
             step: this.isType('text') && this.isSubtype('number'),
             
             errorMessage: true,
-            required: this.isType(['text', 'select', 'checkbox', 'radio', 'acceptance',]),
+            required: this.isType(['text', 'select', 'checkbox', 'radio',]),
             min: this.isType('text') && this.isSubtype('number'),
             max: this.isType('text') && this.isSubtype('number'),
         }
@@ -123,7 +124,6 @@ export default class FormInput extends EventListener
             case 'select': return 'checklist'
             case 'checkbox': return 'check_box'
             case 'radio': return 'radio_button_checked'
-            case 'acceptance': return 'policy'
         }
     }
 

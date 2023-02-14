@@ -56,6 +56,7 @@ export default class FormPage extends EventListener
         this.id = data.id
         this.title = data.title
 
+        this.inputs = []
         for (let input of data.inputs)
         {
             this.addInput(new FormInput().hydrate(input))

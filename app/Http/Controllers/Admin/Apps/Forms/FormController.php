@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Apps\Forms;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Forms\CreateFormRequest;
 use App\Http\Requests\Forms\DestroyFormRequest;
+use App\Http\Requests\Forms\SubmitFormRequest;
 use App\Http\Resources\Apps\Forms\FormResource;
 use App\Models\Form;
 use Illuminate\Http\Request;
@@ -12,14 +13,14 @@ use Inertia\Inertia;
 
 class FormController extends Controller
 {
-    public function test(Request $request)
+    public function test(Form $form)
     {
         return Inertia::render('Test', [
-            'form' => new FormResource(Form::find(7)),
+            'form' => new FormResource($form),
         ]);
     }
 
-    public function submit(Request $request, Form $form)
+    public function submit(SubmitFormRequest $request, Form $form)
     {
         $returnValue = [];
 
@@ -27,7 +28,7 @@ class FormController extends Controller
             $returnValue[] = $action->run($request);
         });
 
-        return back()->with('messages', $returnValue);
+        return back()->with('message', $returnValue);
     }
 
 
@@ -121,7 +122,8 @@ class FormController extends Controller
         // Remove deleted actions (aka. actions that are not in the request anymore)
         $form->actions()->whereNotIn('id', collect($request->actions)->pluck('id')->toArray())->delete();
 
-        return back();
+        // Redirect to the editor
+        return redirect()->route('admin.forms.forms.editor', new FormResource($form));
     }
 
 
