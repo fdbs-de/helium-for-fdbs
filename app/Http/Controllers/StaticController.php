@@ -42,7 +42,9 @@ class StaticController extends Controller
     public function indexMKBSAdwork() { return Inertia::render('ProdukteUndServices/MKBS/Adwork'); }
 
     public function indexTechnischerKundendienst() { return Inertia::render('ProdukteUndServices/TechnischerKundendienst'); }
-    public function indexSeminare() { return Inertia::render('ProdukteUndServices/Seminare'); }
+
+    public function indexSeminare() { return Inertia::render('ProdukteUndServices/Seminare/Index'); }
+    public function indexSeminareGrillseminar() { return Inertia::render('ProdukteUndServices/Seminare/Grillseminar'); }
 
 
 
