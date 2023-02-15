@@ -7,6 +7,7 @@ use App\Http\Requests\Forms\CreateFormRequest;
 use App\Http\Requests\Forms\DestroyFormRequest;
 use App\Http\Requests\Forms\SubmitFormRequest;
 use App\Http\Resources\Apps\Forms\FormResource;
+use App\Http\Resources\Apps\Forms\FrontendFormResource;
 use App\Models\Form;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -15,20 +16,22 @@ class FormController extends Controller
 {
     public function test(Form $form)
     {
+        $form = Form::where('status', 'published')->find($form->id);
+
+        if(!$form) abort(404);
+
         return Inertia::render('Test', [
-            'form' => new FormResource($form),
+            'form' => new FrontendFormResource($form),
         ]);
     }
 
     public function submit(SubmitFormRequest $request, Form $form)
     {
-        $returnValue = [];
+        // Submit the form
+        $messages = $form->submit($request);
 
-        $form->actions()->orderBy('order')->get()->each(function ($action) use ($request) {
-            $returnValue[] = $action->run($request);
-        });
-
-        return back()->with('message', $returnValue);
+        // Redirect back with messages
+        return back()->with('message', $messages);
     }
 
 

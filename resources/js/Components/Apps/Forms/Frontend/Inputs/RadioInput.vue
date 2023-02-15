@@ -7,6 +7,7 @@
             <input type="radio" :name="input.key" :value="option.value" :required="input.validation.required" :checked="option.selected" v-model="input.value"/>
             <span>{{option.label}}</span>
         </label>
+        <span v-if="$page.props.errors.hasOwnProperty(input.key)" class="color-red">{{$page.props.errors[input.key]}}</span>
     </div>
 </template>
 
@@ -14,11 +15,6 @@
     const props = defineProps({
         input: Object,
     })
-
-    for (const option of props.input.options.options)
-    {
-        if (option.selected) props.input.value = option.value
-    }
 </script>
 
 <style lang="sass" scoped>

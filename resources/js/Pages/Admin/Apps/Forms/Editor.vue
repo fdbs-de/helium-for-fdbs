@@ -93,7 +93,7 @@
 
                         <template v-if="editor.tab.selection.action.type === 'show-message'">
                             <mui-input type="text" label="Titel" v-model="editor.tab.selection.action.options.message.title"/>
-                            <mui-input type="textarea" label="Inhalt" v-model="editor.tab.selection.action.options.message.message"/>
+                            <TextEditor label="Nachricht" v-model="editor.tab.selection.action.options.message.message" />
                         </template>
                     </template>
 

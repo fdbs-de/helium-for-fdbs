@@ -6,6 +6,7 @@
         <select class="app-forms-select" v-model="input.value" :name="input.key" :required="input.validation.required">
             <option v-for="option in input.options.options" :value="option.value" :key="option.value">{{ option.label }}</option>
         </select>
+        <span v-if="$page.props.errors.hasOwnProperty(input.key)" class="color-red">{{$page.props.errors[input.key]}}</span>
     </label>
 </template>
 
@@ -13,11 +14,6 @@
     const props = defineProps({
         input: Object,
     })
-
-    for (const option of props.input.options.options)
-    {
-        if (option.selected) props.input.value = option.value
-    }
 </script>
 
 <style lang="sass" scoped>

@@ -8,12 +8,12 @@
             class="forms-input"
             :type="input.options.type"
             :name="input.key"
-            :placeholder="input.options.placeholder"
             :required="input.validation.required"
+            :placeholder="input.options.placeholder"
             :min="input.validation.min"
             :max="input.validation.max"
             v-model="input.value"
-        />
+            />
         <textarea
             v-else
             class="forms-textarea"
@@ -24,6 +24,7 @@
             :max="input.validation.max"
             v-model="input.value"
         ></textarea>
+        <span v-if="$page.props.errors.hasOwnProperty(input.key)" class="color-red">{{$page.props.errors[input.key]}}</span>
     </label>
 </template>
 
