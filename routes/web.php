@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 Route::view('/ie', 'ie')->name('ie');
 
 // Route::get('/test/{form}', [FormController::class, 'test'])->name('test');
-// Route::post('/forms/{form}', [FormController::class, 'submit'])->name('forms.form.submit');
+Route::post('/forms/{form}', [FormController::class, 'submit'])->name('forms.form.submit');
 
 Route::get('/', [StaticController::class, 'indexHome'])->name('home');
 Route::get('/philosopie', [StaticController::class, 'indexPhilosophie'])->name('philosophie');
@@ -45,7 +45,6 @@ Route::prefix('/produkte-und-services')->group(function () {
     Route::get('/fachberatung-kaese-und-salate', [StaticController::class, 'indexFachberatungKaeseSalate'])->name('ps.fachberatung-kaese-und-salate');
     Route::get('/marketing-und-kommunikation', [StaticController::class, 'indexMarketingKommunikation'])->name('ps.marketing-und-kommunikation');
     Route::get('/technischer-kundendienst', [StaticController::class, 'indexTechnischerKundendienst'])->name('ps.technischer-kundendienst');
-    Route::get('/seminare', [StaticController::class, 'indexSeminare'])->name('ps.seminare');
     
     Route::prefix('/marken')->group(function () {
         Route::get('/', [StaticController::class, 'indexMarken'])->name('ps.marken');
@@ -53,6 +52,11 @@ Route::prefix('/produkte-und-services')->group(function () {
         Route::get('/il-campese', [StaticController::class, 'indexIlCampese'])->name('ps.marken.il-campese');
         Route::get('/maxi-france', [StaticController::class, 'indexMaxiFrance'])->name('ps.marken.maxi-france');
     });
+});
+
+Route::prefix('/seminare')->group(function () {
+    Route::get('/', [StaticController::class, 'indexSeminare'])->name('seminare');
+    Route::get('/grillseminar-2023', [StaticController::class, 'indexSeminareGrillseminar'])->name('seminare.grillseminar');
 });
 
 Route::prefix('/mkbs')->group(function () {

@@ -62,9 +62,7 @@ class FormAction extends Model
         $subject = $this->replaceVariables($this->option('mail.subject'), $request) ?? '';
         $message = $this->replaceVariables($this->option('mail.message'), $request) ?? '';
 
-        if (!$to) return null;
-        if (!$message) return null;
-        if (!$subject) return null;
+        if (!$to) return ['display' => true, 'status' => 'error', 'title' => 'Error!', 'message' => 'No recipient specified'];
 
         Mail::send(new FormsDefault($subject, $message, [
             'to' => $to,
@@ -73,7 +71,7 @@ class FormAction extends Model
             'replyTo' => [$replyTo, $replyToName],
         ]));
 
-        return true;
+        return ['display' => false, 'status' => 'success', 'title' => 'Success!', 'message' => 'Your message has been sent'];
     }
 
 
@@ -81,6 +79,8 @@ class FormAction extends Model
     public function runShowMessage($request)
     {
         return [
+            'display' => true,
+            'status' => 'success',
             'title' => $this->replaceVariables($this->option('message.title'), $request),
             'message' => $this->replaceVariables($this->option('message.message'), $request),
         ];

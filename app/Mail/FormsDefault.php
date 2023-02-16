@@ -21,8 +21,8 @@ class FormsDefault extends Mailable
      */
     public function __construct($subject, $content, $addresses)
     {
-        $this->content = $content;
-        $this->subject = $subject;
+        $this->content = $content ?? 'No content';
+        $this->subject = $subject ?? 'No subject';
         
         $this->to($addresses['to'] ?? null);
         $this->cc($addresses['cc'] ?? null);
