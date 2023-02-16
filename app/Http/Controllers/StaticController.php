@@ -48,7 +48,7 @@ class StaticController extends Controller
     public function indexSeminare() { return Inertia::render('ProdukteUndServices/Seminare/Index'); }
     public function indexSeminareGrillseminar()
     {
-        $form = Form::where('status', 'published')->find(env('SEMINAR_GS23', 0));
+        $form = Form::where('status', 'published')->find(1);
         if ($form) $form = new FrontendFormResource($form);
 
         return Inertia::render('ProdukteUndServices/Seminare/Grillseminar', [
