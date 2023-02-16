@@ -1,8 +1,9 @@
 <template>
-    <TextSubLayout title="Grillseminar „Best of Meat - Fleischeslust“ mit Andreas Rummel" image="/images/content/seminare/grillseminar_2023.jpg" color="white" has-small-limiter>
+    <TextSubLayout title="Grillseminar „Best of Meat - Fleischeslust“ mit Andreas Rummel" image="/images/content/seminare/grillseminar/grillseminar_header_104218878.webp" color="white" has-small-limiter>
         <Head>
             <title>Grillseminar „Best of Meat - Fleischeslust“ – FDBS Seminare</title>
         </Head>
+
         <Alert title="Wichtiges im Überblick:">
             <div class="head-grid">
                 <span>Datum:</span>
@@ -27,9 +28,10 @@
             </div>
         </Alert>
         <p>&nbsp;</p>
+
         <p>
             Grillen ist nach wie vor ein Trend mit stetig wachsendem Zuspruch. Das kommt nicht von ungefähr, denn gerade dieses
-            Thema vereint viele Aspekte, die das Kaufver- halten Ihrer Kunden beeinflussen: Zeitgeist, Kreativität, Fachwissen und
+            Thema vereint viele Aspekte, die das Kaufverhalten Ihrer Kunden beeinflussen: Zeitgeist, Kreativität, Fachwissen und
             immer voran der besondere Genuss, der Kult und die Geselligkeit.
         </p>
         <p>
@@ -50,26 +52,42 @@
             </ul>
         </p>
         <p>
-            Sie sind in diesem Workshop genau richtig, wenn inno- vative Fleischzuschnitte Ihr Herz höherschlagen lassen und Sie Ihr
+            Sie sind in diesem Workshop genau richtig, wenn innovative Fleischzuschnitte Ihr Herz höherschlagen lassen und Sie Ihr
             Fachwissen in Bezug auf Warenkunde und Verarbeitung erweitern wollen.
         </p>
         <p>
-            Eine Steak-Querverkostung verschiedener Fleischzu- schnitte sowie ein Tasting unterschiedlicher Grillvariati- onen runden
+            Eine Steak-Querverkostung verschiedener Fleischzuschnitte sowie ein Tasting unterschiedlicher Grillvariationen runden
             diesen Workshop genussvoll ab.
         </p>
         <p>&nbsp;</p>
-        <h3>Zielgruppe:</h3>
+
+        <h3>Zielgruppe</h3>
         <p>
             Eine Zielgruppe zu definieren ist schwer, weil für jeden etwas dabei ist – von der Zerlegung über die
             Zubereitung und Fachwissen für den Verkauf. Nach meiner Erfahrung hat es sich immer ausgezahlt, einmal über den
             berühmten „Tellerrand“ zu schauen. Wie soll ich das Fleisch richtig vorbereiten, wenn ich nicht weiß, was der
-            Verbraucher wünscht und wie soll an der Theke opti- mal beraten werden, wenn das Wissen über die Ware und deren
+            Verbraucher wünscht und wie soll an der Theke optimal beraten werden, wenn das Wissen über die Ware und deren
             Zubereitung nicht vorhanden ist. Es geht nur als Team und dieses Seminar gibt Ihnen die gemeinsame Basis.
         </p>
         <p>&nbsp;</p>
 
+        <template v-if="form">
+            <h3>Anmeldung</h3>
+            <fieldset>
+                <FrontendForm :form="form"/>
+            </fieldset>
+        </template>
+        <template v-else>
+            <Alert title="Anmeldung nicht mehr möglich!" type="warning">
+                <span class="margin-bottom-1">Die Anmeldung für dieses Seminar ist leider nicht mehr möglich.</span>
+            </Alert>
+        </template>
+
+        <p>&nbsp;</p>
+        <h3>Über den Referent</h3>
         <Alert title="Andreas Rummel">
             <p>
+                <img src="/images/content/seminare/grillseminar/andreas_rummel.webp" alt="Andreas Rummel Portrait" class="radius-s margin-right-1" width="140" style="float: left">
                 Als gebürtiger Thüringer tourt der Inhaber mehrerer Meister- und Rekordtitel seit 17 Jahren quer durch Deutschland,
                 rund um die Welt und durch TV-Shows aller Art. Er vermittelt Tipps und Tricks zum kreativen Grillen an ein immer wieder
                 fasziniertes Publikum und tauscht sich mit Spitzenköchen über die neuesten Lebensmittel und Zubereitungstechniken aus.
@@ -80,7 +98,7 @@
                 Auftritte. „Manchmal kommt es anders, wenn man denkt“ ist eines seiner Zitate, die seine Improvisationskunst beschreibt.
             </p>
             <p>
-                Website: <a href="https://www.andreas-rummel.de" target="_blank" rel="noopener noreferrer">www.andreas-rummel.de</a><br>
+                Website: <a href="http://www.andreas-rummel.de" target="_blank" rel="noopener noreferrer">www.andreas-rummel.de</a><br>
                 Youtube Kanal: <a href="https://www.youtube.com/c/RummelGrillTV" target="_blank" rel="noopener noreferrer">https://www.youtube.com/c/RummelGrillTV</a>
             </p>
         </Alert>
@@ -92,7 +110,11 @@
     import TextSubLayout from '@/Layouts/SubLayouts/Text.vue'
     import Alert from '@/Components/Alert.vue'
     import Tag from '@/Components/Form/Tag.vue'
-    import Card from '@/Components/Page/Card.vue'
+    import FrontendForm from '@/Components/Apps/Forms/Frontend/Form.vue'
+    
+    defineProps({
+        form: Object,
+    })
 </script>
 
 <style lang="sass" scoped>

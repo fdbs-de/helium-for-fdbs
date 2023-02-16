@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Apps\Forms\FrontendFormResource;
 use App\Mail\AdminContactMail;
 use App\Models\Document;
+use App\Models\Form;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -44,7 +46,15 @@ class StaticController extends Controller
     public function indexTechnischerKundendienst() { return Inertia::render('ProdukteUndServices/TechnischerKundendienst'); }
 
     public function indexSeminare() { return Inertia::render('ProdukteUndServices/Seminare/Index'); }
-    public function indexSeminareGrillseminar() { return Inertia::render('ProdukteUndServices/Seminare/Grillseminar'); }
+    public function indexSeminareGrillseminar()
+    {
+        $form = Form::where('status', 'published')->find(env('SEMINAR_GS23', 0));
+        if ($form) $form = new FrontendFormResource($form);
+
+        return Inertia::render('ProdukteUndServices/Seminare/Grillseminar', [
+            'form' => $form,
+        ]);
+    }
 
 
 
