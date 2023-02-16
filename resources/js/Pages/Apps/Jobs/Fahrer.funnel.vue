@@ -26,7 +26,7 @@
                 </div>
             </div>
 
-            <div class="form-step" v-show="isDriversLicenseValid && form.driversLicense" @click="sendClick('funnel-has-modul-95', form.hasModul95)">
+            <div class="form-step" v-show="form.driversLicense" @click="sendClick('funnel-has-modul-95', form.hasModul95)">
                 <h2 class="question">Besitzt du eine gültige Modul 95 Qualifizierung? *</h2>
                 <div class="options">
                     <button type="button" :class="{'active': form.hasModul95 === 'Nein'}" @click="form.hasModul95 = 'Nein'">Nein</button>
@@ -34,7 +34,7 @@
                 </div>
             </div>
     
-            <div class="form-step" v-show="isDriversLicenseValid && form.hasModul95" @click="sendClick('funnel-experience-as-driver', form.experienceAsDriver)">
+            <div class="form-step" v-show="form.hasModul95" @click="sendClick('funnel-experience-as-driver', form.experienceAsDriver)">
                 <h2 class="question">Wie viele Jahre Berufserfahrung kannst du vorweisen? *</h2>
                 <div class="options">
                     <button type="button" :class="{'active': form.experienceAsDriver === 'keine'}" @click="form.experienceAsDriver = 'keine'">keine</button>
@@ -47,7 +47,7 @@
                 </div>
             </div>
     
-            <div class="form-step" v-show="isDriversLicenseValid && form.experienceAsDriver" @click="sendClick('funnel-experience-in-language', form.experienceInLanguage)">
+            <div class="form-step" v-show="form.experienceAsDriver" @click="sendClick('funnel-experience-in-language', form.experienceInLanguage)">
                 <h2 class="question">Wie sind deine Deutschkenntnisse? *</h2>
                 <div class="options">
                     <button type="button" :class="{'active': form.experienceInLanguage === 'nicht so gut'}" @click="form.experienceInLanguage = 'nicht so gut'">nicht so gut</button>
@@ -60,18 +60,21 @@
                 </div>
             </div>
     
-            <div class="form-step" v-show="isDriversLicenseValid && form.experienceInLanguage">
-                <h2 class="question">Dein Gehaltswunsch (brutto) (optional)</h2>
-                <div class="options">
-                    <mui-input class="flex-1" border v-model="form.salary" label="Gehaltswunsch"/>
-                </div>
+            <div class="form-step" v-show="form.experienceInLanguage">
                 <h2 class="question">Frühestmögliches Eintrittsdatum *</h2>
                 <div class="options">
                     <mui-input class="flex-1" border required v-model="form.startDate" label="Eintrittsdatum *" @update:modelValue="sendClick('funnel-start-date')"/>
                 </div>
+                <div class="flex gap-1 wrap">
+                    <Tag style="font-size: .9rem; cursor: pointer" color="#FF0D22" label="sofort" shape="pill" @click="form.startDate = 'Sofort'"/>
+                    <Tag style="font-size: .9rem; cursor: pointer" color="#C90A1B" label="nächster Monatsbeginn" shape="pill" @click="form.startDate = 'Nächsten Monatsbeginn'"/>
+                    <Tag style="font-size: .9rem; cursor: pointer" color="#960814" label="in 4 Wochen" shape="pill" @click="form.startDate = 'In 4 Wochen'"/>
+                    <Tag style="font-size: .9rem; cursor: pointer" color="#75060F" label="in 3 Monaten" shape="pill" @click="form.startDate = 'In 3 Monaten'"/>
+                    <Tag style="font-size: .9rem; cursor: pointer" color="#52040B" label="später" shape="pill" @click="form.startDate = 'Später'"/>
+                </div>
             </div>
     
-            <div class="form-step" v-show="isDriversLicenseValid && form.startDate">
+            <div class="form-step" v-show="form.startDate">
                 <h2 class="question">Wie können wir dich am besten für ein Gespräch erreichen?</h2>
                 <mui-input border required v-model="form.name" label="Name *"/>
                 <mui-input border v-model="form.email" label="Email"/>
@@ -87,11 +90,6 @@
             </div>
 
             <small>* Diese Felder musst du verpflichtend ausfüllen</small>
-
-            <div class="form-step error" v-show="!isDriversLicenseValid">
-                <h2 class="question">Leider können wir dir keine Stelle anbieten</h2>
-                <p>Wir suchen zurzeit ausschließlich Fahrer, die über eine gültige Fahrerlaubnis verfügen.</p>
-            </div>
         </form>
     </TextSubLayout>
 </template>
@@ -101,6 +99,7 @@
     import { computed } from 'vue'
 
     import TextSubLayout from '@/Layouts/SubLayouts/Text.vue'
+    import Tag from '@/Components/Form/Tag.vue'
 
     const form = useForm({
         hasExperience: null,
@@ -108,17 +107,12 @@
         hasModul95: null,
         experienceAsDriver: null,
         experienceInLanguage: null,
-        zip: '',
-        salary: '',
         startDate: '',
         name: '',
         email: '',
         phone: '',
+        zip: '',
         gdpr: false,
-    })
-
-    const isDriversLicenseValid = computed(() => {
-        return form.driversLicense === 'keinen' ? false : true
     })
 
     const isValid = computed(() => {
@@ -158,8 +152,6 @@
         const _etracker = window._etracker
         
         if (!_etracker) return
-        
-        console.log(objectString, type)
 
         _etracker.sendEvent(new et_ClickEvent(objectString, type))
     }

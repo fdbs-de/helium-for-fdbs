@@ -22,7 +22,6 @@ use Illuminate\Support\Facades\Route;
 // Warning for IE users
 Route::view('/ie', 'ie')->name('ie');
 
-// Route::get('/test/{form}', [FormController::class, 'test'])->name('test');
 Route::post('/forms/{form}', [FormController::class, 'submit'])->name('forms.form.submit');
 
 Route::get('/', [StaticController::class, 'indexHome'])->name('home');

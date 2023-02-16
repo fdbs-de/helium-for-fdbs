@@ -48,7 +48,6 @@ class JobController extends Controller
             'hasModul95' => 'required|in:Ja,Nein',
             'experienceInLanguage' => 'required|string|max:30',
             'startDate' => 'required|string|max:100',
-            'salary' => 'nullable|string|max:100',
         ]);
 
         // TODO: this is dangerous, xss or html injection is possible
@@ -67,7 +66,6 @@ class JobController extends Controller
         $formattedDetails .= 'Deutschkenntnisse: <b>'.$request->experienceInLanguage.'</b><br><br>';
 
         $formattedDetails .= 'Frühstes Einstiegsdatum: <b>'.$request->startDate.'</b><br>';
-        $formattedDetails .= 'Gehaltswunsch (brutto): <b>'.($request->salary ?? 'Nicht angegeben').'</b><br>';
 
         Mail::to(config('mail.addresses.job_applications'))->send(new NewJobApplication('LKW Fahrer', $formattedDetails));
 
