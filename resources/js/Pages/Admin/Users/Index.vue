@@ -91,8 +91,9 @@
 
 
     const tableColumns = [
-        {type: 'text', label: 'Anzeigename', valuePath: 'name', sortable: true, sticky: true, defaultWidth: 400, scaleable: true},
-        {type: 'text', label: 'Email', valuePath: 'email', sortable: true, sticky: false, defaultWidth: 300, scaleable: true},
+        {type: 'text', label: 'Anzeigename', valuePath: 'name', sortable: true, sticky: true, defaultWidth: 300, scaleable: true},
+        {type: 'text', label: 'Nutzername', valuePath: 'username', sortable: true, sticky: true, defaultWidth: 150, scaleable: true, transform: (value) => value || '---'},
+        {type: 'text', label: 'Email', valuePath: 'email', sortable: true, sticky: false, defaultWidth: 250, scaleable: true},
         {type: 'tags', label: 'Rollen', valuePath: 'roles', sortable: false, sticky: false, defaultWidth: 200, scaleable: true, transform: (value) => {
             if (!value || value.length <= 0)
             {
@@ -109,12 +110,12 @@
 
             let profiles = []
 
-            if (value.includes('customer'))
+            if (value.customer)
             {
                 profiles.push({icon: null, text: 'Kunde', color: '#22a6b3', variant: 'filled', shape: 'pill'})
             }
 
-            if (value.includes('employee'))
+            if (value.employee)
             {
                 profiles.push({icon: null, text: 'Personal', color: '#6ab04c', variant: 'filled', shape: 'pill'})
             }
@@ -138,12 +139,12 @@
                     icon: 'edit',
                     text: 'Bearbeiten',
                     color: 'var(--color-text)',
-                    run: () => this.openItem(item),
+                    run: () => openItem(item),
                 },{
                     icon: 'delete',
                     text: 'Löschen',
                     color: 'var(--color-error)',
-                    run: () => this.openDeletePopup(item),
+                    run: () => openDeletePopup(item),
                 },
             ]
         }},

@@ -34,6 +34,7 @@ class UserController extends Controller
             $query->whereFuzzy(function ($query) use ($request) {
                 $query
                 ->orWhereFuzzy('name', $request->name)
+                ->orWhereFuzzy('username', $request->name)
                 ->orWhereFuzzy('email', $request->name);
             });
         }
@@ -81,6 +82,7 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $user->email = $request->email;
+        $user->username = $request->username;
         $user->email_verified_at = $request->email_verified_at;
         $user->enabled_at = $request->enabled_at;
 

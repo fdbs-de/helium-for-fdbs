@@ -11,6 +11,7 @@
                 
                 <fieldset class="flex vertical gap-1">
                     <legend>Allgemeines</legend>
+                    <mui-input type="text" v-model="form.username" label="Username"/>
                     <mui-input type="email" v-model="form.email" label="Email"/>
                     <mui-toggle class="checkbox" label="Email freigeschaltet" style="background: var(--color-background-soft)" :modelValue="!!form.email_verified_at" @update:modelValue="form.email_verified_at = $event ? new Date() : null "/>
                     <mui-toggle class="checkbox" style="background: var(--color-background-soft)" :modelValue="!!form.enabled_at" @update:modelValue="form.enabled_at = $event ? new Date() : null ">
@@ -136,6 +137,7 @@
     const form = useForm({
         id: null,
         email: '',
+        username: '',
         password: '',
         enabled_at: null,
         email_verified_at: null,
@@ -168,7 +170,8 @@
 
     const openItem = () => {
         form.id = props.user.id
-        form.email = props.user.email
+        form.email = props.user.email || ''
+        form.username = props.user.username || ''
         form.password = ''
         form.enabled_at = props.user.enabled_at
         form.email_verified_at = props.user.email_verified_at
