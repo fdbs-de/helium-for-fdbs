@@ -27,37 +27,32 @@ class UserController extends Controller
 
     public function search(Request $request)
     {
-        $limit = $request->perPage ?? 20;
-        $offset = $request->perPage * ($request->page ?? 0) - $request->perPage;
-
-        if (!$request->name)
+        $query = User::with(['roles', 'settings']);
+        
+        if ($request->name)
         {
-            return response()->json(
-                UserResource::collection(
-                    User::with(['roles', 'settings'])
-                    ->orderBy('created_at', 'desc')
-                    ->limit($limit)
-                    ->offset($offset)
-                    ->get()
-                )
-            );
+            $query->whereFuzzy(function ($query) use ($request) {
+                $query
+                ->orWhereFuzzy('name', $request->name)
+                ->orWhereFuzzy('email', $request->name);
+            });
         }
+        
+        $total = $query->count();
 
-        return response()->json(
-            UserResource::collection(
-                User::with(['roles', 'settings'])
-                ->whereFuzzy(function ($query) use ($request) {
-                    $query
-                    ->orWhereFuzzy('name', $request->name)
-                    ->orWhereFuzzy('email', $request->name);
-                })
-                ->orderByFuzzy('name')
-                ->orderByFuzzy('email')
-                ->limit($limit)
-                ->offset($offset)
-                ->get()
-            )
-        );
+        $limit = $request->size ?? 20;
+        $offset = $request->size * ($request->page ?? 0) - $request->size;
+
+        // Clamp the offset to 0 and limit
+        $offset = max(0, $offset);
+        $offset = min($offset, intdiv($total, $limit) * $limit);
+        
+        $data = $query->orderBy('created_at', 'desc')->limit($limit)->offset($offset)->get();
+
+        return response()->json([
+            'data' => UserResource::collection($data),
+            'total' => $total,
+        ]);
     }
 
 

@@ -1,84 +1,20 @@
 <template>
     <Head title="Nutzer verwalten" />
 
-    <AdminLayout title="Nutzer verwalten" :loading="filter.processing">
-        <div class="flex v-center gap-1">
-            <Actions v-show="selection.length >= 1" :selection="selection" @deselect="deselectAll()" @delete="openDeletePopup()"/>
-            <mui-input v-show="selection.length <= 0" type="search" class="search-input" placeholder="Suchen" v-model="filter.name" @input="getDataThrottled" @clear="getDataThrottled"/>
-
-            <div class="spacer"></div>
-
-            <mui-input type="number" class="search-input w-5" v-model="pagination.page" :min="1" @input="getDataThrottled" />
-            <select class="search-input w-5" v-model="pagination.perPage" @change="getDataThrottled">
-                <option :value="20">20</option>
-                <option :value="50">50</option>
-                <option :value="100">100</option>
-                <option :value="1000000">alle</option>
-            </select>
-        </div>
-
-        <div class="table-wrapper" v-show="items.length > 0">
-            <table class="list">
-                <thead>
-                    <tr>
-                        <th class="w-3">
-                            <mui-toggle class="checkbox" v-tooltip="'Alle Auswählen / Abwählen'" @update:modelValue="$event ? selectAll() : deselectAll()"/>
-                        </th>
-                        <th>Anzeigename</th>
-                        <th>Email</th>
-                        <th>Rollen</th>
-                        <th>Profile</th>
-                        <th>Status</th>
-                        <th>Aktionen</th>
-                    </tr>
-                </thead>
-    
-                <tbody>
-                    <tr
-                        v-for="item in items"
-                        :key="item.id"
-                        :class="{ 'selected': selection.includes(item.id) }"
-                        @click.exact="toggleSelection(item)"
-                        @dblclick="openItem(item)"
-                        >
-                        <td>
-                            <mui-toggle class="checkbox" :modelValue="selection.includes(item.id)" @update:modelValue="toggleSelection(item)" @click.stop/>
-                        </td>
-                        <td v-tooltip="item.name">{{item.name}}</td>
-                        <td v-tooltip="item.email">{{item.email}}</td>
-                        <td>
-                            <div class="flex v-center wrap" style="gap: .5rem; padding-block: .5rem">
-                                <Tag v-for="role in item.roles" :label="role.name" shape="pill"/>
-                                <Tag v-if="item.roles.length <= 0" label="Keine Rolle" variant="contained" shape="pill" color="var(--color-text)"/>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="flex v-center wrap" style="gap: .5rem; padding-block: .5rem">
-                                <Tag v-for="profile in item.profiles" :key="profile" :label="capitalizeWords(profile)" shape="pill" color="var(--color-text)"/>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="flex gap-1 v-center">
-                                <span class="property icon green" v-tooltip="'Email Bestätigt'" v-if="item.email_verified_at">mail</span>
-                                <span class="property icon" v-tooltip="'Emailbestätigung ausstehend'" v-else>mail</span>
-                                <span class="property icon green" v-tooltip="'Nutzer freigegeben'" v-if="item.is_enabled">check_circle</span>
-                                <span class="property icon" v-tooltip="'Nutzerfreigabe ausstehend'" v-else>check_circle</span>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="action-wrapper">
-                                <IconButton type="button" icon="delete" style="color: var(--color-error);" v-tooltip="'Löschen'" @click.stop="openDeletePopup(item)"/>
-                                <IconButton is="a" icon="edit" v-tooltip="'Bearbeiten'" :href="route('admin.users.editor', item.id)" @click.stop/>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <small v-show="items.length <= 0" class="w-100 flex h-center padding-inline-2 padding-block-5">Keine User angelegt</small>
+    <AdminLayout title="Nutzer verwalten" :loading="processing">
+        <Table
+            class="margin-bottom-2"
+            :items="items"
+            v-model:selection="selection"
+            v-model:search="filter.name"
+            v-model:pagination="pagination"
+            @selection:delete="openDeletePopup()"
+            @request:refetch="getDataThrottled"
+            :columns="tableColumns"
+        />
 
         <div class="flex v-center gap-1 border-top padding-top-1">
-            <small><b>{{items.length}}</b> User</small>
+            <small><b>{{pagination.total}}</b> User</small>
         
             <div class="spacer"></div>
 
@@ -137,20 +73,14 @@
 </template>
 
 <script setup>
-    import { Head, Link, useForm, usePage } from '@inertiajs/inertia-vue3'
+    import { Head, useForm } from '@inertiajs/inertia-vue3'
     import { Inertia } from '@inertiajs/inertia'
-    import { ref, watch, computed } from 'vue'
-    import { capitalizeWords } from '@/Utils/String'
+    import { ref, watch } from 'vue'
     import LocalSetting from '@/Classes/Managers/LocalSetting'
 
     import AdminLayout from '@/Layouts/Admin.vue'
-    import ListItemLayout from '@/Components/Layout/ListItemLayout.vue'
-    import Actions from '@/Components/Form/Actions.vue'
-    import Switcher from '@/Components/Form/Switcher.vue'
-    import IconButton from '@/Components/Form/IconButton.vue'
-    import ImageCard from '@/Components/Form/Card/ImageCard.vue'
     import Popup from '@/Components/Form/Popup.vue'
-    import Tag from '@/Components/Form/Tag.vue'
+    import Table from '@/Components/Form/Table/Table.vue'
 
 
 
@@ -158,13 +88,66 @@
     const scope = 'users.index'
     // END: Settings Parameters
 
-    // START: View Parameters
-    const layout = ref(LocalSetting.get(scope, 'view.layout', 'list'))
-    watch(layout, (value) => LocalSetting.set(scope, 'view.layout', value), { immediate: true })
 
-    const isPreview = ref(LocalSetting.get(scope, 'view.hasPreview', false))
-    watch(isPreview, (value) => LocalSetting.set(scope, 'view.hasPreview', value), { immediate: true })
-    // END: View Parameters
+
+    const tableColumns = [
+        {type: 'text', label: 'Anzeigename', valuePath: 'name', sortable: true, sticky: true, defaultWidth: 400, scaleable: true},
+        {type: 'text', label: 'Email', valuePath: 'email', sortable: true, sticky: false, defaultWidth: 300, scaleable: true},
+        {type: 'tags', label: 'Rollen', valuePath: 'roles', sortable: false, sticky: false, defaultWidth: 200, scaleable: true, transform: (value) => {
+            if (!value || value.length <= 0)
+            {
+                return [{icon: null, text: 'Keine Rolle', color: 'var(--color-text)', variant: 'contained', shape: 'pill'}]
+            }
+
+            return value.map((role) => ({icon: null, text: role.name, color: 'var(--color-heading)', variant: 'filled', shape: 'pill'}))}
+        },
+        {type: 'tags', label: 'Profile', valuePath: 'profiles', sortable: false, sticky: false, defaultWidth: 100, scaleable: true, transform: (value) => {
+            if (!value || value.length <= 0)
+            {
+                return [{icon: null, text: 'Kein Profil', color: 'var(--color-text)', variant: 'contained', shape: 'pill'}]
+            }
+
+            let profiles = []
+
+            if (value.includes('customer'))
+            {
+                profiles.push({icon: null, text: 'Kunde', color: '#22a6b3', variant: 'filled', shape: 'pill'})
+            }
+
+            if (value.includes('employee'))
+            {
+                profiles.push({icon: null, text: 'Personal', color: '#6ab04c', variant: 'filled', shape: 'pill'})
+            }
+            
+            return profiles
+        }},
+        {type: 'icons', label: 'Status', valuePath: 'status', sortable: false, sticky: false, defaultWidth: 100, scaleable: true, transform: (value, item) => {
+            return [
+                {
+                    icon: 'mail',
+                    color: item.email_verified_at ? 'var(--color-success)' : 'var(--color-text)',
+                },{
+                    icon: 'check_circle',
+                    color: item.is_enabled ? 'var(--color-success)' : 'var(--color-text)',
+                },
+            ]
+        }},
+        {type: 'actions', label: 'Aktionen', valuePath: null, sortable: false, sticky: false, defaultWidth: null, scaleable: false, transform: (value, item) => {
+            return [
+                {
+                    icon: 'edit',
+                    text: 'Bearbeiten',
+                    color: 'var(--color-text)',
+                    run: () => this.openItem(item),
+                },{
+                    icon: 'delete',
+                    text: 'Löschen',
+                    color: 'var(--color-error)',
+                    run: () => this.openDeletePopup(item),
+                },
+            ]
+        }},
+    ]
 
 
 
@@ -172,12 +155,12 @@
     const fetchURL = ref('admin.users.search')
     const items = ref([])
     const latestSearch = ref(0)
+    const processing = ref(false)
 
 
     const filter = ref({
         name: LocalSetting.get(scope, 'filter.name', ''),
         order: LocalSetting.get(scope, 'filter.order', ['name', 'asc']),
-        processing: false,
     })
 
     watch(filter, (value) => {
@@ -188,17 +171,17 @@
 
     const pagination = ref({
         page: LocalSetting.get(scope, 'pagination.page', 1),
-        perPage: LocalSetting.get(scope, 'pagination.perPage', 20),
+        size: LocalSetting.get(scope, 'pagination.size', 20),
     })
 
     watch(pagination, (value) => {
         LocalSetting.set(scope, 'pagination.page', value.page)
-        LocalSetting.set(scope, 'pagination.perPage', value.perPage)
+        LocalSetting.set(scope, 'pagination.size', value.size)
     }, { deep: true, immediate: true })
 
 
     const getData = async () => {
-        filter.value.processing = true
+        processing.value = true
         let requestTime = new Date().getTime()
 
         try
@@ -207,7 +190,8 @@
 
             if (requestTime > latestSearch.value)
             {
-                items.value = response?.data
+                items.value = response?.data?.data
+                pagination.value.total = response?.data?.total
                 latestSearch.value = requestTime
             }
         }
@@ -216,7 +200,7 @@
             console.log(error)
         }
         
-        filter.value.processing = false
+        processing.value = false
     }
 
     const getDataThrottled = _.throttle(getData, 300)
