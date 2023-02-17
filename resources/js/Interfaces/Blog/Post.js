@@ -27,6 +27,11 @@ export default class Post
         return this._item?.scope
     }
 
+    get status ()
+    {
+        return this._item?.status
+    }
+
     get tags ()
     {
         return this._item?.tags

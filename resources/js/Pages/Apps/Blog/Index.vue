@@ -14,8 +14,10 @@
                     :image="post.image"
                     :color="post.category.color"
                     :primary-tag="post.category.name"
+                    :effect="post.status !== 'published'"
                     :tags="post.tags"
                     :link="route('blog.article', [post.category.slug, post.slug])"
+                    :warning="post.status !== 'published' ? 'Dieser Eintrag ist nicht veröffentlicht. Du hast die Berechtigungen, ihn trotzdem zu sehen.' : ''"
                 />
             </div>
         </div>
