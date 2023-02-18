@@ -168,7 +168,7 @@ class MediaController extends Controller
             $media->children()->create([
                 'path' => $path,
                 'mediatype' => $file->getMimeType(),
-                'systus' => $media->status,
+                'status' => $media->status,
             ]);
         }
 

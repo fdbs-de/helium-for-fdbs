@@ -15,7 +15,7 @@
                 <!-- <span class="filesize">{{fileSize(item.size)}}</span> -->
             </div>
             <div class="spacer"></div>
-            <VDropdown placement="bottom-end">
+            <VDropdown placement="bottom-end" v-if="showActions">
                 <button @click.stop>more_vert</button>
                 <template #popper>
                     <div class="dropdown">
@@ -56,6 +56,10 @@
         enablePreview: {
             type: Boolean,
             default: false,
+        },
+        showActions: {
+            type: Boolean,
+            default: true,
         },
         selection: {
             type: Array,

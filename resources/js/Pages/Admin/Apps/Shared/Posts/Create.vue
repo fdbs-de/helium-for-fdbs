@@ -120,7 +120,7 @@
         </form>
     </AdminLayout>
 
-    <Picker ref="picker"/>
+    <Picker ref="picker" accept="image/*"/>
 </template>
 
 <script setup>

@@ -17,7 +17,7 @@
             <span class="filesize">{{ fileSize(item.size) }}</span>
         </div> -->
 
-        <VDropdown placement="bottom-end">
+        <VDropdown placement="bottom-end" v-if="showActions">
             <button @click.stop>more_vert</button>
             <template #popper>
                 <div class="dropdown">
@@ -58,6 +58,10 @@
             type: Boolean,
             default: false,
         },
+        showActions: {
+            type: Boolean,
+            default: true,
+        },
         selection: {
             type: Array,
             default: () => [],
@@ -90,22 +94,8 @@
         cursor: pointer
         position: relative
 
-        &::after
-            content: ''
-            box-sizing: border-box
-            position: absolute
-            top: 0
-            left: 0
-            width: 100%
-            height: 100%
-            border-radius: inherit
-            pointer-events: none
-            z-index: 1
-            background: var(--color-info)
-            opacity: 0
-
-        &:hover::after
-            opacity: .1
+        &:hover
+            background: var(--color-background-soft)
 
         &::before
             content: ''
