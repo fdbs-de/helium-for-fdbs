@@ -1,5 +1,5 @@
 <template>
-    <component :is="component" :item="item" :enable-preview="enablePreview" :selection="selection"/>
+    <component :is="component" :item="item" :enable-preview="enablePreview" :selection="selection" :show-actions="showActions"/>
 </template>
 
 <script setup>
@@ -19,6 +19,10 @@
         enablePreview: {
             type: Boolean,
             default: false,
+        },
+        showActions: {
+            type: Boolean,
+            default: true,
         },
         selection: {
             type: Array,
