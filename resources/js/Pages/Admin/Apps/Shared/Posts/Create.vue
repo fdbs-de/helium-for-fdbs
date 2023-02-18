@@ -2,88 +2,104 @@
     <Head :title="form.title || 'Post Titel'" />
 
     <AdminLayout :title="form.title || 'Post Titel'" :backlink="route('admin.'+app+'.posts')" backlink-text="Zurück zur Übersicht">
-        <form class="card flex vertical gap-4 padding-1" @submit.prevent="saveItem()">
-            <div class="limiter text-limiter" v-if="hasErrors">
-                <h3><b>Fehler!</b></h3>
-                <p v-for="(error, key) in errors" :key="key">{{ error }}</p>
+        <form class="card flex vertical gap-1 padding-1" @submit.prevent="saveItem()">
+            <div class="flex v-center gap-1">
+                <select class="header-select" v-model="form.status">
+                    <option :value="null" disabled>Status auswählen</option>
+                    <option value="draft">Entwurf</option>
+                    <option value="pending">Zur Freigabe</option>
+                    <option value="published">Veröffentlicht</option>
+                    <option value="hidden">Versteckt</option>
+                </select>
+
+                <div class="spacer"></div>
+
+                <mui-button class="header-button" :loading="form.processing" size="large" :disabled="!hasUnsavedChanges" v-tooltip.bottom="'(STRG+S zum speichern)'">
+                    {{ form.id ? 'Post Speichern' : 'Post erstellen' }}
+                </mui-button>
             </div>
 
-            <div class="hero-image-wrapper" :class="{'expanded': expanded}">
+            <div class="hero-image-wrapper">
                 <img :src="form.image" :alt="form.title" class="hero-image" v-if="form.image">
-                <div class="hero-image-overlay top">
-                    <div class="flex h-center">
-                        <mui-button type="button" label="Ansicht" variant="text" size="small" :icon-left="expanded ? 'expand_less' : 'expand_more'" @click="expanded = !expanded"/>
-                    </div>
-                </div>
                 <div class="hero-image-overlay bottom">
                     <div class="limiter text-limiter">
-                        <mui-input type="text" class="flex-1" label="Bild URL" clearable border v-model="form.image">
+                        <mui-input type="text" class="flex-1" placeholder="Bild URL" clearable v-model="form.image">
                             <template #right>
-                                <button type="button" class="input-button" @click="$refs.picker.open((file) => { form.image = file })">folder_open</button>
+                                <IconButton icon="folder_open" class="input-button" @click="$refs.picker.open((file) => { form.image = file })"/>
                             </template>
                         </mui-input>
                     </div>
                 </div>
             </div>
 
-            <div class="post-layout">
-                <div class="content-section">
-                    <mui-input type="text" label="Titel *" required v-model="form.title">
-                        <template #right>
-                            <button type="button" class="input-button" :class="{'active': form.pinned}" v-tooltip.right="'Post anpinnen'" @click="form.pinned = !form.pinned">push_pin</button>
-                        </template>
-                    </mui-input>
+            <div class="limiter text-limiter" v-if="Object.keys($page.props.errors).length">
+                <Alert type="error" title="Da lief etwas schief!">
+                    <ul>
+                        <li v-for="(error, key) in $page.props.errors" :key="key">{{ error }}</li>
+                    </ul>
+                </Alert>
+            </div>
 
-                    <mui-input type="text" class="margin-bottom-2" label="Slug *" required v-model="form.slug">
-                        <template #right>
-                            <button type="button" class="input-button" v-tooltip.right="'Aus Titel generieren'" @click="generateSlug">auto_awesome</button>
-                        </template>
-                    </mui-input>
+            <div class="flex border-bottom padding-bottom-1 margin-bottom-1">
+                <Tabs v-model="tab" :tabs="[
+                    { label: 'Allgemein', value: 'general' },
+                    { label: 'Veröffentlichung', value: 'publishing'},
+                    { label: 'Berechtigungen', value: 'permissions'},
+                ]" />
+            </div>
 
-                    <TextEditor class="content-input flex-1" v-model="form.content" />
-                </div>
-                <div class="meta-section">
-                    <mui-button v-if="form.id" label="Post Speichern" size="large" :loading="form.processing" @click="saveItem()" />
-                    <mui-button v-else label="Post erstellen" size="large" :loading="form.processing" @click="saveItem()" />
-
-                    <select class="header-select" v-model="form.status">
-                        <option :value="null" disabled>Status auswählen</option>
-                        <option value="draft">Entwurf</option>
-                        <option value="pending">Zur Freigabe</option>
-                        <option value="published">Veröffentlicht</option>
-                        <option value="hidden">Versteckt</option>
-                    </select>
-
-                    <select class="header-select margin-top-2" v-model="form.category">
+            <div class="limiter text-limiter">
+                <div class="tab-container" v-show="tab === 'general'">
+                    <select class="header-select" v-model="form.category">
                         <option :value="null" disabled>Kategorie auswählen</option>
                         <option v-for="category in categories" :key="category.id" :value="category.id">{{category.name}}</option>
                     </select>
+
+                    <mui-input type="text" label="Titel" required v-model="form.title">
+                        <template #right>
+                            <IconButton icon="push_pin" class="input-button" :class="{'active': form.pinned}" @click="form.pinned = !form.pinned"  v-tooltip.right="'Post anpinnen'"/>
+                        </template>
+                    </mui-input>
                     
-                    <mui-input type="text" label="Tags" v-model="form.tags" />
-        
-                    <div class="group margin-top-2">
-                        <div class="flex gap-1 v-center">
-                            <b class="heading flex-1">Veröffentlichungsdatum</b>
-                            <button type="button" class="icon-button pill" v-tooltip.bottom="'Veröffentlichungsdatum hinzufügen'" v-if="form.available_from === null" @click="form.available_from = new Date().toISOString().split('T')[0]">add</button>
-                            <button type="button" class="icon-button pill" v-tooltip.bottom="'Veröffentlichungsdatum zurücksetzen'" v-else @click="form.available_from = null">replay</button>
+                    <mui-input type="text" label="Slug" required v-model="form.slug">
+                        <template #right>
+                            <IconButton icon="auto_awesome" class="input-button" @click="generateSlug()"  v-tooltip.right="'Aus Titel generieren'"/>
+                        </template>
+                    </mui-input>
+
+                    <div></div>
+
+                    <TextEditor class="content-input flex-1" v-model="form.content" />
+                </div>
+
+                <div class="tab-container" v-show="tab === 'publishing'">
+                    <mui-input type="text" label="Tags" helper="Tags werden mit Komma getrennt" v-model="form.tags" />
+
+                    <div class="flex vertical background-soft radius-m">
+                        <div class="flex padding-1 gap-1 wrap">
+                            <mui-toggle type="switch" label="Veröffentlichen am" :modelValue="!!form.available_from" @update:modelValue="form.available_from = $event ? new Date().toISOString().split('T')[0] : null"/>
                         </div>
-                        <input type="date" class="date-input" v-model="form.available_from" v-show="form.available_from">
-                    </div>
-            
-                    <div class="group">
-                        <div class="flex gap-1 v-center">
-                            <b class="heading flex-1">Gültigkeitsdatum</b>
-                            <button type="button" class="icon-button pill" v-tooltip.bottom="'Gültigkeitsdatum hinzufügen'" v-if="form.available_to === null" @click="form.available_to = new Date().toISOString().split('T')[0]">add</button>
-                            <button type="button" class="icon-button pill" v-tooltip.bottom="'Gültigkeitsdatum zurücksetzen'" v-else @click="form.available_to = null">replay</button>
+                        <div class="flex padding-1 gap-1 wrap border-top" v-show="form.available_from">
+                            <input type="date" class="date-input flex-1" v-model="form.available_from">
                         </div>
-                        <input type="date" class="date-input" v-model="form.available_to" v-show="form.available_to">
                     </div>
 
-                    <div class="flex vertical background-soft radius-m margin-top-2">
-                        <div class="flex padding-1 gap-1 wrap h-center">
+                    <div class="flex vertical background-soft radius-m">
+                        <div class="flex padding-1 gap-1 wrap">
+                            <mui-toggle type="switch" label="Veröffentlichen bis" :modelValue="!!form.available_to" @update:modelValue="form.available_to = $event ? new Date().toISOString().split('T')[0] : null"/>
+                        </div>
+                        <div class="flex padding-1 gap-1 wrap border-top" v-show="form.available_to">
+                            <input type="date" class="date-input flex-1" v-model="form.available_to">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-container" v-show="tab === 'permissions'">
+                    <div class="flex vertical background-soft radius-m">
+                        <div class="flex padding-1 gap-1 wrap">
                             <mui-toggle type="switch" label="Berechtigungen überschreiben" v-model="form.override_category_roles"/>
                         </div>
-                        <div class="flex padding-1 gap-1 wrap h-center border-top" v-show="form.override_category_roles">
+                        <div class="flex padding-1 gap-1 wrap border-top" v-show="form.override_category_roles">
                             <span v-if="form.roles.length > 0">Nur <b>ausgewählte Benutzer</b> können diesen Eintrag aufrufen</span>
                             <span v-else><b>Jeder Benutzer</b> kann diesen Eintrag aufrufen</span>
                         </div>
@@ -112,13 +128,21 @@
     import { slugify } from '@/Utils/String'
     import { ref, computed, watch } from 'vue'
     import { Inertia } from '@inertiajs/inertia'
+    import hotkeys from 'hotkeys-js'
     import dayjs from 'dayjs'
 
     import AdminLayout from '@/Layouts/Admin.vue'
-    import Popup from '@/Components/Form/Popup.vue'
-    import Switcher from '@/Components/Form/Switcher.vue'
     import TextEditor from '@/Components/Form/TextEditor.vue'
     import Picker from '@/Components/Form/MediaLibrary/Picker.vue'
+    import IconButton from '@/Components/Apps/Pages/IconButton.vue'
+    import Tabs from '@/Components/Form/Tabs.vue'
+    import Alert from '@/Components/Alert.vue'
+
+
+
+    hotkeys('ctrl+s', (event, handler) => { event.preventDefault(); saveItem() })
+
+
 
     const props = defineProps({
         item: Object,
@@ -129,10 +153,13 @@
 
 
 
-    const expanded = ref(false)
+    const tab = ref('general')
 
 
 
+    
+    
+    
     // START: Post Form
     const form = useForm({
         id: null,
@@ -149,10 +176,24 @@
         available_from: null,
         available_to: null,
     })
+    
+    const formDelta = ref(form.data())
+
+    const formString = computed(() => {
+        return JSON.stringify(form.data())
+    })
+    
+    const hasUnsavedChanges = computed(() => {
+        return JSON.stringify(formDelta.value) !== formString.value
+    })
+
+
 
     const generateSlug = () => {
         form.slug = slugify(form.title)
     }
+
+
 
     const openItem = (item = null) => {
         form.id = item?.id ?? null
@@ -168,16 +209,14 @@
         form.override_category_roles = item?.override_category_roles ?? false
         form.available_from = item?.available_from ? dayjs(item?.available_from).format('YYYY-MM-DD') : null
         form.available_to = item?.available_to ? dayjs(item?.available_to).format('YYYY-MM-DD') : null
+
+        formDelta.value = form.data()
     }
 
-    watch((props) => props?.item, () => {
-        openItem(props?.item)
-    },{
-        immediate: true,
-        deep: true
-    })
-
     const saveItem = () => {
+        if (form.processing) return
+        if (!hasUnsavedChanges.value) return
+
         form.id ? updateItem() : storeItem()
     }
 
@@ -204,6 +243,15 @@
             },
         })
     }
+
+
+
+    watch((props) => props?.item, () => {
+        openItem(props?.item)
+    },{
+        immediate: true,
+        deep: true
+    })
     // END: Post Form
 
 
@@ -214,12 +262,15 @@
     }
     // END: Role Handling
 
-    
-    
-    // START: Error Handling
-    const errors = computed(() => usePage().props.value.errors)
-    const hasErrors = computed(() => Object.keys(errors.value).length > 0)
-    // END: Error Handling
+
+
+    // START: Auto-save
+    watch(formString, () => {
+        saveItemThrottled()
+    })
+
+    const saveItemThrottled = _.debounce(saveItem, 5000)
+    // END: Auto-save
 </script>
 
 <style lang="sass" scoped>
@@ -228,28 +279,23 @@
         box-shadow: var(--shadow-elevation-low)
         border-radius: var(--radius-m)
 
-    .header-switcher
-        height: 3rem
-        box-shadow: none
-        background: var(--color-background-soft)
-        border-radius: var(--radius-s)
-
     .header-select
         height: 3rem
         cursor: pointer
+        border-radius: var(--radius-s)
+
+    .header-button
+        border-radius: var(--radius-s)
 
     .hero-image-wrapper
-        border-radius: var(--radius-m)
+        border-radius: var(--radius-s)
         background: var(--color-background-soft)
         overflow: hidden
         position: relative
         width: 100%
-        aspect-ratio: 5
+        aspect-ratio: 2.5
         transition: all 100ms ease-out
         --mui-background: var(--color-background)
-
-        &.expanded
-            aspect-ratio: 2.5
 
         &:hover .hero-image-overlay
             transform: translateY(0) !important
@@ -275,89 +321,20 @@
                 transform: translateY(100%)
                 background: linear-gradient(0deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%)
 
-            &.top
-                top: 0
-                padding-block: .5rem 1rem
-                transform: translateY(-100%)
-                background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 100%)
-
-    .post-layout
+    .tab-container
         display: flex
-        gap: 4rem
-        align-items: flex-start
-
-        .meta-section
-            flex: 1
-            display: flex
-            flex-direction: column
-            gap: 1rem
-            position: sticky
-            top: 1rem
-
-        .content-section
-            flex: 2
-            display: flex
-            flex-direction: column
-            gap: 1rem
+        flex-direction: column
+        gap: 1rem
+        min-height: 35rem
 
     .input-button
         height: 2rem
         width: 2rem
-        display: flex
-        align-items: center
-        justify-content: center
-        padding: 0
-        margin: 0
-        border: none
-        background: none
-        cursor: pointer
-        user-select: none
-        font-family: var(--font-icon)
-        font-size: 1.35rem
-        text-align: center
-        color: var(--color-text)
-        border-radius: .25rem
+        border-radius: var(--radius-s)
         flex: none
-
-        &:hover,
-        &:focus
-            color: var(--mui-color__)
-            background: var(--mui-background-secondary__)
 
         &.active
             color: var(--color-primary)
-
-    .group
-        display: flex
-        flex-direction: column
-        padding: 1rem
-        gap: 1rem
-        border-radius: var(--radius-s)
-        background: var(--color-background-soft)
-
-        .heading
-            color: var(--color-heading)
-
-    .icon-button.pill
-        height: 1.5rem
-        width: 2.5rem
-        display: flex
-        align-items: center
-        justify-content: center
-        user-select: none
-        font-size: 1.2rem
-        font-family: var(--font-icon)
-        color: var(--color-primary)
-        background: #00000020
-        border-radius: var(--radius-xl)
-        padding: 0
-        border: none
-        cursor: pointer
-
-        &:hover,
-        &:focus
-            background: var(--color-primary)
-            color: var(--color-background)
 
     .date-input
         display: flex

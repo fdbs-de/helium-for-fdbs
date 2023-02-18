@@ -45,3 +45,12 @@
  * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
  * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  */
+
+/**! 
+ * hotkeys-js v3.10.1 
+ * A simple micro-library for defining and dispatching keyboard shortcuts. It has no dependencies. 
+ * 
+ * Copyright (c) 2022 kenny wong <wowohoo@qq.com> 
+ * http://jaywcjlove.github.io/hotkeys 
+ * Licensed under the MIT license 
+ */
