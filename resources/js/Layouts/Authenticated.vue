@@ -59,11 +59,10 @@
                     <div class="icon" aria-hidden="true">workspace_premium</div>
                     <div class="text">Qualitätsmanagement</div>
                 </Link>
-                <a class="menu-item" v-if="can('app.wiki.access.frontend')" target="_blank" :href="route('wiki')">
+                <Link class="menu-item" v-if="can('app.wiki.access.frontend')" :href="route('wiki')">
                     <div class="icon" aria-hidden="true">travel_explore</div>
                     <div class="text">Firmenwiki</div>
-                    <div class="external">open_in_new</div>
-                </a>
+                </Link>
                 <a class="menu-item" target="_blank" :href="route('docs', 'organigramm')">
                     <div class="icon" aria-hidden="true">lan</div>
                     <div class="text">Organigramm</div>

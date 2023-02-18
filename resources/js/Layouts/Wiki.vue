@@ -2,7 +2,7 @@
     <div class="layout">
         <div class="menu" :class="{'open': isOpen}">
             <div class="apps-bar">
-                <Link class="logo" :href="route('wiki')">
+                <Link class="logo" :href="route('dashboard')">
                     <img src="/images/branding/icon_dashboard.svg" alt="FDBS Logo">
                 </Link>
 
@@ -28,6 +28,7 @@
 
                 <div class="group">
                     <Link class="app" :href="route('dashboard.profile')" v-tooltip.right="'Profil'">account_circle</Link>
+                    <Link class="app" :href="route('dashboard')" v-tooltip.right="'Zurück zum Intranet'">domain</Link>
                 </div>
             </div>
 
