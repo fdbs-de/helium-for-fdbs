@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Http\Resources\PersonalUserResource;
+use App\Http\Resources\User\PrivateUserResource;
 use App\Models\Document;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -40,7 +40,7 @@ class HandleInertiaRequests extends Middleware
         // Prepare the user data
         if ($request->user())
         {
-            $user = new PersonalUserResource($request->user());
+            $user = new PrivateUserResource($request->user());
         }
 
         return array_merge(parent::share($request), [

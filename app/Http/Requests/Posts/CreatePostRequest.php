@@ -24,7 +24,9 @@ class CreatePostRequest extends FormRequest
      */
     protected function prepareForValidation()
     {
-        $this->merge(['scope' => $this->app['id']]);
+        $this->merge([
+            'scope' => $this->app['id'],
+        ]);
     }
 
     /**
@@ -38,6 +40,9 @@ class CreatePostRequest extends FormRequest
             'scope' => ['required'],
             'roles' => ['nullable', 'array'],
             'roles.*' => ['nullable', 'exists:roles,id'],
+            'users' => ['nullable', 'array'],
+            'users.*.id' => ['required', 'exists:users,id'],
+            'users.*.pivot_role' => ['required', 'string', 'in:author,co-author,editor,viewer'],
             'title' => ['nullable', 'string', 'max:255'],
             'slug' => ['nullable', 'string', 'max:255', 'unique:posts,slug,NULL,id,scope,' . $this->scope],
             'category' => ['required', 'integer', 'exists:post_categories,id,scope,' . $this->scope],
@@ -51,5 +56,17 @@ class CreatePostRequest extends FormRequest
             'available_from' => ['nullable', 'date'],
             'available_to' => ['nullable', 'date'],
         ];
+    }
+
+
+
+    public function passedValidation()
+    {
+        $this->merge([
+            'users' => array_reduce($this->users, function ($result, $user) {
+                $result[$user['id']] = [ 'role' => $user['pivot_role']];
+                return $result;
+            }, []),
+        ]);
     }
 }
