@@ -21,6 +21,8 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
 
     Route::get('/generate-dir-cache', [AdminController::class, 'generateDirCache']);
 
+    Route::get('/search-users', [UserController::class, 'searchPublic'])->name('admin.search.users');
+
     Route::prefix('settings')->group(function () {
         Route::middleware('can:system.view.settings')->group(function () {
             Route::get('/general', [SettingsController::class, 'indexGeneral'])->name('admin.settings.general');

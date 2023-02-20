@@ -7,6 +7,7 @@ use App\Http\Requests\Posts\CreatePostRequest;
 use App\Http\Requests\Posts\DestroyPostRequest;
 use App\Http\Requests\Posts\DuplicatePostRequest;
 use App\Http\Requests\Posts\UpdatePostRequest;
+use App\Http\Resources\Post\PostResource;
 use App\Models\Post;
 use App\Models\PostCategory;
 use Illuminate\Http\Request;
@@ -35,10 +36,12 @@ class PostController extends Controller
 
 
 
-    public function create(Request $request, Post $post)
+    public function create(Request $request)
     {
+        $post = $request->post ? new PostResource(Post::find($request->post)) : null;
+
         return Inertia::render('Admin/Apps/Shared/Posts/Create', [
-            'item' => $post->load(['roles']),
+            'item' => $post,
             'categories' => PostCategory::orderBy('created_at')
             ->where('scope', $request->app['id'])
             ->orderBy('name', 'asc')
@@ -58,8 +61,8 @@ class PostController extends Controller
         // Sync the roles (if override is enabled)
         $post->roles()->sync($request->override_category_roles ? $request->roles : []);
 
-        // Attach the author to the post
-        $post->users()->attach($request->user()->id, ['role' => 'author']);
+        // Sync the authors, editors, etc.
+        $post->users()->sync($request->users);
 
         // Redirect to the editor
         return redirect()->route('admin.'.$request->app['route'].'.posts.editor', $post);
@@ -88,6 +91,9 @@ class PostController extends Controller
 
         // Sync the roles (if override is enabled)
         $post->roles()->sync($request->override_category_roles ? $request->roles : []);
+
+        // Sync the authors, editors, etc.
+        $post->users()->sync($request->users);
 
         // Redirect to the editor
         return redirect()->route('admin.'.$request->app['route'].'.posts.editor', $post);

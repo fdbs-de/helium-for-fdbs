@@ -2,7 +2,7 @@
     <Head :title="form.title || 'Post Titel'" />
 
     <AdminLayout :title="form.title || 'Post Titel'" :backlink="route('admin.'+app+'.posts')" backlink-text="Zurück zur Übersicht">
-        <form class="card flex vertical gap-1 padding-1" @submit.prevent="saveItem()">
+        <form class="card flex vertical gap-1 padding-1" @submit.prevent="save()">
             <div class="flex v-center gap-1">
                 <select class="header-select" v-model="form.status">
                     <option :value="null" disabled>Status auswählen</option>
@@ -13,6 +13,8 @@
                 </select>
 
                 <div class="spacer"></div>
+
+                <mui-toggle type="switch" prepend-label="Auto-Save" v-model="autosave" v-if="form.id"/>
 
                 <mui-button class="header-button" :loading="form.processing" size="large" :disabled="!hasUnsavedChanges" v-tooltip.bottom="'(STRG+S zum speichern)'">
                     {{ form.id ? 'Post Speichern' : 'Post erstellen' }}
@@ -32,15 +34,13 @@
                 </div>
             </div>
 
-            <div class="limiter text-limiter" v-if="Object.keys($page.props.errors).length">
-                <Alert type="error" title="Da lief etwas schief!">
-                    <ul>
-                        <li v-for="(error, key) in $page.props.errors" :key="key">{{ error }}</li>
-                    </ul>
-                </Alert>
-            </div>
+            <Alert type="error" title="Da lief etwas schief!" v-if="Object.keys($page.props.errors).length">
+                <ul>
+                    <li v-for="(error, key) in $page.props.errors" :key="key">{{ error }}</li>
+                </ul>
+            </Alert>
 
-            <div class="flex border-bottom padding-bottom-1 margin-bottom-1">
+            <div class="flex">
                 <Tabs v-model="tab" :tabs="[
                     { label: 'Allgemein', value: 'general' },
                     { label: 'Veröffentlichung', value: 'publishing'},
@@ -48,13 +48,15 @@
                 ]" />
             </div>
 
-            <div class="limiter text-limiter">
-                <div class="tab-container" v-show="tab === 'general'">
+            <hr class="margin-0">
+
+            <div class="tab-container" v-show="tab === 'general'">
+                <div class="limiter text-limiter flex gap-1 vertical">
                     <select class="header-select" v-model="form.category">
                         <option :value="null" disabled>Kategorie auswählen</option>
                         <option v-for="category in categories" :key="category.id" :value="category.id">{{category.name}}</option>
                     </select>
-
+                    
                     <mui-input type="text" label="Titel" required v-model="form.title">
                         <template #right>
                             <IconButton icon="push_pin" class="input-button" :class="{'active': form.pinned}" @click="form.pinned = !form.pinned"  v-tooltip.right="'Post anpinnen'"/>
@@ -66,15 +68,29 @@
                             <IconButton icon="auto_awesome" class="input-button" @click="generateSlug()"  v-tooltip.right="'Aus Titel generieren'"/>
                         </template>
                     </mui-input>
-
-                    <div></div>
-
+                    <hr class="margin-block-1">
                     <TextEditor class="content-input flex-1" v-model="form.content" />
                 </div>
+            </div>
 
-                <div class="tab-container" v-show="tab === 'publishing'">
-                    <mui-input type="text" label="Tags" helper="Tags werden mit Komma getrennt" v-model="form.tags" />
+            <div class="tab-container" v-show="tab === 'publishing'">
+                <div class="limiter text-limiter flex gap-1 vertical">
+                    <fieldset class="flex vertical gap-1 margin-bottom-1">
+                        <mui-input type="text" icon-left="tag" placeholder="Tags (Enter zum Hinzufügen)" v-model="tagString" @keydown.enter.stop.prevent="addTag(tagString); tagString = ''">
+                            <template #right>
+                                <IconButton icon="add" class="input-button" @click="addTag(tagString); tagString = ''"  v-show="!!tagString" v-tooltip.right="'Tag Hinzufügen'"/>
+                            </template>
+                        </mui-input>
 
+                        <div class="flex gap-1 wrap" v-show="form.tags.length">
+                            <Tag icon="tag" v-for="tag in form.tags" :label="tag" @click="removeTag(tag)"/>
+                        </div>
+
+                        <small class="flex h-center padding-inline-1" v-show="!form.tags.length">
+                            Keine Tags eingetragen
+                        </small>
+                    </fieldset>
+    
                     <div class="flex vertical background-soft radius-m">
                         <div class="flex padding-1 gap-1 wrap">
                             <mui-toggle type="switch" label="Veröffentlichen am" :modelValue="!!form.available_from" @update:modelValue="form.available_from = $event ? new Date().toISOString().split('T')[0] : null"/>
@@ -83,7 +99,7 @@
                             <input type="date" class="date-input flex-1" v-model="form.available_from">
                         </div>
                     </div>
-
+    
                     <div class="flex vertical background-soft radius-m">
                         <div class="flex padding-1 gap-1 wrap">
                             <mui-toggle type="switch" label="Veröffentlichen bis" :modelValue="!!form.available_to" @update:modelValue="form.available_to = $event ? new Date().toISOString().split('T')[0] : null"/>
@@ -93,9 +109,45 @@
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="tab-container" v-show="tab === 'permissions'">
-                    <div class="flex vertical background-soft radius-m">
+            <div class="tab-container" v-show="tab === 'permissions'">
+                <div class="limiter text-limiter flex gap-1 vertical">
+                    <fieldset class="flex vertical gap-1">
+                        <div class="user-search">
+                            <mui-input
+                                type="text"
+                                icon-left="search"
+                                clearable
+                                placeholder="Benutzer suchen und hinzufügen"
+                                v-model="userSearchForm.search"
+                            />
+                            <div class="dropdown" v-if="userSearchForm.search">
+                                <div class="user flex v-center gap-1" v-for="user in userSearchResults">
+                                    <img :src="user.image" :alt="user.name" class="w-2 h-2 radius-xl">
+                                    <b class="flex-1">{{ user.name }}</b>
+                                    <mui-button type="button" icon-left="add" label="Hinzufügen" variant="contained" size="small" @click="addUser(user)"/>
+                                </div>
+                                <small class="flex h-center padding-1 padding-block-3" v-show="!userSearchResults.length">
+                                    Keine Ergebnisse gefunden
+                                </small>
+                            </div>
+                        </div>
+    
+                        <div class="user flex v-center gap-1" v-for="user in form.users">
+                            <img :src="user.image" :alt="user.name" class="w-2 h-2 radius-xl">
+                            <b class="flex-1">{{ user.name }}</b>
+                            <select class="h-2" v-model="user.pivot_role">
+                                <option value="author">Autor</option>
+                                <option value="co-author">Co-Autor</option>
+                                <option value="editor">Editor</option>
+                                <option value="viewer">Leser</option>
+                            </select>
+                            <IconButton icon="close" class="input-button" v-tooltip.right="'Benutzer entfernen'" @click="removeUser(user)"/>
+                        </div>
+                    </fieldset>
+
+                    <div class="flex vertical background-soft radius-m margin-top-1">
                         <div class="flex padding-1 gap-1 wrap">
                             <mui-toggle type="switch" label="Berechtigungen überschreiben" v-model="form.override_category_roles"/>
                         </div>
@@ -127,7 +179,7 @@
     import { Head, Link, useForm, usePage } from '@inertiajs/inertia-vue3'
     import { slugify } from '@/Utils/String'
     import { ref, computed, watch } from 'vue'
-    import { Inertia } from '@inertiajs/inertia'
+    import LocalSetting from '@/Classes/Managers/LocalSetting'
     import hotkeys from 'hotkeys-js'
     import dayjs from 'dayjs'
 
@@ -135,12 +187,13 @@
     import TextEditor from '@/Components/Form/TextEditor.vue'
     import Picker from '@/Components/Form/MediaLibrary/Picker.vue'
     import IconButton from '@/Components/Apps/Pages/IconButton.vue'
+    import Tag from '@/Components/Form/Tag.vue'
     import Tabs from '@/Components/Form/Tabs.vue'
     import Alert from '@/Components/Alert.vue'
 
 
 
-    hotkeys('ctrl+s', (event, handler) => { event.preventDefault(); saveItem() })
+    hotkeys('ctrl+s', (event, handler) => { event.preventDefault(); save() })
 
 
 
@@ -154,9 +207,6 @@
 
 
     const tab = ref('general')
-
-
-
     
     
     
@@ -172,40 +222,28 @@
         content: '',
         pinned: false,
         status: 'draft',
+        users: [],
         override_category_roles: false,
         available_from: null,
         available_to: null,
     })
-    
     const formDelta = ref(form.data())
 
-    const formString = computed(() => {
-        return JSON.stringify(form.data())
-    })
-    
-    const hasUnsavedChanges = computed(() => {
-        return JSON.stringify(formDelta.value) !== formString.value
-    })
+    const submitRoute = computed(() => form.id ? route(`admin.${props.app}.posts.update`, form.id) : route(`admin.${props.app}.posts.store`))
+    const submitMethod = computed(() => form.id ? 'put' : 'post')
 
-
-
-    const generateSlug = () => {
-        form.slug = slugify(form.title)
-    }
-
-
-
-    const openItem = (item = null) => {
+    const open = (item = null) => {
         form.id = item?.id ?? null
         form.title = item?.title ?? ''
         form.slug = item?.slug ?? ''
-        form.category = item?.category ?? null
-        form.tags = item?.tags ? item?.tags.join(', ') : ''
-        form.roles = item?.roles.map(e => e.id) ?? []
+        form.category = item?.category?.id ?? null
+        form.tags = item?.tags ?? []
+        form.roles = item?.roles?.map(e => e.id) ?? []
         form.image = item?.image ?? ''
         form.content = item?.content ?? ''
         form.pinned = item?.pinned ?? false
         form.status = item?.status ?? 'draft'
+        form.users = item?.users ?? []
         form.override_category_roles = item?.override_category_roles ?? false
         form.available_from = item?.available_from ? dayjs(item?.available_from).format('YYYY-MM-DD') : null
         form.available_to = item?.available_to ? dayjs(item?.available_to).format('YYYY-MM-DD') : null
@@ -213,46 +251,43 @@
         formDelta.value = form.data()
     }
 
-    const saveItem = () => {
+    const save = () => {
         if (form.processing) return
-        if (!hasUnsavedChanges.value) return
 
-        form.id ? updateItem() : storeItem()
-    }
-
-    const storeItem = () => {
-        form.transform((data) => ({
-            ...data,
-            tags: data.tags.split(',').map(tag => tag.trim()).filter(tag => !!tag),
-        })).post(route('admin.'+props.app+'.posts.store'), {
+        form.submit(submitMethod.value, submitRoute.value, {
             preserveScroll: true,
             onSuccess: (data) => {
-                openItem(data?.props?.item)
+                open(data?.props?.item)
             },
         })
     }
 
-    const updateItem = () => {
-        form.transform((data) => ({
-            ...data,
-            tags: data.tags.split(',').map(tag => tag.trim()).filter(tag => !!tag),
-        })).put(route('admin.'+props.app+'.posts.update', form.id), {
-            preserveScroll: true,
-            onSuccess: (data) => {
-                openItem(data?.props?.item)
-            },
-        })
-    }
-
-
-
-    watch((props) => props?.item, () => {
-        openItem(props?.item)
-    },{
-        immediate: true,
-        deep: true
-    })
+    open(props?.item)
     // END: Post Form
+
+
+
+    // START: Track Form Changes
+    const hasUnsavedChanges = computed(() => {
+        return JSON.stringify(formDelta.value) !== JSON.stringify(form.data())
+    })
+    // END: Track Form Changes
+
+
+
+    // START: Auto-save
+    const autosave = ref(LocalSetting.get('posts.editor', 'autosave', false))
+
+    watch(autosave, (value) => {
+        LocalSetting.set('posts.editor', 'autosave', value)
+    })
+    
+    watch(hasUnsavedChanges, () => {
+        if (autosave.value && !!form.id) saveThrottled()
+    })
+
+    const saveThrottled = _.debounce(save, 5000)
+    // END: Auto-save
 
 
 
@@ -264,13 +299,71 @@
 
 
 
-    // START: Auto-save
-    watch(formString, () => {
-        saveItemThrottled()
+    // START: Tag Handling
+    const tagString = ref('')
+
+    const addTag = (tag) => {
+        form.tags = [ ...form.tags, tag ]
+    }
+
+    const removeTag = (tag) => {
+        form.tags = form.tags.filter(e => e !== tag)
+    }
+    // END: Tag Handling
+
+
+
+    // START: User Search
+    const userSearchResults = ref([])
+    const userSearchForm = ref({
+        search: '',
+        limit: 5,
     })
 
-    const saveItemThrottled = _.debounce(saveItem, 5000)
-    // END: Auto-save
+    const excludeUsers = computed(() => {
+        return form?.users?.map(e => e.id) ?? []
+    })
+
+    watch(userSearchForm, () => {
+        fetchUsers()
+    }, { deep: true })
+
+    const fetchUsers = async () => {
+        try
+        {
+            let response = await axios.get(route('admin.search.users', {...userSearchForm.value, exclude: excludeUsers.value}))
+
+            userSearchResults.value = response?.data?.data
+        }
+        catch (error)
+        {
+            console.log(error)
+        }
+    }
+    // END: User Search
+
+
+
+    // START: User Handling
+    const addUser = (user) => {
+        form.users = [
+            ...form.users,
+            { ...user, pivot_role: 'viewer' }
+        ]
+    }
+
+    const removeUser = (user) => {
+        form.users = form.users.filter(e => e.id !== user.id)
+    }
+    // END: User Handling
+
+
+
+    // START: Miscelaneous
+    const generateSlug = () => {
+        form.slug = slugify(form.title)
+    }
+    // END: Miscelaneous
 </script>
 
 <style lang="sass" scoped>
@@ -326,6 +419,7 @@
         flex-direction: column
         gap: 1rem
         min-height: 35rem
+        padding-block: 1rem
 
     .input-button
         height: 2rem
@@ -345,4 +439,25 @@
         
     .content-input
         min-height: 35rem
+
+
+    .user-search
+        display: flex
+        flex-direction: column
+        gap: 1rem
+        position: relative
+
+        .dropdown
+            display: flex
+            flex-direction: column
+            gap: .5rem
+            padding: .5rem
+            position: absolute
+            left: 0
+            top: 100%
+            width: 100%
+            background: var(--color-background)
+            border-radius: var(--radius-m)
+            box-shadow: var(--shadow-elevation-low)
+            z-index: 1000
 </style>

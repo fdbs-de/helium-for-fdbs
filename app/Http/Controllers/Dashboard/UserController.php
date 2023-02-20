@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\DestroyUserRequest;
-use App\Http\Resources\UserResource;
+use App\Http\Resources\User\PublicUserResource;
+use App\Http\Resources\User\UserResource;
 use App\Mail\ImportedUserCreated;
 use App\Mail\UserEnabled;
 use App\Models\Setting;
@@ -24,6 +25,37 @@ class UserController extends Controller
     }
 
 
+
+    public function searchPublic()
+    {
+        $query = User::select(['id', 'name', 'username', 'image']);
+
+        if (request()->exclude)
+        {
+            $query->whereNotIn('id', request()->exclude);
+        }
+
+        if (request()->search)
+        {
+            $query->whereFuzzy(function ($query) {
+                $query
+                ->orWhereFuzzy('name', request()->search)
+                ->orWhereFuzzy('username', request()->search);
+            });
+        }
+
+        $total = $query->count();
+
+        if (request()->limit)
+        {
+            $query->limit(request()->limit);
+        }
+
+        return response()->json([
+            'data' => PublicUserResource::collection($query->get()),
+            'total' => $total,
+        ]);
+    }
 
     public function search(Request $request)
     {

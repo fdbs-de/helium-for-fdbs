@@ -48,6 +48,13 @@ class User extends Authenticatable implements MustVerifyEmail
 
 
 
+    public function getImageAttribute()
+    {
+        return $this->image ?? '/images/app/defaults/user.png';
+    }
+
+
+
     // START: Settings
     public function settings()
     {
