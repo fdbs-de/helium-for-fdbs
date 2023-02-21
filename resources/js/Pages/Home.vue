@@ -17,9 +17,9 @@
                     <div class="about-card">
                         <div class="text-wrapper flex vertical">
                             <p>
-                                <b>Wir sind FDBS</b> – Ihre Kompetenz rund um den Foodservice.
+                                <b>Wir sind FDBS</b> – Ihr kompetenter Großhandel und Foodservice in Braunschweig.
                                 Von <Link :href="route('ps.foodservice')">Food</Link>,
-                                über <Link :href="route('ps.foodservice')">Non-Food</Link>
+                                über <Link style="white-space: nowrap;" :href="route('ps.foodservice')">Non-Food</Link>
                                 bis hin zum <Link :href="route('ps.marketing-und-kommunikation')">Marketing</Link>
                                 und <Link :href="route('ps.technischer-kundendienst')">technischen Kundendienst</Link> können wir Ihnen helfen.
                             </p>
