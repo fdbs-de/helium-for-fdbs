@@ -5,7 +5,7 @@
         "employees": [
             {
                 "name": "Jana Schildhauer",
-                "job": "Assistentin des Vorstands / QM / Ausbildungsleitung",
+                "job": "Assistenz des Vorstands / QM / Ausbildungsleitung",
                 "leader": true,
                 "tel": "44",
                 "image": "/images/content/mitarbeiter/jana_schildhauer.png",
@@ -52,20 +52,6 @@
         ]
     },
     {
-        "id": "controlling",
-        "name": "Controlling",
-        "employees": [
-            {
-                "name": "Meik Binkowski",
-                "job": "Controlling",
-                "leader": true,
-                "tel": "33",
-                "image": "/images/content/mitarbeiter/meik_binkowski.png",
-                "overlay": "/images/content/mitarbeiter/meik_binkowski_zeichnung.png"
-            }
-        ]
-    },
-    {
         "id": "disposition",
         "name": "Warendisposition",
         "employees": [
@@ -107,6 +93,13 @@
                 "tel": "48",
                 "image": "/images/content/mitarbeiter/nino_storch.png",
                 "overlay": "/images/content/mitarbeiter/nino_storch_zeichnung.png"
+            },
+            {
+                "name": "Hendrik Tewes",
+                "job": "Einkauf / Warendisposition",
+                "leader": false,
+                "tel": "90",
+                "image": null
             }
         ]
     },
@@ -123,15 +116,23 @@
                 "overlay": "/images/content/mitarbeiter/philipp_rost_zeichnung.png"
             },
             {
-                "name": "Niklas Figge",
-                "job": "Fachberater Gastronomie & Gemeinschaftsverpflegung",
+                "name": "Florian Keye",
+                "job": "Assistenz der Vertriebsleitung",
                 "leader": false,
-                "tel": "80",
+                "tel": "25",
                 "image": null
             },
             {
+                "name": "Niklas Figge",
+                "job": "Fachberatung Gastronomie & Gemeinschaftsverpflegung",
+                "leader": false,
+                "tel": "80",
+                "image": "/images/content/mitarbeiter/niklas_figge.png",
+                "overlay": "/images/content/mitarbeiter/niklas_figge_zeichnung.png"
+            },
+            {
                 "name": "Elke Grigat",
-                "job": "Fachberaterin Käse & Salate",
+                "job": "Fachberatung Käse & Salate",
                 "leader": false,
                 "tel": "38",
                 "image": "/images/content/mitarbeiter/elke_grigat.png",
@@ -139,14 +140,14 @@
             },
             {
                 "name": "Klaus-Dieter Hoffmann",
-                "job": "Fachberater",
+                "job": "Fachberatung",
                 "leader": false,
                 "tel": "98",
                 "image": null
             },
             {
                 "name": "Marcus König",
-                "job": "Fachberater",
+                "job": "Fachberatung",
                 "leader": false,
                 "tel": "93",
                 "image": "/images/content/mitarbeiter/marcus_koenig.png",
@@ -154,14 +155,22 @@
             },
             {
                 "name": "Valerij Lehmkuhl",
-                "job": "Fachberater",
+                "job": "Fachberatung",
                 "leader": false,
                 "tel": "83",
+                "image": "/images/content/mitarbeiter/valerij_lehmkuhl.png",
+                "overlay": "/images/content/mitarbeiter/valerij_lehmkuhl_zeichnung.png"
+            },
+            {
+                "name": "Marta Löschner",
+                "job": "Fachberatung",
+                "leader": false,
+                "tel": null,
                 "image": null
             },
             {
                 "name": "Lutz Nolte",
-                "job": "Fachberater",
+                "job": "Fachberatung",
                 "leader": false,
                 "tel": "94",
                 "image": "/images/content/mitarbeiter/lutz_nolte.png",
@@ -169,7 +178,7 @@
             },
             {
                 "name": "Kenan Özden",
-                "job": "Fachberater",
+                "job": "Fachberatung Großhandel",
                 "leader": false,
                 "tel": "92",
                 "image": "/images/content/mitarbeiter/kenan_oezden.png",
@@ -177,7 +186,7 @@
             },
             {
                 "name": "Andreas Pape",
-                "job": "Fachberater",
+                "job": "Fachberatung",
                 "leader": false,
                 "tel": "91",
                 "image": "/images/content/mitarbeiter/andreas_pape.png",
@@ -185,7 +194,7 @@
             },
             {
                 "name": "Mathias Vetter",
-                "job": "Fachberater",
+                "job": "Fachberatung",
                 "leader": false,
                 "tel": "95",
                 "image": "/images/content/mitarbeiter/mathias_vetter.png",
@@ -193,7 +202,7 @@
             },
             {
                 "name": "Jens Winkler",
-                "job": "Fachberater",
+                "job": "Fachberatung",
                 "leader": false,
                 "tel": "97",
                 "image": "/images/content/mitarbeiter/jens_winkler.png",
@@ -205,14 +214,6 @@
         "id": "vertriebsinnendienst",
         "name": "Vertriebsinnendienst",
         "employees": [
-            {
-                "name": "Madlen Krause",
-                "job": "Leitung Vertriebsinnendienst",
-                "leader": true,
-                "tel": "18",
-                "image": "/images/content/mitarbeiter/madlen_krause.png",
-                "overlay": "/images/content/mitarbeiter/madlen_krause_zeichnung.png"
-            },
             {
                 "name": "Phil Bartelt",
                 "job": "Vertriebsinnendienst",
@@ -233,6 +234,13 @@
                 "job": "Vertriebsinnendienst",
                 "leader": false,
                 "tel": "28",
+                "image": null
+            },
+            {
+                "name": "Nicole Koch",
+                "job": "Vertriebsinnendienst",
+                "leader": false,
+                "tel": null,
                 "image": null
             },
             {
@@ -324,49 +332,14 @@
                 "job": "Printgestaltung & Produktion",
                 "leader": false,
                 "tel": "79",
-                "image": null
+                "image": "/images/content/mitarbeiter/sophie_quast.png",
+                "overlay": "/images/content/mitarbeiter/sophie_quast_zeichnung.png"
             },
             {
                 "name": "Franziska Wolff",
                 "job": "Printgestaltung & Produktion",
                 "image": "/images/content/mitarbeiter/franziska_wolff.png",
                 "overlay": "/images/content/mitarbeiter/franziska_wolff_zeichnung.png"
-            }
-        ]
-    },
-    {
-        "id": "fuhrpark",
-        "name": "Fuhrpark",
-        "employees": [
-            {
-                "name": "Kathrin Reviliak",
-                "job": "Stv. Leitung Fuhrpark",
-                "leader": true,
-                "tel": "53",
-                "image": "/images/content/mitarbeiter/kathrin_reviliak.png",
-                "overlay": "/images/content/mitarbeiter/kathrin_reviliak_zeichnung.png"
-            }
-        ]
-    },
-    {
-        "id": "fleisch",
-        "name": "Fleischabteilung",
-        "employees": [
-            {
-                "name": "Tobias Behnstedt",
-                "job": "Leitung Fleischabteilung",
-                "leader": true,
-                "tel": "26",
-                "image": "/images/content/mitarbeiter/tobias_behnstedt.png",
-                "overlay": "/images/content/mitarbeiter/tobias_behnstedt_zeichnung.png"
-            },
-            {
-                "name": "Niels Brandt",
-                "job": "Leitung Fleischabteilung",
-                "leader": true,
-                "tel": "27",
-                "image": "/images/content/mitarbeiter/niels_brandt.png",
-                "overlay": "/images/content/mitarbeiter/niels_brandt_zeichnung.png"
             }
         ]
     },
@@ -400,18 +373,76 @@
             },
             {
                 "name": "André Hoffmann",
-                "job": "Fachberater Großküchentechnik",
+                "job": "Fachberatung Großküchentechnik",
                 "leader": false,
                 "tel": "41",
-                "image": null
+                "image": "/images/content/mitarbeiter/andre_hoffmann.png",
+                "overlay": "/images/content/mitarbeiter/andre_hoffmann_zeichnung.png"
             },
             {
                 "name": "Holger Kleinert",
-                "job": "Fachberater Geräte und Maschinen",
+                "job": "Fachberatung Geräte und Maschinen",
                 "leader": false,
                 "tel": "14",
                 "image": "/images/content/mitarbeiter/holger_kleinert.png",
                 "overlay": "/images/content/mitarbeiter/holger_kleinert_zeichnung.png"
+            }
+        ]
+    },
+    {
+        "id": "fuhrpark",
+        "name": "Fuhrpark",
+        "employees": [
+            {
+                "name": "Meik Binkowski",
+                "job": "Leitung Fuhrpark / Controlling",
+                "leader": true,
+                "tel": "33",
+                "image": "/images/content/mitarbeiter/meik_binkowski.png",
+                "overlay": "/images/content/mitarbeiter/meik_binkowski_zeichnung.png"
+            },
+            {
+                "name": "Kathrin Reviliak",
+                "job": "Stv. Leitung Fuhrpark",
+                "leader": true,
+                "tel": "53",
+                "image": "/images/content/mitarbeiter/kathrin_reviliak.png",
+                "overlay": "/images/content/mitarbeiter/kathrin_reviliak_zeichnung.png"
+            }
+        ]
+    },
+    {
+        "id": "fleisch",
+        "name": "Fleischabteilung",
+        "employees": [
+            {
+                "name": "Tobias Behnstedt",
+                "job": "Leitung Fleischabteilung",
+                "leader": true,
+                "tel": "26",
+                "image": "/images/content/mitarbeiter/tobias_behnstedt.png",
+                "overlay": "/images/content/mitarbeiter/tobias_behnstedt_zeichnung.png"
+            },
+            {
+                "name": "Niels Brandt",
+                "job": "Leitung Fleischabteilung",
+                "leader": true,
+                "tel": "27",
+                "image": "/images/content/mitarbeiter/niels_brandt.png",
+                "overlay": "/images/content/mitarbeiter/niels_brandt_zeichnung.png"
+            }
+        ]
+    },
+    {
+        "id": "lager",
+        "name": "Lagerabteilung",
+        "employees": [
+            {
+                "name": "Tobias Weniger",
+                "job": "Leitung Lager",
+                "leader": true,
+                "tel": "56",
+                "image": null
             }
         ]
     }
