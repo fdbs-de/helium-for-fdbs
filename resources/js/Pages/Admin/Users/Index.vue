@@ -5,11 +5,13 @@
         <Table
             class="margin-bottom-2"
             :items="items"
+            :storage-key="scope+'.table'"
             v-model:selection="selection"
             v-model:search="filter.name"
             v-model:pagination="pagination"
             @selection:delete="openDeletePopup()"
             @request:refetch="getDataThrottled"
+            @item:click="openItem($event)"
             :columns="tableColumns"
         />
 
@@ -76,6 +78,7 @@
     import { Head, useForm } from '@inertiajs/inertia-vue3'
     import { Inertia } from '@inertiajs/inertia'
     import { ref, watch } from 'vue'
+    import dayjs from 'dayjs'
     import LocalSetting from '@/Classes/Managers/LocalSetting'
 
     import AdminLayout from '@/Layouts/Admin.vue'
@@ -91,18 +94,18 @@
 
 
     const tableColumns = [
-        {type: 'text', label: 'Anzeigename', valuePath: 'name', sortable: true, sticky: true, defaultWidth: 300, scaleable: true},
-        {type: 'text', label: 'Nutzername', valuePath: 'username', sortable: true, sticky: true, defaultWidth: 150, scaleable: true, transform: (value) => value || '---'},
-        {type: 'text', label: 'Email', valuePath: 'email', sortable: true, sticky: false, defaultWidth: 250, scaleable: true},
-        {type: 'tags', label: 'Rollen', valuePath: 'roles', sortable: false, sticky: false, defaultWidth: 200, scaleable: true, transform: (value) => {
+        {type: 'text', name: 'displayname', label: 'Anzeigename', valuePath: 'name', sortable: true, width: 300, resizeable: true, hideable: true},
+        {type: 'text', name: 'username', label: 'Nutzername', valuePath: 'username', sortable: true, width: 150, resizeable: true, hideable: true, transform: (value) => value || '---'},
+        {type: 'text', name: 'email', label: 'Email', valuePath: 'email', sortable: true, width: 250, resizeable: true, hideable: true},
+        {type: 'tags', name: 'roles', label: 'Rollen', valuePath: 'roles', sortable: false, width: 200, resizeable: true, hideable: true, transform: (value) => {
             if (!value || value.length <= 0)
             {
                 return [{icon: null, text: 'Keine Rolle', color: 'var(--color-text)', variant: 'contained', shape: 'pill'}]
             }
 
-            return value.map((role) => ({icon: null, text: role.name, color: 'var(--color-heading)', variant: 'filled', shape: 'pill'}))}
+            return value.map((role) => ({icon: null, text: role.name, color: 'var(--color-text)', variant: 'filled', shape: 'pill'}))}
         },
-        {type: 'tags', label: 'Profile', valuePath: 'profiles', sortable: false, sticky: false, defaultWidth: 100, scaleable: true, transform: (value) => {
+        {type: 'tags', name: 'profiles', label: 'Profile', valuePath: 'profiles', sortable: false, width: 100, resizeable: true, hideable: true, transform: (value) => {
             if (!value || value.length <= 0)
             {
                 return [{icon: null, text: 'Kein Profil', color: 'var(--color-text)', variant: 'contained', shape: 'pill'}]
@@ -112,28 +115,27 @@
 
             if (value.customer)
             {
-                profiles.push({icon: null, text: 'Kunde', color: '#22a6b3', variant: 'filled', shape: 'pill'})
+                profiles.push({icon: null, text: 'Kunde', color: '#5f27cd', variant: 'filled', shape: 'pill'})
             }
 
             if (value.employee)
             {
-                profiles.push({icon: null, text: 'Personal', color: '#6ab04c', variant: 'filled', shape: 'pill'})
+                profiles.push({icon: null, text: 'Personal', color: '#341f97', variant: 'filled', shape: 'pill'})
             }
             
             return profiles
         }},
-        {type: 'icons', label: 'Status', valuePath: 'status', sortable: false, sticky: false, defaultWidth: 100, scaleable: true, transform: (value, item) => {
-            return [
-                {
-                    icon: 'mail',
-                    color: item.email_verified_at ? 'var(--color-success)' : 'var(--color-text)',
-                },{
-                    icon: 'check_circle',
-                    color: item.is_enabled ? 'var(--color-success)' : 'var(--color-text)',
-                },
-            ]
+        {type: 'text', name: 'created_at', label: 'Registriert am', valuePath: 'created_at', sortable: true, width: 200, resizeable: true, hideable: true, transform: (value) => {
+            return value ? dayjs(value).format('DD. MMM YYYY') : '---'
         }},
-        {type: 'actions', label: 'Aktionen', valuePath: null, sortable: false, sticky: false, defaultWidth: null, scaleable: false, transform: (value, item) => {
+        {type: 'text', name: 'email_verified_at', label: 'Verifikation am', valuePath: 'email_verified_at', sortable: true, width: 200, resizeable: true, hideable: true, transform: (value) => {
+            return value ? dayjs(value).format('DD. MMM YYYY') : '---'
+        }},
+        {type: 'tags', name: 'status', label: 'Status', valuePath: 'status', sortable: false, width: 100, resizeable: true, hideable: true, transform: (value, item) => {
+            if (item.is_enabled) return [{icon: null, text: 'Freigegeben', color: 'var(--color-success)', variant: 'filled', shape: 'pill'}]
+            return [{icon: null, text: 'Neu', color: 'var(--color-text)', variant: 'filled', shape: 'pill'}]
+        }},
+        {type: 'actions', name: 'actions', label: 'Aktionen', valuePath: null, sortable: false, width: 100, resizeable: false, hideable: true, transform: (value, item) => {
             return [
                 {
                     icon: 'edit',

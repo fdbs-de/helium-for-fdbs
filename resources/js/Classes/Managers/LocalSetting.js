@@ -6,7 +6,7 @@ export default class LocalSetting
 {
     static get(scope, key, defaultValue = null)
     {
-        return JSON.parse(localStorage?.getItem(scope+':'+key)) || defaultValue
+        return JSON.parse(localStorage?.getItem(scope+':'+key)) ?? defaultValue ?? null
     }
 
     static set(scope, key, value)

@@ -9,8 +9,10 @@
                 :modelValue="getSearch"
                 @update:modelValue="setSearch($event)"
             />
+            <!-- <IconButton icon="filter_list"/> -->
+            
             <template v-if="selection.length">
-                <div class="flex v-center margin-inline-1 padding-inline-1 background-soft radius-m" style="height: 2.5rem">
+                <div class="flex v-center padding-inline-1 background-soft radius-m" style="height: 2.5rem">
                     <span>
                         <b>{{ selection.length }} {{ selection.length === 1 ? 'Element' : 'Elemente' }}</b> ausgewählt
                     </span>
@@ -18,17 +20,34 @@
                 <IconButton icon="deselect" style="color: var(--color-text)" @click="deselectAll()"/>
                 <IconButton icon="delete" style="color: var(--color-error)" @click="$emit('selection:delete')"/>
             </template>
-
+            
             <div class="spacer"></div>
 
-            <select class="table-page-size-select" :value="getPagination.size" @change="setPagination({size: parseInt($event.target.value)})">
-                <option :value="10">10</option>
-                <option :value="20">20</option>
-                <option :value="50">50</option>
-                <option :value="100">100</option>
-                <option :value="250">250</option>
-                <option :value="1000000">Alle</option>
-            </select>
+            <IconButton icon="refresh" v-tooltip="'Aktualisieren'" @click="$emit('request:refetch')"/>
+            
+            <div class="flex v-center background-soft radius-m">
+                <VDropdown placement="bottom">
+                    <IconButton icon="discover_tune" v-tooltip="'Spalten ein- & ausblenden'"/>
+                    <template #popper>
+                        <div class="flex vertical padding-1">
+                            <mui-toggle
+                                style="--mui-background: var(--color-background)"
+                                v-for="column in columns.filter(e => e.hideable)"
+                                :label="column.label"
+                                v-model="column.show" />
+                        </div>
+                    </template>
+                </VDropdown>
+
+                <select class="table-page-size-select" :value="getPagination.size" @change="setPagination({size: parseInt($event.target.value)})" v-tooltip="'Einträge pro Seite'">
+                    <option :value="10">10</option>
+                    <option :value="20">20</option>
+                    <option :value="50">50</option>
+                    <option :value="100">100</option>
+                    <option :value="250">250</option>
+                    <option :value="1000000">Alle</option>
+                </select>
+            </div>
         </div>
 
 
@@ -39,23 +58,33 @@
 
         <div class="table-inner-wrapper" v-show="items.length">
             <div class="table-head">
-                <div class="table-row" :style="`grid-template-columns: ${cssGridColumns}`">
-                    <div class="table-column centered">
-                        <mui-toggle class="table-checkbox" :modelValue="items.length && items.every(item => selection.includes(item.id))" @update:modelValue="$event ? selectAll() : deselectAll()"/>
+                <div class="table-row">
+                    <div class="table-column centered w-3">
+                        <mui-toggle
+                            class="table-checkbox"
+                            :modelValue="items.length && items.every(item => selection.includes(item.id))"
+                            @update:modelValue="$event ? selectAll() : deselectAll()"
+                            v-tooltip="'Alle auswählen'"
+                            />
                     </div>
-                    <div class="table-column" v-for="column in columns">
-                        <div class="column-text">{{ column.label }}</div>
-                        <!-- <div class="column-sort-button" v-show="column.sortable">arrow_drop_down</div> -->
+                    <div class="table-column" v-for="column in columns.filter(e => e.show)" :class="{
+                        'resizeable': column.resizeable,
+                        'resizing': column.resizing,
+                        'sortable': column.sortable,
+                    }" :style="`width: ${column.width}px;`">
+                        <!-- <div class="column-sort-indicator" v-show="column.sortable">arrow_drop_down</div> -->
+                        <div class="column-label" v-tooltip="column.label">{{ column.label }}</div>
+                        <div class="column-resize-handle" @mousedown="startResize($event, column)"></div>
                     </div>
                 </div>
             </div>
 
             <div class="table-body">
-                <div class="table-row" :style="`grid-template-columns: ${cssGridColumns}`" v-for="item in items">
-                    <div class="table-column centered">
-                        <mui-toggle class="table-checkbox" :modelValue="getSelection.includes(item.id)" @update:modelValue="setSelection(item, $event)"/>
+                <div class="table-row" v-for="item in items" @click="$emit('item:click', item)">
+                    <div class="table-column centered w-3">
+                        <mui-toggle class="table-checkbox" :modelValue="getSelection.includes(item.id)" @click.stop @update:modelValue="setSelection(item, $event)"/>
                     </div>
-                    <div class="table-column" v-for="column in columns">
+                    <div class="table-column" v-for="column in columns.filter(e => e.show)" :style="`width: ${column.width}px;`">
                         <TableColumn :type="column.type" :value="getValue(item, column)" />
                     </div>
                 </div>
@@ -71,7 +100,8 @@
 </template>
 
 <script setup>
-    import { ref, computed, defineEmits } from 'vue'
+    import { ref, computed, watch, defineEmits } from 'vue'
+    import LocalSetting from '@/Classes/Managers/LocalSetting'
 
     import TableColumn from '@/Components/Form/Table/TableColumn.vue'
     import TablePagination from '@/Components/Form/Table/TablePagination.vue'
@@ -175,14 +205,55 @@
 
 
 
-    const cssGridColumns = computed(() => {
-        return [
-            '3.5rem',
-            ...props.columns.map((column) => {
-                return column.defaultWidth ? `${column.defaultWidth}px` : '1fr'
-            })
-        ].join(' ')
+    const columns = ref([])
+
+    watch(() => props.columns, () => {
+        columns.value = props.columns.map(column => { return {
+            ...column,
+            resizing: false,
+            show: LocalSetting.get(props.storageKey, 'show.'+column.name, true),
+            width: LocalSetting.get(props.storageKey, 'width.'+column.name, column.width ?? 50),
+        }})
+    },{
+        immediate: true,
+        deep: true,
     })
+
+    watch(() => columns.value, () => {
+        for (const column of columns.value)
+        {
+            LocalSetting.set(props.storageKey, 'show.'+column.name, column.show)
+            LocalSetting.set(props.storageKey, 'width.'+column.name, column.width)
+        }
+    },{
+        deep: true,
+    })
+
+
+
+    const startResize = (event, column) => {
+        let startX = event.clientX
+        let startWidth = column.width ?? 100
+        column.resizing = true
+        
+        const mouseMove = (event) => {
+            let diff = event.clientX - startX
+            let newWidth = startWidth + diff
+            
+            // Limit the width to 80px - 2000px
+            column.width = Math.min(Math.max(newWidth, 80), 2000)
+        }
+
+        const mouseUp = () => {
+            document.removeEventListener('mousemove', mouseMove)
+            document.removeEventListener('mouseup', mouseUp)
+
+            column.resizing = false
+        }
+
+        document.addEventListener('mousemove', mouseMove)
+        document.addEventListener('mouseup', mouseUp)
+    }
 
 
 
@@ -200,7 +271,6 @@
 
             value = value[part]
         }
-
         
         if (column.transform)
         {
@@ -219,10 +289,14 @@
         display: grid
         grid-template-rows: auto auto
 
+        .table-checkbox
+            --mui-background: var(--color-background)
+
         .table-fixture-wrapper
             padding: 1rem
             display: flex
             align-items: center
+            gap: 1rem
             border-bottom: 1px solid var(--color-border)
 
             .table-search-input
@@ -271,27 +345,8 @@
                     border: 0
                     border-radius: 0
 
-            .table-head
-                border-bottom: 1px solid var(--color-border)
-
-                .table-row
-                    min-height: 3rem
-
-                    .table-column
-                        .column-text
-                            padding-inline: .5rem
-                            font-weight: bold
-
-            .table-body
-                padding-block: .5rem
-
-                .table-row
-                    &:hover
-                        background-color: var(--color-background-soft)
-
             .table-row
-                display: grid
-                grid-template-rows: auto
+                display: flex
                 align-items: center
                 min-height: 2.5rem
 
@@ -300,20 +355,76 @@
                 align-items: center
                 justify-content: flex-start
                 user-select: none
+                position: relative
+                overflow: hidden
+
+                &.resizeable
+                    .column-resize-handle
+                        display: block
+
+                    &:hover
+                        background: var(--color-background-soft)
+
+                &.resizing
+                    background: var(--color-background-soft)
+
+                    .column-resize-handle
+                        opacity: 1
 
                 &.centered
                     justify-content: center
 
-                .table-checkbox
-                    --mui-background: var(--color-background)
-
-                .column-sort-button
+                .column-sort-indicator
                     font-family: var(--font-icon)
                     font-size: 1.5rem
-                    cursor: pointer
+
+                .column-label
+                    padding-inline: .75rem
+                    font-weight: bold
+                    overflow: hidden
+                    text-overflow: ellipsis
+                    white-space: nowrap
+                    font-size: .8rem
+                    text-transform: uppercase
+                    opacity: .8
+
+                .column-resize-handle
+                    width: .5rem
+                    height: calc(100% - .5rem)
+                    border-radius: 4rem
+                    cursor: col-resize
+                    position: absolute
+                    right: .25rem
+                    top: .25rem
+                    background: var(--color-heading)
+                    z-index: 10
+                    display: none
+                    opacity: 0
 
                     &:hover
-                        color: var(--color-primary)
+                        opacity: 1
+
+            .table-head
+                border-bottom: 1px solid var(--color-border)
+
+                .table-row
+                    height: 3rem
+
+                    .table-column
+                        height: 2.5rem
+                        border-radius: var(--radius-s)
+
+            .table-body
+                padding-block: .5rem
+
+                .table-row
+                    &:hover
+                        background-color: var(--color-background-soft)
+
+                    .table-column
+                        align-self: stretch
+
+
 
         .table-pagination-wrapper
             padding: 1rem

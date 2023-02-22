@@ -6,7 +6,7 @@
         <div class="icon" v-for="icon in value" :style="`color: ${icon.color};`">{{ icon.icon }}</div>
     </div>
     <div class="column-actions" v-else-if="type === 'actions'">
-        <IconButton :icon="action.icon" :style="`color: ${action.color}`" v-for="action in value" @click="action.run"/>
+        <IconButton :icon="action.icon" :style="`color: ${action.color}`" v-for="action in value" @click.stop="action.run"/>
     </div>
     <div class="column-text" v-tooltip="value" v-else>
         {{value}}
@@ -31,7 +31,7 @@
         flex-wrap: wrap
         gap: .5rem
         padding-block: .25rem
-        padding-inline: .5rem
+        padding-inline: .75rem
         user-select: none
 
     .column-icons
@@ -39,7 +39,7 @@
         flex-wrap: wrap
         gap: .5rem
         padding-block: .25rem
-        padding-inline: .5rem
+        padding-inline: .75rem
         user-select: none
 
         .icon
@@ -52,19 +52,23 @@
             font-size: 1.25rem
 
     .column-actions
+        align-self: stretch
         display: flex
         align-items: center
-        padding-inline: .5rem
+        margin: .25rem .75rem
         user-select: none
+        border-radius: var(--radius-m)
+        background: var(--color-background-soft)
+        overflow: hidden
 
         > button
-            height: 2.25rem
-            width: 2.25rem
+            height: 2rem
+            width: 2.5rem
 
     .column-text
         white-space: nowrap
         overflow: hidden
         text-overflow: ellipsis
         padding-block: .25rem
-        padding-inline: .5rem
+        padding-inline: .75rem
 </style>

@@ -51,7 +51,7 @@ class UserResource extends JsonResource
             'permissions' => $this->getPermissions($this),
             'settings' => $this->settings,
             'settings_object' => $this->settings_object,
-            // 'created_at' => $this->created_at,
+            'created_at' => $this->created_at,
             // 'updated_at' => $this->updated_at,
         ];
     }
