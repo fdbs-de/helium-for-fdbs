@@ -1,9 +1,29 @@
 <template>
     <Head>
-        <title>Unsere Stellenangebote – FDBS Karriere</title>
+        <title>Deine Karriere bei FDBS – FDBS Karriere</title>
     </Head>
 
-    <TextSubLayout title="Unsere Stellenangebote" image="/images/content/banner/karriere_513169496_482949832.webp">
+    <TextSubLayout title="Deine Karriere bei FDBS" image="/images/content/banner/karriere_513169496_482949832.webp">
+        <div class="limiter text-limiter">
+            <p>
+                FDBS ist ein im Jahr 1910 gegründetes Großhandelsunternehmen und beliefert überregional Kunden aus der
+                Fleischerei- und Gastronomiebranche sowie Großküchen und Caterer.
+            </p>
+            <p>
+                Als Lebensmittelgroßhändler im B2B-Bereich sind wir ein stetig wachsendes Unternehmen, das viel Wert auf
+                Zusammenhalt, Gemeinschaft und Fortschritt legt. Wir passen uns stetig an die Zeit an, indem wir nicht nur
+                unser Sortiment, sondern auch unseren Service immer weiter ausbauen. Durch die ständige Nachfrage an
+                Konsumgütern und Lebensmitteln, aber auch das Etablieren von neuen Marken sind wir ein Unternehmen, welches
+                ein fester Bestandteil in der Marktwirtschaft ist.
+            </p>
+            <p>
+                Mit über 15.000 Artikeln aus den Bereichen Food & Non-Food, sowie einem großen Spektrum an Dienstleistungen
+                in den Bereichen Marketing, Technischer Service und Fortbildungen, bieten wir als Großhandel unseren Kunden
+                einmaligen Service.
+            </p>
+        </div>
+
+        <h2 class="centered-headline padding-block-2">Unsere Stellenangebote</h2>
         <div class="wrapper">
             <div class="searchbar">
                 <input type="text" placeholder="Stelle suchen" v-model="filterParameter.search">
@@ -49,6 +69,8 @@
             </small>
         </div>
 
+        <h2 class="centered-headline">Deine Vorteile bei uns</h2>
+
         <Benefits />
     </TextSubLayout>
 </template>
@@ -87,6 +109,10 @@
 </script>
 
 <style lang="sass" scoped>
+    .centered-headline
+        text-align: center
+        margin-block: 3rem
+
     .wrapper
         display: flex
         flex-direction: column
