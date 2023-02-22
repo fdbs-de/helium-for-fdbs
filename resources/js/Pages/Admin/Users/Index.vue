@@ -120,7 +120,7 @@
 
             if (value.employee)
             {
-                profiles.push({icon: null, text: 'Personal', color: '#341f97', variant: 'filled', shape: 'pill'})
+                profiles.push({icon: null, text: 'Personal', color: 'var(--color-success)', variant: 'filled', shape: 'pill'})
             }
             
             return profiles
