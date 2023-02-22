@@ -9,9 +9,9 @@
                 <h1>{{post.title}}</h1>
 
                 <div class="flex gap-1 v-center wrap" v-if="post.category || post.tags">
-                    <Tag v-if="post.category" :style="'color: '+post.category.color || 'gray'" :icon="post.category.icon || 'category'">{{post.category.name}}</Tag>
-                    <Tag v-if="post.status !== 'published'" style="color: var(--color-error)">Nicht veröffentlicht</Tag>
-                    <Tag v-for="tag in post.tags" :key="tag" style="color: var(--color-text);">{{tag}}</Tag>
+                    <Tag v-if="post.category" :style="'color: '+post.category.color || 'gray'" :icon="post.category.icon || 'category'" shape="pill">{{post.category.name}}</Tag>
+                    <Tag v-if="post.status !== 'published'" style="color: var(--color-error)" shape="pill">Nicht veröffentlicht</Tag>
+                    <Tag v-for="tag in post.tags" :key="tag" style="color: var(--color-text);" shape="pill">{{tag}}</Tag>
                 </div>
     
                 <div class="formatted-content" v-html="post.content"></div>

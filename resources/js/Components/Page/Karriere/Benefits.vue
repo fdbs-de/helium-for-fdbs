@@ -1,5 +1,5 @@
 <template>
-    <h2 class="benefits-headline">Deine Vorteile bei uns</h2>
+    <h2 class="benefits-headline"></h2>
     
     <div class="grid">
         <IconCard icon="spa" title="30 Tage Urlaub" text="30 Tage Jahresurlaub. Zeit für Familie, Freunde, Reisen und Freizeit."/>
@@ -21,19 +21,8 @@
 </script>
 
 <style lang="sass" scoped>
-    .benefits-headline
-        margin-block: 6rem 3rem
-        font-size: 2.5rem
-        text-align: center
-
     .grid
         display: grid
         gap: 3rem
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))
-
-
-
-    @media only screen and (max-width: 500px)
-        .benefits-headline
-            font-size: 2rem
 </style>
