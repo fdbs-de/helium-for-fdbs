@@ -10,16 +10,14 @@
                 Fleischerei- und Gastronomiebranche sowie Großküchen und Caterer.
             </p>
             <p>
-                Als Lebensmittelgroßhändler im B2B-Bereich sind wir ein stetig wachsendes Unternehmen, das viel Wert auf
-                Zusammenhalt, Gemeinschaft und Fortschritt legt. Wir passen uns stetig an die Zeit an, indem wir nicht nur
-                unser Sortiment, sondern auch unseren Service immer weiter ausbauen. Durch die ständige Nachfrage an
-                Konsumgütern und Lebensmitteln, aber auch das Etablieren von neuen Marken sind wir ein Unternehmen, welches
-                ein fester Bestandteil in der Marktwirtschaft ist.
+                Als Lebensmittelgroßhändler im B2B-Bereich sind wir ein stetig wachsendes Unternehmen, das viel Wert
+                auf Zusammenhalt, Gemeinschaft und Fortschritt legt.
             </p>
             <p>
-                Mit über 15.000 Artikeln aus den Bereichen Food & Non-Food, sowie einem großen Spektrum an Dienstleistungen
-                in den Bereichen Marketing, Technischer Service und Fortbildungen, bieten wir als Großhandel unseren Kunden
-                einmaligen Service.
+                <b class="color-heading">Du willst Teil des Teams werden?</b><br>
+                Dank unseres großen Serviceangebots kannst Du in den verschiedensten Bereichen
+                tätig werden. Vom Vertrieb über das Lager, vom LKW-Fahrer zum Servicemonteur, als Azubi oder duale*r Student*in
+                in Deinem Traumberuf, bei uns im Team findest Du Deinen perfekten Platz.
             </p>
         </div>
 
