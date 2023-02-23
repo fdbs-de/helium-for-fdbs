@@ -13,7 +13,7 @@
                     <h3 class="title">{{post.title}}</h3>
                     <time class="date" :datetime="post.created_at">{{$dayjs(post.created_at).format('DD. MMM YYYY')}}</time>
                 </div>
-                <p class="text" v-html="post.content"></p>
+                <div class="formatted-content" v-html="post.content"></div>
             </article>
         </div>
     </DashboardSubLayout>
@@ -94,8 +94,9 @@
                 margin: 0
                 font-size: .9rem
 
-            .text
+            .formatted-content
                 margin: 0
+                width: 100%
                 max-width: 800px
 
     @media only screen and (max-width: 500px)
