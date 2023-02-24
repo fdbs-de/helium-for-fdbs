@@ -41,7 +41,7 @@
 
         <p>
             Als Resultat wurden u. a. eine große Photovoltaikanlage in Verbindung mit einem Blockheizkraftwerk installiert, E-Ladesäulen
-            in Betrieb genommen und die Fahrzeugflotte größtenteils auf E-Fahrzeuge umgestellt, sowie das Tiefkühllagerhausmit einer
+            in Betrieb genommen und die Fahrzeugflotte größtenteils auf E-Fahrzeuge umgestellt, sowie das Tiefkühllagerhaus mit einer
             innovativen Enteisungsanlage ausgestattet.
         </p>
 
