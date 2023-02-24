@@ -13,6 +13,7 @@
         <!-- <IconCard icon="money_off" title="Keine Studiengebühren" text="Wir zahlen Ihre Studiengebühren für das duale Studium."/> -->
         <!-- <IconCard icon="handshake" title="Übernahmegarantie" text="Garantierte Übernahme nach erfolgreichem Abschluss Ihres Studiums oder Ihrer Ausbildung."/> -->
         <IconCard icon="reviews" title="Direkter Ansprechpartner" text="Einen festen Ansprechpartner und regelmäßige Feedbackgespräche."/>
+        <IconCard icon="pedal_bike" title="Dienstradleasing" text="Ein umweltfreundlicher und gesunder Weg zur Arbeit."/>
     </div>
 </template>
 
