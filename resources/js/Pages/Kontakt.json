@@ -241,7 +241,8 @@
                 "job": "Vertriebsinnendienst",
                 "leader": false,
                 "tel": null,
-                "image": null
+                "image": "/images/content/mitarbeiter/nicole_koch.png",
+                "overlay": "/images/content/mitarbeiter/nicole_koch_zeichnung.png"
             },
             {
                 "name": "Silke Künstler",
