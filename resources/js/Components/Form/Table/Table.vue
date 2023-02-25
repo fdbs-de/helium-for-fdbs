@@ -7,7 +7,7 @@
                 icon-left="search"
                 placeholder="Suchen"
                 :modelValue="getFilter.search"
-                @update:modelValue="setFilter($event)"
+                @update:modelValue="setFilter({search: $event})"
             >
                 <template #right>
                     <!-- <IconButton icon="filter_list"/> -->
