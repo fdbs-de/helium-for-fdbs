@@ -6,10 +6,13 @@
                 class="table-search-input"
                 icon-left="search"
                 placeholder="Suchen"
-                :modelValue="getSearch"
-                @update:modelValue="setSearch($event)"
-            />
-            <!-- <IconButton icon="filter_list"/> -->
+                :modelValue="getFilter.search"
+                @update:modelValue="setFilter($event)"
+            >
+                <template #right>
+                    <!-- <IconButton icon="filter_list"/> -->
+                </template>
+            </mui-input>
             
             <template v-if="selection.length">
                 <div class="flex v-center padding-inline-1 background-soft radius-m" style="height: 2.5rem">
@@ -17,14 +20,14 @@
                         <b>{{ selection.length }} {{ selection.length === 1 ? 'Element' : 'Elemente' }}</b> ausgewählt
                     </span>
                 </div>
-                <IconButton icon="deselect" style="color: var(--color-text)" @click="deselectAll()"/>
-                <IconButton icon="delete" style="color: var(--color-error)" @click="$emit('selection:delete')"/>
+                <div class="flex v-center">
+                    <IconButton icon="deselect" style="color: var(--color-text)" v-tooltip="'Alles abwählen'" @click="deselectAll()"/>
+                    <IconButton v-for="action in multipleActions" :icon="action.icon" :style="'color: ' + action.color" v-tooltip="action.text" @click.stop="action.run(selection)"/>
+                </div>
             </template>
             
             <div class="spacer"></div>
 
-            <IconButton icon="refresh" v-tooltip="'Aktualisieren'" @click="$emit('request:refetch')"/>
-            
             <div class="flex v-center background-soft radius-m">
                 <VDropdown placement="bottom">
                     <IconButton icon="discover_tune" v-tooltip="'Spalten ein- & ausblenden'"/>
@@ -48,6 +51,15 @@
                     <option :value="1000000">Alle</option>
                 </select>
             </div>
+
+            <VDropdown placement="bottom-end">
+                <IconButton icon="more_vert" v-tooltip="'Mehr...'"/>
+                <template #popper>
+                    <div class="flex vertical padding-1">
+                        <mui-button @click="$emit('request:refresh')" icon="refresh" label="Manuel aktualisieren"/>
+                    </div>
+                </template>
+            </VDropdown>
         </div>
 
 
@@ -76,16 +88,22 @@
                         <div class="column-label" v-tooltip="column.label">{{ column.label }}</div>
                         <div class="column-resize-handle" @mousedown="startResize($event, column)"></div>
                     </div>
+                    <div class="table-column actions"></div>
                 </div>
             </div>
 
             <div class="table-body">
-                <div class="table-row" v-for="item in items" @click="$emit('item:click', item)">
+                <div class="table-row" v-for="item in items" @click="rowClick(item)">
                     <div class="table-column centered w-3">
                         <mui-toggle class="table-checkbox" :modelValue="getSelection.includes(item.id)" @click.stop @update:modelValue="setSelection(item, $event)"/>
                     </div>
                     <div class="table-column" v-for="column in columns.filter(e => e.show)" :style="`width: ${column.width}px;`">
                         <TableColumn :type="column.type" :value="getValue(item, column)" />
+                    </div>
+                    <div class="table-column actions">
+                        <div class="button-container">
+                            <IconButton v-for="action in individualActions" :icon="action.icon" :style="'color: white; background: '+action.color" v-tooltip="action.text" @click.stop="action.run([item.id])"/>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -111,26 +129,43 @@
 
     const props = defineProps({
         columns: Array,
+        actions: Array,
         items: Array,
-        filters: Array,
+        filter: Object,
         pagination: Object,
         sort: Object,
-        search: String,
         selection: Array,
-        storageKey: String,
+        scope: String,
     })
 
     const emits = defineEmits([
-        'update:search',
         'update:selection',
-        'update:filters',
+        'update:filter',
         'update:pagination',
         'update:sort',
-        'request:refetch'
+        'request:refresh'
     ])
 
 
 
+    const individualActions = computed(() => {
+        return props.actions.filter(action => action.individual)
+    })
+
+    const multipleActions = computed(() => {
+        return props.actions.filter(action => action.multiple)
+    })
+
+    const rowClick = (item) => {
+        for (const action of individualActions.value.filter(action => action.triggerOnRowClick))
+        {
+            action.run([item?.id])
+        }
+    }
+
+
+
+    // START: Selection
     const getSelection = computed(() => {
         return props.selection ?? []
     })
@@ -167,20 +202,48 @@
     const deselectAll = () => {
         emits('update:selection', [])
     }
+    // END: Selection
 
 
 
-    const getSearch = computed(() => {
-        return props.search ?? ''
+    // START: Filter
+    const getFilter = computed(() => {
+        return {
+            search: '',
+            ...props.filter
+        }
     })
 
-    const setSearch = (value) => {
-        emits('update:search', value)
-        emits('request:refetch', true)
+    const setFilter = (value) => {
+        emits('update:filter', {
+            ...getFilter.value,
+            ...value,
+        })
     }
+    // END: Filter
 
 
 
+    // START: Sort
+    const getSort = computed(() => {
+        return {
+            field: 'created_at',
+            order: 'desc',
+            ...props.sort
+        }
+    })
+
+    const setSort = (value) => {
+        emits('update:sort', {
+            ...getSort.value,
+            ...value,
+        })
+    }
+    // END: Sort
+
+
+
+    // START: Pagination
     const getPagination = computed(() => {
         return {
             page: 1,
@@ -195,13 +258,8 @@
             ...getPagination.value,
             ...value,
         })
-        emits('request:refetch', true)
     }
-
-    const sort = ref({
-        column: null,
-        direction: 'asc'
-    })
+    // END: Pagination
 
 
 
@@ -211,8 +269,8 @@
         columns.value = props.columns.map(column => { return {
             ...column,
             resizing: false,
-            show: LocalSetting.get(props.storageKey, 'show.'+column.name, true),
-            width: LocalSetting.get(props.storageKey, 'width.'+column.name, column.width ?? 50),
+            show: LocalSetting.get(props.scope, 'show.'+column.name, true),
+            width: LocalSetting.get(props.scope, 'width.'+column.name, column.width ?? 50),
         }})
     },{
         immediate: true,
@@ -222,8 +280,8 @@
     watch(() => columns.value, () => {
         for (const column of columns.value)
         {
-            LocalSetting.set(props.storageKey, 'show.'+column.name, column.show)
-            LocalSetting.set(props.storageKey, 'width.'+column.name, column.width)
+            LocalSetting.set(props.scope, 'show.'+column.name, column.show)
+            LocalSetting.set(props.scope, 'width.'+column.name, column.width)
         }
     },{
         deep: true,
@@ -296,12 +354,15 @@
             padding: 1rem
             display: flex
             align-items: center
+            flex-wrap: wrap
             gap: 1rem
             border-bottom: 1px solid var(--color-border)
 
             .table-search-input
                 height: 2.5rem
-                width: 300px
+                width: 100%
+                max-width: 300px
+                min-width: 100px
                 border-radius: var(--radius-m)
 
             .spacer
@@ -349,6 +410,7 @@
                 display: flex
                 align-items: center
                 min-height: 2.5rem
+                position: relative
 
             .table-column
                 display: flex
@@ -373,6 +435,32 @@
 
                 &.centered
                     justify-content: center
+
+                &.actions
+                    flex: 1
+                    justify-content: flex-end
+                    position: sticky
+                    right: 0
+                    z-index: 100
+                    opacity: 0
+                    overflow: hidden
+                    transition: all 100ms
+
+                    .button-container
+                        display: flex
+                        align-items: center
+                        padding: .25rem
+                        gap: .25rem
+                        background: var(--color-background-soft)
+                        transform-origin: right
+                        transform: translateX(1rem)
+                        transition: all 100ms
+                        border-radius: var(--radius-m) 0 0 var(--radius-m)
+
+                        > button
+                            border-radius: var(--radius-s)
+                            height: 2rem
+                            width: 2rem
 
                 .column-sort-indicator
                     font-family: var(--font-icon)
@@ -414,12 +502,21 @@
                         height: 2.5rem
                         border-radius: var(--radius-s)
 
+                        &.actions
+                            background: none
+
             .table-body
                 padding-block: .5rem
 
                 .table-row
                     &:hover
                         background-color: var(--color-background-soft)
+
+                        .table-column.actions
+                            opacity: 1
+
+                            .button-container
+                                transform: translateX(0)
 
                     .table-column
                         align-self: stretch

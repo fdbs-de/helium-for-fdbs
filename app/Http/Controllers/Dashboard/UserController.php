@@ -61,13 +61,13 @@ class UserController extends Controller
     {
         $query = User::with(['roles', 'settings']);
         
-        if ($request->name)
+        if ($request->search)
         {
             $query->whereFuzzy(function ($query) use ($request) {
                 $query
-                ->orWhereFuzzy('name', $request->name)
-                ->orWhereFuzzy('username', $request->name)
-                ->orWhereFuzzy('email', $request->name);
+                ->orWhereFuzzy('name', $request->search)
+                ->orWhereFuzzy('username', $request->search)
+                ->orWhereFuzzy('email', $request->search);
             });
         }
         

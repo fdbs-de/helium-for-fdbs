@@ -8,6 +8,9 @@
     <div class="column-actions" v-else-if="type === 'actions'">
         <IconButton :icon="action.icon" :style="`color: ${action.color}`" v-for="action in value" @click.stop="action.run"/>
     </div>
+    <div class="column-text" v-tooltip="$dayjs(value).format('DD. MMM YYYY – HH:mm')" v-else-if="type === 'date'">
+        {{ $dayjs(value).format('DD. MMM YYYY') }}
+    </div>
     <div class="column-text" v-tooltip="value" v-else>
         {{value}}
     </div>
