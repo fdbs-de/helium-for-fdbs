@@ -153,9 +153,25 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
             ->middleware('can:app.pages.view.pages')
             ->name('admin.pages.pages');
 
+            Route::get('/search', [PageController::class, 'search'])
+            ->middleware('can:app.pages.view.pages')
+            ->name('admin.pages.pages.search');
+
             Route::get('/editor', [PageController::class, 'editor'])
             ->middleware('can:app.pages.view.pages')
             ->name('admin.pages.pages.editor');
+
+            Route::post('/', [PageController::class, 'store'])
+            ->middleware('can:app.pages.create.pages')
+            ->name('admin.pages.pages.store');
+
+            Route::post('/{page}', [PageController::class, 'duplicate'])
+            ->middleware('can:app.pages.create.pages')
+            ->name('admin.pages.pages.duplicate');
+
+            Route::delete('/', [PageController::class, 'delete'])
+            ->middleware('can:app.pages.delete.pages')
+            ->name('admin.pages.pages.delete');
         });
 
         Route::prefix('menus')->group(function () {
