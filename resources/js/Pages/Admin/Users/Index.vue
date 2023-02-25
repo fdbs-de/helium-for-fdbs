@@ -1,22 +1,21 @@
 <template>
-    <Head title="Nutzer verwalten" />
+    <Head :title="IPM.options.pageTitle" />
 
-    <AdminLayout title="Nutzer verwalten" :loading="processing">
+    <AdminLayout :title="IPM.options.pageTitle" :loading="IPM.processing">
         <Table
-            class="margin-bottom-2"
-            :items="items"
-            :storage-key="scope+'.table'"
-            v-model:selection="selection"
-            v-model:search="filter.name"
-            v-model:pagination="pagination"
-            @selection:delete="openDeletePopup()"
-            @request:refetch="getDataThrottled"
-            @item:click="openItem($event)"
             :columns="tableColumns"
+            :actions="tableActions"
+            :items="IPM.items"
+            :scope="IPM.tableScope"
+            v-model:selection="IPM.selection"
+            v-model:filter="IPM.modelFilter"
+            v-model:sort="IPM.modelSort"
+            v-model:pagination="IPM.modelPagination"
+            @request:refresh="IPM.fetch()"
         />
 
-        <div class="flex v-center gap-1 border-top padding-top-1">
-            <small><b>{{pagination.total}}</b> User</small>
+        <div class="flex v-center gap-1 wrap border-top padding-top-1 margin-top-2">
+            <small><b>{{IPM.pagination.total}}</b> User</small>
         
             <div class="spacer"></div>
 
@@ -24,18 +23,6 @@
             <mui-button type="button" variant="text" size="small" label="Einstellungen" @click="openSettingsPopup()"/>
         </div>
     </AdminLayout>
-
-
-
-    <Popup ref="deletePopup" title="Benutzer löschen?">
-        <form class="confirm-popup-wrapper" @submit.prevent="deleteItems">
-            <p>Möchten Sie wirklich <b>{{selection.length}} Benutzer</b> entgültig löschen?</p>
-            <div class="confirm-popup-footer">
-                <mui-button type="button" variant="contained" label="Abbrechen" @click="$refs.deletePopup.close()" />
-                <mui-button type="submit" variant="filled" color="error" label="Entgültig löschen" />
-            </div>
-        </form>
-    </Popup>
 
 
 
@@ -76,10 +63,9 @@
 
 <script setup>
     import { Head, useForm } from '@inertiajs/inertia-vue3'
-    import { Inertia } from '@inertiajs/inertia'
-    import { ref, watch } from 'vue'
+    import { ref } from 'vue'
     import dayjs from 'dayjs'
-    import LocalSetting from '@/Classes/Managers/LocalSetting'
+    import ItemPageManager from '@/Classes/Managers/ItemPageManager'
 
     import AdminLayout from '@/Layouts/Admin.vue'
     import Popup from '@/Components/Form/Popup.vue'
@@ -87,9 +73,18 @@
 
 
 
-    // START: Settings Parameters
-    const scope = 'users.index'
-    // END: Settings Parameters
+    const IPM = ref(new ItemPageManager({
+        pageTitle: 'Nutzer verwalten',
+        scope: 'admin.users.index',
+        routes: {
+            fetch: 'admin.users.search',
+            editor: 'admin.users.editor',
+            duplicate: 'admin.users.duplicate',
+            delete: 'admin.users.delete',
+        }
+    }))
+
+    IPM.value.fetch()
 
 
 
@@ -115,159 +110,49 @@
 
             if (value.customer)
             {
-                profiles.push({icon: null, text: 'Kunde', color: '#5f27cd', variant: 'filled', shape: 'pill'})
+                profiles.push({icon: null, text: 'Kunde', color: '#16a085', variant: 'filled', shape: 'pill'})
             }
 
             if (value.employee)
             {
-                profiles.push({icon: null, text: 'Personal', color: 'var(--color-success)', variant: 'filled', shape: 'pill'})
+                profiles.push({icon: null, text: 'Personal', color: '#6c5ce7', variant: 'filled', shape: 'pill'})
             }
             
             return profiles
         }},
-        {type: 'text', name: 'created_at', label: 'Registriert am', valuePath: 'created_at', sortable: true, width: 200, resizeable: true, hideable: true, transform: (value) => {
-            return value ? dayjs(value).format('DD. MMM YYYY') : '---'
-        }},
-        {type: 'text', name: 'email_verified_at', label: 'Verifikation am', valuePath: 'email_verified_at', sortable: true, width: 200, resizeable: true, hideable: true, transform: (value) => {
-            return value ? dayjs(value).format('DD. MMM YYYY') : '---'
+        {type: 'date', name: 'created_at', label: 'Registriert am', valuePath: 'created_at', sortable: true, width: 200, resizeable: true, hideable: true},
+        {type: 'tags', name: 'email_verified_at', label: 'Verifikation am', valuePath: 'email_verified_at', sortable: true, width: 200, resizeable: true, hideable: true, transform: (value) => {
+            if (value) return [{ icon: null, text: dayjs(value).format('DD. MMM YYYY'), color: 'var(--color-success)', variant: 'filled', shape: 'pill' }]
+            return [{ icon: null, text: 'Ausstehend', color: 'var(--color-warning)', variant: 'filled', shape: 'pill' }]
         }},
         {type: 'tags', name: 'status', label: 'Status', valuePath: 'status', sortable: false, width: 100, resizeable: true, hideable: true, transform: (value, item) => {
-            if (item.is_enabled) return [{icon: null, text: 'Freigegeben', color: 'var(--color-success)', variant: 'filled', shape: 'pill'}]
-            return [{icon: null, text: 'Neu', color: 'var(--color-text)', variant: 'filled', shape: 'pill'}]
-        }},
-        {type: 'actions', name: 'actions', label: 'Aktionen', valuePath: null, sortable: false, width: 100, resizeable: false, hideable: true, transform: (value, item) => {
-            return [
-                {
-                    icon: 'edit',
-                    text: 'Bearbeiten',
-                    color: 'var(--color-text)',
-                    run: () => openItem(item),
-                },{
-                    icon: 'delete',
-                    text: 'Löschen',
-                    color: 'var(--color-error)',
-                    run: () => openDeletePopup(item),
-                },
-            ]
+            if (item.is_enabled) return [{icon: null, text: 'Aktiv', color: 'var(--color-success)', variant: 'filled', shape: 'pill'}]
+            return [{icon: null, text: 'Ausstehend', color: 'var(--color-warning)', variant: 'filled', shape: 'pill'}]
         }},
     ]
 
-
-
-    // START: Fetch
-    const fetchURL = ref('admin.users.search')
-    const items = ref([])
-    const latestSearch = ref(0)
-    const processing = ref(false)
-
-
-    const filter = ref({
-        name: LocalSetting.get(scope, 'filter.name', ''),
-        order: LocalSetting.get(scope, 'filter.order', ['name', 'asc']),
-    })
-
-    watch(filter, (value) => {
-        LocalSetting.set(scope, 'filter.name', value.name)
-        LocalSetting.set(scope, 'filter.order', value.order)
-    }, { deep: true, immediate: true })
-
-
-    const pagination = ref({
-        page: LocalSetting.get(scope, 'pagination.page', 1),
-        size: LocalSetting.get(scope, 'pagination.size', 20),
-    })
-
-    watch(pagination, (value) => {
-        LocalSetting.set(scope, 'pagination.page', value.page)
-        LocalSetting.set(scope, 'pagination.size', value.size)
-    }, { deep: true, immediate: true })
-
-
-    const getData = async () => {
-        processing.value = true
-        let requestTime = new Date().getTime()
-
-        try
+    const tableActions = [
         {
-            let response = await axios.get(route(fetchURL.value, {...filter.value, ...pagination.value}))
-
-            if (requestTime > latestSearch.value)
-            {
-                items.value = response?.data?.data
-                pagination.value.total = response?.data?.total
-                latestSearch.value = requestTime
-            }
-        }
-        catch (error)
+            icon: 'edit',
+            text: 'Bearbeiten',
+            color: 'var(--color-heading)',
+            individual: true,
+            multiple: false,
+            triggerOnRowClick: true,
+            isAvailable: () => true,
+            run: (items) => IPM.value.open(items[0]),
+        },
         {
-            console.log(error)
-        }
-        
-        processing.value = false
-    }
-
-    const getDataThrottled = _.throttle(getData, 300)
-
-    getData()
-    // END: Fetch
-
-
-
-    // START: Selection
-    const selection = ref([])
-
-    const toggleSelection = (item) => {
-        if (selection.value.includes(item.id))
-        {
-            selection.value = selection.value.filter(p => p !== item.id)
-        }
-        else
-        {
-            selection.value.push(item.id)
-        }
-    }
-
-    const setSelection = (item) => {
-        selection.value = [item.id]
-    }
-
-    const selectAll = () => {
-        selection.value = items.value.map(i => i.id)
-    }
-
-    const deselectAll = () => {
-        selection.value = []
-    }
-    // END: Selection
-
-
-
-    // START: Editor
-    const openItem = (item = null) => {
-        Inertia.visit(route('admin.users.editor', item?.id))
-    }
-    // END: Editor
-
-
-
-    // START: Delete
-    const deletePopup = ref(null)
-
-    const openDeletePopup = (item = null) => {
-        if (item) setSelection(item)
-        deletePopup.value.open()
-    }
-    
-    const deleteItems = () => {
-        useForm({ids: selection.value}).delete(route('admin.users.delete'), {
-            onSuccess: () => {
-                deletePopup.value.close()
-                deselectAll()
-                getData()
-            },
-        })
-    }
-    // END: Delete
+            icon: 'delete',
+            text: 'Löschen',
+            color: 'var(--color-error)',
+            individual: true,
+            multiple: true,
+            triggerOnRowClick: false,
+            isAvailable: () => true,
+            run: (items) => IPM.value.delete(items, 'Sollen {{count}} Benutzer gelöscht werden?'),
+        },
+    ]
 
 
 
@@ -322,78 +207,4 @@
 </script>
 
 <style lang="sass" scoped>
-    .search-input
-        height: 2.5rem !important
-        --mui-background: var(--color-background)
-        border-radius: var(--radius-m) !important
-        box-shadow: var(--shadow-elevation-low)
-
-    .table-wrapper
-        background: var(--color-background)
-        border-radius: var(--radius-m)
-        box-shadow: var(--shadow-elevation-low)
-        padding-block: 1rem
-        margin: 2rem 0
-
-    table.list
-        padding: 0
-        width: 100%
-        border-collapse: collapse
-        border-spacing: 0
-
-        tbody tr
-            cursor: pointer
-
-            &:hover,
-            &.selected
-                background: var(--color-background-soft)
-
-        thead,
-        tbody
-            border-bottom: 1px solid var(--color-border)
-
-        thead tr th,
-        tbody tr td
-            padding: 0
-            height: 3rem
-            text-align: left
-            overflow: hidden
-            text-overflow: ellipsis
-            white-space: nowrap
-            padding-inline: .5rem
-            max-width: 300px
-
-            &:last-child
-                text-align: right
-                padding-right: 1rem
-
-            .pfp
-                width: 2rem
-                height: 2rem
-                border-radius: 50%
-
-            .checkbox
-                width: 100%
-                justify-content: center
-                --mui-background: var(--color-background)
-
-            .property
-                user-select: none
-
-                &.icon
-                    font-size: 1.25rem
-                    font-family: var(--font-icon)
-
-                &.green
-                    color: var(--color-success)
-
-            .action-wrapper
-                display: inline-flex
-                align-items: center
-                border-radius: var(--radius-m)
-                background: var(--color-background-soft)
-                
-                a,
-                button
-                    height: 2rem
 </style>

@@ -118,4 +118,5 @@
         .text
             position: relative
             z-index: 1
+            white-space: nowrap
 </style>

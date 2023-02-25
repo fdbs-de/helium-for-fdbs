@@ -105,7 +105,6 @@
         .vertical-divider
             width: 0
             height: 1.5rem
-            margin-inline: .25rem
             border-left: 1px solid var(--color-border)
 
         .page-button
