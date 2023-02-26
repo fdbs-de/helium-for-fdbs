@@ -53,8 +53,12 @@ class PageController extends Controller
 
     public function editor(Request $request)
     {
+        $pages = [];
+        
+        if ($request->pages) $pages = Page::whereIn('id', $request->pages)->get();
+
         return Inertia::render('Admin/Apps/Pages/Pages/Editor', [
-            'item' => [],
+            'items' => $pages,
         ]);
     }
 

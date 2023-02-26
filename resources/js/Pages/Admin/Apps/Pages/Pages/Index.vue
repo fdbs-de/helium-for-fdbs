@@ -2,6 +2,10 @@
     <Head :title="IPM.options.pageTitle" />
 
     <AdminLayout :title="IPM.options.pageTitle" :loading="IPM.processing">
+        <div class="flex v-center margin-bottom-2">
+            <div class="spacer"></div>
+            <mui-button as="a" size="large" icon-right="open_in_new" label="Editor" :href="route('admin.pages.pages.editor')" target="_blank"/>
+        </div>
         <Table
             :columns="tableColumns"
             :actions="tableActions"
@@ -97,10 +101,10 @@
             text: 'Bearbeiten',
             color: 'var(--color-heading)',
             individual: true,
-            multiple: false,
+            multiple: true,
             triggerOnRowClick: true,
             isAvailable: () => true,
-            run: (items) => IPM.value.open(items[0]),
+            run: (items) => IPM.value.openMultiple(items, 'pages'),
         },
         {
             icon: 'content_copy',

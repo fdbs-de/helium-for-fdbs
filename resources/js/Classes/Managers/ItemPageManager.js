@@ -183,6 +183,26 @@ export default class ItemPageManager extends EventListener
 
 
 
+    openMultiple(ids = null, parameterName = 'ids') {
+        if (!ids) ids = this.selection
+
+        if (typeof ids !== 'object') ids = [ids].filter(id => id)
+
+        if (!ids.length) return
+
+
+
+        let parameters = {}
+
+        parameters[parameterName] = ids
+
+        
+
+        Inertia.visit(route(this.options.routes.editor), { data: parameters })
+    }
+
+
+
     store(data) {
         useForm(data).post(route(this.options.routes.store), {
             preserveScroll: true,

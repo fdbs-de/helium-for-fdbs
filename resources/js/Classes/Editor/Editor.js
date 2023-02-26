@@ -5,15 +5,34 @@ import EventListener from '@/Classes/EventListener'
 
 export default class Editor extends EventListener
 {
-    constructor(options = {})
+    constructor()
     {
         super()
     
+        this.title = 'Editor'
         this.tabs = []
         this.tab = null
-        this.options = {
-            selectNextBestTab: options?.selectNextBestTab ?? true,
-        }
+        this.options = {}
+
+        this.setOption('selectNextBestTab', true)
+
+        return this
+    }
+
+
+
+    setTitle(title)
+    {
+        this.title = title
+
+        return this
+    }
+
+
+
+    setOption(key, value)
+    {
+        this.options[key] = value
 
         return this
     }

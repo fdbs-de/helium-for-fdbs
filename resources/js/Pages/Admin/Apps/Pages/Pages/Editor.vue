@@ -1,17 +1,17 @@
 <template>
-    <Head title="Seiten Editor" />
+    <Head :title="`${editor.tab ? editor.tab.title : 'Neu'} – ${editor.title}`" />
 
     <div class="main-layout">
         <div class="tab-layout">
             <IconButton :is="Link" :href="route('admin.pages.pages')" icon="arrow_back" @click="exitFullscreen()"/>
 
-            <button class="tab" v-for="tab in editor.tabs" :key="tab.id" :class="{'active': tab.active}" @click="editor.selectTab(tab.id)">
+            <button class="tab" v-for="tab in editor.tabs" :key="tab.localId" :class="{'active': tab.active}" @click="editor.selectTab(tab.localId)">
                 <div class="icon">{{ tab.icon }}</div>
                 <div class="title">
                     <span v-if="tab.title">{{ tab.title }}</span>
                     <i v-else>Unbenannt</i>
                 </div>
-                <button class="indicator" @click.stop="editor.closeTab(tab.id)">
+                <button class="indicator" @click.stop="editor.closeTab(tab.localId)">
                     <div class="icon">close</div>
                 </button>
                 <div class="corner start"></div>
@@ -31,12 +31,12 @@
         <div class="new-tab-layout" v-if="editor.tab && ['new-tab'].includes(editor.tab.type)">
             <div class="new-button-wrapper">
                 <div class="limiter text-limiter">
-                    <button class="new-button page" @click="editor.tab.useAs('page-editor', {})">
+                    <button class="new-button page" @click="editor.tab.setType('page-editor')">
                         <div class="icon">add</div>
                         <span class="text">Neue Seite</span>
                         <span class="subtext">Inhaltsseiten</span>
                     </button>
-                    <button class="new-button component" @click="editor.tab.useAs('component-editor', {})">
+                    <button class="new-button component" @click="editor.tab.setType('component-editor')">
                         <div class="icon">add</div>
                         <span class="text">Neue Komponente</span>
                         <span class="subtext">Komponenten und Layouts</span>
@@ -273,7 +273,8 @@
     import { ref, onMounted, computed } from 'vue'
     import hotkeys from 'hotkeys-js'
     import { Inertia } from '@inertiajs/inertia'
-    import Editor from '@/Classes/Apps/Pages/Editor.js'
+    import PageEditor from '@/Classes/Apps/Pages/PageEditor.js'
+    import PageTab from '@/Classes/Apps/Pages/PageTab.js'
     import {
         LayoutElement,
         TextElement,
@@ -294,10 +295,17 @@
 
 
 
-    const editor = ref(new Editor({
-        openNewOnLaunch: true,
-        openNewOnLastClose: true
-    }))
+    const props = defineProps({
+        items: Array,
+    })
+
+
+
+    const editor = ref(
+        new PageEditor()
+        .setTitle('Seiten Editor')
+        .setOption('openNewOnLastClose', true)
+    )
     
     editor.value.addEventListener('tab:inspector:change', (event) => {
         for (const element of editor.value.tab.selectedElements)
@@ -305,6 +313,17 @@
             element.applyChanges(event)
         }
     })
+
+
+
+    // START: Hydrate Editor
+    onMounted(() => {
+        for (const item of props.items)
+        {
+            editor.value.addTab(new PageTab('page-editor').hydrate(item), true)
+        }
+    })
+    // END: Hydrate Editor
 
 
 
@@ -325,7 +344,7 @@
         
         if (editor.value.tab.type !== 'new-tab') return
         
-        editor.value.tab.useAs('page-editor', {})
+        editor.value.tab.setType('page-editor')
     })
 
     hotkeys('ctrl+alt+c', (event, handler) => {
@@ -333,7 +352,7 @@
         
         if (editor.value.tab.type !== 'new-tab') return
         
-        editor.value.tab.useAs('component-editor', {})
+        editor.value.tab.setType('component-editor')
     })
 
 
