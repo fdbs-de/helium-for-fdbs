@@ -29,7 +29,7 @@ class PostController extends Controller
     {
         $search = $request->search ? ['query' => $request->search] : [];
         
-        $query = Post::getPublished($request->app['id'], $request->user(), $search)
+        $query = Post::getPublished($request->app['id'], request()->user(), $search, false)
         ->with(['category' => function ($query) {
             $query->select('id', 'name', 'color', 'icon');
         }]);
@@ -93,6 +93,9 @@ class PostController extends Controller
     public function duplicate(DuplicatePostRequest $request, Post $post)
     {
         $post = $post->duplicate();
+
+        // Sync the current user as an author
+        $post->users()->sync(auth()->user()->id, ['role' => 'author']);
 
         if ($request->returnTo === 'editor')
         {

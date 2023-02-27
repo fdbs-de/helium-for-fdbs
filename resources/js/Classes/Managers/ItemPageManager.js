@@ -222,7 +222,7 @@ export default class ItemPageManager extends EventListener
             onSuccess: () => {
                 this.fetch()
                 this.dispatchEvent('duplicate', id)
-            }
+            },
         })
     }
 
