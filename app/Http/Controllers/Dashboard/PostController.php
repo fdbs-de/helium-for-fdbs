@@ -19,18 +19,35 @@ class PostController extends Controller
     public function index(Request $request)
     {
         return Inertia::render('Admin/Apps/Shared/Posts/Index', [
-            'posts' => Post::with(['category' => function ($query) {
-                $query->select('id', 'name');
-            }])
-            ->where('scope', $request->app['id'])
-            ->orderBy('created_at', 'desc')
-            ->get(),
-
-            'categories' => PostCategory::withCount('posts')
-            ->where('scope', $request->app['id'])
-            ->orderBy('name', 'asc')
-            ->get(),
             'app' => $request->app['route'],
+        ]);
+    }
+
+
+
+    public function search(Request $request)
+    {
+        $search = $request->search ? ['query' => $request->search] : [];
+        
+        $query = Post::getPublished($request->app['id'], $request->user(), $search)
+        ->with(['category' => function ($query) {
+            $query->select('id', 'name', 'color', 'icon');
+        }]);
+
+        $total = $query->count();
+
+        $limit = $request->size ?? 20;
+        $offset = $request->size * ($request->page ?? 0) - $request->size;
+
+        // Clamp the offset to 0 and limit
+        $offset = max(0, $offset);
+        $offset = min($offset, intdiv($total, $limit) * $limit);
+
+        $data = $query->orderBy('created_at', 'desc')->limit($limit)->offset($offset)->get();
+
+        return response()->json([
+            'data' => $data,
+            'total' => $total,
         ]);
     }
 
@@ -63,6 +80,9 @@ class PostController extends Controller
 
         // Sync the authors, editors, etc.
         $post->users()->sync($request->users);
+
+        // Attach the current user as an author
+        $post->users()->syncWithoutDetach(auth()->user()->id, ['role' => 'author']);
 
         // Redirect to the editor
         return redirect()->route('admin.'.$request->app['route'].'.posts.editor', $post);

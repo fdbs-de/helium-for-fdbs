@@ -138,7 +138,7 @@
                             <img :src="user.image" :alt="user.name" class="w-2 h-2 radius-xl">
                             <b class="flex-1">{{ user.name }}</b>
                             <select class="h-2" v-model="user.pivot_role">
-                                <option value="author">Autor</option>
+                                <option value="author" disabled>Autor</option>
                                 <option value="co-author">Co-Autor</option>
                                 <option value="editor">Editor</option>
                                 <option value="viewer">Leser</option>
