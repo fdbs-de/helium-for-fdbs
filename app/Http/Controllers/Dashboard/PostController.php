@@ -36,6 +36,40 @@ class PostController extends Controller
 
 
 
+    public function search(Request $request)
+    {
+        $query = Post::with(['category' => function ($query) {
+            $query->select('id', 'name', 'color', 'icon');
+        }])
+        ->where('scope', $request->app['id']);
+
+        if ($request->search) {
+            $query->whereFuzzy(function ($query) use ($request) {
+                $query
+                    ->orWhereFuzzy('title', $request->search)
+                    ->orWhereFuzzy('slug', $request->search);
+            });
+        }
+
+        $total = $query->count();
+
+        $limit = $request->size ?? 20;
+        $offset = $request->size * ($request->page ?? 0) - $request->size;
+
+        // Clamp the offset to 0 and limit
+        $offset = max(0, $offset);
+        $offset = min($offset, intdiv($total, $limit) * $limit);
+
+        $data = $query->orderBy('created_at', 'desc')->limit($limit)->offset($offset)->get();
+
+        return response()->json([
+            'data' => $data,
+            'total' => $total,
+        ]);
+    }
+
+
+
     public function create(Request $request)
     {
         $post = $request->post ? new PostResource(Post::find($request->post)) : null;

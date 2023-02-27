@@ -214,6 +214,10 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
             Route::get('/', [PostController::class, 'index'])
             ->middleware('can:app.blog.view.posts')
             ->name('admin.blog.posts');
+
+            Route::get('/search', [PostController::class, 'search'])
+            ->middleware('can:app.blog.view.posts')
+            ->name('admin.blog.posts.search');
             
             Route::get('/editor/{post?}', [PostController::class, 'create'])
             ->middleware('can:app.blog.view.posts')
@@ -270,6 +274,10 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
             Route::get('/', [PostController::class, 'index'])
             ->middleware('can:app.wiki.view.pages')
             ->name('admin.wiki.posts');
+
+            Route::get('/search', [PostController::class, 'search'])
+            ->middleware('can:app.wiki.view.posts')
+            ->name('admin.wiki.posts.search');
             
             Route::get('/editor/{post?}', [PostController::class, 'create'])
             ->middleware('can:app.wiki.view.pages')
@@ -326,6 +334,10 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
             Route::get('/', [PostController::class, 'index'])
             ->middleware('can:app.jobs.view.offers')
             ->name('admin.jobs.posts');
+
+            Route::get('/search', [PostController::class, 'search'])
+            ->middleware('can:app.jobs.view.posts')
+            ->name('admin.jobs.posts.search');
             
             Route::get('/editor/{post?}', [PostController::class, 'create'])
             ->middleware('can:app.jobs.view.offers')
@@ -381,6 +393,10 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
         Route::prefix('posts')->group(function () {
             Route::get('/', [PostController::class, 'index'])
             ->name('admin.intranet.posts');
+
+            Route::get('/search', [PostController::class, 'search'])
+            ->middleware('can:app.intranet.view.posts')
+            ->name('admin.intranet.posts.search');
             
             Route::get('/editor/{post?}', [PostController::class, 'create'])
             ->middleware('can:app.intranet.view.posts')
