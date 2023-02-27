@@ -339,6 +339,8 @@
             {
                 "name": "Franziska Wolff",
                 "job": "Printgestaltung & Produktion",
+                "leader": false,
+                "tel": "70",
                 "image": "/images/content/mitarbeiter/franziska_wolff.png",
                 "overlay": "/images/content/mitarbeiter/franziska_wolff_zeichnung.png"
             }

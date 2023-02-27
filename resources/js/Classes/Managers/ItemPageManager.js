@@ -33,8 +33,10 @@ export default class ItemPageManager extends EventListener
         this.options = {
             pageTitle: options?.pageTitle ?? 'Items',
             routes: {
-                editor: options?.routes?.editor ?? null,
                 fetch: options?.routes?.fetch ?? null,
+                store: options?.routes?.store ?? null,
+                editor: options?.routes?.editor ?? null,
+                duplicate: options?.routes?.duplicate ?? null,
                 delete: options?.routes?.delete ?? null,
             },
             view: {
@@ -177,6 +179,49 @@ export default class ItemPageManager extends EventListener
 
     open(id = null) {
         Inertia.visit(route(this.options.routes.editor, id))
+    }
+
+
+
+    openMultiple(ids = null, parameterName = 'ids') {
+        if (!ids) ids = this.selection
+
+        if (typeof ids !== 'object') ids = [ids].filter(id => id)
+
+        if (!ids.length) return
+
+
+
+        let parameters = {}
+
+        parameters[parameterName] = ids
+
+        
+
+        Inertia.visit(route(this.options.routes.editor), { data: parameters })
+    }
+
+
+
+    store(data) {
+        useForm(data).post(route(this.options.routes.store), {
+            preserveScroll: true,
+            onSuccess: () => {
+                this.fetch()
+                this.dispatchEvent('store', data)
+            },
+        })
+    }
+
+
+
+    duplicate(id) {
+        useForm().post(route(this.options.routes.duplicate, id), {
+            onSuccess: () => {
+                this.fetch()
+                this.dispatchEvent('duplicate', id)
+            },
+        })
     }
 
 
