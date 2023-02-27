@@ -127,8 +127,24 @@ class Post extends Model
 
 
 
+        // START: App permissions
+        $hasAccessToAllSpecifiedApps = true;
+
+        if ($user)
+        {
+            if (in_array('blog', $apps) && !$user->can(Permissions::APP_BLOG_ACCESS_ADMIN_PANEL)) $hasAccessToAllSpecifiedApps = false;
+            if (in_array('wiki', $apps) && !$user->can(Permissions::APP_WIKI_ACCESS_ADMIN_PANEL)) $hasAccessToAllSpecifiedApps = false;
+            if (in_array('jobs', $apps) && !$user->can(Permissions::APP_JOBS_ACCESS_ADMIN_PANEL)) $hasAccessToAllSpecifiedApps = false;
+            if (in_array('intranet', $apps) && !$user->can(Permissions::APP_INTRANET_ACCESS_ADMIN_PANEL)) $hasAccessToAllSpecifiedApps = false;
+        }
+        else
+        {
+            $hasAccessToAllSpecifiedApps = false;
+        }
+        // END: App permissions
+
         // START: Strict Mode
-        if (!$user || !$user->can(Permissions::APP_WIKI_ACCESS_ADMIN_PANEL) || !$user->can(Permissions::APP_WIKI_VIEW_CATEGORIES) || $strict === true)
+        if (!$user || !$hasAccessToAllSpecifiedApps || $strict === true)
         {
             $query
             ->where('status', 'published')

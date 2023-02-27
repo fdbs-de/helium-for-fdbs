@@ -276,7 +276,7 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
             ->name('admin.wiki.posts');
 
             Route::get('/search', [PostController::class, 'search'])
-            ->middleware('can:app.wiki.view.posts')
+            ->middleware('can:app.wiki.view.pages')
             ->name('admin.wiki.posts.search');
             
             Route::get('/editor/{post?}', [PostController::class, 'create'])
@@ -336,7 +336,7 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
             ->name('admin.jobs.posts');
 
             Route::get('/search', [PostController::class, 'search'])
-            ->middleware('can:app.jobs.view.posts')
+            ->middleware('can:app.jobs.view.offers')
             ->name('admin.jobs.posts.search');
             
             Route::get('/editor/{post?}', [PostController::class, 'create'])
