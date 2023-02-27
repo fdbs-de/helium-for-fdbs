@@ -42,7 +42,7 @@ class CreatePostRequest extends FormRequest
             'roles.*' => ['nullable', 'exists:roles,id'],
             'users' => ['nullable', 'array'],
             'users.*.id' => ['required', 'exists:users,id'],
-            'users.*.pivot_role' => ['required', 'string', 'in:author,co-author,editor,viewer'],
+            'users.*.pivot_role' => ['required', 'string', 'in:co-author,editor,viewer'],
             'title' => ['nullable', 'string', 'max:255'],
             'slug' => ['nullable', 'string', 'max:255', 'unique:posts,slug,NULL,id,scope,' . $this->scope],
             'category' => ['required', 'integer', 'exists:post_categories,id,scope,' . $this->scope],

@@ -19,17 +19,6 @@ class PostController extends Controller
     public function index(Request $request)
     {
         return Inertia::render('Admin/Apps/Shared/Posts/Index', [
-            'posts' => Post::with(['category' => function ($query) {
-                $query->select('id', 'name');
-            }])
-            ->where('scope', $request->app['id'])
-            ->orderBy('created_at', 'desc')
-            ->get(),
-
-            'categories' => PostCategory::withCount('posts')
-            ->where('scope', $request->app['id'])
-            ->orderBy('name', 'asc')
-            ->get(),
             'app' => $request->app['route'],
         ]);
     }
@@ -38,18 +27,12 @@ class PostController extends Controller
 
     public function search(Request $request)
     {
-        $query = Post::with(['category' => function ($query) {
+        $search = $request->search ? ['query' => $request->search] : [];
+        
+        $query = Post::getPublished($request->app['id'], $request->user(), $search)
+        ->with(['category' => function ($query) {
             $query->select('id', 'name', 'color', 'icon');
-        }])
-        ->where('scope', $request->app['id']);
-
-        if ($request->search) {
-            $query->whereFuzzy(function ($query) use ($request) {
-                $query
-                    ->orWhereFuzzy('title', $request->search)
-                    ->orWhereFuzzy('slug', $request->search);
-            });
-        }
+        }]);
 
         $total = $query->count();
 
@@ -97,6 +80,9 @@ class PostController extends Controller
 
         // Sync the authors, editors, etc.
         $post->users()->sync($request->users);
+
+        // Attach the current user as an author
+        $post->users()->syncWithoutDetach(auth()->user()->id, ['role' => 'author']);
 
         // Redirect to the editor
         return redirect()->route('admin.'.$request->app['route'].'.posts.editor', $post);

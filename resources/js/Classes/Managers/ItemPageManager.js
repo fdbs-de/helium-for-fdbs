@@ -178,6 +178,8 @@ export default class ItemPageManager extends EventListener
 
 
     open(id = null) {
+        if (!id) return Inertia.visit(route(this.options.routes.editor))
+        
         Inertia.visit(route(this.options.routes.editor, id))
     }
 
@@ -216,11 +218,11 @@ export default class ItemPageManager extends EventListener
 
 
     duplicate(id) {
-        useForm().post(route(this.options.routes.duplicate, id), {
+        useForm({returnTo: 'current'}).post(route(this.options.routes.duplicate, id), {
             onSuccess: () => {
                 this.fetch()
                 this.dispatchEvent('duplicate', id)
-            },
+            }
         })
     }
 

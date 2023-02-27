@@ -165,6 +165,7 @@ class Post extends Model
             $query->whereFuzzy(function ($query) use ($search) {
                 $query
                 ->orWhereFuzzy('title', $search['query'])
+                ->orWhereFuzzy('slug', $search['query'])
                 ->orWhereFuzzy('content', $search['query'])
                 ->orWhereFuzzy('tags', $search['query']);
             });

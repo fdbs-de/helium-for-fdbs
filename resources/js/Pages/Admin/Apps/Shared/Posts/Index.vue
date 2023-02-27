@@ -61,6 +61,11 @@
     const tableColumns = [
         {type: 'text', name: 'title', label: 'Titel', valuePath: 'title', sortable: true, width: 300, resizeable: true, hideable: true},
         {type: 'text', name: 'slug', label: 'Slug', valuePath: 'slug', sortable: true, width: 200, resizeable: true, hideable: true},
+        {type: 'tags', name: 'category', label: 'Kategorie', valuePath: 'category', sortable: false, width: 200, resizeable: true, hideable: true, transform: (value, item) => {
+            if (!value) return [{icon: null, text: 'Keine Kategorie', color: 'var(--color-text)', variant: 'contained', shape: 'pill'}]
+
+            return [{icon: value.icon, text: value.name, color: value.color, variant: 'filled', shape: 'pill'}]
+        }},
         {type: 'tags', name: 'status', label: 'Status', valuePath: 'status', sortable: false, width: 150, resizeable: true, hideable: true, transform: (value, item) => {
             switch (value)
             {
@@ -85,7 +90,7 @@
             color: 'var(--color-heading)',
             individual: true,
             multiple: true,
-            triggerOnRowClick: false,
+            triggerOnRowClick: true,
             isAvailable: () => true,
             run: (items) => IPM.value.open(items[0]),
         },
