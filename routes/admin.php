@@ -27,6 +27,7 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
         Route::middleware('can:system.view.settings')->group(function () {
             Route::get('/general', [SettingsController::class, 'indexGeneral'])->name('admin.settings.general');
             Route::get('/apps', [SettingsController::class, 'indexApps'])->name('admin.settings.apps');
+            Route::get('/design', [SettingsController::class, 'indexDesign'])->name('admin.settings.design');
             Route::get('/media', [SettingsController::class, 'indexMedia'])->name('admin.settings.media');
             Route::get('/legal', [SettingsController::class, 'indexLegal'])->name('admin.settings.legal');
         });
