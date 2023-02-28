@@ -79,7 +79,7 @@
                     <IconButton icon="upload" v-tooltip.bottom="'Medien Manager'" @click="$refs.picker.open()"/>
                     <IconButton icon="visibility" v-tooltip.bottom="'Vorschau'"/>
                     <div class="spacer"></div>
-                    <mui-button class="with-label" variant="contained" label="Speichern" v-tooltip.bottom="'Speichern (Strg+S)'"/>
+                    <mui-button class="with-label" variant="contained" label="Speichern" v-tooltip.bottom="'Speichern (Strg+S)'" :loading="editor.tab.processing.saving" @click="save()"/>
                 </div>
             </div>
 
@@ -154,113 +154,136 @@
 
 
             <div class="inspector small-scrollbar">
-                <div class="input-group horizontal slim">
-                    <div class="spacer"></div>
-                    <IconButton icon="content_copy" />
-                    <IconButton icon="disabled_visible" />
-                    <IconButton icon="more_vert" />
-                    <IconButton class="error" icon="delete" @click="editor.tab.removeElements(editor.tab.selected.elements)"/>
+                <div class="input-group">
+                    <Tabs v-model="editor.tab.inspector.panel" :tabs="[
+                        { label: 'Design', value: 'design' },
+                        { label: 'Styles', value: 'styles' },
+                        { label: 'Page', value: 'page' },
+                    ]" />
                 </div>
 
-                <div class="input-group">
-                    <mui-input class="default-text-input" :placeholder="editor.tab.inspector.fixtures.name.label" v-model="editor.tab.inspector.fixtures.name.value"/>
-                </div>
-
-                <div class="input-group">
-                    <div class="flex">
-                        <IconButton icon="east"
-                            :class="{'active': editor.tab.inspector.fixtures.style_layout.flexDirection == 'row'}"
-                            @click="editor.tab.inspector.fixtures.style_layout.flexDirection = 'row'"
-                            />
-                        <IconButton icon="south"
-                            :class="{'active': editor.tab.inspector.fixtures.style_layout.flexDirection == 'column'}"
-                            @click="editor.tab.inspector.fixtures.style_layout.flexDirection = 'column'"
-                            />
+                <template v-if="editor.tab.inspector.panel === 'design'">
+                    <div class="input-group horizontal slim">
                         <div class="spacer"></div>
-                        <IconButton icon="wrap_text"
-                            :class="{'active': editor.tab.inspector.fixtures.style_layout.flexWrap == 'wrap'}"
-                            @click="editor.tab.inspector.fixtures.style_layout.flexWrap = editor.tab.inspector.fixtures.style_layout.flexWrap == 'wrap' ? 'nowrap' : 'wrap'"
-                            />
+                        <IconButton icon="content_copy" />
+                        <IconButton icon="disabled_visible" />
+                        <IconButton icon="more_vert" />
+                        <IconButton class="error" icon="delete" @click="editor.tab.removeElements(editor.tab.selected.elements)"/>
                     </div>
-                    <div class="flex gap-1 v-center">
-                        <div class="flex-1 flex vertical gap-1">
-                            <mui-input class="default-text-input w-100" icon-left="horizontal_distribute" placeholder="Vertical" v-model="editor.tab.inspector.fixtures.style_layout.xGap"/>
-                            <mui-input class="default-text-input w-100" icon-left="vertical_distribute" placeholder="Horizontal" v-model="editor.tab.inspector.fixtures.style_layout.yGap"/>
-                        </div>
-                        <div class="align-matrix" :class="{
-                            'vertical': editor.tab.inspector.fixtures.style_layout.flexDirection === 'column',
-                            'horizontal': editor.tab.inspector.fixtures.style_layout.flexDirection !== 'column',
-                        }">
-                            <button class="h-left v-top"
-                                :class="{ 'active': editor.tab.inspector.fixtures.style_layout.matrix === 'left:top'}"
-                                @click="editor.tab.inspector.fixtures.style_layout.matrix = 'left:top'">
-                                <div class="icon"><div class="indicator"></div></div>
-                            </button>
-                            <button class="h-left v-center"
-                                :class="{ 'active': editor.tab.inspector.fixtures.style_layout.matrix === 'center:top'}"
-                                @click="editor.tab.inspector.fixtures.style_layout.matrix = 'center:top'">
-                                <div class="icon"><div class="indicator"></div></div>
-                            </button>
-                            <button class="h-left v-bottom"
-                                :class="{ 'active': editor.tab.inspector.fixtures.style_layout.matrix === 'right:top'}"
-                                @click="editor.tab.inspector.fixtures.style_layout.matrix = 'right:top'">
-                                <div class="icon"><div class="indicator"></div></div>
-                            </button>
-                            <button class="h-center v-top"
-                                :class="{ 'active': editor.tab.inspector.fixtures.style_layout.matrix === 'left:center'}"
-                                @click="editor.tab.inspector.fixtures.style_layout.matrix = 'left:center'">
-                                <div class="icon"><div class="indicator"></div></div>
-                            </button>
-                            <button class="h-center v-center"
-                                :class="{ 'active': editor.tab.inspector.fixtures.style_layout.matrix === 'center:center'}"
-                                @click="editor.tab.inspector.fixtures.style_layout.matrix = 'center:center'">
-                                <div class="icon"><div class="indicator"></div></div>
-                            </button>
-                            <button class="h-center v-bottom"
-                                :class="{ 'active': editor.tab.inspector.fixtures.style_layout.matrix === 'right:center'}"
-                                @click="editor.tab.inspector.fixtures.style_layout.matrix = 'right:center'">
-                                <div class="icon"><div class="indicator"></div></div>
-                            </button>
-                            <button class="h-right v-top"
-                                :class="{ 'active': editor.tab.inspector.fixtures.style_layout.matrix === 'left:bottom'}"
-                                @click="editor.tab.inspector.fixtures.style_layout.matrix = 'left:bottom'">
-                                <div class="icon"><div class="indicator"></div></div>
-                            </button>
-                            <button class="h-right v-center"
-                                :class="{ 'active': editor.tab.inspector.fixtures.style_layout.matrix === 'center:bottom'}"
-                                @click="editor.tab.inspector.fixtures.style_layout.matrix = 'center:bottom'">
-                                <div class="icon"><div class="indicator"></div></div>
-                            </button>
-                            <button class="h-right v-bottom"
-                                :class="{ 'active': editor.tab.inspector.fixtures.style_layout.matrix === 'right:bottom'}"
-                                @click="editor.tab.inspector.fixtures.style_layout.matrix = 'right:bottom'">
-                                <div class="icon"><div class="indicator"></div></div>
-                            </button>
-                        </div>
-                        <!-- <IconButton icon="more_vert" /> -->
+    
+                    <div class="input-group">
+                        <mui-input class="default-text-input" :placeholder="editor.tab.inspector.fixtures.name.label" v-model="editor.tab.inspector.fixtures.name.value"/>
                     </div>
-                </div>
-                
-                <div class="input-group">
-                    <select class="default-select" v-model="editor.tab.inspector.fixtures.wrapper.value">
-                        <option :value="null" disabled>Wrapper Tag</option>
-                        <option v-for="option in editor.tab.inspector.fixtures.wrapper.options" :value="option">{{ option }}</option>
-                    </select>
+    
+                    <div class="input-group">
+                        <div class="flex">
+                            <IconButton icon="east"
+                                :class="{'active': editor.tab.inspector.fixtures.style_layout.flexDirection == 'row'}"
+                                @click="editor.tab.inspector.fixtures.style_layout.flexDirection = 'row'"
+                                />
+                            <IconButton icon="south"
+                                :class="{'active': editor.tab.inspector.fixtures.style_layout.flexDirection == 'column'}"
+                                @click="editor.tab.inspector.fixtures.style_layout.flexDirection = 'column'"
+                                />
+                            <div class="spacer"></div>
+                            <IconButton icon="wrap_text"
+                                :class="{'active': editor.tab.inspector.fixtures.style_layout.flexWrap == 'wrap'}"
+                                @click="editor.tab.inspector.fixtures.style_layout.flexWrap = editor.tab.inspector.fixtures.style_layout.flexWrap == 'wrap' ? 'nowrap' : 'wrap'"
+                                />
+                        </div>
+                        <div class="flex gap-1 v-center">
+                            <div class="flex-1 flex vertical gap-1">
+                                <mui-input class="default-text-input w-100" icon-left="horizontal_distribute" placeholder="Vertical" v-model="editor.tab.inspector.fixtures.style_layout.xGap"/>
+                                <mui-input class="default-text-input w-100" icon-left="vertical_distribute" placeholder="Horizontal" v-model="editor.tab.inspector.fixtures.style_layout.yGap"/>
+                            </div>
+                            <div class="align-matrix" :class="{
+                                'vertical': editor.tab.inspector.fixtures.style_layout.flexDirection === 'column',
+                                'horizontal': editor.tab.inspector.fixtures.style_layout.flexDirection !== 'column',
+                            }">
+                                <button class="h-left v-top"
+                                    :class="{ 'active': editor.tab.inspector.fixtures.style_layout.matrix === 'left:top'}"
+                                    @click="editor.tab.inspector.fixtures.style_layout.matrix = 'left:top'">
+                                    <div class="icon"><div class="indicator"></div></div>
+                                </button>
+                                <button class="h-left v-center"
+                                    :class="{ 'active': editor.tab.inspector.fixtures.style_layout.matrix === 'center:top'}"
+                                    @click="editor.tab.inspector.fixtures.style_layout.matrix = 'center:top'">
+                                    <div class="icon"><div class="indicator"></div></div>
+                                </button>
+                                <button class="h-left v-bottom"
+                                    :class="{ 'active': editor.tab.inspector.fixtures.style_layout.matrix === 'right:top'}"
+                                    @click="editor.tab.inspector.fixtures.style_layout.matrix = 'right:top'">
+                                    <div class="icon"><div class="indicator"></div></div>
+                                </button>
+                                <button class="h-center v-top"
+                                    :class="{ 'active': editor.tab.inspector.fixtures.style_layout.matrix === 'left:center'}"
+                                    @click="editor.tab.inspector.fixtures.style_layout.matrix = 'left:center'">
+                                    <div class="icon"><div class="indicator"></div></div>
+                                </button>
+                                <button class="h-center v-center"
+                                    :class="{ 'active': editor.tab.inspector.fixtures.style_layout.matrix === 'center:center'}"
+                                    @click="editor.tab.inspector.fixtures.style_layout.matrix = 'center:center'">
+                                    <div class="icon"><div class="indicator"></div></div>
+                                </button>
+                                <button class="h-center v-bottom"
+                                    :class="{ 'active': editor.tab.inspector.fixtures.style_layout.matrix === 'right:center'}"
+                                    @click="editor.tab.inspector.fixtures.style_layout.matrix = 'right:center'">
+                                    <div class="icon"><div class="indicator"></div></div>
+                                </button>
+                                <button class="h-right v-top"
+                                    :class="{ 'active': editor.tab.inspector.fixtures.style_layout.matrix === 'left:bottom'}"
+                                    @click="editor.tab.inspector.fixtures.style_layout.matrix = 'left:bottom'">
+                                    <div class="icon"><div class="indicator"></div></div>
+                                </button>
+                                <button class="h-right v-center"
+                                    :class="{ 'active': editor.tab.inspector.fixtures.style_layout.matrix === 'center:bottom'}"
+                                    @click="editor.tab.inspector.fixtures.style_layout.matrix = 'center:bottom'">
+                                    <div class="icon"><div class="indicator"></div></div>
+                                </button>
+                                <button class="h-right v-bottom"
+                                    :class="{ 'active': editor.tab.inspector.fixtures.style_layout.matrix === 'right:bottom'}"
+                                    @click="editor.tab.inspector.fixtures.style_layout.matrix = 'right:bottom'">
+                                    <div class="icon"><div class="indicator"></div></div>
+                                </button>
+                            </div>
+                            <!-- <IconButton icon="more_vert" /> -->
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <select class="default-select" v-model="editor.tab.inspector.fixtures.wrapper.value">
+                            <option :value="null" disabled>Wrapper Tag</option>
+                            <option v-for="option in editor.tab.inspector.fixtures.wrapper.options" :value="option">{{ option }}</option>
+                        </select>
+    
+                        <mui-input class="default-text-input" placeholder="ID" v-model="editor.tab.inspector.fixtures.id.value"/>
+                        <mui-input class="default-text-area" type="textarea" placeholder="Klassen" v-model="editor.tab.inspector.fixtures.classes.value"/>
+                    </div>
+    
+                    <div class="input-group">
+                        <mui-input class="default-text-input" placeholder="URL" v-model="editor.tab.inspector.fixtures.attr_href.value"/>
+                        <select class="default-select" v-model="editor.tab.inspector.fixtures.attr_target.value">
+                            <option :value="null" disabled>Target</option>
+                            <option v-for="option in editor.tab.inspector.fixtures.attr_target.options" :value="option">{{ option }}</option>
+                        </select>
+    
+                        <mui-input class="default-text-input" placeholder="Source" v-model="editor.tab.inspector.fixtures.attr_src.value"/>
+                        <mui-input class="default-text-input" placeholder="Alt Text" v-model="editor.tab.inspector.fixtures.attr_alt.value"/>
+                    </div>
+                </template>
 
-                    <mui-input class="default-text-input" placeholder="ID" v-model="editor.tab.inspector.fixtures.id.value"/>
-                    <mui-input class="default-text-area" type="textarea" placeholder="Klassen" v-model="editor.tab.inspector.fixtures.classes.value"/>
-                </div>
-
-                <div class="input-group">
-                    <mui-input class="default-text-input" placeholder="URL" v-model="editor.tab.inspector.fixtures.attr_href.value"/>
-                    <select class="default-select" v-model="editor.tab.inspector.fixtures.attr_target.value">
-                        <option :value="null" disabled>Target</option>
-                        <option v-for="option in editor.tab.inspector.fixtures.attr_target.options" :value="option">{{ option }}</option>
-                    </select>
-
-                    <mui-input class="default-text-input" placeholder="Source" v-model="editor.tab.inspector.fixtures.attr_src.value"/>
-                    <mui-input class="default-text-input" placeholder="Alt Text" v-model="editor.tab.inspector.fixtures.attr_alt.value"/>
-                </div>
+                <template v-if="editor.tab.inspector.panel === 'page'">
+                    <div class="input-group">
+                        <select class="default-select" v-model="editor.tab.status">
+                            <option :value="null" disabled>Status</option>
+                            <option value="draft">Entwurf</option>
+                            <option value="published">Veröffentlicht</option>
+                            <option value="hidden">Versteckt</option>
+                        </select>
+                        <mui-input class="default-text-input" placeholder="Titel" v-model="editor.tab.title"/>
+                        <mui-input class="default-text-input" placeholder="Slug" v-model="editor.tab.slug"/>
+                    </div>
+                </template>
             </div>
         </div>
     </div>
@@ -290,6 +313,7 @@
     import IconButton from '@/Components/Apps/Pages/IconButton.vue'
     import NavigatorElement from '@/Components/Apps/Pages/NavigatorElement.vue'
     import Picker from '@/Components/Form/MediaLibrary/Picker.vue'
+    import Tabs from '@/Components/Form/Tabs.vue'
     import TextEditor from '@/Components/Form/TextEditor.vue'
     import Popup from '@/Components/Form/Popup.vue'
 
@@ -419,6 +443,30 @@
         editor.value.tab.ui.newElementPanel = false
     }
     // END: Methods
+
+
+
+    // START: Save
+    const save = () => {
+        editor.value.tab.processing.saving = true
+
+        if (editor.value.tab.type !== 'page-editor') return false
+
+        let serializedPage = editor.value.tab.serialize()
+
+        useForm(serializedPage).put(route('admin.pages.pages.update', serializedPage.id), {
+            onSuccess: (response) => {
+                // editor.value.tab.setSaved()
+                // editor.value.tab.setUnchanged()
+                editor.value.tab.processing.saving = false
+            },
+            onError: (response) => {
+                console.log(response)
+                editor.value.tab.processing.saving = false
+            }
+        })
+    }
+    // END: Save
 
 
 

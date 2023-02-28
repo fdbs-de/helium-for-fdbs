@@ -170,6 +170,10 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
             ->middleware('can:app.pages.create.pages')
             ->name('admin.pages.pages.duplicate');
 
+            Route::put('/{page}', [PageController::class, 'update'])
+            ->middleware('can:app.pages.edit.pages')
+            ->name('admin.pages.pages.update');
+
             Route::delete('/', [PageController::class, 'delete'])
             ->middleware('can:app.pages.delete.pages')
             ->name('admin.pages.pages.delete');

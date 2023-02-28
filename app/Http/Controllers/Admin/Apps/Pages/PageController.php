@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Apps\Pages\CreatePageRequest;
 use App\Http\Requests\Apps\Pages\DestroyPageRequest;
 use App\Http\Requests\Apps\Pages\DuplicatePageRequest;
+use App\Http\Requests\Apps\Pages\UpdatePageRequest;
 use App\Models\Page;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -76,6 +77,15 @@ class PageController extends Controller
     public function duplicate(DuplicatePageRequest $request, Page $page)
     {
         $page->duplicate();
+
+        return back();
+    }
+
+
+
+    public function update(UpdatePageRequest $request, Page $page)
+    {
+        $page->update($request->validated());
 
         return back();
     }
