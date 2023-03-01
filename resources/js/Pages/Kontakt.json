@@ -442,7 +442,7 @@
             {
                 "name": "Thomas Kutsche",
                 "job": "Leitung Lager",
-                "leader": false,
+                "leader": true,
                 "tel": "57",
                 "image": null
             },
