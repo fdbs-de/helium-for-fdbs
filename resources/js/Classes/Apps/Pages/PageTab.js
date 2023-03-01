@@ -29,6 +29,10 @@ export default class PageTab extends Tab
         // Set up inspector
         this.inspector = new Inspector()
 
+        this.processing = {
+            saving: false,
+        }
+
         this.selected = {
             breakpoint: 0,
             elements: [],

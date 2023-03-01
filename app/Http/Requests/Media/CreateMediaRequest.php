@@ -26,7 +26,7 @@ class CreateMediaRequest extends FormRequest
     {
         return [
             'files' => ['array'],
-            'files.*' => ['required', 'file', 'max:32768', 'mimes:jpg,jpeg,png,gif,svg,webp,mp4,mov,avi,mp3,wav,ogg,flac,zip,rar,7z,odt,doc,docx,xls,xlsx,ppt,pptx,pdf,txt,md,xml,psd,ai,eps,ttf,otf,woff,woff2,webm'],
+            'files.*' => ['file', 'max:134217', 'mimetypes:font/*,image/*,text/*,audio/*,video/*,application/*'],
         ];
     }
 }

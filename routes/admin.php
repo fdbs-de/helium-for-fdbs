@@ -27,6 +27,7 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
         Route::middleware('can:system.view.settings')->group(function () {
             Route::get('/general', [SettingsController::class, 'indexGeneral'])->name('admin.settings.general');
             Route::get('/apps', [SettingsController::class, 'indexApps'])->name('admin.settings.apps');
+            Route::get('/design', [SettingsController::class, 'indexDesign'])->name('admin.settings.design');
             Route::get('/media', [SettingsController::class, 'indexMedia'])->name('admin.settings.media');
             Route::get('/legal', [SettingsController::class, 'indexLegal'])->name('admin.settings.legal');
         });
@@ -168,6 +169,10 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
             Route::post('/{page}', [PageController::class, 'duplicate'])
             ->middleware('can:app.pages.create.pages')
             ->name('admin.pages.pages.duplicate');
+
+            Route::put('/{page}', [PageController::class, 'update'])
+            ->middleware('can:app.pages.edit.pages')
+            ->name('admin.pages.pages.update');
 
             Route::delete('/', [PageController::class, 'delete'])
             ->middleware('can:app.pages.delete.pages')

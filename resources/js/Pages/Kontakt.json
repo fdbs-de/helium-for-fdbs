@@ -165,7 +165,7 @@
                 "name": "Marta Löschner",
                 "job": "Fachberatung",
                 "leader": false,
-                "tel": null,
+                "tel": "18",
                 "image": null
             },
             {
@@ -199,6 +199,13 @@
                 "tel": "95",
                 "image": "/images/content/mitarbeiter/mathias_vetter.png",
                 "overlay": "/images/content/mitarbeiter/mathias_vetter_zeichnung.png"
+            },
+            {
+                "name": "Mathias Wafzig",
+                "job": "Fachberatung",
+                "leader": false,
+                "tel": "14",
+                "image": null
             },
             {
                 "name": "Jens Winkler",
@@ -240,7 +247,7 @@
                 "name": "Nicole Koch",
                 "job": "Vertriebsinnendienst",
                 "leader": false,
-                "tel": null,
+                "tel": "64",
                 "image": "/images/content/mitarbeiter/nicole_koch.png",
                 "overlay": "/images/content/mitarbeiter/nicole_koch_zeichnung.png"
             },
@@ -381,14 +388,6 @@
                 "tel": "41",
                 "image": "/images/content/mitarbeiter/andre_hoffmann.png",
                 "overlay": "/images/content/mitarbeiter/andre_hoffmann_zeichnung.png"
-            },
-            {
-                "name": "Holger Kleinert",
-                "job": "Fachberatung Geräte und Maschinen",
-                "leader": false,
-                "tel": "14",
-                "image": "/images/content/mitarbeiter/holger_kleinert.png",
-                "overlay": "/images/content/mitarbeiter/holger_kleinert_zeichnung.png"
             }
         ]
     },
@@ -440,6 +439,13 @@
         "id": "lager",
         "name": "Lagerabteilung",
         "employees": [
+            {
+                "name": "Thomas Kutsche",
+                "job": "Leitung Lager",
+                "leader": false,
+                "tel": "57",
+                "image": null
+            },
             {
                 "name": "Tobias Weniger",
                 "job": "Leitung Lager",

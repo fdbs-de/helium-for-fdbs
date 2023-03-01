@@ -24,6 +24,11 @@ class SettingsController extends Controller
         return Inertia::render('Admin/Settings/Apps', ['settings' => self::getSettings()]);
     }
 
+    public function indexDesign()
+    {
+        return Inertia::render('Admin/Settings/Design', ['settings' => self::getSettings()]);
+    }
+
     public function indexMedia()
     {
         return Inertia::render('Admin/Settings/Media', ['settings' => self::getSettings()]);
