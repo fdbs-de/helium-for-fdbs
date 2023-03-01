@@ -22,6 +22,10 @@
                                     <div class="icon">star</div>
                                     <div class="label">Keyfact einfügen</div>
                                 </button>
+                                <button type="button" class="dropdown-button" @click="editor.chain().focus().setHorizontalRule().run()" v-close-popper>
+                                    <div class="icon">horizontal_rule</div>
+                                    <div class="label">Horizontale Linie einfügen</div>
+                                </button>
                             </div>
                         </template>
                     </VDropdown>
@@ -106,12 +110,6 @@
                     <option value="h6">Überschrift 6</option>
                 </select>
                 
-                <div class="button-group" v-if="!simplified">
-                    <button type="button" class="button icon" :class="{ 'is-active': editor.isActive({textAlign: 'left'}) }" @click="editor.chain().focus().setTextAlign('left').run()">format_align_left</button>
-                    <button type="button" class="button icon" :class="{ 'is-active': editor.isActive({textAlign: 'center'}) }" @click="editor.chain().focus().setTextAlign('center').run()">format_align_center</button>
-                    <button type="button" class="button icon" :class="{ 'is-active': editor.isActive({textAlign: 'right'}) }" @click="editor.chain().focus().setTextAlign('right').run()">format_align_right</button>
-                </div>
-                
                 <div class="button-group">
                     <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('bold') }" @click="editor.chain().focus().toggleBold().run()">format_bold</button>
                     <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('italic') }" @click="editor.chain().focus().toggleItalic().run()">format_italic</button>
@@ -133,8 +131,22 @@
                             </div>
                         </template>
                     </VDropdown>
+                    <hr>
                     <button type="button" class="button icon" @click="openLinkDialog()">link</button>
-                    <button type="button" class="button icon" v-show="editor.isActive('link')" @click="removeLink()">link_off</button>
+                    <button type="button" class="button icon" :disabled="!editor.isActive('link')" @click="removeLink()">link_off</button>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="button icon" @click="editor.chain().focus().insertTable({ rows: 3, cols: 3}).run()" v-tooltip="'Tabelle einfügen'">table</button>
+                    <hr>
+                    <button type="button" class="button icon" @click="editor.chain().focus().setHorizontalRule().run()" v-tooltip="'Horizontale Linie einfügen'">horizontal_rule</button>
+                </div>
+
+                <div class="button-group" v-if="!simplified">
+                    <button type="button" class="button icon" :class="{ 'is-active': editor.isActive({textAlign: 'left'}) }" @click="editor.chain().focus().setTextAlign('left').run()">format_align_left</button>
+                    <button type="button" class="button icon" :class="{ 'is-active': editor.isActive({textAlign: 'center'}) }" @click="editor.chain().focus().setTextAlign('center').run()">format_align_center</button>
+                    <button type="button" class="button icon" :class="{ 'is-active': editor.isActive({textAlign: 'right'}) }" @click="editor.chain().focus().setTextAlign('right').run()">format_align_right</button>
+                    <button type="button" class="button icon" :class="{ 'is-active': editor.isActive({textAlign: 'justify'}) }" @click="editor.chain().focus().setTextAlign('justify').run()">format_align_justify</button>
                 </div>
             </div>
 
@@ -405,7 +417,7 @@
                     }),
                     TextAlign.configure({
                         types: ['heading', 'paragraph'],
-                        alignments: ['left', 'center', 'right'],
+                        alignments: ['left', 'center', 'right', 'justify'],
                     }),
                     TextStyle,
                     Color,
@@ -793,7 +805,7 @@
 
             .styling-panel
                 display: flex
-                gap: .5rem
+                gap: 1rem .5rem
                 padding: 1rem .5rem
                 flex-wrap: wrap
                 align-items: center
@@ -816,6 +828,13 @@
                     padding: 0 .25rem
                     border-radius: var(--radius-m)
                     background: var(--color-background-soft)
+
+                    > hr
+                        border: none
+                        margin: 0 .25rem
+                        border-left: 1px solid var(--color-border)
+                        height: 1.5rem
+                        width: 0
 
                 .button
                     position: relative
@@ -850,15 +869,20 @@
                         background: currentColor
                         opacity: 0
 
-                    &:hover
+                    &:not(:disabled):hover
                         color: var(--color-primary)
 
-                    &:hover::after
-                        opacity: .1
+                        &::after
+                            opacity: .1
                     
                     &.is-active
                         background: var(--color-primary)
                         color: var(--color-background)
+
+                    &:disabled
+                        opacity: .5
+                        cursor: unset
+
             .property-panel
                 display: flex
                 flex-direction: column

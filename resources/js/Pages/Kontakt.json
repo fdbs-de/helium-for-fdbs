@@ -165,7 +165,7 @@
                 "name": "Marta Löschner",
                 "job": "Fachberatung",
                 "leader": false,
-                "tel": null,
+                "tel": "18",
                 "image": null
             },
             {
@@ -247,7 +247,7 @@
                 "name": "Nicole Koch",
                 "job": "Vertriebsinnendienst",
                 "leader": false,
-                "tel": null,
+                "tel": "64",
                 "image": "/images/content/mitarbeiter/nicole_koch.png",
                 "overlay": "/images/content/mitarbeiter/nicole_koch_zeichnung.png"
             },
