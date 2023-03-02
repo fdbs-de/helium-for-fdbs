@@ -241,7 +241,8 @@
                 "job": "Vertriebsinnendienst",
                 "leader": false,
                 "tel": "28",
-                "image": null
+                "image": "/images/content/mitarbeiter/carina_eine.png",
+                "overlay": "/images/content/mitarbeiter/carina_eine_zeichnung.png"
             },
             {
                 "name": "Nicole Koch",
