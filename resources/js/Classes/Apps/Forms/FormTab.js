@@ -19,6 +19,7 @@ export default class FormTab extends Tab
         // Form specific data
         this.id = null
         this.title = null
+        this.formType = 'form'
         this.status = 'draft'
         this.actions = []
         this.pages = []
@@ -127,6 +128,7 @@ export default class FormTab extends Tab
     hydrate(data) {
         this.id = data.id
         this.title = data.name
+        this.formType = data.type
         this.status = data.status
 
         this.pages = []
@@ -149,6 +151,7 @@ export default class FormTab extends Tab
         return {
             id: this.id,
             title: this.title,
+            type: this.formType,
             status: this.status,
             pages: this.pages.map(page => page.serialize()),
             actions: this.actions.map(action => action.serialize()),

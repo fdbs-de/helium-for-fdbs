@@ -12,10 +12,12 @@ class Form extends Model
 
     protected $fillable = [
         'name',
+        'type',
         'status',
     ];
 
     protected $attributes = [
+        'type' => 'form',
         'status' => 'draft',
     ];
 
