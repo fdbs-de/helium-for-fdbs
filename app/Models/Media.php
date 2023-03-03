@@ -32,7 +32,7 @@ class Media extends Model
 
     public function children()
     {
-        return $this->hasMany(Media::class, 'belongs_to');
+        return $this->hasMany(Media::class, 'belongs_to')->orderBy('mediatype', 'desc');
     }
     // END: Relationships
 

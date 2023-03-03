@@ -1,7 +1,7 @@
 <template>
     <Head title="Media Library" />
 
-    <AdminLayout title="Media Library">
+    <AdminLayout :title="`${drive} Drive – Media Library`">
         <div class="flex v-center gap-1">
             <Actions v-show="selection.length >= 1" :selection="selection" @deselect="deselectAll()" @delete="$refs.deletePopup.open()" />
             <Breadcrumbs v-show="selection.length <= 0" :breadcrumbs="breadcrumbs" @open="openDirectory($event)"/>
@@ -126,6 +126,7 @@
     const props = defineProps({
         items: Array,
         breadcrumbs: Array,
+        drive: String,
     })
 
     const workingDirectory = computed(() => props.breadcrumbs[props.breadcrumbs?.length - 1] ?? {})
@@ -146,7 +147,7 @@
     }
 
     const openDirectory = (item) => {
-        Inertia.visit(route('admin.media', [item.id]), {
+        Inertia.visit(route('admin.media', [props.drive, item.id]), {
             preserveState: true,
             preserveScroll: true,
             onSuccess() {

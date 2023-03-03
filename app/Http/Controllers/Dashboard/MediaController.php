@@ -109,11 +109,11 @@ class MediaController extends Controller
 
 
 
-    public function indexPublic(Request $request, Media $media)
+    public function index(Request $request, String $drive, Media $media)
     {
         if (!$media->id)
         {
-            $media = Media::getRoot('public');
+            $media = Media::getRoot($drive);
         }
 
         if (!$media) abort(404);
@@ -133,6 +133,7 @@ class MediaController extends Controller
         $data = [
             'items' => MediaResource::collection($media->children),
             'breadcrumbs' => $path,
+            'drive' => $drive,
         ];
 
 
@@ -142,6 +143,7 @@ class MediaController extends Controller
         return Inertia::render('Admin/Media/Index', [
             'items' => MediaResource::collection($media->children),
             'breadcrumbs' => $path,
+            'drive' => $drive,
         ]);
     }
 

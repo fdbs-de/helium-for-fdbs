@@ -114,9 +114,10 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
         ->middleware('can:system.edit.media')
         ->name('admin.media.generate.cache');
 
-        Route::get('/public/{media?}', [MediaController::class, 'indexPublic'])
+        Route::get('/{drive}/{media?}', [MediaController::class, 'index'])
         ->middleware('can:system.view.media')
-        ->name('admin.media');
+        ->name('admin.media')
+        ->whereIn('drive', ['private', 'public']);
         
         // Route::get('/search', [MediaController::class, 'search'])
         // ->middleware('can:system.view.media')
