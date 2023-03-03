@@ -136,7 +136,7 @@
             ]},
             {label: 'Medien Manager', color: 'var(--color-background)', icon: 'upload', route: route('admin.media'), permission: ['system.view.media'], activeWhen: ['admin.media'], submenu: [
                 {label: 'Öffentliche Ablage', icon: 'home_storage', route: route('admin.media'), permission: ['system.view.media'], activeWhen: ['admin.media']},
-                // {label: 'Private Ablage', icon: 'lock', route: route('admin.media'), permission: ['system.view.media'], activeWhen: ['admin.media.private']},
+                {label: 'Private Ablage', icon: 'lock', route: route('admin.media'), permission: ['system.view.media'], activeWhen: ['admin.media.private']},
             ]},
         ],
         [
