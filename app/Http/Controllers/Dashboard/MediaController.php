@@ -111,12 +111,20 @@ class MediaController extends Controller
 
     public function index(Request $request, String $drive, Media $media)
     {
+        // Get the drive config
+        $drive = config('storage.drives.'.$drive);
+
+        // Get root media object
         if (!$media->id)
         {
-            $media = Media::getRoot($drive);
+            $media = Media::getRoot($drive['alias']);
         }
 
+        // Cancel if media object is empty
         if (!$media) abort(404);
+
+        // Cancel if media object is not a folder
+        // (when indexing media, the object we're looking for is naturally a folder)
         if ($media->mediatype !== 'folder') abort(404);
 
 
@@ -145,6 +153,24 @@ class MediaController extends Controller
             'breadcrumbs' => $path,
             'drive' => $drive,
         ]);
+    }
+
+
+
+    public function show(Request $request, Media $media)
+    {
+        if (!$media->canAccess($request)) abort(403);
+        
+        // Cancel if media object is a folder
+        // (when showing media, we need a file)
+        if ($media->mediatype === 'folder') abort(404);
+
+        $path = storage_path('app/' . $media->path);
+        $headers = [
+            'Content-Type' => $media->mediatype,
+        ];
+
+        return response()->file($path, $headers);
     }
 
 

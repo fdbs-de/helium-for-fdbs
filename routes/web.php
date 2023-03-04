@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\Apps\Forms\FormController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Dashboard\DocumentController;
+use App\Http\Controllers\Dashboard\MediaController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\StaticController;
 use Illuminate\Support\Facades\Route;
@@ -84,9 +85,14 @@ Route::get('/datenschutz', [StaticController::class, 'indexDatenschutz'])->name(
 Route::get('/agbs', [StaticController::class, 'indexAGBS'])->name('agbs');
 Route::get('/video-info', [StaticController::class, 'indexVideoInfo'])->name('video-info');
 
+
+
 Route::get('docs/{document:slug}', [DocumentController::class, 'show'])->name('docs');
 Route::get('docs/{document:slug}/cover', [DocumentController::class, 'showCover'])->name('docs.cover');
 
+
+
+Route::get('/private/media/{media}', [MediaController::class, 'show']);
 
 
 require __DIR__.'/auth.php';

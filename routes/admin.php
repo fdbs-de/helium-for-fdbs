@@ -117,7 +117,9 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
         Route::get('/{drive}/{media?}', [MediaController::class, 'index'])
         ->middleware('can:system.view.media')
         ->name('admin.media')
-        ->whereIn('drive', ['private', 'public']);
+        ->whereIn('drive', array_map(function ($drive) {
+            return $drive['alias'];
+        }, config('storage.drives')));
         
         // Route::get('/search', [MediaController::class, 'search'])
         // ->middleware('can:system.view.media')

@@ -10,6 +10,11 @@
     import { computed } from 'vue'
 
     const props = defineProps({
+        rootIcon: String,
+        rootName: {
+            type: String,
+            default: 'Storage'
+        },
         breadcrumbs: {
             type: Array,
             default: () => []
@@ -27,7 +32,7 @@
             }
         })
 
-        if (breadcrumbs.length > 0) breadcrumbs[0].name = 'Storage'
+        if (breadcrumbs.length > 0) breadcrumbs[0].name = props.rootName
         
         return breadcrumbs
     })

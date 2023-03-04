@@ -95,6 +95,10 @@
             type: String,
             default: '*'
         },
+        drive: {
+            type: String,
+            default: 'public'
+        },
     })
     // END: Props
 
@@ -190,7 +194,7 @@
         loading.value = true
 
         try {
-            let url = directory?.id ? route('admin.media', directory?.id) : route('admin.media')
+            let url = directory?.id ? route('admin.media', [props.drive, directory?.id]) : route('admin.media', [props.drive])
 
             let response = await axios.get(url, { headers: {
                 'Content-Type': 'application/json',

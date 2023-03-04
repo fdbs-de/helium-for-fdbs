@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Permissions\Permissions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
 use Spatie\Permission\Traits\HasRoles;
 
 class Media extends Model
@@ -24,6 +26,26 @@ class Media extends Model
 
 
 
+    public static function boot()
+    {
+        parent::boot();
+
+        self::deleting(function ($model) {
+            $mime = Storage::mimeType($model->path);
+
+            if (!$mime)
+            {
+                Storage::deleteDirectory($model->path);
+            }
+            else
+            {
+                Storage::delete($model->path);
+            }
+        });
+    }
+
+
+
     // START: Relationships
     public function parent()
     {
@@ -32,7 +54,7 @@ class Media extends Model
 
     public function children()
     {
-        return $this->hasMany(Media::class, 'belongs_to')->orderBy('mediatype', 'desc');
+        return $this->hasMany(Media::class, 'belongs_to')->orderByRaw("FIELD(mediatype , 'folder') DESC")->orderBy('path', 'asc');
     }
     // END: Relationships
 
@@ -47,7 +69,7 @@ class Media extends Model
 
     public function getUrlAttribute()
     {
-        if ($this->status == 'private') return '/private/media/'+$this->id;
+        if ($this->status == 'private') return '/private/media/'.$this->id;
 
         return Storage::url($this->path);
     }
@@ -76,21 +98,12 @@ class Media extends Model
 
 
 
-    public static function boot()
+    public function canAccess(Request $request)
     {
-        parent::boot();
+        if ($this->status == 'public') return true;
 
-        self::deleting(function ($model) {
-            $mime = Storage::mimeType($model->path);
+        if ($request->user() && $request->user()->can([Permissions::SYSTEM_SUPER_ADMIN, Permissions::SYSTEM_ADMIN])) return true;
 
-            if (!$mime)
-            {
-                Storage::deleteDirectory($model->path);
-            }
-            else
-            {
-                Storage::delete($model->path);
-            }
-        });
+        return false;
     }
 }
