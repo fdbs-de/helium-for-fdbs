@@ -21,7 +21,8 @@ class Media extends Model
         'alt',
         'caption',
         'description',
-        'status',
+        'drive',
+        'permission_mode',
     ];
 
 
@@ -60,16 +61,16 @@ class Media extends Model
 
 
 
-    public static function getRoot($status)
+    public static function getRoot($drive)
     {
-        return Media::where('belongs_to', null)->where('mediatype', 'folder')->where('status', $status)->first() ?? null;
+        return Media::where('belongs_to', null)->where('mediatype', 'folder')->where('drive', $drive)->first() ?? null;
     }
 
 
 
     public function getUrlAttribute()
     {
-        if ($this->status == 'private') return '/private/media/'.$this->id;
+        if ($this->drive == 'private') return '/private/media/'.$this->id;
 
         return Storage::url($this->path);
     }
@@ -100,7 +101,7 @@ class Media extends Model
 
     public function canAccess(Request $request)
     {
-        if ($this->status == 'public') return true;
+        if ($this->drive == 'public') return true;
 
         if ($request->user() && $request->user()->can([Permissions::SYSTEM_SUPER_ADMIN, Permissions::SYSTEM_ADMIN])) return true;
 

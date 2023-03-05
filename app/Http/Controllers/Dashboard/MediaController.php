@@ -16,8 +16,8 @@ use Inertia\Inertia;
 class MediaController extends Controller
 {
     private const DRIVES = [
-        ['path' => 'public/media', 'status' => 'public'],
-        ['path' => 'private/media', 'status' => 'private'],
+        ['path' => 'public/media', 'drive' => 'public', 'mode' => 'public'],
+        ['path' => 'private/media', 'drive' => 'private', 'mode' => 'private'],
     ];
 
 
@@ -35,7 +35,8 @@ class MediaController extends Controller
                 'path' => $drive['path']
             ], [
                 'mediatype' => 'folder',
-                'status' => $drive['status'],
+                'permission_mode' => $drive['mode'],
+                'drive' => $drive['drive'],
                 'belongs_to' => null,
             ]);
         }
@@ -60,12 +61,12 @@ class MediaController extends Controller
         // Scan all media drives
         foreach (self::DRIVES as $drive)
         {
-            $media = Media::getRoot($drive['status']);
+            $media = Media::getRoot($drive['drive']);
             
             if (!$media) continue;
             if (!Storage::exists($drive['path'])) continue;
 
-            $this->getMediaContents($media->path, $media->id, $media->status);
+            $this->getMediaContents($media->path, $media->id);
         }
 
 
@@ -75,7 +76,7 @@ class MediaController extends Controller
 
 
 
-    private function getMediaContents($path, $belongsTo, $status)
+    private function getMediaContents($path, $belongsTo)
     {
         $directories = Storage::directories($path);
         $files = Storage::files($path);
@@ -88,7 +89,7 @@ class MediaController extends Controller
                 'path' => $value
             ], [
                 'mediatype' => $mimeType,
-                'status' => $status,
+                'drive' => null,
                 'belongs_to' => $belongsTo,
             ]);
         }
@@ -99,11 +100,11 @@ class MediaController extends Controller
                 'path' => $value
             ], [
                 'mediatype' => 'folder',
-                'status' => $status,
+                'drive' => null,
                 'belongs_to' => $belongsTo,
             ]);
 
-            $this->getMediaContents($value, $newDirectory->id, $status);
+            $this->getMediaContents($value, $newDirectory->id);
         }
     }
 
@@ -196,7 +197,7 @@ class MediaController extends Controller
             $media->children()->create([
                 'path' => $path,
                 'mediatype' => $file->getMimeType(),
-                'status' => $media->status,
+                'drive' => $media->drive,
             ]);
         }
 
@@ -215,7 +216,7 @@ class MediaController extends Controller
         $media->children()->create([
             'path' => $path,
             'mediatype' => 'folder',
-            'systus' => $media->status,
+            'drive' => $media->drive,
         ]);
 
         return back();

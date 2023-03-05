@@ -135,7 +135,7 @@
                 {label: 'Spezifikationen', icon: 'cloud_done', route: route('admin.specs'), permission: ['edit specs'], activeWhen: ['admin.specs']},
             ]},
             {label: 'Medien Manager', color: 'var(--color-background)', icon: 'upload', route: route('admin.media', ['public']), permission: ['system.view.media'], activeWhen: ['admin.media'], submenu: [
-                {label: 'Öffentliche Ablage', icon: 'home_storage', route: route('admin.media', ['public']), permission: ['system.view.media'], activeWhen: ['admin.media']},
+                {label: 'Öffentliche Ablage', icon: 'home_storage', route: route('admin.media', ['public']), permission: ['system.view.media'], activeWhen: ['admin.media.public']},
                 {label: 'Private Ablage', icon: 'lock', route: route('admin.media', ['private']), permission: ['system.view.media'], activeWhen: ['admin.media.private']},
             ]},
         ],
