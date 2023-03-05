@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Classes\Drives\Drives;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Media\CreateDirectoryRequest;
 use App\Http\Requests\Media\CreateMediaRequest;
@@ -15,16 +16,9 @@ use Inertia\Inertia;
 
 class MediaController extends Controller
 {
-    private const DRIVES = [
-        ['path' => 'public/media', 'status' => 'public'],
-        ['path' => 'private/media', 'status' => 'private'],
-    ];
-
-
-
     public function setupMediaDrives()
     {
-        foreach (self::DRIVES as $drive)
+        foreach (Drives::getDrives() as $drive)
         {
             if (!Storage::exists($drive['path']))
             {
@@ -35,7 +29,8 @@ class MediaController extends Controller
                 'path' => $drive['path']
             ], [
                 'mediatype' => 'folder',
-                'status' => $drive['status'],
+                'permission_mode' => $drive['permission_mode'],
+                'drive' => $drive['alias'],
                 'belongs_to' => null,
             ]);
         }
@@ -58,14 +53,14 @@ class MediaController extends Controller
 
 
         // Scan all media drives
-        foreach (self::DRIVES as $drive)
+        foreach (Drives::getDrives() as $drive)
         {
-            $media = Media::getRoot($drive['status']);
+            $media = Media::getDriveRoot($drive['alias']);
             
             if (!$media) continue;
             if (!Storage::exists($drive['path'])) continue;
 
-            $this->getMediaContents($media->path, $media->id, $media->status);
+            $this->getMediaContents($media->path, $media->id);
         }
 
 
@@ -75,7 +70,7 @@ class MediaController extends Controller
 
 
 
-    private function getMediaContents($path, $belongsTo, $status)
+    private function getMediaContents($path, $belongsTo)
     {
         $directories = Storage::directories($path);
         $files = Storage::files($path);
@@ -88,7 +83,7 @@ class MediaController extends Controller
                 'path' => $value
             ], [
                 'mediatype' => $mimeType,
-                'status' => $status,
+                'drive' => null,
                 'belongs_to' => $belongsTo,
             ]);
         }
@@ -99,24 +94,32 @@ class MediaController extends Controller
                 'path' => $value
             ], [
                 'mediatype' => 'folder',
-                'status' => $status,
+                'drive' => null,
                 'belongs_to' => $belongsTo,
             ]);
 
-            $this->getMediaContents($value, $newDirectory->id, $status);
+            $this->getMediaContents($value, $newDirectory->id);
         }
     }
 
 
 
-    public function indexPublic(Request $request, Media $media)
+    public function index(Request $request, String $driveAlias, Media $media)
     {
+        // Get the drive config
+        $drive = Drives::getDrive($driveAlias);
+
+        // Get root media object
         if (!$media->id)
         {
-            $media = Media::getRoot('public');
+            $media = Media::getDriveRoot($drive['alias']);
         }
 
+        // Cancel if media object is empty
         if (!$media) abort(404);
+
+        // Cancel if media object is not a folder
+        // (when indexing media, the object we're looking for is naturally a folder)
         if ($media->mediatype !== 'folder') abort(404);
 
 
@@ -133,6 +136,7 @@ class MediaController extends Controller
         $data = [
             'items' => MediaResource::collection($media->children),
             'breadcrumbs' => $path,
+            'drive' => $drive,
         ];
 
 
@@ -142,7 +146,26 @@ class MediaController extends Controller
         return Inertia::render('Admin/Media/Index', [
             'items' => MediaResource::collection($media->children),
             'breadcrumbs' => $path,
+            'drive' => $drive,
         ]);
+    }
+
+
+
+    public function show(Request $request, Media $media)
+    {
+        if (!$media->canAccess($request)) abort(403);
+        
+        // Cancel if media object is a folder
+        // (when showing media, we need a file)
+        if ($media->mediatype === 'folder') abort(404);
+
+        $path = storage_path('app/' . $media->path);
+        $headers = [
+            'Content-Type' => $media->mediatype,
+        ];
+
+        return response()->file($path, $headers);
     }
 
 
@@ -168,7 +191,6 @@ class MediaController extends Controller
             $media->children()->create([
                 'path' => $path,
                 'mediatype' => $file->getMimeType(),
-                'status' => $media->status,
             ]);
         }
 
@@ -187,7 +209,6 @@ class MediaController extends Controller
         $media->children()->create([
             'path' => $path,
             'mediatype' => 'folder',
-            'systus' => $media->status,
         ]);
 
         return back();

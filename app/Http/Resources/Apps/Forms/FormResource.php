@@ -17,6 +17,7 @@ class FormResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'type' => $this->type,
             'pages' => FormPageResource::collection($this->pages),
             'actions' => FormActionResource::collection($this->actions),
             'input_count' => count($this->inputs),

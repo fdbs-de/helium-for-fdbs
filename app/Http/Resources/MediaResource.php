@@ -118,7 +118,7 @@ class MediaResource extends JsonResource
             'id' => $this->id,
             'mediatype' => $this->mediatype,
             'is_folder' => $this->isFolder($this),
-            'status' => $this->status,
+            'drive' => $this->drive,
             'meta' => [
                 'title' => $this->title,
                 'alt' => $this->alt,

@@ -24,6 +24,12 @@
                     
                     <div class="flex gap-1 v-center">
                         <mui-input type="text" class="flex-1" label="Name" required v-model="editor.tab.title"/>
+
+                        <select class="header-select" v-model="editor.tab.formType">
+                            <option value="form">Formular</option>
+                            <option value="funnel">Funnel</option>
+                            <option value="data">Data-Builder</option>
+                        </select>
                     </div>
                     
                     <fieldset class="flex vertical" v-for="page in editor.tab.pages">

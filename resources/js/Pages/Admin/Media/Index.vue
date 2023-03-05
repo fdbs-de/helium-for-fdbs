@@ -1,10 +1,8 @@
 <template>
-    <Head title="Media Library" />
-
-    <AdminLayout title="Media Library">
+    <AdminLayout :title="`${drive.name} Media`">
         <div class="flex v-center gap-1">
             <Actions v-show="selection.length >= 1" :selection="selection" @deselect="deselectAll()" @delete="$refs.deletePopup.open()" />
-            <Breadcrumbs v-show="selection.length <= 0" :breadcrumbs="breadcrumbs" @open="openDirectory($event)"/>
+            <Breadcrumbs v-show="selection.length <= 0" :breadcrumbs="breadcrumbs" @open="openDirectory($event)" :root-icon="drive.icon" :root-name="drive.name"/>
 
             <div class="spacer"></div>
 
@@ -62,11 +60,12 @@
 
         <div class="flex v-center gap-1 border-top padding-top-1">
             <small><b>{{items.filter(i => i.mime !== 'folder').length}}</b> Dateien</small>
-            <!-- <small><b>{{fileSize(items.reduce((a, b) => a + b.size, 0))}}</b> gesamt</small> -->
 
             <div class="spacer"></div>
         </div>
     </AdminLayout>
+
+
 
     <div class="dropzone" @dragover.prevent="dragOver" @drop.prevent="drop" :class="{'active': dragFiles}">
         <span class="icon" aria-hidden="true">cloud_upload</span>
@@ -126,6 +125,7 @@
     const props = defineProps({
         items: Array,
         breadcrumbs: Array,
+        drive: Object,
     })
 
     const workingDirectory = computed(() => props.breadcrumbs[props.breadcrumbs?.length - 1] ?? {})
@@ -146,7 +146,7 @@
     }
 
     const openDirectory = (item) => {
-        Inertia.visit(route('admin.media', [item.id]), {
+        Inertia.visit(route('admin.media', [props.drive.alias, item.id]), {
             preserveState: true,
             preserveScroll: true,
             onSuccess() {

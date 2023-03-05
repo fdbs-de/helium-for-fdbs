@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "75848e480d79543803be1a293c684049",
+    "content-hash": "6dec0a3b7edc9207b23dd0213c6040fb",
     "packages": [
         {
             "name": "brick/math",
@@ -355,38 +355,39 @@
         },
         {
             "name": "doctrine/dbal",
-            "version": "3.4.4",
+            "version": "3.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "4cbbe6e4b9ef6c69d5f4c968c637476f47bb54f5"
+                "reference": "57815c7bbcda3cd18871d253c1dd8cbe56f8526e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/4cbbe6e4b9ef6c69d5f4c968c637476f47bb54f5",
-                "reference": "4cbbe6e4b9ef6c69d5f4c968c637476f47bb54f5",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/57815c7bbcda3cd18871d253c1dd8cbe56f8526e",
+                "reference": "57815c7bbcda3cd18871d253c1dd8cbe56f8526e",
                 "shasum": ""
             },
             "require": {
                 "composer-runtime-api": "^2",
                 "doctrine/cache": "^1.11|^2.0",
                 "doctrine/deprecations": "^0.5.3|^1",
-                "doctrine/event-manager": "^1.0",
+                "doctrine/event-manager": "^1|^2",
                 "php": "^7.4 || ^8.0",
                 "psr/cache": "^1|^2|^3",
                 "psr/log": "^1|^2|^3"
             },
             "require-dev": {
-                "doctrine/coding-standard": "10.0.0",
-                "jetbrains/phpstorm-stubs": "2022.2",
-                "phpstan/phpstan": "1.8.3",
-                "phpstan/phpstan-strict-rules": "^1.3",
-                "phpunit/phpunit": "9.5.24",
-                "psalm/plugin-phpunit": "0.17.0",
-                "squizlabs/php_codesniffer": "3.7.1",
+                "doctrine/coding-standard": "11.1.0",
+                "fig/log-test": "^1",
+                "jetbrains/phpstorm-stubs": "2022.3",
+                "phpstan/phpstan": "1.10.3",
+                "phpstan/phpstan-strict-rules": "^1.5",
+                "phpunit/phpunit": "9.6.4",
+                "psalm/plugin-phpunit": "0.18.4",
+                "squizlabs/php_codesniffer": "3.7.2",
                 "symfony/cache": "^5.4|^6.0",
                 "symfony/console": "^4.4|^5.4|^6.0",
-                "vimeo/psalm": "4.27.0"
+                "vimeo/psalm": "4.30.0"
             },
             "suggest": {
                 "symfony/console": "For helpful console commands such as SQL execution and import of files."
@@ -446,7 +447,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/dbal/issues",
-                "source": "https://github.com/doctrine/dbal/tree/3.4.4"
+                "source": "https://github.com/doctrine/dbal/tree/3.6.1"
             },
             "funding": [
                 {
@@ -462,7 +463,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-09-01T21:26:42+00:00"
+            "time": "2023-03-02T19:26:24+00:00"
         },
         {
             "name": "doctrine/deprecations",

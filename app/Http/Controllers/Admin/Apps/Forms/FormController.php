@@ -60,6 +60,7 @@ class FormController extends Controller
     {
         $form->update([
             'name' => $request->title,
+            'type' => $request->type,
             'status' => $request->status,
         ]);
 

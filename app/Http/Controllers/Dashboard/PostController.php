@@ -82,7 +82,7 @@ class PostController extends Controller
         $post->users()->sync($request->users);
 
         // Attach the current user as an author
-        $post->users()->syncWithoutDetach(auth()->user()->id, ['role' => 'author']);
+        $post->users()->syncWithoutDetaching(auth()->user()->id, ['role' => 'author']);
 
         // Redirect to the editor
         return redirect()->route('admin.'.$request->app['route'].'.posts.editor', $post);
