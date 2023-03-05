@@ -54,6 +54,7 @@
                 @open="openItem(item)"
                 @delete="openDeletePopup(item)"
                 @rename="openRenamePopup(item)"
+                @permissions="openPermissionsPopup(item)"
                 />
         </ListItemLayout>
         <small v-show="items.length <= 0" class="w-100 flex h-center padding-inline-2 padding-block-5">Dieser Ordner ist leer</small>
@@ -90,6 +91,20 @@
             <div class="confirm-popup-footer">
                 <mui-button type="button" variant="contained" label="Abbrechen" @click="$refs.renamePopup.close()" />
                 <mui-button type="submit" variant="filled" label="Umbennenen" />
+            </div>
+        </form>
+    </Popup>
+
+    <Popup ref="permissionsPopup" title="Berechtigungen bearbeiten">
+        <form class="confirm-popup-wrapper" @submit.prevent="updatePermissions()">
+            <select v-model="permissionsForm.permission_mode">
+                <option value="public">Öffentlich</option>
+                <option value="inherit">Vererbt</option>
+                <option value="custom">Benutzerdefiniert</option>
+            </select>
+            <div class="confirm-popup-footer">
+                <mui-button type="button" variant="contained" label="Abbrechen" @click="$refs.permissionsPopup.close()" />
+                <mui-button type="submit" variant="filled" label="Speichern" />
             </div>
         </form>
     </Popup>
@@ -279,6 +294,41 @@
         })
     }
     // END: Rename Item
+
+
+
+    // START: Permissions
+    const permissionsPopup = ref(null)
+
+    const permissionsForm = useForm({
+        permission_mode: 'inherit',
+        users: [],
+        roles: [],
+        profiles: [],
+        item: null,
+    })
+
+    const openPermissionsPopup = (item) => {
+        permissionsForm.permission_mode = item.permission_mode
+        permissionsForm.users = []
+        permissionsForm.roles = []
+        permissionsForm.profiles = []
+        permissionsForm.item = item
+        permissionsPopup.value.open()
+    }
+
+    const updatePermissions = () => {
+        permissionsForm.put(route('admin.media.update.permissions', permissionsForm.item.id), {
+            onSuccess() {
+                permissionsForm.reset()
+                permissionsPopup.value.close()
+            },
+            onError(e) {
+                console.log(e);
+            },
+        })
+    }
+    // END: Permissions
 
 
 
