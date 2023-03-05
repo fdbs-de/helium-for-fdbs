@@ -1,5 +1,6 @@
 <?php
 
+use App\Classes\Drives\Drives;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\Apps\Forms\FormController;
 use App\Http\Controllers\Admin\Apps\Pages\MenuController;
@@ -114,12 +115,10 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
         ->middleware('can:system.edit.media')
         ->name('admin.media.generate.cache');
 
-        Route::get('/{drive}/{media?}', [MediaController::class, 'index'])
+        Route::get('/{driveAlias}/{media?}', [MediaController::class, 'index'])
         ->middleware('can:system.view.media')
         ->name('admin.media')
-        ->whereIn('drive', array_map(function ($drive) {
-            return $drive['alias'];
-        }, config('storage.drives')));
+        ->whereIn('driveAlias', Drives::getDriveAliases());
         
         // Route::get('/search', [MediaController::class, 'search'])
         // ->middleware('can:system.view.media')

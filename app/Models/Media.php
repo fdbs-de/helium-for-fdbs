@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Classes\Drives\Drives;
 use App\Permissions\Permissions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -61,16 +62,56 @@ class Media extends Model
 
 
 
-    public static function getRoot($drive)
+    public static function getDriveRoot($drive)
     {
         return Media::where('belongs_to', null)->where('mediatype', 'folder')->where('drive', $drive)->first() ?? null;
     }
 
 
 
+    public function getRoot()
+    {
+        $model = $this;
+
+        while ($model->parent)
+        {
+            $model = $model->parent;
+        }
+
+        return $model;
+    }
+
+
+
+    public function getDirectPermissionConfigAttribute()
+    {
+        return [
+            'mode' => $this->permission_mode,
+            'users' => [],
+            'roles' => [],
+            'profiles' => [],
+        ];
+    }
+
+    public function getCalculatedPermissionConfigAttribute()
+    {
+        $model = $this;
+
+        while ($model->parent && $model->permission_mode == 'inherit')
+        {
+            $model = $model->parent;
+        }
+
+        return $model->getDirectPermissionConfigAttribute();
+    }
+
+
+
     public function getUrlAttribute()
     {
-        if ($this->drive == 'private') return '/private/media/'.$this->id;
+        $rootMedia = $this->getRoot();
+
+        if ($rootMedia && $rootMedia->drive == 'private') return '/private/media/'.$this->id;
 
         return Storage::url($this->path);
     }
@@ -101,10 +142,57 @@ class Media extends Model
 
     public function canAccess(Request $request)
     {
-        if ($this->drive == 'public') return true;
+        // Get root media
+        $rootMedia = $this->getRoot();
 
-        if ($request->user() && $request->user()->can([Permissions::SYSTEM_SUPER_ADMIN, Permissions::SYSTEM_ADMIN])) return true;
+        // Get drive
+        $drive = $rootMedia ? Drives::getDrive($rootMedia->drive) : null;
 
+
+
+        // If the media is in a drive that doesn't exist, it can't be accessed
+        if (!$drive) return false;
+        
+        // If the media is in a public drive, everyone can access it
+        if ($drive['private'] === false) return true;
+
+
+
+        // Get permission config
+        $permissionConfig = $this->calculatedPermissionConfig;
+
+        // If the media is public, everyone can access it
+        if ($permissionConfig['mode'] == 'public') return true;
+
+
+
+        // Get user
+        $user = $request->user();
+
+        // If the request is unauthenticated, they can't access the media
+        if (!$user) return false;
+        
+        // If the user has admin privileges, they can access all media
+        if ($user->can([Permissions::SYSTEM_SUPER_ADMIN, Permissions::SYSTEM_ADMIN])) return true;
+
+
+
+        // If the media has a custom permission config
+        if ($permissionConfig['mode'] == 'custom')
+        {
+            // If the user is in the users list, they can access the media
+            if (in_array($user->id, $permissionConfig['users'])) return true;
+    
+            // If the user has any of the roles in the roles list, they can access the media
+            if ($user->hasAnyRole($permissionConfig['roles'])) return true;
+    
+            // If the user has any of the profiles in the profiles list, they can access the media
+            if ($user->hasAnyProfile($permissionConfig['profiles'])) return true;
+        }
+
+
+
+        // Otherwise, they can't access the media
         return false;
     }
 }

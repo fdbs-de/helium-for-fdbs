@@ -113,6 +113,21 @@ class User extends Authenticatable implements MustVerifyEmail
 
         return $profiles;
     }
+
+    public function hasProfile($profile)
+    {
+        return !!$this->profiles[$profile];
+    }
+
+    public function hasAnyProfile($profiles)
+    {
+        foreach ($profiles as $profile)
+        {
+            if ($this->hasProfile($profile)) return true;
+        }
+
+        return false;
+    }
     // END: Profiles
 
 

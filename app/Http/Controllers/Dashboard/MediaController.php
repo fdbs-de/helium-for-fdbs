@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Classes\Drives\Drives;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Media\CreateDirectoryRequest;
 use App\Http\Requests\Media\CreateMediaRequest;
@@ -15,16 +16,9 @@ use Inertia\Inertia;
 
 class MediaController extends Controller
 {
-    private const DRIVES = [
-        ['path' => 'public/media', 'drive' => 'public', 'mode' => 'public'],
-        ['path' => 'private/media', 'drive' => 'private', 'mode' => 'private'],
-    ];
-
-
-
     public function setupMediaDrives()
     {
-        foreach (self::DRIVES as $drive)
+        foreach (Drives::getDrives() as $drive)
         {
             if (!Storage::exists($drive['path']))
             {
@@ -35,8 +29,8 @@ class MediaController extends Controller
                 'path' => $drive['path']
             ], [
                 'mediatype' => 'folder',
-                'permission_mode' => $drive['mode'],
-                'drive' => $drive['drive'],
+                'permission_mode' => $drive['permission_mode'],
+                'drive' => $drive['alias'],
                 'belongs_to' => null,
             ]);
         }
@@ -59,9 +53,9 @@ class MediaController extends Controller
 
 
         // Scan all media drives
-        foreach (self::DRIVES as $drive)
+        foreach (Drives::getDrives() as $drive)
         {
-            $media = Media::getRoot($drive['drive']);
+            $media = Media::getDriveRoot($drive['alias']);
             
             if (!$media) continue;
             if (!Storage::exists($drive['path'])) continue;
@@ -110,15 +104,15 @@ class MediaController extends Controller
 
 
 
-    public function index(Request $request, String $drive, Media $media)
+    public function index(Request $request, String $driveAlias, Media $media)
     {
         // Get the drive config
-        $drive = config('storage.drives.'.$drive);
+        $drive = Drives::getDrive($driveAlias);
 
         // Get root media object
         if (!$media->id)
         {
-            $media = Media::getRoot($drive['alias']);
+            $media = Media::getDriveRoot($drive['alias']);
         }
 
         // Cancel if media object is empty
@@ -197,7 +191,6 @@ class MediaController extends Controller
             $media->children()->create([
                 'path' => $path,
                 'mediatype' => $file->getMimeType(),
-                'drive' => $media->drive,
             ]);
         }
 
@@ -216,7 +209,6 @@ class MediaController extends Controller
         $media->children()->create([
             'path' => $path,
             'mediatype' => 'folder',
-            'drive' => $media->drive,
         ]);
 
         return back();
