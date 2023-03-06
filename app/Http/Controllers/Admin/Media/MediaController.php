@@ -116,6 +116,9 @@ class MediaController extends Controller
             $media = Media::getDriveRoot($drive['alias']);
         }
 
+        // Cancel if unauthorized
+        if (!$media->canAccess($request)) abort(403);
+
         // Cancel if media object is empty
         if (!$media) abort(404);
 
@@ -144,26 +147,55 @@ class MediaController extends Controller
 
         if ($request->wantsJson()) return $data;
 
-        return Inertia::render('Admin/Media/Index', [
-            'items' => MediaResource::collection($media->children),
-            'breadcrumbs' => $path,
-            'drive' => $drive,
-        ]);
+        return Inertia::render('Admin/Media/Index', $data);
     }
 
 
 
-    public function show(Request $request, Media $media)
+    public function indexPublic(Request $request, String $driveAlias, Media $media)
+    {
+        // Get the drive config
+        $drive = Drives::getDrive($driveAlias);
+
+        // Cancel if media object is empty
+        if (!$media) abort(404);
+
+        // Cancel if unauthorized
+        if (!$media->canAccess($request)) abort(403);
+
+        // Cancel if media object is not a folder
+        if ($media->mediatype !== 'folder') abort(404);
+
+        // filter out folders and files that the user can't access
+        $items = collect($media->children)->filter(function ($item) use ($request) {
+            return $item->canAccess($request) && $item->mediatype !== 'folder';
+        });
+
+        return [
+            'data' => MediaResource::collection($items),
+            'drive' => $drive,
+            'total' => $items->count(),
+        ];
+    }
+
+
+
+    public function showPublic(Request $request, String $drive, Media $media)
     {
         if (!$media->canAccess($request)) abort(403);
         
-        // Cancel if media object is a folder
-        // (when showing media, we need a file)
-        if ($media->mediatype === 'folder') abort(404);
+        $media = (new MediaResource($media))->toArray($request);
 
-        $path = storage_path('app/' . $media->path);
+        // Cancel if media object is a folder
+        if ($media['mime']['string'] === 'folder') abort(404);
+        
+        $path = storage_path('app/' . $media['path']['path']);
+        
+        // dd($media['path']['filename']);
+
         $headers = [
-            'Content-Type' => $media->mediatype,
+            'Content-Type' => $media['mime']['string'],
+            'Content-Disposition' => 'inline; filename="' . $media['path']['filename'] . '"',
         ];
 
         return response()->file($path, $headers);
@@ -231,8 +263,17 @@ class MediaController extends Controller
 
     public function updatePermissions(UpdatePermissionsMediaRequest $request, Media $media)
     {
-        $media->permission_mode = $request->permission_mode;
-        $media->save();
+        $media->update($request->validated());
+
+        // update profiles
+        foreach ($request->profiles as $profile)
+        {
+            $media->profiles()->updateOrCreate([
+                'profile' => $profile,
+            ]);
+        }
+        // delete profiles that are not in the request
+        $media->profiles()->whereNotIn('profile', $request->profiles)->delete();
 
         return back();
     }

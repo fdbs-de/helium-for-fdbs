@@ -2,23 +2,17 @@
     <Head title="Qualitätsmanagement" />
 
     <DashboardSubLayout title="Qualitätsmanagement" area="Intranet">
-        <div class="grid">
-            <Card v-for="document in documents" new-window
-                :key="document.id"
-                :name="document.name"
-                :alt="document.cover_alt"
-                :cover="document.cover_size === 'cover'"
-                :image="route('docs.cover', document.slug)"
-                :link="route('docs', document.slug)"
-            />
+        <div class="flex vertical gap-2 w-100">
+            <DownloadManager title="QM Dokumente" id="192" />
         </div>
     </DashboardSubLayout>
 </template>
 
 <script setup>
-    import DashboardSubLayout from '@/Layouts/SubLayouts/Dashboard.vue'
     import { Head, Link } from '@inertiajs/inertia-vue3'
-    import Card from '@/Components/Page/Card.vue'
+
+    import DashboardSubLayout from '@/Layouts/SubLayouts/Dashboard.vue'
+    import DownloadManager from '@/Components/Apps/Pages/Renderer/DownloadManager.vue'
 
     defineProps({
         documents: Array,

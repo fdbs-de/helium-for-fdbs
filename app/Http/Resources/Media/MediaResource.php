@@ -120,7 +120,8 @@ class MediaResource extends JsonResource
             'is_folder' => $this->isFolder($this),
             'drive' => $this->drive,
             'permission_mode' => $this->permission_mode,
-            'permission_config' => $this->calculatedPermissionConfig,
+            'permission_config' => $this->directPermissionConfig,
+            'calculated_permission_config' => $this->calculatedPermissionConfig,
             'meta' => [
                 'title' => $this->title,
                 'alt' => $this->alt,

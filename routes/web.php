@@ -42,8 +42,9 @@ Route::prefix('/karriere')->group(function () {
 Route::get('docs/{document:slug}', [DocumentController::class, 'show'])->name('docs');
 Route::get('docs/{document:slug}/cover', [DocumentController::class, 'showCover'])->name('docs.cover');
 
-// Media (private)
-Route::get('/private/media/{media}', [MediaController::class, 'show']);
+// Media
+Route::get('/storage/{driveAlias}/{media}/index', [MediaController::class, 'indexPublic']);
+Route::get('/storage/{driveAlias}/{media}', [MediaController::class, 'showPublic']);
 
 
 

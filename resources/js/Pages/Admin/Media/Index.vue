@@ -97,11 +97,16 @@
 
     <Popup ref="permissionsPopup" title="Berechtigungen bearbeiten">
         <form class="confirm-popup-wrapper" @submit.prevent="updatePermissions()">
-            <select v-model="permissionsForm.permission_mode">
-                <option value="public">Öffentlich</option>
+            <select class="w-100" v-model="permissionsForm.permission_mode">
                 <option value="inherit">Vererbt</option>
+                <option value="public">Öffentlich</option>
                 <option value="custom">Benutzerdefiniert</option>
             </select>
+
+            <template v-if="permissionsForm.permission_mode === 'custom'">
+                <mui-input class="w-100" v-model="permissionsForm.profiles" label="Profile" />
+            </template>
+
             <div class="confirm-popup-footer">
                 <mui-button type="button" variant="contained" label="Abbrechen" @click="$refs.permissionsPopup.close()" />
                 <mui-button type="submit" variant="filled" label="Speichern" />
@@ -304,21 +309,29 @@
         permission_mode: 'inherit',
         users: [],
         roles: [],
-        profiles: [],
+        profiles: '',
         item: null,
     })
 
     const openPermissionsPopup = (item) => {
-        permissionsForm.permission_mode = item.permission_mode
+        permissionsForm.permission_mode = item?.permission_mode ?? 'inherit'
         permissionsForm.users = []
         permissionsForm.roles = []
-        permissionsForm.profiles = []
+        permissionsForm.profiles = item?.permission_config?.profiles?.join(', ') ?? ''
         permissionsForm.item = item
         permissionsPopup.value.open()
     }
 
     const updatePermissions = () => {
-        permissionsForm.put(route('admin.media.update.permissions', permissionsForm.item.id), {
+        permissionsForm
+        .transform(({permission_mode, users, roles, profiles, item}) => ({
+            permission_mode,
+            users: [],
+            roles: [],
+            profiles: profiles.split(',').map(e => e.trim()).filter(e => e.length > 0),
+            item,
+        }))
+        .put(route('admin.media.update.permissions', permissionsForm.item.id), {
             onSuccess() {
                 permissionsForm.reset()
                 permissionsPopup.value.close()

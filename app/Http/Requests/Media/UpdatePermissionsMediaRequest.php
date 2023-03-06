@@ -25,6 +25,8 @@ class UpdatePermissionsMediaRequest extends FormRequest
     {
         return [
             'permission_mode' => 'required|string|in:public,inherit,custom',
+            'profiles' => 'nullable|array',
+            'profiles.*' => 'nullable|string|max:255|distinct',
         ];
     }
 }
