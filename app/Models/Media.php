@@ -58,6 +58,11 @@ class Media extends Model
     {
         return $this->hasMany(Media::class, 'belongs_to')->orderByRaw("FIELD(mediatype , 'folder') DESC")->orderBy('path', 'asc');
     }
+
+    public function profiles()
+    {
+        return $this->hasMany(MediaProfile::class);
+    }
     // END: Relationships
 
 
@@ -89,7 +94,7 @@ class Media extends Model
             'mode' => $this->permission_mode,
             'users' => [],
             'roles' => [],
-            'profiles' => [],
+            'profiles' => $this->profiles->pluck('profile')->toArray(),
         ];
     }
 
@@ -111,7 +116,7 @@ class Media extends Model
     {
         $rootMedia = $this->getRoot();
 
-        if ($rootMedia && $rootMedia->drive == 'private') return '/private/media/'.$this->id;
+        if ($rootMedia && $rootMedia->drive == 'private') return '/storage/private/'.$this->id;
 
         return Storage::url($this->path);
     }

@@ -10,9 +10,9 @@
         <div class="title-area" :title="item.path.filename">{{ item.path.filename }}</div>
 
         <div class="info-area">
-            <div class="file-info" v-if="item.mime.type !== 'folder'">
-                <span class="extension" :style="`color: ${item.visual.color};`">{{ item.path.extension }}</span>
-                <!-- <span class="filesize">{{fileSize(item.size)}}</span> -->
+            <div class="file-info">
+                <span class="filesize font-icon" :style="`color: ${getPermissionColor(item.permission_config)};`">{{getPermissionIcon(item.calculated_permission_config)}}</span>
+                <span class="extension" :style="`color: ${item.visual.color};`" v-if="item.mime.type !== 'folder'">{{ item.path.extension }}</span>
             </div>
             <div class="spacer"></div>
             <VDropdown placement="bottom-end" v-if="showActions">
@@ -33,6 +33,7 @@
                             <mui-button class="dropdown-button" variant="text" label="Herunterladen" icon-left="download" as="a" target="_blank" :href="item.path.url" download v-close-popper/>
                         </template>
                         <mui-button class="dropdown-button" variant="text" label="Umbenennen" icon-left="edit" @click="$emit('rename', item)" v-close-popper/>
+                        <mui-button class="dropdown-button" variant="text" label="Berechtigungen" icon-left="key" @click="$emit('permissions', item)" v-close-popper/>
                         
                         <div class="divider"></div>
                         
@@ -70,6 +71,16 @@
     const isSelected = computed(() => {
         return props.selection.includes(props.item.id)
     })
+
+
+
+    const getPermissionIcon = (permission) => {
+        return permission.mode === 'public' ? 'public' : 'lock'
+    }
+
+    const getPermissionColor = (permission) => {
+        return permission.mode !== 'inherit' ? 'var(--color-error)' : 'var(--color-text)'
+    }
 
 
 
@@ -223,7 +234,7 @@
                         border-radius: inherit
 
                 .filesize
-                    font-size: .8rem
+                    font-size: 1rem
 
             button
                 font-family: var(--font-icon)

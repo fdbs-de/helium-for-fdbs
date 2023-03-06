@@ -35,6 +35,7 @@
                         <mui-button class="dropdown-button" variant="text" label="Herunterladen" icon-left="download" as="a" target="_blank" :href="item.path.url" download v-close-popper/>
                     </template>
                     <mui-button class="dropdown-button" variant="text" label="Umbenennen" icon-left="edit" @click="$emit('rename', item)" v-close-popper/>
+                    <mui-button class="dropdown-button" variant="text" label="Berechtigungen" icon-left="key" @click="$emit('permissions', item)" v-close-popper/>
 
                     <div class="divider"></div>
 

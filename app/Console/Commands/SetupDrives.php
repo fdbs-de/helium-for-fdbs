@@ -28,7 +28,7 @@ class SetupDrives extends Command
      */
     public function handle()
     {
-        $controller = new \App\Http\Controllers\Dashboard\MediaController();
+        $controller = new \App\Http\Controllers\Admin\Media\MediaController();
         $controller->setupMediaDrives();
 
         $this->info('Media drives have been setup successfully!');
