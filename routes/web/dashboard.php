@@ -20,7 +20,6 @@ Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () 
     Route::prefix('mitarbeiter')->middleware(['panelaccess:employee'])->group(function () {
         Route::get('/', [EmployeeController::class, 'indexOverview'])->name('dashboard.employee.overview');
         Route::get('/dokumente', [EmployeeController::class, 'indexDocuments'])->name('dashboard.employee.documents');
-        Route::get('/qm', [EmployeeController::class, 'indexQM'])->name('dashboard.employee.qm');
     });
 
     Route::prefix('kunde')->middleware(['panelaccess:customer'])->group(function () {

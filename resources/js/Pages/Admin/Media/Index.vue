@@ -85,7 +85,7 @@
         </form>
     </Popup>
 
-    <Popup ref="renamePopup" title="Umbennenen">
+    <Popup ref="renamePopup" title="Umbenennen">
         <form class="confirm-popup-wrapper" @submit.prevent="renameItem(renameForm.name, renameForm.item)">
             <mui-input class="w-100" v-model="renameForm.name" label="Name" required />
             <div class="confirm-popup-footer">

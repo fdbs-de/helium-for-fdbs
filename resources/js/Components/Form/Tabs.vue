@@ -23,16 +23,18 @@
 <style lang="sass" scoped>
     .tabs-wrapper
         display: inline-flex
-        align-items: center
+        align-items: stretch
         user-select: none
         position: relative
         user-select: none
+        flex-wrap: wrap
+        --tab-height: 3rem
 
         .tab
             display: flex
             align-items: center
             padding: 0 1rem
-            height: 3rem
+            height: var(--tab-height)
             position: relative
             border: none
             background: none

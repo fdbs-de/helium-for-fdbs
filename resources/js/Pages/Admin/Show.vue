@@ -16,7 +16,7 @@
 
             <div class="card spec">
                 <div class="card-data">
-                    <p>Noch nicht freigegebe Nutzer</p>
+                    <p>Noch nicht freigegebene Nutzer</p>
                     <h2>
                         <span>{{getFiller(users.disabled, 3)}}</span>{{users.disabled}}
                     </h2>
