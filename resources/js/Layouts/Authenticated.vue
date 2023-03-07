@@ -56,7 +56,7 @@
                     <div class="text">Dokumente</div>
                 </Link>
                 <Link class="menu-item" v-if="can('app.wiki.access.frontend')" :href="route('wiki')">
-                    <div class="icon" aria-hidden="true">travel_explore</div>
+                    <div class="icon" aria-hidden="true">local_library</div>
                     <div class="text">Firmenwiki</div>
                 </Link>
                 <a class="menu-item" target="_blank" href="https://fleischer-dienst.uweb2000.de">
