@@ -2,17 +2,17 @@
     <div class="pages-elem-wrapper flex vertical gap-1">
         <h3 class="margin-0 flex h-center w-100" v-show="!!title">{{ title }}</h3>
         <div class="flex vertical w-100">
-            <a class="item-wrapper flex" v-for="item in items" :href="item.path.url" target="_blank" download>
+            <a class="item-wrapper flex" v-for="item in items" :href="item.path.url" target="_blank">
                 <div class="icon" :style="'color: '+item.visual.color">{{ item.visual.icon }}</div>
                 <span class="flex-1">{{ item.path.filename }}</span>
-                <IconButton icon="download" is="a"/>
+                <IconButton icon="download" is="a" :href="item.path.url" download/>
             </a>
         </div>
     </div>
 </template>
 
 <script setup>
-    import { ref } from 'vue'
+    import { ref, watch } from 'vue'
     import IconButton from '@/Components/Apps/Pages/IconButton.vue';
 
 
@@ -52,7 +52,7 @@
         processing.value = false
     }
 
-    fetch()
+    watch(() => props.id, () => fetch(), { immediate: true })
 </script>
 
 <style lang="sass" scoped>
