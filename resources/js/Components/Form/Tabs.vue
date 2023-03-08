@@ -10,14 +10,50 @@
         >
             {{ tab.label }}
         </button>
+
+        <div class="indicator" ref="indicator"></div>
     </div>
 </template>
 
 <script setup>
-    defineProps({
+    import { ref, watch, nextTick, onMounted } from 'vue'
+
+    const props = defineProps({
         modelValue: String,
         tabs: Array,
     })
+
+    const indicator = ref(null)
+
+    watch(() => props.modelValue, () => {
+        nextTick(() => {
+            updateIndicator()
+        })
+    }, { immediate: true })
+
+    onMounted(() => {
+        updateIndicator()
+    })
+
+    const updateIndicator = () => {
+        const activeTab = document.querySelector('.tab.active')
+
+        if (!activeTab) return
+        const { width } = activeTab.getBoundingClientRect()
+
+        // get left offset relative to parent
+        let left = 0
+        let current = activeTab
+        
+        while (current && current !== indicator.value.parentElement)
+        {
+            left += current.offsetLeft
+            current = current.offsetParent
+        }
+
+        indicator.value.style.transform = `translateX(${left}px)`
+        indicator.value.style.width = `${width}px`
+    }
 </script>
 
 <style lang="sass" scoped>
@@ -28,7 +64,7 @@
         position: relative
         user-select: none
         flex-wrap: wrap
-        --tab-height: 3rem
+        --tab-height: 2.5rem
 
         .tab
             display: flex
@@ -53,6 +89,14 @@
                 color: var(--color-heading)
 
             &.active
-                color: var(--color-primary)
-                background: var(--color-background-soft)
+                color: var(--color-heading)
+
+        .indicator
+            height: 2px
+            width: 1px
+            background: var(--color-heading)
+            position: absolute
+            bottom: 0
+            left: 0
+            transition: all 100ms ease-in-out
 </style>
