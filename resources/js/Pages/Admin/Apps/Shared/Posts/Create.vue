@@ -40,15 +40,15 @@
                 </ul>
             </Alert>
 
-            <div class="flex">
-                <Tabs v-model="tab" :tabs="[
-                    { label: 'Allgemein', value: 'general' },
-                    { label: 'Veröffentlichung', value: 'publishing'},
-                    { label: 'Berechtigungen', value: 'permissions'},
-                ]" />
+            <div class="flex border-bottom">
+                <div class="limiter text-limiter">
+                    <Tabs v-model="tab" :tabs="[
+                        { label: 'Allgemein', value: 'general' },
+                        { label: 'Veröffentlichung', value: 'publishing'},
+                        { label: 'Berechtigungen', value: 'permissions'},
+                    ]" />
+                </div>
             </div>
-
-            <hr class="margin-0">
 
             <div class="tab-container" v-show="tab === 'general'">
                 <div class="limiter text-limiter flex gap-1 vertical">

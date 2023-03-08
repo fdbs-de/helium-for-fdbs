@@ -8,6 +8,7 @@ use App\Http\Requests\Media\CreateDirectoryRequest;
 use App\Http\Requests\Media\CreateMediaRequest;
 use App\Http\Requests\Media\DestroyMediaRequest;
 use App\Http\Requests\Media\RenameMediaRequest;
+use App\Http\Requests\Media\UpdateMediaRequest;
 use App\Http\Requests\Media\UpdatePermissionsMediaRequest;
 use App\Http\Resources\Media\MediaResource;
 use App\Models\Media;
@@ -261,7 +262,7 @@ class MediaController extends Controller
 
 
 
-    public function updatePermissions(UpdatePermissionsMediaRequest $request, Media $media)
+    public function update(UpdateMediaRequest $request, Media $media)
     {
         $media->update($request->validated());
 

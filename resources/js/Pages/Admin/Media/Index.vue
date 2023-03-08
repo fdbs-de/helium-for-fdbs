@@ -54,7 +54,7 @@
                 @open="openItem(item)"
                 @delete="openDeletePopup(item)"
                 @rename="openRenamePopup(item)"
-                @permissions="openPermissionsPopup(item)"
+                @edit="openEditPopup(item)"
                 />
         </ListItemLayout>
         <small v-show="items.length <= 0" class="w-100 flex h-center padding-inline-2 padding-block-5">Dieser Ordner ist leer</small>
@@ -95,21 +95,41 @@
         </form>
     </Popup>
 
-    <Popup ref="permissionsPopup" title="Berechtigungen bearbeiten">
-        <form class="confirm-popup-wrapper" @submit.prevent="updatePermissions()">
-            <select class="w-100" v-model="permissionsForm.permission_mode">
-                <option value="inherit">Vererbt</option>
-                <option value="public">Öffentlich</option>
-                <option value="custom">Benutzerdefiniert</option>
-            </select>
+    <Popup ref="editPopup" title="Bearbeiten" position="right" style="--max-width: 400px;">
+        <form class="flex-1 flex vertical" @submit.prevent="saveItem()">
+            <div class="preview-wrapper" v-if="editForm.item && editForm.item.mime.type === 'image'">
+                <img class="image" :src="editForm.item.path.url" />
+            </div>
 
-            <template v-if="permissionsForm.permission_mode === 'custom'">
-                <mui-input class="w-100" v-model="permissionsForm.profiles" label="Profile" />
-            </template>
+            <div class="flex padding-inline-1 border-bottom">
+                <Tabs v-model="editForm.tab" :tabs="[
+                    { label: 'Allgemeines', value: 'general' },
+                    { label: 'Berechtigungen', value: 'permissions' },
+                ]" />
+            </div>
 
-            <div class="confirm-popup-footer">
-                <mui-button type="button" variant="contained" label="Abbrechen" @click="$refs.permissionsPopup.close()" />
-                <mui-button type="submit" variant="filled" label="Speichern" />
+            <div class="flex-1 flex vertical gap-1 padding-1">
+                <template v-if="editForm.tab === 'general'">
+                    <mui-input v-model="editForm.title" label="Titel" />
+                    <mui-input v-model="editForm.alt" label="Alt-Text" />
+                    <mui-input type="textarea" class="textarea" v-model="editForm.description" label="Beschreibung" />
+                </template>
+    
+                <template v-if="editForm.tab === 'permissions'">
+                    <select class="w-100" v-model="editForm.permission_mode">
+                        <option value="inherit">Vererbt</option>
+                        <option value="public">Öffentlich</option>
+                        <option value="custom">Benutzerdefiniert</option>
+                    </select>
+        
+                    <template v-if="editForm.permission_mode === 'custom'">
+                        <mui-input class="w-100" v-model="editForm.profiles" label="Profile" />
+                    </template>
+                </template>
+            </div>
+
+            <div class="flex padding-1 border-top">
+                <mui-button type="submit" class="flex-1" variant="filled" label="Speichern" />
             </div>
         </form>
     </Popup>
@@ -139,6 +159,7 @@
     import Switcher from '@/Components/Form/Switcher.vue'
     import Actions from '@/Components/Form/Actions.vue'
     import Popup from '@/Components/Form/Popup.vue'
+    import Tabs from '@/Components/Form/Tabs.vue'
 
 
 
@@ -176,7 +197,7 @@
     }
 
     const openFile = (item) => {
-        console.log(item)
+        openEditPopup(item)
     }
     // END: Folder Navigation
 
@@ -302,10 +323,14 @@
 
 
 
-    // START: Permissions
-    const permissionsPopup = ref(null)
+    // START: Edit Item
+    const editPopup = ref(null)
 
-    const permissionsForm = useForm({
+    const editForm = useForm({
+        tab: 'general',
+        alt: '',
+        title: '',
+        description: '',
         permission_mode: 'inherit',
         users: [],
         roles: [],
@@ -313,35 +338,35 @@
         item: null,
     })
 
-    const openPermissionsPopup = (item) => {
-        permissionsForm.permission_mode = item?.permission_mode ?? 'inherit'
-        permissionsForm.users = []
-        permissionsForm.roles = []
-        permissionsForm.profiles = item?.permission_config?.profiles?.join(', ') ?? ''
-        permissionsForm.item = item
-        permissionsPopup.value.open()
+    const openEditPopup = (item) => {
+        editForm.alt = item?.meta?.alt ?? ''
+        editForm.title = item?.meta?.title ?? ''
+        editForm.description = item?.meta?.description ?? ''
+        editForm.permission_mode = item?.permission_mode ?? 'inherit'
+        editForm.users = []
+        editForm.roles = []
+        editForm.profiles = item?.permission_config?.profiles?.join(', ') ?? ''
+        editForm.item = item
+        editPopup.value.open()
     }
 
-    const updatePermissions = () => {
-        permissionsForm
-        .transform(({permission_mode, users, roles, profiles, item}) => ({
-            permission_mode,
-            users: [],
-            roles: [],
-            profiles: profiles.split(',').map(e => e.trim()).filter(e => e.length > 0),
-            item,
+    const saveItem = () => {
+        editForm
+        .transform((data) => ({
+            ...data,
+            profiles: data?.profiles?.split(',')?.map(e => e.trim())?.filter(e => e.length > 0) ?? [],
         }))
-        .put(route('admin.media.update.permissions', permissionsForm.item.id), {
+        .put(route('admin.media.update', editForm.item.id), {
             onSuccess() {
-                permissionsForm.reset()
-                permissionsPopup.value.close()
+                editForm.reset()
+                editPopup.value.close()
             },
             onError(e) {
                 console.log(e);
             },
         })
     }
-    // END: Permissions
+    // END: Edit Item
 
 
 
@@ -376,6 +401,21 @@
         bottom: -2px
         height: 2px
         left: 0
+
+    .preview-wrapper
+        border-top: 1px solid var(--color-border)
+        border-bottom: 1px solid var(--color-border)
+        background: var(--color-background-soft)
+        margin-bottom: 1rem
+
+        img.image
+            display: block
+            height: 12rem
+            width: 100%
+            object-fit: contain
+
+    .textarea
+        --base-height: 10rem !important
 
     .dropzone
         position: fixed

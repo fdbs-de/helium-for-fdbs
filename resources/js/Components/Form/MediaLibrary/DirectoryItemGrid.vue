@@ -4,39 +4,38 @@
             <div class="image-preview" v-if="item.mime.type === 'image'" v-show="enablePreview">
                 <img :src="item.path.url" />
             </div>
-            <div class="icon" v-show="(item.mime.type !== 'image' || !enablePreview)" :style="`color: ${item.visual.color};`">{{ item.visual.icon }}</div>
+            <div class="icon" :class="{'is-folder': item.mime.type == 'folder' }" v-show="(item.mime.type !== 'image' || !enablePreview)" :style="`color: ${item.visual.color};`">{{ item.visual.icon }}</div>
         </div>
 
         <div class="title-area" :title="item.path.filename">{{ item.path.filename }}</div>
 
         <div class="info-area">
             <div class="file-info">
-                <span class="filesize font-icon" :style="`color: ${getPermissionColor(item.permission_config)};`">{{getPermissionIcon(item.calculated_permission_config)}}</span>
                 <span class="extension" :style="`color: ${item.visual.color};`" v-if="item.mime.type !== 'folder'">{{ item.path.extension }}</span>
+                <span class="filesize" :style="`color: ${getPermissionColor(item.permission_config)};`">
+                    {{getPermissionIcon(item.calculated_permission_config)}}
+                </span>
             </div>
             <div class="spacer"></div>
             <VDropdown placement="bottom-end" v-if="showActions">
                 <button @click.stop>more_vert</button>
                 <template #popper>
                     <div class="dropdown">
-                        <!-- <template v-if="item.mime.type !== 'folder'">
-                            <mui-button class="dropdown-button" variant="text" label="Details" icon-left="visibility" @click="$emit('open', item)"/>
+                        <template v-if="item.mime.type !== 'folder'">
                             <mui-button class="dropdown-button" variant="text" label="In neuem Tab öffnen" icon-left="open_in_new" as="a" target="_blank" :href="item.path.url"/>
-                        </template> -->
+                            <div class="divider"></div>
+                        </template>
                         
-                        <mui-button class="dropdown-button" variant="text" label="Pfad kopieren" icon-left="language" @click="copyToClipboard(item.path.url)"/>
-                        <mui-button class="dropdown-button" variant="text" label="ID kopieren" icon-left="beenhere" @click="copyToClipboard(item.id)"/>
-                        
-                        <div class="divider"></div>
-
+                        <mui-button class="dropdown-button" variant="text" label="Pfad kopieren" icon-left="link" @click="copyToClipboard(item.path.url)"/>
+                        <mui-button class="dropdown-button" variant="text" label="Media ID kopieren" icon-left="beenhere" @click="copyToClipboard(item.id)"/>
                         <template v-if="item.mime.type !== 'folder'">
                             <mui-button class="dropdown-button" variant="text" label="Herunterladen" icon-left="download" as="a" target="_blank" :href="item.path.url" download v-close-popper/>
                         </template>
-                        <mui-button class="dropdown-button" variant="text" label="Umbenennen" icon-left="edit" @click="$emit('rename', item)" v-close-popper/>
-                        <mui-button class="dropdown-button" variant="text" label="Berechtigungen" icon-left="key" @click="$emit('permissions', item)" v-close-popper/>
                         
                         <div class="divider"></div>
-                        
+
+                        <mui-button class="dropdown-button" variant="text" label="Bearbeiten" icon-left="edit_note" @click="$emit('edit', item)" v-close-popper/>
+                        <mui-button class="dropdown-button" variant="text" label="Umbenennen" icon-left="edit" @click="$emit('rename', item)" v-close-popper/>
                         <mui-button class="dropdown-button" variant="text" color="error" label="Löschen" icon-left="delete" @click="$emit('delete', item)" v-close-popper/>
                     </div>
                 </template>
@@ -172,6 +171,15 @@
                 clip-path: polygon(0 0, calc(100% - 1rem) 0, 100% 1rem, 100% 100%, 0 100%)
                 overflow: hidden
 
+                &.is-folder
+                    aspect-ratio: 14/11
+                    width: auto
+                    height: 70px
+                    clip-path: polygon(0 0, calc(50% - .5rem) 0, 50% .5rem, calc(100% - .25rem) .5rem, 100% .75rem, 100% 100%, 0 100%)
+                    border-radius: .5rem
+                    padding-top: .5rem
+                    font-size: 2.5rem
+
                 &::after
                     content: ''
                     position: absolute
@@ -235,6 +243,7 @@
 
                 .filesize
                     font-size: 1rem
+                    font-family: var(--font-icon)
 
             button
                 font-family: var(--font-icon)
@@ -269,4 +278,5 @@
         border-radius: 0 !important
         justify-content: flex-start !important
         --primary: var(--color-text) !important
+        text-transform: none !important
 </style>

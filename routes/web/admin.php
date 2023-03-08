@@ -135,10 +135,6 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
         ->middleware('can:system.edit.media')
         ->name('admin.media.update.rename');
 
-        Route::put('/{media}/update-permissions', [MediaController::class, 'updatePermissions'])
-        ->middleware('can:system.edit.media')
-        ->name('admin.media.update.permissions');
-
         Route::put('/{media}', [MediaController::class, 'update'])
         ->middleware('can:system.edit.media')
         ->name('admin.media.update');
