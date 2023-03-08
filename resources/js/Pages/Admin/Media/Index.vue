@@ -403,8 +403,6 @@
         left: 0
 
     .preview-wrapper
-        border-top: 1px solid var(--color-border)
-        border-bottom: 1px solid var(--color-border)
         background: var(--color-background-soft)
         margin-bottom: 1rem
 
@@ -413,6 +411,9 @@
             height: 12rem
             width: 100%
             object-fit: contain
+            background-image: url('/images/app/image_transparency.svg')
+            background-position: center
+            background-size: 10px
 
     .textarea
         --base-height: 10rem !important
