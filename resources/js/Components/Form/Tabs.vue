@@ -63,10 +63,29 @@
         user-select: none
         position: relative
         user-select: none
-        flex-wrap: wrap
+        overflow: auto
         --tab-height: 2.5rem
 
+        &::-webkit-scrollbar
+                width: 3px
+                height: 3px
+
+        &::-webkit-scrollbar-track
+            background: var(--color-background)
+
+        &::-webkit-scrollbar-thumb
+            background: #00000050
+            border-radius: 0
+            background-clip: content-box
+            border: 0
+
+            &:hover
+                background: var(--color-text)
+                border: 0
+                border-radius: 0
+
         .tab
+            flex: none
             display: flex
             align-items: center
             padding: 0 1rem
@@ -82,6 +101,8 @@
             cursor: pointer
             user-select: none
             overflow: hidden
+            text-overflow: ellipsis
+            white-space: nowrap
             transition: border-bottom 100ms ease-in-out
 
             &:hover,
