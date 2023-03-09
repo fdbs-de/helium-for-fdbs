@@ -87,10 +87,6 @@
 
 <style lang="sass" scoped>
     .pages-elem-wrapper
-        background: var(--color-background)
-        border-radius: var(--radius-m)
-        box-shadow: var(--shadow-elevation-low)
-
         .searchbar
             flex: 1
             max-width: 300px

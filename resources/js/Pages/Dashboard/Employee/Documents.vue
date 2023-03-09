@@ -2,8 +2,8 @@
     <Head title="Dokumente" />
 
     <DashboardSubLayout title="Dokumente" area="Intranet">
-        <div class="flex vertical gap-2 w-100">
-            <div class="card">
+        <div class="card">
+            <div class="flex w-100 padding-inline-1 border-bottom">
                 <Tabs class="tabs" v-model="tab" :tabs="[
                     { label: 'Allgemeine Dokumente', value: '191' },
                     { label: 'QM Dokumente', value: '192' },
@@ -12,7 +12,6 @@
                 ]" />
             </div>
             <DownloadManager title="Allgemeine Dokumente" id="191" v-show="tab == '191'"/>
-            <!-- <DownloadManager title="Allgemeine Dokumente" id="1198" v-show="tab == '191'"/> -->
             <DownloadManager title="QM Dokumente" id="192" v-show="tab == '192'"/>
             <DownloadManager title="Marketing Material" id="190" v-show="tab == '190'"/>
             <DownloadManager title="Leitbild und Organigramm" id="211" v-show="tab == '211'"/>
@@ -42,14 +41,8 @@
         background: var(--color-background)
         border-radius: var(--radius-m)
         box-shadow: var(--shadow-elevation-low)
-        padding: 1rem
 
     .tabs
-        --tab-height: 2rem
+        --tab-height: 4rem
         width: 100%
-
-    @media only screen and (max-width: 500px)
-        .tabs
-            flex-direction: column
-            gap: .5rem
 </style>
