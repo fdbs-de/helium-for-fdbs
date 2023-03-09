@@ -46,8 +46,6 @@
                         <b>{{ selected.meta.alt || 'Nicht eingetragen' }}</b>
                         <span>Titel:</span>
                         <b>{{ selected.meta.title || 'Nicht eingetragen' }}</b>
-                        <span>Bildrechte:</span>
-                        <b>Nicht eingetragen</b>
                     </div>
                     <div class="spacer"></div>
                     <div class="detail flex vertical padding-1">
@@ -352,7 +350,9 @@
         .content-image
             width: 100%
             aspect-ratio: 1.5
-            background: #00000010
+            background-image: url('/images/app/image_transparency.svg')
+            background-position: center
+            background-size: 10px
             overflow: hidden
             object-fit: contain
             border-radius: 0

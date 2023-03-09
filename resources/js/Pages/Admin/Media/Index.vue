@@ -7,37 +7,30 @@
             <div class="spacer"></div>
 
             <div class="flex v-center">
-                <!-- <IconButton type="button" icon="search" v-tooltip="'Suchen'" /> -->
+                <IconButton type="button" icon="search" v-tooltip="'Suchen'" />
                 <VDropdown placement="bottom-end">
                     <IconButton type="button" icon="settings" v-tooltip="'Ansichtseinstellungen'" />
                     <template #popper>
                         <div class="flex padding-1 vertical">
-                            <mui-toggle type="switch" prepend-label="Bildvorschau" v-model="isPreview" />
+                            <mui-toggle type="switch" label="Bildvorschau" v-model="isPreview" />
+                            <!-- <mui-toggle type="switch" off-value="grid" label="Listenansicht" value="list" v-model="layout" /> -->
                         </div>
                     </template>
                 </VDropdown>
             </div>
 
-            <Switcher v-model="layout" :options="[
-                { value: 'list', icon: 'view_list', tooltip: 'Listenansicht' },
-                { value: 'grid', icon: 'grid_view', tooltip: 'Kachelansicht' },
-                // { value: 'icon', icon: 'grid_on', tooltip: 'Iconansicht' },
-            ]"/>
-        </div>
-
-        <template #fab>
-            <VDropdown placement="top-end">
-                <button class="fab-button" aria-hidden="true" title="Neu...">add</button>
+            <VDropdown placement="bottom-end">
+                <mui-button type="button" variant="filled" label="Neu" icon-left="add" />
                 <template #popper>
                     <div class="flex padding-1 vertical">
-                        <mui-button class="dropdown-button" variant="text" label="Neue Dateien" icon-left="upload" as="label" for="file-upload" v-close-popper/>
+                        <mui-button class="dropdown-button" variant="text" label="Hochladen" icon-left="upload" as="label" for="file-upload" v-close-popper/>
                         <input type="file" id="file-upload" style="display: none" multiple @input="storeFiles($event.target.files, workingDirectory.id)">
 
-                        <mui-button class="dropdown-button" variant="text" label="Neuer Ordner" icon-left="create_new_folder" @click="openCreateDirectoryPopup()" v-close-popper/>
+                        <mui-button class="dropdown-button" variant="text" label="Ordner" icon-left="create_new_folder" @click="openCreateDirectoryPopup()" v-close-popper/>
                     </div>
                 </template>
             </VDropdown>
-        </template>
+        </div>
         
         <ListItemLayout class="w-100 margin-block-2" :layout="layout" v-show="items.length >= 1">
             <DirectoryItem
@@ -403,8 +396,6 @@
         left: 0
 
     .preview-wrapper
-        border-top: 1px solid var(--color-border)
-        border-bottom: 1px solid var(--color-border)
         background: var(--color-background-soft)
         margin-bottom: 1rem
 
@@ -413,6 +404,9 @@
             height: 12rem
             width: 100%
             object-fit: contain
+            background-image: url('/images/app/image_transparency.svg')
+            background-position: center
+            background-size: 10px
 
     .textarea
         --base-height: 10rem !important

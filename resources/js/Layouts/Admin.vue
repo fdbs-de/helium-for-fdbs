@@ -190,6 +190,18 @@
     }
 </script>
 
+<style lang="sass">
+    body
+        font-family: var(--font-interface)
+        background: var(--color-background-soft)
+
+        --color-primary: #3742fa !important
+        --color-primary-soft: #4c5bfa !important
+
+        --mui-primary: #3742fa !important
+        --primary: #3742fa !important
+</style>
+
 <style lang="sass" scoped>
     .toggle-open
         display: none
@@ -225,15 +237,9 @@
 
     .layout
         display: flex
-        min-height: 100vh
+        // min-height: 100vh
         align-items: flex-start
         position: relative
-        font-family: var(--font-interface)
-        background: var(--color-background-soft)
-
-        --color-primary: #3742fa !important
-        --mui-primary: #3742fa !important
-        --primary: #3742fa !important
 
         .menu
             width: 22rem

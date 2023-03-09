@@ -141,10 +141,9 @@
                 align-items: center
                 justify-content: center
                 position: relative
-                --height: 10%
-                background-image: linear-gradient(45deg, #ddd 25%, transparent 25%), linear-gradient(-45deg, #ddd 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #ddd 75%), linear-gradient(-45deg, transparent 75%, #ddd 75%)
-                background-size: calc(var(--height) / 2) calc(var(--height) / 2)
-                background-position: 0 0, 0 calc(var(--height) / 4), calc(var(--height) / 4) calc(var(--height) / 4 * -1), calc(var(--height) / 4 * -1) 0px
+                background-image: url('/images/app/image_transparency.svg')
+                background-position: center
+                background-size: 10px
 
                 &:hover
                     img

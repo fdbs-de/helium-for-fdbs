@@ -12,6 +12,7 @@
                 ]" />
             </div>
             <DownloadManager title="Allgemeine Dokumente" id="191" v-show="tab == '191'"/>
+            <!-- <DownloadManager title="Allgemeine Dokumente" id="1198" v-show="tab == '191'"/> -->
             <DownloadManager title="QM Dokumente" id="192" v-show="tab == '192'"/>
             <DownloadManager title="Marketing Material" id="190" v-show="tab == '190'"/>
             <DownloadManager title="Leitbild und Organigramm" id="211" v-show="tab == '211'"/>

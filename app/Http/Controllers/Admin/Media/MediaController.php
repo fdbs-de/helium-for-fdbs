@@ -167,15 +167,43 @@ class MediaController extends Controller
         // Cancel if media object is not a folder
         if ($media->mediatype !== 'folder') abort(404);
 
-        // filter out folders and files that the user can't access
-        $items = collect($media->children)->filter(function ($item) use ($request) {
+
+
+        // Get query builder from current media object
+        $query = $media->children();
+
+        // Search for files in query builder
+        if($request->search)
+        {
+            $query->whereFuzzy(function ($query) use ($request) {
+                $query
+                ->orWhereFuzzy('path', $request->search)
+                ->orWhereFuzzy('title', $request->search)
+                ->orWhereFuzzy('description', $request->search);
+            });
+        }
+
+        // Get media from query builder and filter out items the user can't access
+        $items = collect($query->get())->filter(function ($item) use ($request) {
             return $item->canAccess($request) && $item->mediatype !== 'folder';
         });
+
+        $total = $items->count();
+
+        $limit = $request->size ?? 20;
+        $offset = $request->size * ($request->page ?? 0) - $request->size;
+
+        // Clamp the offset to 0 and limit
+        $offset = max(0, $offset);
+        $offset = min($offset, intdiv($total, $limit) * $limit);
+
+        // Get the items for the current page
+        $items = $items->slice($offset, $limit);
 
         return [
             'data' => MediaResource::collection($items),
             'drive' => $drive,
-            'total' => $items->count(),
+            'total' => $total,
         ];
     }
 

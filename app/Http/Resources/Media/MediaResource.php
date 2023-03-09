@@ -59,7 +59,7 @@ class MediaResource extends JsonResource
         $visual = [
             'generic' => ['icon' => 'widgets', 'color' => '#57606f'],
 
-            'folder.generic' => ['icon' => 'grid_view', 'color' => '#8c7ae6'],
+            'folder.generic' => ['icon' => 'category', 'color' => '#8c7ae6'],
 
             'image.vector' => ['icon' => 'polyline', 'color' => '#e84393'],
             'image.generic' => ['icon' => 'landscape', 'color' => '#3498db'],
