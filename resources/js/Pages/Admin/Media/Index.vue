@@ -34,7 +34,7 @@
         
         <ListItemLayout class="w-100 margin-block-2" :layout="layout" v-show="items.length >= 1">
             <DirectoryItem
-                v-for="item in items"
+                v-for="item in items.slice(offset, offset+size)"
                 :key="item.id"
                 :item="item"
                 :layout="layout"
@@ -51,11 +51,17 @@
                 />
         </ListItemLayout>
         <small v-show="items.length <= 0" class="w-100 flex h-center padding-inline-2 padding-block-5">Dieser Ordner ist leer</small>
-
+        
         <div class="flex v-center gap-1 border-top padding-top-1">
-            <small><b>{{items.filter(i => i.mime !== 'folder').length}}</b> Dateien</small>
+            <div class="flex-1">
+                <small><b>{{items.filter(i => i.mime !== 'folder').length}}</b> Dateien</small>
+            </div>
+            
+            <div class="flex-3 flex h-center">
+                <TablePagination v-model="page" :total="total" :size="size"/>
+            </div>
 
-            <div class="spacer"></div>
+            <div class="flex-1"></div>
         </div>
     </AdminLayout>
 
@@ -147,9 +153,9 @@
     import AdminLayout from '@/Layouts/Admin.vue'
     import ListItemLayout from '@/Components/Layout/ListItemLayout.vue'
     import DirectoryItem from '@/Components/Form/MediaLibrary/DirectoryItem.vue'
+    import TablePagination from '@/Components/Form/Table/TablePagination.vue'
     import Breadcrumbs from '@/Components/Form/MediaLibrary/Breadcrumbs.vue'
     import IconButton from '@/Components/Form/IconButton.vue'
-    import Switcher from '@/Components/Form/Switcher.vue'
     import Actions from '@/Components/Form/Actions.vue'
     import Popup from '@/Components/Form/Popup.vue'
     import Tabs from '@/Components/Form/Tabs.vue'
@@ -163,6 +169,17 @@
     })
 
     const workingDirectory = computed(() => props.breadcrumbs[props.breadcrumbs?.length - 1] ?? {})
+
+    const page = ref(0)
+    const size = ref(120)
+    const total = computed(() => props.items.length)
+
+    const offset = computed(() => {
+        let offset = size.value * (page.value ?? 0) - size.value
+
+        // Clamp the offset to 0 and size
+        return Math.min(Math.max(0, offset), (~~(total.value / size.value)) * size.value);
+    })
 
 
 

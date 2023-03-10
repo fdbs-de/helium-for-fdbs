@@ -1,7 +1,11 @@
 <template>
     <Head title="Spezifikations Datenbank" />
 
-    <DashboardSubLayout title="Spezifikations Datenbank" area="Kundenbereich">
+    <DashboardSubLayout title="Spezifikations Datenbank">
+        <!-- <div class="card">
+            <DownloadManager id="189"/>
+        </div> -->
+        
         <template #head>
             <mui-input class="search-input" type="search" no-border placeholder="Suchen" icon-left="search" v-model="search" @input="throttledFetch" />
             <Loader class="loader" v-show="loading" />
@@ -29,11 +33,13 @@
 </template>
 
 <script setup>
-    import DashboardSubLayout from '@/Layouts/SubLayouts/Dashboard.vue'
     import { Head, Link } from '@inertiajs/inertia-vue3'
-    import Loader from '@/Components/Form/Loader.vue'
-    import PaginationBar from '@/Components/Form/PaginationBar.vue'
     import { ref } from 'vue'
+
+    import DownloadManager from '@/Components/Apps/Pages/Renderer/DownloadManager.vue'
+    import DashboardSubLayout from '@/Layouts/SubLayouts/Dashboard.vue'
+    import PaginationBar from '@/Components/Form/PaginationBar.vue'
+    import Loader from '@/Components/Form/Loader.vue'
 
 
 
@@ -81,6 +87,11 @@
 </script>
 
 <style lang="sass" scoped>
+    .card
+        background: var(--color-background)
+        border-radius: var(--radius-m)
+        box-shadow: var(--shadow-elevation-low)
+
     .search-input
         height: 2.5rem
         width: 100%
