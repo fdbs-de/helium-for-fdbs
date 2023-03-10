@@ -11,10 +11,10 @@
                     { label: 'Leitbild und Organigramm', value: '211' },
                 ]" />
             </div>
-            <DownloadManager title="Allgemeine Dokumente" id="191" v-show="tab == '191'"/>
-            <DownloadManager title="QM Dokumente" id="192" v-show="tab == '192'"/>
-            <DownloadManager title="Marketing Material" id="190" v-show="tab == '190'"/>
-            <DownloadManager title="Leitbild und Organigramm" id="211" v-show="tab == '211'"/>
+            <DownloadManager id="191" v-show="tab == '191'"/>
+            <DownloadManager id="192" v-show="tab == '192'"/>
+            <DownloadManager id="190" v-show="tab == '190'"/>
+            <DownloadManager id="211" v-show="tab == '211'"/>
         </div>
     </DashboardSubLayout>
 </template>

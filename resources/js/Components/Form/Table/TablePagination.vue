@@ -117,7 +117,7 @@
             padding: 0 1rem
             margin: 0
             border-radius: var(--radius-m)
-            background: var(--color-background)
+            background: transparent
             color: var(--color-text)
             font-family: inherit
             font-size: inherit
