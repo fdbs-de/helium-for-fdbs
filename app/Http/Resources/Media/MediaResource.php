@@ -122,6 +122,7 @@ class MediaResource extends JsonResource
             'permission_mode' => $this->permission_mode,
             'permission_config' => $this->directPermissionConfig,
             'calculated_permission_config' => $this->calculatedPermissionConfig,
+            'thumbnail' => $this->thumbnailUrl,
             'meta' => [
                 'title' => $this->title,
                 'alt' => $this->alt,

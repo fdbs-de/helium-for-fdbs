@@ -26,7 +26,7 @@ class CreateMediaRequest extends FormRequest
     {
         return [
             'files' => ['array'],
-            'files.*' => ['file', 'max:134217', 'mimetypes:font/*,image/*,text/*,audio/*,video/*,application/*'],
+            'files.*' => ['file', 'mimetypes:font/*,image/*,text/*,audio/*,video/*,application/*'],
         ];
     }
 }
