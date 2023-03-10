@@ -43,6 +43,7 @@ Route::get('docs/{document:slug}', [DocumentController::class, 'show'])->name('d
 Route::get('docs/{document:slug}/cover', [DocumentController::class, 'showCover'])->name('docs.cover');
 
 // Media
+Route::get('/storage/media/thumbnails/{media}', [MediaController::class, 'showThumbnail']);
 Route::get('/storage/{driveAlias}/{media}/index', [MediaController::class, 'indexPublic']);
 Route::get('/storage/{driveAlias}/{media}', [MediaController::class, 'showPublic']);
 

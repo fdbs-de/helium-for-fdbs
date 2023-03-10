@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use App\Classes\Drives\Drives;
+use App\Jobs\Media\GenerateThumbnail;
 use App\Permissions\Permissions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -18,6 +20,7 @@ class Media extends Model
         'path',
         'belongs_to',
         'mediatype',
+        'thumbnail',
         'title',
         'alt',
         'caption',
@@ -32,7 +35,17 @@ class Media extends Model
     {
         parent::boot();
 
+
+
+        self::created(function ($model) {
+            // Queue thumbnail generation
+            GenerateThumbnail::dispatch($model);
+        });
+
+
+
         self::deleting(function ($model) {
+            // Delete files / folders from disk
             $mime = Storage::mimeType($model->path);
 
             if (!$mime)
@@ -42,6 +55,12 @@ class Media extends Model
             else
             {
                 Storage::delete($model->path);
+            }
+
+            // Delete thumbnail from disk if it exists
+            if ($model->thumbnail)
+            {
+                Storage::delete($model->thumbnail);
             }
         });
     }
@@ -84,6 +103,15 @@ class Media extends Model
         }
 
         return $model;
+    }
+
+
+
+    public function getThumbnailUrlAttribute()
+    {
+        if (!$this->thumbnail) return null;
+
+        return '/storage/media/thumbnails/'.$this->id;
     }
 
 
@@ -199,5 +227,65 @@ class Media extends Model
 
         // Otherwise, they can't access the media
         return false;
+    }
+
+
+
+    public function generateThumbnail()
+    {
+        // All thumbnails are saved in app/thumbnails as [uuid].png files
+        // Intervention image is used to generate the thumbnails
+        // The height and or width of the thumbnail is 300px, while maintaining the aspect ratio
+
+        // Get the file mime type
+        $mime = Storage::mimeType($this->path);
+
+        // Prepare path
+        $path = null;
+
+        // Execute the correct function based on the mime type
+        if (in_array($mime, ['image/jpeg', 'image/png', 'image/gif', 'image/jpg'])) $path = $this->imageToImage();
+        else if (in_array($mime, ['video/mp4', 'video/quicktime'])) $path = $this->videoToImage();
+        else if (in_array($mime, ['application/pdf'])) $path = $this->pdfToImage();
+
+        // If the path is null, return
+        if (!$path) return;
+
+        // Update the thumbnail path
+        $this->update(['thumbnail' => $path]);
+    }
+
+    private function imageToImage()
+    {
+        $maxWidth = 250;
+        $maxHeight = 250;
+        $uuid = Str::uuid();
+        $path = 'thumbnails/'.$uuid.'.png';
+
+        // Get the image
+        $image = \Intervention\Image\Facades\Image::make(Storage::path($this->path));
+
+        // Cancel the longer side
+        ($image->height() < $image->width()) ? $maxWidth = null : $maxHeight = null;
+        
+        // Resize the image
+        $image->resize($maxWidth, $maxHeight, function ($constraint) {
+            $constraint->aspectRatio();
+        });
+
+        // Save the image
+        $image->save(storage_path('app/'.$path));
+
+        return $path;
+    }
+
+    private function videoToImage()
+    {
+        return null;
+    }
+
+    private function pdfToImage()
+    {
+        return null;
     }
 }

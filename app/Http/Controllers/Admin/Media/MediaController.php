@@ -219,12 +219,25 @@ class MediaController extends Controller
         if ($media['mime']['string'] === 'folder') abort(404);
         
         $path = storage_path('app/' . $media['path']['path']);
-        
-        // dd($media['path']['filename']);
 
         $headers = [
             'Content-Type' => $media['mime']['string'],
             'Content-Disposition' => 'inline; filename="' . $media['path']['filename'] . '"',
+        ];
+
+        return response()->file($path, $headers);
+    }
+
+    public function showThumbnail(Request $request, Media $media)
+    {
+        if (!$media->canAccess($request)) abort(403);
+
+        if (!$media) abort(404);
+        
+        $path = storage_path('app/' . $media->thumbnail);
+
+        $headers = [
+            'Content-Type' => $media->mediatype,
         ];
 
         return response()->file($path, $headers);
