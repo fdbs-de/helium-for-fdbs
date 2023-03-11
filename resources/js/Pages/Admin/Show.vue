@@ -1,5 +1,15 @@
 <template>
-    <AdminLayout title="Admin-Übersicht">
+    <AdminLayout title="Admin-Übersicht" no-header>
+        <div class="card welcome-card">
+            <h2>{{ greeting }}</h2>
+            <div class="bottom-bar">
+                <small><Link :href="route('dashboard.profile')">{{ user.name }}</Link></small>
+                <!-- <small>Sunrise 2023 Update</small> -->
+                <div class="spacer"></div>
+                <small>{{ day }} der {{ date }}</small>
+                <b>{{ time }}</b>
+            </div>
+        </div>
         <div class="layout">
             <div class="card main spec">
                 <div class="card-data">
@@ -42,7 +52,7 @@
             </div>
         </div>
 
-        <hr class="margin-block-4">
+        <hr class="margin-block-2">
         
         <div class="layout">
             <div class="card main spec purple">
@@ -85,29 +95,13 @@
                 </div>
             </div>
         </div>
-        
-        <hr class="margin-block-4">
-        
-        <div class="layout">
-            <div class="card main spec orange">
-                <div class="card-data">
-                    <p>Spezifikationen</p>
-                    <h2>
-                        <span>{{getFiller(spec_count, 4)}}</span>{{spec_count}}
-                    </h2>
-                </div>
-                <div class="card-footer">
-                    <div class="spacer"></div>
-                    <mui-button as="a" :href="route('admin.specs')" size="large" label="Zur Speziverwaltung"/>
-                </div>
-            </div>
-        </div>
     </AdminLayout>
 </template>
 
 <script setup>
-    import { Head } from '@inertiajs/inertia-vue3'
-    import { ref } from 'vue'
+    import { Head, usePage, Link } from '@inertiajs/inertia-vue3'
+    import { ref, computed } from 'vue'
+    import dayjs from 'dayjs'
 
     import AdminLayout from '@/Layouts/Admin.vue'
 
@@ -125,6 +119,48 @@
 
 
     const getFiller = (text, targetLength, fillerChar = '0') => fillerChar.repeat(targetLength - text.toString().length)
+
+
+
+    const greetings = {
+        "morning": [
+            "Guten Morgen",
+            "Schönen Start in den Tag",
+            "Starten wir durch"
+        ],
+        "afternoon": [
+            "Guten Tag",
+        ],
+        "evening": [
+            "Guten Abend",
+            "Gut gemacht heute",
+        ],
+        "night": [
+            "Gute Nacht",
+            "Erhol' Dich gut für morgen",
+        ]
+    }
+
+    const greeting = computed(() => {
+        const hour = new Date().getHours()
+
+        if (hour >= 5 && hour < 12) {
+            return greetings.morning[Math.floor(Math.random() * greetings.morning.length)]
+        } else if (hour >= 12 && hour < 18) {
+            return greetings.afternoon[Math.floor(Math.random() * greetings.afternoon.length)]
+        } else if (hour >= 18 && hour < 22) {
+            return greetings.evening[Math.floor(Math.random() * greetings.evening.length)]
+        } else {
+            return greetings.night[Math.floor(Math.random() * greetings.night.length)]
+        }
+    })
+
+
+
+    const date = computed(() => dayjs().format('D. MMMM'))
+    const time = computed(() => dayjs().format('HH:mm'))
+    const day = computed(() => dayjs().format('dddd'))
+    const user = computed(() => usePage().props?.value?.auth?.user)
 </script>
 
 <style lang="sass" scoped>
@@ -144,7 +180,7 @@
         &.spec
             display: flex
             flex-direction: column
-            border-radius: var(--radius-l)
+            border-radius: var(--radius-m)
             --color-local-primary: var(--color-primary)
             --primary: var(--color-local-primary)
 
@@ -156,7 +192,7 @@
 
             .card-data
                 background: var(--color-background-soft)
-                border-radius: var(--radius-m)
+                border-radius: var(--radius-s)
                 padding: 1.5rem
                 display: flex
                 flex-direction: column
@@ -183,6 +219,69 @@
                 align-items: center
                 padding: 1rem
                 padding-top: .5rem
+
+
+
+    .welcome-card
+        aspect-ratio: 2.5
+        min-height: 15rem
+        background: url('/images/app/versions/sunrise_2023.webp')
+        background-size: cover
+        background-position: center
+        background-repeat: no-repeat
+        position: relative
+        overflow: hidden
+        color: white
+        margin-bottom: 4rem
+        padding: 2rem
+        box-shadow: var(--shadow-elevation-high)
+        border-radius: var(--radius-l)
+        
+        &::before
+            content: ''
+            position: absolute
+            top: 0
+            left: 0
+            width: 100%
+            height: 100%
+            pointer-events: none
+            border-radius: inherit
+            border: 1px solid #ffffff60
+
+        .bottom-bar
+            position: absolute
+            bottom: 0
+            left: 0
+            width: 100%
+            padding: 1rem 2rem
+            border-radius: inherit
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.3) 100%)
+            display: flex
+            flex-wrap: wrap
+            align-items: center
+            gap: .5rem 2rem
+
+            small
+                opacity: .9
+
+            a
+                color: inherit
+                text-decoration: none
+                
+                &:hover
+                    text-decoration: underline
+
+        h1, h2, h3
+            color: inherit
+            position: relative
+            z-index: 1
+            font-size: clamp(2rem, 5vw, 4rem)
+            font-weight: 600
+            text-align: center
+            margin: 0
+            text-shadow: 0 3px 10px #00000030
+
+
 
     @media only screen and (max-width: 1200px)
         .layout
