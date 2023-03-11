@@ -7,65 +7,78 @@
 
     <div class="layout">
         <div class="menu" :class="{'open': isOpen}">
-            <div class="apps-bar">
+            <div class="branding-bar">
                 <Link class="logo" :href="route('admin')">
                     <img src="/images/app/branding/cms_icon_white.svg" alt="Gastro CMS Logo">
                 </Link>
+                <a class="redirect-tag" :href="route('home')" target="_blank">FDBS</a>
+            </div>
 
+            <div class="scroll-container">
                 <div class="group">
-                    <Link class="app"
+                    <div class="app-wrapper"
                         v-for="item in menu[0].filter(e => canAny(e.permission))"
                         :key="item.route"
-                        :href="item.route"
-                        :style="`color: ${item.color};`"
-                        v-tooltip.right="item.label"
-                        :class="{'active': is(item.activeWhen)}">
-                        {{item.icon}}
-                    </Link>
+                        :class="{'active': is(item.activeWhen)}"
+                        >
+                        <Link class="app-button" :href="item.route" :style="`color: ${item.color};`">
+                            <Icon :icon="item.icon" />
+                            <div class="text">{{item.label}}</div>
+                        </Link>
+    
+                        <div class="app-sub-menu">
+                            <Link class="app-button"
+                                v-for="subitem in item.submenu.filter(e => canAny(e.permission))"
+                                :key="subitem.route"
+                                :href="subitem.route"
+                                :class="{ 'active': is(subitem.activeWhen) }">
+                                <Icon :icon="subitem.icon" />
+                                <div class="text">{{ subitem.label }}</div>
+                            </Link>
+                        </div>
+                    </div>
                 </div>
                 <div class="divider"></div>
                 <div class="group">
-                    <Link class="app"
+                    <div class="app-wrapper"
                         v-for="item in menu[1].filter(e => canAny(e.permission))"
                         :key="item.route"
-                        :href="item.route"
+                        :class="{'active': is(item.activeWhen)}"
                         :style="`color: ${item.color};`"
-                        v-tooltip.right="item.label"
-                        :class="{'active': is(item.activeWhen)}">
-                        {{item.icon}}
-                    </Link>
-                </div>
-                <div class="spacer"></div>
-                <div class="group">
-                    <!-- <div class="app" v-tooltip.right="'Sprache'">language</div> -->
-                    <Link class="app"
-                        v-for="item in menu[2].filter(e => canAny(e.permission))"
-                        :key="item.route"
-                        :href="item.route"
-                        :style="`color: ${item.color};`"
-                        v-tooltip.right="item.label"
-                        :class="{'active': is(item.activeWhen)}">
-                        {{item.icon}}
-                    </Link>
+                        >
+                        <Link class="app-button" :href="item.route">
+                            <Icon :icon="item.icon" />
+                            <div class="text">{{item.label}}</div>
+                        </Link>
+    
+                        <div class="app-sub-menu">
+                            <Link class="app-button"
+                                v-for="subitem in item.submenu.filter(e => canAny(e.permission))"
+                                :key="subitem.route"
+                                :href="subitem.route"
+                                :class="{ 'active': is(subitem.activeWhen) }">
+                                <Icon :icon="subitem.icon" />
+                                <div class="text">{{ subitem.label }}</div>
+                            </Link>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="menu-bar">
-                <div class="website-profile">
-                    <a class="redirect-tag" :href="route('home')" target="_blank">FDBS</a>
-                </div>
-
-                <div class="menu-group" v-for="group in menu.flat().filter(e => (canAny(e.permission) && e.submenu.length > 0))" :key="group.route" v-show="is(group.activeWhen)">
-                    <Link class="menu-item" v-for="item in group.submenu.filter(e => canAny(e.permission))" :key="item.route" :href="item.route" :class="{'active': is(item.activeWhen)}">
-                        <div class="icon" aria-hidden="true">{{item.icon}}</div>
-                        <div class="text">{{item.label}}</div>
+            <div class="divider"></div>
+            <div class="group">
+                <div class="app-wrapper">
+                    <Link class="app-button"
+                        :href="route('dashboard.profile')">
+                        <Icon icon="account_circle" />
+                        <div class="text">Profil</div>
                     </Link>
                 </div>
             </div>
         </div>
 
         <main class="content">
-            <div id="hero-section">
+            <div id="hero-section" v-show="!noHeader">
                 <div class="limiter">
                     <div class="hero-card">
                         <Link class="back-button" v-if="backlink" :href="backlink" v-tooltip="backlinkText">arrow_back</Link>
@@ -102,6 +115,7 @@
     import { can, canAny } from '@/Utils/Permissions'
 
     import Loader from '@/Components/Form/Loader.vue'
+    import Icon from '@/Components/Icon.vue'
     import Footer from '@/Components/Page/Footer.vue'
 
 
@@ -111,6 +125,10 @@
         title: String,
         backlink: [String, Object, Function],
         backlinkText: String,
+        noHeader: {
+            type: Boolean,
+            default: false,
+        },
         loading: {
             type: Boolean,
             default: false,
@@ -127,16 +145,23 @@
 
     const menu = ref([
         [
-            {label: 'Übersicht', color: 'var(--color-background)', icon: 'speed', route: route('admin'), permission: [], activeWhen: ['admin', 'admin.users', 'admin.users.editor', 'admin.roles', 'admin.docs', 'admin.specs'], submenu: [
-                {label: 'Dashboard', icon: 'dashboard', route: route('admin'), permission: [], activeWhen: ['admin']},
+            {label: 'Dashboard', color: 'var(--color-background)', icon: 'speed', route: route('admin'), permission: [], activeWhen: ['admin', 'admin.users', 'admin.users.editor', 'admin.roles', 'admin.specs'], submenu: [
+                {label: 'Übersicht', icon: 'dashboard', route: route('admin'), permission: [], activeWhen: ['admin']},
                 {label: 'Benutzer', icon: 'person', route: route('admin.users'), permission: ['system.view.users'], activeWhen: ['admin.users', 'admin.users.editor']},
                 {label: 'Berechtigungen', icon: 'key', route: route('admin.roles'), permission: ['system.view.roles'], activeWhen: ['admin.roles']},
-                {label: 'Dokumente', icon: 'folder_open', route: route('admin.docs'), permission: ['edit docs'], activeWhen: ['admin.docs']},
-                {label: 'Spezifikationen', icon: 'cloud_done', route: route('admin.specs'), permission: ['edit specs'], activeWhen: ['admin.specs']},
+                // {label: 'Sp', icon: 'cloud_done', route: route('admin.specs'), permission: ['edit specs'], activeWhen: ['admin.specs']},
             ]},
-            {label: 'Medien Manager', color: 'var(--color-background)', icon: 'upload', route: route('admin.media', ['public']), permission: ['system.view.media'], activeWhen: ['admin.media'], submenu: [
+            {label: 'Medien Manager', color: 'var(--color-background)', icon: 'upload', route: route('admin.media', ['public']), permission: ['system.view.media'], activeWhen: ['admin.media', 'admin.docs'], submenu: [
                 {label: 'Öffentliche Ablage', icon: 'home_storage', route: route('admin.media', ['public']), permission: ['system.view.media'], activeWhen: ['admin.media.public']},
                 {label: 'Private Ablage', icon: 'lock', route: route('admin.media', ['private']), permission: ['system.view.media'], activeWhen: ['admin.media.private']},
+                {label: 'Dokumente', icon: 'folder_open', route: route('admin.docs'), permission: ['edit docs'], activeWhen: ['admin.docs']},
+            ]},
+            {label: 'Einstellungen', color: 'var(--color-background)', icon: 'settings', route: route('admin.settings.general'), permission: ['system.view.settings'], activeWhen: ['admin.settings.general', 'admin.settings.apps', 'admin.settings.design', 'admin.settings.media', 'admin.settings.legal'], submenu: [
+                {label: 'Allgemein', icon: 'settings', route: route('admin.settings.general'), permission: [], activeWhen: ['admin.settings.general']},
+                {label: 'Design', icon: 'design_services', route: route('admin.settings.design'), permission: [], activeWhen: ['admin.settings.design']},
+                {label: 'Medien', icon: 'upload', route: route('admin.settings.media'), permission: [], activeWhen: ['admin.settings.media']},
+                {label: 'Rechtliches', icon: 'gavel', route: route('admin.settings.legal'), permission: [], activeWhen: ['admin.settings.legal']},
+                {label: 'Apps', icon: 'apps', route: route('admin.settings.apps'), permission: [], activeWhen: ['admin.settings.apps']},
             ]},
         ],
         [
@@ -168,16 +193,6 @@
                 {label: 'Workspaces', icon: 'workspaces', route: route('admin.wiki.categories'), permission: ['app.wiki.view.categories'], activeWhen: ['admin.wiki.categories', 'admin.wiki.categories.editor']},
             ]},
             {label: 'Marketing', color: 'var(--color-app-marketing-on-dark)', icon: 'cell_tower', route: route('admin.blog.posts'), permission: ['app.marketing.access.admin.panel'], activeWhen: ['admin.marketing.overview'], submenu: []},
-        ],
-        [
-            {label: 'Globale Einstellungen', color: 'var(--color-background)', icon: 'settings', route: route('admin.settings.general'), permission: ['system.view.settings'], activeWhen: ['admin.settings.general', 'admin.settings.apps', 'admin.settings.design', 'admin.settings.media', 'admin.settings.legal'], submenu: [
-                {label: 'Allgemein', icon: 'settings', route: route('admin.settings.general'), permission: [], activeWhen: ['admin.settings.general']},
-                {label: 'Design', icon: 'design_services', route: route('admin.settings.design'), permission: [], activeWhen: ['admin.settings.design']},
-                {label: 'Medien', icon: 'upload', route: route('admin.settings.media'), permission: [], activeWhen: ['admin.settings.media']},
-                {label: 'Rechtliches', icon: 'gavel', route: route('admin.settings.legal'), permission: [], activeWhen: ['admin.settings.legal']},
-                {label: 'Apps', icon: 'apps', route: route('admin.settings.apps'), permission: [], activeWhen: ['admin.settings.apps']},
-            ]},
-            {label: 'Profil', color: 'var(--color-background)', icon: 'account_circle', route: route('dashboard.profile'), permission: [], activeWhen: [], submenu: []},
         ],
     ])
 
@@ -237,222 +252,179 @@
 
     .layout
         display: flex
-        // min-height: 100vh
         align-items: flex-start
         position: relative
 
         .menu
-            width: 22rem
+            width: 20rem
             height: 100vh
             position: sticky
             top: 0
             left: 0
-            box-shadow: var(--shadow-elevation-low)
+            // box-shadow: var(--shadow-elevation-low)
             display: flex
-            
-            .apps-bar
-                background: var(--color-heading)
-                width: 4rem
-                color: white
+            flex-direction: column
+            background: var(--color-heading)
+            color: white
+
+            .branding-bar
                 display: flex
-                flex-direction: column
+                height: 4rem
+                align-items: center
+                justify-self: stretch
+                position: relative
+                padding-right: 1rem
+
+                &::after
+                    content: ''
+                    position: absolute
+                    left: 0
+                    bottom: 0
+                    transform: translateY(100%)
+                    width: 100%
+                    height: 14px
+                    background: linear-gradient(180deg, rgb(black, 0.1) 0%, rgb(black, 0) 100%)
 
                 .logo
                     flex: none
                     width: 4rem
-                    height: 4rem
                     aspect-ratio: 1
                     padding: 1rem
                     display: flex
                     align-items: center
                     color: inherit
-                    position: relative
-
-                    &::after
-                        content: ''
-                        position: absolute
-                        left: 0
-                        bottom: 0
-                        transform: translateY(100%)
-                        width: 100%
-                        height: 14px
-                        background: linear-gradient(180deg, rgb(black, 0.1) 0%, rgb(black, 0) 100%)
 
                     img
                         height: 100%
                         object-fit: contain
 
-                .spacer
-                    flex: 1
-
-                .divider
-                    flex: none
-                    width: 100%
-                    border: none
-                    margin: 0
-                    border-bottom: 1px solid #ffffff33
-
-                .group
-                    flex: none
-                    display: flex
-                    flex-direction: column
-                    gap: 3px
-                    padding: 1rem .5rem
-
-                    .app
-                        height: 3rem
-                        aspect-ratio: 1
-                        display: flex
-                        align-items: center
-                        justify-content: center
-                        color: inherit
-                        font-size: 1.5rem
-                        font-family: var(--font-icon)
-                        font-weight: lighter !important
-                        position: relative
-                        border-radius: var(--radius-m)
-                        user-select: none
-                        cursor: pointer
-
-                        &::after
-                            content: ''
-                            position: absolute
-                            left: 0
-                            bottom: 0
-                            width: 100%
-                            height: 100%
-                            background: currentColor
-                            opacity: 0
-                            border-radius: inherit
-                            pointer-events: none
-
-                        &.active,
-                        &:hover
-                            &::after
-                                opacity: .1
-
-            .menu-bar
-                flex: 1
-                background: var(--color-background)
-                display: flex
-                flex-direction: column
-                gap: 1rem
-                padding-bottom: 1rem
-
-                .website-profile
-                    position: relative
-                    padding: 0 1rem
-                    height: 4rem
+                .redirect-tag
                     display: flex
                     align-items: center
+                    gap: .5rem
+                    height: 2rem
+                    padding: 0 1rem
+                    background: #ffffff20
+                    color: var(--color-background)
+                    border-radius: 2rem
+                    font-size: .8rem
+                    font-weight: 600
+                    margin-left: auto
+
+                    &::after
+                        content: 'open_in_new'
+                        line-height: 1
+                        font-size: .8rem
+                        font-family: var(--font-icon)
+                        font-weight: 400
+                        opacity: .7
+
+                    &:hover
+                        color: var(--color-primary)
+
+            .scroll-container
+                overflow: hidden
+                overflow-y: scroll
+                flex: 1
+                display: flex
+                flex-direction: column
+
+                &::-webkit-scrollbar
+                    width: 5px
+                    height: 5px
+
+                &::-webkit-scrollbar-track
+                    background: #00000000
+
+                &::-webkit-scrollbar-thumb
+                    background: #ffffff33
+                    border-radius: 0
+                    background-clip: content-box
+                    border: 2px solid var(--color-heading)
+
+                    &:hover
+                        background: var(--color-background)
+                        border-radius: 0
+
+            .divider
+                flex: none
+                width: 100%
+                border: none
+                margin: 0
+                border-bottom: 1px solid #ffffff33
+
+            .group
+                flex: none
+                display: flex
+                flex-direction: column
+                padding: 1rem 3px
+
+            .app-wrapper
+                display: flex
+                flex-direction: column
+                gap: 3px
+                padding: 3px
+                border-radius: calc(var(--radius-m) + 3px)
+
+                &.active
+                    background: #00000055
+
+                    > .app-button
+                        &::after
+                            opacity: .1 !important
+
+                    .app-sub-menu
+                        display: flex
+
+                .app-button
+                    justify-self: stretch
+                    display: flex
+                    align-items: center
+                    gap: 1.5rem
+                    padding: 0 1rem
+                    min-height: 3rem
+                    color: inherit
+                    position: relative
+                    user-select: none
+                    cursor: pointer
+                    border-radius: var(--radius-m)
 
                     &::after
                         content: ''
                         position: absolute
                         left: 0
                         bottom: 0
-                        transform: translateY(100%)
                         width: 100%
-                        height: 14px
-                        background: linear-gradient(180deg, rgb(black, 0.06) 0%, rgb(black, 0) 100%)
-
-                    .redirect-tag
-                        display: flex
-                        align-items: center
-                        gap: .5rem
-                        height: 2rem
-                        padding: 0 1rem
-                        background: var(--color-background-soft)
-                        color: var(--color-heading)
-                        border-radius: 2rem
-                        font-size: .8rem
-                        font-weight: 600
-
-                        &::after
-                            content: 'open_in_new'
-                            line-height: 1
-                            font-size: .8rem
-                            font-family: var(--font-icon)
-                            opacity: .7
-
-                        &:hover
-                            color: var(--color-primary)
-
-                .menu-group
-                    display: flex
-                    flex-direction: column
-                    gap: 3px
-
-                    .group-label
-                        height: 2rem
-                        line-height: 2rem
-                        white-space: nowrap
-                        overflow: hidden
-                        text-overflow: ellipsis
-                        padding: 0 1rem
-                        margin-bottom: .5rem
-                        border-bottom: 1px solid var(--color-border)
-                        font-size: .9rem
-                        font-weight: 600
-                        will-change: height
-                        transition: height 200ms cubic-bezier(0.22, 0.61, 0.36, 1)
-
-                .menu-item
-                    display: flex
-                    align-items: center
-                    height: 3rem
-                    user-select: none
-                    cursor: pointer
-                    position: relative
-                    color: var(--color-text)
-
-                    &::before
-                        content: ''
-                        position: absolute
-                        top: 0
-                        left: .5rem
-                        width: calc(100% - 1rem)
                         height: 100%
-                        border-radius: var(--radius-m)
-                        background: var(--color-background)
-
-                    &:hover::before,
-                    &.active::before
-                        background: var(--color-background-soft)
-
-                    .icon
-                        width: 4.5rem
-                        flex: none
-                        height: 100%
-                        display: flex
-                        align-items: center
-                        justify-content: center
-                        font-size: 1.5rem
-                        line-height: 1
-                        font-family: var(--font-icon)
-                        position: relative
-                        opacity: .9
+                        background: currentColor
+                        opacity: 0
+                        border-radius: inherit
+                        pointer-events: none
 
                     .text
-                        flex: 1
-                        position: relative
-                        overflow: hidden
-                        text-overflow: ellipsis
-                        white-space: nowrap
-                        font-weight: 500
                         font-size: .9rem
-                        color: var(--color-heading)
-                        transition: all 200ms cubic-bezier(0.22, 0.61, 0.36, 1)
 
-                    .external
-                        flex: none
-                        font-size: 1.1rem
-                        line-height: 1
-                        font-family: var(--font-icon)
-                        position: relative
-                        opacity: .9
-                        margin-inline: .5rem
-                        padding-right: 1rem
+                    .icon
+                        font-size: 1.5rem
+                        font-weight: 300
+                        width: 1.5rem
+                        opacity: .6
+
+                    &:hover
+                        &::after
+                            opacity: .05
+
+                    &.active
+                        &::after
+                            opacity: .1
+
+                .app-sub-menu
+                    justify-self: stretch
+                    display: none
+                    flex-direction: column
+                    gap: 3px
+                    padding-top: 4px
+                    border-top: 2px solid var(--color-heading)
 
         .content
             flex: 1
