@@ -170,7 +170,10 @@ class MediaController extends Controller
 
 
         // Get query builder from current media object
-        $query = $media->children();
+        $query = $media
+        ->children()
+        ->whereIn('permission_mode', ['inherit', 'public'])
+        ->where('mediatype', '!=', 'folder');
 
         // Search for files in query builder
         if($request->search)
@@ -183,12 +186,7 @@ class MediaController extends Controller
             });
         }
 
-        // Get media from query builder and filter out items the user can't access
-        $items = collect($query->get())->filter(function ($item) use ($request) {
-            return $item->canAccess($request) && $item->mediatype !== 'folder';
-        });
-
-        $total = $items->count();
+        $total = $query->count();
 
         $limit = $request->size ?? 20;
         $offset = $request->size * ($request->page ?? 0) - $request->size;
@@ -198,10 +196,10 @@ class MediaController extends Controller
         $offset = min($offset, intdiv($total, $limit) * $limit);
 
         // Get the items for the current page
-        $items = $items->slice($offset, $limit);
+        $data = $query->limit($limit)->offset($offset)->get();
 
         return [
-            'data' => MediaResource::collection($items),
+            'data' => MediaResource::collection($data),
             'drive' => $drive,
             'total' => $total,
         ];
