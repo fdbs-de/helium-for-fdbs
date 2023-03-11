@@ -2,11 +2,11 @@
     <Head title="Spezifikations Datenbank" />
 
     <DashboardSubLayout title="Spezifikations Datenbank">
-        <!-- <div class="card">
+        <div class="card">
             <DownloadManager id="189"/>
-        </div> -->
+        </div>
         
-        <template #head>
+        <!-- <template #head>
             <mui-input class="search-input" type="search" no-border placeholder="Suchen" icon-left="search" v-model="search" @input="throttledFetch" />
             <Loader class="loader" v-show="loading" />
         </template>
@@ -27,7 +27,7 @@
             Es wurden keine Spezifikationen gefunden.
         </div>
 
-        <PaginationBar class="margin-top-1" v-if="pagination.data.length" :from="pagination.from" :to="pagination.to" :total="pagination.total" @prev="prevPage" @next="nextPage"/>
+        <PaginationBar class="margin-top-1" v-if="pagination.data.length" :from="pagination.from" :to="pagination.to" :total="pagination.total" @prev="prevPage" @next="nextPage"/> -->
         
     </DashboardSubLayout>
 </template>
