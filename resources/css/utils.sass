@@ -11,11 +11,23 @@
     &.wrap
         flex-wrap: wrap
 
+    &.v-start
+        align-items: flex-start
+
     &.v-center
         align-items: center
 
+    &.v-end
+        align-items: flex-end
+
+    &.h-start
+        justify-content: flex-start
+
     &.h-center
         justify-content: center
+
+    &.h-end
+        justify-content: flex-end
 
 .spacer
     flex: 1
@@ -33,6 +45,8 @@
         .#{$prop}#{$modifier}-auto
             #{$prop}#{$modifier}: auto
 
+
+
 @for $i from 0 through 30
     .h-#{$i}
         height: #{$i}rem
@@ -40,11 +54,42 @@
     .w-#{$i}
         width: #{$i}rem
 
-    .w-100
-        width: 100%
-
     .min-h-#{$i}
         min-height: #{$i}rem
+
+    .min-w-#{$i}
+        min-width: #{$i}rem
+
+.h-100
+    height: 100%
+
+.h-auto
+    height: auto
+
+.h-0-5
+    height: 0.5rem
+
+.h-1-5
+    height: 1.5rem
+
+.h-2-5
+    height: 2.5rem
+
+.w-100
+    width: 100%
+
+.w-auto
+    width: auto
+
+.w-0-5
+    width: 0.5rem
+
+.w-1-5
+    width: 1.5rem
+
+.w-2-5
+    width: 2.5rem
+
 
 
 .text-align-center
@@ -71,10 +116,16 @@
 .font-heading
     font-family: var(--font-heading)
 
+.font-interface
+    font-family: var(--font-interface)
+
 
 
 .color-primary
     color: var(--color-primary)
+
+.color-primary-soft
+    color: var(--color-primary-soft)
 
 .color-heading
     color: var(--color-heading)

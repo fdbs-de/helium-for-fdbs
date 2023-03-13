@@ -7,7 +7,7 @@
             <div class="spacer"></div>
 
             <div class="flex v-center">
-                <IconButton type="button" icon="search" v-tooltip="'Suchen'" />
+                <!-- <IconButton type="button" icon="search" v-tooltip="'Suchen'" /> -->
                 <VDropdown placement="bottom-end">
                     <IconButton type="button" icon="settings" v-tooltip="'Ansichtseinstellungen'" />
                     <template #popper>
@@ -34,7 +34,7 @@
         
         <ListItemLayout class="w-100 margin-block-2" :layout="layout" v-show="items.length >= 1">
             <DirectoryItem
-                v-for="item in items.slice(offset, offset+size)"
+                v-for="item in items"
                 :key="item.id"
                 :item="item"
                 :layout="layout"
@@ -54,14 +54,22 @@
         
         <div class="flex v-center gap-1 border-top padding-top-1">
             <div class="flex-1">
-                <small><b>{{items.filter(i => i.mime !== 'folder').length}}</b> Dateien</small>
+                <small><b>{{total}}</b> Dateien</small>
             </div>
             
             <div class="flex-3 flex h-center">
                 <TablePagination v-model="page" :total="total" :size="size"/>
             </div>
 
-            <div class="flex-1"></div>
+            <div class="flex-1 flex h-end">
+                <select v-model="size" class="h-2-5">
+                    <option :value="12">12</option>
+                    <option :value="30">30</option>
+                    <option :value="60">60</option>
+                    <option :value="120">120</option>
+                    <option :value="240">240</option>
+                </select>
+            </div>
         </div>
     </AdminLayout>
 
@@ -164,22 +172,16 @@
 
     const props = defineProps({
         items: Array,
+        total: Number,
         breadcrumbs: Array,
         drive: Object,
     })
 
+
+
+    // START: Working directory
     const workingDirectory = computed(() => props.breadcrumbs[props.breadcrumbs?.length - 1] ?? {})
-
-    const page = ref(0)
-    const size = ref(120)
-    const total = computed(() => props.items.length)
-
-    const offset = computed(() => {
-        let offset = size.value * (page.value ?? 0) - size.value
-
-        // Clamp the offset to 0 and size
-        return Math.min(Math.max(0, offset), (~~(total.value / size.value)) * size.value);
-    })
+    // END: Working directory
 
 
 
@@ -190,18 +192,48 @@
 
 
 
+    // START: Page parameters
+    const params = new URLSearchParams(window.location.search)
+    // END: Page parameters
+    
+
+    
+    // START: Pagination
+    const page = ref(parseInt(params.get('page') ?? 1))
+    const size = ref(parseInt(params.get('size') ?? 60))
+
+    watch(() => page.value, (value) => {
+        openDirectory(workingDirectory.value, false)
+    })
+
+    watch(() => size.value, (value) => {
+        openDirectory(workingDirectory.value, false)
+    })
+    // END: Pagination
+
+
+
     // START: Folder Navigation
     const openItem = (item) => {
         if (item.mime.type === 'folder') return openDirectory(item)
         if (item.mime.type !== 'folder') return openFile(item)
     }
 
-    const openDirectory = (item) => {
+    const openDirectory = (item, reset = true) => {
         Inertia.visit(route('admin.media', [props.drive.alias, item.id]), {
+            data: {
+                page: page.value,
+                size: size.value
+            },
+
             preserveState: true,
             preserveScroll: true,
+
             onSuccess() {
-                deselectAll()
+                if (reset) {
+                    deselectAll()
+                    page.value = 1
+                }
             },
         })
     }
