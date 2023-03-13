@@ -274,7 +274,7 @@ class Media extends Model
         });
 
         // Save the image
-        $image->save(storage_path('app/'.$path));
+        $image->save(Storage::path($path));
 
         return $path;
     }
@@ -286,6 +286,16 @@ class Media extends Model
 
     private function pdfToImage()
     {
-        return null;
+        $maxWidth = 250;
+        $uuid = Str::uuid();
+        $path = 'thumbnails/'.$uuid.'.png';
+
+        $pdf = new \Spatie\PdfToImage\Pdf(Storage::path($this->path));
+        
+        $pdf
+        ->width($maxWidth)
+        ->saveImage(Storage::path($path));
+
+        return $path;
     }
 }
