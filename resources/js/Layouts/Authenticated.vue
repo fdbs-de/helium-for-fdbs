@@ -69,6 +69,11 @@
                     <div class="text">Mitarbeiterangebote</div>
                     <div class="external">open_in_new</div>
                 </a>
+                <a class="menu-item" target="_blank" href="https://www.dienstradtool.eurorad.de/register/step1/de45f84422f17ec3961693afaa2844101e4a8c47a2789adeb449f966672656ba">
+                    <div class="icon" aria-hidden="true">pedal_bike</div>
+                    <div class="text">Dienstfahrrad-Leasing</div>
+                    <div class="external">open_in_new</div>
+                </a>
             </div>
         </div>
 
