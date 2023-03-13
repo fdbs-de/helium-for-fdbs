@@ -129,6 +129,24 @@ class MediaController extends Controller
 
 
 
+        $query = $media->children();
+
+
+
+        $total = $query->count();
+
+        $limit = in_array(gettype($request->size), ['integer', 'string']) ? (int) $request->size : 60;
+        $page = in_array(gettype($request->page), ['integer', 'string']) ? (int) $request->page : 1;
+        $offset = $limit * $page - $limit;
+
+        // Clamp the offset to 0 and limit
+        $offset = max(0, $offset);
+        $offset = min($offset, intdiv($total, $limit) * $limit);
+
+        $items = $query->limit($limit)->offset($offset)->get();
+
+
+
         $path = [];
         $parent = $media;
 
@@ -139,7 +157,8 @@ class MediaController extends Controller
         }
 
         $data = [
-            'items' => MediaResource::collection($media->children),
+            'items' => MediaResource::collection($items),
+            'total' => $total,
             'breadcrumbs' => $path,
             'drive' => $drive,
         ];
