@@ -94,13 +94,6 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
         ->name('admin.roles.delete');
     });
 
-    Route::prefix('spezifikationen')->middleware('can:edit specs')->group(function () {
-        Route::get('/', [SpecController::class, 'indexAdmin'])->name('admin.specs');
-        Route::post('/upload', [SpecController::class, 'upload'])->can('create', 'App\Models\Specification')->name('admin.specs.upload');
-        Route::post('/cache', [SpecController::class, 'cache'])->can('create', 'App\Models\Specification')->name('admin.specs.cache');
-        Route::delete('/delete', [SpecController::class, 'delete'])->can('delete', 'App\Models\Specification')->name('admin.specs.delete');
-    });
-
     Route::prefix('dokumente')->middleware('can:edit docs')->group(function () {
         Route::get('/', [DocumentController::class, 'indexAdmin'])->name('admin.docs');
         Route::get('/search', [DocumentController::class, 'search'])->name('admin.docs.search');
@@ -134,6 +127,10 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
         Route::put('/{media}/rename', [MediaController::class, 'rename'])
         ->middleware('can:system.edit.media')
         ->name('admin.media.update.rename');
+
+        Route::put('/{media}/thumbnail', [MediaController::class, 'generateThumbnail'])
+        ->middleware('can:system.edit.media')
+        ->name('admin.media.update.thumbnail');
 
         Route::put('/{media}', [MediaController::class, 'update'])
         ->middleware('can:system.edit.media')

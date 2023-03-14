@@ -11,6 +11,7 @@ use App\Http\Requests\Media\RenameMediaRequest;
 use App\Http\Requests\Media\UpdateMediaRequest;
 use App\Http\Requests\Media\UpdatePermissionsMediaRequest;
 use App\Http\Resources\Media\MediaResource;
+use App\Jobs\Media\GenerateThumbnail;
 use App\Models\Media;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -18,17 +19,6 @@ use Inertia\Inertia;
 
 class MediaController extends Controller
 {
-    public function test()
-    {
-        $pdf = new \Spatie\PdfToImage\Pdf(Storage::path('test.pdf'));
-
-        $pdf
-        ->width(250)
-        ->saveImage(Storage::path('test.png'));
-
-        return 'successfull';
-    }
-
     public function setupMediaDrives()
     {
         foreach (Drives::getDrives() as $drive)
@@ -325,6 +315,15 @@ class MediaController extends Controller
         $old_path = $media->path;
 
         $media->move($old_path, $new_path);
+
+        return back();
+    }
+
+
+
+    public function generateThumbnail(Request $request, Media $media)
+    {
+        GenerateThumbnail::dispatch($media);
 
         return back();
     }

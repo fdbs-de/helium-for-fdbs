@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/test', [MediaController::class, 'test']);
 
 // Forms App
 Route::post('/forms/{form}', [FormController::class, 'submit'])->name('forms.form.submit');

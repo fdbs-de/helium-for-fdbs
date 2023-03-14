@@ -47,6 +47,7 @@
                 @open="openItem(item)"
                 @delete="openDeletePopup(item)"
                 @rename="openRenamePopup(item)"
+                @thumbnail="generateThumbnail(item)"
                 @edit="openEditPopup(item)"
                 />
         </ListItemLayout>
@@ -362,6 +363,14 @@
         })
     }
     // END: Rename Item
+
+
+
+    // START: Generate Thumbnail
+    const generateThumbnail = (item) => {
+        useForm().put(route('admin.media.update.thumbnail', item.id))
+    }
+    // END: Generate Thumbnail
 
 
 
