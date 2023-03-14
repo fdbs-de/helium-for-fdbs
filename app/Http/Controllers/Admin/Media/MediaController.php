@@ -18,6 +18,17 @@ use Inertia\Inertia;
 
 class MediaController extends Controller
 {
+    public function test()
+    {
+        $pdf = new \Spatie\PdfToImage\Pdf(Storage::path('test.pdf'));
+
+        $pdf
+        ->width(250)
+        ->saveImage(Storage::path('test.png'));
+
+        return 'successfull';
+    }
+
     public function setupMediaDrives()
     {
         foreach (Drives::getDrives() as $drive)
