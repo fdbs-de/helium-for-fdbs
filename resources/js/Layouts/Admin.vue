@@ -149,7 +149,6 @@
                 {label: 'Übersicht', icon: 'dashboard', route: route('admin'), permission: [], activeWhen: ['admin']},
                 {label: 'Benutzer', icon: 'person', route: route('admin.users'), permission: ['system.view.users'], activeWhen: ['admin.users', 'admin.users.editor']},
                 {label: 'Berechtigungen', icon: 'key', route: route('admin.roles'), permission: ['system.view.roles'], activeWhen: ['admin.roles']},
-                // {label: 'Sp', icon: 'cloud_done', route: route('admin.specs'), permission: ['edit specs'], activeWhen: ['admin.specs']},
             ]},
             {label: 'Medien Manager', color: 'var(--color-background)', icon: 'upload', route: route('admin.media', ['public']), permission: ['system.view.media'], activeWhen: ['admin.media', 'admin.docs'], submenu: [
                 {label: 'Öffentliche Ablage', icon: 'home_storage', route: route('admin.media', ['public']), permission: ['system.view.media'], activeWhen: ['admin.media.public']},

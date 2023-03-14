@@ -19,7 +19,7 @@
     import { ref, watch, nextTick, onMounted } from 'vue'
 
     const props = defineProps({
-        modelValue: String,
+        modelValue: [String, Number],
         tabs: Array,
     })
 
