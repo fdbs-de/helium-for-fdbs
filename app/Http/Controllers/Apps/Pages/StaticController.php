@@ -15,13 +15,7 @@ class StaticController extends Controller
     public function indexPhilosophie() { return Inertia::render('Philosophie'); }
 
     public function indexProdukteUndServices() { return Inertia::render('ProdukteUndServices/Index'); }
-    public function indexAngebote()
-    {
-        return Inertia::render('ProdukteUndServices/Angebote', [
-            'angebote' => Document::where('category', 'angebote')->where('group', null)->orderBy('slug')->get(),
-        ]);
-    }
-
+    public function indexAngebote() { return Inertia::render('ProdukteUndServices/Angebote'); }
     public function indexFoodservice() { return Inertia::render('ProdukteUndServices/Foodservice'); }
     public function indexMehrwegpflicht() { return Inertia::render('ProdukteUndServices/Mehrwegpflicht'); }    
 

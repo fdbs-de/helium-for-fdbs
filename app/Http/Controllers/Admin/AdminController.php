@@ -3,12 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Media;
 use App\Models\Post;
-use App\Models\Specification;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class AdminController extends Controller
@@ -36,7 +32,6 @@ class AdminController extends Controller
             ],
             'unverified_user_count' => User::where('enabled_at', null)->count(),
             'post_count' => Post::count(),
-            'spec_count' => Specification::count(),
         ]);
     }
 }
