@@ -34,6 +34,7 @@
                         
                         <div class="divider"></div>
 
+                        <mui-button class="dropdown-button" variant="text" label="Thumbnail generieren" icon-left="image" @click="$emit('thumbnail', item)" v-close-popper/>
                         <mui-button class="dropdown-button" variant="text" label="Bearbeiten" icon-left="edit_note" @click="$emit('edit', item)" v-close-popper/>
                         <mui-button class="dropdown-button" variant="text" label="Umbenennen" icon-left="edit" @click="$emit('rename', item)" v-close-popper/>
                         <mui-button class="dropdown-button" variant="text" color="error" label="Löschen" icon-left="delete" @click="$emit('delete', item)" v-close-popper/>
