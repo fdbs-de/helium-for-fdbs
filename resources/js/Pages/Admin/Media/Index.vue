@@ -105,8 +105,8 @@
 
     <Popup ref="editPopup" title="Bearbeiten" position="right" style="--max-width: 400px;">
         <form class="flex-1 flex vertical" @submit.prevent="saveItem()">
-            <div class="preview-wrapper" v-if="editForm.item && editForm.item.mime.type === 'image'">
-                <img class="image" :src="editForm.item.path.url" />
+            <div class="preview-wrapper" v-if="editForm.item && editForm.item.thumbnail">
+                <img class="image" :src="editForm.item.thumbnail" />
             </div>
 
             <div class="flex padding-inline-1 border-bottom">

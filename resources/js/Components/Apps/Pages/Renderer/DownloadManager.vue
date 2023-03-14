@@ -1,22 +1,34 @@
 <template>
     <div class="pages-elem-wrapper flex vertical">
-        <div class="flex padding-1">
+        <div class="flex padding-1 border-bottom">
             <mui-input type="search" class="searchbar" icon-left="search" placeholder="Suchen" v-model="search"/>
         </div>
         <div class="items-container flex vertical">
             <Loader class="loader" v-show="processing"/>
 
-            <div class="flex h-8 h-center v-center" v-show="!items.length">
+            <div class="flex h-8 h-center v-center" v-if="!items.length">
                 Keine Dateien gefunden
             </div>
 
-            <a class="item-wrapper flex" v-for="item in items" :href="item.path.url" target="_blank">
-                <div class="icon" :style="'color: '+item.visual.color">{{ item.visual.icon }}</div>
-                <span class="flex-1">{{ item.path.filename }}</span>
-                <IconButton icon="download" is="a" :href="item.path.url" download/>
-            </a>
+            <div class="list" v-show="layout === 'list'" v-if="items.length">
+                <a class="item-wrapper flex" v-for="item in items" :href="item.path.url" target="_blank">
+                    <div class="icon" :style="'color: '+item.visual.color">{{ item.visual.icon }}</div>
+                    <span class="flex-1">{{ item.path.filename }}</span>
+                    <IconButton icon="download" is="a" :href="item.path.url" download/>
+                </a>
+            </div>
+
+            <div class="grid" v-show="layout === 'grid'" v-if="items.length">
+                <Card v-for="item in items" new-window
+                    :key="item.id"
+                    :name="item.meta.title"
+                    :alt="item.meta.alt"
+                    :image="item.thumbnail"
+                    :link="item.path.url"
+                />
+            </div>
         </div>
-        <div class="flex padding-1 h-center">
+        <div class="flex padding-1 h-center border-top" v-show="total > size">
             <TablePagination v-model="page" :size="size" :total="total"/>
         </div>
     </div>
@@ -25,14 +37,19 @@
 <script setup>
     import { ref, watch } from 'vue'
 
-    import IconButton from '@/Components/Apps/Pages/IconButton.vue'
     import TablePagination from '@/Components/Form/Table/TablePagination.vue'
+    import IconButton from '@/Components/Apps/Pages/IconButton.vue'
     import Loader from '@/Components/Form/Loader.vue'
+    import Card from '@/Components/Page/Card.vue'
 
 
 
     const props = defineProps({
         id: [Number, String],
+        layout: {
+            type: String,
+            default: 'list',
+        },
     })
 
 
@@ -95,10 +112,7 @@
         .items-container
             display: flex
             flex-direction: column
-            border: 0px solid var(--color-border)
-            border-width: 1px 0
             position: relative
-            padding: .5rem 0
 
             .loader
                 position: absolute
@@ -144,4 +158,17 @@
                 border-radius: inherit
                 background: currentColor
                 opacity: .2
+
+
+
+        .list
+            display: flex
+            flex-direction: column
+            padding: .5rem 0
+
+        .grid
+            display: grid
+            gap: 1rem
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr))
+            padding: 1rem
 </style>
