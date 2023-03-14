@@ -9,10 +9,8 @@ use App\Http\Controllers\Admin\Media\MediaController;
 use App\Http\Controllers\Admin\NewsletterController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingsController;
-use App\Http\Controllers\Dashboard\DocumentController;
 use App\Http\Controllers\Dashboard\PostCategoryController;
 use App\Http\Controllers\Dashboard\PostController;
-use App\Http\Controllers\Dashboard\SpecController;
 use App\Http\Controllers\Dashboard\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -92,14 +90,6 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
         Route::delete('/{role}', [RoleController::class, 'delete'])
         ->middleware('can:system.delete.roles')
         ->name('admin.roles.delete');
-    });
-
-    Route::prefix('dokumente')->middleware('can:edit docs')->group(function () {
-        Route::get('/', [DocumentController::class, 'indexAdmin'])->name('admin.docs');
-        Route::get('/search', [DocumentController::class, 'search'])->name('admin.docs.search');
-        Route::post('/', [DocumentController::class, 'store'])->name('admin.docs.store');
-        Route::put('/{document}', [DocumentController::class, 'update'])->name('admin.docs.update');
-        Route::delete('/{document}', [DocumentController::class, 'delete'])->name('admin.docs.delete');
     });
 
     Route::prefix('media')->group(function () {

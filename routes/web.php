@@ -6,7 +6,6 @@ use App\Http\Controllers\Apps\Blog\BlogController;
 use App\Http\Controllers\Apps\Jobs\JobController;
 use App\Http\Controllers\Apps\Pages\ContactController;
 use App\Http\Controllers\Apps\Pages\StaticController;
-use App\Http\Controllers\Dashboard\DocumentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,10 +36,6 @@ Route::prefix('/karriere')->group(function () {
     Route::get('/bewerben-als/lkw-fahrer', [JobController::class, 'showFunnelFahrer'])->name('karriere.funnel.lkw-fahrer');
     Route::post('/bewerben-als/lkw-fahrer', [JobController::class, 'storeFunnelFahrer'])->name('karriere.funnel.lkw-fahrer.store');
 });
-
-// Documents
-Route::get('docs/{document:slug}', [DocumentController::class, 'show'])->name('docs');
-Route::get('docs/{document:slug}/cover', [DocumentController::class, 'showCover'])->name('docs.cover');
 
 // Media
 Route::get('/storage/media/thumbnails/{media}', [MediaController::class, 'showThumbnail']);

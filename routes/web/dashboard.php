@@ -6,7 +6,6 @@ use App\Http\Controllers\Dashboard\EmployeeController;
 use App\Http\Controllers\Dashboard\NewsletterController;
 use App\Http\Controllers\Dashboard\OverviewController;
 use App\Http\Controllers\Dashboard\ProfileController;
-use App\Http\Controllers\Dashboard\SpecController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () {
@@ -24,10 +23,7 @@ Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () 
 
     Route::prefix('kunde')->middleware(['panelaccess:customer'])->group(function () {
         Route::get('/', [CustomerController::class, 'redirect'])->name('dashboard.customer');
-        Route::get('/spezifikationen', [SpecController::class, 'index'])->name('dashboard.customer.specs');
-        Route::get('/spezifikationen/search/{page}/{search?}', [SpecController::class, 'search'])->name('dashboard.customer.specs.search');
-        Route::get('/spezifikationen/download/{name}', [SpecController::class, 'download'])->name('dashboard.customer.specs.download');
-
+        Route::get('/spezifikationen', [CustomerController::class, 'indexSpecs'])->name('dashboard.customer.specs');
         Route::get('/angebote', [CustomerController::class, 'indexOffers'])->name('dashboard.customer.offers');
     });
 });

@@ -1,7 +1,7 @@
 <template>
     <Head title="Profil" />
 
-    <DashboardSubLayout title="Übersicht" area="Loginbereich">
+    <DashboardSubLayout title="Übersicht">
         <div class="welcome-wrapper">
             <h1 class="margin-top-0">Hey! 👋</h1>
             <p>
@@ -14,12 +14,9 @@
 </template>
 
 <script setup>
-    import DashboardSubLayout from '@/Layouts/SubLayouts/Dashboard.vue'
-
     import { Head } from '@inertiajs/inertia-vue3'
-    import { ref } from 'vue'
-
-    const v1 = ref('')
+    
+    import DashboardSubLayout from '@/Layouts/SubLayouts/Dashboard.vue'
 </script>
 
 <style lang="sass" scoped>

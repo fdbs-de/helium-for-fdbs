@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-    import { Head, Link } from '@inertiajs/inertia-vue3'
+    import { Head } from '@inertiajs/inertia-vue3'
 
     import TextSubLayout from '@/Layouts/SubLayouts/Text.vue'
     import DownloadManager from '@/Components/Apps/Pages/Renderer/DownloadManager.vue'
