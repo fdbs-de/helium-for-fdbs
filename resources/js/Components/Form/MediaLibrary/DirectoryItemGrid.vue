@@ -4,7 +4,7 @@
             <div class="image-preview" v-if="item.thumbnail" v-show="enablePreview">
                 <img :src="item.thumbnail" />
             </div>
-            <div class="icon" :class="{'is-folder': item.mime.type == 'folder' }" v-show="(!item.thumbnail || !enablePreview)" :style="`color: ${item.visual.color};`">{{ item.visual.icon }}</div>
+            <div class="icon" :class="{'is-folder': item.mime.type == 'folder' }" v-show="!item.thumbnail || !enablePreview" :style="`color: ${item.visual.color};`">{{ item.visual.icon }}</div>
         </div>
 
         <div class="title-area" :title="item.path.filename">{{ item.path.filename }}</div>

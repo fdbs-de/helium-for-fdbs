@@ -1,10 +1,10 @@
 <template>
     <div class="wrapper" :class="{'selected': isSelected}">
         <div class="preview-area">
-            <div class="image-preview" v-if="item.mime.type === 'image'" v-show="enablePreview">
-                <img :src="item.path.url" />
+            <div class="image-preview" v-if="item.thumbnail" v-show="enablePreview">
+                <img :src="item.thumbnail" />
             </div>
-            <div class="icon" v-show="(item.mime.type !== 'image' || !enablePreview)" :style="`color: ${item.visual.color};`">{{ item.visual.icon }}</div>
+            <div class="icon" :class="{'is-folder': item.mime.type == 'folder' }" v-show="!item.thumbnail || !enablePreview" :style="`color: ${item.visual.color};`">{{ item.visual.icon }}</div>
         </div>
 
         <div class="title-area" :title="item.path.filename">{{ item.path.filename }}</div>
@@ -21,24 +21,22 @@
             <button @click.stop>more_vert</button>
             <template #popper>
                 <div class="dropdown">
-                    <!-- <template v-if="item.mime.type !== 'folder'">
-                        <mui-button class="dropdown-button" variant="text" label="Details" icon-left="visibility" @click="$emit('open', item)"/>
+                    <template v-if="item.mime.type !== 'folder'">
                         <mui-button class="dropdown-button" variant="text" label="In neuem Tab öffnen" icon-left="open_in_new" as="a" target="_blank" :href="item.path.url"/>
-                    </template> -->
+                        <div class="divider"></div>
+                    </template>
                     
-                    <mui-button class="dropdown-button" variant="text" label="Pfad kopieren" icon-left="language" @click="copyToClipboard(item.path.url)"/>
-                    <mui-button class="dropdown-button" variant="text" label="ID kopieren" icon-left="beenhere" @click="copyToClipboard(item.id)"/>
-
-                    <div class="divider"></div>
-                    
+                    <mui-button class="dropdown-button" variant="text" label="Pfad kopieren" icon-left="link" @click="copyToClipboard(item.path.url)"/>
+                    <mui-button class="dropdown-button" variant="text" label="Media ID kopieren" icon-left="beenhere" @click="copyToClipboard(item.id)"/>
                     <template v-if="item.mime.type !== 'folder'">
                         <mui-button class="dropdown-button" variant="text" label="Herunterladen" icon-left="download" as="a" target="_blank" :href="item.path.url" download v-close-popper/>
                     </template>
-                    <mui-button class="dropdown-button" variant="text" label="Umbenennen" icon-left="edit" @click="$emit('rename', item)" v-close-popper/>
-                    <mui-button class="dropdown-button" variant="text" label="Berechtigungen" icon-left="key" @click="$emit('permissions', item)" v-close-popper/>
-
+                    
                     <div class="divider"></div>
 
+                    <mui-button class="dropdown-button" variant="text" label="Thumbnail generieren" icon-left="image" @click="$emit('thumbnail', item)" v-close-popper/>
+                    <mui-button class="dropdown-button" variant="text" label="Bearbeiten" icon-left="edit_note" @click="$emit('edit', item)" v-close-popper/>
+                    <mui-button class="dropdown-button" variant="text" label="Umbenennen" icon-left="edit" @click="$emit('rename', item)" v-close-popper/>
                     <mui-button class="dropdown-button" variant="text" color="error" label="Löschen" icon-left="delete" @click="$emit('delete', item)" v-close-popper/>
                 </div>
             </template>
@@ -148,6 +146,7 @@
                     position: absolute
                     top: 0
                     left: 0
+
             .icon
                 font-family: var(--font-icon)
                 font-size: 1.25rem
@@ -161,6 +160,14 @@
                 border-radius: var(--radius-s)
                 clip-path: polygon(0 0, calc(100% - .5rem) 0, 100% .5rem, 100% 100%, 0 100%)
                 overflow: hidden
+
+                &.is-folder
+                    aspect-ratio: 14/11
+                    width: auto
+                    height: 35px
+                    clip-path: polygon(0 0, calc(50% - .25rem) 0, 50% .25rem, calc(100% - .25rem) .25rem, 100% .5rem, 100% 100%, 0 100%)
+                    border-radius: .25rem
+                    padding-top: .25rem
 
                 &::after
                     content: ''

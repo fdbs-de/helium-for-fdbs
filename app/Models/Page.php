@@ -61,4 +61,12 @@ class Page extends Model
         return $slug;
     }
     // END: Actions
+
+
+
+    // START: Resolve
+    public function resolve()
+    {
+        return $this->content;
+    }
 }

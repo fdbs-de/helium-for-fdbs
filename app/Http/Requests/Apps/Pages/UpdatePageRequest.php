@@ -23,12 +23,13 @@ class UpdatePageRequest extends FormRequest
      */
     public function rules()
     {
+        // dd($this->content);
         return [
             'title' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:pages,slug,' . $this->id,
             'status' => 'required|string|in:draft,published,hidden',
             'priority' => 'nullable|float|min:0|max:1',
-            'content' => 'nullable|json',
+            'content' => 'nullable|array',
         ];
     }
 }

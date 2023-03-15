@@ -24,6 +24,7 @@ export default class Element
         // Basic data
         this.elementId = null
         this.elementType = null
+        this.elementClassName = 'element'
         this.wrapper = wrapper
         this.name = options?.name || ''
 
@@ -196,5 +197,41 @@ export default class Element
         this.editorMeta.expanded = !this.editorMeta.expanded
 
         return this
+    }
+
+
+
+    hydrate (data)
+    {
+        // Basic data
+        this.elementType = data.elementType
+        this.wrapper = data.wrapper
+        this.name = data.name
+
+        // Render data
+        this.id = data.id
+        this.classes = data.classes
+        this.inner = data.inner.map(element => new Element().hydrate(element))
+        this.innerContent = data.innerContent
+        this.styles = data.styles
+        this.attributes = data.attributes
+
+        return this
+    }
+
+    serialize ()
+    {
+        return {
+            elementClassName: this.elementClassName,
+            elementType: this.elementType,
+            wrapper: this.wrapper,
+            name: this.name,
+            id: this.id,
+            classes: this.classes,
+            inner: this.inner.map(element => element.serialize()),
+            innerContent: this.innerContent,
+            styles: this.styles,
+            attributes: this.attributes,
+        }
     }
 }

@@ -39,13 +39,19 @@
 
             <div class="flex preview-wrapper">
                 <template v-if="selected">
-                    <img v-if="selected.mime.type === 'image'" :src="selected.path.url" :alt="selected.meta.alt" class="content-image">
+                    <img v-if="selected.thumbnail" :src="selected.thumbnail" :alt="selected.meta.alt" class="content-image">
                     <b class="detail font-heading">{{ selected.path.filename }}</b>
                     <div class="detail table">
-                        <span>Alt:</span>
-                        <b>{{ selected.meta.alt || 'Nicht eingetragen' }}</b>
                         <span>Titel:</span>
                         <b>{{ selected.meta.title || 'Nicht eingetragen' }}</b>
+                        <span>Beschreibung:</span>
+                        <b>{{ selected.meta.description || 'Nicht eingetragen' }}</b>
+                        <span>Alt:</span>
+                        <b>{{ selected.meta.alt || 'Nicht eingetragen' }}</b>
+                        <span>Type:</span>
+                        <b>{{ selected.mime.string }}</b>
+                        <span>Endung:</span>
+                        <b>{{ selected.path.extension }}</b>
                     </div>
                     <div class="spacer"></div>
                     <div class="detail flex vertical padding-1">
@@ -312,12 +318,12 @@
         width: 100%
 
     .picker-popup
-        --max-width: 1000px
+        --max-width: 1200px
 
     .picker-layout
         display: grid
-        grid-template-columns: auto 300px
-        grid-template-rows: 4rem auto 2rem
+        grid-template-columns: auto 350px
+        grid-template-rows: 4rem auto 3rem
         grid-template-areas: "breadcrumbs preview" "list preview" "footer preview"
 
     .breadcrumbs-wrapper
@@ -330,7 +336,7 @@
 
     .list-wrapper
         grid-area: list
-        height: 30rem
+        height: 35rem
         overflow-y: scroll
         border-top: 1px solid var(--color-border)
         border-bottom: 1px solid var(--color-border)
@@ -350,6 +356,7 @@
         .content-image
             width: 100%
             aspect-ratio: 1.5
+            max-height: 250px
             background-image: url('/images/app/image_transparency.svg')
             background-position: center
             background-size: 10px
@@ -362,10 +369,14 @@
             grid-template-columns: auto 1fr
             grid-template-rows: auto
             gap: 0 .5rem
+            font-size: .8rem
 
     .footer-wrapper
         grid-area: footer
         padding: 0 1rem
+        display: flex
+        align-items: center
+        user-select: none
 
     .list-layout
         border-radius: 0 !important

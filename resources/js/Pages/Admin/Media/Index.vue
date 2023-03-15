@@ -13,7 +13,7 @@
                     <template #popper>
                         <div class="flex padding-1 vertical">
                             <mui-toggle type="switch" label="Bildvorschau" v-model="isPreview" />
-                            <!-- <mui-toggle type="switch" off-value="grid" label="Listenansicht" value="list" v-model="layout" /> -->
+                            <mui-toggle type="switch" off-value="grid" label="Listenansicht" value="list" v-model="layout" />
                         </div>
                     </template>
                 </VDropdown>
