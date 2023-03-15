@@ -1,5 +1,9 @@
 <template>
-    <Head :title="`${editor.tab ? editor.tab.title : 'Neu'} – ${editor.title}`" />
+    <Head>
+        <link rel="icon" href="/images/app/branding/favicon.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="/images/app/branding/favicon.ico" type="image/x-icon">
+        <title>{{editor.tab ? editor.tab.title : 'Neu'}} – {{editor.title}}</title>
+    </Head>
 
     <div class="main-layout">
         <div class="tab-layout">
@@ -23,7 +27,7 @@
             <div class="spacer"></div>
 
             <IconButton class="small" :icon="isFullscreen ? 'fullscreen_exit' : 'fullscreen'" v-tooltip="'Vollbild (Strg+Shift+Alt+F)'" @click="toggleFullscreen()"/>
-            <!-- <IconButton class="small" icon="more_vert" /> -->
+            <IconButton class="small" icon="more_vert" @click="$refs.picker.open()"/>
         </div>
 
 
@@ -74,12 +78,9 @@
                     </div>
                 </div>
                 <div class="end">
-                    <IconButton icon="settings" v-tooltip.bottom="'Seiten Einstellungen'"/>
-                    <IconButton icon="data_object" v-tooltip.bottom="'Stylesheets'"/>
-                    <IconButton icon="upload" v-tooltip.bottom="'Medien Manager'" @click="$refs.picker.open()"/>
-                    <IconButton icon="visibility" v-tooltip.bottom="'Vorschau'"/>
                     <div class="spacer"></div>
                     <mui-button class="with-label" variant="contained" label="Speichern" v-tooltip.bottom="'Speichern (Strg+S)'" :loading="editor.tab.processing.saving" @click="save()"/>
+                    <IconButton icon="visibility" v-tooltip.bottom="'Vorschau'"/>
                 </div>
             </div>
 
@@ -154,7 +155,7 @@
 
 
             <div class="inspector small-scrollbar">
-                <div class="input-group">
+                <div class="input-group" style="padding-block: 0;">
                     <Tabs v-model="editor.tab.inspector.panel" :tabs="[
                         { label: 'Design', value: 'design' },
                         { label: 'Styles', value: 'styles' },
@@ -164,11 +165,11 @@
 
                 <template v-if="editor.tab.inspector.panel === 'design'">
                     <div class="input-group horizontal slim">
-                        <div class="spacer"></div>
-                        <IconButton icon="content_copy" />
+                        <IconButton icon="content_copy" v-tooltip="'Duplizieren'"/>
                         <IconButton icon="disabled_visible" />
-                        <IconButton icon="more_vert" />
                         <IconButton class="error" icon="delete" @click="editor.tab.removeElements(editor.tab.selected.elements)"/>
+                        <div class="spacer"></div>
+                        <IconButton icon="more_vert" />
                     </div>
     
                     <div class="input-group">
@@ -298,17 +299,8 @@
     import { Inertia } from '@inertiajs/inertia'
     import PageEditor from '@/Classes/Apps/Pages/PageEditor.js'
     import PageTab from '@/Classes/Apps/Pages/PageTab.js'
-    import {
-        LayoutElement,
-        TextElement,
-        LinkElement,
-        ImageElement,
-        VideoElement,
-        IFrameElement,
-        ButtonElement,
-        CodeElement,
-        SlotElement
-    } from '@/Classes/Apps/Pages/Elements/BaseElements.js'
+    import LayoutElement from '@/Classes/Apps/Pages/Elements/LayoutElement.js'
+    import ElementManager from '@/Classes/Apps/Pages/Elements/ElementManager.js'
 
     import IconButton from '@/Components/Apps/Pages/IconButton.vue'
     import NavigatorElement from '@/Components/Apps/Pages/NavigatorElement.vue'
@@ -352,7 +344,7 @@
 
 
     // START: Keyboard Shortcuts
-    hotkeys('ctrl+s', (event, handler) => { event.preventDefault(); console.log('SAVE') })
+    hotkeys('ctrl+s', (event, handler) => { event.preventDefault(); save() })
     hotkeys('ctrl+shift+s', (event, handler) => { event.preventDefault(); console.log('SAVE AS') })
     hotkeys('ctrl+alt+n', (event, handler) => { event.preventDefault(); editor.value.openBlankTab() })
     hotkeys('ctrl+alt+w', (event, handler) => { event.preventDefault(); editor.value.closeTab(editor.value.tab.id) })
@@ -423,21 +415,9 @@
 
     // START: Methods
     const addElement = (name) => {
-        let element = null
+        let element = new ElementManager().newElement(name, [{name}])
 
-        switch (name)
-        {
-            case 'layout': element = new LayoutElement({name: 'Layout'}); break
-            case 'text': element = new TextElement({name: 'Text'}); break
-            case 'link': element = new LinkElement({name: 'Link'}); break
-            case 'image': element = new ImageElement({name: 'Image'}); break
-            case 'video': element = new VideoElement({name: 'Video'}); break
-            case 'iframe': element = new IFrameElement({name: 'IFrame'}); break
-            case 'button': element = new ButtonElement({name: 'Button'}); break
-            case 'code': element = new CodeElement({name: 'Code'}); break
-            case 'slot': element = new SlotElement({name: 'Content Slot'}); break
-            default: return null;
-        }
+        if (!element) return false
 
         editor.value.tab.addElement(element, true)
         editor.value.tab.ui.newElementPanel = false
@@ -501,6 +481,16 @@
     html
         background: var(--color-background-soft)
         overflow: hidden
+
+    body
+        font-family: var(--font-interface)
+        background: var(--color-background-soft)
+
+        --color-primary: #3742fa !important
+        --color-primary-soft: #4c5bfa !important
+
+        --mui-primary: #3742fa !important
+        --primary: #3742fa !important
 
         #app
             height: 100%
@@ -614,7 +604,6 @@
             > .title
                 flex: 1
                 font-size: .9rem
-                letter-spacing: .05rem
                 white-space: nowrap
                 overflow: hidden
                 text-overflow: ellipsis

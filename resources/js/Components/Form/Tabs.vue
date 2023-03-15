@@ -1,5 +1,5 @@
 <template>
-    <div class="tabs-wrapper">
+    <div class="tabs-wrapper tab-component">
         <button
             type="button"
             class="tab"
@@ -36,9 +36,10 @@
     })
 
     const updateIndicator = () => {
-        const activeTab = document.querySelector('.tab.active')
+        const activeTab = document.querySelector('.tabs-wrapper.tab-component .tab.active')
 
         if (!activeTab) return
+
         const { width } = activeTab.getBoundingClientRect()
 
         // get left offset relative to parent
@@ -52,7 +53,7 @@
         }
 
         indicator.value.style.transform = `translateX(${left}px)`
-        indicator.value.style.width = `${width}px`
+        indicator.value.style.width = `${width-2}px`
     }
 </script>
 

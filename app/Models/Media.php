@@ -262,6 +262,8 @@ class Media extends Model
         $uuid = Str::uuid();
         $path = 'thumbnails/'.$uuid.'.png';
 
+        ini_set("memory_limit", "512M");
+
         // Get the image
         $image = \Intervention\Image\Facades\Image::make(Storage::path($this->path));
 

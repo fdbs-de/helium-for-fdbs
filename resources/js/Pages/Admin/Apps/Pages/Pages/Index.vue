@@ -4,7 +4,7 @@
     <AdminLayout :title="IPM.options.pageTitle" :loading="IPM.processing">
         <div class="flex v-center margin-bottom-2">
             <div class="spacer"></div>
-            <mui-button as="a" size="large" icon-right="open_in_new" label="Editor" :href="route('admin.pages.pages.editor')" target="_blank"/>
+            <mui-button as="a" label="Editor Öffnen" :href="route('admin.pages.pages.editor')" target="_blank"/>
         </div>
         <Table
             :columns="tableColumns"

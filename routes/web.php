@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Media\MediaController;
 use App\Http\Controllers\Apps\Blog\BlogController;
 use App\Http\Controllers\Apps\Jobs\JobController;
 use App\Http\Controllers\Apps\Pages\ContactController;
+use App\Http\Controllers\Apps\Pages\PageController;
 use App\Http\Controllers\Apps\Pages\StaticController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +19,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+require __DIR__ . '/web/auth.php';
+require __DIR__ . '/web/dashboard.php';
+require __DIR__ . '/web/admin.php';
 
 // Forms App
 Route::post('/forms/{form}', [FormController::class, 'submit'])->name('forms.form.submit');
@@ -93,10 +98,10 @@ Route::get('/agbs', [StaticController::class, 'indexAGBS'])->name('agbs');
 Route::get('/video-info', [StaticController::class, 'indexVideoInfo'])->name('video-info');
 
 // Warning for IE users
-Route::view('/ie', 'ie')->name('ie');
+/*
+I disabled this for now... didn't work anyway
+*/
+// Route::view('/ie', 'ie')->name('ie');
 
-
-
-require __DIR__.'/web/auth.php';
-require __DIR__.'/web/dashboard.php';
-require __DIR__.'/web/admin.php';
+// Pages Wildcard
+Route::get('/{page}', [PageController::class, 'show'])->where('page', '.*');

@@ -1,6 +1,7 @@
 import { randomInt } from '@/Utils/Number'
 import Tab from '@/Classes/Editor/Tab'
 import Inspector from '@/Classes/Apps/Pages/PageInspector'
+import ElementManager from '@/Classes/Apps/Pages/Elements/ElementManager'
 
 
 
@@ -229,7 +230,13 @@ export default class PageTab extends Tab
         this.meta = {}
         this.injectedData = []
 
-        this.elements = []
+        this.elements = data.content.map(element => {
+            let elementClass = new ElementManager().newElement(element.elementClassName)
+
+            if (!elementClass) return
+
+            return elementClass.hydrate(element)
+        })
 
         return this
     }
@@ -242,6 +249,7 @@ export default class PageTab extends Tab
             slug: this.slug,
             status: this.status,
             version: this.version,
+            content: this.elements.map(element => element.serialize()),
         }
     }
 }
