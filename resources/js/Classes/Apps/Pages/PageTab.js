@@ -44,7 +44,9 @@ export default class PageTab extends Tab
         }
 
         // Add event listeners
-        this.inspector.addEventListener('change', (event) => this.dispatchEvent('inspector:change', event))
+        this.inspector.addEventListener('change', (event) => {
+            this.applyInspectorChanges(event)
+        })
 
         return this
     }
@@ -91,9 +93,15 @@ export default class PageTab extends Tab
         return this.selected.elements.map(id => this.flatElementList[id]).filter(e => e)
     }
 
+    onSelectionChange()
+    {
+        this.inspector.update(this.selectedElements)
+    }
+
     setElementSelection (element)
     {
         this.selected.elements = [element.elementId]
+        this.onSelectionChange()
     }
 
     addElementSelection (element)
@@ -101,6 +109,7 @@ export default class PageTab extends Tab
         if (this.selected.elements.includes(element.elementId)) return
 
         this.selected.elements.push(element.elementId)
+        this.onSelectionChange()
     }
 
     toggleElementSelection (element)
@@ -113,6 +122,8 @@ export default class PageTab extends Tab
         {
             this.selected.elements.push(element.elementId)
         }
+
+        this.onSelectionChange()
     }
 
     rootElementSelection ()
@@ -164,11 +175,13 @@ export default class PageTab extends Tab
     cleanElementSelection ()
     {
         this.selected.elements = this.selected.elements.filter(e => this.flatElementList[e])
+        this.onSelectionChange()
     }
 
     clearElementSelection ()
     {
         this.selected.elements = []
+        this.onSelectionChange()
     }
 
 
@@ -218,6 +231,18 @@ export default class PageTab extends Tab
         this.cleanElementSelection()
 
         return this
+    }
+
+
+
+    applyInspectorChanges (event)
+    {
+        let elements = this.selectedElements
+
+        for (const element of elements)
+        {
+            element.applyChanges(event)
+        }
     }
 
 

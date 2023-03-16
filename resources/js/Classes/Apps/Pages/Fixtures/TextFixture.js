@@ -12,6 +12,9 @@ export default class TextFixture extends Fixture
         this.type = 'text'
         this._value = ''
 
+        this.availabilityHandler = null
+        this.valueHandler = null
+
         return this
     }
 
@@ -26,6 +29,30 @@ export default class TextFixture extends Fixture
     {
         this._value = value
         this.throttledOnChange()
+    }
+
+
+
+    setAvailabilityHandler(availabilityHandler)
+    {
+        this.availabilityHandler = availabilityHandler
+
+        return this
+    }
+
+    setValueHandler(valueHandler)
+    {
+        this.valueHandler = valueHandler
+
+        return this
+    }
+
+    update(items)
+    {
+        if (this.availabilityHandler) this.available = this.availabilityHandler(items)
+        if (this.valueHandler) this._value = this.valueHandler(items)
+
+        return this
     }
 
 

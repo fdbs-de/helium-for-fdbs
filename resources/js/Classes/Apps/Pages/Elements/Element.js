@@ -1,4 +1,5 @@
 import { randomInt } from '@/Utils/Number'
+import ElementManager from '@/Classes/Apps/Pages/Elements/ElementManager'
 
 
 
@@ -45,7 +46,7 @@ export default class Element
             src: '',
             alt: '',
             href: '',
-            target: '',
+            target: '_blank',
         }
 
         // Options
@@ -165,8 +166,10 @@ export default class Element
         if (values.hasOwnProperty('classes') && this.canOption('canChangeClasses')) this.classes = values.classes
         if (values.hasOwnProperty('wrapper') && this.canOption('canChangeWrapper')) this.wrapper = values.wrapper
         if (values.hasOwnProperty('innerContent') && this.canOption('canChangeContent')) this.innerContent = values.innerContent
-        if (values.hasOwnProperty('src') && this.canOption('canChangeSrc')) this.attributes.src = values.attr.src
-        if (values.hasOwnProperty('alt') && this.canOption('canChangeAlt')) this.attributes.alt = values.attr.alt
+        if (values?.attr?.hasOwnProperty('src') && this.canOption('canChangeSrc')) this.attributes.src = values.attr.src
+        if (values?.attr?.hasOwnProperty('alt') && this.canOption('canChangeAlt')) this.attributes.alt = values.attr.alt
+        if (values?.attr?.hasOwnProperty('href') && this.canOption('canChangeHref')) this.attributes.href = values.attr.href
+        if (values?.attr?.hasOwnProperty('target') && this.canOption('canChangeTarget')) this.attributes.target = values.attr.target
     }
 
 
@@ -211,10 +214,17 @@ export default class Element
         // Render data
         this.id = data.id
         this.classes = data.classes
-        this.inner = data.inner.map(element => new Element().hydrate(element))
         this.innerContent = data.innerContent
         this.styles = data.styles
         this.attributes = data.attributes
+
+        this.inner = data.inner.map(element => {
+            let elementClass = new ElementManager().newElement(element.elementClassName)
+
+            if (!elementClass) return
+
+            return elementClass.hydrate(element)
+        })
 
         return this
     }

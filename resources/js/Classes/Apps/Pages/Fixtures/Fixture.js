@@ -11,9 +11,16 @@ export default class Fixture extends EventListener
 
         this.label = ''
         this.type = null
-        this.available = true
+        this.available = false
         this._value = null
 
+        return this
+    }
+
+
+
+    update()
+    {
         return this
     }
 
