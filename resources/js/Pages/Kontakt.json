@@ -4,12 +4,10 @@
         "name": "Assistents",
         "employees": [
             {
-                "name": "Jana Schildhauer",
-                "job": "Assistenz des Vorstands / QM / Ausbildungsleitung",
+                "name": "Maja Krisch",
+                "job": "HR-Managerin",
                 "leader": true,
-                "tel": "44",
-                "image": "/images/content/mitarbeiter/jana_schildhauer.png",
-                "overlay": "/images/content/mitarbeiter/jana_schildhauer_zeichnung.png"
+                "image": null
             }
         ]
     },
@@ -19,7 +17,7 @@
         "employees": [
             {
                 "name": "Robert Heiduk",
-                "job": "Leitung Buchhaltung / Personal",
+                "job": "kfm. Leitung / Leitung Buchhaltung / Personal",
                 "leader": true,
                 "tel": "37",
                 "image": "/images/content/mitarbeiter/robert_heiduk.png",
