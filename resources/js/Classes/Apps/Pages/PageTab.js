@@ -19,11 +19,13 @@ export default class PageTab extends Tab
         
         // Form specific data
         this.id = null
+        this.pageType = 'builder-vue'
         this.title = 'Untitled'
         this.slug = ''
         this.status = 'draft'
         this.version = null
         this.elements = []
+        this.content = ''
         this.meta = {}
         this.injectedData = []
 
@@ -44,7 +46,9 @@ export default class PageTab extends Tab
         }
 
         // Add event listeners
-        this.inspector.addEventListener('change', (event) => this.dispatchEvent('inspector:change', event))
+        this.inspector.addEventListener('change', (event) => {
+            this.applyInspectorChanges(event)
+        })
 
         return this
     }
@@ -91,9 +95,15 @@ export default class PageTab extends Tab
         return this.selected.elements.map(id => this.flatElementList[id]).filter(e => e)
     }
 
+    onSelectionChange()
+    {
+        this.inspector.update(this.selectedElements)
+    }
+
     setElementSelection (element)
     {
         this.selected.elements = [element.elementId]
+        this.onSelectionChange()
     }
 
     addElementSelection (element)
@@ -101,6 +111,7 @@ export default class PageTab extends Tab
         if (this.selected.elements.includes(element.elementId)) return
 
         this.selected.elements.push(element.elementId)
+        this.onSelectionChange()
     }
 
     toggleElementSelection (element)
@@ -113,6 +124,8 @@ export default class PageTab extends Tab
         {
             this.selected.elements.push(element.elementId)
         }
+
+        this.onSelectionChange()
     }
 
     rootElementSelection ()
@@ -164,11 +177,13 @@ export default class PageTab extends Tab
     cleanElementSelection ()
     {
         this.selected.elements = this.selected.elements.filter(e => this.flatElementList[e])
+        this.onSelectionChange()
     }
 
     clearElementSelection ()
     {
         this.selected.elements = []
+        this.onSelectionChange()
     }
 
 
@@ -222,34 +237,63 @@ export default class PageTab extends Tab
 
 
 
+    applyInspectorChanges (event)
+    {
+        let elements = this.selectedElements
+
+        for (const element of elements)
+        {
+            element.applyChanges(event)
+        }
+    }
+
+
+
     hydrate(data) {
         this.id = data.id
+        this.pageType = data.type
         this.title = data.title
         this.slug = data.slug
         this.status = data.status
         this.meta = {}
         this.injectedData = []
 
-        this.elements = data.content.map(element => {
-            let elementClass = new ElementManager().newElement(element.elementClassName)
+        if (['builder-vue', 'builder-php'].includes(this.pageType))
+        {
+            this.elements = data.content.map(element => {
+                let elementClass = new ElementManager().newElement(element.elementClassName)
+    
+                if (!elementClass) return
+    
+                return elementClass.hydrate(element)
+            })
+        }
 
-            if (!elementClass) return
-
-            return elementClass.hydrate(element)
-        })
+        if (['php'].includes(this.pageType))
+        {
+            this.content = data.content
+        }
 
         return this
     }
 
     serialize()
     {
+        let content = this.content
+
+        if (['builder-vue', 'builder-php'].includes(this.pageType))
+        {
+            content = this.elements.map(element => element.serialize())
+        }
+        
         return {
             id: this.id,
+            type: this.pageType,
             title: this.title,
             slug: this.slug,
             status: this.status,
             version: this.version,
-            content: this.elements.map(element => element.serialize()),
+            content,
         }
     }
 }

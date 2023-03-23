@@ -32,12 +32,17 @@
 
 
     <Popup title="Neue Seite erstellen" ref="storePopup">
-        <form @submit.prevent="IPM.store(storeForm.data())">
+        <form class="flex vertical gap-1 padding-1" @submit.prevent="IPM.store(storeForm.data())">
             <mui-input v-model="storeForm.title" label="Titel" />
             <mui-input v-model="storeForm.slug" label="Slug" />
-            <div class="confirm-popup-footer">
-                <mui-button type="button" variant="contained" label="Abbrechen" @click="$refs.storePopup.close()" />
-                <mui-button type="submit" variant="filled" label="Neu Erstellen" />
+            <select v-model="storeForm.type">
+                <option value="php">PHP (statisch)</option>
+                <option value="builder-php">Page-Builder (statisch)</option>
+                <option value="builder-vue">Page-Builder (dynamisch)</option>
+            </select>
+            <div class="flex gap-1">
+                <mui-button class="flex-1" type="button" variant="contained" label="Abbrechen" @click="$refs.storePopup.close()" />
+                <mui-button class="flex-1" type="submit" variant="filled" label="Neu Erstellen" />
             </div>
         </form>
     </Popup>
@@ -77,6 +82,7 @@
     const tableColumns = [
         {type: 'text', name: 'title', label: 'Titel', valuePath: 'title', sortable: true, width: 300, resizeable: true, hideable: true},
         {type: 'text', name: 'slug', label: 'Slug', valuePath: 'slug', sortable: true, width: 200, resizeable: true, hideable: true},
+        {type: 'text', name: 'type', label: 'Typ', valuePath: 'type', sortable: false, width: 200, resizeable: true, hideable: true},
         {type: 'text', name: 'language', label: 'Sprache', valuePath: 'language', sortable: true, width: 100, resizeable: true, hideable: true},
         {type: 'date', name: 'created_at', label: 'Erstellt am', valuePath: 'created_at', sortable: true, width: 200, resizeable: true, hideable: true},
         {type: 'date', name: 'updated_at', label: 'Geändert am', valuePath: 'updated_at', sortable: true, width: 200, resizeable: true, hideable: true},
@@ -135,6 +141,7 @@
     const storeForm = useForm({
         title: '',
         slug: '',
+        type: 'php',
     })
 
     const openStorePopup = () => {

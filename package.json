@@ -52,6 +52,8 @@
         "focus-trap-vue": "^3.3.0",
         "hotkeys-js": "^3.10.1",
         "marketier-ui": "^2.0.2",
+        "monaco-editor": "^0.36.1",
+        "monaco-editor-webpack-plugin": "^7.0.1",
         "pinia": "^2.0.29",
         "vue-i18n": "^9.1.10",
         "zxcvbn": "^4.4.2"

@@ -158,26 +158,26 @@
                 <div class="input-group" style="padding-block: 0;">
                     <Tabs v-model="editor.tab.inspector.panel" :tabs="[
                         { label: 'Design', value: 'design' },
-                        { label: 'Styles', value: 'styles' },
+                        // { label: 'Styles', value: 'styles' },
                         { label: 'Page', value: 'page' },
                     ]" />
                 </div>
 
                 <template v-if="editor.tab.inspector.panel === 'design'">
                     <div class="input-group horizontal slim">
-                        <IconButton icon="content_copy" v-tooltip="'Duplizieren'"/>
-                        <IconButton icon="disabled_visible" />
+                        <!-- <IconButton icon="content_copy" v-tooltip="'Duplizieren'"/> -->
+                        <!-- <IconButton icon="disabled_visible" /> -->
                         <IconButton class="error" icon="delete" @click="editor.tab.removeElements(editor.tab.selected.elements)"/>
                         <div class="spacer"></div>
-                        <IconButton icon="more_vert" />
+                        <!-- <IconButton icon="more_vert" /> -->
                     </div>
     
                     <div class="input-group">
                         <mui-input class="default-text-input" :placeholder="editor.tab.inspector.fixtures.name.label" v-model="editor.tab.inspector.fixtures.name.value"/>
                     </div>
     
-                    <div class="input-group">
-                        <div class="flex">
+                    <div class="input-group" v-show="editor.tab.inspector.fixtures.style_layout.available">
+                        <div class="flex gap-0-5">
                             <IconButton icon="east"
                                 :class="{'active': editor.tab.inspector.fixtures.style_layout.flexDirection == 'row'}"
                                 @click="editor.tab.inspector.fixtures.style_layout.flexDirection = 'row'"
@@ -192,8 +192,8 @@
                                 @click="editor.tab.inspector.fixtures.style_layout.flexWrap = editor.tab.inspector.fixtures.style_layout.flexWrap == 'wrap' ? 'nowrap' : 'wrap'"
                                 />
                         </div>
-                        <div class="flex gap-1 v-center">
-                            <div class="flex-1 flex vertical gap-1">
+                        <div class="flex gap-0-5 v-center">
+                            <div class="flex-1 flex vertical gap-0-5">
                                 <mui-input class="default-text-input w-100" icon-left="horizontal_distribute" placeholder="Vertical" v-model="editor.tab.inspector.fixtures.style_layout.xGap"/>
                                 <mui-input class="default-text-input w-100" icon-left="vertical_distribute" placeholder="Horizontal" v-model="editor.tab.inspector.fixtures.style_layout.yGap"/>
                             </div>
@@ -252,7 +252,7 @@
                     </div>
                     
                     <div class="input-group">
-                        <select class="default-select" v-model="editor.tab.inspector.fixtures.wrapper.value">
+                        <select class="default-select" v-show="editor.tab.inspector.fixtures.wrapper.available" v-model="editor.tab.inspector.fixtures.wrapper.value">
                             <option :value="null" disabled>Wrapper Tag</option>
                             <option v-for="option in editor.tab.inspector.fixtures.wrapper.options" :value="option">{{ option }}</option>
                         </select>
@@ -262,14 +262,16 @@
                     </div>
     
                     <div class="input-group">
-                        <mui-input class="default-text-input" placeholder="URL" v-model="editor.tab.inspector.fixtures.attr_href.value"/>
-                        <select class="default-select" v-model="editor.tab.inspector.fixtures.attr_target.value">
+                        <mui-input class="default-text-input" placeholder="URL" v-show="editor.tab.inspector.fixtures.attr_href.available" v-model="editor.tab.inspector.fixtures.attr_href.value"/>
+                        
+                        <select class="default-select" v-show="editor.tab.inspector.fixtures.attr_target.available" v-model="editor.tab.inspector.fixtures.attr_target.value">
                             <option :value="null" disabled>Target</option>
                             <option v-for="option in editor.tab.inspector.fixtures.attr_target.options" :value="option">{{ option }}</option>
                         </select>
     
-                        <mui-input class="default-text-input" placeholder="Source" v-model="editor.tab.inspector.fixtures.attr_src.value"/>
-                        <mui-input class="default-text-input" placeholder="Alt Text" v-model="editor.tab.inspector.fixtures.attr_alt.value"/>
+                        <mui-input class="default-text-input" placeholder="Source" v-show="editor.tab.inspector.fixtures.attr_src.available" v-model="editor.tab.inspector.fixtures.attr_src.value"/>
+                        
+                        <mui-input class="default-text-input" placeholder="Alt Text" v-show="editor.tab.inspector.fixtures.attr_alt.available" v-model="editor.tab.inspector.fixtures.attr_alt.value"/>
                     </div>
                 </template>
 
@@ -299,7 +301,6 @@
     import { Inertia } from '@inertiajs/inertia'
     import PageEditor from '@/Classes/Apps/Pages/PageEditor.js'
     import PageTab from '@/Classes/Apps/Pages/PageTab.js'
-    import LayoutElement from '@/Classes/Apps/Pages/Elements/LayoutElement.js'
     import ElementManager from '@/Classes/Apps/Pages/Elements/ElementManager.js'
 
     import IconButton from '@/Components/Apps/Pages/IconButton.vue'
@@ -322,13 +323,6 @@
         .setTitle('Seiten Editor')
         .setOption('openNewOnLastClose', true)
     )
-    
-    editor.value.addEventListener('tab:inspector:change', (event) => {
-        for (const element of editor.value.tab.selectedElements)
-        {
-            element.applyChanges(event)
-        }
-    })
 
 
 
@@ -345,7 +339,7 @@
 
     // START: Keyboard Shortcuts
     hotkeys('ctrl+s', (event, handler) => { event.preventDefault(); save() })
-    hotkeys('ctrl+shift+s', (event, handler) => { event.preventDefault(); console.log('SAVE AS') })
+    // hotkeys('ctrl+shift+s', (event, handler) => { event.preventDefault(); console.log('SAVE AS') })
     hotkeys('ctrl+alt+n', (event, handler) => { event.preventDefault(); editor.value.openBlankTab() })
     hotkeys('ctrl+alt+w', (event, handler) => { event.preventDefault(); editor.value.closeTab(editor.value.tab.id) })
     hotkeys('ctrl+alt+right', (event, handler) => { event.preventDefault(); editor.value.selectNextTab() })
@@ -804,10 +798,10 @@
             overflow-y: auto
 
             .input-group
-                padding: 1rem
+                padding: 1rem .5rem
                 display: flex
                 flex-direction: column
-                gap: 1rem
+                gap: .5rem
                 border-bottom: 1px solid var(--color-border)
 
                 &.horizontal
@@ -841,8 +835,8 @@
 
 
                 .align-matrix
-                    height: 6rem
-                    width: 6rem
+                    height: 5.5rem
+                    width: 5.5rem
                     display: grid
                     grid-template-columns: 1fr 1fr 1fr
                     grid-template-rows: 1fr 1fr 1fr

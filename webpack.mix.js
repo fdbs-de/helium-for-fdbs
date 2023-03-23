@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 /*
  |--------------------------------------------------------------------------
@@ -17,6 +18,9 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/css/app.sass', 'public/css')
     .alias({
         '@': 'resources/js',
+    })
+    .webpackConfig({
+        plugins: [new MonacoWebpackPlugin()]
     });
 
 if (mix.inProduction()) {
