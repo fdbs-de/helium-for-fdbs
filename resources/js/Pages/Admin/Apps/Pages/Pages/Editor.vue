@@ -86,7 +86,7 @@
 
 
 
-            <div class="navigator" v-show="editor.tab.ui.newElementPanel">
+            <!-- <div class="navigator" v-show="editor.tab.ui.newElementPanel">
                 <div class="grid">
                     <button class="item-button" @click="addElement('layout')">
                         <div class="icon">align_horizontal_left</div>
@@ -144,12 +144,16 @@
                     @select:set="editor.tab.setElementSelection($event)"
                     @select:toggle="editor.tab.toggleElementSelection($event)"
                 />
-            </div>
+            </div> -->
 
 
 
-            <div class="viewport-wrapper">
+            <!-- <div class="viewport-wrapper">
                 <iframe class="viewport" :style="`max-width: ${editor.breakpoint.width}px;`"></iframe>
+            </div> -->
+
+            <div class="code-editor-wrapper">
+                <CodeEditor class="code-editor" language="php" theme="vs" v-model="editor.tab.content" />
             </div>
 
 
@@ -157,7 +161,7 @@
             <div class="inspector small-scrollbar">
                 <div class="input-group" style="padding-block: 0;">
                     <Tabs v-model="editor.tab.inspector.panel" :tabs="[
-                        { label: 'Design', value: 'design' },
+                        // { label: 'Design', value: 'design' },
                         // { label: 'Styles', value: 'styles' },
                         { label: 'Page', value: 'page' },
                     ]" />
@@ -308,6 +312,7 @@
     import Picker from '@/Components/Form/MediaLibrary/Picker.vue'
     import Tabs from '@/Components/Form/Tabs.vue'
     import TextEditor from '@/Components/Form/TextEditor.vue'
+    import CodeEditor from '@/Components/Form/CodeEditor.vue'
     import Popup from '@/Components/Form/Popup.vue'
 
 
@@ -687,9 +692,10 @@
         flex: 1
         height: calc(100% - 2.25rem)
         display: grid
-        grid-template-columns: 22rem 1fr 22rem
-        grid-template-rows: 4rem 1fr
-        grid-template-areas: "tool-bar tool-bar tool-bar" "navigator viewport inspector"
+        // grid-template-columns: 22rem 1fr 22rem
+        grid-template-columns: 0rem 1fr 22rem
+        grid-template-rows: 4rem auto 1fr
+        grid-template-areas: "tool-bar tool-bar tool-bar" "navigator viewport inspector" "navigator code-editor inspector"
 
         .tool-bar
             grid-area: tool-bar
@@ -784,10 +790,19 @@
 
             iframe.viewport
                 width: 100%
-                min-height: 20rem
+                min-height: 15rem
                 background: white
                 border: 0
                 box-shadow: var(--shadow-elevation-low)
+
+        .code-editor-wrapper
+            grid-area: code-editor
+            display: flex
+            background: blue
+
+            .code-editor
+                flex: 1
+                height: 100%
 
         .inspector
             grid-area: inspector

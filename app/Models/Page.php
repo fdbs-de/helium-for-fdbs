@@ -68,6 +68,53 @@ class Page extends Model
     // START: Resolve
     public function resolve()
     {
+        if ($this->type === 'php')
+        {
+            return $this->resolvePhp();
+        }
+
         return $this->content;
+    }
+
+    public function resolvePhp()
+    {
+        $content = $this->content;
+
+        $content = preg_replace_callback('/<component_(\w+)(.*?)>(.*?)<\/component_\w+>/s', function($matches) {
+            $id = $matches[1];
+            $props = $matches[2];
+            $inner = $matches[3];
+
+            $props = $this->parseAttributes($props);
+            $component = PageComponent::where('id', $id)->first();
+
+            if (!$component) return '';
+
+            return $component->resolve(['default' => $inner], $props);
+        }, $content);
+
+        return $content;
+    }
+
+    public function parseAttributes($attributes)
+    {
+        $attributes = trim($attributes);
+        $attributes = str_replace('=', '="', $attributes);
+        $attributes = str_replace(' ', '" ', $attributes);
+        $attributes = str_replace('" ', '"', $attributes);
+        $attributes = str_replace('"', '" ', $attributes);
+        $attributes = trim($attributes);
+
+        $attributes = explode(' ', $attributes);
+
+        if (count($attributes) === 1 && $attributes[0] === '') return [];
+
+        $attributes = collect($attributes)->mapWithKeys(function($item) {
+            $item = explode('=', $item);
+
+            return [$item[0] => $item[1]];
+        });
+
+        return $attributes;
     }
 }

@@ -29,7 +29,7 @@ class UpdatePageRequest extends FormRequest
             'slug' => 'required|string|max:255|unique:pages,slug,' . $this->id,
             'status' => 'required|string|in:draft,published,hidden',
             'priority' => 'nullable|float|min:0|max:1',
-            'content' => 'nullable|array',
+            'content' => 'nullable',
         ];
     }
 }

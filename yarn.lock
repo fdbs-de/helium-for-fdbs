@@ -920,6 +920,25 @@
   "resolved" "https://registry.npmjs.org/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz"
   "version" "0.5.7"
 
+"@emmetio/abbreviation@^2.2.3":
+  "integrity" "sha512-87pltuCPt99aL+y9xS6GPZ+Wmmyhll2WXH73gG/xpGcQ84DRnptBsI2r0BeIQ0EB/SQTOe2ANPqFqj3Rj5FOGA=="
+  "resolved" "https://registry.npmjs.org/@emmetio/abbreviation/-/abbreviation-2.2.3.tgz"
+  "version" "2.2.3"
+  dependencies:
+    "@emmetio/scanner" "^1.0.0"
+
+"@emmetio/css-abbreviation@^2.1.4":
+  "integrity" "sha512-qk9L60Y+uRtM5CPbB0y+QNl/1XKE09mSO+AhhSauIfr2YOx/ta3NJw2d8RtCFxgzHeRqFRr8jgyzThbu+MZ4Uw=="
+  "resolved" "https://registry.npmjs.org/@emmetio/css-abbreviation/-/css-abbreviation-2.1.4.tgz"
+  "version" "2.1.4"
+  dependencies:
+    "@emmetio/scanner" "^1.0.0"
+
+"@emmetio/scanner@^1.0.0":
+  "integrity" "sha512-8HqW8EVqjnCmWXVpqAOZf+EGESdkR27odcMMMGefgKXtar00SoYNSryGv//TELI4T3QFsECo78p+0lmalk/CFA=="
+  "resolved" "https://registry.npmjs.org/@emmetio/scanner/-/scanner-1.0.0.tgz"
+  "version" "1.0.0"
+
 "@floating-ui/core@^0.3.0":
   "integrity" "sha512-ensKY7Ub59u16qsVIFEo2hwTCqZ/r9oZZFh51ivcLGHfUwTn8l1Xzng8RJUe91H/UP8PeqeBronAGx0qmzwk2g=="
   "resolved" "https://registry.npmjs.org/@floating-ui/core/-/core-0.3.1.tgz"
@@ -2944,6 +2963,21 @@
     "minimalistic-assert" "^1.0.1"
     "minimalistic-crypto-utils" "^1.0.1"
 
+"emmet-monaco-es@^5.2.1":
+  "integrity" "sha512-ZJJ+4Maue7tnkP/WOZ8HwbyQrMhA1IQr9d8iUVyHusOVUohwtYABqhJFGD7WKfzpxp1BfzIYC1zt905FjYY0Ng=="
+  "resolved" "https://registry.npmjs.org/emmet-monaco-es/-/emmet-monaco-es-5.2.1.tgz"
+  "version" "5.2.1"
+  dependencies:
+    "emmet" "^2.3.6"
+
+"emmet@^2.3.6":
+  "integrity" "sha512-pLS4PBPDdxuUAmw7Me7+TcHbykTsBKN/S9XJbUOMFQrNv9MoshzyMFK/R57JBm94/6HSL4vHnDeEmxlC82NQ4A=="
+  "resolved" "https://registry.npmjs.org/emmet/-/emmet-2.3.6.tgz"
+  "version" "2.3.6"
+  dependencies:
+    "@emmetio/abbreviation" "^2.2.3"
+    "@emmetio/css-abbreviation" "^2.1.4"
+
 "emoji-regex@^8.0.0":
   "integrity" "sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A=="
   "resolved" "https://registry.npmjs.org/emoji-regex/-/emoji-regex-8.0.0.tgz"
@@ -4118,7 +4152,7 @@
   dependencies:
     "loader-utils" "^2.0.2"
 
-"monaco-editor@^0.36.1", "monaco-editor@>= 0.31.0":
+"monaco-editor@^0.36.1", "monaco-editor@>= 0.31.0", "monaco-editor@>=0.22.0":
   "integrity" "sha512-/CaclMHKQ3A6rnzBzOADfwdSJ25BFoFT0Emxsc4zYVyav5SkK9iA6lEtIeuN/oRYbwPgviJT+t3l+sjFa28jYg=="
   "resolved" "https://registry.npmjs.org/monaco-editor/-/monaco-editor-0.36.1.tgz"
   "version" "0.36.1"

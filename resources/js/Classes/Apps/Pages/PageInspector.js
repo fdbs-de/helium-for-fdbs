@@ -13,7 +13,7 @@ export default class Inspector extends EventListener
     {
         super()
 
-        this.panel = 'design'
+        this.panel = 'page'
         this.fixtures = {
             // General
             'name': new TextFixture('Name')
