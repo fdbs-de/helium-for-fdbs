@@ -4,6 +4,7 @@
 
 <script setup>
     import { onMounted, onBeforeUnmount, watch, defineEmits } from 'vue'
+    import { emmetHTML, emmetCSS, emmetJSX, expandAbbreviation } from 'emmet-monaco-es'
     import * as monaco from 'monaco-editor'
 
 
@@ -25,6 +26,7 @@
     })
 
     let editor = null
+    let emmetHTMLDispose = null
 
 
 
@@ -39,6 +41,8 @@
             },
         })
 
+        emmetHTMLDispose = emmetHTML(monaco, ['html', 'php'])
+
         editor.onDidChangeModelContent((event) => {
             emits('update:modelValue', editor.getValue())
         })
@@ -46,6 +50,7 @@
 
     onBeforeUnmount(() => {
         editor.dispose()
+        emmetHTMLDispose()
     })
 
 

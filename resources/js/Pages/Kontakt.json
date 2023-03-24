@@ -5,8 +5,9 @@
         "employees": [
             {
                 "name": "Maja Krisch",
-                "job": "HR-Managerin",
+                "job": "HR-Management",
                 "leader": true,
+                "tel": "60",
                 "image": null
             }
         ]
@@ -17,7 +18,7 @@
         "employees": [
             {
                 "name": "Robert Heiduk",
-                "job": "kfm. Leitung / Leitung Buchhaltung / Personal",
+                "job": "kfm. Leitung, Buchhaltung & Personal",
                 "leader": true,
                 "tel": "37",
                 "image": "/images/content/mitarbeiter/robert_heiduk.png",
@@ -55,7 +56,7 @@
         "employees": [
             {
                 "name": "Christian Hornig",
-                "job": "Leitung Einkauf / Warendisposition",
+                "job": "Leitung Einkauf & Warendisposition",
                 "leader": true,
                 "tel": "17",
                 "image": "/images/content/mitarbeiter/christian_hornig.png",
@@ -63,7 +64,7 @@
             },
             {
                 "name": "Marius Hilger",
-                "job": "Einkauf / Warendisposition",
+                "job": "Einkauf & Warendisposition",
                 "leader": false,
                 "tel": "46",
                 "image": "/images/content/mitarbeiter/marius_hilger.png",
@@ -71,14 +72,14 @@
             },
             {
                 "name": "Maik Kirsch",
-                "job": "Einkauf / Warendisposition",
+                "job": "Einkauf & Warendisposition",
                 "leader": false,
                 "tel": "68",
                 "image": null
             },
             {
                 "name": "Tobias Klenke",
-                "job": "Einkauf / Warendisposition",
+                "job": "Einkauf & Warendisposition",
                 "leader": false,
                 "tel": "21",
                 "image": "/images/content/mitarbeiter/tobias_klenke.png",
@@ -86,7 +87,7 @@
             },
             {
                 "name": "Nino Storch",
-                "job": "Einkauf / Warendisposition",
+                "job": "Einkauf & Warendisposition",
                 "leader": false,
                 "tel": "48",
                 "image": "/images/content/mitarbeiter/nino_storch.png",
@@ -94,7 +95,7 @@
             },
             {
                 "name": "Hendrik Tewes",
-                "job": "Einkauf / Warendisposition",
+                "job": "Einkauf & Warendisposition",
                 "leader": false,
                 "tel": "90",
                 "image": null
@@ -115,14 +116,14 @@
             },
             {
                 "name": "Florian Keye",
-                "job": "Assistenz der Vertriebsleitung",
+                "job": "Assistenz Vertriebsleitung",
                 "leader": false,
                 "tel": "25",
                 "image": null
             },
             {
                 "name": "Niklas Figge",
-                "job": "Fachberatung Gastronomie & Gemeinschaftsverpflegung",
+                "job": "Fachberatung",
                 "leader": false,
                 "tel": "80",
                 "image": "/images/content/mitarbeiter/niklas_figge.png",
@@ -374,7 +375,7 @@
             },
             {
                 "name": "Sabine Barnert",
-                "job": "Vetriebsinnendienst der Werkstatt",
+                "job": "Vetriebsinnendienst Werkstatt",
                 "leader": false,
                 "tel": "76",
                 "image": "/images/content/mitarbeiter/sabine_barnert.png",
@@ -396,7 +397,7 @@
         "employees": [
             {
                 "name": "Meik Binkowski",
-                "job": "Leitung Fuhrpark / Controlling",
+                "job": "Leitung Fuhrpark & Controlling",
                 "leader": true,
                 "tel": "33",
                 "image": "/images/content/mitarbeiter/meik_binkowski.png",
