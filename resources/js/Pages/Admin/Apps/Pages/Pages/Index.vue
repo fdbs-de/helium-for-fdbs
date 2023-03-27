@@ -35,11 +35,12 @@
         <form class="flex vertical gap-1 padding-1" @submit.prevent="IPM.store(storeForm.data())">
             <mui-input v-model="storeForm.title" label="Titel" />
             <mui-input v-model="storeForm.slug" label="Slug" />
-            <select v-model="storeForm.type">
+            <select v-model="storeForm.renderer">
                 <option value="php">PHP (statisch)</option>
                 <option value="builder-php">Page-Builder (statisch)</option>
                 <option value="builder-vue">Page-Builder (dynamisch)</option>
             </select>
+            <mui-toggle v-model="storeForm.is_component" label="Komponent" />
             <div class="flex gap-1">
                 <mui-button class="flex-1" type="button" variant="contained" label="Abbrechen" @click="$refs.storePopup.close()" />
                 <mui-button class="flex-1" type="submit" variant="filled" label="Neu Erstellen" />
@@ -82,7 +83,7 @@
     const tableColumns = [
         {type: 'text', name: 'title', label: 'Titel', valuePath: 'title', sortable: true, width: 300, resizeable: true, hideable: true},
         {type: 'text', name: 'slug', label: 'Slug', valuePath: 'slug', sortable: true, width: 200, resizeable: true, hideable: true},
-        {type: 'text', name: 'type', label: 'Typ', valuePath: 'type', sortable: false, width: 200, resizeable: true, hideable: true},
+        {type: 'text', name: 'renderer', label: 'Renderer', valuePath: 'renderer', sortable: false, width: 200, resizeable: true, hideable: true},
         {type: 'text', name: 'language', label: 'Sprache', valuePath: 'language', sortable: true, width: 100, resizeable: true, hideable: true},
         {type: 'date', name: 'created_at', label: 'Erstellt am', valuePath: 'created_at', sortable: true, width: 200, resizeable: true, hideable: true},
         {type: 'date', name: 'updated_at', label: 'Geändert am', valuePath: 'updated_at', sortable: true, width: 200, resizeable: true, hideable: true},
@@ -141,7 +142,8 @@
     const storeForm = useForm({
         title: '',
         slug: '',
-        type: 'php',
+        renderer: 'php',
+        is_component: false,
     })
 
     const openStorePopup = () => {
@@ -151,4 +153,5 @@
 </script>
 
 <style lang="sass" scoped>
+
 </style>

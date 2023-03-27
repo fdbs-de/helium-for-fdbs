@@ -20,17 +20,17 @@ class PageController extends Controller
             'content' => $page->resolve(),
         ];
 
-        if ($page->type == 'php')
+        if ($page->renderer == 'php')
         {
             return view('apps.pages.render-php', $data);
         }
 
-        if ($page->type == 'builder-php')
+        if ($page->renderer == 'builder-php')
         {
             return view('apps.pages.render-builder', $data);
         }
 
-        if ($page->type == 'builder-vue')
+        if ($page->renderer == 'builder-vue')
         {
             return Inertia::render('Apps/Pages/RenderBuilder', $data);
         }

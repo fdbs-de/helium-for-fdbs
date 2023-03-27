@@ -19,7 +19,7 @@ export default class PageTab extends Tab
         
         // Form specific data
         this.id = null
-        this.pageType = 'builder-vue'
+        this.renderer = 'builder-vue'
         this.title = 'Untitled'
         this.slug = ''
         this.status = 'draft'
@@ -27,7 +27,7 @@ export default class PageTab extends Tab
         this.elements = []
         this.content = ''
         this.meta = {}
-        this.injectedData = []
+        this.props = []
 
         // Set up inspector
         this.inspector = new Inspector()
@@ -251,14 +251,14 @@ export default class PageTab extends Tab
 
     hydrate(data) {
         this.id = data.id
-        this.pageType = data.type
+        this.renderer = data.renderer
         this.title = data.title
         this.slug = data.slug
         this.status = data.status
         this.meta = {}
-        this.injectedData = []
+        this.props = []
 
-        if (['builder-vue', 'builder-php'].includes(this.pageType))
+        if (['builder-vue', 'builder-php'].includes(this.renderer))
         {
             this.elements = data.content.map(element => {
                 let elementClass = new ElementManager().newElement(element.elementClassName)
@@ -269,7 +269,7 @@ export default class PageTab extends Tab
             })
         }
 
-        if (['php'].includes(this.pageType))
+        if (['php'].includes(this.renderer))
         {
             this.content = data.content
         }
@@ -281,14 +281,14 @@ export default class PageTab extends Tab
     {
         let content = this.content
 
-        if (['builder-vue', 'builder-php'].includes(this.pageType))
+        if (['builder-vue', 'builder-php'].includes(this.renderer))
         {
             content = this.elements.map(element => element.serialize())
         }
         
         return {
             id: this.id,
-            type: this.pageType,
+            renderer: this.renderer,
             title: this.title,
             slug: this.slug,
             status: this.status,

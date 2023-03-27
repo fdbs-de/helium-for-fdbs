@@ -26,7 +26,8 @@ class CreatePageRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:pages,slug',
-            'type' => 'required|string|in:php,builder-php,builder-vue',
+            'renderer' => 'required|string|in:php,builder-php,builder-vue',
+            'is_component' => 'required|boolean',
         ];
     }
 }
