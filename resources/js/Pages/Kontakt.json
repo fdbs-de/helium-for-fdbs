@@ -444,7 +444,8 @@
                 "job": "Leitung Lager",
                 "leader": true,
                 "tel": "57",
-                "image": null
+                "image": "/images/content/mitarbeiter/thomas_kutsche.png",
+                "overlay": "/images/content/mitarbeiter/thomas_kutsche_zeichnung.png"
             },
             {
                 "name": "Tobias Weniger",

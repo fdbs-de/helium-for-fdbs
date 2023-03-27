@@ -10,26 +10,29 @@ class Page extends Model
     use HasFactory;
 
     protected $fillable = [
-        'type',
+        'renderer',
         'title',
         'slug',
         'content',
         'status',
         'meta',
-        'injected_data',
+        'props',
         'language',
         'priority',
+        'is_component',
     ];
 
     protected $casts = [
         'content' => 'array',
         'meta' => 'array',
-        'injected_data' => 'array',
+        'props' => 'array',
+        'is_component' => 'boolean',
     ];
 
     protected $attributes = [
         'language' => '*',
         'priority' => 0.5,
+        'is_component' => false,
     ];
 
 
@@ -68,7 +71,7 @@ class Page extends Model
     // START: Resolve
     public function resolve()
     {
-        if ($this->type === 'php')
+        if ($this->renderer === 'php')
         {
             return $this->resolvePhp();
         }
@@ -86,7 +89,7 @@ class Page extends Model
             $inner = $matches[3];
 
             $props = $this->parseAttributes($props);
-            $component = PageComponent::where('id', $id)->first();
+            $component = Page::where('is_component', true)->where('id', $id)->first();
 
             if (!$component) return '';
 
