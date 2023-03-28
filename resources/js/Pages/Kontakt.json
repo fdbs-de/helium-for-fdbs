@@ -452,7 +452,8 @@
                 "job": "Leitung Lager",
                 "leader": true,
                 "tel": "56",
-                "image": null
+                "image": "/images/content/mitarbeiter/tobias_weniger.png",
+                "overlay": "/images/content/mitarbeiter/tobias_weniger_zeichnung.png"
             }
         ]
     }
