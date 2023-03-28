@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Classes\Parsing\Regex;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -69,54 +70,84 @@ class Page extends Model
 
 
     // START: Resolve
-    public function resolve()
+    public function resolve($slots = [], $props = [])
     {
         if ($this->renderer === 'php')
         {
-            return $this->resolvePhp();
+            return $this->resolvePhp($slots, $props);
         }
 
         return $this->content;
     }
 
-    public function resolvePhp()
+    public function resolvePhp($slots, $props)
     {
         $content = $this->content;
 
-        $content = preg_replace_callback('/<component_(\w+)(.*?)>(.*?)<\/component_\w+>/s', function($matches) {
-            $id = $matches[1];
-            $props = $matches[2];
-            $inner = $matches[3];
+        // Replace all slots
+        $content = preg_replace_callback(Regex::SLOT, function($matches) use ($slots) {
+            $slot = $matches[1];
 
-            $props = $this->parseAttributes($props);
-            $component = Page::where('is_component', true)->where('id', $id)->first();
+            if (isset($slots[$slot])) return $slots[$slot];
 
-            if (!$component) return '';
+            if ($slot === 'slot') return $slots['default'];
 
-            return $component->resolve(['default' => $inner], $props);
+            return '';
         }, $content);
+
+
+
+        // Replace all props
+        $content = preg_replace_callback(Regex::PROP, function($matches) use ($props) {
+            $prop = $matches[1];
+
+            if (isset($props[$prop])) return $props[$prop];
+
+            return '';
+        }, $content);
+
+
+
+        // Replace all components
+        $content = preg_replace_callback(Regex::COMPONENT, [$this, 'replaceComponentTags'], $content);
 
         return $content;
     }
 
-    public function parseAttributes($attributes)
+    public function replaceComponentTags($matches)
     {
-        $attributes = trim($attributes);
-        $attributes = str_replace('=', '="', $attributes);
-        $attributes = str_replace(' ', '" ', $attributes);
-        $attributes = str_replace('" ', '"', $attributes);
-        $attributes = str_replace('"', '" ', $attributes);
-        $attributes = trim($attributes);
+        $slug = $matches[1];
+        $attributes = $this->parseAttributes($matches[2]);
+        $innerContent = $matches[3];
 
-        $attributes = explode(' ', $attributes);
+        $component = Page::where('slug', $slug)->where('is_component', true)->first();
 
-        if (count($attributes) === 1 && $attributes[0] === '') return [];
+        if (!$component) return '';
 
-        $attributes = collect($attributes)->mapWithKeys(function($item) {
-            $item = explode('=', $item);
+        $componentSlots = [
+            'default' => preg_replace_callback(Regex::COMPONENT, [$this, 'replaceComponentTags'], $innerContent),
+        ];
 
-            return [$item[0] => $item[1]];
-        });
+        $componentProps = $attributes;
+
+        return $component->resolvePhp($componentSlots, $componentProps);
+    }
+
+    public function parseAttributes($htmlAttributes)
+    {
+        $attributes = array();
+
+        // Split the attribute string into an array of individual attribute strings
+        $attributeStrings = preg_split('/\s+/', $htmlAttributes, -1, PREG_SPLIT_NO_EMPTY);
+
+        // Loop through each attribute string and extract the name and value
+        foreach ($attributeStrings as $attributeString) {
+            if (preg_match('/^([^=]+)="([^"]+)"$/', $attributeString, $matches)) {
+                $name = $matches[1];
+                $value = $matches[2];
+                $attributes[$name] = $value;
+            }
+        }
 
         return $attributes;
     }
