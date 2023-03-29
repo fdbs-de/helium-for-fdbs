@@ -49,9 +49,7 @@ class HandleInertiaRequests extends Middleware
                 'user' => $user ?? null,
             ],
 
-            'page' => [
-                'settings' => Setting::getGlobal(true, 'frontend'),
-            ],
+            'settings' => Setting::getGlobal(true, 'frontend'),
 
             'ziggy' => function () {
                 return (new Ziggy)->toArray();

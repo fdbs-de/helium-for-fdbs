@@ -139,7 +139,7 @@
 
 
     const globalSettings = computed(() => {
-        return usePage().props.value.page?.settings
+        return usePage().props.value.settings ?? {}
     })
 
     const user = computed(() =>{
