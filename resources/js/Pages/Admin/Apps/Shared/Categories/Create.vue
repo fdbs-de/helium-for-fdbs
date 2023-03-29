@@ -198,21 +198,6 @@
 
         &.active
             color: var(--color-primary)
-
-    input[type="color"]
-        height: 2rem
-        width: 3.5rem
-        border: none
-        padding: 0
-        margin: 0
-        -webkit-appearance: none
-
-        &::-webkit-color-swatch-wrapper
-            padding: 0
-
-        &::-webkit-color-swatch
-            border-radius: var(--radius-s)
-            border: 1px solid white
         
     .content-input
         min-height: 25rem

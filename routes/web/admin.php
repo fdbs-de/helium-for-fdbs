@@ -22,20 +22,8 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
     Route::get('/search-users', [UserController::class, 'searchPublic'])->name('admin.search.users');
 
     Route::prefix('settings')->group(function () {
-        Route::middleware('can:system.view.settings')->group(function () {
-            Route::get('/general', [SettingsController::class, 'indexGeneral'])->name('admin.settings.general');
-            Route::get('/apps', [SettingsController::class, 'indexApps'])->name('admin.settings.apps');
-            Route::get('/design', [SettingsController::class, 'indexDesign'])->name('admin.settings.design');
-            Route::get('/media', [SettingsController::class, 'indexMedia'])->name('admin.settings.media');
-            Route::get('/legal', [SettingsController::class, 'indexLegal'])->name('admin.settings.legal');
-        });
-
-        Route::middleware('can:system.edit.settings')->group(function () {
-            Route::patch('/general', [SettingsController::class, 'updateGeneral'])->name('admin.settings.update.general');
-            Route::patch('/apps', [SettingsController::class, 'updateApps'])->name('admin.settings.update.apps');
-            Route::patch('/media', [SettingsController::class, 'updateMedia'])->name('admin.settings.update.media');
-            Route::patch('/legal', [SettingsController::class, 'updateLegal'])->name('admin.settings.update.legal');
-        });
+        Route::get('/{page}', [SettingsController::class, 'index'])->middleware('can:system.view.settings')->name('admin.settings.index');
+        Route::patch('/{page}', [SettingsController::class, 'update'])->middleware('can:system.edit.settings')->name('admin.settings.update');
     });
 
     Route::prefix('newsletter')->group(function () {
