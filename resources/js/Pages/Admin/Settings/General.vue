@@ -1,20 +1,15 @@
 <template>
-    <Head title="Allgemeine Einstellungen" />
-
     <AdminLayout title="Allgemeine Einstellungen">
         <div class="card flex vertical gap-1 padding-block-2">
-            <form class="limiter text-limiter flex vertical gap-1" @submit.prevent="updateSettings()">
-                <div class="popup-block popup-error" v-if="hasErrors">
-                    <h3><b>Fehler!</b></h3>
-                    <p v-for="(error, key) in errors" :key="key">{{ error }}</p>
-                </div>
+            <form class="limiter text-limiter flex vertical gap-1" @submit.prevent="update()">
+                <ValidationErrors />
 
-                <mui-input v-model="form.site.name" label="Seitenname" />
-                <mui-input v-model="form.site.slogan" label="Slogan" />
-                <mui-input v-model="form.site.domain" label="Domain" placeholder="example.com" />
-                <mui-input type="textarea" v-model="form.site.description" label="Seitenbeschreibung" />
+                <mui-input v-model="form.site_name" label="Seitenname" />
+                <mui-input v-model="form.site_slogan" label="Slogan" />
+                <mui-input v-model="form.site_domain" label="Domain" placeholder="example.com" />
+                <mui-input type="textarea" v-model="form.site_description" label="Seitenbeschreibung" />
 
-                <select v-model="form.site.language">
+                <select v-model="form.site_language">
                     <option value="de">Deutsch</option>
                     <option value="en">English</option>
                 </select>
@@ -26,59 +21,31 @@
 </template>
 
 <script setup>
-    import { Head, Link, useForm, usePage } from '@inertiajs/inertia-vue3'
-    import { ref, computed, watch } from 'vue'
+    import { useForm } from '@inertiajs/inertia-vue3'
 
     import AdminLayout from '@/Layouts/Admin.vue'
+    import ValidationErrors from '@/Components/ValidationErrors.vue'
+
+
 
     const props = defineProps({
         settings: Object,
+        page: String,
     })
 
 
 
     const form = useForm({
-        site: {
-            name: '',
-            slogan: '',
-            domain: '',
-            description: '',
-            language: 'de',
-        },
+        site_name: props.settings['site.name'] || '',
+        site_slogan: props.settings['site.slogan'] || '',
+        site_domain: props.settings['site.domain'] || '',
+        site_description: props.settings['site.description'] || '',
+        site_language: props.settings['site.language'] || 'de',
     })
 
-
-
-    const openItem = () => {
-        form.site.domain = props?.settings['site.domain'] || ''
-        form.site.name = props?.settings['site.name'] || ''
-        form.site.slogan = props?.settings['site.slogan'] || ''
-        form.site.description = props?.settings['site.description'] || ''
-        form.site.language = props?.settings['site.language'] || 'de'
+    const update = () => {
+        form.patch(route('admin.settings.update', props.page), { preserveScroll: true, })
     }
-
-    watch((props) => props?.settings, () => {
-        openItem(props?.settings)
-    },{
-        immediate: true,
-        deep: true
-    })
-
-    const updateSettings = () => {
-        form.patch(route('admin.settings.update.general'), {
-            onSuccess: (data) => {
-                // openItem(data?.props?.post)
-            },
-        })
-    }
-
-
-    
-    
-    // START: Error Handling
-    const errors = computed(() => usePage().props.value.errors)
-    const hasErrors = computed(() => Object.keys(errors.value).length > 0)
-    // END: Error Handling
 </script>
 
 <style lang="sass" scoped>

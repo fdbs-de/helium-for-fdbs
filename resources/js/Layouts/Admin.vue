@@ -11,7 +11,9 @@
                 <Link class="logo" :href="route('admin')">
                     <img src="/images/app/branding/cms_icon_white.svg" alt="Gastro CMS Logo">
                 </Link>
-                <a class="redirect-tag" :href="route('home')" target="_blank">FDBS</a>
+                <a class="redirect-tag" :href="`http://${globalSettings['site.domain']}`" target="_blank">
+                    {{ globalSettings['site.name'] }}
+                </a>
             </div>
 
             <div class="scroll-container">
@@ -116,7 +118,6 @@
 
     import Loader from '@/Components/Form/Loader.vue'
     import Icon from '@/Components/Icon.vue'
-    import Footer from '@/Components/Page/Footer.vue'
 
 
 
@@ -137,8 +138,12 @@
 
 
 
+    const globalSettings = computed(() => {
+        return usePage().props.value.page?.settings
+    })
+
     const user = computed(() =>{
-        return usePage().props.value.auth.user
+        return usePage().props.value.auth?.user
     })
 
     const isOpen = ref(false)
@@ -154,12 +159,12 @@
                 {label: 'Öffentliche Ablage', icon: 'home_storage', route: route('admin.media', ['public']), permission: ['system.view.media'], activeWhen: ['admin.media.public']},
                 {label: 'Private Ablage', icon: 'lock', route: route('admin.media', ['private']), permission: ['system.view.media'], activeWhen: ['admin.media.private']},
             ]},
-            {label: 'Einstellungen', color: 'var(--color-background)', icon: 'settings', route: route('admin.settings.general'), permission: ['system.view.settings'], activeWhen: ['admin.settings.general', 'admin.settings.apps', 'admin.settings.design', 'admin.settings.media', 'admin.settings.legal'], submenu: [
-                {label: 'Allgemein', icon: 'settings', route: route('admin.settings.general'), permission: [], activeWhen: ['admin.settings.general']},
-                {label: 'Design', icon: 'design_services', route: route('admin.settings.design'), permission: [], activeWhen: ['admin.settings.design']},
-                {label: 'Medien', icon: 'upload', route: route('admin.settings.media'), permission: [], activeWhen: ['admin.settings.media']},
-                {label: 'Rechtliches', icon: 'gavel', route: route('admin.settings.legal'), permission: [], activeWhen: ['admin.settings.legal']},
-                {label: 'Apps', icon: 'apps', route: route('admin.settings.apps'), permission: [], activeWhen: ['admin.settings.apps']},
+            {label: 'Einstellungen', color: 'var(--color-background)', icon: 'settings', route: route('admin.settings.index', 'general'), permission: ['system.view.settings'], activeWhen: ['admin.settings.index'], submenu: [
+                {label: 'Allgemein', icon: 'settings', route: route('admin.settings.index', 'general'), permission: [], activeWhen: ['admin.settings.index']},
+                {label: 'Design', icon: 'design_services', route: route('admin.settings.index', 'design'), permission: [], activeWhen: ['admin.settings.index']},
+                {label: 'Medien', icon: 'upload', route: route('admin.settings.index', 'media'), permission: [], activeWhen: ['admin.settings.index']},
+                {label: 'Rechtliches', icon: 'gavel', route: route('admin.settings.index', 'legal'), permission: [], activeWhen: ['admin.settings.index']},
+                {label: 'Apps', icon: 'apps', route: route('admin.settings.index', 'apps'), permission: [], activeWhen: ['admin.settings.index']},
             ]},
         ],
         [

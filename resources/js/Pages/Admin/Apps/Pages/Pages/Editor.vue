@@ -342,6 +342,10 @@
 
 
 
+    // START: Enable Hotkeys for all focusable elements
+    // hotkeys.filter = function (event) { return true }
+    // END: Enable Hotkeys for all focusable elements
+    
     // START: Keyboard Shortcuts
     hotkeys('ctrl+s', (event, handler) => { event.preventDefault(); save() })
     // hotkeys('ctrl+shift+s', (event, handler) => { event.preventDefault(); console.log('SAVE AS') })

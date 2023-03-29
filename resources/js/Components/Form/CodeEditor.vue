@@ -56,7 +56,7 @@
 
 
     watch(() => props.modelValue, (value) => {
-        if (editor.getValue() !== value) editor.setValue(value)
+        if (editor.getValue() !== value) editor.setValue(value ?? '')
     })
 
     watch(() => props.language, (value) => {
