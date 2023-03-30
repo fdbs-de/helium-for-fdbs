@@ -6,6 +6,59 @@
 
                 <div class="flex vertical gap-1 margin-bottom-3">
                     <div class="flex gap-1 v-center padding-bottom-1 border-bottom">
+                        <h2 class="margin-0 flex-1">Logos und Icons</h2>
+                    </div>
+                    <div class="flex gap-1 vertical padding-1 background-soft radius-m">
+                        <mui-input type="text" placeholder="Pfad zum Logo" clearable border v-model="form.design_logos_color">
+                            <template #right>
+                                <div class="input-group">
+                                    <IconButton icon="folder_open" class="input-button" @click="$refs.fontPicker.open((path) => { form.design_logos_color = path })"/>
+                                </div>
+                            </template>
+                        </mui-input>
+
+                        <mui-input type="text" placeholder="Pfad zum Favicon" clearable border v-model="form.design_favicon">
+                            <template #right>
+                                <div class="input-group">
+                                    <IconButton icon="folder_open" class="input-button" @click="$refs.fontPicker.open((path) => { form.design_favicon = path })"/>
+                                </div>
+                            </template>
+                        </mui-input>
+                    </div>
+                </div>
+
+
+
+                <div class="flex vertical gap-1 margin-bottom-3">
+                    <div class="flex gap-1 v-center padding-bottom-1 border-bottom">
+                        <h2 class="margin-0 flex-1">Farben</h2>
+                        <mui-button type="button" label="Farbe hinzufügen" @click="addColor()"/>
+                    </div>
+                    <div class="flex gap-1 vertical padding-1 background-soft radius-m" v-if="form.design_colors.length">
+                        <mui-input type="text" placeholder="Name" border v-model="color.name" v-for="(color, colorIndex) in form.design_colors">
+                            <template #right>
+                                <div class="input-group" style="padding: 0">
+                                    <mui-input type="text" label="Farbe" v-model="color.value">
+                                        <template #right>
+                                            <input type="color" v-model="color.value">
+                                        </template>
+                                    </mui-input>
+                                </div>
+                                <div class="input-group">
+                                    <IconButton icon="delete" class="input-button" style="color: var(--color-error);" @click="removeColor(colorIndex)"/>
+                                </div>
+                            </template>
+                        </mui-input>
+                    </div>
+                    <div class="flex h-center padding-1 padding-block-3" v-else>
+                        <span>Es wurden noch keine Farben hinzugefügt</span>
+                    </div>
+                </div>
+
+
+
+                <div class="flex vertical gap-1 margin-bottom-3">
+                    <div class="flex gap-1 v-center padding-bottom-1 border-bottom">
                         <h2 class="margin-0 flex-1">Schriften</h2>
                         <mui-button type="button" label="Schrift hinzufügen" @click="addFont()"/>
                     </div>
@@ -51,49 +104,6 @@
                 </div>
 
 
-                <div class="flex vertical gap-1 margin-bottom-3">
-                    <div class="flex gap-1 v-center padding-bottom-1 border-bottom">
-                        <h2 class="margin-0 flex-1">Farben</h2>
-                        <mui-button type="button" label="Farbe hinzufügen" @click="addColor()"/>
-                    </div>
-                    <div class="flex gap-1 vertical padding-1 background-soft radius-m" v-if="form.design_colors.length">
-                        <mui-input type="text" placeholder="Name" border v-model="color.name" v-for="(color, colorIndex) in form.design_colors">
-                            <template #right>
-                                <div class="input-group" style="padding: 0">
-                                    <mui-input type="text" label="Farbe" v-model="color.value">
-                                        <template #right>
-                                            <input type="color" v-model="color.value">
-                                        </template>
-                                    </mui-input>
-                                </div>
-                                <div class="input-group">
-                                    <IconButton icon="delete" class="input-button" style="color: var(--color-error);" @click="removeColor(colorIndex)"/>
-                                </div>
-                            </template>
-                        </mui-input>
-                    </div>
-                    <div class="flex h-center padding-1 padding-block-3" v-else>
-                        <span>Es wurden noch keine Farben hinzugefügt</span>
-                    </div>
-                </div>
-
-
-                <div class="flex vertical gap-1 margin-bottom-3">
-                    <div class="flex gap-1 v-center padding-bottom-1 border-bottom">
-                        <h2 class="margin-0 flex-1">Logos und Icons</h2>
-                    </div>
-                    <div class="flex gap-1 vertical padding-1 background-soft radius-m">
-                        <mui-input type="text" placeholder="Pfad zum Favicon" clearable border v-model="form.design_favicon">
-                            <template #right>
-                                <div class="input-group">
-                                    <IconButton icon="folder_open" class="input-button" @click="$refs.fontPicker.open((path) => { form.design_favicon = path })"/>
-                                </div>
-                            </template>
-                        </mui-input>
-                    </div>
-                </div>
-
-
             
                 <mui-button label="Einstellungen Speichern" size="large" :loading="form.processing"/>
             </form>
@@ -125,6 +135,12 @@
         design_fonts: props.settings['design.fonts'] ?? [],
         design_colors: props.settings['design.colors'] ?? [],
         design_favicon: props.settings['design.favicon'] ?? '',
+        design_logos_color: props.settings['design.logos.color'] ?? '',
+        design_logos_light: props.settings['design.logos.light'] ?? '',
+        design_logos_dark: props.settings['design.logos.dark'] ?? '',
+        design_icons_color: props.settings['design.icons.color'] ?? '',
+        design_icons_light: props.settings['design.icons.light'] ?? '',
+        design_icons_dark: props.settings['design.icons.dark'] ?? '',
     })
 
     const update = () => {

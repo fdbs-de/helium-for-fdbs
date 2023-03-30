@@ -22,35 +22,6 @@
             integriert. Zur Einhaltung der Richtlinien haben sie sich freiwillig verpflichtet. Zudem hat jeder Landwirt
             sein Fachwissen und die Sorgfalt im Umgang mit Land, Tier und Mensch nachgewiesen.
         </p>
-
-        <!-- <p>&nbsp;</p>
-
-        <h2>Unsere Eichenhof-Garantie:</h2>
-        <ul>
-            <li>vollständig geschlossene Erzeugung bei 500 bäuerlichen Familienbetrieben im Osnabrücker Land</li>
-            <li>alle Eichenhof-Landwirte haften als Mitglieder mit ihrem Kapital für die strenge Einhaltung der Erzeugungs-Richtlinien</li>
-            <li>schonender Umgang mit Tier und Natur</li>
-            <li>kein Einsatz von Wachstumsförderern, Antibiotika oder Tiermehlen</li>
-            <li>handwerkliche Schlachtung</li>
-            <li>jährliche TÜV-Prüfung der gesamten Erzeugungskette</li>
-            <li>beste Ergebnisse bei QS-Kontrollen</li>
-        </ul>
-
-        <p>&nbsp;</p>
-
-        <div class="order-wrapper">
-            Jetzt bestellen:
-            <h3>0531 210 55 23</h3>
-        </div>
-
-        <p>&nbsp;</p>
-        
-        <p>
-            Für weitere Informationen besuchen Sie bitte die Homepage
-            <a href="http://eichenhof.net" target="_blank" rel="noopener" title="Eichenhof Markenfleisch">www.eichenhof.net</a><br>
-            oder laden Sie sich hier unsere Informationsbroschüre herunter:<br><br>
-        </p>
-        <Card new-window aspect-ratio="16/9" name="Eichenhof Broschüre (Download)" image="/images/content/marken/eichenhof/eichenhof_imagebroschure.jpg" link="/downloads/marken/eichenhof/eichenhof_imagebroschure.pdf"/> -->
     </TextSubLayout>
 </template>
 

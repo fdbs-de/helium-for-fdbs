@@ -69,12 +69,15 @@
                 </div>
                 <div class="spacer"></div>
                 <div class="social-wrapper">
-                    <a href="https://g.page/r/CWfKbNs4inYXEAg/review" target="_blank">Bewerten Sie uns auf Google</a>
-                    <span>•</span>
+                    <!-- <a href="https://g.page/r/CWfKbNs4inYXEAg/review" target="_blank">Bewerten Sie uns auf Google</a> -->
+                    <!-- <span>•</span> -->
                     <a href="https://www.ebay-kleinanzeigen.de/pro/FDBS" target="_blank" rel="opener" title="Ebay">Ebay</a>
                     <span>•</span>
                     <a href="https://job38.de/arbeitgeber/fdbs-69115" target="_blank" rel="opener" title="job38">job38</a>
                     <span>•</span>
+                    <a href="https://g.page/r/CWfKbNs4inYXEAg/review" target="_blank" rel="opener" title="Bewerten Sie uns auf Google">
+                        <img src="/images/assets/social-icons/icon_google.svg" alt="Bewerten Sie uns auf Google">
+                    </a>
                     <a href="https://www.linkedin.com/company/fdbsfoodservice" target="_blank" rel="opener" title="LinkedIn">
                         <img src="/images/assets/social-icons/icon_linkedin.svg" alt="LinkedIn">
                     </a>

@@ -80,6 +80,8 @@ class Page extends Model
         return $this->content;
     }
 
+
+
     public function resolvePhp($slots, $props)
     {
         $content = $this->content;
@@ -96,6 +98,9 @@ class Page extends Model
         }, $content);
 
 
+
+        // Merge global settings with props
+        $props = array_merge($this->getGlobalProps(), $props);
 
         // Replace all props
         $content = preg_replace_callback(Regex::PROP, function($matches) use ($props) {
@@ -114,24 +119,29 @@ class Page extends Model
         return $content;
     }
 
+
+
     public function replaceComponentTags($matches)
     {
-        $slug = $matches[1];
-        $attributes = $this->parseAttributes($matches[2]);
-        $innerContent = $matches[3];
-
-        $component = Page::where('slug', $slug)->where('is_component', true)->first();
-
+        // Get component by slug
+        $component = Page::where('slug', ($matches[1] ?? ''))->where('is_component', true)->where('status', 'published')->first();
+        
+        // Return condition: component not found
         if (!$component) return '';
+        
+        // Get props
+        $props = $this->parseAttributes(($matches[2] ?? ''));
 
-        $componentSlots = [
-            'default' => preg_replace_callback(Regex::COMPONENT, [$this, 'replaceComponentTags'], $innerContent),
+        // Generate slots from inner content
+        $slots = [
+            'default' => preg_replace_callback(Regex::COMPONENT, [$this, 'replaceComponentTags'], ($matches[3] ?? '')),
         ];
 
-        $componentProps = $attributes;
-
-        return $component->resolvePhp($componentSlots, $componentProps);
+        // Return resolved component
+        return $component->resolvePhp($slots, $props);
     }
+
+
 
     public function parseAttributes($htmlAttributes)
     {
@@ -151,4 +161,32 @@ class Page extends Model
 
         return $attributes;
     }
+
+
+
+    public function getGlobalProps()
+    {
+        // Get global settings
+        $settings = Setting::getGlobal(true, 'props')->toArray();
+        // Get date time props
+        $date = $this->getDateTimeProps();
+        // Merge global settings with date time props and return
+        return array_merge($settings, $date);
+    }
+
+
+
+    public function getDateTimeProps()
+    {
+        $date = now();
+
+        return [
+            'date.date' => $date->format('Y-m-d'),
+            'date.day' => $date->format('d'),
+            'date.month' => $date->format('m'),
+            'date.year' => $date->format('Y'),
+            'date.time' => $date->format('H:i:s'),
+        ];
+    }
+    // END: Resolve
 }
