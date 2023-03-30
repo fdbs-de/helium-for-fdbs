@@ -9,18 +9,25 @@
             <img src="/images/content/marken/eichenhof/eichenhof_logo.png" alt="Eichenhof Markenfleisch">
         </div>
 
-        <h2 style="margin-bottom: 0;">Qualität, Sicherheit, Vertrauen.</h2>
-        <p style="margin-top: 0"><b>Denn bei uns kommt alles aus einer starken Gemeinschaft.</b></p>
+        <h2 style="margin-bottom: 0;">Eichenhof – wir leben regional</h2>
 
         <p>&nbsp;</p>
 
         <p>
-            <strong>Keine schwarzen Schafe, nur gesunde Schweine.</strong><br>
-            Eichenhof ist das Markenfleisch der Erzeugergemeinschaft Osnabrück (EGO), das von
-            den Eichenhof-Landwirten erzeugt wird. Die rund 500 bäuerlichen Familienbetriebe aus dem Osnabrücker Land
-            sind Mitglieder der EGO – oftmals schon seit Jahrzehnten – und in die geschlossene Erzeugungskette
-            integriert. Zur Einhaltung der Richtlinien haben sie sich freiwillig verpflichtet. Zudem hat jeder Landwirt
-            sein Fachwissen und die Sorgfalt im Umgang mit Land, Tier und Mensch nachgewiesen.
+            Der Slogan verkörpert zu 100% das, was wir sind: Regional und fest verwurzelt.
+            Und genau das, wollen wir auf jeder Ebene unseres Tuns und Handels dem Kunden vermitteln. Unsere Leidenschaft schmeckt man und das ist unser Ziel.
+        </p>
+        <p>
+            Das Eichenhof Qualitätsprogramm steht für die Erzeugung von Schweine- und Rindfleisch unter Beachtung besonderer Kriterien hinsichtlich der Haltungs- und Standortbedingungen.
+        </p>
+        <p>
+            Wir haben jahrelange Erfahrung in den Bereichen Tierhaltung, Schlachtung und Produktion. Neben der Qualität steht das Tierwohl ganz weit oben. Wir bieten deutsches Schweine- und Rindfleisch in höchster Qualität mit regionalem Bezug an. Das Wohl der Tiere liegt uns sehr am Herzen, daher sind kurze Transportwege um den Standort unerlässlich.
+        </p>
+        <p>
+            Wir arbeiten eng mit Landwirten zusammen, pflegen unsere familiären Strukturen und stehen für flache Hierarchien. Kurze Wege ermöglichen schnelle Entscheidungen und immer wiederkehrende Abläufe und sorgen so für die Einhaltung unserer hohen Produktionsstandards. Diese sind für eine hohe Qualität und ein professionelles Auftreten unabdingbar.  Trotz der hohen Ansprüche an unsere Produkte zählt bei uns noch der Handschlag und das offene Wort.
+        </p>
+        <p>
+            <b>Wir sind bodenständig, authentisch und verkaufen nicht nur Fleisch, sondern ein  Stück Verbundenheit!</b>
         </p>
     </TextSubLayout>
 </template>
