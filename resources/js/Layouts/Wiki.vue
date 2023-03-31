@@ -1,4 +1,10 @@
 <template>
+    <Head>
+        <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+        <title>{{title || 'Loginbereich'}} – FDBS Loginbereich</title>
+    </Head>
+
     <div class="layout">
         <div class="menu" :class="{'open': isOpen}">
             <div class="apps-bar">
@@ -107,7 +113,7 @@
 
     import Loader from '@/Components/Form/Loader.vue'
     import Footer from '@/Components/Page/Footer.vue'
-import { Inertia } from '@inertiajs/inertia'
+    import { Inertia } from '@inertiajs/inertia'
 
 
 
@@ -126,6 +132,12 @@ import { Inertia } from '@inertiajs/inertia'
     })
 
     const isOpen = ref(false)
+
+
+
+    const globalSettings = computed(() => {
+        return usePage().props.value.settings ?? {}
+    })
 
 
 
@@ -155,6 +167,12 @@ import { Inertia } from '@inertiajs/inertia'
         return routenames.some(routename => route().current() === routename)
     }
 </script>
+
+<style lang="sass">
+    body
+        font-family: var(--font-text)
+        background: var(--color-background)
+</style>
 
 <style lang="sass" scoped>
     .toggle-open

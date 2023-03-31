@@ -1,5 +1,7 @@
 <template>
     <Head>
+        <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
         <title>{{title || 'Loginbereich'}} – FDBS Loginbereich</title>
     </Head>
 
@@ -88,7 +90,7 @@
 <script setup>
     import Footer from '@/Components/Page/Footer.vue'
     import { Head, Link, usePage } from '@inertiajs/inertia-vue3'
-    import { ref, computed } from 'vue'
+    import { ref, computed, onMounted } from 'vue'
     import { can, canAny } from '@/Utils/Permissions'
 
 
@@ -99,6 +101,10 @@
     })
 
 
+
+    const globalSettings = computed(() => {
+        return usePage().props.value.settings ?? {}
+    })
 
     const user = computed(() =>{
         return usePage().props.value.auth.user
@@ -112,6 +118,12 @@
         return routeName === route().current()
     }
 </script>
+
+<style lang="sass">
+    body
+        font-family: var(--font-text)
+        background: var(--color-background)
+</style>
 
 <style lang="sass" scoped>
     .toggle-open
