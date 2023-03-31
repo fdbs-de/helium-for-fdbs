@@ -1,7 +1,5 @@
 <template>
     <Head>
-        <link rel="icon" href="/images/app/branding/favicon.ico" type="image/x-icon">
-        <link rel="shortcut icon" href="/images/app/branding/favicon.ico" type="image/x-icon">
         <title>{{title || 'CMS'}} – Gastro CMS</title>
     </Head>
 
@@ -156,15 +154,15 @@
                 {label: 'Berechtigungen', icon: 'key', route: route('admin.roles'), permission: ['system.view.roles'], activeWhen: ['admin.roles']},
             ]},
             {label: 'Medien Manager', color: 'var(--color-background)', icon: 'upload', route: route('admin.media', ['public']), permission: ['system.view.media'], activeWhen: ['admin.media', 'admin.docs'], submenu: [
-                {label: 'Öffentliche Ablage', icon: 'home_storage', route: route('admin.media', ['public']), permission: ['system.view.media'], activeWhen: ['admin.media.public']},
-                {label: 'Private Ablage', icon: 'lock', route: route('admin.media', ['private']), permission: ['system.view.media'], activeWhen: ['admin.media.private']},
+                {label: 'Öffentliche Ablage', icon: 'home_storage', route: route('admin.media', ['public']), permission: ['system.view.media'], activeWhen: ['admin.media:driveAlias=public']},
+                {label: 'Private Ablage', icon: 'lock', route: route('admin.media', ['private']), permission: ['system.view.media'], activeWhen: ['admin.media:driveAlias=private']},
             ]},
             {label: 'Einstellungen', color: 'var(--color-background)', icon: 'settings', route: route('admin.settings.index', 'general'), permission: ['system.view.settings'], activeWhen: ['admin.settings.index'], submenu: [
-                {label: 'Allgemein', icon: 'settings', route: route('admin.settings.index', 'general'), permission: [], activeWhen: ['admin.settings.index']},
-                {label: 'Design', icon: 'design_services', route: route('admin.settings.index', 'design'), permission: [], activeWhen: ['admin.settings.index']},
-                {label: 'Medien', icon: 'upload', route: route('admin.settings.index', 'media'), permission: [], activeWhen: ['admin.settings.index']},
-                {label: 'Rechtliches', icon: 'gavel', route: route('admin.settings.index', 'legal'), permission: [], activeWhen: ['admin.settings.index']},
-                {label: 'Apps', icon: 'apps', route: route('admin.settings.index', 'apps'), permission: [], activeWhen: ['admin.settings.index']},
+                {label: 'Allgemein', icon: 'settings', route: route('admin.settings.index', 'general'), permission: [], activeWhen: ['admin.settings.index:page=general']},
+                {label: 'Design', icon: 'design_services', route: route('admin.settings.index', 'design'), permission: [], activeWhen: ['admin.settings.index:page=design']},
+                {label: 'Medien', icon: 'upload', route: route('admin.settings.index', 'media'), permission: [], activeWhen: ['admin.settings.index:page=media']},
+                {label: 'Rechtliches', icon: 'gavel', route: route('admin.settings.index', 'legal'), permission: [], activeWhen: ['admin.settings.index:page=legal']},
+                {label: 'Apps', icon: 'apps', route: route('admin.settings.index', 'apps'), permission: [], activeWhen: ['admin.settings.index:page=apps']},
             ]},
         ],
         [
@@ -202,8 +200,23 @@
 
     const is = (routenames) => {
         if (typeof routenames === 'string') routenames = [routenames]
+        
+        return routenames.some(routename => {
+            // routename example:
+            // admin.page:param1=value1:param2=value2
+            let name = routename.split(':')[0]
+            let params = routename.split(':').slice(1)
+            let paramsMatch = true
 
-        return routenames.some(routename => route().current() === routename)
+            params.forEach(param => {
+                let key = param.split('=')[0]
+                let value = param.split('=')[1]
+
+                if (route()?.params?.[key] !== value) paramsMatch = false
+            })
+
+            return route().current() === name && paramsMatch
+        })
     }
 </script>
 

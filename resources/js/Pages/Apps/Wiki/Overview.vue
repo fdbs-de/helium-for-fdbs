@@ -18,7 +18,7 @@
             <div class="flex-1 flex wrap vertical">
                 <h2 style="font-size: 1.25rem; margin: 0;">{{ post.title }}</h2>
                 <div class="spacer"></div>
-                <small style="margin-top: .5rem" v-if="post.tags.length">{{ post.tags.map(tag => '#'+tag).join(' ') }}</small>
+                <small style="margin-top: .5rem" v-if="post.tags && post.tags.length">{{ post.tags.map(tag => '#'+tag).join(' ') }}</small>
             </div>
             </Card>
         </div>
