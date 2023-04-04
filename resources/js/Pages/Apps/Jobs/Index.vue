@@ -6,18 +6,23 @@
     <TextSubLayout title="Deine Karriere bei FDBS" image="/images/content/banner/karriere_513169496_482949832.webp">
         <div class="limiter text-limiter">
             <p>
-                FDBS ist ein im Jahr 1910 gegründetes Großhandelsunternehmen und beliefert überregional Kunden aus der
-                Fleischerei- und Gastronomiebranche sowie Großküchen und Caterer.
+                FDBS ist ein Braunschweiger Großhandelsunternehmen und versteht sich seit über 100 Jahren als Partner für Fleischereien,
+                Bäckereien, Gastronomen, und Hoteliers. Wir liefern Frischeprodukte, High-End-Convenience, sowie nahezu alles an
+                Bedarfsartikeln und inspirieren unsere Kunden mit immer neuen Trends.
             </p>
             <p>
-                Als Lebensmittelgroßhändler im B2B-Bereich sind wir ein stetig wachsendes Unternehmen, das viel Wert
-                auf Zusammenhalt, Gemeinschaft und Fortschritt legt.
+                Unser Ziel ist es, unsere Kunden mit qualitativ hochwertigen Lebensmitteln schnell und zuverlässig zu beliefern.
+                Neben der Qualität und Herkunft unserer Produkte spielen eine hohe Kundenorientierung sowie kooperative Beziehungen
+                zu unseren Geschäftspartnern für uns eine große Rolle.
             </p>
             <p>
-                <b class="color-heading">Du willst Teil des Teams werden?</b><br>
-                Dank unseres großen Serviceangebots kannst Du in den verschiedensten Bereichen
-                tätig werden. Vom Vertrieb über das Lager, vom LKW-Fahrer zum Servicemonteur, als Azubi oder duale*r Student*in
-                in Deinem Traumberuf, bei uns im Team findest Du Deinen perfekten Platz.
+                Wir sind ein sich ständig weiterentwickelndes Unternehmen mit über 100 Mitarbeitern und bieten ergänzend zu unserem
+                großen Handelssortiment einen einzigartigen Rundum-Service in Kundendienst, Werkstatt und Marketing, der den
+                Anforderungen unserer Kunden entspricht.
+            </p>
+            <p>
+                Du hast Interesse an der Food Branche, suchst Abwechslung und bist bereit Verantwortung zu übernehmen?
+                Dann bist Du bei uns genau richtig!
             </p>
         </div>
 
