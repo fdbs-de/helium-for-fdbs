@@ -242,6 +242,7 @@
 <script>
     import { Editor, EditorContent } from '@tiptap/vue-3'
     import { Node } from '@tiptap/core'
+    import { lowlight } from 'lowlight/lib/core'
     import Link from '@tiptap/extension-link'
     import Image from '@tiptap/extension-image'
     import Underline from '@tiptap/extension-underline'
@@ -254,8 +255,34 @@
     import TableRow from '@tiptap/extension-table-row'
     import Color from '@tiptap/extension-color'
     import StarterKit from '@tiptap/starter-kit'
+    import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
+    // Highlight Languages
+    import css from 'highlight.js/lib/languages/css'
+    import javascript from 'highlight.js/lib/languages/javascript'
+    import php from 'highlight.js/lib/languages/php'
+    import html from 'highlight.js/lib/languages/xml'
+    import json from 'highlight.js/lib/languages/json'
+    import yaml from 'highlight.js/lib/languages/yaml'
+    import markdown from 'highlight.js/lib/languages/markdown'
+    import bash from 'highlight.js/lib/languages/bash'
+    import ini from 'highlight.js/lib/languages/ini'
 
     import Picker from '@/Components/Form/MediaLibrary/Picker.vue'
+
+
+
+    lowlight.registerLanguage('css', css)
+    lowlight.registerLanguage('javascript', javascript)
+    lowlight.registerLanguage('js', javascript)
+    lowlight.registerLanguage('php', php)
+    lowlight.registerLanguage('html', html)
+    lowlight.registerLanguage('json', json)
+    lowlight.registerLanguage('yaml', yaml)
+    lowlight.registerLanguage('markdown', markdown)
+    lowlight.registerLanguage('bash', bash)
+    lowlight.registerLanguage('ini', ini)
+
+
 
     const swatches = [
         { value: 'var(--color-primary)', name: 'Primärfarbe' },
@@ -429,6 +456,9 @@
                     TableRow,
                     TableHeader,
                     TableCell,
+                    CodeBlockLowlight.configure({
+                        lowlight,
+                    }),
                 ],
                 content: this.modelValue,
                 onUpdate: () => {
