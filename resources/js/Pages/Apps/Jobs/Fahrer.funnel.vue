@@ -26,7 +26,7 @@
                 </div>
             </div>
 
-            <div class="form-step" v-show="form.driversLicense" @click="sendClick('funnel-has-modul-95', form.hasModul95)">
+            <div class="form-step" v-show="validateDriversLicense && form.driversLicense" @click="sendClick('funnel-has-modul-95', form.hasModul95)">
                 <h2 class="question">Besitzt du eine gültige Modul 95 Qualifizierung? *</h2>
                 <div class="options">
                     <button type="button" :class="{'active': form.hasModul95 === 'Nein'}" @click="form.hasModul95 = 'Nein'">Nein</button>
@@ -34,7 +34,7 @@
                 </div>
             </div>
     
-            <div class="form-step" v-show="form.hasModul95" @click="sendClick('funnel-experience-as-driver', form.experienceAsDriver)">
+            <div class="form-step" v-show="validateDriversLicense && form.hasModul95" @click="sendClick('funnel-experience-as-driver', form.experienceAsDriver)">
                 <h2 class="question">Wie viele Jahre Berufserfahrung kannst du vorweisen? *</h2>
                 <div class="options">
                     <button type="button" :class="{'active': form.experienceAsDriver === 'keine'}" @click="form.experienceAsDriver = 'keine'">keine</button>
@@ -47,7 +47,7 @@
                 </div>
             </div>
     
-            <div class="form-step" v-show="form.experienceAsDriver" @click="sendClick('funnel-experience-in-language', form.experienceInLanguage)">
+            <div class="form-step" v-show="validateDriversLicense && form.experienceAsDriver" @click="sendClick('funnel-experience-in-language', form.experienceInLanguage)">
                 <h2 class="question">Wie sind deine Deutschkenntnisse? *</h2>
                 <div class="options">
                     <button type="button" :class="{'active': form.experienceInLanguage === 'nicht so gut'}" @click="form.experienceInLanguage = 'nicht so gut'">nicht so gut</button>
@@ -60,7 +60,7 @@
                 </div>
             </div>
     
-            <div class="form-step" v-show="form.experienceInLanguage">
+            <div class="form-step" v-show="validateDriversLicense && form.experienceInLanguage">
                 <h2 class="question">Frühestmögliches Eintrittsdatum *</h2>
                 <div class="options">
                     <mui-input class="flex-1" border required v-model="form.startDate" label="Eintrittsdatum *" @update:modelValue="sendClick('funnel-start-date')"/>
@@ -74,7 +74,7 @@
                 </div>
             </div>
     
-            <div class="form-step" v-show="form.startDate">
+            <div class="form-step" v-show="validateDriversLicense && form.startDate">
                 <h2 class="question">Wie können wir dich am besten für ein Gespräch erreichen?</h2>
                 <mui-input border required v-model="form.name" label="Name *"/>
                 <mui-input border v-model="form.email" label="Email"/>
@@ -89,6 +89,12 @@
                 <mui-button type="submit" size="large" :disabled="!isValid">Bewerbung jetzt Absenden</mui-button>
             </div>
 
+            <Alert title="Leider können wir dir keine Stelle anbieten" type="error" v-show="!validateDriversLicense">
+                <span class="margin-bottom-1">
+                    Wir können dir leider keine Stelle anbieten, da du noch keinen LKW-Führerschein besitzt.
+                </span>
+            </Alert>
+
             <small>* Diese Felder musst du verpflichtend ausfüllen</small>
         </form>
     </TextSubLayout>
@@ -99,6 +105,7 @@
     import { computed } from 'vue'
 
     import TextSubLayout from '@/Layouts/SubLayouts/Text.vue'
+    import Alert from '@/Components/Alert.vue'
     import Tag from '@/Components/Form/Tag.vue'
 
     const form = useForm({
@@ -115,9 +122,15 @@
         gdpr: false,
     })
 
+    const validateDriversLicense = computed(() => {
+        if (form.driversLicense === 'keinen') return false
+        return true
+    })
+
     const isValid = computed(() => {
         if (!form.hasExperience) return false
         if (!form.driversLicense) return false
+        if (!validateDriversLicense) return false
         if (!form.hasModul95) return false
         if (!form.experienceAsDriver) return false
         if (!form.experienceInLanguage) return false
