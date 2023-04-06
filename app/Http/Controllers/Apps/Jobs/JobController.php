@@ -42,6 +42,7 @@ class JobController extends Controller
             'name' => 'required|string|max:200',
             'email' => 'nullable|email|max:200',
             'phone' => 'required|string|max:200',
+            'birthday' => 'required|string|max:200',
             'zip' => 'required|string|max:20',
             'hasExperience' => 'required|in:Ja,Nein',
             'experienceAsDriver' => 'required|string|max:30',
@@ -58,6 +59,7 @@ class JobController extends Controller
         $formattedDetails .= 'Name: <b>'.$request->name.'</b><br>';
         $formattedDetails .= 'Email: <b>'.$request->email.'</b><br>';
         $formattedDetails .= 'Telefon: <b>'.$request->phone.'</b><br>';
+        $formattedDetails .= 'Geburtsdatum: <b>'.$request->birthday.'</b><br>';
         $formattedDetails .= 'Postleitzahl: <b>'.$request->zip.'</b><br><br>';
 
         $formattedDetails .= 'Erfahrung als LKW Fahrer: <b>'.$request->hasExperience.'</b><br>';
