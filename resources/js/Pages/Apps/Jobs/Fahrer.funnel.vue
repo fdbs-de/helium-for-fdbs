@@ -79,6 +79,7 @@
                 <mui-input border required v-model="form.name" label="Name *"/>
                 <mui-input border v-model="form.email" label="Email"/>
                 <mui-input border required v-model="form.phone" label="Telefonnummer *"/>
+                <mui-input border required v-model="form.birthday" label="Geburtsdatum *"/>
                 <mui-input class="flex-1" border required v-model="form.zip" label="Postleitzahl *" />
                 <div></div>
                 <mui-toggle class="checkbox" border required v-model="form.gdpr">
@@ -118,6 +119,7 @@
         name: '',
         email: '',
         phone: '',
+        birthday: '',
         zip: '',
         gdpr: false,
     })
@@ -138,6 +140,7 @@
         if (!form.startDate) return false
         if (!form.name) return false
         if (!form.phone) return false
+        if (!form.birthday) return false
         if (form.gdpr !== true) return false
 
         return true
