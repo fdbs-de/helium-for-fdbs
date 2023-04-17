@@ -1,7 +1,7 @@
 <template>
-    <TextSubLayout title="Bewerben als LKW Fahrer" image="/images/content/banner/karriere_513169496_482949832.webp" has-small-limiter>
+    <TextSubLayout :title="funnel.name" image="/images/content/banner/karriere_513169496_482949832.webp" has-small-limiter>
         <Head>
-            <title>Als LKW Fahrer bewerben – FDBS Karriere</title>
+            <title>{{funnel.name}} – FDBS Karriere</title>
         </Head>
 
         <form class="form" @submit.prevent="submit">
@@ -108,6 +108,10 @@
     import TextSubLayout from '@/Layouts/SubLayouts/Text.vue'
     import Alert from '@/Components/Alert.vue'
     import Tag from '@/Components/Form/Tag.vue'
+
+    const props = defineProps({
+        funnel: Object,
+    })
 
     const form = useForm({
         hasExperience: null,

@@ -4,8 +4,8 @@
             <title>{{post.title}} – FDBS Karriere</title>
         </Head>
         
-        <div class="flex margin-bottom-2" v-if="post.tags.map(e => e.toLowerCase()).includes('schnellbewerbung')">
-            <mui-button as="a" class="flex-1" size="large" label="Jetzt in unter 1 Minute bewerben" :href="route('karriere.funnel.lkw-fahrer')" />
+        <div class="flex margin-bottom-2" v-if="funnel">
+            <mui-button as="a" class="flex-1" size="large" label="Jetzt in unter 1 Minute bewerben" :href="route(funnel.route, funnel.slug)" />
         </div>
 
         <div class="flex wrap gap-1 v-center margin-bottom-4">
@@ -15,18 +15,25 @@
 
         <div class="formatted-content" v-html="post.content"></div>
 
-        <div class="flex margin-top-4" v-if="post.tags.map(e => e.toLowerCase()).includes('schnellbewerbung')">
-            <mui-button as="a" class="flex-1" size="large" label="Jetzt in unter 1 Minute bewerben" :href="route('karriere.funnel.lkw-fahrer')" />
+        <div class="flex margin-top-4" v-if="funnel">
+            <mui-button as="a" class="flex-1" size="large" label="Jetzt in unter 1 Minute bewerben" :href="route(funnel.route, funnel.slug)" />
         </div>
     </TextSubLayout>
 </template>
 
 <script setup>
     import { Head, Link } from '@inertiajs/inertia-vue3'
+    import { computed } from 'vue'
+
     import TextSubLayout from '@/Layouts/SubLayouts/Text.vue'
     import Tag from '@/Components/Form/Tag.vue'
 
     const props = defineProps({
         post: Object,
+        funnels: Array,
+    })
+
+    const funnel = computed(() => {
+        return props.funnels.find(app => app.tags.every(tag => props.post.tags.map(e => e.toLowerCase()).includes(tag))) || null
     })
 </script>
