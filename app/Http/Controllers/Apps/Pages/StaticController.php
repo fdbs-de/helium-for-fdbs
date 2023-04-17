@@ -47,6 +47,15 @@ class StaticController extends Controller
             'form' => $form,
         ]);
     }
+    public function indexSeminareKreativworkshop()
+    {
+        $form = Form::where('status', 'published')->find(1);
+        if ($form) $form = new FrontendFormResource($form);
+
+        return Inertia::render('ProdukteUndServices/Seminare/Kreativworkshop', [
+            'form' => $form,
+        ]);
+    }
 
 
 

@@ -4,9 +4,8 @@
             <title>Unsere Seminare – FDBS Seminare</title>
         </Head>
         <div class="grid">
-            <Card aspect-ratio="16/9" cover name="Grillseminar „Best of Meat - Fleischeslust“" alt="Grillseminar „Best of Meat - Fleischeslust“" primary-tag="20.03.2023" :tags="['Andreas Rummel']" image="/images/content/seminare/grillseminar/grillseminar_card_104218878.webp" :link="route('seminare.grillseminar')"/>
-            <!-- /downloads/seminare/grillseminar_2023.pdf -->
-            <!-- <Card aspect-ratio="16/9" cover name="Workshop: Power-Pricing" alt="Workshop: Power-Pricing" primary-tag="28.09.2022" :tags="['Prof. Dr. Torsten Olderog']" image="/images/content/seminare/power_pricing_workshop_2022_452991385.jpg" new-window link="/downloads/seminare/power_pricing_workshop_2022.pdf"/> -->
+            <!-- <Card aspect-ratio="16/9" cover name="Grillseminar „Best of Meat - Fleischeslust“" alt="Grillseminar „Best of Meat - Fleischeslust“" primary-tag="20.03.2023" :tags="['Andreas Rummel']" image="/images/content/seminare/grillseminar/grillseminar_card_104218878.webp" :link="route('seminare.grillseminar')"/> -->
+            <Card aspect-ratio="16/9" cover name="Kreativworkshop mit EDNA International GmbH und Salomon FoodWorld" alt="Kreativworkshop mit EDNA International GmbH und Salomon FoodWorld" primary-tag="08.05.2023" image="/images/content/seminare/kreativworkshop/kreativworkshop_card.webp" :link="route('seminare.kreativworkshop')"/>
         </div>
         <!-- <Alert icon="info" title="Keine Seminare oder Workshops">
             <span>

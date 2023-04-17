@@ -76,7 +76,8 @@ Route::prefix('/produkte-und-services')->group(function () {
 
 Route::prefix('/seminare')->group(function () {
     Route::get('/', [StaticController::class, 'indexSeminare'])->name('seminare');
-    Route::get('/grillseminar-2023', [StaticController::class, 'indexSeminareGrillseminar'])->name('seminare.grillseminar');
+    // Route::get('/grillseminar-2023', [StaticController::class, 'indexSeminareGrillseminar'])->name('seminare.grillseminar');
+    Route::get('/kreativworkshop-2023', [StaticController::class, 'indexSeminareKreativworkshop'])->name('seminare.kreativworkshop');
 });
 
 Route::prefix('/mkbs')->group(function () {
