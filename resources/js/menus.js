@@ -24,7 +24,8 @@ export const mainMenu = [
         { id: 'fachberatung-kaese-und-salate', label: 'Fachberatung: Käse & Salate', href: route('ps.fachberatung-kaese-und-salate'), children: [] },
         { id: 'technischer-kundendienst', label: 'Technischer Kundendienst', href: route('ps.technischer-kundendienst'), children: [] },
         { id: 'seminare', label: 'Seminare', href: route('seminare'), children: [
-            { id: 'seminare.grillseminar', label: 'Grillseminar', href: route('seminare.grillseminar'), children: [] },
+            // { id: 'seminare.grillseminar', label: 'Grillseminar', href: route('seminare.grillseminar'), children: [] },
+            { id: 'seminare.kreativworkshop', label: 'Kreativworkshop', href: route('seminare.kreativworkshop'), children: [] },
         ] },
     ]},
     { id: 'karriere', label: 'Karriere', href: route('karriere'), children: [] },
