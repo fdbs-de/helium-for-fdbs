@@ -70,6 +70,15 @@
             <small class="margin-top-1 text-align-center">
                 <b>Alle Stellen</b> verstehen sich ausgeschrieben für <b>M/W/D</b>
             </small>
+            
+            <div class="initiative-card">
+                <h3>Deine <b>Initiativbewerbung</b></h3>
+                <p>
+                    Sollte derzeit keine passende Stelle ausgeschrieben sein, laden wir Dich dennoch dazu ein, Dich bei uns zu bewerben.<br>
+                    Sende Deine Initiativbewerbung an <a href="mailto:bewerbungen@fdbs.de">bewerbungen@fdbs.de</a>.<br>
+                    <b>Wir freuen uns, von Dir zu hören!</b>
+                </p>
+            </div>
         </div>
 
         <h2 class="centered-headline">Deine Vorteile bei uns</h2>
@@ -182,6 +191,48 @@
             height: 12rem
             font-size: 1.2rem
             color: var(--color-heading)
+
+        .initiative-card
+            background-color: var(--color-background)
+            background-image: url('/images/content/application.png')
+            background-position: bottom right
+            background-repeat: no-repeat
+            background-size: contain
+            border-radius: var(--radius-l)
+            padding: 2rem
+            box-shadow: var(--shadow-elevation-medium)
+            margin-top: 2rem
+            position: relative
+            overflow: hidden
+            border: 1px solid var(--color-background)
+
+            &::before
+                content: ''
+                position: absolute
+                top: 0
+                left: 0
+                width: 100%
+                height: 100%
+                background: linear-gradient(135deg, rgba(255,255,255,1) 70%, rgba(255,255,255,.6) 100%)
+
+            h3
+                color: var(--color-primary)
+                font-size: clamp(1.75rem, 5vw, 2.5rem)
+                font-weight: 300
+                margin-block: 0
+                position: relative
+
+            a
+                color: var(--color-heading)
+                font-weight: 600
+
+                &:hover
+                    color: var(--color-heading)
+                    text-decoration: underline
+
+            p
+                margin-bottom: .4rem
+                position: relative
 
 
 
