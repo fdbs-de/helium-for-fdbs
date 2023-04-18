@@ -99,8 +99,7 @@ return [
     'addresses' => [
         'user_inquiry' => env('USER_INQUIRY_EMAIL'),
         'admin_notification' => 'bv@fdbs.de',
-        // 'job_applications' => 'bewerbungen@fdbs.de',
-        'job_applications' => 'maurice.freuwoert@gmail.com',
+        'job_applications' => 'bewerbungen@fdbs.de',
     ],
 
     /*
