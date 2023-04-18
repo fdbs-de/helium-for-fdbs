@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -11,18 +12,18 @@ class NewJobApplication extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $jobName;
-    public $formattedDetails;
+    public $name;
+    public $values;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($jobName, $formattedDetails)
+    public function __construct($name, $values)
     {
-        $this->jobName = $jobName;
-        $this->formattedDetails = $formattedDetails;
+        $this->name = $name;
+        $this->values = $values;
     }
 
     /**
@@ -32,9 +33,11 @@ class NewJobApplication extends Mailable
      */
     public function build()
     {
-        return $this->subject('Eine neue Bewerbung für: '.$this->jobName)->markdown('emails.NewJobApplication')->with([
-            'jobName' => $this->jobName,
-            'formattedDetails' => $this->formattedDetails,
+        return $this->subject('Neue Bewerbung als '.$this->name)->markdown('emails.NewJobApplication')->with([
+            'name' => $this->name,
+            'values' => $this->values,
+            'date' => Carbon::now()->format('d.m.Y'),
+            'time' => Carbon::now()->format('H:i'),
         ]);
     }
 }
