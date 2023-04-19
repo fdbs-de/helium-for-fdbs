@@ -56,6 +56,15 @@ class StaticController extends Controller
             'form' => $form,
         ]);
     }
+    public function indexSeminareCatering()
+    {
+        $form = Form::where('status', 'published')->find(3);
+        if ($form) $form = new FrontendFormResource($form);
+
+        return Inertia::render('ProdukteUndServices/Seminare/Catering', [
+            'form' => $form,
+        ]);
+    }
 
 
 

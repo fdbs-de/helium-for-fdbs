@@ -26,6 +26,7 @@ export const mainMenu = [
         { id: 'seminare', label: 'Seminare', href: route('seminare'), children: [
             // { id: 'seminare.grillseminar', label: 'Grillseminar', href: route('seminare.grillseminar'), children: [] },
             { id: 'seminare.kreativworkshop', label: 'Kreativworkshop', href: route('seminare.kreativworkshop'), children: [] },
+            { id: 'seminare.catering', label: 'Catering', href: route('seminare.catering'), children: [] },
         ] },
     ]},
     { id: 'karriere', label: 'Karriere', href: route('karriere'), children: [] },
