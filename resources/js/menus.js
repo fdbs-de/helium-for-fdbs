@@ -40,6 +40,7 @@ export const legalMenu = [
     { id: 'datenschutz', label: 'Datenschutz', href: route('datenschutz'), children: [] },
     { id: 'agbs', label: 'AGBs', href: route('agbs'), children: [] },
     { id: 'video-info', label: 'Info Videoüberwachung', href: route('video-info'), children: [] },
+    { id: 'gewinnspiel-teilnahmebedingungen', label: 'Gewinnspiel Teilnahmebedingungen', href: route('gewinnspiel-teilnahmebedingungen'), children: [] },
 ]
 
 export const aboutMenu = [

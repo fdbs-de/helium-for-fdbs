@@ -79,4 +79,5 @@ class StaticController extends Controller
     public function indexDatenschutz() { return Inertia::render('Datenschutz'); }
     public function indexAGBS() { return Inertia::render('AGBS'); }
     public function indexVideoInfo() { return Inertia::render('VideoInfo'); }
+    public function indexGewinnspielTeilnahmebedingungen() { return Inertia::render('Gewinnspiel'); }
 }
