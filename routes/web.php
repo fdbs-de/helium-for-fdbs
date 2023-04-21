@@ -7,6 +7,7 @@ use App\Http\Controllers\Apps\Jobs\JobController;
 use App\Http\Controllers\Apps\Pages\ContactController;
 use App\Http\Controllers\Apps\Pages\PageController;
 use App\Http\Controllers\Apps\Pages\StaticController;
+use App\Http\Controllers\Apps\Pages\SurveyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -101,6 +102,12 @@ Route::get('/datenschutz', [StaticController::class, 'indexDatenschutz'])->name(
 Route::get('/agbs', [StaticController::class, 'indexAGBS'])->name('agbs');
 Route::get('/video-info', [StaticController::class, 'indexVideoInfo'])->name('video-info');
 Route::get('/gewinnspiel-teilnahmebedingungen', [StaticController::class, 'indexGewinnspielTeilnahmebedingungen'])->name('gewinnspiel-teilnahmebedingungen');
+
+Route::prefix('/umfragen')->group(function () {
+    Route::prefix('/mkbs-kundenzufriedenheit')->group(function () {
+        Route::get('/', [SurveyController::class, 'show']);
+    });
+});
 
 // Warning for IE users
 /*
