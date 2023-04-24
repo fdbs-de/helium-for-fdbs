@@ -33,7 +33,7 @@
         },
         showLabel: {
             type: Boolean,
-            default: true
+            default: false,
         }
     })
     
@@ -64,7 +64,7 @@
 <style lang="sass" scoped>
     .wrapper
         display: flex
-        gap: 1rem
+        gap: .5rem
 
         label
             flex: 1
@@ -90,9 +90,13 @@
                     background-color: var(--color-active)
                     color: white
 
+                .text
+                    background-color: var(--color-active)
+                    color: white
+
             .icon
                 width: 100%
-                height: 5rem
+                height: 4rem
                 border-bottom: 1px solid transparent
                 border-bottom-color: inherit
                 display: flex
@@ -104,13 +108,16 @@
                 font-family: var(--font-icon)
 
             .text
+                width: 100%
                 font-size: 1rem
                 color: inherit
                 line-height: 1.3
                 text-align: center
                 padding: .5rem 1rem
                 font-weight: 500
+                border-bottom: 1px solid transparent
+                border-bottom-color: inherit
 
             input
-                display: none
+                margin: 5px
 </style>
