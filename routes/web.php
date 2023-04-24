@@ -106,6 +106,7 @@ Route::get('/gewinnspiel-teilnahmebedingungen', [StaticController::class, 'index
 Route::prefix('/umfragen')->group(function () {
     Route::prefix('/mkbs-kundenzufriedenheit')->group(function () {
         Route::get('/', [SurveyController::class, 'show']);
+        Route::post('/', [SurveyController::class, 'store'])->name('survey.mkbs.store');
     });
 });
 

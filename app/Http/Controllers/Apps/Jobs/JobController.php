@@ -39,7 +39,7 @@ class JobController extends Controller
             ['title' => 'Page 6', 'inputs' => [
                 ['id' => 'startDate', 'type' => 'text', 'name' => 'Frühstes Einstiegsdatum', 'label' => 'Frühestmögliches Eintrittsdatum', 'required' => true, 'options' => [
                     ['color' => '#FF0D22', 'label' => 'sofort', 'value' => 'sofort'],
-                    ['color' => '#C90A1B', 'label' => 'nächster Monatsbeginn', 'value' => 'nächster Monatsbegin'],
+                    ['color' => '#C90A1B', 'label' => 'nächster Monatsbeginn', 'value' => 'nächster Monatsbeginn'],
                     ['color' => '#960814', 'label' => 'in 4 Wochen', 'value' => 'in 4 Wochen'],
                     ['color' => '#75060F', 'label' => 'in 3 Monaten', 'value' => 'in 3 Monaten'],
                     ['color' => '#52040B', 'label' => 'später', 'value' => 'später'],
@@ -73,7 +73,7 @@ class JobController extends Controller
             ['title' => 'Page 5', 'inputs' => [
                 ['id' => 'startDate', 'type' => 'text', 'name' => 'Frühstes Einstiegsdatum', 'label' => 'Frühestmögliches Eintrittsdatum', 'required' => true, 'options' => [
                     ['color' => '#FF0D22', 'label' => 'sofort', 'value' => 'sofort'],
-                    ['color' => '#C90A1B', 'label' => 'nächster Monatsbeginn', 'value' => 'nächster Monatsbegin'],
+                    ['color' => '#C90A1B', 'label' => 'nächster Monatsbeginn', 'value' => 'nächster Monatsbeginn'],
                     ['color' => '#960814', 'label' => 'in 4 Wochen', 'value' => 'in 4 Wochen'],
                     ['color' => '#75060F', 'label' => 'in 3 Monaten', 'value' => 'in 3 Monaten'],
                     ['color' => '#52040B', 'label' => 'später', 'value' => 'später'],
@@ -103,7 +103,7 @@ class JobController extends Controller
             ['title' => 'Page 5', 'inputs' => [
                 ['id' => 'startDate', 'type' => 'text', 'name' => 'Frühstes Einstiegsdatum', 'label' => 'Frühestmögliches Eintrittsdatum', 'required' => true, 'options' => [
                     ['color' => '#FF0D22', 'label' => 'sofort', 'value' => 'sofort'],
-                    ['color' => '#C90A1B', 'label' => 'nächster Monatsbeginn', 'value' => 'nächster Monatsbegin'],
+                    ['color' => '#C90A1B', 'label' => 'nächster Monatsbeginn', 'value' => 'nächster Monatsbeginn'],
                     ['color' => '#960814', 'label' => 'in 4 Wochen', 'value' => 'in 4 Wochen'],
                     ['color' => '#75060F', 'label' => 'in 3 Monaten', 'value' => 'in 3 Monaten'],
                     ['color' => '#52040B', 'label' => 'später', 'value' => 'später'],
