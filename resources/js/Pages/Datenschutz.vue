@@ -26,7 +26,7 @@
 
     const text = ref('')
 
-    fetch(`https://app.cockpit.legal/api/cockpit/resources/legaldocumentshare/1785cff273aedbd875c814b46928ad7f/document/render/html`)
+    fetch(`https://app.cockpit.legal/api/cockpit/resources/legaldocumentshare/1785cff273aedbd875c814b46928ad7f/document/render/html?language=de`)
         .then(result => result.text())
         .then(content => { text.value = content })
 </script>
