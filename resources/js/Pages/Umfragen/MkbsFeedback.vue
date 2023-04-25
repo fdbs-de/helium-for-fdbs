@@ -14,6 +14,7 @@
 
         <form class="pages-wrapper" @submit.prevent="submit()" v-if="!submitted">
             <div class="progress">
+                <div class="text">{{step}} / 11</div>
                 <div class="progress-bar" :style="`width: ${step / 11 * 100}%`"></div>
             </div>
 
@@ -412,13 +413,23 @@
         width: 150px
         background: var(--color-background-soft)
         border-radius: 2px
-        overflow: hidden
         display: flex
         align-items: center
         justify-content: flex-start
-        margin: 0 auto
+        margin: 1rem auto 0
+        position: relative
+
+        .text
+            position: absolute
+            left: 50%
+            transform: translateX(-50%)
+            bottom: 100%
+            font-size: 14px
+            color: var(--color-text)
+            font-family: monospace
 
         .progress-bar
+            border-radius: 2px
             height: 100%
             background: var(--color-primary)
             transition: width 100ms
