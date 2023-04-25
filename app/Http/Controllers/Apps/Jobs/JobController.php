@@ -83,7 +83,10 @@ class JobController extends Controller
         ['title' => 'Elektromonteur / Elektrotechniker / Elektriker als Servicetechniker', 'name' => 'Elektriker', 'tags' => ['schnellbewerbung', 'elektriker'], 'route' => 'karriere.funnel.show', 'slug' => 'elektriker', 'pages' => [
             // Welche elektrotechnische Ausbildung hast Du? -> Textfeld
             ['title' => 'Page 1', 'inputs' => [
-                ['id' => 'education', 'type' => 'text', 'name' => 'Elektrotechnische Ausbildung', 'label' => 'Welche elektrotechnische Ausbildung hast Du?', 'required' => true,]
+                ['id' => 'education', 'type' => 'text', 'name' => 'Elektrotechnische Ausbildung', 'label' => 'Welche elektrotechnische Ausbildung hast Du?', 'required' => true,'options' => [
+                    ['color' => '#FF0D22', 'label' => 'Elektriker', 'value' => 'Elektriker'],
+                    ['color' => '#C90A1B', 'label' => 'Elektrotechniker', 'value' => 'Elektrotechniker'],
+                ],]
             ]],
             // Hast Du bereits Erfahrungen im Kundendienst gemacht? -> Ja, Nein
             ['title' => 'Page 2', 'inputs' => [
