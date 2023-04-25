@@ -73,32 +73,26 @@
             align-items: center
             justify-content: flex-start
             background: var(--color-background)
-            border-radius: var(--radius-s)
-            border: 1px solid var(--color-border)
+            border-radius: var(--radius-m)
+            border: 1px solid var(--color-background-soft)
             cursor: pointer
             transition: all 70ms ease-in-out
             user-select: none
+            color: var(--color-active)
 
             &:hover
                 border-color: var(--color-active)
+                box-shadow: var(--shadow-elevation-medium)
 
             &.active
                 border-color: var(--color-active)
-                color: var(--color-active)
-
-                .icon
-                    background-color: var(--color-active)
-                    color: white
-
-                .text
-                    background-color: var(--color-active)
-                    color: white
+                box-shadow: var(--shadow-elevation-medium)
+                background-color: var(--color-active)
+                color: white
 
             .icon
                 width: 100%
-                height: 4rem
-                border-bottom: 1px solid transparent
-                border-bottom-color: inherit
+                height: 5rem
                 display: flex
                 align-items: center
                 justify-content: center
@@ -115,9 +109,8 @@
                 text-align: center
                 padding: .5rem 1rem
                 font-weight: 500
-                border-bottom: 1px solid transparent
-                border-bottom-color: inherit
 
             input
-                margin: 5px
+                opacity: 0
+                position: absolute
 </style>
