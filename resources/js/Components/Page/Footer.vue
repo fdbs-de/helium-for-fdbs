@@ -15,7 +15,7 @@
                 <a class="cert-wrapper" href="/downloads/zertifikate/Bio_2022_A4.pdf" target="_blank" rel="noopener noreferrer">
                     <img src="/images/assets/zertifikate/bio_logo.webp" alt="Bio Zertifizierung">
                 </a>
-                <a class="cert-wrapper" href="/downloads/zertifikate/ifs_2022.pdf" target="_blank" rel="noopener noreferrer">
+                <a class="cert-wrapper" href="/downloads/zertifikate/ifs_2023.pdf" target="_blank" rel="noopener noreferrer">
                     <img src="/images/assets/zertifikate/ifs_wholesale_logo.webp" alt="IFS Wholesale Zertifizierung">
                 </a>
                 <div class="cert-wrapper">
