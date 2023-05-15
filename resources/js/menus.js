@@ -27,6 +27,8 @@ export const mainMenu = [
             // { id: 'seminare.grillseminar', label: 'Grillseminar', href: route('seminare.grillseminar'), children: [] },
             // { id: 'seminare.kreativworkshop', label: 'Kreativworkshop', href: route('seminare.kreativworkshop'), children: [] },
             { id: 'seminare.catering', label: 'Catering', href: route('seminare.catering'), children: [] },
+            { id: 'seminare.employer-branding', label: 'Employer Branding', href: route('seminare.employer-branding'), children: [] },
+            { id: 'seminare.kaeseworkshop', label: 'Käseworkshop', href: route('seminare.kaeseworkshop'), children: [] },
         ] },
     ]},
     { id: 'karriere', label: 'Karriere', href: route('karriere'), children: [] },

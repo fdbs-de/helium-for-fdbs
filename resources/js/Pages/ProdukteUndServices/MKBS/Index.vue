@@ -32,17 +32,13 @@
                     <span class="word">Marketing.</span>
                     <br>
                     <span class="word">Ob </span> 
-                    <Link class="word fancy red" :href="route('mkbs.web')">Website</Link>
+                    <Link class="word fancy red" :href="route('mkbs.web')">Web</Link>
                     <span class="word">, </span>
                     <Link class="word fancy blue" :href="route('mkbs.social-media')">Social Media</Link>
                     <span class="word">, </span>
                     <Link class="word fancy yellow" :href="route('mkbs.print')">Print</Link>
-                    <span class="word">, </span>
-                    <Link class="word fancy orange" :href="route('mkbs.online')">Online Marketing</Link>
-                    <span class="word">, </span>
-                    <Link class="word fancy purple" :href="route('mkbs.digital')">Digital Marketing </Link>
-                    <span class="word">oder </span>
-                    <Link class="word fancy green" :href="route('mkbs.adwork')">Verkaufsförderung</Link>
+                    <span class="word"> oder </span>
+                    <Link class="word fancy green" :href="route('mkbs.online')">Crossmedia Marketing</Link>
                     <span class="word">.</span>
                     <br>
                     <span class="word">Wir </span>
@@ -143,7 +139,7 @@
 
 
     section#about
-        padding: 15rem 0
+        padding: 12.5rem 0
 
         .mega-heading
             font-size: clamp(1.3rem, 5vw, 4.7rem)
