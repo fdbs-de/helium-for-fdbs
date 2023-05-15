@@ -25,7 +25,7 @@ export const mainMenu = [
         { id: 'technischer-kundendienst', label: 'Technischer Kundendienst', href: route('ps.technischer-kundendienst'), children: [] },
         { id: 'seminare', label: 'Seminare', href: route('seminare'), children: [
             // { id: 'seminare.grillseminar', label: 'Grillseminar', href: route('seminare.grillseminar'), children: [] },
-            { id: 'seminare.kreativworkshop', label: 'Kreativworkshop', href: route('seminare.kreativworkshop'), children: [] },
+            // { id: 'seminare.kreativworkshop', label: 'Kreativworkshop', href: route('seminare.kreativworkshop'), children: [] },
             { id: 'seminare.catering', label: 'Catering', href: route('seminare.catering'), children: [] },
         ] },
     ]},
