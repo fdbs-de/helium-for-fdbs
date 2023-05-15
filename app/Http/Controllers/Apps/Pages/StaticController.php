@@ -38,24 +38,24 @@ class StaticController extends Controller
     public function indexTechnischerKundendienst() { return Inertia::render('ProdukteUndServices/TechnischerKundendienst'); }
 
     public function indexSeminare() { return Inertia::render('ProdukteUndServices/Seminare/Index'); }
-    public function indexSeminareGrillseminar()
-    {
-        $form = Form::where('status', 'published')->find(1);
-        if ($form) $form = new FrontendFormResource($form);
+    // public function indexSeminareGrillseminar()
+    // {
+    //     $form = Form::where('status', 'published')->find(1);
+    //     if ($form) $form = new FrontendFormResource($form);
 
-        return Inertia::render('ProdukteUndServices/Seminare/Grillseminar', [
-            'form' => $form,
-        ]);
-    }
-    public function indexSeminareKreativworkshop()
-    {
-        $form = Form::where('status', 'published')->find(1);
-        if ($form) $form = new FrontendFormResource($form);
+    //     return Inertia::render('ProdukteUndServices/Seminare/Grillseminar', [
+    //         'form' => $form,
+    //     ]);
+    // }
+    // public function indexSeminareKreativworkshop()
+    // {
+    //     $form = Form::where('status', 'published')->find(1);
+    //     if ($form) $form = new FrontendFormResource($form);
 
-        return Inertia::render('ProdukteUndServices/Seminare/Kreativworkshop', [
-            'form' => $form,
-        ]);
-    }
+    //     return Inertia::render('ProdukteUndServices/Seminare/Kreativworkshop', [
+    //         'form' => $form,
+    //     ]);
+    // }
     public function indexSeminareCatering()
     {
         $form = Form::where('status', 'published')->find(3);

@@ -5,7 +5,7 @@
         </Head>
         <div class="grid">
             <!-- <Card aspect-ratio="16/9" cover name="Grillseminar „Best of Meat - Fleischeslust“" alt="Grillseminar „Best of Meat - Fleischeslust“" primary-tag="20.03.2023" :tags="['Andreas Rummel']" image="/images/content/seminare/grillseminar/grillseminar_card_104218878.webp" :link="route('seminare.grillseminar')"/> -->
-            <Card aspect-ratio="16/9" cover name="Kreativworkshop mit EDNA International GmbH und Salomon FoodWorld" alt="Kreativworkshop mit EDNA International GmbH und Salomon FoodWorld" primary-tag="08.05.2023" image="/images/content/seminare/kreativworkshop/kreativworkshop_card.webp" :link="route('seminare.kreativworkshop')"/>
+            <!-- <Card aspect-ratio="16/9" cover name="Kreativworkshop mit EDNA International GmbH und Salomon FoodWorld" alt="Kreativworkshop mit EDNA International GmbH und Salomon FoodWorld" primary-tag="08.05.2023" image="/images/content/seminare/kreativworkshop/kreativworkshop_card.webp" :link="route('seminare.kreativworkshop')"/> -->
             <Card aspect-ratio="16/9" cover name="Catering – Kreativität und Gaumenfreude in perfekter Harmonie" alt="Catering – Kreativität und Gaumenfreude in perfekter Harmonie" primary-tag="19.06.2023" :tags="['Astrid Schmitt']" image="/images/content/seminare/catering/catering_card.webp" :link="route('seminare.catering')"/>
         </div>
         <!-- <Alert icon="info" title="Keine Seminare oder Workshops">
