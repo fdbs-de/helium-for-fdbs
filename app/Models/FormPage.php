@@ -30,4 +30,22 @@ class FormPage extends Model
     {
         return $this->hasMany(FormInput::class);
     }
+
+
+
+    public function duplicate(Form $form)
+    {
+        $item = $this->replicate()->fill([
+            'form_id' => $form->id,
+        ]);
+
+        $item->push();
+
+        foreach ($this->inputs as $input)
+        {
+            $input->duplicate($item);
+        }
+
+        return $item;
+    }
 }

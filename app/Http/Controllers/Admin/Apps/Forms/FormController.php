@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Apps\Forms;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Forms\CreateFormRequest;
 use App\Http\Requests\Forms\DestroyFormRequest;
+use App\Http\Requests\Forms\DuplicateFormRequest;
 use App\Http\Requests\Forms\SubmitFormRequest;
 use App\Http\Resources\Apps\Forms\FormResource;
 use App\Models\Form;
@@ -50,6 +51,15 @@ class FormController extends Controller
         $form->pages()->create([
             'title' => 'Page 1',
         ]);
+
+        return back();
+    }
+
+
+
+    public function duplicate(DuplicateFormRequest $request, Form $form)
+    {
+        $form->duplicate();
 
         return back();
     }

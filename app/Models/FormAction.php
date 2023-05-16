@@ -201,4 +201,17 @@ class FormAction extends Model
     {
         return nl2br($string);
     }
+
+
+
+    public function duplicate(Form $form)
+    {
+        $item = $this->replicate()->fill([
+            'form_id' => $form->id,
+        ]);
+        
+        $item->push();
+
+        return $item;
+    }
 }

@@ -125,4 +125,17 @@ class FormInput extends Model
 
         return $selectableOptions;
     }
+
+
+
+    public function duplicate(FormPage $page)
+    {
+        $item = $this->replicate()->fill([
+            'form_page_id' => $page->id,
+        ]);
+
+        $item->push();
+
+        return $item;
+    }
 }

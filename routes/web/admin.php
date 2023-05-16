@@ -178,6 +178,10 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
             ->middleware('can:app.forms.create.forms')
             ->name('admin.forms.forms.store');
 
+            Route::post('/{form}', [FormController::class, 'duplicate'])
+            ->middleware('can:app.forms.create.forms')
+            ->name('admin.forms.forms.duplicate');
+
             Route::put('/{form}', [FormController::class, 'update'])
             ->middleware('can:app.forms.edit.forms')
             ->name('admin.forms.forms.update');

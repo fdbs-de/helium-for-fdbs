@@ -57,6 +57,7 @@
                         <td>
                             <div class="action-wrapper">
                                 <IconButton type="button" icon="delete" style="color: var(--color-error);" v-tooltip="'Löschen'" @click.stop="openDeletePopup(item)"/>
+                                <IconButton type="button" icon="content_copy" v-tooltip="'Duplizieren'" @click.stop="duplicateItem(item)"/>
                                 <IconButton is="a" icon="edit" v-tooltip="'Bearbeiten'" :href="route('admin.forms.forms.editor', item.id)" @click.stop/>
                             </div>
                         </td>
@@ -204,11 +205,11 @@
 
     // START: Duplicate
     const duplicateItem = (item) => {
-        // useForm({returnTo: 'current'}).post(route('admin.'+props.app+'.categories.duplicate', item.id), {
-        //     onSuccess: () => {
-        //         deselectAll()
-        //     },
-        // })
+        useForm({returnTo: 'current'}).post(route('admin.forms.forms.duplicate', item.id), {
+            onSuccess: () => {
+                deselectAll()
+            },
+        })
     }
     // END: Duplicate
 
