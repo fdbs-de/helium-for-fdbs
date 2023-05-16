@@ -83,7 +83,7 @@ Route::prefix('/seminare')->group(function () {
     // Route::get('/kreativworkshop-2023', [StaticController::class, 'indexSeminareKreativworkshop'])->name('seminare.kreativworkshop');
     Route::get('/catering-2023', [StaticController::class, 'indexSeminareCatering'])->name('seminare.catering');
     Route::get('/employer-branding-2023', [StaticController::class, 'indexSeminareEmployerBranding'])->name('seminare.employer-branding');
-    Route::get('/Kaeseworkshop-2023', [StaticController::class, 'indexSeminareKaeseworkshop'])->name('seminare.kaeseworkshop');
+    Route::get('/kaeseworkshop-2023', [StaticController::class, 'indexSeminareKaeseworkshop'])->name('seminare.kaeseworkshop');
 });
 
 Route::prefix('/mkbs')->group(function () {

@@ -65,6 +65,24 @@ class StaticController extends Controller
             'form' => $form,
         ]);
     }
+    public function indexSeminareEmployerBranding()
+    {
+        $form = Form::where('status', 'published')->find(1);
+        if ($form) $form = new FrontendFormResource($form);
+
+        return Inertia::render('ProdukteUndServices/Seminare/EmployerBranding', [
+            'form' => $form,
+        ]);
+    }
+    public function indexSeminareKaeseworkshop()
+    {
+        $form = Form::where('status', 'published')->find(4);
+        if ($form) $form = new FrontendFormResource($form);
+
+        return Inertia::render('ProdukteUndServices/Seminare/Kaeseworkshop', [
+            'form' => $form,
+        ]);
+    }
 
 
 

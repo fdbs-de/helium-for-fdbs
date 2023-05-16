@@ -64,4 +64,28 @@ class Form extends Model
 
         return $validations;
     }
+
+
+
+    public function duplicate()
+    {
+        $item = $this->replicate()->fill([
+            'name' => $this->name . ' (copy)',
+            'status' => 'draft',
+        ]);
+        
+        $item->push();
+
+        foreach ($this->pages as $page)
+        {
+            $page->duplicate($item);
+        }
+
+        foreach ($this->actions as $action)
+        {
+            $action->duplicate($item);
+        }
+
+        return $item;
+    }
 }
