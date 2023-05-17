@@ -184,14 +184,6 @@
                 "overlay": "/images/content/mitarbeiter/kenan_oezden_zeichnung.png"
             },
             {
-                "name": "Andreas Pape",
-                "job": "Fachberatung",
-                "leader": false,
-                "tel": "91",
-                "image": "/images/content/mitarbeiter/andreas_pape.png",
-                "overlay": "/images/content/mitarbeiter/andreas_pape_zeichnung.png"
-            },
-            {
                 "name": "Mathias Vetter",
                 "job": "Fachberatung",
                 "leader": false,
