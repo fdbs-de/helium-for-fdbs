@@ -51,7 +51,7 @@
         },
     })
 
-    const basePhone = ref('0531 210 55')
+    const basePhone = ref('0531 - 210 55-')
 
     const tel__ = computed(() => {
 
