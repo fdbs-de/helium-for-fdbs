@@ -59,7 +59,7 @@
         if ([2,3].includes(props.tel?.length ?? 0))
         {
             // Dann ergänze die BaseNumber
-            return basePhone.value + ' ' + props.tel
+            return basePhone.value + '' + props.tel
         }
 
         return props.tel || ''
