@@ -14,8 +14,8 @@
                 </span>
                 <span>
                     Email: <a href="mailto:info@fdbs.de">info@fdbs.de</a><br>
-                    Tel.: <a href="tel:0531210550">0531 210 55 0</a><br>
-                    Fax: 0531 210 55 39<br>
+                    Tel.: <a href="tel:0531210550">0531 - 210 55-0</a><br>
+                    Fax: 0531 - 210 55-39<br>
                 </span>
             </div>
 

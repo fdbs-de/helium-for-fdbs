@@ -36,7 +36,7 @@
                     Fr: 06:00 - 12:00<br>
                     <br>
                     <b>Bestellhotline:</b><br>
-                    0531 210 55 23<br>
+                    0531 - 210 55-23<br>
                     (besetzt von 6 bis 24 Uhr)<br>
                 </div>
             </div>
