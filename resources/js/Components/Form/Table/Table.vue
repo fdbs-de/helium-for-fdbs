@@ -56,7 +56,7 @@
                 <IconButton icon="more_vert" v-tooltip="'Mehr...'"/>
                 <template #popper>
                     <div class="flex vertical padding-1">
-                        <mui-button @click="$emit('request:refresh')" icon="refresh" label="Manuel aktualisieren"/>
+                        <mui-button @click="$emit('request:refresh')" icon="refresh" label="Manuell aktualisieren"/>
                     </div>
                 </template>
             </VDropdown>
