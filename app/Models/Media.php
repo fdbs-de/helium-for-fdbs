@@ -82,6 +82,16 @@ class Media extends Model
     {
         return $this->hasMany(MediaProfile::class);
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'media_user');
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'media_role');
+    }
     // END: Relationships
 
 
