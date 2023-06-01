@@ -103,7 +103,7 @@ Route::get('/impressum', [StaticController::class, 'indexImpressum'])->name('imp
 Route::get('/datenschutz', [StaticController::class, 'indexDatenschutz'])->name('datenschutz');
 Route::get('/agbs', [StaticController::class, 'indexAGBS'])->name('agbs');
 Route::get('/video-info', [StaticController::class, 'indexVideoInfo'])->name('video-info');
-Route::get('/gewinnspiel-teilnahmebedingungen', [StaticController::class, 'indexGewinnspielTeilnahmebedingungen'])->name('gewinnspiel-teilnahmebedingungen');
+Route::get('/gewinnspiel/teilnahmebedingungen', [StaticController::class, 'indexGewinnspielTeilnahmebedingungen'])->name('gewinnspiel-teilnahmebedingungen');
 
 Route::prefix('/umfragen')->group(function () {
     Route::prefix('/mkbs-kundenzufriedenheit')->group(function () {
