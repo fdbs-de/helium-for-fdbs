@@ -8,7 +8,9 @@
                     { label: 'Allgemeine Dokumente', value: '191' },
                     { label: 'QM Dokumente', value: '192' },
                     { label: 'Marketing Material', value: '190' },
+                    { label: 'CI Dokumente', value: '11163' },
                     { label: 'Leitbild und Organigramm', value: '211' },
+                    { label: 'HR Dokumente', value: '11162' },
                 ]" />
             </div>
 
