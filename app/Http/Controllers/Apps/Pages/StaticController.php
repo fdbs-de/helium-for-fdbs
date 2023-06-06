@@ -31,9 +31,7 @@ class StaticController extends Controller
     public function indexMKBSWeb() { return Inertia::render('ProdukteUndServices/MKBS/Web'); }
     public function indexMKBSSocialMedia() { return Inertia::render('ProdukteUndServices/MKBS/SocialMedia'); }
     public function indexMKBSPrint() { return Inertia::render('ProdukteUndServices/MKBS/Print'); }
-    public function indexMKBSOnline() { return Inertia::render('ProdukteUndServices/MKBS/Online'); }
-    public function indexMKBSDigital() { return Inertia::render('ProdukteUndServices/MKBS/Digital'); }
-    public function indexMKBSAdwork() { return Inertia::render('ProdukteUndServices/MKBS/Adwork'); }
+    public function indexMKBSCrossmedia() { return Inertia::render('ProdukteUndServices/MKBS/Crossmedia'); }
 
     public function indexTechnischerKundendienst() { return Inertia::render('ProdukteUndServices/TechnischerKundendienst'); }
 

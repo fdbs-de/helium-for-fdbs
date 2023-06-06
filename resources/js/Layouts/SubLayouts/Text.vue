@@ -71,6 +71,6 @@
     @media only screen and (max-width: 700px)
         #hero-section
             .inner-wrapper
-                height: auto
+                height: auto !important
                 aspect-ratio: 2/1
 </style>

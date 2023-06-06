@@ -91,9 +91,7 @@ Route::prefix('/mkbs')->group(function () {
     Route::get('/web', [StaticController::class, 'indexMKBSWeb'])->name('mkbs.web');
     Route::get('/social-media', [StaticController::class, 'indexMKBSSocialMedia'])->name('mkbs.social-media');
     Route::get('/print', [StaticController::class, 'indexMKBSPrint'])->name('mkbs.print');
-    Route::get('/online', [StaticController::class, 'indexMKBSOnline'])->name('mkbs.online');
-    Route::get('/digital', [StaticController::class, 'indexMKBSDigital'])->name('mkbs.digital');
-    Route::get('/verkaufsfoerderung', [StaticController::class, 'indexMKBSAdwork'])->name('mkbs.adwork');
+    Route::get('/crossmedia', [StaticController::class, 'indexMKBSCrossmedia'])->name('mkbs.crossmedia');
 });
 
 Route::get('/kontakt', [ContactController::class, 'index'])->name('kontakt');

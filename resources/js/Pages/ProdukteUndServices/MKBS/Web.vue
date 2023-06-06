@@ -4,23 +4,10 @@
             <title>Web Entwicklung – FDBS Marketing</title>
         </Head>
 
-        <div class="limiter text-limiter">
-            <h2>Unsere Leistungen im Überblick</h2>
-        </div>
+        <h2 class="w-100" style="text-align: center;">Unsere Leistungen im Überblick</h2>
 
         <div class="keyfacts">
-            <!--
-                Von der Idee bis zur Programmierung
-                Konzeption und Gestaltung
-                Zielgruppenanalyse
-                Pflege, Service und Wartung der Seiten
-                (auch als monatliche Servicepakete buchbar)
-                E-Commerce / Online Shops
-                Content Marketing
-                SEO - Suchmaschinenoptimierung
-                SEA - Suchmaschinenwerbung
-                DSGVO Prüfung und Absicherung
-            -->
+            <div class="placeholder-c2"></div>
             <div class="fact-card">
                 <div class="icon font-icon">data_object</div>
                 <h3>Von der Idee bis zur Programmierung</h3>
@@ -135,33 +122,71 @@ import TextSubLayout from '@/Layouts/SubLayouts/Text.vue'
 <style lang="sass" scoped>
     .keyfacts
         display: grid
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))
-        grid-auto-rows: 3rem
+        grid-template-columns: 1fr 1fr 1fr
+        grid-auto-rows: 4rem
         grid-gap: 3rem
         padding-inline: 6rem
         padding-block: 3rem 10rem
 
+        --color-local-primary: #eb3b5a
+        --color-local-primary-shade: #eb3b5a30
+
+    .placeholder-c2
+        grid-column: 2
+        grid-row: 1
+
     .fact-card
         background: var(--color-background)
-        box-shadow: var(--shadow-elevation-medium)
         border-radius: var(--radius-l)
         padding: 1.5rem
         display: flex
         flex-direction: column
         align-items: center
         justify-content: center
-        grid-row: span 3
+        grid-row: span 2
         gap: 1.5rem
         border: 1px solid var(--color-background-soft)
+        box-shadow: var(--shadow-elevation-low)
+        transition: all 0.2s ease-in-out
+
+        &:hover
+            box-shadow: var(--shadow-elevation-medium)
 
         .icon
             font-size: 4rem
             line-height: 1
-            color: var(--color-primary)
-            filter: drop-shadow(0.07em 0.07em 0px #e0004730)
+            color: var(--color-local-primary)
+            filter: drop-shadow(0.07em 0.07em 0px var(--color-local-primary-shade))
 
         h3
             font-size: 1.3rem
             margin: 0
             text-align: center
+
+    @media only screen and (max-width: 1100px)
+        .keyfacts
+            padding-inline: 0rem
+
+    @media only screen and (max-width: 900px)
+        .keyfacts
+            grid-template-columns: 1fr 1fr
+
+    @media only screen and (max-width: 600px)
+        .keyfacts
+            grid-template-columns: 1fr !important
+            grid-auto-rows: auto
+            gap: 2rem
+            padding-bottom: 4rem
+
+            .fact-card
+                grid-row: auto
+
+                .icon
+                    font-size: 3rem
+
+                h3
+                    font-size: 1.1rem
+
+            .placeholder-c2
+                display: none
 </style>

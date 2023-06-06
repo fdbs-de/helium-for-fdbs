@@ -38,7 +38,7 @@
                     <span class="word">, </span>
                     <Link class="word fancy yellow" :href="route('mkbs.print')">Print</Link>
                     <span class="word"> oder </span>
-                    <Link class="word fancy green" :href="route('mkbs.online')">Crossmedia Marketing</Link>
+                    <Link class="word fancy green" :href="route('mkbs.crossmedia')">Crossmedia Marketing</Link>
                     <span class="word">.</span>
                     <br>
                     <span class="word">Wir </span>
@@ -167,12 +167,6 @@
 
                 &.yellow
                     --color-local-primary: #f7b731
-
-                &.orange
-                    --color-local-primary: #fa8231
-
-                &.purple
-                    --color-local-primary: #8854d0
 
                 &.green
                     --color-local-primary: #20bf6b
