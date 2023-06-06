@@ -1,5 +1,5 @@
 <template>
-    <TextSubLayout image="/images/content/mkbs/banner/header_verpackungen.png" large-hero>
+    <TextSubLayout image="/images/content/mkbs/banner/header_cossmedia_292968998.png" large-hero>
         <Head>
             <title>Crossmedia Marketing – FDBS Marketing</title>
         </Head>
