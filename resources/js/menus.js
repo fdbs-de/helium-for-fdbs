@@ -12,13 +12,13 @@ export const mainMenu = [
             { id: 'il-campese', label: 'Il Campese', href: route('ps.marken.il-campese'), children: [] },
             { id: 'maxi-france', label: 'Maxi France', href: route('ps.marken.maxi-france'), children: [] },
         ]},
-        // { id: 'mkbs', label: 'Marketing & Kommunikation', href: route('mkbs'), children: [
-        //     { id: 'mkbs.web', label: 'Web Entwicklung', href: route('mkbs.web'), children: [] },
-        //     { id: 'mkbs.social-media', label: 'Social Media Marketing', href: route('mkbs.social-media'), children: [] },
-        //     { id: 'mkbs.print', label: 'Print Design', href: route('mkbs.print'), children: [] },
-        //     { id: 'mkbs.crossmedia', label: 'Crossmedia Marketing', href: route('mkbs.crossmedia'), children: [] },
-        // ]},
-        { id: 'marketing-und-kommunikation', label: 'Marketing & Kommunikation', href: route('ps.marketing-und-kommunikation'), children: [] },
+        { id: 'mkbs', label: 'Marketing & Kommunikation', href: route('mkbs'), children: [
+            { id: 'mkbs.web', label: 'Web Entwicklung', href: route('mkbs.web'), children: [] },
+            { id: 'mkbs.social-media', label: 'Social Media Marketing', href: route('mkbs.social-media'), children: [] },
+            { id: 'mkbs.print', label: 'Print Design', href: route('mkbs.print'), children: [] },
+            { id: 'mkbs.crossmedia', label: 'Crossmedia Marketing', href: route('mkbs.crossmedia'), children: [] },
+        ]},
+        // { id: 'marketing-und-kommunikation', label: 'Marketing & Kommunikation', href: route('ps.marketing-und-kommunikation'), children: [] },
         { id: 'fachberatung-kaese-und-salate', label: 'Fachberatung: Käse & Salate', href: route('ps.fachberatung-kaese-und-salate'), children: [] },
         { id: 'technischer-kundendienst', label: 'Technischer Kundendienst', href: route('ps.technischer-kundendienst'), children: [] },
         { id: 'seminare', label: 'Seminare', href: route('seminare'), children: [
