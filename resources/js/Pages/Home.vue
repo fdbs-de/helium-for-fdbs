@@ -20,7 +20,7 @@
                                 <b>Wir sind FDBS</b> – Ihr kompetenter Großhandel und Foodservice in Braunschweig.
                                 Von <Link :href="route('ps.foodservice')">Food</Link>,
                                 über <Link style="white-space: nowrap;" :href="route('ps.foodservice')">Non-Food</Link>
-                                bis hin zum <Link :href="route('ps.marketing-und-kommunikation')">Marketing</Link>
+                                bis hin zum <Link :href="route('mkbs')">Marketing</Link>
                                 und <Link :href="route('ps.technischer-kundendienst')">technischen Kundendienst</Link> können wir Ihnen helfen.
                             </p>
                         </div>
@@ -69,7 +69,7 @@
                         <Card name="Foodservice" alt="Foodservice" cover :link="route('ps.foodservice')" image="/images/content/services/cover/foodservice_cover.png"/>
                         <Card name="Unsere Marken" alt="Unsere Marken" cover :link="route('ps.marken')" image="/images/content/services/cover/marken_cover.png"/>
                         <Card name="Fachberatung: Käse und Salate" alt="Fachberatung: Käse und Salate" cover :link="route('ps.fachberatung-kaese-und-salate')" image="/images/content/services/cover/kaese_und_salate_cover.png"/>
-                        <Card name="Marketing & Kommunikation" alt="Marketing & Kommunikation" cover :link="route('ps.marketing-und-kommunikation')" image="/images/content/services/cover/mkbs_cover.png"/>
+                        <Card name="Marketing & Kommunikation" alt="Marketing & Kommunikation" cover :link="route('mkbs')" image="/images/content/services/cover/mkbs_cover.png"/>
                         <Card name="Technischer Kundendienst" alt="Technischer Kundendienst" cover :link="route('ps.technischer-kundendienst')" image="/images/content/services/cover/technischer_kundendienst_cover.png"/>
                         <Card name="Seminare" alt="Seminare" cover :link="route('seminare')" image="/images/content/services/cover/seminare_cover.png"/>
                     </div>
