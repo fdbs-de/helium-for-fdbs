@@ -32,91 +32,104 @@
 
         <div class="limiter text-limiter">
             <h2>Service</h2>
-            <ul>
-                <li>
-                    <b>Reparatur und Wartung</b> von Fleischereimaschinen,
-                    Gewerbespülmaschinen, Kombidämpfer, Herden,
-                    Kippbratpfannen und weitere thermische Geräte,
-                    Vakuumgeräte
-                </li>
-                <li><b>Geäteprüfung nach DGUV V3</b></li>
-                <li>
-                    <b>Schleifarbeiten:</b> Kuttermesser, Wolfscheiben,
-                    Aufschnittmaschinenmesser, Hand-Messer, usw
-                </li>
-                <li><b>Begradigungen</b> von Hackblock und Schneidbrett</li>
-                <li><b>Schweißarbeiten</b></li>
-                <li><b>Kältedichtungen,</b> auch im Sondermaß</li>
-                <li><b>Herstellerunabhängig!</b></li>
-            </ul>
-        </div>
+            <img src="/images/content/customerservice/service_393833200.png" alt="Service" class="content-image">
+            <p>
+                <ul>
+                    <li>
+                        <b>Reparatur und Wartung</b> von Fleischereimaschinen,
+                        Gewerbespülmaschinen, Kombidämpfer, Herden,
+                        Kippbratpfannen und weitere thermische Geräte,
+                        Vakuumgeräte
+                    </li>
+                    <li><b>Geäteprüfung nach DGUV V3</b></li>
+                    <li>
+                        <b>Schleifarbeiten:</b> Kuttermesser, Wolfscheiben,
+                        Aufschnittmaschinenmesser, Hand-Messer, usw
+                    </li>
+                    <li><b>Begradigungen</b> von Hackblock und Schneidbrett</li>
+                    <li><b>Schweißarbeiten</b></li>
+                    <li><b>Kältedichtungen,</b> auch im Sondermaß</li>
+                    <li><b>Herstellerunabhängig!</b></li>
+                </ul>
+            </p>
+            <p>&nbsp;</p>
 
-        <div class="limiter text-limiter">
             <h2>Chemie</h2>
-            <ul>
-                <li>
-                    <b>Reinigung</b> ihrer Kombidämpfer;
-                    automatisch oder manuell
-                </li>
-                <li>
-                    <b>Reinigerchemie</b> für ihre Spülmaschine: Immer die
-                    richtige Chemie für ihr perfektes Spülergebnis;
-                    egal ob Porzellan, Kunststoff, Besteck oder Gläser
-                </li>
-                <li>
-                    <b>Wir beraten Sie</b> vor Ort und stellen bei Bedarf
-                    ihre Geräte auf die benötigten Reiniger ein
-                </li>
-                <li>
-                    <b>Hygienisches Spülergebnis</b> und <b>Kostenersparnis</b>
-                    durch die richtige Dosierung
-                </li>
-            </ul>
-        </div>
-
-        <div class="limiter text-limiter">
+            <img src="/images/content/customerservice/chemie_408353537.png" alt="Chemie" class="content-image">
+            <p>
+                <ul>
+                    <li>
+                        <b>Reinigung</b> ihrer Kombidämpfer;
+                        automatisch oder manuell
+                    </li>
+                    <li>
+                        <b>Reinigerchemie</b> für ihre Spülmaschine: Immer die
+                        richtige Chemie für ihr perfektes Spülergebnis;
+                        egal ob Porzellan, Kunststoff, Besteck oder Gläser
+                    </li>
+                    <li>
+                        <b>Wir beraten Sie</b> vor Ort und stellen bei Bedarf
+                        ihre Geräte auf die benötigten Reiniger ein
+                    </li>
+                    <li>
+                        <b>Hygienisches Spülergebnis</b> und <b>Kostenersparnis</b>
+                        durch die richtige Dosierung
+                    </li>
+                </ul>
+            </p>
+            <p>&nbsp;</p>
+            
             <h2>Verkauf & Planung</h2>
-            <ul>
-                <li>
-                    Verkauf von Fleischerei- und Großküchenbedarf – vom Schneidebrett bis zum maßgeplanten Küchenblock
-                </li>
-                <li>Küchenplanung für Gewerbeküchen</li>
-                <li>
-                    Edelstahlarbeiten nach Aufmaß vor Ort für:<br>
-                    Regale<br>
-                    Tische<br>
-                    Schränke<br>
-                    Abzugshauben<br>
-                    Eckschutzschienen<br>
-                    usw.
-                </li>
-                <li>Kühlraum- und Betriebsraumtüren mit Aufmaß vor Ort</li>
-            </ul>
+            <img src="/images/content/customerservice/verkauf_253708394.png" alt="Verkauf & Planung" class="content-image">
+            <p>
+                <ul>
+                    <li>
+                        Verkauf von Fleischerei- und Großküchenbedarf – vom Schneidebrett bis zum maßgeplanten Küchenblock
+                    </li>
+                    <li>Küchenplanung für Gewerbeküchen</li>
+                    <li>
+                        Edelstahlarbeiten nach Aufmaß vor Ort für:<br>
+                        Regale<br>
+                        Tische<br>
+                        Schränke<br>
+                        Abzugshauben<br>
+                        Eckschutzschienen<br>
+                        usw.
+                    </li>
+                    <li>Kühlraum- und Betriebsraumtüren mit Aufmaß vor Ort</li>
+                </ul>
+            </p>
             <p>
                 Sie haben ein besonderes Anliegen?<br>
                 Sprechen Sie uns an!
             </p>
-        </div>
+            <p>&nbsp;</p>
 
-        <div class="limiter text-limiter">
             <h2>Wasseraufbereitung</h2>
-            <ul>
-                <li>
-                    <b>Perfektes Wasser</b> für jede Gelegenheit!
-                    Egal ob Kaffee, Kochen oder Spülen, wir ermitteln
-                    ihren Bedarf und fi nden für sie die richtige
-                    Wasseraufbereitung
-                </li>
-                <li><b>Prüfen</b> ihrer Wasserqualität</li>
-            </ul>
-        </div>
+            <img src="/images/content/customerservice/wasseraufbereitung_604959639.png" alt="Wasseraufbereitung" class="content-image">
+            <p>
+                <ul>
+                    <li>
+                        <b>Perfektes Wasser</b> für jede Gelegenheit!
+                        Egal ob Kaffee, Kochen oder Spülen, wir ermitteln
+                        ihren Bedarf und fi nden für sie die richtige
+                        Wasseraufbereitung
+                    </li>
+                    <li><b>Prüfen</b> ihrer Wasserqualität</li>
+                </ul>
+            </p>
+            <p>&nbsp;</p>
 
-        <div class="limiter text-limiter">
             <h2>Hightech-Highlights</h2>
             <p>Entdecken Sie regelmäßig ausgewählte Maschinen zu unschlagbaren Sonderpreisen für Ihre Großküche.</p>
-        </div>
-
-        <div class="limiter text-limiter">
+            <div class="card margin-top-2">
+                <img src="/images/content/customerservice/hobart.png" alt="Hightech-Highlights" class="content-image">
+                <DownloadManager id="11195" class="border-top"/>
+            </div>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            
             <h2>Unser Team</h2>
             <div class="grid">
                 <StaffCard
@@ -140,6 +153,7 @@
 
     import TextSubLayout from '@/Layouts/SubLayouts/Text.vue'
     import StaffCard from '@/Components/Page/StaffCard.vue'
+    import DownloadManager from '@/Components/Apps/Pages/Renderer/DownloadManager.vue'
 </script>
 
 <style lang="sass" scoped>
@@ -219,4 +233,9 @@
         display: grid
         grid-template-columns: repeat(auto-fill, minmax(240px, 1fr))
         gap: 2rem
+
+    .card
+        background: var(--color-background)
+        border-radius: var(--radius-m)
+        box-shadow: var(--shadow-elevation-low)
 </style>
