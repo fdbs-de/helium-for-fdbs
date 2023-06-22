@@ -213,27 +213,11 @@
         "name": "Vertriebsinnendienst",
         "employees": [
             {
-                "name": "Phil Bartelt",
-                "job": "Vertriebsinnendienst",
-                "leader": false,
-                "tel": "36",
-                "image": "/images/content/mitarbeiter/phil_bartelt.png",
-                "overlay": "/images/content/mitarbeiter/phil_bartelt_zeichnung.png"
-            },
-            {
                 "name": "Jacqueline Bein",
                 "job": "Vertriebsinnendienst",
                 "leader": false,
                 "tel": "61",
                 "image": null
-            },
-            {
-                "name": "C. Eine",
-                "job": "Vertriebsinnendienst",
-                "leader": false,
-                "tel": "28",
-                "image": "/images/content/mitarbeiter/connar_eine.png",
-                "overlay": "/images/content/mitarbeiter/connar_eine_zeichnung.png"
             },
             {
                 "name": "Nicole Koch",
@@ -431,14 +415,6 @@
         "id": "lager",
         "name": "Lagerabteilung",
         "employees": [
-            {
-                "name": "Thomas Kutsche",
-                "job": "Leitung Lager",
-                "leader": true,
-                "tel": "57",
-                "image": "/images/content/mitarbeiter/thomas_kutsche.png",
-                "overlay": "/images/content/mitarbeiter/thomas_kutsche_zeichnung.png"
-            },
             {
                 "name": "Tobias Weniger",
                 "job": "Leitung Lager",
