@@ -33,7 +33,7 @@
                 <mui-input border v-model="form.email" label="Email"/>
                 <mui-input border required v-model="form.phone" label="Telefonnummer *"/>
                 <mui-input border required v-model="form.birthday" label="Geburtsdatum *"/>
-                <mui-input border required v-model="form.zip" label="Postleitzahl *" />
+                <mui-input border required v-model="form.city" label="Wohnort *" />
                 <div></div>
                 <mui-toggle class="checkbox" border required v-model="form.gdpr">
                     <template #label>
@@ -79,7 +79,7 @@
             email: '',
             phone: '',
             birthday: '',
-            zip: '',
+            city: '',
             gdpr: false,
         }
     }
@@ -122,7 +122,7 @@
             // Must have filled all required inputs so the last page is shown
             (!!validationObject.showPages.includes(props?.funnel?.pages?.length)),
             // Must have filled all required inputs
-            (!!form.zip),
+            (!!form.city),
             (!!form.name),
             (!!form.phone),
             (!!form.birthday),
