@@ -164,7 +164,7 @@ class JobController extends Controller
             'email' => 'nullable|email|max:200',
             'phone' => 'required|string|max:200',
             'birthday' => 'required|string|max:200',
-            'zip' => 'required|string|max:20',
+            'city' => 'required|string|max:200',
         ];
 
         foreach ($inputs as $input) {
@@ -191,7 +191,7 @@ class JobController extends Controller
             'email' => 'Email',
             'phone' => 'Telefon',
             'birthday' => 'Geburtsdatum',
-            'zip' => 'PLZ',
+            'city' => 'Wohnort',
         ];
         
         foreach ($inputs as $input)
