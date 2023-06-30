@@ -27,7 +27,12 @@
             Wir arbeiten eng mit Landwirten zusammen, pflegen unsere familiären Strukturen und stehen für flache Hierarchien. Kurze Wege ermöglichen schnelle Entscheidungen und immer wiederkehrende Abläufe und sorgen so für die Einhaltung unserer hohen Produktionsstandards. Diese sind für eine hohe Qualität und ein professionelles Auftreten unabdingbar.  Trotz der hohen Ansprüche an unsere Produkte zählt bei uns noch der Handschlag und das offene Wort.
         </p>
         <p>
-            <b>Wir sind bodenständig, authentisch und verkaufen nicht nur Fleisch, sondern ein  Stück Verbundenheit!</b>
+            <b>Wir sind bodenständig, authentisch und verkaufen nicht nur Fleisch, sondern ein Stück Verbundenheit!</b>
+        </p>
+        <p class="padding-2 margin-block-4 background-soft radius-l">
+            <b>Besuchen Sie unsere Website unter</b><br>
+            <br>
+            <mui-button as="a" href="https://www.eichenhof.net/" target="_blank" icon-left="language" label="www.eichenhof.net" />
         </p>
     </TextSubLayout>
 </template>

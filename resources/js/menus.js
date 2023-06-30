@@ -5,6 +5,7 @@ export const mainMenu = [
     { id: 'produkte-und-services', label: 'Produkte & Services', href: route('produkte-und-services'), children: [
         { id: 'angebote', label: 'Aktuelle Angebote', href: route('ps.angebote'), children: [] },
         { id: 'foodservice', label: 'Foodservice', href: route('ps.foodservice'), children: [
+            { id: 'foodservice.aktuelles', label: 'Top Aktuelles', href: route('ps.marken.eichenhof'), children: [] },
             { id: 'mehrwegpflicht', label: 'Mehrwegpflicht', href: route('ps.mehrwegpflicht'), children: [] },
         ]},
         { id: 'unsere-marken', label: 'Unsere Marken', href: route('ps.marken'), children: [
@@ -13,14 +14,16 @@ export const mainMenu = [
             { id: 'maxi-france', label: 'Maxi France', href: route('ps.marken.maxi-france'), children: [] },
         ]},
         { id: 'mkbs', label: 'Marketing & Kommunikation', href: route('mkbs'), children: [
+            // { id: 'mkbs.aktuelles', label: 'Top Aktuelles', href: route('mkbs.aktuelles'), children: [] },
             { id: 'mkbs.web', label: 'Web Entwicklung', href: route('mkbs.web'), children: [] },
             { id: 'mkbs.social-media', label: 'Social Media Marketing', href: route('mkbs.social-media'), children: [] },
             { id: 'mkbs.print', label: 'Print Design', href: route('mkbs.print'), children: [] },
             { id: 'mkbs.crossmedia', label: 'Crossmedia Marketing', href: route('mkbs.crossmedia'), children: [] },
         ]},
-        // { id: 'marketing-und-kommunikation', label: 'Marketing & Kommunikation', href: route('ps.marketing-und-kommunikation'), children: [] },
         { id: 'fachberatung-kaese-und-salate', label: 'Fachberatung: Käse & Salate', href: route('ps.fachberatung-kaese-und-salate'), children: [] },
-        { id: 'technischer-kundendienst', label: 'Technischer Kundendienst', href: route('ps.technischer-kundendienst'), children: [] },
+        { id: 'technischer-kundendienst', label: 'Technischer Kundendienst', href: route('ps.technischer-kundendienst'), children: [
+            { id: 'technischer-kundendienst.aktuelles', label: 'Top Aktuelles', href: route('ps.technischer-kundendienst.aktuelles'), children: [] },
+        ] },
         { id: 'seminare', label: 'Seminare', href: route('seminare'), children: [
             // { id: 'seminare.grillseminar', label: 'Grillseminar', href: route('seminare.grillseminar'), children: [] },
             // { id: 'seminare.kreativworkshop', label: 'Kreativworkshop', href: route('seminare.kreativworkshop'), children: [] },
