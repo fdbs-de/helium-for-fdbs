@@ -62,12 +62,16 @@ Route::prefix('/produkte-und-services')->group(function () {
 
     Route::prefix('/foodservice')->group(function () {
         Route::get('/', [StaticController::class, 'indexFoodservice'])->name('ps.foodservice');
+        // Route::get('/aktuelles', [StaticController::class, 'indexFoodserviceAktuelles'])->name('ps.foodservice.aktuelles');
         Route::get('/mehrwegpflicht', [StaticController::class, 'indexMehrwegpflicht'])->name('ps.mehrwegpflicht');
     });
 
     Route::get('/fachberatung-kaese-und-salate', [StaticController::class, 'indexFachberatungKaeseSalate'])->name('ps.fachberatung-kaese-und-salate');
-    Route::get('/marketing-und-kommunikation', [StaticController::class, 'indexMarketingKommunikation'])->name('ps.marketing-und-kommunikation');
-    Route::get('/technischer-kundendienst', [StaticController::class, 'indexTechnischerKundendienst'])->name('ps.technischer-kundendienst');
+
+    Route::prefix('/technischer-kundendienst')->group(function () {
+        Route::get('/', [StaticController::class, 'indexTechnischerKundendienst'])->name('ps.technischer-kundendienst');
+        Route::get('/aktuelles', [StaticController::class, 'indexTechnischerKundendienstAktuelles'])->name('ps.technischer-kundendienst.aktuelles');
+    });
     
     Route::prefix('/marken')->group(function () {
         Route::get('/', [StaticController::class, 'indexMarken'])->name('ps.marken');
@@ -88,6 +92,7 @@ Route::prefix('/seminare')->group(function () {
 
 Route::prefix('/mkbs')->group(function () {
     Route::get('/', [StaticController::class, 'indexMKBS'])->name('mkbs');
+    // Route::get('/aktuelles', [StaticController::class, 'indexMKBSAktuelles'])->name('mkbs.aktuelles');
     Route::get('/web', [StaticController::class, 'indexMKBSWeb'])->name('mkbs.web');
     Route::get('/social-media', [StaticController::class, 'indexMKBSSocialMedia'])->name('mkbs.social-media');
     Route::get('/print', [StaticController::class, 'indexMKBSPrint'])->name('mkbs.print');

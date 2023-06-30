@@ -16,24 +16,27 @@ class StaticController extends Controller
 
     public function indexProdukteUndServices() { return Inertia::render('ProdukteUndServices/Index'); }
     public function indexAngebote() { return Inertia::render('ProdukteUndServices/Angebote'); }
-    public function indexFoodservice() { return Inertia::render('ProdukteUndServices/Foodservice'); }
-    public function indexMehrwegpflicht() { return Inertia::render('ProdukteUndServices/Mehrwegpflicht'); }    
 
-    public function indexMarken() { return Inertia::render('ProdukteUndServices/Marken'); }
+    public function indexFoodservice() { return Inertia::render('ProdukteUndServices/Foodservice/Index'); }
+    public function indexFoodserviceAktuelles() { return Inertia::render('ProdukteUndServices/Foodservice/Aktuelles'); }
+    public function indexMehrwegpflicht() { return Inertia::render('ProdukteUndServices/Foodservice/Mehrwegpflicht'); }    
+
+    public function indexMarken() { return Inertia::render('ProdukteUndServices/Marken/Index'); }
     public function indexEichenhof() { return Inertia::render('ProdukteUndServices/Marken/Eichenhof'); }
     public function indexIlCampese() { return Inertia::render('ProdukteUndServices/Marken/IlCampese'); }
     public function indexMaxiFrance() { return Inertia::render('ProdukteUndServices/Marken/MaxiFrance'); }
 
     public function indexFachberatungKaeseSalate() { return Inertia::render('ProdukteUndServices/FachberatungKaeseSalate'); }
 
-    public function indexMarketingKommunikation() { return Inertia::render('ProdukteUndServices/MarketingKommunikation'); }
     public function indexMKBS() { return Inertia::render('ProdukteUndServices/MKBS/Index'); }
+    public function indexMKBSAktuelles() { return Inertia::render('ProdukteUndServices/MKBS/Aktuelles'); }
     public function indexMKBSWeb() { return Inertia::render('ProdukteUndServices/MKBS/Web'); }
     public function indexMKBSSocialMedia() { return Inertia::render('ProdukteUndServices/MKBS/SocialMedia'); }
     public function indexMKBSPrint() { return Inertia::render('ProdukteUndServices/MKBS/Print'); }
     public function indexMKBSCrossmedia() { return Inertia::render('ProdukteUndServices/MKBS/Crossmedia'); }
 
-    public function indexTechnischerKundendienst() { return Inertia::render('ProdukteUndServices/TechnischerKundendienst'); }
+    public function indexTechnischerKundendienst() { return Inertia::render('ProdukteUndServices/TechnischerKundendienst/Index'); }
+    public function indexTechnischerKundendienstAktuelles() { return Inertia::render('ProdukteUndServices/TechnischerKundendienst/Aktuelles'); }
 
     public function indexSeminare() { return Inertia::render('ProdukteUndServices/Seminare/Index'); }
     // public function indexSeminareGrillseminar()
