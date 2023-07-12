@@ -49,6 +49,7 @@
             </div>
 
             <div class="grid" v-if="filteredJobs.length">
+                <!-- Use v-show to mitigate redundant image reloading -->
                 <Card v-for="job in filteredJobs" cover
                     aspect-ratio="16/9"
                     tag-position="beneath-image"

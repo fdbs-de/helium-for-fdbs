@@ -217,7 +217,8 @@
                 "job": "Vertriebsinnendienst",
                 "leader": false,
                 "tel": "61",
-                "image": null
+                "image": "/images/content/mitarbeiter/jacqueline_bein.png",
+                "overlay": "/images/content/mitarbeiter/jacqueline_bein_zeichnung.png"
             },
             {
                 "name": "Nicole Koch",
