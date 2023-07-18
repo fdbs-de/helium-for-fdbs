@@ -19,10 +19,33 @@
         
             <div class="spacer"></div>
 
+            <mui-button type="button" variant="text" size="small" label="Einladungen" @click="openInvitesPopup()"/>
             <mui-button type="button" variant="text" size="small" label="Newsletter" @click="openNewsletterPopup()"/>
             <mui-button type="button" variant="text" size="small" label="Einstellungen" @click="openSettingsPopup()"/>
         </div>
     </AdminLayout>
+
+
+
+    <Popup title="Einladungen" ref="invitesPopup">
+        <div class="flex vertical gap-1 padding-1">
+            <div class="flex gap-1 v-center">
+                <select class="flex-1" v-model="invitesForm.invite" @change="getInvitesData()">
+                    <option value="sommerfest">Sommerfest</option>
+                </select>
+                <select class="flex-1" v-model="invitesForm.status" @change="getInvitesData()">
+                    <option value="yes">Angenommen</option>
+                    <option value="no">Abgelehnt</option>
+                </select>
+            </div>
+            
+            <div class="background-soft padding-1 radius-m h-20" style="overflow-y: auto;">
+                {{ invitesForm.users.map(e => e.name+' – '+e.email).join('; ') }}
+            </div>
+
+            <mui-button type="button" label="Email-Adressen kopieren" variant="contained" @click="copyToClipboard(invitesForm.users.map(e => e.email).join('; '))"/>
+        </div>
+    </Popup>
 
 
 
@@ -33,12 +56,13 @@
                     <option value="generic">Allgemeiner Newsletter</option>
                     <option value="customer">Kunden Newsletter</option>
                 </select>
-                <mui-button type="button" label="Email-Adressen kopieren" size="large" @click="copyToClipboard(newsletterForm.users.map(e => e.email).join('; '))"/>
             </div>
             
             <div class="background-soft padding-1 radius-m h-20" style="overflow-y: auto;">
                 {{ newsletterForm.users.map(e => e.email).join('; ') }}
             </div>
+
+            <mui-button type="button" label="Email-Adressen kopieren" variant="contained" @click="copyToClipboard(newsletterForm.users.map(e => e.email).join('; '))"/>
         </div>
     </Popup>
         
@@ -185,6 +209,39 @@
         navigator.clipboard.writeText(text)
     }
     // END: Newsletter
+
+
+
+    // START: Invites
+    const invitesPopup = ref(null)
+
+    const invitesForm = useForm({
+        invite: 'sommerfest',
+        status: 'yes',
+        users: [],
+    })
+
+    const openInvitesPopup = () => {
+        getInvitesData()
+        invitesPopup.value.open()
+    }
+
+    const getInvitesData = async () => {
+        try
+        {
+            let response = await axios.get(route('admin.invites.search'), {params: {
+                invite: invitesForm.invite,
+                status: invitesForm.status
+            }})
+
+            invitesForm.users = response.data
+        }
+        catch (error)
+        {
+            console.log(error)
+        }
+    }
+    // END: Invites
 
 
 

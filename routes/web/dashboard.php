@@ -3,6 +3,7 @@
 use App\Http\Controllers\Dashboard\Apps\Wiki\WikiController;
 use App\Http\Controllers\Dashboard\CustomerController;
 use App\Http\Controllers\Dashboard\EmployeeController;
+use App\Http\Controllers\Dashboard\InviteController;
 use App\Http\Controllers\Dashboard\NewsletterController;
 use App\Http\Controllers\Dashboard\OverviewController;
 use App\Http\Controllers\Dashboard\ProfileController;
@@ -15,6 +16,8 @@ Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () 
     Route::put('/profile/change-password', [ProfileController::class, 'changePassword'])->name('dashboard.profile.change-password');
 
     Route::put('/newsletter', [NewsletterController::class, 'update'])->name('dashboard.newsletter.update');
+
+    Route::put('/invite', [InviteController::class, 'update'])->name('dashboard.invite.update');
 
     Route::prefix('mitarbeiter')->middleware(['panelaccess:employee'])->group(function () {
         Route::get('/', [EmployeeController::class, 'indexOverview'])->name('dashboard.employee.overview');
