@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\Apps\Forms\FormController;
 use App\Http\Controllers\Admin\Apps\Pages\MenuController;
 use App\Http\Controllers\Admin\Apps\Pages\PageController;
+use App\Http\Controllers\Admin\InviteController;
 use App\Http\Controllers\Admin\Media\MediaController;
 use App\Http\Controllers\Admin\NewsletterController;
 use App\Http\Controllers\Admin\RoleController;
@@ -34,6 +35,16 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
         Route::put('/{user}', [NewsletterController::class, 'update'])
         ->middleware('can:system.edit.users')
         ->name('admin.newsletter.update');
+    });
+
+    Route::prefix('invites')->group(function () {
+        Route::get('/search', [InviteController::class, 'search'])
+        ->middleware('can:system.view.users')
+        ->name('admin.invites.search');
+
+        Route::put('/{user}', [InviteController::class, 'update'])
+        ->middleware('can:system.edit.users')
+        ->name('admin.invites.update');
     });
 
     Route::prefix('users')->group(function () {
