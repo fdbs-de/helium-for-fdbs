@@ -11,6 +11,7 @@
             >
                 <template #right>
                     <!-- <IconButton icon="filter_list"/> -->
+                    <IconButton icon="refresh" @click="$emit('request:refresh')" v-tooltip="'Resultate aktualisieren'"/>
                 </template>
             </mui-input>
             
@@ -27,39 +28,6 @@
             </template>
             
             <div class="spacer"></div>
-
-            <div class="flex v-center background-soft radius-m">
-                <VDropdown placement="bottom">
-                    <IconButton icon="discover_tune" v-tooltip="'Spalten ein- & ausblenden'"/>
-                    <template #popper>
-                        <div class="flex vertical padding-1">
-                            <mui-toggle
-                                style="--mui-background: var(--color-background)"
-                                v-for="column in columns.filter(e => e.hideable)"
-                                :label="column.label"
-                                v-model="column.show" />
-                        </div>
-                    </template>
-                </VDropdown>
-
-                <select class="table-page-size-select" :value="getPagination.size" @change="setPagination({size: parseInt($event.target.value)})" v-tooltip="'Einträge pro Seite'">
-                    <option :value="10">10</option>
-                    <option :value="20">20</option>
-                    <option :value="50">50</option>
-                    <option :value="100">100</option>
-                    <option :value="250">250</option>
-                    <option :value="1000000">Alle</option>
-                </select>
-            </div>
-
-            <VDropdown placement="bottom-end">
-                <IconButton icon="more_vert" v-tooltip="'Mehr...'"/>
-                <template #popper>
-                    <div class="flex vertical padding-1">
-                        <mui-button @click="$emit('request:refresh')" icon="refresh" label="Manuell aktualisieren"/>
-                    </div>
-                </template>
-            </VDropdown>
         </div>
 
 
@@ -83,9 +51,10 @@
                         'resizeable': column.resizeable,
                         'resizing': column.resizing,
                         'sortable': column.sortable,
-                    }" :style="`width: ${column.width}px;`">
-                        <!-- <div class="column-sort-indicator" v-show="column.sortable">arrow_drop_down</div> -->
+                        'sorted-field': sort.field === column.name,
+                    }" :style="`width: ${column.width}px;`" @click="toggleSort(column.name)">
                         <div class="column-label" v-tooltip="column.label">{{ column.label }}</div>
+                        <div class="column-sort-indicator">{{ sort.order === 'asc' ? 'north' : 'south' }}</div>
                         <div class="column-resize-handle" @mousedown="startResize($event, column)"></div>
                     </div>
                     <div class="table-column actions"></div>
@@ -113,6 +82,32 @@
 
         <div class="table-pagination-wrapper" v-show="items.length">
             <TablePagination :modelValue="getPagination.page" @update:modelValue="setPagination({page: $event})" :size="getPagination.size" :total="getPagination.total"/>
+            
+            <div class="spacer"></div>
+
+            <div class="flex gap-0-5 v-center background-soft radius-m">
+                <select class="table-page-size-select" :value="getPagination.size" @change="setPagination({size: parseInt($event.target.value)})" v-tooltip="'Einträge pro Seite'">
+                    <option :value="10">10</option>
+                    <option :value="20">20</option>
+                    <option :value="50">50</option>
+                    <option :value="100">100</option>
+                    <option :value="250">250</option>
+                    <option :value="1000000">Alle</option>
+                </select>
+
+                <VDropdown placement="top">
+                    <IconButton icon="grid_view" v-tooltip="'Ansicht anpassen'"/>
+                    <template #popper>
+                        <div class="flex vertical padding-1">
+                            <mui-toggle
+                                style="--mui-background: var(--color-background)"
+                                v-for="column in columns.filter(e => e.hideable)"
+                                :label="column.label"
+                                v-model="column.show" />
+                        </div>
+                    </template>
+                </VDropdown>
+            </div>
         </div>
     </div>
 </template>
@@ -239,6 +234,12 @@
             ...value,
         })
     }
+
+    const toggleSort = (field) => {
+        let value = (getSort.value.field === field) ? { order: getSort.value.order === 'asc' ? 'desc' : 'asc' } : { field, order: 'asc' }
+        
+        setSort(value)
+    }
     // END: Sort
 
 
@@ -361,16 +362,12 @@
             .table-search-input
                 height: 2.5rem
                 width: 100%
-                max-width: 300px
+                max-width: 400px
                 min-width: 100px
                 border-radius: var(--radius-m)
 
             .spacer
                 flex: 1
-
-            .table-page-size-select
-                height: 2.5rem
-                border-radius: var(--radius-m)
 
         .table-empty-wrapper
             display: flex
@@ -458,13 +455,32 @@
                         border-radius: var(--radius-m) 0 0 var(--radius-m)
 
                         > button
-                            border-radius: var(--radius-s)
-                            height: 2rem
-                            width: 2rem
+                            border-radius: var(--radius-m)
+                            height: 2.25rem
+                            width: 2.25rem
+
+                &.sortable:hover
+                    .column-sort-indicator
+                        color: var(--color-text)
+
+                &.sortable.sorted-field
+                    .column-sort-indicator
+                        color: var(--color-heading)
+
+                &.sortable.sorted-field,
+                &.sortable:hover
+                    .column-sort-indicator
+                        display: block
+
+                    .column-label
+                        padding-right: .25rem
 
                 .column-sort-indicator
                     font-family: var(--font-icon)
-                    font-size: 1.5rem
+                    font-size: 1.25rem
+                    display: none
+                    user-select: none
+                    pointer-events: none
 
                 .column-label
                     padding-inline: .75rem
@@ -474,7 +490,7 @@
                     white-space: nowrap
                     font-size: .8rem
                     text-transform: uppercase
-                    opacity: .8
+                    color: var(--color-heading)
 
                 .column-resize-handle
                     width: .5rem
@@ -527,6 +543,12 @@
             padding: 1rem
             display: flex
             align-items: center
-            justify-content: center
             border-top: 1px solid var(--color-border)
+
+            .spacer
+                flex: 1
+
+            .table-page-size-select
+                height: 2.5rem
+                border-radius: var(--radius-m)
 </style>

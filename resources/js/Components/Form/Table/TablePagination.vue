@@ -98,13 +98,14 @@
 <style lang="sass" scoped>
     .table-pagination
         display: inline-flex
-        align-items: center
+        align-items: stretch
         justify-content: center
-        gap: .25rem
+        border-radius: var(--radius-m)
+        background: var(--color-background-soft)
+        overflow: hidden
 
         .vertical-divider
             width: 0
-            height: 1.5rem
             border-left: 1px solid var(--color-border)
 
         .page-button
@@ -112,11 +113,9 @@
             align-items: center
             justify-content: center
             width: auto
-            height: 2.25rem
+            height: 2.5rem
             border: none
             padding: 0 1rem
-            margin: 0
-            border-radius: var(--radius-m)
             background: transparent
             color: var(--color-text)
             font-family: inherit
@@ -125,16 +124,16 @@
             user-select: none
 
             &.square
-                width: 2.25rem
+                width: 2.5rem
                 padding-inline: 0
 
             &:hover
                 color: var(--color-heading)
-                background: var(--color-background-soft)
+                background: #0000000f
 
             &.active
-                background: var(--color-background-soft)
                 color: var(--color-heading)
+                background: #0000000f
                 font-weight: 600
 
             &:disabled

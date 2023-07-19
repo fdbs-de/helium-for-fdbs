@@ -122,7 +122,11 @@ export default class ItemPageManager extends EventListener
 
         try
         {
-            let response = await axios.get(route(this.options.routes.fetch, {...this.filter, ...this.sort, ...this.pagination}))
+            let response = await axios.get(route(this.options.routes.fetch, {
+                ...this.filter,
+                ...{sort: this.sort},
+                ...this.pagination
+            }))
 
             if (!response?.data) throw new Error('No data returned')
 

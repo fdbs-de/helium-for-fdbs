@@ -61,6 +61,7 @@ class UserController extends Controller
     {
         $query = User::with(['roles', 'settings']);
         
+        // START: Search
         if ($request->search)
         {
             $query->whereFuzzy(function ($query) use ($request) {
@@ -70,7 +71,17 @@ class UserController extends Controller
                 ->orWhereFuzzy('email', $request->search);
             });
         }
-        
+        // END: Search
+
+
+
+        // START: Sort
+        $query->orderBy($request->sort['field'], $request->sort['order']);
+        // END: Sort
+
+
+
+        // START: Pagination
         $total = $query->count();
 
         $limit = $request->size ?? 20;
@@ -80,10 +91,11 @@ class UserController extends Controller
         $offset = max(0, $offset);
         $offset = min($offset, intdiv($total, $limit) * $limit);
         
-        $data = $query->orderBy('created_at', 'desc')->limit($limit)->offset($offset)->get();
+        $query->limit($limit)->offset($offset);
+        // END: Pagination
 
         return response()->json([
-            'data' => UserResource::collection($data),
+            'data' => UserResource::collection($query->get()),
             'total' => $total,
         ]);
     }

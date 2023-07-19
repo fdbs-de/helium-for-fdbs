@@ -27,42 +27,43 @@
 
 
 
-    <Popup title="Einladungen" ref="invitesPopup">
-        <div class="flex vertical gap-1 padding-1">
-            <div class="flex gap-1 v-center">
-                <select class="flex-1" v-model="invitesForm.invite" @change="getInvitesData()">
-                    <option value="sommerfest">Sommerfest</option>
-                </select>
-                <select class="flex-1" v-model="invitesForm.status" @change="getInvitesData()">
-                    <option value="yes">Angenommen</option>
-                    <option value="no">Abgelehnt</option>
-                </select>
-            </div>
-            
-            <div class="background-soft padding-1 radius-m h-20" style="overflow-y: auto;">
-                {{ invitesForm.users.map(e => e.name+' – '+e.email).join('; ') }}
-            </div>
+    <Popup title="Einladungen" ref="invitesPopup" position="right" style="--max-width: 400px;">
+        <div class="flex vertical gap-1 padding-1 h-100">
+            <select class="w-100" v-model="invitesForm.invite" @change="getInvitesData()">
+                <option value="sommerfest">Sommerfest</option>
+            </select>
 
-            <mui-button type="button" label="Email-Adressen kopieren" variant="contained" @click="copyToClipboard(invitesForm.users.map(e => e.email).join('; '))"/>
+            <select class="w-100" v-model="invitesForm.status" @change="getInvitesData()">
+                <option value="yes">Angenommen</option>
+                <option value="no">Abgelehnt</option>
+            </select>
+
+            <div class="flex vertical background-soft padding-0-5 radius-m flex-1">
+                <div class="flex-1 flex vertical" style="overflow-y: auto;">
+                    <span v-for="user in invitesForm.users">{{ user.name }} – {{ user.email }}</span>
+                    <!-- {{ invitesForm.users.map(e => e.name+' – '+e.email).join('; ') }} -->
+                </div>
+                <mui-button type="button" label="Email-Adressen kopieren" size="small" @click="copyToClipboard(newsletterForm.users.map(e => e.email).join('; '))"/>
+            </div>
         </div>
     </Popup>
 
 
 
-    <Popup title="Newsletter Emails" ref="newsletterPopup">
-        <div class="flex vertical gap-1 padding-1">
-            <div class="flex gap-1 v-center">
-                <select class="flex-1" v-model="newsletterForm.newsletter" @change="getNewsletterData()">
-                    <option value="generic">Allgemeiner Newsletter</option>
-                    <option value="customer">Kunden Newsletter</option>
-                </select>
-            </div>
-            
-            <div class="background-soft padding-1 radius-m h-20" style="overflow-y: auto;">
-                {{ newsletterForm.users.map(e => e.email).join('; ') }}
-            </div>
+    <Popup title="Newsletter Emails" ref="newsletterPopup" position="right" style="--max-width: 400px;">
+        <div class="flex vertical gap-1 padding-1 h-100">
+            <select class="w-100" v-model="newsletterForm.newsletter" @change="getNewsletterData()">
+                <option value="generic">Allgemeiner Newsletter</option>
+                <option value="customer">Kunden Newsletter</option>
+            </select>
 
-            <mui-button type="button" label="Email-Adressen kopieren" variant="contained" @click="copyToClipboard(newsletterForm.users.map(e => e.email).join('; '))"/>
+            <div class="flex vertical background-soft padding-0-5 radius-m flex-1">
+                <div class="flex-1 flex vertical" style="overflow-y: auto;">
+                    <span v-for="user in newsletterForm.users">{{ user.email }};</span>
+                    <!-- {{ newsletterForm.users.map(e => e.email).join('; ') }} -->
+                </div>
+                <mui-button type="button" label="Email-Adressen kopieren" size="small" @click="copyToClipboard(newsletterForm.users.map(e => e.email).join('; '))"/>
+            </div>
         </div>
     </Popup>
         

@@ -6,7 +6,7 @@
             <div class="wrapper">
                 <div class="flex vertical gap-1 w-100 flex-1">
                     <h2>Unser Sommerfest</h2>
-                    <p>Du bist herzlich eingeladen, an unserer Mitarbeiterversammlung mit anschließendem Sommerfest am 08. September um 15:30 Uhr teilzunehemen. Anmeldeschluss ist der 01. September.</p>
+                    <p>Du bist herzlich eingeladen, an unserer Mitarbeiterversammlung mit anschließendem Sommerfest am 08. September um 15:30 Uhr teilzunehmen. Anmeldeschluss ist der 01. September.</p>
                 </div>
     
                 <div class="flex vertical gap-1 w-100">
