@@ -76,7 +76,10 @@ class UserController extends Controller
 
 
         // START: Sort
-        $query->orderBy($request->sort['field'], $request->sort['order']);
+        $field = $request->sort['field'] ?? 'created_at';
+        $order = $request->sort['order'] ?? 'desc';
+        
+        $query->orderBy($field, $order);
         // END: Sort
 
 

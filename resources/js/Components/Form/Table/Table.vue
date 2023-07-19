@@ -222,8 +222,8 @@
     // START: Sort
     const getSort = computed(() => {
         return {
-            field: 'created_at',
-            order: 'desc',
+            field: '',
+            order: '',
             ...props.sort
         }
     })
