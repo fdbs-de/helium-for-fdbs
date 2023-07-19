@@ -229,10 +229,19 @@
     })
 
     const setSort = (value) => {
-        emits('update:sort', {
+        value = {
             ...getSort.value,
             ...value,
-        })
+        }
+
+        // Prevent non sortable columns from being sorted
+        if (!columns.value.find(column => column.name === value.field)?.sortable)
+        {
+            return
+        }
+
+        // Emit the new sort
+        emits('update:sort', value)
     }
 
     const toggleSort = (field) => {
