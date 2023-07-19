@@ -112,7 +112,7 @@
 
 
     const tableColumns = [
-        {type: 'text', name: 'displayname', label: 'Anzeigename', valuePath: 'name', sortable: true, width: 300, resizeable: true, hideable: true},
+        {type: 'text', name: 'name', label: 'Name', valuePath: 'name', sortable: true, width: 300, resizeable: true, hideable: true},
         {type: 'text', name: 'username', label: 'Nutzername', valuePath: 'username', sortable: true, width: 150, resizeable: true, hideable: true, transform: (value) => value || '---'},
         {type: 'text', name: 'email', label: 'Email', valuePath: 'email', sortable: true, width: 250, resizeable: true, hideable: true},
         {type: 'tags', name: 'roles', label: 'Rollen', valuePath: 'roles', sortable: false, width: 200, resizeable: true, hideable: true, transform: (value) => {
