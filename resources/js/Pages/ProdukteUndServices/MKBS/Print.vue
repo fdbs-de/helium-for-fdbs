@@ -55,32 +55,30 @@
                 mit z.B. Handzetteln Kunden auf sich aufmerksam zu machen und in Erinnerung zu bleiben. Voraussetzung dafür ist ein
                 attraktives Design, das die Menschen anspricht, die sie erreichen möchten.
             </p>
-            
             <p>
                 Bei uns können Sie daher neben der Vielzahl an digitalen Optionen auch die Konzeption, die Gestaltung und den Druck
                 solcher Printprodukte in Auftrag geben.
             </p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
     
-            <br>
-    
-            <h2>Produktauswahl</h2>
             <img src="/images/content/mkbs/leistungen/print/products.png" alt="" class="content-image">
+            <h2>Produktauswahl</h2>
             <p>
                 Von den klassischen Produkten, wie Handzetteln, Plakaten oder Broschüren bis hin zu Etiketten, Fahnen oder Roll-Ups ist
                 bei uns grundsätzlich alles möglich. Wir sind für Anfragen offen und finden Lösungen, auch ausgefallenere Ideen
                 umzusetzen.
             </p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
     
-            <br>
-    
-            <h2>Konzeption und Gestaltung</h2>
             <img src="/images/content/mkbs/leistungen/print/concept_and_design.png" alt="" class="content-image">
+            <h2>Konzeption und Gestaltung</h2>
             <p>
                 Unser Service beginnt dabei mit einem Erstgespräch, der Ideenfindung und der Entwicklung eines ersten Layouts, wobei wir
                 auch gleich Umfang und Produktion definieren. Bei Konzept und Layout besteht selbstverständlich auch die Möglichkeit,
                 sich an Online-Marketingkampagnen zu orientieren und beides zu kombinieren.
             </p>
-            
             <p>
                 Die Konzeption, Gestaltung und Produktion der Printartikel geschieht dabei alles aus einer Hand bei uns im Haus.
                 Zusätzlich arbeiten wir mit einem großen Netzwerk an Partnern zusammen, um Ihre Aufträge schnellstmöglich fertigstellen

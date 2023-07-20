@@ -47,14 +47,14 @@
                             </p>
                             <Link :href="route('karriere')">Job Finden</Link>
                         </div>
-                        <div class="flex-1">
+                        <!-- <div class="flex-1">
                             <span class="icon" aria-hidden="true">content_paste</span>
                             <h2>Seminare</h2>
                             <p>
                                 Sehen Sie unser breites Angebot an Seminaren und Workshops.
                             </p>
                             <Link :href="route('seminare')">Mehr Erfahren</Link>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </section>
@@ -71,7 +71,7 @@
                         <Card name="Fachberatung: Käse und Salate" alt="Fachberatung: Käse und Salate" cover :link="route('ps.fachberatung-kaese-und-salate')" image="/images/content/services/cover/kaese_und_salate_cover.png"/>
                         <Card name="Marketing & Kommunikation" alt="Marketing & Kommunikation" cover :link="route('mkbs')" image="/images/content/services/cover/mkbs_cover.png"/>
                         <Card name="Technischer Kundendienst" alt="Technischer Kundendienst" cover :link="route('ps.technischer-kundendienst')" image="/images/content/services/cover/technischer_kundendienst_cover.png"/>
-                        <Card name="Seminare" alt="Seminare" cover :link="route('seminare')" image="/images/content/services/cover/seminare_cover.png"/>
+                        <!-- <Card name="Seminare" alt="Seminare" cover :link="route('seminare')" image="/images/content/services/cover/seminare_cover.png"/> -->
                     </div>
                 </div>
             </section>

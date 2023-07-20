@@ -1,7 +1,9 @@
 export const mainMenu = [
     { id: 'home', label: 'Home', href: route('home'), children: [] },
     { id: 'blog', label: 'Blog', href: route('blog'), children: [] },
-    { id: 'philosophie', label: 'Philosophie', href: route('philosophie'), children: [] },
+    { id: 'philosophie', label: 'Philosophie', href: route('philosophie'), children: [
+        // { id: 'philosophie.nachhaltigkeit', label: 'Nachhaltigkeit', href: route('philosophie'), children: [] },
+    ] },
     { id: 'produkte-und-services', label: 'Produkte & Services', href: route('produkte-und-services'), children: [
         { id: 'angebote', label: 'Aktuelle Angebote', href: route('ps.angebote'), children: [] },
         { id: 'foodservice', label: 'Foodservice', href: route('ps.foodservice'), children: [
@@ -24,13 +26,13 @@ export const mainMenu = [
         { id: 'technischer-kundendienst', label: 'Technischer Kundendienst', href: route('ps.technischer-kundendienst'), children: [
             { id: 'technischer-kundendienst.aktuelles', label: 'Top Aktuelles', href: route('ps.technischer-kundendienst.aktuelles'), children: [] },
         ] },
-        { id: 'seminare', label: 'Seminare', href: route('seminare'), children: [
-            // { id: 'seminare.grillseminar', label: 'Grillseminar', href: route('seminare.grillseminar'), children: [] },
-            // { id: 'seminare.kreativworkshop', label: 'Kreativworkshop', href: route('seminare.kreativworkshop'), children: [] },
-            // { id: 'seminare.kaeseworkshop', label: 'Käseworkshop', href: route('seminare.kaeseworkshop'), children: [] },
-            // { id: 'seminare.catering', label: 'Catering', href: route('seminare.catering'), children: [] },
-            { id: 'seminare.employer-branding', label: 'Employer Branding', href: route('seminare.employer-branding'), children: [] },
-        ] },
+        // { id: 'seminare', label: 'Seminare', href: route('seminare'), children: [
+        //     // { id: 'seminare.grillseminar', label: 'Grillseminar', href: route('seminare.grillseminar'), children: [] },
+        //     // { id: 'seminare.kreativworkshop', label: 'Kreativworkshop', href: route('seminare.kreativworkshop'), children: [] },
+        //     // { id: 'seminare.kaeseworkshop', label: 'Käseworkshop', href: route('seminare.kaeseworkshop'), children: [] },
+        //     // { id: 'seminare.catering', label: 'Catering', href: route('seminare.catering'), children: [] },
+        //     // { id: 'seminare.employer-branding', label: 'Employer Branding', href: route('seminare.employer-branding'), children: [] },
+        // ] },
     ]},
     { id: 'karriere', label: 'Karriere', href: route('karriere'), children: [] },
     { id: 'kontakt', label: 'Kontakt & Ansprechpartner', href: route('kontakt'), children: [] },

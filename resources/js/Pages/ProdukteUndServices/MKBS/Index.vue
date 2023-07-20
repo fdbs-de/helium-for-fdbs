@@ -51,12 +51,23 @@
             </div>
         </section>
 
+        <section id="survey">
+            <div class="limiter text-limiter">
+                <h2>Wie zufrieden sind Sie mit uns?</h2>
+                <p class="text-align-center">
+                    Teilen Sie uns Ihre Meinung in einer kurzen Umfrage mit und helfen Sie uns aktiv, uns zu verbessern. <b>Wir freuen uns über Ihr Feedback!</b>
+                </p>
+                <div class="flex h-center v-center margin-top-2">
+                    <mui-button as="a" target="_blank" href="/umfragen/mkbs-kundenzufriedenheit" size="large" label="Zur Kundenunfrage"/>
+                </div>
+            </div>
+        </section>
+
         <section id="contacts">
             <div class="limiter">
                 <h2>Unser Team</h2>
                 <div class="grid">
                     <StaffCard
-                        class="service-scroll-item"
                         v-for="employee in departments.find(e => e.id === 'marketing').employees"
                         :key="employee.name"
                         :name="employee.name"
@@ -184,14 +195,46 @@
             .fancy:hover
                 color: var(--color-local-primary)
 
+
+    
+    section#survey
+        padding-block: 5rem
+        background: var(--color-background-soft)
+        position: relative
+
+        &::before,
+        &::after
+            content: ''
+            width: 100%
+            height: 1rem
+            border-radius: 1rem
+            background: var(--color-background)
+            position: absolute
+
+        &::before
+            top: 0
+            left: 0
+            border-radius: 0 0 1rem 1rem
+
+        &::after
+            bottom: 0
+            left: 0
+            border-radius: 1rem 1rem 0 0
+
+        h2
+            font-size: clamp(1.5rem, 5vw, 2.5rem)
+            margin: 0 0 3rem
+            line-height: 1.4
+            text-align: center
+            font-family: var(--font-text)
+
     
 
     section#contacts
-        padding: 0 0 5rem
+        padding-block: 10rem
 
         h2
-            font-size: clamp(1.5rem, 5vw, 4rem)
-            font-weight: 400
+            font-size: clamp(1.5rem, 5vw, 2.5rem)
             margin: 0 0 4rem
             line-height: 1.4
             text-align: center

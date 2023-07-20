@@ -81,14 +81,14 @@ Route::prefix('/produkte-und-services')->group(function () {
     });
 });
 
-Route::prefix('/seminare')->group(function () {
-    Route::get('/', [StaticController::class, 'indexSeminare'])->name('seminare');
-    // Route::get('/grillseminar-2023', [StaticController::class, 'indexSeminareGrillseminar'])->name('seminare.grillseminar');
-    // Route::get('/kreativworkshop-2023', [StaticController::class, 'indexSeminareKreativworkshop'])->name('seminare.kreativworkshop');
-    // Route::get('/catering-2023', [StaticController::class, 'indexSeminareCatering'])->name('seminare.catering');
-    // Route::get('/kaeseworkshop-2023', [StaticController::class, 'indexSeminareKaeseworkshop'])->name('seminare.kaeseworkshop');
-    Route::get('/employer-branding-2023', [StaticController::class, 'indexSeminareEmployerBranding'])->name('seminare.employer-branding');
-});
+// Route::prefix('/seminare')->group(function () {
+//     Route::get('/', [StaticController::class, 'indexSeminare'])->name('seminare');
+//     // Route::get('/grillseminar-2023', [StaticController::class, 'indexSeminareGrillseminar'])->name('seminare.grillseminar');
+//     // Route::get('/kreativworkshop-2023', [StaticController::class, 'indexSeminareKreativworkshop'])->name('seminare.kreativworkshop');
+//     // Route::get('/catering-2023', [StaticController::class, 'indexSeminareCatering'])->name('seminare.catering');
+//     // Route::get('/kaeseworkshop-2023', [StaticController::class, 'indexSeminareKaeseworkshop'])->name('seminare.kaeseworkshop');
+//     // Route::get('/employer-branding-2023', [StaticController::class, 'indexSeminareEmployerBranding'])->name('seminare.employer-branding');
+// });
 
 Route::prefix('/mkbs')->group(function () {
     Route::get('/', [StaticController::class, 'indexMKBS'])->name('mkbs');
