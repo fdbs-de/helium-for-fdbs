@@ -48,11 +48,10 @@
 
         <div class="limiter text-limiter">
             <h1>Unsere Leistungen im Crossmedia Marketing</h1>
-
             <br>
     
-            <h2>Klassische Werbemittel</h2>
             <img src="/images/content/mkbs/leistungen/adwork/classic_products.png" alt="" class="content-image">
+            <h2>Klassische Werbemittel</h2>
             <p>
                 Für klassische Werbemittel wie Kugelschreiber und Feuerzeuge übernimmt unser Team sowohl das Design als auch,
                 gegebenenfalls in Kooperation mit unseren Partnern, die Produktion der Artikel. Ähnlich gestaltet es sich bei Entwurf
@@ -60,32 +59,32 @@
                 von Stempeln mit Ihrem Logo/Design, über bedruckte Baumwolltaschen bis hin zu Versandverpackungen und eigens für Sie
                 entworfenem Klebeband alles bekommen.
             </p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
     
-            <br>
-    
-            <h2>Außenwerbung</h2>
             <img src="/images/content/mkbs/leistungen/adwork/outdoor.png" alt="" class="content-image">
+            <h2>Außenwerbung</h2>
             <p>
                 Um Ihre Außenwerbung von der Konkurrenz abzuheben, haben Sie bei uns zudem die Möglichkeit, speziell für Ihre Geschäfte
                 passende Werbekonzepte entwickeln zu lassen. Sei es in Form von Fahrzeugwerbung und dreidimensionalen Schriftzügen oder
                 einer klassischen Beschilderung und Roll-Ups. Hier sind alle Optionen offen.
             </p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
     
-            <br>
-    
-            <h2>Planung und Montage</h2>
             <img src="/images/content/mkbs/leistungen/adwork/assembly.png" alt="" class="content-image">
+            <h2>Planung und Montage</h2>
             <p>
                 Zum Erreichen des für Sie optimalen Ergebnisses, spielen bei Entwurf und Produktion die Gegebenheiten vor Ort natürlich
                 eine große Rolle, daher gehen auch Besuche, etwa zur Bemaßung, mit dem Design einher.
                 Durch die fachkundige Montage der Außenwerbung möchten wir ihnen weitere Sorgen abnehmen. So erhalten Sie auch hier ein
                 Rund-um-sorglos-Paket.
             </p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
 
-            <br>
-
-            <h2>Digital Signage</h2>
             <img src="/images/content/mkbs/leistungen/digital_marketing/digital_signage.png" alt="" class="content-image">
+            <h2>Digital Signage</h2>
             <p>
                 Neue Technologien ermöglichen auch die Optimierung des Marketings vor Ort in Ihren Geschäften. Etwa durch
                 Monitorwerbung, dem Digital Signage, können Sie in Ihren Geschäften modern und individuell Kunden auf aktuelle Angebote
@@ -94,11 +93,11 @@
                 bieten Ihnen Unterstützung bei der Pflege und der Gestaltung der Screens, sodass Sie sich um nichts weiter sorgen
                 müssen.
             </p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
 
-            <br>
-
-            <h2>Addressable TV</h2>
             <img src="/images/content/mkbs/leistungen/digital_marketing/addressable_tv.png" alt="" class="content-image">
+            <h2>Addressable TV</h2>
             <p>
                 TV-Werbung ist eine weitere Option, um die Reichweite Ihrer Marke zu erhöhen. Insbesondere bieten wir Addressable TV,
                 also „addressierbare Werbung“, die in einem bestimmten Umkreis auf 16 Sendern (darunter RTL, VOX, ntv, DMAX und Sport1)
@@ -107,11 +106,11 @@
                 aktuellen Sendung oder auch Ausstrahlungszeitpunkt angeht. Die Anzeigen werden dabei nach dem Umschalten dargestellt,
                 statt während der regulären Werbeunterbrechung und erhalten so zusätzliche Aufmerksamkeit.
             </p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
 
-            <br>
-
-            <h2>Foto- und Videodreh</h2>
             <img src="/images/content/mkbs/leistungen/digital_marketing/photo_and_video.png" alt="" class="content-image">
+            <h2>Foto- und Videodreh</h2>
             <p>
                 Auch was das dafür benötigte Bild- und Videomaterial angeht, sind Sie bei uns gut aufgehoben: Bei Produktfotografie oder
                 der Erstellung kleiner Imagevideos begleiten wir sie von der ersten Idee über die Konzeptionierung des Contents bis zu
@@ -120,11 +119,11 @@
                 bei der Wahl einer Location durch einen transportablen Studioaufbau sehr flexibel. So können Fotografie und
                 Videoerstellung sowohl bei uns als auch vor Ort in Ihrem Unternehmen erfolgen.
             </p>
-    
-            <br>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
 
-            <h2>Online Marketing</h2>
             <img src="/images/content/mkbs/leistungen/online_marketing/marketing_package.png" alt="" class="content-image">
+            <h2>Online Marketing</h2>
             <p>
                 Dafür bieten wir Ihnen ein umfassendes Online Marketing Paket an, das sich selbstverständlich mit Ihren Offline
                 Marketing Kampagnen kombinieren lässt.
@@ -133,11 +132,11 @@
                 gewinnen. Insbesondere junge Kunden lassen sich durch Anzeigen in den Sozialen Medien, auf Facebook oder Instagram, sehr
                 gut erreichen.
             </p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
 
-            <br>
-
-            <h2>Content Marketing</h2>
             <img src="/images/content/mkbs/leistungen/online_marketing/content_marketing.png" alt="" class="content-image">
+            <h2>Content Marketing</h2>
             <p>
                 Und nicht nur das. Wir bieten Ihnen außerdem die Möglichkeit durch Content Marketing und Image-Kampagnen Ihre
                 Sichtbarkeit und Bekanntheit zu erhöhen. Das erreichen wir durch Erstellung von für Ihre Zielgruppe relevanten,
@@ -145,11 +144,11 @@
                 sich und Neuigkeiten, etwa in Ihrem Sortiment. Gleichzeitig schaffen Sie durch niedrigschwellige Interaktion mit Ihren
                 Kunden Sympathien.
             </p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
 
-            <br>
-
-            <h2>Recruiting</h2>
             <img src="/images/content/mkbs/leistungen/online_marketing/recruiting.png" alt="" class="content-image">
+            <h2>Recruiting</h2>
             <p>
                 Wenn Sie zudem auf der Suche nach neuen Angestellten sind, können wir Sie durch individuelle Recruting-Kampagnen als der
                 attraktive Arbeitgeber präsentieren, der Sie sind und Ihnen dadurch zu besseren Bewerbungen verhelfen. Wir können dabei
@@ -157,7 +156,6 @@
                 ohne dafür einen eigenen Account erstellen zu müssen) für Sie erstellen. Diese werden so kombiniert, wie es für Ihr
                 Unternehmen am erfolgversprechendsten ist.
             </p>
-        
             <p>
                 Bei all dem übernehmen unsere erfahrenen Mitarbeiter die Verwaltung der Anzeigen, ebenso wie das Management der dabei
                 entstehenden Community, ohne dass Sie sich um irgendetwas kümmern müssten.

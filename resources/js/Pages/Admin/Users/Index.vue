@@ -42,7 +42,7 @@
                 <div class="flex-1 flex vertical" style="overflow-y: auto;">
                     <span v-for="user in invitesForm.users">{{ user.name }} – {{ user.email }}</span>
                 </div>
-                <mui-button type="button" label="Email-Adressen kopieren" size="small" @click="copyToClipboard(invitesForm.users.map(e => e.email).join('; '))"/>
+                <mui-button type="button" :label="invitesForm.users.length+' Emails kopieren'" size="small" @click="copyToClipboard(invitesForm.users.map(e => e.email).join('; '))"/>
             </div>
         </div>
     </Popup>
@@ -60,7 +60,7 @@
                 <div class="flex-1 flex vertical" style="overflow-y: auto;">
                     <span v-for="user in newsletterForm.users">{{ user.email }};</span>
                 </div>
-                <mui-button type="button" label="Email-Adressen kopieren" size="small" @click="copyToClipboard(newsletterForm.users.map(e => e.email).join('; '))"/>
+                <mui-button type="button" :label="newsletterForm.users.length+' Emails kopieren'" size="small" @click="copyToClipboard(newsletterForm.users.map(e => e.email).join('; '))"/>
             </div>
         </div>
     </Popup>

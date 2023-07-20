@@ -31,8 +31,8 @@
         </div>
 
         <div class="limiter text-limiter">
-            <h2>Service</h2>
             <img src="/images/content/customerservice/service_393833200.png" alt="Service" class="content-image">
+            <h2>Service</h2>
             <p>
                 <ul>
                     <li>
@@ -53,9 +53,10 @@
                 </ul>
             </p>
             <p>&nbsp;</p>
+            <p>&nbsp;</p>
 
-            <h2>Chemie</h2>
             <img src="/images/content/customerservice/chemie_408353537.png" alt="Chemie" class="content-image">
+            <h2>Chemie</h2>
             <p>
                 <ul>
                     <li>
@@ -78,9 +79,10 @@
                 </ul>
             </p>
             <p>&nbsp;</p>
+            <p>&nbsp;</p>
             
-            <h2>Verkauf & Planung</h2>
             <img src="/images/content/customerservice/verkauf_253708394.png" alt="Verkauf & Planung" class="content-image">
+            <h2>Verkauf & Planung</h2>
             <p>
                 <ul>
                     <li>
@@ -104,9 +106,10 @@
                 Sprechen Sie uns an!
             </p>
             <p>&nbsp;</p>
+            <p>&nbsp;</p>
 
-            <h2>Wasseraufbereitung</h2>
             <img src="/images/content/customerservice/wasseraufbereitung_604959639.png" alt="Wasseraufbereitung" class="content-image">
+            <h2>Wasseraufbereitung</h2>
             <p>
                 <ul>
                     <li>
@@ -129,11 +132,12 @@
             <p>&nbsp;</p>
             <p>&nbsp;</p>
             <p>&nbsp;</p>
-            
-            <h2>Unser Team</h2>
+        </div>
+
+        <div class="limiter">
+            <h2 class="text-align-center">Unser Team</h2>
             <div class="grid">
                 <StaffCard
-                    class="service-scroll-item"
                     v-for="employee in departments.find(e => e.id === 'service').employees"
                     :key="employee.name"
                     :name="employee.name"

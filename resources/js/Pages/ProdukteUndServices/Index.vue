@@ -10,7 +10,7 @@
             <Card name="Fachberatung: Käse und Salate" alt="Fachberatung: Käse und Salate" cover :link="route('ps.fachberatung-kaese-und-salate')" image="/images/content/services/cover/kaese_und_salate_cover.png"/>
             <Card name="Marketing & Kommunikation" alt="Marketing & Kommunikation" cover :link="route('mkbs')" image="/images/content/services/cover/mkbs_cover.png"/>
             <Card name="Technischer Kundendienst" alt="Technischer Kundendienst" cover :link="route('ps.technischer-kundendienst')" image="/images/content/services/cover/technischer_kundendienst_cover.png"/>
-            <Card name="Seminare" alt="Seminare" cover :link="route('seminare')" image="/images/content/services/cover/seminare_cover.png"/>
+            <!-- <Card name="Seminare" alt="Seminare" cover :link="route('seminare')" image="/images/content/services/cover/seminare_cover.png"/> -->
         </div>
     </TextSubLayout>
 </template>
