@@ -4,17 +4,16 @@
             <mui-input
                 type="search"
                 class="table-search-input"
-                icon-left="search"
                 placeholder="Suchen"
                 :modelValue="getFilter.search"
                 @update:modelValue="setFilter({search: $event})"
             >
                 <template #right>
                     <!-- <IconButton icon="filter_list"/> -->
-                    <IconButton icon="refresh" @click="$emit('request:refresh')" v-tooltip="'Resultate aktualisieren'"/>
+                    <IconButton icon="search" @click="$emit('request:refresh')" v-tooltip="'Suchen'"/>
                 </template>
             </mui-input>
-            
+
             <template v-if="selection.length">
                 <div class="flex v-center padding-inline-1 background-soft radius-m" style="height: 2.5rem">
                     <span>
@@ -28,6 +27,8 @@
             </template>
             
             <div class="spacer"></div>
+            
+            <!-- <mui-button label="Neu" icon-left="add" @click="$emit('request:create')"/> -->
         </div>
 
 

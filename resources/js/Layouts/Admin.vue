@@ -32,7 +32,7 @@
                                 :key="subitem.route"
                                 :href="subitem.route"
                                 :class="{ 'active': is(subitem.activeWhen) }">
-                                <Icon :icon="subitem.icon" />
+                                <div class="icon-placeholder"></div>
                                 <div class="text">{{ subitem.label }}</div>
                             </Link>
                         </div>
@@ -57,7 +57,7 @@
                                 :key="subitem.route"
                                 :href="subitem.route"
                                 :class="{ 'active': is(subitem.activeWhen) }">
-                                <Icon :icon="subitem.icon" />
+                                <div class="icon-placeholder"></div>
                                 <div class="text">{{ subitem.label }}</div>
                             </Link>
                         </div>
@@ -150,11 +150,11 @@
         [
             {label: 'Dashboard', color: 'var(--color-background)', icon: 'speed', route: route('admin'), permission: [], activeWhen: ['admin', 'admin.users', 'admin.users.editor', 'admin.roles', 'admin.specs'], submenu: [
                 {label: 'Übersicht', icon: 'dashboard', route: route('admin'), permission: [], activeWhen: ['admin']},
-                {label: 'Benutzer', icon: 'person', route: route('admin.users'), permission: ['system.view.users'], activeWhen: ['admin.users', 'admin.users.editor']},
+                {label: 'Accounts', icon: 'person', route: route('admin.users'), permission: ['system.view.users'], activeWhen: ['admin.users', 'admin.users.editor']},
                 {label: 'Berechtigungen', icon: 'key', route: route('admin.roles'), permission: ['system.view.roles'], activeWhen: ['admin.roles']},
                 // {label: 'Profile', icon: 'person', route: route('admin.users'), permission: ['system.view.users'], activeWhen: ['admin.users', 'admin.users.editor']},
             ]},
-            {label: 'Medien Manager', color: 'var(--color-background)', icon: 'upload', route: route('admin.media', ['public']), permission: ['system.view.media'], activeWhen: ['admin.media', 'admin.docs'], submenu: [
+            {label: 'Medien', color: 'var(--color-background)', icon: 'upload', route: route('admin.media', ['public']), permission: ['system.view.media'], activeWhen: ['admin.media', 'admin.docs'], submenu: [
                 {label: 'Öffentliche Ablage', icon: 'home_storage', route: route('admin.media', ['public']), permission: ['system.view.media'], activeWhen: ['admin.media:driveAlias=public']},
                 {label: 'Private Ablage', icon: 'lock', route: route('admin.media', ['private']), permission: ['system.view.media'], activeWhen: ['admin.media:driveAlias=private']},
             ]},
@@ -290,16 +290,7 @@
                 justify-self: stretch
                 position: relative
                 padding-right: 1rem
-
-                &::after
-                    content: ''
-                    position: absolute
-                    left: 0
-                    bottom: 0
-                    transform: translateY(100%)
-                    width: 100%
-                    height: 14px
-                    background: linear-gradient(180deg, rgb(black, 0.1) 0%, rgb(black, 0) 100%)
+                border-bottom: 1px solid #ffffff33
 
                 .logo
                     flex: none
@@ -340,7 +331,7 @@
 
             .scroll-container
                 overflow: hidden
-                overflow-y: scroll
+                overflow-y: auto
                 flex: 1
                 display: flex
                 flex-direction: column
@@ -373,21 +364,27 @@
                 flex: none
                 display: flex
                 flex-direction: column
-                padding: 1rem 3px
+                padding-block: .5rem
 
             .app-wrapper
                 display: flex
                 flex-direction: column
-                gap: 3px
-                padding: 3px
-                border-radius: calc(var(--radius-m) + 3px)
+                gap: .5rem
 
                 &.active
+                    padding-block: .5rem
                     background: #00000055
 
-                    > .app-button
-                        &::after
-                            opacity: .1 !important
+                    &:not(:first-child)
+                        margin-top: .5rem
+
+                    &:not(:last-child)
+                        margin-bottom: .5rem
+
+                    .app-button
+                        .icon,
+                        .icon-placeholder
+                            opacity: 1 !important
 
                     .app-sub-menu
                         display: flex
@@ -396,51 +393,61 @@
                     justify-self: stretch
                     display: flex
                     align-items: center
-                    gap: 1.5rem
-                    padding: 0 1rem
+                    padding: 0
                     min-height: 3rem
                     color: inherit
                     position: relative
                     user-select: none
                     cursor: pointer
-                    border-radius: var(--radius-m)
+                    font-weight: 500
+                    font-size: .9rem
 
                     &::after
                         content: ''
                         position: absolute
                         left: 0
                         bottom: 0
-                        width: 100%
+                        width: calc(100% - .5rem)
                         height: 100%
                         background: currentColor
                         opacity: 0
-                        border-radius: inherit
+                        border-radius: 0 5rem 5rem 0
                         pointer-events: none
 
-                    .text
-                        font-size: .9rem
-
-                    .icon
-                        font-size: 1.5rem
-                        font-weight: 300
-                        width: 1.5rem
-                        opacity: .6
+                    .icon,
+                    .icon-placeholder
+                        font-size: 1.4rem
+                        font-weight: 300 !important
+                        width: 3.5rem
+                        opacity: .7
+                        display: flex
+                        align-items: center
+                        justify-content: center
 
                     &:hover
                         &::after
-                            opacity: .05
+                            opacity: .05 !important
 
                     &.active
+                        .text
+                            opacity: 1 !important
+                            
                         &::after
-                            opacity: .1
+                            opacity: .05 !important
 
                 .app-sub-menu
                     justify-self: stretch
                     display: none
                     flex-direction: column
-                    gap: 3px
-                    padding-top: 4px
-                    border-top: 2px solid var(--color-heading)
+
+                    .app-button
+                        font-weight: 400
+                        font-size: .8rem
+                        min-height: 2.5rem
+
+                        .text
+                            opacity: .7
+                            letter-spacing: .01rem
 
         .content
             flex: 1
