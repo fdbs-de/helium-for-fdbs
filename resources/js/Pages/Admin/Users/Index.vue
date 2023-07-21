@@ -97,7 +97,7 @@
 
 
     const IPM = ref(new ItemPageManager({
-        pageTitle: 'Nutzer verwalten',
+        pageTitle: 'Accounts verwalten',
         scope: 'admin.users.index',
         routes: {
             fetch: 'admin.users.search',
