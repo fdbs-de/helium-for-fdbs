@@ -28,7 +28,7 @@
             
             <div class="spacer"></div>
             
-            <!-- <mui-button label="Neu" icon-left="add" @click="$emit('request:create')"/> -->
+            <mui-button label="Neu" icon-left="add" @click="$emit('request:create')" v-show="showCreate"/>
         </div>
 
 
@@ -132,6 +132,10 @@
         sort: Object,
         selection: Array,
         scope: String,
+        showCreate: {
+            type: Boolean,
+            default: false,
+        },
     })
 
     const emits = defineEmits([
