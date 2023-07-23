@@ -5,13 +5,24 @@
 
     <div class="layout">
         <div class="menu" :class="{'open': isOpen}">
-            <div class="branding-bar">
-                <Link class="logo" :href="route('admin')">
+            <div class="top-bar">
+                <a :href="route('admin')" class="logo">
                     <img src="/images/app/branding/cms_icon_white.svg" alt="Gastro CMS Logo">
-                </Link>
-                <a class="redirect-tag" :href="`http://${globalSettings['site.domain']}`" target="_blank">
-                    {{ globalSettings['site.name'] }}
                 </a>
+                <div class="info-wrapper">
+                    <a class="info website" target="_blank" :href="`http://${globalSettings['site.domain']}`">
+                        <Icon icon="language" />
+                        {{ globalSettings['site.name'] }}
+                    </a>
+                    <a class="info profile" target="_blank" :href="route('dashboard.profile')">
+                        <Icon icon="account_circle" />
+                        {{ user.name }}
+                    </a>
+                    <!-- <a class="info update" :href="route('admin')">
+                        <Icon icon="download_done" />
+                        Sunrise 2023 Update
+                    </a> -->
+                </div>
             </div>
 
             <div class="scroll-container">
@@ -64,17 +75,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="divider"></div>
-            <div class="group">
-                <div class="app-wrapper">
-                    <Link class="app-button"
-                        :href="route('dashboard.profile')">
-                        <Icon icon="account_circle" />
-                        <div class="text">Profil</div>
-                    </Link>
-                </div>
-            </div>
         </div>
 
         <main class="content">
@@ -116,6 +116,7 @@
 
     import Loader from '@/Components/Form/Loader.vue'
     import Icon from '@/Components/Icon.vue'
+    import IconButton from '@/Components/Apps/Pages/IconButton.vue'
 
 
 
@@ -148,11 +149,13 @@
 
     const menu = ref([
         [
-            {label: 'Dashboard', color: 'var(--color-background)', icon: 'speed', route: route('admin'), permission: [], activeWhen: ['admin', 'admin.users', 'admin.users.editor', 'admin.roles', 'admin.specs'], submenu: [
+            {label: 'Dashboard', color: 'var(--color-background)', icon: 'speed', route: route('admin'), permission: [], activeWhen: ['admin'], submenu: [
                 {label: 'Übersicht', icon: 'dashboard', route: route('admin'), permission: [], activeWhen: ['admin']},
-                {label: 'Accounts', icon: 'person', route: route('admin.users'), permission: ['system.view.users'], activeWhen: ['admin.users', 'admin.users.editor']},
-                {label: 'Berechtigungen', icon: 'key', route: route('admin.roles'), permission: ['system.view.roles'], activeWhen: ['admin.roles']},
-                // {label: 'Profile', icon: 'person', route: route('admin.users'), permission: ['system.view.users'], activeWhen: ['admin.users', 'admin.users.editor']},
+            ]},
+            {label: 'Accounts', color: 'var(--color-background)', icon: 'person', route: route('admin.users'), permission: ['system.view.users'], activeWhen: ['admin.users', 'admin.users.editor', 'admin.roles'], submenu: [
+                {label: 'Accounts', icon: '', route: route('admin.users'), permission: ['system.view.users'], activeWhen: ['admin.users', 'admin.users.editor']},
+                {label: 'Berechtigungen', icon: '', route: route('admin.roles'), permission: ['system.view.roles'], activeWhen: ['admin.roles']},
+                // {label: 'Profile', icon: '', route: route('admin.users'), permission: ['system.view.users'], activeWhen: []},
             ]},
             {label: 'Medien', color: 'var(--color-background)', icon: 'upload', route: route('admin.media', ['public']), permission: ['system.view.media'], activeWhen: ['admin.media', 'admin.docs'], submenu: [
                 {label: 'Öffentliche Ablage', icon: 'home_storage', route: route('admin.media', ['public']), permission: ['system.view.media'], activeWhen: ['admin.media:driveAlias=public']},
@@ -277,57 +280,95 @@
             position: sticky
             top: 0
             left: 0
-            // box-shadow: var(--shadow-elevation-low)
             display: flex
             flex-direction: column
             background: var(--color-heading)
+            box-shadow: var(--shadow-elevation-medium)
             color: white
 
-            .branding-bar
+            .top-bar
                 display: flex
-                height: 4rem
-                align-items: center
-                justify-self: stretch
+                aspect-ratio: 1.586
+                background-color: var(--color-primary)
+                background-image: url('/images/app/versions/sunrise_2023.webp')
+                background-size: cover
+                background-position: center
+                background-repeat: no-repeat
+                background-blend-mode: luminosity
                 position: relative
-                padding-right: 1rem
-                border-bottom: 1px solid #ffffff33
+
+                &::before
+                    content: ''
+                    position: absolute
+                    top: 0
+                    left: 0
+                    width: 100%
+                    height: 100%
+                    pointer-events: none
+                    border-radius: inherit
+                    background: var(--color-primary)
+                    opacity: .8
+                    border-bottom: 1px solid #ffffff33
 
                 .logo
-                    flex: none
-                    width: 4rem
-                    aspect-ratio: 1
-                    padding: 1rem
+                    height: 2.5rem
+                    width: 2.5rem
+                    padding: .5rem
                     display: flex
                     align-items: center
-                    color: inherit
+                    justify-content: center
+                    position: absolute
+                    top: .75rem
+                    left: .75rem
+                    z-index: 1000
+                    border-radius: var(--radius-s)
+                    
+                    &:hover
+                        background: #ffffff22
 
                     img
                         height: 100%
+                        width: 100%
                         object-fit: contain
 
-                .redirect-tag
+
+                .info-wrapper
                     display: flex
-                    align-items: center
-                    gap: .5rem
-                    height: 2rem
-                    padding: 0 1rem
-                    background: #ffffff20
-                    color: var(--color-background)
-                    border-radius: 2rem
-                    font-size: .8rem
-                    font-weight: 600
-                    margin-left: auto
+                    flex-direction: column
+                    align-items: flex-start
+                    justify-content: flex-end
+                    color: var(--color-on-primary)
+                    position: relative
+                    z-index: 1
+                    padding: .9rem .5rem
+                    gap: .25rem
+                    width: 100%
 
-                    &::after
-                        content: 'open_in_new'
-                        line-height: 1
-                        font-size: .8rem
-                        font-family: var(--font-icon)
+                    .info
+                        color: inherit
+                        margin: 0
+                        line-height: 1.3
+                        display: flex
+                        align-items: center
+                        gap: .5rem
+                        border-radius: var(--radius-s)
+                        padding: .1rem .5rem
+                        font-size: .9rem
                         font-weight: 400
-                        opacity: .7
+                        opacity: .8
 
-                    &:hover
-                        color: var(--color-primary)
+                        &.website
+                            font-size: 1.25rem
+                            font-weight: 600
+                            font-family: var(--font-heading)
+                            opacity: 1
+                            margin-bottom: .25rem
+
+                        .icon
+                            width: 1.5rem
+
+                    a.info:hover
+                        background: #ffffff22
 
             .scroll-container
                 overflow: hidden
@@ -372,7 +413,7 @@
                 gap: .5rem
 
                 &.active
-                    padding-block: .5rem
+                    padding-block: .5rem 1rem
                     background: #00000055
 
                     &:not(:first-child)
@@ -382,6 +423,8 @@
                         margin-bottom: .5rem
 
                     .app-button
+                        font-weight: 600 !important
+
                         .icon,
                         .icon-placeholder
                             opacity: 1 !important
@@ -399,7 +442,7 @@
                     position: relative
                     user-select: none
                     cursor: pointer
-                    font-weight: 500
+                    font-weight: 400
                     font-size: .9rem
 
                     &::after
@@ -407,11 +450,10 @@
                         position: absolute
                         left: 0
                         bottom: 0
-                        width: calc(100% - .5rem)
+                        width: 100%
                         height: 100%
                         background: currentColor
                         opacity: 0
-                        border-radius: 0 5rem 5rem 0
                         pointer-events: none
 
                     .icon,
@@ -429,6 +471,8 @@
                             opacity: .05 !important
 
                     &.active
+                        font-weight: 600 !important
+
                         .text
                             opacity: 1 !important
                             

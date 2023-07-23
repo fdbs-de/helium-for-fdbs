@@ -7,6 +7,7 @@
             <mui-button as="a" label="Editor Öffnen" :href="route('admin.pages.pages.editor')" target="_blank"/>
         </div>
         <Table
+            show-create
             :columns="tableColumns"
             :actions="tableActions"
             :items="IPM.items"
@@ -16,6 +17,7 @@
             v-model:sort="IPM.modelSort"
             v-model:pagination="IPM.modelPagination"
             @request:refresh="IPM.fetch()"
+            @request:create="openStorePopup()"
         />
 
         <div class="flex v-center gap-1 wrap border-top padding-top-1 margin-top-2">
@@ -23,10 +25,6 @@
         
             <div class="spacer"></div>
         </div>
-
-        <template #fab>
-            <button class="fab-button" aria-hidden="true" title="Neue Seite" @click="openStorePopup()">add</button>
-        </template>
     </AdminLayout>
 
 
