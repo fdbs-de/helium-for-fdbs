@@ -5,6 +5,7 @@
         <Table
             :columns="tableColumns"
             :actions="tableActions"
+            :filter-settings="tableFilters"
             :items="IPM.items"
             :scope="IPM.tableScope"
             v-model:selection="IPM.selection"
@@ -144,10 +145,7 @@
             return profiles
         }},
         {type: 'date', name: 'created_at', label: 'Registriert am', valuePath: 'created_at', sortable: true, width: 200, resizeable: true, hideable: true},
-        {type: 'tags', name: 'email_verified_at', label: 'Verifikation am', valuePath: 'email_verified_at', sortable: true, width: 200, resizeable: true, hideable: true, transform: (value) => {
-            if (value) return [{ icon: null, text: dayjs(value).format('DD. MMM YYYY'), color: 'var(--color-success)', variant: 'filled', shape: 'pill' }]
-            return [{ icon: null, text: 'Ausstehend', color: 'var(--color-warning)', variant: 'filled', shape: 'pill' }]
-        }},
+        {type: 'date', name: 'email_verified_at', label: 'Verifikation am', valuePath: 'email_verified_at', sortable: true, width: 200, resizeable: true, hideable: true},
         {type: 'tags', name: 'status', label: 'Status', valuePath: 'status', sortable: false, width: 100, resizeable: true, hideable: true, transform: (value, item) => {
             if (item.is_enabled) return [{icon: null, text: 'Aktiv', color: 'var(--color-success)', variant: 'filled', shape: 'pill'}]
             return [{icon: null, text: 'Ausstehend', color: 'var(--color-warning)', variant: 'filled', shape: 'pill'}]
@@ -175,6 +173,35 @@
             isAvailable: () => true,
             run: (items) => IPM.value.delete(items, 'Sollen {{count}} Benutzer gelöscht werden?'),
         },
+    ]
+
+    const tableFilters = [
+        {
+            type: 'select',
+            multiple: false,
+            name: 'status',
+            label: 'Status',
+            values: [
+                {label: 'Aktiv', value: 'active'},
+                {label: 'Ausstehend', value: 'pending'},
+            ],
+        },
+        {
+            type: 'select',
+            multiple: true,
+            name: 'profiles',
+            label: 'Profile',
+            values: [
+                {label: 'Kunde', value: 'customer'},
+                {label: 'Personal', value: 'employee'},
+            ],
+        },
+        {
+            type: 'date',
+            name: 'created_at',
+            label: 'Registriert',
+            values: [],
+        }
     ]
 
 

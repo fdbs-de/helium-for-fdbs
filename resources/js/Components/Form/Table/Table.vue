@@ -9,7 +9,26 @@
                 @update:modelValue="setFilter({search: $event})"
             >
                 <template #right>
-                    <!-- <IconButton icon="filter_list"/> -->
+                    <!-- <VDropdown placement="bottom">
+                        <IconButton icon="filter_list" v-tooltip="'Filter'"/>
+                        <template #popper>
+                            <div class="flex vertical padding-1">
+                                <div class="row flex gap-0-5 v-center" v-for="row in filterSettings">
+                                    <mui-toggle type="switch"/>
+                                    <span class="flex-1">{{ row.label }}</span>
+                                    <div class="flex-3" v-if="row.type == 'select'">
+                                        <select :multiple="row.multiple">
+                                            <option v-for="option in row.values" :value="option.value">{{option.label}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="flex-3" v-if="row.type == 'date'">
+                                        <input type="date"/>
+                                        <input type="date"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </VDropdown> -->
                     <IconButton icon="search" @click="$emit('request:refresh')" v-tooltip="'Suchen'"/>
                 </template>
             </mui-input>
@@ -96,11 +115,12 @@
                     <option :value="1000000">Alle</option>
                 </select>
 
-                <VDropdown placement="top">
+                <VDropdown placement="top-end">
                     <IconButton icon="grid_view" v-tooltip="'Ansicht anpassen'"/>
                     <template #popper>
                         <div class="flex vertical padding-1">
                             <mui-toggle
+                                type="switch"
                                 style="--mui-background: var(--color-background)"
                                 v-for="column in columns.filter(e => e.hideable)"
                                 :label="column.label"
@@ -128,6 +148,7 @@
         actions: Array,
         items: Array,
         filter: Object,
+        filterSettings: Object,
         pagination: Object,
         sort: Object,
         selection: Array,
