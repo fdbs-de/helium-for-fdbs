@@ -422,7 +422,7 @@
                     &:not(:last-child)
                         margin-bottom: .5rem
 
-                    .app-button
+                    > .app-button
                         font-weight: 600 !important
 
                         .icon,
