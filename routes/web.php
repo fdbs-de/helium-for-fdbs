@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Media\MediaController;
 use App\Http\Controllers\Apps\Blog\BlogController;
 use App\Http\Controllers\Apps\Jobs\JobController;
 use App\Http\Controllers\Apps\Pages\ContactController;
+use App\Http\Controllers\Apps\Pages\FairController;
 use App\Http\Controllers\Apps\Pages\PageController;
 use App\Http\Controllers\Apps\Pages\StaticController;
 use App\Http\Controllers\Apps\Pages\SurveyController;
@@ -113,6 +114,11 @@ Route::prefix('/umfragen')->group(function () {
         Route::get('/', [SurveyController::class, 'show']);
         Route::post('/', [SurveyController::class, 'store'])->name('survey.mkbs.store');
     });
+});
+
+Route::prefix('/messeanmeldung')->group(function () {
+    Route::get('/', [FairController::class, 'show'])->name('fair');
+    Route::post('/', [FairController::class, 'store'])->name('fair.store');
 });
 
 // Warning for IE users

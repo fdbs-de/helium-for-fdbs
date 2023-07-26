@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\Media\MediaController;
 use App\Http\Controllers\Admin\NewsletterController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingsController;
+use App\Http\Controllers\Apps\Pages\FairController;
 use App\Http\Controllers\Dashboard\PostCategoryController;
 use App\Http\Controllers\Dashboard\PostController;
 use App\Http\Controllers\Dashboard\UserController;
@@ -128,6 +129,18 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
         Route::delete('/', [MediaController::class, 'delete'])
         ->middleware('can:system.delete.media')
         ->name('admin.media.delete');
+    });
+
+
+
+    Route::prefix('fairs')->group(function () {
+        Route::get('/', [FairController::class, 'showAdmin'])
+        ->middleware('can:system.view.users')
+        ->name('admin.fairs');
+        
+        Route::get('/export', [FairController::class, 'export'])
+        ->middleware('can:system.view.users')
+        ->name('admin.fairs.export');
     });
 
 
