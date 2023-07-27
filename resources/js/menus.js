@@ -33,6 +33,7 @@ export const mainMenu = [
         //     // { id: 'seminare.catering', label: 'Catering', href: route('seminare.catering'), children: [] },
         //     // { id: 'seminare.employer-branding', label: 'Employer Branding', href: route('seminare.employer-branding'), children: [] },
         // ] },
+        { id: 'messeanmeldung', label: 'Messeanmeldung 2023', href: route('fair'), children: [] },
     ]},
     { id: 'karriere', label: 'Karriere', href: route('karriere'), children: [] },
     { id: 'kontakt', label: 'Kontakt & Ansprechpartner', href: route('kontakt'), children: [] },
