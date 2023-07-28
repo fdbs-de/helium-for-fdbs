@@ -299,6 +299,7 @@
                 background-repeat: no-repeat
                 background-blend-mode: luminosity
                 position: relative
+                user-select: none
 
                 &::before
                     content: ''
@@ -501,6 +502,8 @@
             font-family: var(--font-interface)
 
             #hero-section
+                user-select: none
+                
                 .hero-card
                     text-align: center
                     background: var(--color-background)

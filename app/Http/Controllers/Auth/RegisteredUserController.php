@@ -47,6 +47,9 @@ class RegisteredUserController extends Controller
             'is_employee'           => 'required|boolean',
             'employee.first_name'   => 'required_if:is_employee,true|nullable|string|max:255',
             'employee.last_name'    => 'required_if:is_employee,true|nullable|string|max:255',
+
+            'referal'               => 'nullable|array',
+            'referal.*'             => 'string|max:50',
         ]);
 
 
@@ -79,6 +82,14 @@ class RegisteredUserController extends Controller
                 'first_name' => $request->employee['first_name'],
                 'last_name' => $request->employee['last_name'],
             ]);
+        }
+
+
+
+        // Create the referal
+        if ($request->referal)
+        {
+            $user->setSetting('referal', $request->referal);
         }
 
 
