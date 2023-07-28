@@ -55,7 +55,7 @@ Route::get('/storage/{driveAlias}/{media}', [MediaController::class, 'showPublic
 
 // Static Pages
 Route::get('/', [StaticController::class, 'indexHome'])->name('home');
-Route::get('/philosopie', [StaticController::class, 'indexPhilosophie'])->name('philosophie');
+Route::get('/philosophie', [StaticController::class, 'indexPhilosophie'])->name('philosophie');
 
 Route::get('/angebote', [StaticController::class, 'indexAngebote'])->name('ps.angebote');
 Route::prefix('/produkte-und-services')->group(function () {

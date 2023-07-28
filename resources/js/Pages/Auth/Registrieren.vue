@@ -4,7 +4,7 @@
 
         <div class="step-container">
             <div class="controls-wrapper">
-                <div class="progress-wrapper" :style="`--progress: ${step / 4 * 100}%`"></div>
+                <div class="progress-wrapper" :style="`--progress: ${step / 5 * 100}%`"></div>
             </div>
 
             <transition-group :name="`slide-${stepDirection}`" tag="div" class="animation-wrapper" :class="`slide-${stepDirection}`">
@@ -73,8 +73,28 @@
                         <mui-button type="button" :label="form.is_employee ? 'Weiter' : 'Weiter ohne Mitarbeiterprofil'" :disabled="!isStepThreeValid" @click="setStep(4)"/>
                     </div>
                 </div>
+
+                <div class="step-wrapper" v-show="step === 4" key="referal">
+                    <span>Wie sind Sie auf uns aufmerksam geworden?</span>
+                    <div class="flex vertical">
+                        <mui-toggle
+                            type="checkbox"
+                            class="checkbox"
+                            v-for="item in referalItems"
+                            :label="item.label"
+                            :modelValue="form.referal.includes(item.value)"
+                            @update:modelValue="toggleReferalValue(item.value)"
+                            />
+                    </div>
+                    <div class="spacer"></div>
+                    <div class="flex v-center">
+                        <mui-button type="button" label="Zurück" variant="contained" @click="setStep(3)"/>
+                        <div class="spacer"></div>
+                        <mui-button type="button" label="Weiter" @click="setStep(5)"/>
+                    </div>
+                </div>
     
-                <div class="step-wrapper" v-show="step === 4" key="finish">
+                <div class="step-wrapper" v-show="step === 5" key="finish">
                     <span class="spacer text-align-center padding-1" v-if="!hasSelectedAProfile">
                         Sie müssen entweder ein <b>Kundenprofil</b> oder ein <b>Mitarbeiterprofil</b> (oder beides) anwählen und ausfüllen um sich zu registrieren.
                     </span>
@@ -100,7 +120,7 @@
                         </mui-toggle>
                     </div>
                     <div class="flex v-center">
-                        <mui-button type="button" label="Zurück" variant="contained" @click="setStep(3)"/>
+                        <mui-button type="button" label="Zurück" variant="contained" @click="setStep(4)"/>
                         <div class="spacer"></div>
                         <mui-button label="Jetzt registrieren" :disabled="!isValid" :loading="form.processing"/>
                     </div>
@@ -191,6 +211,29 @@
 
 
 
+    const referalItems = ref([
+        {label: 'durch eine Suchmaschine', value: 'Suchmaschine'},
+        {label: 'durch einen Außendienstmitarbeiter', value: 'Außendienstmitarbeiter'},
+        {label: 'durch Social Media (Facebook, Instagram, LinkedIn)', value: 'Social Media'},
+        {label: 'durch eine Radiowerbung', value: 'Radiowerbung'},
+        {label: 'durch eine Anzeige', value: 'Anzeige'},
+        {label: 'durch eine Empfehlung', value: 'Empfehlung'},
+        {label: 'Sonstiges', value: 'Sonstiges'},
+    ])
+
+    const toggleReferalValue = (value) => {
+        if (form.referal.includes(value))
+        {
+            form.referal = form.referal.filter(i => i !== value)
+        }
+        else
+        {
+            form.referal.push(value)
+        }
+    }
+
+
+
     const form = useForm({
         is_customer: false,
         is_employee: false,
@@ -205,6 +248,7 @@
             first_name: '',
             last_name: '',
         },
+        referal: [],
         terms: false,
         notices: [false, false],
     })

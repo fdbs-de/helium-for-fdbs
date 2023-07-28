@@ -82,6 +82,15 @@
                     <mui-toggle class="checkbox" label="Kunden Newsletter" style="background: var(--color-background-soft)" @v-model="form.newsletter.customer"/>
                 </fieldset>
 
+                <fieldset class="flex vertical gap-1">
+                    <legend>Info</legend>
+                    <span>
+                        Kennt uns durch:<br>
+                        <b v-if="user.settings_object.referal">{{user.settings_object.referal.join(', ')}}</b>
+                        <i v-else>Nicht Angegeben</i>
+                    </span>
+                </fieldset>
+
                 <div class="flex v-center gap-1">
                     <div class="spacer"></div>
                     <mui-button class="header-button" v-if="form.id" label="Nutzer Speichern" size="large" :loading="form.processing"/>
