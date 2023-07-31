@@ -12,7 +12,7 @@ class SurveyController extends Controller
 {
     public function show()
     {
-        return Inertia::render('Umfragen/MkbsFeedback');
+        return Inertia::render('Apps/Static/Umfragen/MkbsFeedback');
     }
 
     public function store(Request $request)

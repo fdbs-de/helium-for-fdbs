@@ -86,9 +86,10 @@
 
 <script setup>
     import { Head, Link } from '@inertiajs/inertia-vue3'
+    import departments from '@/Pages/Apps/Static/Kontakt.json'
+    
     import TextSubLayout from '@/Layouts/SubLayouts/Text.vue'
     import StaffCard from '@/Components/Page/StaffCard.vue'
-    import departments from '@/Pages/Kontakt.json'
 </script>
 
 <style lang="sass" scoped>

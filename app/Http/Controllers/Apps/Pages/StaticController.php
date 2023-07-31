@@ -11,40 +11,40 @@ use Inertia\Inertia;
 
 class StaticController extends Controller
 {
-    public function indexHome() { return Inertia::render('Home'); }
-    public function indexPhilosophie() { return Inertia::render('Philosophie'); }
+    public function indexHome() { return Inertia::render('Apps/Static/Home'); }
+    public function indexPhilosophie() { return Inertia::render('Apps/Static/Philosophie'); }
 
-    public function indexProdukteUndServices() { return Inertia::render('ProdukteUndServices/Index'); }
-    public function indexAngebote() { return Inertia::render('ProdukteUndServices/Angebote'); }
+    public function indexProdukteUndServices() { return Inertia::render('Apps/Static/ProdukteUndServices/Index'); }
+    public function indexAngebote() { return Inertia::render('Apps/Static/ProdukteUndServices/Angebote'); }
 
-    public function indexFoodservice() { return Inertia::render('ProdukteUndServices/Foodservice/Index'); }
-    public function indexFoodserviceAktuelles() { return Inertia::render('ProdukteUndServices/Foodservice/Aktuelles'); }
-    public function indexMehrwegpflicht() { return Inertia::render('ProdukteUndServices/Foodservice/Mehrwegpflicht'); }    
+    public function indexFoodservice() { return Inertia::render('Apps/Static/ProdukteUndServices/Foodservice/Index'); }
+    public function indexFoodserviceAktuelles() { return Inertia::render('Apps/Static/ProdukteUndServices/Foodservice/Aktuelles'); }
+    public function indexMehrwegpflicht() { return Inertia::render('Apps/Static/ProdukteUndServices/Foodservice/Mehrwegpflicht'); }    
 
-    public function indexMarken() { return Inertia::render('ProdukteUndServices/Marken/Index'); }
-    public function indexEichenhof() { return Inertia::render('ProdukteUndServices/Marken/Eichenhof'); }
-    public function indexIlCampese() { return Inertia::render('ProdukteUndServices/Marken/IlCampese'); }
-    public function indexMaxiFrance() { return Inertia::render('ProdukteUndServices/Marken/MaxiFrance'); }
+    public function indexMarken() { return Inertia::render('Apps/Static/ProdukteUndServices/Marken/Index'); }
+    public function indexEichenhof() { return Inertia::render('Apps/Static/ProdukteUndServices/Marken/Eichenhof'); }
+    public function indexIlCampese() { return Inertia::render('Apps/Static/ProdukteUndServices/Marken/IlCampese'); }
+    public function indexMaxiFrance() { return Inertia::render('Apps/Static/ProdukteUndServices/Marken/MaxiFrance'); }
 
-    public function indexFachberatungKaeseSalate() { return Inertia::render('ProdukteUndServices/FachberatungKaeseSalate'); }
+    public function indexFachberatungKaeseSalate() { return Inertia::render('Apps/Static/ProdukteUndServices/FachberatungKaeseSalate'); }
 
-    public function indexMKBS() { return Inertia::render('ProdukteUndServices/MKBS/Index'); }
-    public function indexMKBSAktuelles() { return Inertia::render('ProdukteUndServices/MKBS/Aktuelles'); }
-    public function indexMKBSWeb() { return Inertia::render('ProdukteUndServices/MKBS/Web'); }
-    public function indexMKBSSocialMedia() { return Inertia::render('ProdukteUndServices/MKBS/SocialMedia'); }
-    public function indexMKBSPrint() { return Inertia::render('ProdukteUndServices/MKBS/Print'); }
-    public function indexMKBSCrossmedia() { return Inertia::render('ProdukteUndServices/MKBS/Crossmedia'); }
+    public function indexMKBS() { return Inertia::render('Apps/Static/ProdukteUndServices/MKBS/Index'); }
+    public function indexMKBSAktuelles() { return Inertia::render('Apps/Static/ProdukteUndServices/MKBS/Aktuelles'); }
+    public function indexMKBSWeb() { return Inertia::render('Apps/Static/ProdukteUndServices/MKBS/Web'); }
+    public function indexMKBSSocialMedia() { return Inertia::render('Apps/Static/ProdukteUndServices/MKBS/SocialMedia'); }
+    public function indexMKBSPrint() { return Inertia::render('Apps/Static/ProdukteUndServices/MKBS/Print'); }
+    public function indexMKBSCrossmedia() { return Inertia::render('Apps/Static/ProdukteUndServices/MKBS/Crossmedia'); }
 
-    public function indexTechnischerKundendienst() { return Inertia::render('ProdukteUndServices/TechnischerKundendienst/Index'); }
-    public function indexTechnischerKundendienstAktuelles() { return Inertia::render('ProdukteUndServices/TechnischerKundendienst/Aktuelles'); }
+    public function indexTechnischerKundendienst() { return Inertia::render('Apps/Static/ProdukteUndServices/TechnischerKundendienst/Index'); }
+    public function indexTechnischerKundendienstAktuelles() { return Inertia::render('Apps/Static/ProdukteUndServices/TechnischerKundendienst/Aktuelles'); }
 
-    public function indexSeminare() { return Inertia::render('ProdukteUndServices/Seminare/Index'); }
+    public function indexSeminare() { return Inertia::render('Apps/Static/ProdukteUndServices/Seminare/Index'); }
     // public function indexSeminareGrillseminar()
     // {
     //     $form = Form::where('status', 'published')->find(1);
     //     if ($form) $form = new FrontendFormResource($form);
 
-    //     return Inertia::render('ProdukteUndServices/Seminare/Grillseminar', [
+    //     return Inertia::render('Apps/Static/ProdukteUndServices/Seminare/Grillseminar', [
     //         'form' => $form,
     //     ]);
     // }
@@ -53,37 +53,37 @@ class StaticController extends Controller
     //     $form = Form::where('status', 'published')->find(1);
     //     if ($form) $form = new FrontendFormResource($form);
 
-    //     return Inertia::render('ProdukteUndServices/Seminare/Kreativworkshop', [
+    //     return Inertia::render('Apps/Static/ProdukteUndServices/Seminare/Kreativworkshop', [
     //         'form' => $form,
     //     ]);
     // }
-    public function indexSeminareCatering()
-    {
-        $form = Form::where('status', 'published')->find(3);
-        if ($form) $form = new FrontendFormResource($form);
+    // public function indexSeminareCatering()
+    // {
+    //     $form = Form::where('status', 'published')->find(3);
+    //     if ($form) $form = new FrontendFormResource($form);
 
-        return Inertia::render('ProdukteUndServices/Seminare/Catering', [
-            'form' => $form,
-        ]);
-    }
-    public function indexSeminareEmployerBranding()
-    {
-        $form = Form::where('status', 'published')->find(1);
-        if ($form) $form = new FrontendFormResource($form);
+    //     return Inertia::render('Apps/Static/ProdukteUndServices/Seminare/Catering', [
+    //         'form' => $form,
+    //     ]);
+    // }
+    // public function indexSeminareEmployerBranding()
+    // {
+    //     $form = Form::where('status', 'published')->find(1);
+    //     if ($form) $form = new FrontendFormResource($form);
 
-        return Inertia::render('ProdukteUndServices/Seminare/EmployerBranding', [
-            'form' => $form,
-        ]);
-    }
-    public function indexSeminareKaeseworkshop()
-    {
-        $form = Form::where('status', 'published')->find(4);
-        if ($form) $form = new FrontendFormResource($form);
+    //     return Inertia::render('Apps/Static/ProdukteUndServices/Seminare/EmployerBranding', [
+    //         'form' => $form,
+    //     ]);
+    // }
+    // public function indexSeminareKaeseworkshop()
+    // {
+    //     $form = Form::where('status', 'published')->find(4);
+    //     if ($form) $form = new FrontendFormResource($form);
 
-        return Inertia::render('ProdukteUndServices/Seminare/Kaeseworkshop', [
-            'form' => $form,
-        ]);
-    }
+    //     return Inertia::render('Apps/Static/ProdukteUndServices/Seminare/Kaeseworkshop', [
+    //         'form' => $form,
+    //     ]);
+    // }
 
 
 
@@ -91,12 +91,12 @@ class StaticController extends Controller
     {
         $disclaimer = Setting::find('legal.disclaimer');
         
-        return Inertia::render('Impressum', [
+        return Inertia::render('Apps/Static/Impressum', [
             'disclaimer' => $disclaimer ? $disclaimer->value : null,
         ]);
     }
-    public function indexDatenschutz() { return Inertia::render('Datenschutz'); }
-    public function indexAGBS() { return Inertia::render('AGBS'); }
-    public function indexVideoInfo() { return Inertia::render('VideoInfo'); }
-    public function indexGewinnspielTeilnahmebedingungen() { return Inertia::render('Gewinnspiel'); }
+    public function indexDatenschutz() { return Inertia::render('Apps/Static/Datenschutz'); }
+    public function indexAGBS() { return Inertia::render('Apps/Static/AGBS'); }
+    public function indexVideoInfo() { return Inertia::render('Apps/Static/VideoInfo'); }
+    public function indexGewinnspielTeilnahmebedingungen() { return Inertia::render('Apps/Static/Gewinnspiel'); }
 }

@@ -13,7 +13,7 @@ class FairController extends Controller
 {
     public function show()
     {
-        return Inertia::render('Messeanmeldung');
+        return Inertia::render('Apps/Static/Messeanmeldung');
     }
 
 

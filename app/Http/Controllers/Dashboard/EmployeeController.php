@@ -10,7 +10,7 @@ class EmployeeController extends Controller
 {
     public function indexOverview()
     {
-        return Inertia::render('Dashboard/Employee/Overview', [
+        return Inertia::render('Apps/Intranet/Employee/Overview', [
             'posts' => Post::getPublished('intranet', request()->user() ?? null, ['roles' => 'all'])
             ->orderByDesc('pinned')
             ->orderByDesc('created_at')
@@ -19,5 +19,5 @@ class EmployeeController extends Controller
         ]);
     }
 
-    public function indexDocuments() { return Inertia::render('Dashboard/Employee/Documents'); }
+    public function indexDocuments() { return Inertia::render('Apps/Intranet/Employee/Documents'); }
 }

@@ -25,8 +25,9 @@
 
 <script setup>
     import { Head, Link } from '@inertiajs/inertia-vue3'
+    import departments from '@/Pages/Apps/Static/Kontakt.json'
+
     import ServiceSubLayout from '@/Layouts/SubLayouts/Service.vue'
     import StaffCard from '@/Components/Page/StaffCard.vue'
     import Alert from '@/Components/Alert.vue'
-    import departments from '@/Pages/Kontakt.json'
 </script>

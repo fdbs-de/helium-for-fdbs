@@ -12,7 +12,7 @@ class ProfileController extends Controller
 {
     public function indexProfile()
     {
-        return Inertia::render('Dashboard/Profile');
+        return Inertia::render('Apps/Intranet/Profile');
     }
 
     public function changePassword(Request $request)

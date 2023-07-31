@@ -8,6 +8,6 @@ use Inertia\Inertia;
 class CustomerController extends Controller
 {
     public function redirect() { return redirect()->route('dashboard.customer.specs'); }
-    public function indexSpecs() { return Inertia::render('Dashboard/Customer/Specs'); }
-    public function indexOffers() { return Inertia::render('Dashboard/Customer/Offers'); }
+    public function indexSpecs() { return Inertia::render('Apps/Intranet/Customer/Specs'); }
+    public function indexOffers() { return Inertia::render('Apps/Intranet/Customer/Offers'); }
 }

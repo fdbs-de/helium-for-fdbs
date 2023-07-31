@@ -16,6 +16,6 @@ class OverviewController extends Controller
 
     public function show()
     {
-        return Inertia::render('Dashboard/Overview');
+        return Inertia::render('Apps/Intranet/Overview');
     }
 }

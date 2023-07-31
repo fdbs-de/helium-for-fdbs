@@ -75,7 +75,7 @@
 <script setup>
     import { Head, Link } from '@inertiajs/inertia-vue3'
     import { ref } from 'vue'
-    import departments from '@/Pages/Kontakt.json'
+    import departments from '@/Pages/Apps/Static/Kontakt.json'
     
     import GuestLayout from '@/Layouts/Guest.vue'
     import StaffCard from '@/Components/Page/StaffCard.vue'

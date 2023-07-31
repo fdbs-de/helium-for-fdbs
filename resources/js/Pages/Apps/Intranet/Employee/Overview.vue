@@ -20,11 +20,14 @@
 </template>
 
 <script setup>
-    import DashboardSubLayout from '@/Layouts/SubLayouts/Dashboard.vue'
     import { Head, Link } from '@inertiajs/inertia-vue3'
+    
+    import DashboardSubLayout from '@/Layouts/SubLayouts/Dashboard.vue'
     import Calendar from '@/Components/Form/Calendar.vue'
     import Tag from '@/Components/Form/Tag.vue'
-    import appointments from '@/Pages/Dashboard/Employee/appointments.json'
+    import appointments from '@/Pages/Apps/Intranet/Employee/appointments.json'
+
+
 
     defineProps({
         posts: Array,
