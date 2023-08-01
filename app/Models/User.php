@@ -162,44 +162,17 @@ class User extends Authenticatable implements MustVerifyEmail
 
 
 
-    private function hasAdminLikePermission()
+    private function hasAdminPanelAccess()
     {
-        return User::find($this->id)->can(Permissions::CAN_ACCESS_ADMIN_PANEL);
-    }
-
-    public function getCanAccessAdminPanelAttribute()
-    {
-        if (!$this->is_enabled) return false;
-        if ($this->hasAdminLikePermission()) return true;
-        
-        return false;
-    }
-
-    public function getCanAccessEmployeePanelAttribute()
-    {
-        if (!$this->is_enabled) return false;
-        if (!!$this->profiles['employee']) return true;
-        if ($this->hasAdminLikePermission()) return true;
-
-        return false;
-    }
-    
-    public function getCanAccessCustomerPanelAttribute()
-    {
-        if (!$this->is_enabled) return false;
-        if (!!$this->profiles['employee']) return true;
-        if (!!$this->profiles['customer']) return true;
-        if ($this->hasAdminLikePermission()) return true;
-
-        return false;
+        return User::find($this->id)->can(Permissions::SYSTEM_ACCESS_ADMIN_PANEL);
     }
 
     public function getAccessAttribute()
     {
         return [
-            'admin'     => $this->is_enabled && ($this->hasAdminLikePermission()),
-            'employee'  => $this->is_enabled && ($this->hasAdminLikePermission() || !!$this->profiles['employee']),
-            'customer'  => $this->is_enabled && ($this->hasAdminLikePermission() || !!$this->profiles['employee'] || !!$this->profiles['customer']),
+            'admin'     => $this->is_enabled && ($this->hasAdminPanelAccess()),
+            'employee'  => $this->is_enabled && ($this->hasAdminPanelAccess() || !!$this->profiles['employee']),
+            'customer'  => $this->is_enabled && ($this->hasAdminPanelAccess() || !!$this->profiles['employee'] || !!$this->profiles['customer']),
         ];
     }
 

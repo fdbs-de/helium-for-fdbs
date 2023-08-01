@@ -28,15 +28,6 @@
                 </div>
                 
                 <div class="flex gap-1 vertical">
-                    <mui-toggle class="checkbox" v-for="permission in permissions" :key="permission.name" :modelValue="form.permissions.includes(permission.name)" @update:modelValue="togglePermission(permission.name)">
-                        <template #label>
-                            <div class="w-100 flex v-center">
-                                <span class="flex-1">{{ permission.label }}</span>
-                                <div class="icon" v-tooltip="permission.description">info</div>
-                            </div>
-                        </template>
-                    </mui-toggle>
-
                     <fieldset class="flex gap-1 vertical" v-for="(group, key) in groupedPermissions" :key="key">
                         <legend>{{ group.title }}</legend>
 
@@ -66,12 +57,11 @@
 </template>
 
 <script setup>
-    import { Head, Link, useForm, usePage } from '@inertiajs/inertia-vue3'
+    import { Head, useForm } from '@inertiajs/inertia-vue3'
     import { ref, computed } from 'vue'
 
     import AdminLayout from '@/Layouts/Admin.vue'
     import IconButton from '@/Components/Form/IconButton.vue'
-    import Popup from '@/Components/Form/Popup.vue'
 
 
 
@@ -89,15 +79,6 @@
     const groupedPermissions = computed(() => {
         return props.permissions
     })
-
-    const permissions = ref([
-        {name: 'access admin panel', label: 'Admin-Bereich betreten', description: 'Der Benutzer kann den Admin-Bereich betreten.'},
-        {name: 'edit users', label: 'Benutzer verwalten', description: 'Der Benutzer kann Benutzer verwalten.'},
-        {name: 'edit posts', label: 'Beiträge verwalten', description: 'Der Benutzer kann Beiträge verwalten.'},
-        {name: 'edit docs', label: 'Dokumente verwalten', description: 'Der Benutzer kann Dokumente verwalten.'},
-        {name: 'edit specs', label: 'Spezifikationen verwalten', description: 'Der Benutzer kann Spezifikationen verwalten.'},
-        {name: 'edit job offers', label: 'Jobangebote verwalten', description: 'Der Benutzer kann Jobangebote verwalten.'},
-    ])
 
 
 
