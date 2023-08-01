@@ -1,5 +1,5 @@
 <template>
-    <AdminLayout title="Admin-Übersicht" no-header>
+    <AdminLayout title="Admin-Übersicht">
         <div class="card welcome-card">
             <h2>{{ greeting }}</h2>
             <div class="bottom-bar">

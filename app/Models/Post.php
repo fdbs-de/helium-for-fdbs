@@ -89,8 +89,11 @@ class Post extends Model
 
 
 
-        $query = Post::with(['category' => function ($query) { $query->select('id', 'name', 'slug', 'icon', 'color'); }])
-        ->whereIn('scope', $apps)
+        $query = Post::select('*');
+
+        $query->with(['category' => function ($query) { $query->select('id', 'name', 'slug', 'icon', 'color'); }]);
+
+        $query->whereIn('scope', $apps)
         ->where(function ($query) use ($roles) {
 
             // If true, query for posts that either dont have roles or match roles with the user

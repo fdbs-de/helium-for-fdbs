@@ -1,0 +1,48 @@
+<template>
+    <Head title="Dokumente" />
+
+    <DashboardSubLayout title="Dokumente" area="Intranet">
+        <div class="card">
+            <div class="flex w-100 padding-inline-1 border-bottom">
+                <Tabs class="tabs" v-model="tab" :tabs="[
+                    { label: 'Allgemeine Dokumente', value: '191' },
+                    { label: 'QM Dokumente', value: '192' },
+                    { label: 'Marketing Material', value: '190' },
+                    { label: 'CI Dokumente', value: '11163' },
+                    { label: 'Leitbild und Organigramm', value: '211' },
+                    { label: 'HR Dokumente', value: '11162' },
+                ]" />
+            </div>
+
+            <DownloadManager :id="tab"/>
+        </div>
+    </DashboardSubLayout>
+</template>
+
+<script setup>
+    import { Head, Link } from '@inertiajs/inertia-vue3'
+    import { ref } from 'vue'
+
+    import DashboardSubLayout from '@/Layouts/SubLayouts/Dashboard.vue'
+    import DownloadManager from '@/Components/Apps/Pages/Renderer/DownloadManager.vue'
+    import Tabs from '@/Components/Form/Tabs.vue'
+
+
+
+    defineProps({
+        documents: Array,
+    })
+
+    const tab = ref('191')
+</script>
+
+<style lang="sass" scoped>
+    .card
+        background: var(--color-background)
+        border-radius: var(--radius-m)
+        box-shadow: var(--shadow-elevation-low)
+
+    .tabs
+        --tab-height: 4rem
+        width: 100%
+</style>

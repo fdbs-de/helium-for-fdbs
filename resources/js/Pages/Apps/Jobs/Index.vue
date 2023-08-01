@@ -90,19 +90,17 @@
 
 <script setup>
     import { Head, Link } from '@inertiajs/inertia-vue3'
-    import PostInterface from '@/Interfaces/Jobs/Post.js'
     import { ref, computed } from 'vue'
 
     import TextSubLayout from '@/Layouts/SubLayouts/Text.vue'
     import Card from '@/Components/Page/Card.vue'
     import Benefits from '@/Components/Page/Karriere/Benefits.vue'
 
+
+
     const props = defineProps({
         posts: Array,
     })
-
-    const posts_ = computed(() => props.posts)
-    const posts = computed(() => posts_.value.map(post => new PostInterface(post)))
 
     const filterParameter = ref({
         search: '',

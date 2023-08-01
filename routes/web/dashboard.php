@@ -1,12 +1,12 @@
 <?php
 
-use App\Http\Controllers\Dashboard\Apps\Wiki\WikiController;
-use App\Http\Controllers\Dashboard\CustomerController;
-use App\Http\Controllers\Dashboard\EmployeeController;
-use App\Http\Controllers\Dashboard\InviteController;
-use App\Http\Controllers\Dashboard\NewsletterController;
-use App\Http\Controllers\Dashboard\OverviewController;
-use App\Http\Controllers\Dashboard\ProfileController;
+use App\Http\Controllers\Apps\Wiki\WikiController;
+use App\Http\Controllers\Apps\Intranet\CustomerController;
+use App\Http\Controllers\Apps\Intranet\EmployeeController;
+use App\Http\Controllers\Apps\Intranet\InviteController;
+use App\Http\Controllers\Apps\Newsletter\NewsletterController;
+use App\Http\Controllers\Apps\Intranet\OverviewController;
+use App\Http\Controllers\Apps\Intranet\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () {

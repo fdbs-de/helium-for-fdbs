@@ -481,8 +481,8 @@
                     .button-container
                         display: flex
                         align-items: center
-                        padding: .25rem
-                        gap: .25rem
+                        padding: .25rem 1rem
+                        gap: 0
                         background: var(--color-background-soft)
                         transform-origin: right
                         transform: translateX(1rem)
@@ -490,9 +490,18 @@
                         border-radius: var(--radius-m) 0 0 var(--radius-m)
 
                         > button
-                            border-radius: var(--radius-m)
+                            border-radius: 0
                             height: 2.25rem
                             width: 2.25rem
+                            
+                            &:not(:last-child)
+                                border-right: 1px solid #ffffff30
+                                
+                            &:first-child
+                                border-radius: var(--radius-m) 0 0 var(--radius-m)
+
+                            &:last-child
+                                border-radius: 0 var(--radius-m) var(--radius-m) 0
 
                 &.sortable:hover
                     .column-sort-indicator
