@@ -1,14 +1,14 @@
 <?php
 
-use App\Http\Controllers\Admin\Apps\Forms\FormController;
 use App\Http\Controllers\Admin\Media\MediaController;
 use App\Http\Controllers\Apps\Blog\BlogController;
+use App\Http\Controllers\Apps\Fairs\FairController;
+use App\Http\Controllers\Apps\Forms\FormController;
 use App\Http\Controllers\Apps\Jobs\JobController;
-use App\Http\Controllers\Apps\Pages\ContactController;
-use App\Http\Controllers\Apps\Pages\FairController;
 use App\Http\Controllers\Apps\Pages\PageController;
-use App\Http\Controllers\Apps\Pages\StaticController;
-use App\Http\Controllers\Apps\Pages\SurveyController;
+use App\Http\Controllers\Apps\Static\ContactController;
+use App\Http\Controllers\Apps\Static\StaticController;
+use App\Http\Controllers\Apps\Static\SurveyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,8 +40,6 @@ Route::prefix('/karriere')->group(function () {
     Route::get('/', [JobController::class, 'index'])->name('karriere');
     Route::get('/stellenangebote', [JobController::class, 'index'])->name('karriere.stellenangebote');
     Route::get('/stellenangebote/{postSlug}', [JobController::class, 'show'])->name('karriere.stellenangebote.show');
-    // Route::get('/bewerben-als/lkw-fahrer', [JobController::class, 'showFunnelFahrer'])->name('karriere.funnel.lkw-fahrer');
-    // Route::post('/bewerben-als/lkw-fahrer', [JobController::class, 'storeFunnelFahrer'])->name('karriere.funnel.lkw-fahrer.store');
     Route::get('/bewerben-als/{slug}', [JobController::class, 'showFunnel'])->name('karriere.funnel.show');
     Route::post('/bewerben-als/{slug}', [JobController::class, 'storeFunnel'])->name('karriere.funnel.store');
 });
@@ -120,12 +118,6 @@ Route::prefix('/messeanmeldung')->group(function () {
     Route::get('/', [FairController::class, 'show'])->name('fair');
     Route::post('/', [FairController::class, 'store'])->name('fair.store');
 });
-
-// Warning for IE users
-/*
-I disabled this for now... didn't work anyway
-*/
-// Route::view('/ie', 'ie')->name('ie');
 
 // Pages Wildcard
 Route::get('/{page}', [PageController::class, 'show'])->where('page', '.*');

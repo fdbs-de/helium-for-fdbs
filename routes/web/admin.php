@@ -1,25 +1,23 @@
 <?php
 
 use App\Classes\Drives\Drives;
-use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\Apps\Forms\FormController;
-use App\Http\Controllers\Admin\Apps\Pages\MenuController;
-use App\Http\Controllers\Admin\Apps\Pages\PageController;
-use App\Http\Controllers\Admin\InviteController;
-use App\Http\Controllers\Admin\Media\MediaController;
-use App\Http\Controllers\Admin\NewsletterController;
+use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingsController;
-use App\Http\Controllers\Apps\Pages\FairController;
-use App\Http\Controllers\Dashboard\PostCategoryController;
-use App\Http\Controllers\Dashboard\PostController;
-use App\Http\Controllers\Dashboard\UserController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\Media\MediaController;
+use App\Http\Controllers\Apps\FormsAdmin\FormController;
+use App\Http\Controllers\Apps\FairsAdmin\FairController;
+use App\Http\Controllers\Apps\IntranetAdmin\InviteController;
+use App\Http\Controllers\Apps\NewsletterAdmin\NewsletterController;
+use App\Http\Controllers\Apps\PagesAdmin\MenuController;
+use App\Http\Controllers\Apps\PagesAdmin\PageController;
+use App\Http\Controllers\Apps\SharedAdmin\PostCategoryController;
+use App\Http\Controllers\Apps\SharedAdmin\PostController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin.panel'])->group(function () {
-    Route::get('/', [AdminController::class, 'show'])->name('admin');
-
-    Route::get('/generate-dir-cache', [AdminController::class, 'generateDirCache']);
+    Route::get('/', [IndexController::class, 'show'])->name('admin');
 
     Route::get('/search-users', [UserController::class, 'searchPublic'])->name('admin.search.users');
 
@@ -134,7 +132,7 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
 
 
     Route::prefix('fairs')->group(function () {
-        Route::get('/', [FairController::class, 'showAdmin'])
+        Route::get('/', [FairController::class, 'index'])
         ->middleware('can:system.view.users')
         ->name('admin.fairs');
         
