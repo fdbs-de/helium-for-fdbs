@@ -4,14 +4,6 @@ namespace App\Permissions;
 
 class Permissions
 {
-    // Depricated
-    public const CAN_ACCESS_ADMIN_PANEL = 'access admin panel';
-    public const CAN_EDIT_JOB_OFFERS = 'edit job offers';
-    public const CAN_EDIT_SPECS = 'edit specs';
-    public const CAN_EDIT_USERS = 'edit users';
-    public const CAN_EDIT_DOCS = 'edit docs';
-    public const CAN_EDIT_POSTS = 'edit posts';
-
     /**
      * System permissions:
      */
