@@ -57,6 +57,8 @@ class UserController extends Controller
         ]);
     }
 
+    
+
     public function search(Request $request)
     {
         $query = User::with(['roles', 'settings']);

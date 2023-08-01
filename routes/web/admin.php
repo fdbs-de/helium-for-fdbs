@@ -100,10 +100,6 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
         ->name('admin.media')
         ->whereIn('driveAlias', Drives::getDriveAliases());
         
-        // Route::get('/search', [MediaController::class, 'search'])
-        // ->middleware('can:system.view.media')
-        // ->name('admin.media.search');
-        
         Route::post('/{media}/files', [MediaController::class, 'storeFiles'])
         ->middleware('can:system.upload.media')
         ->name('admin.media.store.files');
@@ -251,6 +247,10 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
             Route::get('/', [PostCategoryController::class, 'index'])
             ->middleware('can:app.blog.view.categories')
             ->name('admin.blog.categories');
+
+            Route::get('/search', [PostCategoryController::class, 'search'])
+            ->middleware('can:app.blog.view.categories')
+            ->name('admin.blog.categories.search');
             
             Route::get('/editor/{category?}', [PostCategoryController::class, 'create'])
             ->middleware('can:app.blog.view.categories')
@@ -311,6 +311,10 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
             Route::get('/', [PostCategoryController::class, 'index'])
             ->middleware('can:app.wiki.view.categories')
             ->name('admin.wiki.categories');
+
+            Route::get('/search', [PostCategoryController::class, 'search'])
+            ->middleware('can:app.wiki.view.categories')
+            ->name('admin.wiki.categories.search');
             
             Route::get('/editor/{category?}', [PostCategoryController::class, 'create'])
             ->middleware('can:app.wiki.view.categories')
@@ -371,6 +375,10 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
             Route::get('/', [PostCategoryController::class, 'index'])
             ->middleware('can:app.jobs.view.categories')
             ->name('admin.jobs.categories');
+
+            Route::get('/search', [PostCategoryController::class, 'search'])
+            ->middleware('can:app.jobs.view.categories')
+            ->name('admin.jobs.categories.search');
             
             Route::get('/editor/{category?}', [PostCategoryController::class, 'create'])
             ->middleware('can:app.jobs.view.categories')
@@ -430,6 +438,10 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
             Route::get('/', [PostCategoryController::class, 'index'])
             ->middleware('can:app.intranet.view.categories')
             ->name('admin.intranet.categories');
+
+            Route::get('/search', [PostCategoryController::class, 'search'])
+            ->middleware('can:app.intranet.view.categories')
+            ->name('admin.intranet.categories.search');
             
             Route::get('/editor/{category?}', [PostCategoryController::class, 'create'])
             ->middleware('can:app.intranet.view.categories')

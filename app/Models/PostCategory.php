@@ -37,6 +37,11 @@ class PostCategory extends Model
     {
         return $this->hasMany(PostCategory::class, 'subcategory_of');
     }
+
+    public function parent()
+    {
+        return $this->belongsTo(PostCategory::class, 'subcategory_of');
+    }
     
 
     
@@ -48,30 +53,40 @@ class PostCategory extends Model
 
 
     // START: Queries
-    public static function getPublished($app, $roles = null)
+    public static function getPublished($apps, $roles = null, $search = [], $strict = false)
     {
         // if apps is string, convert to array
-        if (is_string($app)) $app = [$app];
+        if (is_string($apps)) $apps = [$apps];
 
 
 
+        // if roles is "all", get all roles
+        if ($roles === "all") $roles = Role::all()->pluck('id')->toArray();
+        
         // if roles is string, convert to array
         if (is_string($roles)) $roles = [$roles];
 
         // if roles is null, set to empty array
         if (is_null($roles)) $roles = [];
-        
-        // if roles is "all", get all roles
-        if ($roles === "all") $roles = Role::all()->pluck('id')->toArray();
 
-        $query = PostCategory::select('id', 'name', 'slug', 'icon', 'color')
-            ->where('scope', $app)
-            ->where('status', 'published')
-            ->where(function ($query) use ($roles) {
-                $query->whereHas('roles', function ($query) use ($roles) {
-                    $query->whereIn('id', $roles);
-                })->orWhereDoesntHave('roles');
-            });
+        $query = PostCategory::select('*');
+
+        $query
+        ->whereIn('scope', $apps)
+        ->where(function ($query) use ($roles) {
+            $query
+            // Categories the user has the roles to view
+            ->whereHas('roles', function ($query) use ($roles) {
+                $query->whereIn('id', $roles);
+            })
+            // Or Categories that don't require roles
+            ->orWhereDoesntHave('roles');
+        });
+
+        if ($strict === true)
+        {
+            $query->where('status', 'published');
+        }
 
         return $query;
     }

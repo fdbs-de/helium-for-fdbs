@@ -25,12 +25,11 @@
 </template>
 
 <script setup>
-    import { Head, useForm, usePage } from '@inertiajs/inertia-vue3'
-    import { ref, computed } from 'vue'
+    import { Head } from '@inertiajs/inertia-vue3'
+    import { ref } from 'vue'
     import ItemPageManager from '@/Classes/Managers/ItemPageManager'
 
     import AdminLayout from '@/Layouts/Admin.vue'
-    import Popup from '@/Components/Form/Popup.vue'
     import Table from '@/Components/Form/Table/Table.vue'
 
 

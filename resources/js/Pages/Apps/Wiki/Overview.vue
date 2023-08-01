@@ -26,21 +26,17 @@
 </template>
 
 <script setup>
-    import { Head, Link } from '@inertiajs/inertia-vue3'
-    import PostInterface from '@/Interfaces/Wiki/Post.js'
-    import { computed } from 'vue'
+    import { Head } from '@inertiajs/inertia-vue3'
 
     import WikiLayout from '@/Layouts/Wiki.vue'
     import Card from '@/Components/Page/Card.vue'
-    import Tag from '@/Components/Form/Tag.vue'
+
+    
 
     const props = defineProps({
         categories: Array,
         posts: Array,
     })
-
-    const posts_ = computed(() => props.posts)
-    const posts = computed(() => posts_.value.map(post => new PostInterface(post)))
 </script>
 
 <style lang="sass" scoped>
