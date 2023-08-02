@@ -54,6 +54,8 @@ Route::get('/storage/{driveAlias}/{media}', [MediaController::class, 'showPublic
 // Static Pages
 Route::get('/', [StaticController::class, 'indexHome'])->name('home');
 Route::get('/philosophie', [StaticController::class, 'indexPhilosophie'])->name('philosophie');
+Route::get('/nachhaltigkeit', [StaticController::class, 'indexNachhaltigkeit'])->name('nachhaltigkeit');
+Route::get('/ci', [StaticController::class, 'indexCI'])->middleware(['auth', 'verified', 'panelaccess:employee'])->name('ci');
 
 Route::get('/angebote', [StaticController::class, 'indexAngebote'])->name('ps.angebote');
 Route::prefix('/produkte-und-services')->group(function () {

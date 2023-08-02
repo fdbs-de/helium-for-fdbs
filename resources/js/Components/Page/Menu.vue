@@ -23,9 +23,10 @@
 
 <script setup>
     import { Link } from '@inertiajs/inertia-vue3'
-    import MenuBuilder from '@/Components/Page/Menu/MenuBuilder.vue'
     import { ref, watch } from 'vue'
     import { Inertia } from '@inertiajs/inertia'
+    
+    import MenuBuilder from '@/Components/Page/Menu/MenuBuilder.vue'
 
 
 
