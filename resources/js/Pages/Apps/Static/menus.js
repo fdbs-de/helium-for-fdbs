@@ -2,7 +2,7 @@ export const mainMenu = [
     { id: 'home', label: 'Home', href: route('home'), children: [] },
     { id: 'blog', label: 'Blog', href: route('blog'), children: [] },
     { id: 'philosophie', label: 'Philosophie', href: route('philosophie'), children: [
-        { id: 'philosophie.nachhaltigkeit', label: 'Nachhaltigkeit', href: route('nachhaltigkeit'), children: [] },
+        // { id: 'philosophie.nachhaltigkeit', label: 'Nachhaltigkeit', href: route('nachhaltigkeit'), children: [] },
     ] },
     { id: 'produkte-und-services', label: 'Produkte & Services', href: route('produkte-und-services'), children: [
         { id: 'angebote', label: 'Aktuelle Angebote', href: route('ps.angebote'), children: [] },
