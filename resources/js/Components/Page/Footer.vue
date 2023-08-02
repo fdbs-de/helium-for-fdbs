@@ -97,9 +97,12 @@
 
 <script setup>
     import { Link } from '@inertiajs/inertia-vue3'
-    import { mainMenu, aboutMenu, legalMenu } from '@/menus'
-    import Popup from '@/Components/Form/Popup.vue'
     import { ref, computed } from 'vue'
+    import { mainMenu, aboutMenu, legalMenu } from '@/Pages/Apps/Static/menus'
+
+    import Popup from '@/Components/Form/Popup.vue'
+
+
 
     const productsMenu = computed(() => {
         return mainMenu.find(e => e.id === 'produkte-und-services')?.children || []

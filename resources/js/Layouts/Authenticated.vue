@@ -76,6 +76,11 @@
                     <div class="text">Dienstfahrrad-Leasing</div>
                     <div class="external">open_in_new</div>
                 </a>
+                <a class="menu-item" target="_blank" :href="route('ci')">
+                    <div class="icon" aria-hidden="true">format_paint</div>
+                    <div class="text">CI / Styleguide</div>
+                    <div class="external">open_in_new</div>
+                </a>
             </div>
         </div>
 
@@ -88,10 +93,13 @@
 </template>
 
 <script setup>
-    import Footer from '@/Components/Page/Footer.vue'
     import { Head, Link, usePage } from '@inertiajs/inertia-vue3'
     import { ref, computed, onMounted } from 'vue'
     import { can, canAny } from '@/Utils/Permissions'
+
+
+    
+    import Footer from '@/Components/Page/Footer.vue'
 
 
 

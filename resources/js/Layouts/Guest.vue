@@ -15,8 +15,10 @@
 
     import Header from '@/Components/Page/Header.vue'
     import Footer from '@/Components/Page/Footer.vue'
-    import { mainMenu } from '@/menus'
+    import { mainMenu } from '@/Pages/Apps/Static/menus'
 
+
+    
     const menu = ref(mainMenu)
 
     const globalSettings = computed(() => {

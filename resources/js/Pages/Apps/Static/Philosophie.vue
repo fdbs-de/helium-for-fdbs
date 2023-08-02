@@ -50,6 +50,11 @@
             noch weitere Maßnahmen geplant, um unser Großhandelsunternehmen so nachhaltig wie möglich zu gestalten.
         </p>
 
+        <!-- <p>
+            Mehr dazu finden Sie auf unserer Seite zur Nachhaltigkeit: <br><br>
+            <mui-button as="a" :href="route('nachhaltigkeit')" label="Nachhaltigkeit beim FDBS"/>
+        </p> -->
+
         <p>&nbsp;</p>
 
         <h2>Ein starkes Team</h2>
@@ -63,7 +68,8 @@
 
         <p>
             Du möchtest unsere Entwicklung mitgestalten und Teil des Teams werden? Dann freuen wir uns auf deine Bewerbung auf eines
-            unserer <Link :href="route('karriere')">Stellenangebote</Link> oder initiativ an <a href="mailto:bewerbungen@fdbs.de">bewerbungen@fdbs.de</a>.
+            unserer Stellenangebote oder initiativ an <a href="mailto:bewerbungen@fdbs.de">bewerbungen@fdbs.de</a>.<br><br>
+            <mui-button as="a" :href="route('karriere')" label="Unsere Stellenangebote"/>
         </p>
     </TextSubLayout>
 </template>

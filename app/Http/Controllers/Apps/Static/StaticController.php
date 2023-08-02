@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Apps\Static;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Apps\Forms\FrontendFormResource;
-use App\Models\Document;
 use App\Models\Form;
 use App\Models\Setting;
 use Inertia\Inertia;
@@ -12,7 +11,10 @@ use Inertia\Inertia;
 class StaticController extends Controller
 {
     public function indexHome() { return Inertia::render('Apps/Static/Home'); }
+
     public function indexPhilosophie() { return Inertia::render('Apps/Static/Philosophie'); }
+    public function indexNachhaltigkeit() { return Inertia::render('Apps/Static/Nachhaltigkeit'); }
+    public function indexCI() { return Inertia::render('Apps/Static/CI'); }
 
     public function indexProdukteUndServices() { return Inertia::render('Apps/Static/ProdukteUndServices/Index'); }
     public function indexAngebote() { return Inertia::render('Apps/Static/ProdukteUndServices/Angebote'); }
