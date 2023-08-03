@@ -1,75 +1,55 @@
 <template>
-    <TextSubLayout title="Nachhaltigkeit" image="/images/content/banner/philosophie_457297988.webp" has-small-limiter>
+    <TextSubLayout title="Nachhaltigkeit" image="/images/content/banner/nachhaltigkeit.webp" has-small-limiter>
         <Head>
             <title>Nachhaltigkeit beim FDBS</title>
         </Head>
 
-        <h2>Weil wir lieben, was wir tun</h2>
-
         <p>
-            Als Lebensmittelgroßhandel haben wir kein Monopol. Deshalb haben wir es uns zur Aufgabe gemacht, außergewöhnlichen,
-            einzigartigen Service zu bieten: Wir sind nicht der klassische B2B-Großhandel – wir führen ein breites Sortiment
-            von über 15.000 Produkten in den Bereichen Food und Non-Food, welches mit Hilfe unserer hauseigenen Logistik
-            persönlich bis zum Kunden geliefert wird. Unser Kundenservice begeistert mit Expertise und Flexibilität. Wir bieten
-            einen Bereich, der sich exklusiv um die Technik unserer Kunden kümmert, inklusive Beratung, Planung, Aufbau und
-            Reparatur. Das Marketing kümmert sich darum, dass unsere Kunden beim Verbraucher im Kopf bleiben.
+            Nachhaltigkeit hat bei FDBS einen besonders hohen Stellenwert.
+            Im Jahr 2022 haben wir mit beeindruckenden Maßnahmen den Weg zu einer grünen Zukunft eingeschlagen.
         </p>
-
-        <p>
-            Mit überragender Kompetenz und Leidenschaft in allen Bereichen unseres Großhandelsunternehmens sind wir bereit für
-            alle Herausforderungen, vor die wir gestellt werden.
-        </p>
-
         <p>&nbsp;</p>
 
-        <h2>Für die Zukunft gut aufgestellt</h2>
-
+        <h2>Sonnenenergie nutzen</h2>
         <p>
-            Die Digitalisierung ist bei uns angekommen, sei es die Optimierung von Prozessen, die Mitarbeitergewinnung oder
-            digitale Dienstleistungen. Denn das gehört zum Wandel der Zeit: Die Nutzung neuer, moderner Kanäle und die weitere
-            Digitalisierung und Automatisierung unseres Großhandelsunternehmens.
+            Ein großer Meilenstein war die Installation unserer Photovoltaik-Anlage. Der dadurch produzierte
+            Strom deckt einen Teil unseres Eigenbedarfs, Überschüsse werden gespeichert und sinnvoll genutzt, z.B.
+            zum Laden unserer E-Fahrzeuge.<br>
+            Dank unserer PV-Anlage sowie unseres Blockheizkraftwerks können wir aktuell einen Autarkiegrad von
+            über 50% verzeichnen!
         </p>
-
         <p>&nbsp;</p>
 
-        <h2>Nachhaltig zum Ziel</h2>
-
+        <h2>Pilotprojekt Enteisungsanlage</h2>
         <p>
-            Als Großhändler mit eigener Logistik, vielen Mitarbeiter*innen, die auswärts unterwegs sind und Lieferanten, die unsere
-            Waren anliefern, haben wir uns in den vergangenen Jahren natürlich auch Gedanken um unseren ökologischen Fußabdruck gemacht.
+            Gemeinsam mit der Firma <a href="https://www.cold-sense.com/wp-content/uploads/2023/02/PR_221117_Coldsense_FDBS_Erfolgsgeschichte_BSZeitung_DE_Offiziell.pdf" target="_blank">Coldsense</a> haben wir eine KI-gesteuerte Enteisungsanlage in Betrieb
+            genommen, die uns unsere Kühlhäuser effizient und energiesparend betreiben lassen.
         </p>
-
-        <p>
-            Als Resultat wurden u. a. eine große Photovoltaikanlage in Verbindung mit einem Blockheizkraftwerk installiert, E-Ladesäulen
-            in Betrieb genommen und die Fahrzeugflotte größtenteils auf E-Fahrzeuge umgestellt, sowie das Tiefkühllagerhaus mit einer
-            innovativen Enteisungsanlage ausgestattet.
-        </p>
-
-        <p>
-            Damit erreichen wir derzeit einen Autarkiefaktor von ca. 50%. Das reicht uns aber noch nicht. In den kommenden Jahren sind
-            noch weitere Maßnahmen geplant, um unser Großhandelsunternehmen so nachhaltig wie möglich zu gestalten.
-        </p>
-
-        <p>
-            Mehr dazu finden Sie auf unserer Seite zur Nachhaltigkeit: <br><br>
-            <mui-button as="a" :href="route('nachhaltigkeit')" label="Nachhaltigkeit beim FDBS"/>
-        </p>
-
         <p>&nbsp;</p>
 
-        <h2>Ein starkes Team</h2>
-
+        <h2>Mitarbeitengesundheit / Work-Life-Balance</h2>
         <p>
-            Aber auch die Mitarbeiterstruktur ist ein wichtiger Punkt unseres Erfolgs. So arbeiten wir mit einem jungen und motivierten
-            Team, das sich in einer flachen Hierarchie wiederfindet. Wir erhalten regelmäßig neue Ideen und Anregungen aus der Belegschaft,
-            die das Gesamtunternehmen stetig nach vorne bringen. Wir arbeiten kontinuierlich daran, die Arbeit bei uns so angenehm wie
-            möglich zu gestalten und gehen immer wieder neue Wege, um die Mitarbeiterzufriedenheit zu erhalten und zu steigern.
+            Neben den Umbauarbeiten auf dem Außengelände werden auch im Gebäude einige Änderungen
+            umgesetzt, ein Großteil davon mit dem Gedanken der Effizienz. Diese bezieht sich nicht nur auf
+            Energie, sondern auch auf das Wohlbefinden unserer Mitarbeitenden. Derzeit entsteht z.B. ein neuer
+            Aufenthaltsraum und es werden stetig neue Möglichkeiten und Angebote, wie z.B. das FahrradLeasing, umgesetzt.
+            Remote Work ist auch nach der Pandemie ein Thema.
         </p>
+        <p>&nbsp;</p>
 
+        <h2>E-Fahrzeuge</h2>
         <p>
-            Du möchtest unsere Entwicklung mitgestalten und Teil des Teams werden? Dann freuen wir uns auf deine Bewerbung auf eines
-            unserer <Link :href="route('karriere')">Stellenangebote</Link> oder initiativ an <a href="mailto:bewerbungen@fdbs.de">bewerbungen@fdbs.de</a>.
+            Unser Fuhrpark zählt mittlerweile über 10 E-Autos zu seinen Fahrzeugen.
         </p>
+        <p>&nbsp;</p>
+
+        <h2>Energiesparmaßnahmen & Ressourcenschonung</h2>
+        <p>
+            Mit den Umbauarbeiten im Gebäude wurde u.a. auf Bewegungsmelder und zeitgeschaltete
+            Beleuchtung gesetzt. Arbeitsabläufe werden weitestgehend auf papierlose Prozesse umgestellt, um die
+            Ressourcen zu schonen. Unsere Druckprodukte werden klimaneutral produziert.
+        </p>
+        <p>&nbsp;</p>
     </TextSubLayout>
 </template>
 
