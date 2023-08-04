@@ -50,10 +50,10 @@
             noch weitere Maßnahmen geplant, um unser Großhandelsunternehmen so nachhaltig wie möglich zu gestalten.
         </p>
 
-        <p>
+        <!-- <p>
             Mehr dazu finden Sie auf unserer Seite zur Nachhaltigkeit: <br><br>
             <mui-button as="a" :href="route('nachhaltigkeit')" label="Nachhaltigkeit beim FDBS"/>
-        </p>
+        </p> -->
 
         <p>&nbsp;</p>
 
