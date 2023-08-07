@@ -21,9 +21,10 @@
 
 <script setup>
     import { Head, Link } from '@inertiajs/inertia-vue3'
+    import { defineEmits } from 'vue'
+    
     import GuestLayout from '@/Layouts/Guest.vue'
     import ValidationErrors from '@/Components/ValidationErrors.vue'
-    import { defineEmits } from 'vue'
 
     defineProps({
         title: String,

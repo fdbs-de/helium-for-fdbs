@@ -42,7 +42,7 @@ class WikiController extends Controller
         return Inertia::render('Apps/Wiki/Overview', [
             'posts' => $posts->get(),
 
-            'categories' => PostCategory::getPublished('wiki', request()->user()->accessable_role_ids, [], true)
+            'categories' => PostCategory::getPublished('wiki', request()->user()->available_role_ids, [], true)
             ->orderBy('name')
             ->get(),
         ]);

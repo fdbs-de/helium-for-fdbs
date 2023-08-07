@@ -143,13 +143,15 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->roles()->pluck('id')->toArray();
     }
 
+    
+
     /**
      * Get all role ids that user has access to
-     * This may include role ids that user does not have been assigned
+     * This may include roles user has not been assigned with
      * 
      * @return array
      */
-    public function getAccessableRoleIdsAttribute()
+    public function getAvailableRoleIdsAttribute()
     {
         if ($this->can(Permissions::SYSTEM_ADMIN))
         {

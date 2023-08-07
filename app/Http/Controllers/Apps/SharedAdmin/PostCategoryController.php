@@ -78,7 +78,7 @@ class PostCategoryController extends Controller
     public function create(Request $request, PostCategory $category)
     {
         return Inertia::render('Apps/SharedAdmin/Categories/Create', [
-            'item' => $category->load(['roles']),
+            'item' => PostCategoryResource::make($category),
             'roles' => Role::orderBy('created_at')->get(),
             'app' => $request->app['route'],
         ]);
@@ -88,10 +88,20 @@ class PostCategoryController extends Controller
 
     public function store(CreatePostCategoryRequest $request)
     {
-        $postCategory = PostCategory::create($request->validated());
-        $postCategory->roles()->sync($request->roles);
+        // Create the item
+        $item = PostCategory::create($request->validated());
 
-        return redirect()->route('admin.'.$request->app['route'].'.categories.editor', $postCategory);
+        // Sync the roles
+        $item->roles()->sync($request->roles);
+        
+        // Create the owner
+        $item->users()->attach($request->user()->id, ['role' => 'owner']);
+
+        // Sync the users
+        $item->users()->sync($request->users);
+
+        // Redirect back to the editor
+        return redirect()->route('admin.'.$request->app['route'].'.categories.editor', PostCategoryResource::make($item));
     }
 
 

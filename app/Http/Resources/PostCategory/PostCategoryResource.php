@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\PostCategory;
 
+use App\Http\Resources\User\PublicUserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PostCategoryResource extends JsonResource
@@ -24,6 +25,8 @@ class PostCategoryResource extends JsonResource
             'scope' => $this->scope,
             'status' => $this->status,
             'post_count' => $this->posts()->count(),
+            'roles' => $this->roles,
+            'users' => PublicUserResource::collection($this->users),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

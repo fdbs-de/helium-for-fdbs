@@ -37,13 +37,21 @@ class CreatePostCategoryRequest extends FormRequest
         return [
             'scope' => ['required'],
             'name' => 'required|string|max:255',
-            'roles' => ['nullable', 'array'],
-            'roles.*' => ['nullable', 'exists:roles,id'],
             'slug' => ['nullable', 'string', 'max:255', 'unique:post_categories,slug,NULL,id,scope,' . $this->scope],
             'color' => 'nullable|string|max:31',
             'icon' => 'nullable|string|max:31',
             'description' => 'nullable|string',
             'status' => 'required|string|in:published,hidden',
+
+            // My only be the roles that the user has the permission to assign
+            'roles' => ['nullable', 'array'],
+            'roles.*' => ['nullable', 'exists:roles,id', 'distinct', 'in:' . implode(',', $this->user()->available_role_ids)],
+
+            // As the owner gets added automatically,
+            // we need to make sure that the owner user is not in the list
+            'users' => ['nullable', 'array'],
+            'users.*.id' => ['nullable', 'exists:users,id', 'distinct', 'not_in:' . $this->user()->id],
+            'users.*.pivot_role' => ['nullable', 'string', 'in:editor,viewer'],
         ];
     }
 }

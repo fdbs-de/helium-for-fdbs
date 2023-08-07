@@ -34,11 +34,7 @@
                 </div>
             </div>
 
-            <Alert type="error" title="Da lief etwas schief!" v-if="Object.keys($page.props.errors).length">
-                <ul>
-                    <li v-for="(error, key) in $page.props.errors" :key="key">{{ error }}</li>
-                </ul>
-            </Alert>
+            <ValidationErrors />
 
             <div class="flex border-bottom">
                 <div class="limiter text-limiter">
@@ -189,7 +185,7 @@
     import IconButton from '@/Components/Apps/Pages/IconButton.vue'
     import Tag from '@/Components/Form/Tag.vue'
     import Tabs from '@/Components/Form/Tabs.vue'
-    import Alert from '@/Components/Alert.vue'
+    import ValidationErrors from '@/Components/ValidationErrors.vue'
 
 
 

@@ -33,6 +33,11 @@ class PostCategory extends Model
         return $this->hasMany(Post::class, 'category');
     }
 
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'post_category_user')->withPivot('role');
+    }
+
     public function subcategories()
     {
         return $this->hasMany(PostCategory::class, 'subcategory_of');

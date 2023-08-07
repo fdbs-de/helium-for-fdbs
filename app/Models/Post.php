@@ -82,7 +82,7 @@ class Post extends Model
 
 
         // get roles
-        $roles = $user ? $user->accessable_role_ids : [];
+        $roles = $user ? $user->available_role_ids : [];
 
         // if roles is "all", get all roles
         if (key_exists('roles', $search) && $search['roles'] === "all") $roles = Role::all()->pluck('id')->toArray();
