@@ -38,16 +38,12 @@
                 <!-- <TextEditor class="content-input flex-1" v-model="form.description" /> -->
 
                 <div class="flex vertical background-soft radius-m margin-top-0">
-                    <div class="flex padding-1 gap-1 wrap">
-                        <mui-button
-                            type="button"
-                            v-for="role in roles"
-                            :key="role.id"
-                            :label="role.name"
-                            :variant="form.roles.includes(role.id) ? 'solid' : 'contained'"
-                            :icon-left="form.roles.includes(role.id) ? 'remove' : 'add'"
-                            size="small"
-                            @click="toggleRole(role.id)"/>
+                    <div class="flex vertical padding-1 gap-1">
+                        <div class="user flex v-center gap-1" v-for="role in form.roles">
+                            <b class="flex-1">{{ role.name }}</b>
+                            <IconButton icon="close" class="input-button" v-tooltip.right="'Benutzer entfernen'" @click="removeRole(role)"/>
+                        </div>
+                        <mui-button type="button" label="Rolle hinzufügen" variant="contained" size="small" @click="roleSearchPopup.open((item) => addRole(item), {exclude: form.roles.map(e => e.id), scope: 'user-available'})"/>
                     </div>
                     <div class="flex vertical padding-1 gap-1 border-top">
                         <div class="user flex v-center gap-1" v-for="user in form.users">
@@ -60,12 +56,12 @@
                             </select>
                             <IconButton icon="close" class="input-button" v-tooltip.right="'Benutzer entfernen'" @click="removeUser(user)"/>
                         </div>
-                        <mui-button type="button" label="Benutzer hinzufügen" size="small" @click="userSearchPopup.open((item) => addUser(item), {exclude: form.users.map(e => e.id)})"/>
+                        <mui-button type="button" label="Benutzer hinzufügen" variant="contained" size="small" @click="userSearchPopup.open((item) => addUser(item), {exclude: form.users.map(e => e.id)})"/>
                     </div>
-                    <div class="flex padding-1 gap-1 wrap h-center border-top">
+                    <!-- <div class="flex padding-1 gap-1 wrap h-center border-top">
                         <span v-if="form.roles.length > 0">Nur <b>ausgewählte Benutzer</b> können diese Kategorie aufrufen</span>
                         <span v-else><b>Jeder Benutzer</b> kann diese Kategorie aufrufen</span>
-                    </div>
+                    </div> -->
                 </div>
             </div>
 
@@ -73,6 +69,7 @@
     </AdminLayout>
 
     <UserSearchPopup ref="userSearchPopup"/>
+    <RoleSearchPopup ref="roleSearchPopup"/>
 </template>
 
 <script setup>
@@ -82,6 +79,7 @@
 
     import AdminLayout from '@/Layouts/Admin.vue'
     import UserSearchPopup from '@/Components/Form/UserSearchPopup.vue'
+    import RoleSearchPopup from '@/Components/Form/RoleSearchPopup.vue'
     import TextEditor from '@/Components/Form/TextEditor.vue'
     import IconButton from '@/Components/Apps/Pages/IconButton.vue'
     import ValidationErrors from '@/Components/ValidationErrors.vue'
@@ -93,6 +91,7 @@
     })
 
     const userSearchPopup = ref(null)
+    const roleSearchPopup = ref(null)
 
 
 
@@ -115,7 +114,7 @@
         form.slug = item?.slug ?? ''
         form.color = item?.color ?? ''
         form.icon = item?.icon ?? ''
-        form.roles = item?.roles.map(e => e.id) ?? []
+        form.roles = item?.roles ?? []
         form.users = item?.users ?? []
         form.description = item?.description ?? ''
         form.status = item?.status ?? 'published'
@@ -135,7 +134,6 @@
     const storeItem = () => {
         form.post(route('admin.'+props.app+'.categories.store'), {
             onSuccess: (data) => {
-                console.log(data?.props?.item)
                 openItem(data?.props?.item)
             },
         })
@@ -161,8 +159,15 @@
 
 
     // START: Role Handling
-    const toggleRole = (role) => {
-        form.roles = form.roles.includes(role) ? form.roles.filter(e => e !== role) : [ ...form.roles, role]
+    const addRole = (role) => {
+        form.roles = [
+            ...form.roles,
+            role
+        ]
+    }
+
+    const removeRole = (role) => {
+        form.roles = form.roles.filter(e => e.id !== role.id)
     }
     // END: Role Handling
 

@@ -94,11 +94,11 @@ class PostCategoryController extends Controller
         // Sync the roles
         $item->roles()->sync($request->roles);
         
-        // Create the owner
-        $item->users()->attach($request->user()->id, ['role' => 'owner']);
-
         // Sync the users
         $item->users()->sync($request->users);
+        
+        // Create the owner
+        $item->users()->syncWithoutDetaching($request->user()->id, ['role' => 'owner']);
 
         // Redirect back to the editor
         return redirect()->route('admin.'.$request->app['route'].'.categories.editor', PostCategoryResource::make($item));
@@ -112,7 +112,7 @@ class PostCategoryController extends Controller
 
         if ($request->returnTo === 'editor')
         {
-            return redirect()->route('admin.'.$request->app['route'].'.categories.editor', $postCategory);
+            return redirect()->route('admin.'.$request->app['route'].'.categories.editor', PostCategoryResource::make($postCategory));
         }
 
         return back();
@@ -122,10 +122,18 @@ class PostCategoryController extends Controller
 
     public function update(UpdatePostCategoryRequest $request, PostCategory $postCategory)
     {
+        // Update the item
         $postCategory->update($request->validated());
+
+        // Sync the roles
         $postCategory->roles()->sync($request->roles);
 
-        return redirect()->route('admin.'.$request->app['route'].'.categories.editor', $postCategory);
+        // dd($request->users);
+
+        // Sync the users
+        $postCategory->users()->sync($request->users);
+
+        return redirect()->route('admin.'.$request->app['route'].'.categories.editor', PostCategoryResource::make($postCategory));
     }
 
 

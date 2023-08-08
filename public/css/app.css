@@ -1545,7 +1545,6 @@
 }
 
 .profile-image {
-  border-radius: 50%;
   aspect-ratio: 1/1;
   -o-object-fit: cover;
      object-fit: cover;
