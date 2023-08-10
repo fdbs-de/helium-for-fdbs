@@ -50,7 +50,7 @@
                             <img :src="user.image" :alt="user.name" class="h-2 profile-image">
                             <b class="flex-1">{{ user.name }}</b>
                             <select class="h-2" v-model="user.pivot_role">
-                                <option value="owner" disabled>Ersteller</option>
+                                <option value="owner">Ersteller</option>
                                 <option value="editor">Editor</option>
                                 <option value="viewer">Leser</option>
                             </select>
@@ -58,10 +58,10 @@
                         </div>
                         <mui-button type="button" label="Benutzer hinzufügen" variant="contained" size="small" @click="userSearchPopup.open((item) => addUser(item), {exclude: form.users.map(e => e.id)})"/>
                     </div>
-                    <!-- <div class="flex padding-1 gap-1 wrap h-center border-top">
-                        <span v-if="form.roles.length > 0">Nur <b>ausgewählte Benutzer</b> können diese Kategorie aufrufen</span>
-                        <span v-else><b>Jeder Benutzer</b> kann diese Kategorie aufrufen</span>
-                    </div> -->
+                    <div class="flex padding-1 gap-1 wrap border-top">
+                        <span><b>Ansehen / verwenden</b><br>{{ whoCanView }}</span>
+                        <span><b>Bearbeiten</b><br>{{ whoCanEdit }}</span>
+                    </div>
                 </div>
             </div>
 
@@ -185,6 +185,51 @@
         form.users = form.users.filter(e => e.id !== user.id)
     }
     // END: User Handling
+
+
+
+    // START: Permission calculation texts
+    const whoCanView = computed(() => {
+        let text = ''
+        let usersWithoutOwner = form.users.filter(e => e.pivot_role !== 'owner')
+        let roles = form.roles.filter(e => e.name !== 'owner')
+        let users = form.users
+
+        if (roles.length === 0 && users.length === 0)
+        {
+            text = 'Nur Seitenadministratoren können diese Kategorie ansehen'
+        }
+        else if (roles.length > 0 && users.length > 0)
+        {
+            text = users.map(e => e.name).join(', ')+', Nutzer mit den Rollen ' + roles.map(e => e.name).join(', ')+' und Seitenadministratoren können diese Kategorie ansehen'
+        }
+        else if (roles.length > 0)
+        {
+            text = 'Nutzer mit den Rollen ' + roles.map(e => e.name).join(', ')+' und Seitenadministratoren können diese Kategorie ansehen'
+        }
+        else if (users.length > 0 && usersWithoutOwner.length === 0)
+        {
+            text = 'Jeder kann diese Kategorie ansehen'
+        }
+        else
+        {
+            text = users.map(e => e.name).join(', ')+' und Seitenadministratoren können diese Kategorie ansehen'
+        }
+
+        return text
+    })
+
+    const whoCanEdit = computed(() => {
+        let text = 'Nur Seitenadministratoren können diese Kategorie bearbeiten'
+        let users = form.users.filter(e => ['owner', 'editor'].includes(e.pivot_role))
+
+        if (form.users.length > 0)
+        {
+            text = users.map(e => e.name).join(', ')+' und Seitenadministratoren können diese Kategorie bearbeiten'
+        }
+
+        return text
+    })
 </script>
 
 <style lang="sass" scoped>

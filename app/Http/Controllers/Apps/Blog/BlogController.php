@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Apps\Blog;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Post\PostResource;
 use App\Models\Post;
 use App\Models\PostCategory;
 use Illuminate\Http\Request;
@@ -13,11 +14,11 @@ class BlogController extends Controller
     public function index()
     {
         return Inertia::render('Apps/Blog/Index', [
-            'posts' => Post::getPublished('blog', request()->user() ?? null, ['roles' => 'all'])
+            'posts' => PostResource::collection(Post::getPublished('blog', request()->user() ?? null, ['roles' => 'all'])
             ->orderByDesc('pinned')
             ->orderByDesc('created_at')
             ->orderByDesc('updated_at')
-            ->get(),
+            ->get()),
         ]);
     }
 
@@ -29,7 +30,7 @@ class BlogController extends Controller
         $post = Post::getPublished('blog', request()->user() ?? null, ['roles' => 'all', 'slug' => $postSlug, 'category' => $categoryId])->firstOrFail();
             
         return Inertia::render('Apps/Blog/Show', [
-            'post' => $post
+            'post' => PostResource::make($post)
         ]);
     }
 }

@@ -45,7 +45,7 @@ class CreatePostRequest extends FormRequest
             'users.*.pivot_role' => ['required', 'string', 'in:co-author,editor,viewer'],
             'title' => ['nullable', 'string', 'max:255'],
             'slug' => ['nullable', 'string', 'max:255', 'unique:posts,slug,NULL,id,scope,' . $this->scope],
-            'category' => ['required', 'integer', 'exists:post_categories,id,scope,' . $this->scope],
+            'post_category_id' => ['required', 'integer', 'exists:post_categories,id,scope,' . $this->scope],
             'tags' => ['nullable', 'array'],
             'tags.*' => ['nullable', 'string'],
             'image' => ['nullable', 'string'],

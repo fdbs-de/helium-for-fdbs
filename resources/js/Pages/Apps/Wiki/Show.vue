@@ -8,8 +8,8 @@
             <div class="limiter text-limiter">
                 <h1>{{post.title}}</h1>
 
-                <div class="flex gap-1 v-center wrap" v-if="post.category || post.tags">
-                    <Tag v-if="post.category" :style="'color: '+post.category.color || 'gray'" :icon="post.category.icon || 'category'" shape="pill">{{post.category.name}}</Tag>
+                <div class="flex gap-1 v-center wrap" v-if="post.post_category || post.tags">
+                    <Tag v-if="post.post_category" :style="'color: '+post.post_category.color || 'gray'" :icon="post.post_category.icon || 'category'" shape="pill">{{post.post_category.name}}</Tag>
                     <Tag v-if="post.status !== 'published'" style="color: var(--color-error)" shape="pill">Nicht veröffentlicht</Tag>
                     <Tag v-for="tag in post.tags" :key="tag" style="color: var(--color-text);" shape="pill">{{tag}}</Tag>
                 </div>

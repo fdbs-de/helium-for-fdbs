@@ -18,7 +18,7 @@ class Post extends Model
         'scope',
         'title',
         'slug',
-        'category',
+        'post_category_id',
         'tags',
         'image',
         'content',
@@ -49,6 +49,11 @@ class Post extends Model
     public function category()
     {
         return $this->belongsTo(PostCategory::class, 'category');
+    }
+
+    public function postCategory()
+    {
+        return $this->belongsTo(PostCategory::class);
     }
 
     public function users()
@@ -91,9 +96,10 @@ class Post extends Model
 
         $query = Post::select('*');
 
-        $query->with(['category' => function ($query) { $query->select('id', 'name', 'slug', 'icon', 'color'); }]);
+        $query->with(['postCategory' => function ($query) { $query->select('id', 'name', 'slug', 'icon', 'color'); }]);
 
-        $query->whereIn('scope', $apps)
+        $query
+        ->whereIn('scope', $apps)
         ->where(function ($query) use ($roles) {
 
             // If true, query for posts that either dont have roles or match roles with the user
@@ -120,10 +126,10 @@ class Post extends Model
                 })
                 ->where(function ($query) use ($roles) {
                     $query
-                    ->whereHas('category.roles', function ($query) use ($roles) {
+                    ->whereHas('postCategory.roles', function ($query) use ($roles) {
                         $query->whereIn('id', $roles);
                     })
-                    ->orWhereDoesntHave('category.roles');
+                    ->orWhereDoesntHave('postCategory.roles');
                 });
             });
         });
@@ -167,7 +173,7 @@ class Post extends Model
 
 
         // START: Filter
-        if (key_exists('category', $search)) $query->where('category', $search['category']);
+        if (key_exists('category', $search)) $query->where('post_category_id', $search['category']);
         if (key_exists('slug', $search)) $query->where('slug', $search['slug']);
         // END: Filter
 

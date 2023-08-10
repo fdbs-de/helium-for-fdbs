@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Apps\Jobs;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Post\PostResource;
 use App\Mail\NewJobApplication;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -118,11 +119,11 @@ class JobController extends Controller
     public function index()
     {
         return Inertia::render('Apps/Jobs/Index', [
-            'posts' => Post::getPublished('jobs', null, ['roles' => 'all'])
+            'posts' => PostResource::collection(Post::getPublished('jobs', null, ['roles' => 'all'])
             ->orderByDesc('pinned')
             ->orderByDesc('created_at')
             ->orderByDesc('updated_at')
-            ->get(),
+            ->get()),
         ]);
     }
     
@@ -131,7 +132,7 @@ class JobController extends Controller
         $post = Post::getPublished('jobs', null, ['roles' => 'all', 'slug' => $postSlug])->firstOrFail();
 
         return Inertia::render('Apps/Jobs/Show', [
-            'post' => $post,
+            'post' => PostResource::make($post),
             'funnels' => self::funnels,
         ]);
     }

@@ -48,7 +48,7 @@
 
             <div class="tab-container" v-show="tab === 'general'">
                 <div class="limiter text-limiter flex gap-1 vertical">
-                    <select class="header-select" v-model="form.category">
+                    <select class="header-select" v-model="form.post_category_id">
                         <option :value="null" disabled>Kategorie auswählen</option>
                         <option v-for="category in categories" :key="category.id" :value="category.id">{{category.name}}</option>
                     </select>
@@ -211,7 +211,7 @@
         id: null,
         title: '',
         slug: '',
-        category: null,
+        post_category_id: null,
         tags: '',
         roles: [],
         image: '',
@@ -232,7 +232,7 @@
         form.id = item?.id ?? null
         form.title = item?.title ?? ''
         form.slug = item?.slug ?? ''
-        form.category = item?.category?.id ?? null
+        form.post_category_id = item?.post_category?.id ?? null
         form.tags = item?.tags ?? []
         form.roles = item?.roles?.map(e => e.id) ?? []
         form.image = item?.image ?? ''

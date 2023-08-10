@@ -30,7 +30,7 @@ class PostCategoryController extends Controller
 
     public function search(Request $request)
     {
-        $query = PostCategory::getPublished($request->app['id'], 'all', [], false);
+        $query = PostCategory::whereScope($request->app['id'])->whereEditable();
 
         // START: Search
         if ($request->search) {
@@ -67,6 +67,8 @@ class PostCategoryController extends Controller
         $query->limit($limit)->offset($offset);
         // END: Pagination
 
+
+
         return response()->json([
             'data' => PostCategoryResource::collection($query->get()),
             'total' => $total,
@@ -79,7 +81,6 @@ class PostCategoryController extends Controller
     {
         return Inertia::render('Apps/SharedAdmin/Categories/Create', [
             'item' => PostCategoryResource::make($category),
-            'roles' => Role::orderBy('created_at')->get(),
             'app' => $request->app['route'],
         ]);
     }

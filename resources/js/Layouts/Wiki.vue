@@ -61,7 +61,7 @@
                 
                 <div class="menu-scroll-container">
                     <div class="menu-group">
-                        <Link class="menu-entry" v-for="item in posts" :key="item.id" :href="route('wiki.entry', [item.category.slug, item.slug])">
+                        <Link class="menu-entry" v-for="item in posts" :key="item.id" :href="route('wiki.entry', [item.post_category.slug, item.slug])">
                             <div class="text" v-tooltip.right="item.title">{{ item.title }}</div>
                         </Link>
                     </div>

@@ -56,8 +56,8 @@
                     :key="job.id"
                     :name="job.title"
                     :image="job.image"
-                    :color="job.category.color"
-                    :primary-tag="job.category.name"
+                    :color="job.post_category.color"
+                    :primary-tag="job.post_category.name"
                     :tags="job.tags"
                     :link="route('karriere.stellenangebote.show', job.slug)"
                 />
