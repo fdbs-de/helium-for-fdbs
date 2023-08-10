@@ -1,10 +1,7 @@
 <template>
     <AdminLayout :title="(form.name || 'Unbenannte Kategorie') + ' – Kategorie bearbeiten'" :backlink="route('admin.'+app+'.categories')" backlink-text="Zurück zur Übersicht">
         <form class="card flex vertical gap-1 padding-1" @submit.prevent="saveItem()">
-            <div class="limiter text-limiter" v-if="hasErrors">
-                <h3><b>Fehler!</b></h3>
-                <p v-for="(error, key) in errors" :key="key">{{ error }}</p>
-            </div>
+            <ValidationErrors />
 
             <div class="flex v-center gap-1">
                 <select class="header-select" v-model="form.status">
@@ -29,7 +26,7 @@
                     </mui-input>
                 </div>
                 
-                <div class="flex gap-1 v-center">
+                <div class="flex gap-1 v-center margin-bottom-2">
                     <mui-input class="flex-1" type="text" label="Farbe" v-model="form.color">
                         <template #right>
                             <input type="color" v-model="form.color">
@@ -38,29 +35,41 @@
                     <mui-input class="flex-1" type="text" label="Icon" v-model="form.icon" />
                 </div>
 
-                <div class="flex vertical background-soft radius-m margin-block-2">
-                    <div class="flex padding-1 gap-1 wrap h-center">
-                        <span v-if="form.roles.length > 0">Nur <b>ausgewählte Benutzer</b> können diese Kategorie aufrufen</span>
-                        <span v-else><b>Jeder Benutzer</b> kann diese Kategorie aufrufen</span>
+                <!-- <TextEditor class="content-input flex-1" v-model="form.description" /> -->
+
+                <div class="flex vertical background-soft radius-m margin-top-0">
+                    <div class="flex vertical padding-1 gap-1">
+                        <div class="user flex v-center gap-1" v-for="role in form.roles">
+                            <b class="flex-1">{{ role.name }}</b>
+                            <IconButton icon="close" class="input-button" v-tooltip.right="'Benutzer entfernen'" @click="removeRole(role)"/>
+                        </div>
+                        <mui-button type="button" label="Rolle hinzufügen" variant="contained" size="small" @click="roleSearchPopup.open((item) => addRole(item), {exclude: form.roles.map(e => e.id), scope: 'user-available'})"/>
+                    </div>
+                    <div class="flex vertical padding-1 gap-1 border-top">
+                        <div class="user flex v-center gap-1" v-for="user in form.users">
+                            <img :src="user.image" :alt="user.name" class="h-2 profile-image">
+                            <b class="flex-1">{{ user.name }}</b>
+                            <select class="h-2" v-model="user.pivot_role">
+                                <option value="owner">Ersteller</option>
+                                <option value="editor">Editor</option>
+                                <option value="viewer">Leser</option>
+                            </select>
+                            <IconButton icon="close" class="input-button" v-tooltip.right="'Benutzer entfernen'" @click="removeUser(user)"/>
+                        </div>
+                        <mui-button type="button" label="Benutzer hinzufügen" variant="contained" size="small" @click="userSearchPopup.open((item) => addUser(item), {exclude: form.users.map(e => e.id)})"/>
                     </div>
                     <div class="flex padding-1 gap-1 wrap border-top">
-                        <mui-button
-                            type="button"
-                            v-for="role in roles"
-                            :key="role.id"
-                            :label="role.name"
-                            :variant="form.roles.includes(role.id) ? 'solid' : 'contained'"
-                            :icon-left="form.roles.includes(role.id) ? 'remove' : 'add'"
-                            size="small"
-                            @click="toggleRole(role.id)"/>
+                        <span><b>Ansehen / verwenden</b><br>{{ whoCanView }}</span>
+                        <span><b>Bearbeiten</b><br>{{ whoCanEdit }}</span>
                     </div>
                 </div>
-
-                <TextEditor class="content-input flex-1" v-model="form.description" />
             </div>
 
         </form>
     </AdminLayout>
+
+    <UserSearchPopup ref="userSearchPopup"/>
+    <RoleSearchPopup ref="roleSearchPopup"/>
 </template>
 
 <script setup>
@@ -69,14 +78,20 @@
     import { ref, computed, watch } from 'vue'
 
     import AdminLayout from '@/Layouts/Admin.vue'
-    import Switcher from '@/Components/Form/Switcher.vue'
+    import UserSearchPopup from '@/Components/Form/UserSearchPopup.vue'
+    import RoleSearchPopup from '@/Components/Form/RoleSearchPopup.vue'
     import TextEditor from '@/Components/Form/TextEditor.vue'
+    import IconButton from '@/Components/Apps/Pages/IconButton.vue'
+    import ValidationErrors from '@/Components/ValidationErrors.vue'
 
     const props = defineProps({
         item: Object,
         roles: Array,
         app: String,
     })
+
+    const userSearchPopup = ref(null)
+    const roleSearchPopup = ref(null)
 
 
 
@@ -88,6 +103,7 @@
         color: '',
         icon: '',
         roles: [],
+        users: [],
         description: '',
         status: 'draft',
     })
@@ -98,7 +114,8 @@
         form.slug = item?.slug ?? ''
         form.color = item?.color ?? ''
         form.icon = item?.icon ?? ''
-        form.roles = item?.roles.map(e => e.id) ?? []
+        form.roles = item?.roles ?? []
+        form.users = item?.users ?? []
         form.description = item?.description ?? ''
         form.status = item?.status ?? 'published'
     }
@@ -117,7 +134,6 @@
     const storeItem = () => {
         form.post(route('admin.'+props.app+'.categories.store'), {
             onSuccess: (data) => {
-                console.log(data?.props?.item)
                 openItem(data?.props?.item)
             },
         })
@@ -143,17 +159,77 @@
 
 
     // START: Role Handling
-    const toggleRole = (role) => {
-        form.roles = form.roles.includes(role) ? form.roles.filter(e => e !== role) : [ ...form.roles, role]
+    const addRole = (role) => {
+        form.roles = [
+            ...form.roles,
+            role
+        ]
+    }
+
+    const removeRole = (role) => {
+        form.roles = form.roles.filter(e => e.id !== role.id)
     }
     // END: Role Handling
 
-    
-    
-    // START: Error Handling
-    const errors = computed(() => usePage().props.value.errors)
-    const hasErrors = computed(() => Object.keys(errors.value).length > 0)
-    // END: Error Handling
+
+
+    // START: User Handling
+    const addUser = (user) => {
+        form.users = [
+            ...form.users,
+            { ...user, pivot_role: 'viewer' }
+        ]
+    }
+
+    const removeUser = (user) => {
+        form.users = form.users.filter(e => e.id !== user.id)
+    }
+    // END: User Handling
+
+
+
+    // START: Permission calculation texts
+    const whoCanView = computed(() => {
+        let text = ''
+        let usersWithoutOwner = form.users.filter(e => e.pivot_role !== 'owner')
+        let roles = form.roles.filter(e => e.name !== 'owner')
+        let users = form.users
+
+        if (roles.length === 0 && users.length === 0)
+        {
+            text = 'Nur Seitenadministratoren können diese Kategorie ansehen'
+        }
+        else if (roles.length > 0 && users.length > 0)
+        {
+            text = users.map(e => e.name).join(', ')+', Nutzer mit den Rollen ' + roles.map(e => e.name).join(', ')+' und Seitenadministratoren können diese Kategorie ansehen'
+        }
+        else if (roles.length > 0)
+        {
+            text = 'Nutzer mit den Rollen ' + roles.map(e => e.name).join(', ')+' und Seitenadministratoren können diese Kategorie ansehen'
+        }
+        else if (users.length > 0 && usersWithoutOwner.length === 0)
+        {
+            text = 'Jeder kann diese Kategorie ansehen'
+        }
+        else
+        {
+            text = users.map(e => e.name).join(', ')+' und Seitenadministratoren können diese Kategorie ansehen'
+        }
+
+        return text
+    })
+
+    const whoCanEdit = computed(() => {
+        let text = 'Nur Seitenadministratoren können diese Kategorie bearbeiten'
+        let users = form.users.filter(e => ['owner', 'editor'].includes(e.pivot_role))
+
+        if (form.users.length > 0)
+        {
+            text = users.map(e => e.name).join(', ')+' und Seitenadministratoren können diese Kategorie bearbeiten'
+        }
+
+        return text
+    })
 </script>
 
 <style lang="sass" scoped>

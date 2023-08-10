@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Apps\Intranet;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Post\PostResource;
 use App\Models\Post;
 use Inertia\Inertia;
 
@@ -11,11 +12,11 @@ class EmployeeController extends Controller
     public function indexOverview()
     {
         return Inertia::render('Apps/Intranet/Employee/Overview', [
-            'posts' => Post::getPublished('intranet', request()->user() ?? null, ['roles' => 'all'])
+            'posts' => PostResource::collection(Post::getPublished('intranet', request()->user() ?? null, ['roles' => 'all'])
             ->orderByDesc('pinned')
             ->orderByDesc('created_at')
             ->orderByDesc('updated_at')
-            ->get(),
+            ->get()),
         ]);
     }
 

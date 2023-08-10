@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Builder\PostCategoryBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Permission\Models\Role;
@@ -30,7 +31,22 @@ class PostCategory extends Model
 
     public function posts()
     {
-        return $this->hasMany(Post::class, 'category');
+        return $this->hasMany(Post::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'post_category_user')->withPivot('role');
+    }
+
+    public function usersWithoutOwner()
+    {
+        return $this->belongsToMany(User::class, 'post_category_user')->wherePivot('role', '!=', 'owner');
+    }
+
+    public function owner()
+    {
+        return $this->users()->wherePivot('role', 'owner');
     }
 
     public function subcategories()
@@ -53,6 +69,13 @@ class PostCategory extends Model
 
 
     // START: Queries
+    public function newEloquentBuilder($builder)
+    {
+        return new PostCategoryBuilder($builder);
+    }
+
+
+
     public static function getPublished($apps, $roles = null, $search = [], $strict = false)
     {
         // if apps is string, convert to array

@@ -8,6 +8,7 @@ use App\Http\Requests\Posts\DestroyPostRequest;
 use App\Http\Requests\Posts\DuplicatePostRequest;
 use App\Http\Requests\Posts\UpdatePostRequest;
 use App\Http\Resources\Post\PostResource;
+use App\Http\Resources\PostCategory\PostCategoryResource;
 use App\Models\Post;
 use App\Models\PostCategory;
 use Illuminate\Http\Request;
@@ -29,11 +30,20 @@ class PostController extends Controller
     {
         $search = $request->search ? ['query' => $request->search] : [];
         
-        $query = Post::getPublished($request->app['id'], request()->user(), $search, false)
-        ->with(['category' => function ($query) {
-            $query->select('id', 'name', 'color', 'icon');
-        }]);
+        $query = Post::getPublished($request->app['id'], request()->user(), $search, false);
 
+
+
+        // START: Sort
+        $field = $request->sort['field'] ?? 'created_at';
+        $order = $request->sort['order'] ?? 'desc';
+
+        $query->orderBy($field, $order);
+        // END: Sort
+
+
+
+        // START: Pagination
         $total = $query->count();
 
         $limit = $request->size ?? 20;
@@ -43,27 +53,24 @@ class PostController extends Controller
         $offset = max(0, $offset);
         $offset = min($offset, intdiv($total, $limit) * $limit);
 
-        $data = $query->orderBy('created_at', 'desc')->limit($limit)->offset($offset)->get();
+        $query->limit($limit)->offset($offset);
+        // END: Pagination
+
+
 
         return response()->json([
-            'data' => $data,
+            'data' => PostResource::collection($query->get()),
             'total' => $total,
         ]);
     }
 
 
 
-    public function create(Request $request)
+    public function create(Request $request, Post $post)
     {
-        $post = $request->post ? new PostResource(Post::find($request->post)) : null;
-
         return Inertia::render('Apps/SharedAdmin/Posts/Create', [
-            'item' => $post,
-            'categories' => PostCategory::orderBy('created_at')
-            ->where('scope', $request->app['id'])
-            ->orderBy('name', 'asc')
-            ->get(),
-            'roles' => Role::orderBy('name', 'asc')->get(),
+            'item' => PostResource::make($post),
+            'categories' => PostCategoryResource::collection(PostCategory::whereScope($request->app['id'])->wherePublished()->whereAvailable()->get()),
             'app' => $request->app['route'],
         ]);
     }
@@ -85,7 +92,7 @@ class PostController extends Controller
         $post->users()->syncWithoutDetaching(auth()->user()->id, ['role' => 'author']);
 
         // Redirect to the editor
-        return redirect()->route('admin.'.$request->app['route'].'.posts.editor', $post);
+        return redirect()->route('admin.'.$request->app['route'].'.posts.editor', PostResource::make($post));
     }
 
 

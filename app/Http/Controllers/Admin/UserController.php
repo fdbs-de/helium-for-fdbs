@@ -26,30 +26,53 @@ class UserController extends Controller
 
 
 
-    public function searchPublic()
+    public function searchPublic(Request $request)
     {
-        $query = User::select(['id', 'name', 'username', 'image']);
-
-        if (request()->exclude)
+        $query = User::select('*');
+        
+        // START: Search
+        if (array_key_exists('search', $request->filter) && $request->filter['search'])
         {
-            $query->whereNotIn('id', request()->exclude);
-        }
-
-        if (request()->search)
-        {
-            $query->whereFuzzy(function ($query) {
+            $query->whereFuzzy(function ($query) use ($request) {
                 $query
-                ->orWhereFuzzy('name', request()->search)
-                ->orWhereFuzzy('username', request()->search);
+                ->orWhereFuzzy('name', $request->filter['search'])
+                ->orWhereFuzzy('username', $request->filter['search']);
             });
         }
+        // END: Search
 
+
+
+        // START: Filter
+        if (array_key_exists('exclude', $request->filter) && $request->filter['exclude'])
+        {
+            $query->whereNotIn('id', $request->filter['exclude']);
+        }
+        // END: Filter
+
+
+
+        // START: Sort
+        $field = $request->sort['field'] ?? 'created_at';
+        $order = $request->sort['order'] ?? 'desc';
+        
+        $query->orderBy($field, $order);
+        // END: Sort
+
+
+
+        // START: Pagination
         $total = $query->count();
 
-        if (request()->limit)
-        {
-            $query->limit(request()->limit);
-        }
+        $limit = $request->pagination['size'] ?? 20;
+        $offset = $request->pagination['size'] * ($request->pagination['page'] ?? 0) - $request->pagination['size'];
+
+        // Clamp the offset to 0 and limit
+        $offset = max(0, $offset);
+        $offset = min($offset, intdiv($total, $limit) * $limit);
+        
+        $query->limit($limit)->offset($offset);
+        // END: Pagination
 
         return response()->json([
             'data' => PublicUserResource::collection($query->get()),

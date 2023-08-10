@@ -23,6 +23,73 @@ class RoleController extends Controller
 
 
 
+    public function searchPublic(Request $request)
+    {
+        $query = null;
+
+        // START: Scope
+        switch ($request->filter['scope'] ?? null)
+        {
+            case 'user-exact': $query = $request->user()->roles(); break;
+            case 'user-available': $query = $request->user()->availableRoles(); break;
+        }
+
+        if ($query === null) throw new \Exception('Invalid scope');
+        // END: Scope
+        
+        // START: Search
+        if (array_key_exists('search', $request->filter) && $request->filter['search'])
+        {
+            $query->whereFuzzy(function ($query) use ($request) {
+                $query
+                ->orWhereFuzzy('name', $request->filter['search']);
+            });
+        }
+        // END: Search
+
+
+
+        // START: Filter
+        if (array_key_exists('exclude', $request->filter) && $request->filter['exclude'])
+        {
+            $query->whereNotIn('id', $request->filter['exclude']);
+        }
+        // END: Filter
+
+
+
+        // START: Sort
+        $field = $request->sort['field'] ?? 'name';
+        $order = $request->sort['order'] ?? 'asc';
+
+        $query->orderBy($field, $order);
+        // END: Sort
+
+
+
+        // START: Pagination
+        $total = $query->count();
+
+        $limit = $request->pagination['size'] ?? 20;
+        $offset = $request->pagination['size'] * ($request->pagination['page'] ?? 0) - $request->pagination['size'];
+
+        // Clamp the offset to 0 and limit
+        $offset = max(0, $offset);
+        $offset = min($offset, intdiv($total, $limit) * $limit);
+
+        $query->limit($limit)->offset($offset);
+        // END: Pagination
+
+
+
+        return response()->json([
+            'data' => $query->get(),
+            'total' => $total,
+        ]);
+    }
+
+
+
     public function store(CreateRoleRequest $request)
     {
         $role = Role::create($request->validated());

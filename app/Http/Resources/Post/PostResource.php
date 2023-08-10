@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Post;
 
+use App\Http\Resources\PostCategory\PostCategoryResource;
 use App\Http\Resources\User\PublicUserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -24,7 +25,7 @@ class PostResource extends JsonResource
             'content' => $this->content,
             'pinned' => $this->pinned,
             'status' => $this->status,
-            'category' => $this->category()->first(),
+            'post_category' => PostCategoryResource::make($this->postCategory),
             'roles' => $this->roles,
             'users' => PublicUserResource::collection($this->users),
             'available_from' => $this->available_from,

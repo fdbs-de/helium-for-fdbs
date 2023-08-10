@@ -12,11 +12,11 @@
                     :key="post.id"
                     :name="post.title"
                     :image="post.image"
-                    :color="post.category.color"
-                    :primary-tag="post.category.name"
+                    :color="post.post_category.color"
+                    :primary-tag="post.post_category.name"
                     :effect="post.status !== 'published'"
                     :tags="post.tags"
-                    :link="route('blog.article', [post.category.slug, post.slug])"
+                    :link="route('blog.article', [post.post_category.slug, post.slug])"
                     :warning="post.status !== 'published' ? 'Dieser Eintrag ist nicht veröffentlicht. Du hast die Berechtigungen, ihn trotzdem zu sehen.' : ''"
                 />
             </div>

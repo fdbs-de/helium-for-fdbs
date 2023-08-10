@@ -9,10 +9,10 @@
                 aspect-ratio="2"
                 :key="post.id"
                 :image="post.image"
-                :color="post.category.color"
-                :primary-tag="post.category.name"
+                :color="post.post_category.color"
+                :primary-tag="post.post_category.name"
                 :effect="post.status !== 'published'"
-                :link="route('wiki.entry', [post.category.slug, post.slug])"
+                :link="route('wiki.entry', [post.post_category.slug, post.slug])"
                 :warning="post.status !== 'published' ? 'Dieser Eintrag ist nicht veröffentlicht. Du hast die Berechtigungen, ihn trotzdem zu sehen.' : ''"
             >
             <div class="flex-1 flex wrap vertical">

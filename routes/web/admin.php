@@ -20,6 +20,7 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
     Route::get('/', [IndexController::class, 'show'])->name('admin');
 
     Route::get('/search-users', [UserController::class, 'searchPublic'])->name('admin.search.users');
+    Route::get('/search-roles', [RoleController::class, 'searchPublic'])->name('admin.search.roles');
 
     Route::prefix('settings')->group(function () {
         Route::get('/{page}', [SettingsController::class, 'index'])->middleware('can:system.view.settings')->name('admin.settings.index');

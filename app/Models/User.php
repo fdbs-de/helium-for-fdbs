@@ -143,13 +143,23 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->roles()->pluck('id')->toArray();
     }
 
+    public function availableRoles()
+    {
+        if ($this->can(Permissions::SYSTEM_ADMIN))
+        {
+            return Role::select('*');
+        }
+
+        return $this->roles();
+    }
+
     /**
      * Get all role ids that user has access to
-     * This may include role ids that user does not have been assigned
+     * This may include roles user has not been assigned with
      * 
      * @return array
      */
-    public function getAccessableRoleIdsAttribute()
+    public function getAvailableRoleIdsAttribute()
     {
         if ($this->can(Permissions::SYSTEM_ADMIN))
         {
@@ -174,6 +184,13 @@ class User extends Authenticatable implements MustVerifyEmail
             'employee'  => $this->is_enabled && ($this->hasAdminPanelAccess() || !!$this->profiles['employee']),
             'customer'  => $this->is_enabled && ($this->hasAdminPanelAccess() || !!$this->profiles['employee'] || !!$this->profiles['customer']),
         ];
+    }
+
+
+
+    public function getIsAdminAttribute()
+    {
+        return User::find($this->id)->canAny([Permissions::SYSTEM_ADMIN, Permissions::SYSTEM_SUPER_ADMIN]);
     }
 
 
