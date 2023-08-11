@@ -28,9 +28,21 @@ class PostController extends Controller
 
     public function search(Request $request)
     {
-        $search = $request->search ? ['query' => $request->search] : [];
-        
-        $query = Post::getPublished($request->app['id'], request()->user(), $search, false);
+        $query = Post::whereScope($request->app['id'])->whereEditable();
+
+
+
+        // START: Search
+        if ($request->search) {
+            $query->whereFuzzy(function ($query) use ($request) {
+                $query
+                ->orWhereFuzzy('title', $request->search)
+                ->orWhereFuzzy('slug', $request->search)
+                ->orWhereFuzzy('content', $request->search)
+                ->orWhereFuzzy('tags', $request->search);
+            });
+        }
+        // END: Search
 
 
 
@@ -83,13 +95,13 @@ class PostController extends Controller
         $post = Post::create($request->validated());
 
         // Sync the roles (if override is enabled)
-        $post->roles()->sync($request->override_category_roles ? $request->roles : []);
+        $post->roles()->sync($request->roles);
 
-        // Sync the authors, editors, etc.
+        // Sync the roles
         $post->users()->sync($request->users);
 
-        // Attach the current user as an author
-        $post->users()->syncWithoutDetaching(auth()->user()->id, ['role' => 'author']);
+        // Attach the current user as an owner
+        $post->users()->syncWithoutDetaching([auth()->user()->id => ['role' => 'owner']]);
 
         // Redirect to the editor
         return redirect()->route('admin.'.$request->app['route'].'.posts.editor', PostResource::make($post));
@@ -101,8 +113,8 @@ class PostController extends Controller
     {
         $post = $post->duplicate();
 
-        // Sync the current user as an author
-        $post->users()->sync(auth()->user()->id, ['role' => 'author']);
+        // Sync the current user as an owner
+        $post->users()->syncWithoutDetaching([auth()->user()->id => ['role' => 'owner']]);
 
         if ($request->returnTo === 'editor')
         {
@@ -119,10 +131,10 @@ class PostController extends Controller
         // Update the post
         $post->update($request->validated());
 
-        // Sync the roles (if override is enabled)
-        $post->roles()->sync($request->override_category_roles ? $request->roles : []);
+        // Sync the roles
+        $post->roles()->sync($request->roles);
 
-        // Sync the authors, editors, etc.
+        // Sync the users
         $post->users()->sync($request->users);
 
         // Redirect to the editor

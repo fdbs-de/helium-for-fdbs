@@ -35,20 +35,23 @@ class PostCategoryBuilder extends Builder
         if ($user->isAdmin) return $this;
 
         return $this
-        // Categories the user has the roles to view
-        ->whereHas('roles', function ($query) use ($roles) {
-            $query->whereIn('id', $roles);
-        })
-        // Or categories where the user is added (owner, editor, viewer)
-        ->orWhereHas('users', function ($query) use ($user) {
-            $query->whereIn('id', [$user->id]);
-        })
-        // Or public categories
-        ->orWhere(function ($query) {
+        ->where(function ($query) use ($roles, $user) {
             $query
-            ->whereDoesntHave('roles')
-            ->whereHas('users') // Prevent selecting categories that have no owners
-            ->whereDoesntHave('usersWithoutOwner');
+            // Categories the user has the roles to view
+            ->whereHas('roles', function ($query) use ($roles) {
+                $query->whereIn('id', $roles);
+            })
+            // Or categories where the user is added (owner, editor, viewer)
+            ->orWhereHas('users', function ($query) use ($user) {
+                $query->whereIn('id', [$user->id]);
+            })
+            // Or public categories
+            ->orWhere(function ($query) {
+                $query
+                ->whereDoesntHave('roles')
+                ->whereHas('users') // Prevent selecting categories that have no owners
+                ->whereDoesntHave('usersWithoutOwner');
+            });
         });
     }
 

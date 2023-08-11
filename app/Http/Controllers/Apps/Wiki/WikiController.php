@@ -15,51 +15,107 @@ class WikiController extends Controller
 {
     public function overview(ViewPostRequest $request)
     {
-        // START: Filter
-        $search = [];
-        
-        if ($request->category && $request->category !== 'all') $search['category'] = $request->category;
-        if ($request->search) $search['query'] = $request->search;
+        $query = Post::query();
 
-        $posts = Post::getPublished('wiki', request()->user(), $search, false);
+        $query
+        // Posts that are published and available to the user
+        ->where(function ($query) {
+            $query
+            ->whereScope(['wiki'])
+            ->wherePublished()
+            ->whereAvailable();
+        })
+        // Posts that may not be published (drafts; only visible to editors and admins)
+        ->orWhere(function ($query) {
+            $query
+            ->whereScope(['wiki'])
+            ->whereEditable();
+        });
+
+
+
+        // START: Search
+        if ($request->search) {
+            $query->whereFuzzy(function ($query) use ($request) {
+                $query
+                ->orWhereFuzzy('title', $request->search)
+                ->orWhereFuzzy('slug', $request->search)
+                ->orWhereFuzzy('content', $request->search)
+                ->orWhereFuzzy('tags', $request->search);
+            });
+        }
+        // END: Search
+
+        
+        // START: Filter
+        if ($request->category && $request->category !== 'all')
+        {
+            $query->where('post_category_id', $request->category);
+        }
+
         // END: Filter
 
 
 
         // START: Sort
-        if (!$request->sort || $request->sort == 'all') $posts->orderByDesc('pinned')->orderBy('title');
+        if (!$request->sort || $request->sort == 'all')
+        {
+            $query
+            ->orderByDesc('pinned')
+            ->orderBy('title');
+        }
         
-        $posts->orderByDesc('created_at')->orderByDesc('updated_at'); // Fallback sort
+        // Fallback sort
+        $query
+        ->orderByDesc('created_at')
+        ->orderByDesc('updated_at');
         // END: Sort
 
 
 
         // START: Limit
-        if ($request->sort == 'recent') $posts->limit(12);
+        if ($request->sort == 'recent')
+        {
+            $query->limit(12);
+        }
         // END: Limit
 
 
 
         // START: Return
         return Inertia::render('Apps/Wiki/Overview', [
-            'posts' => PostResource::collection($posts->get()),
-            'categories' => PostCategoryResource::collection(PostCategory::whereScope('wiki')->wherePublished()->whereAvailable()->orderBy('name')->get()),
+            'posts' => PostResource::collection($query->get()),
+            'categories' => PostCategoryResource::collection(PostCategory::whereScope(['wiki'])->wherePublished()->whereAvailable()->orderBy('name')->get()),
         ]);
         // END: Return
     }
 
     public function show(ViewPostRequest $request)
     {
-        $postSlug = $request->postSlug;
-        $categorySlug = $request->categorySlug;
-        
-        $category = ($categorySlug === '-') ? null : PostCategory::where('slug', $categorySlug)->where('scope', 'wiki')->where('status', 'published')->firstOrFail();
-        $categoryId = optional($category)->id ?? null;
+        $query = Post::query();
 
-        $post = Post::getPublished('wiki', request()->user(), ['slug' => $postSlug, 'category' => $categoryId])->firstOrFail();
+        $query
+        ->where('slug', $request->postSlug)
+        ->where(function ($query) {
+            $query
+            // Posts that are published and available to the user
+            ->where(function ($query) {
+                $query
+                ->whereScope(['wiki'])
+                ->wherePublished()
+                ->whereAvailable();
+            })
+            // Posts that may not be published (drafts; only visible to editors and admins)
+            ->orWhere(function ($query) {
+                $query
+                ->whereScope(['wiki'])
+                ->whereEditable();
+            });
+        });
+
 
         return Inertia::render('Apps/Wiki/Show', [
-            'post' => PostResource::make($post),
+            'post' => PostResource::make($query->firstOrFail()),
         ]);
     }
 }
