@@ -18,10 +18,6 @@ class PostCategoryController extends Controller
     public function index(Request $request)
     {
         return Inertia::render('Apps/SharedAdmin/Categories/Index', [
-            'categories' => PostCategory::withCount('posts')
-            ->where('scope', $request->app['id'])
-            ->orderBy('name', 'asc')
-            ->get(),
             'app' => $request->app['route'],
         ]);
     }
@@ -99,7 +95,7 @@ class PostCategoryController extends Controller
         $item->users()->sync($request->users);
         
         // Create the owner
-        $item->users()->syncWithoutDetaching($request->user()->id, ['role' => 'owner']);
+        $item->users()->syncWithoutDetaching([$request->user()->id => ['role' => 'owner']]);
 
         // Redirect back to the editor
         return redirect()->route('admin.'.$request->app['route'].'.categories.editor', PostCategoryResource::make($item));
@@ -110,6 +106,9 @@ class PostCategoryController extends Controller
     public function duplicate(DuplicatePostCategoryRequest $request, PostCategory $postCategory)
     {
         $postCategory = $postCategory->duplicate();
+
+        // Sync the current user as an owner
+        $postCategory->users()->syncWithoutDetaching([auth()->user()->id => ['role' => 'owner']]);
 
         if ($request->returnTo === 'editor')
         {

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Builder\PostBuilder;
 use App\Permissions\Permissions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -46,11 +47,6 @@ class Post extends Model
 
 
     // START: Relationships
-    public function category()
-    {
-        return $this->belongsTo(PostCategory::class, 'category');
-    }
-
     public function postCategory()
     {
         return $this->belongsTo(PostCategory::class);
@@ -59,6 +55,16 @@ class Post extends Model
     public function users()
     {
         return $this->belongsToMany(User::class, 'post_user')->withPivot('role');
+    }
+
+    public function usersWithoutOwner()
+    {
+        return $this->belongsToMany(User::class, 'post_user')->wherePivot('role', '!=', 'owner');
+    }
+
+    public function owner()
+    {
+        return $this->users()->wherePivot('role', 'owner');
     }
     // END: Relationships
 
@@ -79,6 +85,13 @@ class Post extends Model
 
 
     // START: Queries
+    public function newEloquentBuilder($builder)
+    {
+        return new PostBuilder($builder);
+    }
+
+
+
     public static function getPublished($apps, User $user = null, $search = [], $strict = false)
     {
         // if apps is string, convert to array

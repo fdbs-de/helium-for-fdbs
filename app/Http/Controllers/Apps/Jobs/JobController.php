@@ -118,21 +118,64 @@ class JobController extends Controller
 
     public function index()
     {
+        $query = Post::query();
+
+        $query
+        // Posts that are published and available to the user
+        ->where(function ($query) {
+            $query
+            ->whereScope(['jobs'])
+            ->wherePublished()
+            ->whereAvailable();
+        })
+        // Posts that may not be published (drafts; only visible to editors and admins)
+        ->orWhere(function ($query) {
+            $query
+            ->whereScope(['jobs'])
+            ->whereEditable();
+        });
+
+
+
+        // START: Order
+        $query
+        ->orderByDesc('pinned')
+        ->orderByDesc('created_at')
+        ->orderByDesc('updated_at');
+        // END: Order
+
+
+
         return Inertia::render('Apps/Jobs/Index', [
-            'posts' => PostResource::collection(Post::getPublished('jobs', null, ['roles' => 'all'])
-            ->orderByDesc('pinned')
-            ->orderByDesc('created_at')
-            ->orderByDesc('updated_at')
-            ->get()),
+            'posts' => PostResource::collection($query->get()),
         ]);
     }
     
     public function show($postSlug)
     {
-        $post = Post::getPublished('jobs', null, ['roles' => 'all', 'slug' => $postSlug])->firstOrFail();
+        $query = Post::query();
+
+        $query
+        ->where('slug', $postSlug)
+        ->where(function ($query) {
+            $query
+            // Posts that are published and available to the user
+            ->where(function ($query) {
+                $query
+                ->whereScope(['jobs'])
+                ->wherePublished()
+                ->whereAvailable();
+            })
+            // Posts that may not be published (drafts; only visible to editors and admins)
+            ->orWhere(function ($query) {
+                $query
+                ->whereScope(['jobs'])
+                ->whereEditable();
+            });
+        });
 
         return Inertia::render('Apps/Jobs/Show', [
-            'post' => PostResource::make($post),
+            'post' => PostResource::make($query->firstOrFail()),
             'funnels' => self::funnels,
         ]);
     }

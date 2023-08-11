@@ -50,8 +50,8 @@ class CreatePostCategoryRequest extends FormRequest
             // As the owner gets added automatically,
             // we need to make sure that the owner user is not in the list
             'users' => ['nullable', 'array'],
-            'users.*.id' => ['nullable', 'exists:users,id', 'distinct', 'not_in:' . $this->user()->id],
-            'users.*.pivot_role' => ['nullable', 'string', 'in:editor,viewer'],
+            'users.*.id' => ['present', 'exists:users,id', 'distinct', 'not_in:' . $this->user()->id],
+            'users.*.pivot_role' => ['present', 'string', 'in:editor,viewer'],
         ];
     }
 

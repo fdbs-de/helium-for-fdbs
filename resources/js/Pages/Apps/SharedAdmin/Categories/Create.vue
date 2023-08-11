@@ -230,6 +230,7 @@
 
         return text
     })
+    // END: Permission calculation texts
 </script>
 
 <style lang="sass" scoped>

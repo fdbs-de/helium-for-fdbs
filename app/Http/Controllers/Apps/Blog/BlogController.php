@@ -13,24 +13,64 @@ class BlogController extends Controller
 {
     public function index()
     {
+        $query = Post::query();
+
+        $query
+        // Posts that are published and available to the user
+        ->where(function ($query) {
+            $query
+            ->whereScope(['blog'])
+            ->wherePublished()
+            ->whereAvailable();
+        })
+        // Posts that may not be published (drafts; only visible to editors and admins)
+        ->orWhere(function ($query) {
+            $query
+            ->whereScope(['blog'])
+            ->whereEditable();
+        });
+
+
+
+        // START: Order
+        $query
+        ->orderByDesc('pinned')
+        ->orderByDesc('created_at')
+        ->orderByDesc('updated_at');
+        // END: Order
+
+
+
         return Inertia::render('Apps/Blog/Index', [
-            'posts' => PostResource::collection(Post::getPublished('blog', request()->user() ?? null, ['roles' => 'all'])
-            ->orderByDesc('pinned')
-            ->orderByDesc('created_at')
-            ->orderByDesc('updated_at')
-            ->get()),
+            'posts' => PostResource::collection($query->get()),
         ]);
     }
 
     public function show($categorySlug, $postSlug)
     {
-        $category = ($categorySlug === '-') ? null : PostCategory::where('slug', $categorySlug)->where('scope', 'blog')->where('status', 'published')->firstOrFail();
-        $categoryId = optional($category)->id ?? null;
+        $query = Post::query();
 
-        $post = Post::getPublished('blog', request()->user() ?? null, ['roles' => 'all', 'slug' => $postSlug, 'category' => $categoryId])->firstOrFail();
+        $query
+        ->where('slug', $postSlug)
+        ->where(function ($query) {
+            $query
+            // Posts that are published and available to the user
+            ->where(function ($query) {
+                $query
+                ->whereScope(['blog'])
+                ->wherePublished()
+                ->whereAvailable();
+            })
+            // Posts that may not be published (drafts; only visible to editors and admins)
+            ->orWhere(function ($query) {
+                $query
+                ->whereScope(['blog'])
+                ->whereEditable();
+            });
+        });
             
         return Inertia::render('Apps/Blog/Show', [
-            'post' => PostResource::make($post)
+            'post' => PostResource::make($query->firstOrFail())
         ]);
     }
 }
