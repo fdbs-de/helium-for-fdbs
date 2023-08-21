@@ -27,6 +27,7 @@ require __DIR__ . '/web/dashboard.php';
 require __DIR__ . '/web/admin.php';
 
 // Forms App
+Route::get('/forms/{form}', [FormController::class, 'fetch'])->name('forms.form.fetch');
 Route::post('/forms/{form}', [FormController::class, 'submit'])->name('forms.form.submit');
 
 // Blog App
@@ -94,6 +95,7 @@ Route::prefix('/produkte-und-services')->group(function () {
 Route::prefix('/mkbs')->group(function () {
     Route::get('/', [StaticController::class, 'indexMKBS'])->name('mkbs');
     // Route::get('/aktuelles', [StaticController::class, 'indexMKBSAktuelles'])->name('mkbs.aktuelles');
+    Route::get('/personal', [StaticController::class, 'indexMKBSRecruiting'])->name('mkbs.recruiting');
     Route::get('/web', [StaticController::class, 'indexMKBSWeb'])->name('mkbs.web');
     Route::get('/social-media', [StaticController::class, 'indexMKBSSocialMedia'])->name('mkbs.social-media');
     Route::get('/print', [StaticController::class, 'indexMKBSPrint'])->name('mkbs.print');

@@ -17,6 +17,7 @@ export const mainMenu = [
         ]},
         { id: 'mkbs', label: 'Marketing & Kommunikation', href: route('mkbs'), children: [
             // { id: 'mkbs.aktuelles', label: 'Top Aktuelles', href: route('mkbs.aktuelles'), children: [] },
+            { id: 'mkbs.recruiting', label: 'Recruiting', href: route('mkbs.recruiting'), children: [] },
             { id: 'mkbs.web', label: 'Web Entwicklung', href: route('mkbs.web'), children: [] },
             { id: 'mkbs.social-media', label: 'Social Media Marketing', href: route('mkbs.social-media'), children: [] },
             { id: 'mkbs.print', label: 'Print Design', href: route('mkbs.print'), children: [] },
