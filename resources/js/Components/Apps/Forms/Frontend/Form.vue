@@ -1,5 +1,5 @@
 <template>
-    <form class="flex vertical gap-2" @submit.prevent="submit" v-if="activated">
+    <form class="flex vertical gap-2" @submit.prevent="submit" v-show="activated">
         <Alert v-if="Object.keys($page.props.errors).length > 0" type="error" title="Upps, da lief etwas schief!">
             <div class="flex vertical">
                 <span v-for="(error, key) in $page.props.errors" :key="key">{{ error }}</span>
@@ -39,7 +39,11 @@
         formId: String,
     })
 
-    const form = useForm()
+    const form = useForm({
+        id: null,
+        name: '',
+        pages: [],
+    })
     const activated = ref(false)
 
 
@@ -90,15 +94,15 @@
 
     const submit = () => {
         form
-        .transform(data => {
+        .transform((data) => {
             let values = {}
-            
+    
             data.pages.forEach(page => {
                 page.inputs.forEach(input => {
                     values[input.key] = input.value
                 })
             })
-
+    
             return values
         })
         .post(route('forms.form.submit', form.id), {
