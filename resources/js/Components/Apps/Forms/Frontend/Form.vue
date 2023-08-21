@@ -1,5 +1,5 @@
 <template>
-    <form class="flex vertical gap-2" @submit.prevent="submit">
+    <form class="flex vertical gap-2" @submit.prevent="submit" v-if="activated">
         <Alert v-if="Object.keys($page.props.errors).length > 0" type="error" title="Upps, da lief etwas schief!">
             <div class="flex vertical">
                 <span v-for="(error, key) in $page.props.errors" :key="key">{{ error }}</span>
@@ -28,10 +28,19 @@
 
 <script setup>
     import { useForm, usePage } from '@inertiajs/inertia-vue3'
-    import { computed } from 'vue'
+    import { ref, computed, onMounted } from 'vue'
 
     import Input from '@/Components/Apps/Forms/Frontend/Inputs/Input.vue'
     import Alert from '@/Components/Alert.vue'
+
+
+
+    const props = defineProps({
+        formId: String,
+    })
+
+    const form = useForm()
+    const activated = ref(false)
 
 
 
@@ -55,13 +64,29 @@
         return form
     }
 
+    onMounted(async () => {
+        form.processing = true
 
+        try
+        {
+            let response = await axios.get(route('forms.form.fetch', props.formId))
 
-    const props = defineProps({
-        form: Object,
+            if (!response?.data) throw new Error('No data returned')
+
+            form.defaults(transformForm(response?.data?.data ?? []))
+            form.reset()
+
+            activated.value = true
+        }
+        catch (error)
+        {
+            console.error(error)
+        }
+
+        form.processing = false
     })
 
-    const form = useForm(transformForm(props.form))
+
 
     const submit = () => {
         form
@@ -82,8 +107,6 @@
             },
         })
     }
-
-
 
     const successMessages = computed(() => {
         return usePage()?.props?.value?.flash?.message?.filter(e => e?.display === true && e?.title && e?.status === 'success') ?? []

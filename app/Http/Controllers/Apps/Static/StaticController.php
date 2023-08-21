@@ -32,6 +32,7 @@ class StaticController extends Controller
 
     public function indexMKBS() { return Inertia::render('Apps/Static/ProdukteUndServices/MKBS/Index'); }
     public function indexMKBSAktuelles() { return Inertia::render('Apps/Static/ProdukteUndServices/MKBS/Aktuelles'); }
+    public function indexMKBSRecruiting() { return Inertia::render('Apps/Static/ProdukteUndServices/MKBS/Recruiting'); }
     public function indexMKBSWeb() { return Inertia::render('Apps/Static/ProdukteUndServices/MKBS/Web'); }
     public function indexMKBSSocialMedia() { return Inertia::render('Apps/Static/ProdukteUndServices/MKBS/SocialMedia'); }
     public function indexMKBSPrint() { return Inertia::render('Apps/Static/ProdukteUndServices/MKBS/Print'); }
