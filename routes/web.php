@@ -65,6 +65,7 @@ Route::prefix('/produkte-und-services')->group(function () {
     Route::prefix('/foodservice')->group(function () {
         Route::get('/', [StaticController::class, 'indexFoodservice'])->name('ps.foodservice');
         // Route::get('/aktuelles', [StaticController::class, 'indexFoodserviceAktuelles'])->name('ps.foodservice.aktuelles');
+        Route::get('/tierhaltungskennzeichnung', [StaticController::class, 'indexTierhaltungskennzeichnung'])->name('ps.tierhaltungskennzeichnung');
         Route::get('/mehrwegpflicht', [StaticController::class, 'indexMehrwegpflicht'])->name('ps.mehrwegpflicht');
     });
 
@@ -82,6 +83,7 @@ Route::prefix('/produkte-und-services')->group(function () {
         Route::get('/maxi-france', [StaticController::class, 'indexMaxiFrance'])->name('ps.marken.maxi-france');
     });
 });
+Route::redirect('/tierhaltungskennzeichnung', '/produkte-und-services/foodservice/tierhaltungskennzeichnung', 301);
 
 // Route::prefix('/seminare')->group(function () {
 //     Route::get('/', [StaticController::class, 'indexSeminare'])->name('seminare');
