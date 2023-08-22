@@ -55,7 +55,7 @@ class CreatePostRequest extends FormRequest
 
             // May only be the roles that the user has the permission to assign
             'roles' => ['nullable', 'array'],
-            'roles.*.id' => ['nullable', 'exists:roles,id', 'distinct', 'in:' . implode(',', $this->user()->available_role_ids)],
+            'roles.*.id' => ['nullable', 'exists:roles,id', 'distinct'],
 
             // As the owner gets added automatically,
             // we need to make sure that the owner user is not in the list

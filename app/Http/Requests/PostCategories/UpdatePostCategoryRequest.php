@@ -58,8 +58,6 @@ class UpdatePostCategoryRequest extends FormRequest
             "addedUsers" => array_diff_assoc($newUsers, $oldUsers),
         ];
 
-        // dd($delta);
-
 
 
         // If user is admin we skip all other checks
@@ -75,11 +73,10 @@ class UpdatePostCategoryRequest extends FormRequest
 
 
 
-        // Only roles that the user has may be added
-        if(!$user->hasAllRoles($delta['addedRoles'])) return false;
-
-        // If the user is "only" an editor, they may only remove roles that they have
-        if($relationToCategory->pivot->role === 'editor' && !$user->hasAllRoles($delta['removedRoles'])) return false;
+        // If the user is "only" an editor, they may only add or remove roles that they have
+        if ($relationToCategory->pivot->role === 'editor' && !$user->hasAllRoles($delta['addedRoles'])) return false;
+        if ($relationToCategory->pivot->role === 'editor' && !$user->hasAllRoles($delta['removedRoles'])) return false;
+        // And yes, this means the owner may add and remove all roles on the domain... this is intended
 
 
 
@@ -129,7 +126,7 @@ class UpdatePostCategoryRequest extends FormRequest
 
             // May only be the roles that the user has the permission to assign
             'roles' => ['nullable', 'array'],
-            'roles.*.id' => ['nullable', 'exists:roles,id', 'distinct', 'in:' . implode(',', $this->user()->available_role_ids)],
+            'roles.*.id' => ['nullable', 'exists:roles,id', 'distinct'],
 
             // As the owner gets added automatically,
             // we need to make sure that the owner user is not in the list

@@ -32,6 +32,7 @@ class RoleController extends Controller
         {
             case 'user-exact': $query = $request->user()->roles(); break;
             case 'user-available': $query = $request->user()->availableRoles(); break;
+            case 'all': $query = Role::query(); break;
         }
 
         if ($query === null) throw new \Exception('Invalid scope');
