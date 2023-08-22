@@ -3,7 +3,7 @@
         <title>Tierhaltungskennzeichnung – FDBS</title>
     </Head>
 
-    <TextSubLayout title="Tierhaltungskennzeichnung" image="/images/content/tierhaltungskennzeichnung/tierhaltungskennzeichnung_209143025.webp" color="white">
+    <TextSubLayout title="Tierhaltungskennzeichnung" image="/images/content/tierhaltungskennzeichnung/tierthaltungskennzeichnung_629129111.webp">
         <div class="limiter text-limiter" style="padding: 0">
             <p>
                 Im Herbst 2023 tritt das Tierhaltungskennzeichnungsgesetz in Kraft. 

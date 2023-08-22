@@ -144,7 +144,7 @@
                 können so Ihre Chancen auf eine erfolgreiche Besetzung von offenen Positionen deutlich erhöhen.
             </p>
 
-            <h3>Schnellkontakt mit uns</h3>
+            <h3>Schnellkontakt</h3>
             <fieldset>
                 <FrontendForm form-id="5"/>
             </fieldset>

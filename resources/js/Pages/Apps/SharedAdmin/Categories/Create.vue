@@ -43,7 +43,7 @@
                             <b class="flex-1">{{ role.name }}</b>
                             <IconButton icon="close" class="input-button" v-tooltip.right="'Benutzer entfernen'" @click="removeRole(role)"/>
                         </div>
-                        <mui-button type="button" label="Rolle hinzufügen" variant="contained" size="small" @click="roleSearchPopup.open((item) => addRole(item), {exclude: form.roles.map(e => e.id), scope: 'user-available'})"/>
+                        <mui-button type="button" label="Rolle hinzufügen" variant="contained" size="small" @click="roleSearchPopup.open((item) => addRole(item), {exclude: form.roles.map(e => e.id), scope: 'all'})"/>
                     </div>
                     <div class="flex vertical padding-1 gap-1 border-top">
                         <div class="user flex v-center gap-1" v-for="user in form.users">

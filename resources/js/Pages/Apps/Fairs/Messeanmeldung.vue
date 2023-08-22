@@ -5,6 +5,9 @@
         </Head>
 
         <form class="flex vertical gap-1" @submit.prevent="submit" v-if="!isSent">
+            <p style="text-align: center">
+                Die ADVENTure 2023 findet am <b class="color-primary">5. November</b> zwischen <b class="color-primary">9:00 Uhr</b> und <b class="color-primary">17:00 Uhr</b> statt.
+            </p>
             <mui-input type="text" required label="Kundennummer" placeholder="780000" v-model="form.customer"/>
             <mui-input type="text" required label="Firma" placeholder="Musterfirma GmbH"  v-model="form.company"/>
             <mui-input type="email" required label="Email" v-model="form.email"/>
