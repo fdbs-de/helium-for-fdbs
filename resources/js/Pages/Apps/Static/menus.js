@@ -8,6 +8,7 @@ export const mainMenu = [
         { id: 'angebote', label: 'Aktuelle Angebote', href: route('ps.angebote'), children: [] },
         { id: 'foodservice', label: 'Foodservice', href: route('ps.foodservice'), children: [
             { id: 'foodservice.aktuelles', label: 'Top Aktuelles', href: route('ps.marken.eichenhof'), children: [] },
+            { id: 'tierhaltungskennzeichnung', label: 'Tierhaltungskennzeichnung', href: route('ps.tierhaltungskennzeichnung'), children: [] },
             { id: 'mehrwegpflicht', label: 'Mehrwegpflicht', href: route('ps.mehrwegpflicht'), children: [] },
         ]},
         { id: 'unsere-marken', label: 'Unsere Marken', href: route('ps.marken'), children: [
