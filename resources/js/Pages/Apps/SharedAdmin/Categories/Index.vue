@@ -22,20 +22,43 @@
             <div class="spacer"></div>
         </div>
     </AdminLayout>
+
+    <Popup title="Kategorien löschen" ref="deletePopup">
+        <form class="flex vertical" @submit.prevent="deleteItems()">
+            <div class="flex vertical gap-1 padding-1 padding-block-2">
+                <span>
+                    Es werden <b>{{items.length}}</b> Kategorien gelöscht.<br>
+                    <b>Was soll mit Posts geschehen, die diese Kategorien verwenden? </b>
+                </span>
+                <div>
+                    <select v-model="replacement">
+                        <option :value="null">Kategorien aus Posts entfernen</option>
+                        <option v-for="option in replacementOptions" :value="option.id">Ersetzen durch: {{ option.name }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="flex v-center gap-1 padding-1 background-soft" style="border-radius: 0 0 var(--radius-m) var(--radius-m)">
+                <div class="spacer"></div>
+                <mui-button label="Endgültig löschen" color="error" variant="filled" :disabled="!items.length"/>
+            </div>
+        </form>
+    </Popup>
 </template>
 
 <script setup>
     import { Head } from '@inertiajs/inertia-vue3'
-    import { ref } from 'vue'
+    import { ref, computed } from 'vue'
     import ItemPageManager from '@/Classes/Managers/ItemPageManager'
 
     import AdminLayout from '@/Layouts/Admin.vue'
     import Table from '@/Components/Form/Table/Table.vue'
+    import Popup from '@/Components/Form/Popup.vue'
 
 
 
     const props = defineProps({
-        categories: Array,
+        categoriesAvailableAsReplacement: Array,
         app: String,
     })
 
@@ -86,7 +109,7 @@
             text: 'Bearbeiten',
             color: 'var(--color-heading)',
             individual: true,
-            multiple: true,
+            multiple: false,
             triggerOnRowClick: true,
             isAvailable: () => true,
             run: (items) => IPM.value.open(items[0]),
@@ -109,9 +132,30 @@
             multiple: true,
             triggerOnRowClick: false,
             isAvailable: () => true,
-            run: (items) => IPM.value.delete(items, 'Sollen {{count}} Einträge gelöscht werden?'),
+            run: (items) => openDeletePopup(items),
         },
     ]
+
+
+
+    // START: handle category deletion
+    const deletePopup = ref(null)
+    const items = ref([])
+    const replacement = ref(null)
+    const replacementOptions = ref([])
+
+    const openDeletePopup = (ids) => {
+        items.value = ids
+        replacement.value = null
+        replacementOptions.value = props.categoriesAvailableAsReplacement.filter(item =>  !items.value.includes(item.id))
+        deletePopup.value.open()
+    }
+
+    const deleteItems = () => {
+        IPM.value.delete(items.value, 'Sollen {{count}} Einträge gelöscht werden?', {needsConfirmation: false, replacement: replacement.value})
+        deletePopup.value.close()
+    }
+    // END: handle category deletion
 </script>
 
 <style lang="sass" scoped>

@@ -68,10 +68,10 @@ class UpdatePostRequest extends FormRequest
 
 
 
-        // Only users with a relation to the category may edit categories
+        // Only users with a relation to the post may edit posts
         if ($relationToPost === null) return false;
 
-        // Only owners and editors may edit categories
+        // Only owners and editors may edit posts
         if (!in_array($relationToPost->pivot->role, ['owner', 'editor'])) return false;
 
 

@@ -6,7 +6,9 @@
 
         <form class="flex vertical gap-1" @submit.prevent="submit" v-if="!isSent">
             <p style="text-align: center">
-                Die ADVENTure 2023 findet am <b class="color-primary">5. November</b> zwischen <b class="color-primary">9:00 Uhr</b> und <b class="color-primary">17:00 Uhr</b> statt.
+                Die ADVENTure 2023 findet am <b class="color-primary">5. November</b>
+                zwischen <b class="color-primary">9:00 Uhr</b> und <b class="color-primary">17:00 Uhr</b><br>
+                bei uns in der <a href="https://goo.gl/maps/equP1jmcJSuFogSc8" target="_blank"><b>Christian-Pommer-Straße 31/33 38112 Braunschweig</b></a> statt.
             </p>
             <mui-input type="text" required label="Kundennummer" placeholder="780000" v-model="form.customer"/>
             <mui-input type="text" required label="Firma" placeholder="Musterfirma GmbH"  v-model="form.company"/>

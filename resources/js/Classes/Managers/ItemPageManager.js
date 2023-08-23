@@ -181,7 +181,8 @@ export default class ItemPageManager extends EventListener
 
 
 
-    open(id = null) {
+    open(id = null)
+    {
         if (!id) return Inertia.visit(route(this.options.routes.editor))
         
         Inertia.visit(route(this.options.routes.editor, id))
@@ -189,7 +190,8 @@ export default class ItemPageManager extends EventListener
 
 
 
-    openMultiple(ids = null, parameterName = 'ids') {
+    openMultiple(ids = null, parameterName = 'ids')
+    {
         if (!ids) ids = this.selection
 
         if (typeof ids !== 'object') ids = [ids].filter(id => id)
@@ -209,7 +211,8 @@ export default class ItemPageManager extends EventListener
 
 
 
-    store(data) {
+    store(data)
+    {
         useForm(data).post(route(this.options.routes.store), {
             preserveScroll: true,
             onSuccess: () => {
@@ -221,7 +224,8 @@ export default class ItemPageManager extends EventListener
 
 
 
-    duplicate(id) {
+    duplicate(id)
+    {
         useForm({returnTo: 'current'}).post(route(this.options.routes.duplicate, id), {
             onSuccess: () => {
                 this.fetch()
@@ -232,20 +236,42 @@ export default class ItemPageManager extends EventListener
 
 
 
-    delete(ids = null, message = 'Are you sure you want to delete the selected items?') {
-        if (!ids) ids = this.selection
+    delete(ids = null, message = 'Are you sure you want to delete the selected items?', options = {})
+    {
+        // Construct options
+        options = {
+            replacement: options?.replacement ?? null,
+            needsConfirmation: options?.needsConfirmation ?? true,
+            message: replaceVariable(message ?? options?.message),
+        }
 
-        if (typeof ids !== 'object') ids = [ids].filter(id => id)
+        // Construct data
+        let data = {
+            ids: ids ?? this.selection ?? [],
+            replacement: options.replacement,
+        }
 
-        if (!ids.length) return
 
-        if (!confirm(replaceVariable(message))) return
 
-        useForm({ ids }).delete(route(this.options.routes.delete), {
+        // If ids is not an array, convert it to an array and remove any empty values
+        if (typeof data.ids !== 'object') data.ids = [data.ids].filter(id => id)
+
+        // If ids is empty, return
+        if (!data.ids.length) return
+
+        // If request needs confirmation, ask the user to confirm
+        if (options.needsConfirmation)
+        {
+            // If the user cancels the delete, return
+            if (!confirm(options.message)) return
+        }
+
+        // Delete the items
+        useForm(data).delete(route(this.options.routes.delete), {
             onSuccess: () => {
                 this.deselectAll()
                 this.fetch()
-                this.dispatchEvent('delete', ids)
+                this.dispatchEvent('delete', data.ids)
             },
         })
 
