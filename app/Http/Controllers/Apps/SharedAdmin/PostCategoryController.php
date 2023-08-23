@@ -8,6 +8,7 @@ use App\Http\Requests\PostCategories\DestroyPostCategoryRequest;
 use App\Http\Requests\PostCategories\DuplicatePostCategoryRequest;
 use App\Http\Requests\PostCategories\UpdatePostCategoryRequest;
 use App\Http\Resources\PostCategory\PostCategoryResource;
+use App\Models\Post;
 use App\Models\PostCategory;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -19,6 +20,9 @@ class PostCategoryController extends Controller
     {
         return Inertia::render('Apps/SharedAdmin/Categories/Index', [
             'app' => $request->app['route'],
+            // We can't use this long term
+            // Better we fetch replacement roles only when needed
+            'categoriesAvailableAsReplacement' => PostCategoryResource::collection(PostCategory::whereScope($request->app['id'])->whereAvailable()->get()),
         ]);
     }
 
@@ -140,8 +144,13 @@ class PostCategoryController extends Controller
 
     public function delete(DestroyPostCategoryRequest $request)
     {
+        // Find all posts with categories that are to be deleted and replace them with the replacement category
+        Post::where('post_category_id', $request->ids)->update(['post_category_id' => $request->replacement ?? null]);
+
+        // Then delete the categories
         PostCategory::whereIn('id', $request->ids)->delete();
 
+        // Redirect back
         return back();
     }
 }
