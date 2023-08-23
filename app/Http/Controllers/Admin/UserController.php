@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\DestroyUserRequest;
+use App\Http\Requests\Users\UpdateUserRequest;
 use App\Http\Resources\User\PublicUserResource;
 use App\Http\Resources\User\UserResource;
 use App\Mail\ImportedUserCreated;
@@ -151,14 +152,14 @@ class UserController extends Controller
 
 
 
-    public function update(Request $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
         $user->email = $request->email;
         $user->username = $request->username;
         $user->email_verified_at = $request->email_verified_at;
         $user->enabled_at = $request->enabled_at;
 
-        // Set the user's password
+        // Reset the user's password
         if ($request->password)
         {
             $user->password = bcrypt($request->password);
