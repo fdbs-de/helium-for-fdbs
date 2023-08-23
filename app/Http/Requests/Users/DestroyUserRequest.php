@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Users;
 
+use App\Models\User;
+use App\Permissions\Permissions;
 use Illuminate\Foundation\Http\FormRequest;
 
 class DestroyUserRequest extends FormRequest
@@ -13,6 +15,14 @@ class DestroyUserRequest extends FormRequest
      */
     public function authorize()
     {
+        foreach ($this->ids as $id)
+        {
+            $user = User::find($id);
+
+            // Super Admins can't be deleted by anyone coming from the frontend
+            if ($user->hasPermissionTo(Permissions::SYSTEM_SUPER_ADMIN)) return false;
+        }
+
         return true;
     }
 
