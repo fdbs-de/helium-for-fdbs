@@ -1,5 +1,5 @@
 <template>
-    <AuthenticatedLayout :title="title" :area="area">
+    <AuthenticatedLayout :title="title">
         <div id="hero-section">
             <div class="limiter">
                 <div class="hero-card">

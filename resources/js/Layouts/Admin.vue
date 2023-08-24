@@ -1,6 +1,6 @@
 <template>
     <Head>
-        <title>{{title || 'CMS'}} – Gastro CMS</title>
+        <title>{{title || 'CMS'}} – Helium CMS</title>
     </Head>
 
     <div class="layout">
@@ -317,7 +317,7 @@
                 .logo
                     height: 2.5rem
                     width: 2.5rem
-                    padding: .5rem
+                    padding: .25rem
                     display: flex
                     align-items: center
                     justify-content: center
