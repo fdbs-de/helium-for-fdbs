@@ -14,7 +14,7 @@
         title: String,
         titleColor: {
             type: String,
-            default: 'var(--color-primary)',
+            default: 'var(--color-heading)',
         },
         image: String,
     })
@@ -27,7 +27,8 @@
 <style lang="sass" scoped>
     .he-background-image
         background-color: var(--color-background-soft)
-        background-image: url('https://images.unsplash.com/photo-1692890846581-da1a95435f34?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2535&q=80')
+        color: var(--color-heading)
+        // background-image: url('https://images.unsplash.com/photo-1692890846581-da1a95435f34?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2535&q=80')
         background-size: cover
         background-position: center
         background-repeat: no-repeat

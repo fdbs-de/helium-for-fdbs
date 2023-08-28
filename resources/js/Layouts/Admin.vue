@@ -166,10 +166,10 @@
                 {label: 'Design', icon: 'design_services', route: route('admin.settings.index', 'design'), permission: [], activeWhen: ['admin.settings.index:page=design']},
                 {label: 'Medien', icon: 'upload', route: route('admin.settings.index', 'media'), permission: [], activeWhen: ['admin.settings.index:page=media']},
                 {label: 'Rechtliches', icon: 'gavel', route: route('admin.settings.index', 'legal'), permission: [], activeWhen: ['admin.settings.index:page=legal']},
-                {label: 'Apps', icon: 'apps', route: route('admin.settings.index', 'apps'), permission: [], activeWhen: ['admin.settings.index:page=apps']},
+                // {label: 'Apps', icon: 'apps', route: route('admin.settings.index', 'apps'), permission: [], activeWhen: ['admin.settings.index:page=apps']},
             ]},
             {label: 'Messeanmeldungen', color: 'var(--color-background)', icon: 'mark_email_unread', route: route('admin.fairs'), permission: ['system.view.users'], activeWhen: ['admin.fairs'], submenu: [
-                {label: 'Exportieren', icon: '', route: route('admin.fairs'), permission: ['system.view.users'], activeWhen: ['admin.fairs']},
+                {label: 'Exportieren', icon: '', route: route('admin.fairs'), permission: ['app.fairs.export'], activeWhen: ['admin.fairs']},
             ]},
         ],
         [

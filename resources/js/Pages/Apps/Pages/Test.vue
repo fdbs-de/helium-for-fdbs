@@ -14,8 +14,8 @@
     import { Head } from '@inertiajs/inertia-vue3'
     import { ref } from 'vue'
 
-    import TextSectionManifest from '@/Pages/Apps/Pages/Sections/TextSection.manifest.js'
-    import HeroSectionManifest from '@/Pages/Apps/Pages/Sections/HeroSection.manifest.js'
+    import TextSectionManifest from '@/Pages/Apps/Pages/Sections/TextSection.manifest'
+    import HeroSectionManifest from '@/Pages/Apps/Pages/Sections/HeroSection.manifest'
     import DownloadManagerSectionManifest from './Sections/DownloadManagerSection.manifest'
 
     

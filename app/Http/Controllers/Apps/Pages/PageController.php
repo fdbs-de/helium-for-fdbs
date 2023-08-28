@@ -32,18 +32,11 @@ class PageController extends Controller
             return view('apps.pages.render-builder', $data);
         }
 
-        if ($page->renderer == 'builder-vue')
+        if ($page->renderer == 'block-builder')
         {
             return Inertia::render('Apps/Pages/RenderBuilder', $data);
         }
 
         abort(404);
-    }
-
-
-
-    public function test()
-    {
-        return Inertia::render('Apps/Pages/Test');
     }
 }

@@ -126,5 +126,4 @@ Route::prefix('/messeanmeldung')->group(function () {
 });
 
 // Pages Wildcard
-// Route::get('/test', [PageController::class, 'test']);
 Route::get('/{page}', [PageController::class, 'show'])->where('page', '.*');
