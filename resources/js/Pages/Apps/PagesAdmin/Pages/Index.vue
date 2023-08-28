@@ -34,9 +34,7 @@
             <mui-input v-model="storeForm.title" label="Titel" />
             <mui-input v-model="storeForm.slug" label="Slug" />
             <select v-model="storeForm.renderer">
-                <option value="php">PHP (statisch)</option>
-                <option value="builder-php">Page-Builder (statisch)</option>
-                <option value="builder-vue">Page-Builder (dynamisch)</option>
+                <option value="block-builder">Block Builder</option>
             </select>
             <mui-toggle v-model="storeForm.is_component" label="Komponent" />
             <div class="flex gap-1">
@@ -140,7 +138,7 @@
     const storeForm = useForm({
         title: '',
         slug: '',
-        renderer: 'php',
+        renderer: 'block-builder',
         is_component: false,
     })
 

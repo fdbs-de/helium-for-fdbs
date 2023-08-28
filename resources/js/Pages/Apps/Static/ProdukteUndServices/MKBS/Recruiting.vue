@@ -50,14 +50,14 @@
             <p>&nbsp;</p>
     
             <img src="/images/content/mkbs/recruiting/kontakt_360197061.jpeg" alt="" class="content-image">
-            <h2>Kontatformular</h2>
+            <h2>Kontaktformular</h2>
             <p>
                 Um den Bewerbungsprozess so unkompliziert wie möglich zu gestalten, integrierten wir einen
                 Bewerbungsfunnel auf unserer Webseite. Bewerberinnen und Bewerber konnten sich in weniger
                 als 30 Sekunden mit wenigen Angaben bewerben. 
                 Ein Bewerbungsfunnel kann so gestaltet werden, dass er Bewerbern eine klare Vorstellung
                 von den Erwartungen und dem Auswahlverfahren gibt.
-                Ein weiterer Vorteiel ist die Standardisierung des Bewerbungsprozesses im Funnel-Format.
+                Ein weiterer Vorteil ist die Standardisierung des Bewerbungsprozesses im Funnel-Format.
                 Dadurch wird eine objektive Bewertung der Bewerber ermöglicht. Dies minimiert mögliche
                 Vorurteile und sorgt für eine fairere Auswahl.
             </p>

@@ -97,7 +97,7 @@ Route::redirect('/tierhaltungskennzeichnung', '/produkte-und-services/foodservic
 Route::prefix('/mkbs')->group(function () {
     Route::get('/', [StaticController::class, 'indexMKBS'])->name('mkbs');
     // Route::get('/aktuelles', [StaticController::class, 'indexMKBSAktuelles'])->name('mkbs.aktuelles');
-    // Route::get('/personal', [StaticController::class, 'indexMKBSRecruiting'])->name('mkbs.recruiting');
+    Route::get('/personal', [StaticController::class, 'indexMKBSRecruiting'])->name('mkbs.recruiting');
     Route::get('/web', [StaticController::class, 'indexMKBSWeb'])->name('mkbs.web');
     Route::get('/social-media', [StaticController::class, 'indexMKBSSocialMedia'])->name('mkbs.social-media');
     Route::get('/print', [StaticController::class, 'indexMKBSPrint'])->name('mkbs.print');
@@ -126,4 +126,5 @@ Route::prefix('/messeanmeldung')->group(function () {
 });
 
 // Pages Wildcard
+// Route::get('/test', [PageController::class, 'test']);
 Route::get('/{page}', [PageController::class, 'show'])->where('page', '.*');

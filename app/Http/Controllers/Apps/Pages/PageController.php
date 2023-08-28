@@ -39,4 +39,11 @@ class PageController extends Controller
 
         abort(404);
     }
+
+
+
+    public function test()
+    {
+        return Inertia::render('Apps/Pages/Test');
+    }
 }
