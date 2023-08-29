@@ -120,5 +120,6 @@
             position: absolute
             bottom: 0
             left: 0
+            border-radius: 2px 2px 0 0
             transition: all 100ms ease-in-out
 </style>
