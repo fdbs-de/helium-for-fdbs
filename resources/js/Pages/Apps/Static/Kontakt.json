@@ -197,7 +197,8 @@
                 "job": "Fachberatung",
                 "leader": false,
                 "tel": "14",
-                "image": null
+                "image": "/images/content/mitarbeiter/mathias_Wafzig.png",
+                "overlay": "/images/content/mitarbeiter/mathias_Wafzig_zeichnung.png"
             },
             {
                 "name": "Jens Winkler",
@@ -242,22 +243,6 @@
                 "job": "Vertriebsinnendienst",
                 "image": "/images/content/mitarbeiter/romina_pagano.png",
                 "overlay": "/images/content/mitarbeiter/romina_pagano_zeichnung.png"
-            },
-            {
-                "name": "Yasmin Ruben",
-                "job": "Vertriebsinnendienst",
-                "leader": false,
-                "tel": "32",
-                "image": "/images/content/mitarbeiter/yasmin_ruben.png",
-                "overlay": "/images/content/mitarbeiter/yasmin_ruben_zeichnung.png"
-            },
-            {
-                "name": "Angela Schrödter",
-                "job": "Vertriebsinnendienst",
-                "leader": false,
-                "tel": "20",
-                "image": "/images/content/mitarbeiter/angela_schroedter.png",
-                "overlay": "/images/content/mitarbeiter/angela_schroedter_zeichnung.png"
             }
         ]
     },

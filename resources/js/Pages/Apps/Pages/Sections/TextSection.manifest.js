@@ -8,6 +8,7 @@ export default {
     name: 'Text Section',
     description: 'A simple text section.',
     previewImage: null,
+    type: 'text-section',
     group: 'sections',
     props: [
         ...LimiterManifest.props,

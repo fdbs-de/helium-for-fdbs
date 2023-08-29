@@ -9,6 +9,7 @@ export default {
     name: 'Download Section',
     description: 'A hero section.',
     previewImage: null,
+    type: 'download-manager-section',
     group: 'sections',
     props: [
         ...LimiterManifest.props,

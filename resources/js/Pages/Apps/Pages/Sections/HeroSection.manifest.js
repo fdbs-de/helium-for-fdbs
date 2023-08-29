@@ -8,6 +8,7 @@ export default {
     name: 'Hero Section',
     description: 'A hero section.',
     previewImage: null,
+    type: 'hero-section',
     group: 'sections',
     props: [
         ...LimiterManifest.props,

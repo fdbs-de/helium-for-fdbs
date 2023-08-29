@@ -86,7 +86,7 @@
 
 
 
-            <!-- <div class="navigator" v-show="editor.tab.ui.newElementPanel">
+            <div class="navigator" v-show="editor.tab.ui.newElementPanel">
                 <div class="grid">
                     <button class="item-button" @click="addElement('layout')">
                         <div class="icon">align_horizontal_left</div>
@@ -144,36 +144,36 @@
                     @select:set="editor.tab.setElementSelection($event)"
                     @select:toggle="editor.tab.toggleElementSelection($event)"
                 />
-            </div> -->
-
-
-
-            <!-- <div class="viewport-wrapper">
-                <iframe class="viewport" :style="`max-width: ${editor.breakpoint.width}px;`"></iframe>
-            </div> -->
-
-            <div class="code-editor-wrapper">
-                <CodeEditor class="code-editor" language="php" theme="vs" v-model="editor.tab.content" />
             </div>
+
+
+
+            <div class="viewport-wrapper">
+                <iframe class="viewport" :style="`max-width: ${editor.breakpoint.width}px;`"></iframe>
+            </div>
+
+            <!-- <div class="code-editor-wrapper">
+                <CodeEditor class="code-editor" language="php" theme="vs" v-model="editor.tab.content" />
+            </div> -->
 
 
 
             <div class="inspector small-scrollbar">
                 <div class="input-group" style="padding-block: 0;">
                     <Tabs v-model="editor.tab.inspector.panel" :tabs="[
-                        // { label: 'Design', value: 'design' },
-                        // { label: 'Styles', value: 'styles' },
+                        { label: 'Design', value: 'design' },
+                        { label: 'Styles', value: 'styles' },
                         { label: 'Page', value: 'page' },
                     ]" />
                 </div>
 
                 <template v-if="editor.tab.inspector.panel === 'design'">
                     <div class="input-group horizontal slim">
-                        <!-- <IconButton icon="content_copy" v-tooltip="'Duplizieren'"/> -->
-                        <!-- <IconButton icon="disabled_visible" /> -->
+                        <IconButton icon="content_copy" v-tooltip="'Duplizieren'"/>
+                        <IconButton icon="disabled_visible" />
                         <IconButton class="error" icon="delete" @click="editor.tab.removeElements(editor.tab.selected.elements)"/>
                         <div class="spacer"></div>
-                        <!-- <IconButton icon="more_vert" /> -->
+                        <IconButton icon="more_vert" />
                     </div>
     
                     <div class="input-group">
@@ -251,7 +251,7 @@
                                     <div class="icon"><div class="indicator"></div></div>
                                 </button>
                             </div>
-                            <!-- <IconButton icon="more_vert" /> -->
+                            <IconButton icon="more_vert" />
                         </div>
                     </div>
                     
@@ -696,8 +696,7 @@
         flex: 1
         height: calc(100% - 2.25rem)
         display: grid
-        // grid-template-columns: 22rem 1fr 22rem
-        grid-template-columns: 0rem 1fr 22rem
+        grid-template-columns: 22rem 1fr 22rem
         grid-template-rows: 4rem auto 1fr
         grid-template-areas: "tool-bar tool-bar tool-bar" "navigator viewport inspector" "navigator code-editor inspector"
 

@@ -1,7 +1,7 @@
 <template>
-    <Limiter is="section" :size="size">
+    <component :is="LimiterManifest.component" :size="size">
         <div class="he-richtext formatted-content" v-html="content"></div>
-    </Limiter>
+    </component>
 </template>
 
 <script setup>
@@ -13,8 +13,4 @@
         size: String,
         content: String,
     })
-    
-
-
-    const Limiter = LimiterManifest.component
 </script>

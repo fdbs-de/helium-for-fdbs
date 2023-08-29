@@ -1,15 +1,11 @@
 <template>
-    <component :is="is" class="he-limiter" :class="'size-'+size">
+    <div class="he-limiter" :class="'size-'+size">
         <slot />
-    </component>
+    </div>
 </template>
 
 <script setup>
     defineProps({
-        is: {
-            type: String,
-            default: 'div',
-        },
         size: {
             type: String,
             default: 'limiter',

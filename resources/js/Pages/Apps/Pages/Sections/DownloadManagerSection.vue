@@ -1,7 +1,7 @@
 <template>
-    <Limiter is="section" :size="size">
-        <DownloadManager class="radius-m border" :media-id="mediaId" />
-    </Limiter>
+    <component :is="LimiterManifest.component" :size="size">
+        <component :is="DownloadManagerManifest.component" class="radius-m border" :media-id="mediaId" />
+    </component>
 </template>
 
 <script setup>
@@ -14,9 +14,4 @@
         size: String,
         mediaId: [String, Number],
     })
-    
-
-
-    const Limiter = LimiterManifest.component
-    const DownloadManager = DownloadManagerManifest.component
 </script>
