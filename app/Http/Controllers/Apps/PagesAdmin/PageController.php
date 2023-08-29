@@ -58,7 +58,7 @@ class PageController extends Controller
         
         if ($request->pages) $pages = Page::whereIn('id', $request->pages)->get();
 
-        return Inertia::render('Apps/PagesAdmin/Pages/Editor', [
+        return Inertia::render('Apps/SharedAdmin/Editor/Index', [
             'items' => $pages,
         ]);
     }
