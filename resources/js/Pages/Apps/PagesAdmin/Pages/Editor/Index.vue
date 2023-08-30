@@ -4,9 +4,6 @@
             <div class="start">
                 <mui-button class="with-label" variant="contained" icon-left="add" label="Neu"/>
                 <div class="spacer"></div>
-                <IconButton icon="undo" v-tooltip.bottom="'Rückgangig (Strg+Z)'"/>
-                <IconButton icon="redo" v-tooltip.bottom="'Wiederherstellen (Strg+Y)'"/>
-                <IconButton icon="history" v-tooltip.bottom="'Bearbeitungsverlauf'"/>
             </div>
             <div class="center">
                 <div class="breakpoint-selector">
@@ -21,49 +18,63 @@
                 </div>
             </div>
             <div class="end">
-                <IconButton is="a" icon="visibility" v-tooltip.bottom="'Vorschau'" :href="route('app.pages.render.page', tab.data.slug)" target="_blank"/>
+                <IconButton icon="undo" v-tooltip.bottom="'Rückgangig (Strg+Z)'"/>
+                <IconButton icon="redo" v-tooltip.bottom="'Wiederherstellen (Strg+Y)'"/>
+                <IconButton icon="history" v-tooltip.bottom="'Bearbeitungsverlauf'"/>
                 <div class="spacer"></div>
-                <mui-button class="with-label" variant="contained" label="Speichern" v-tooltip.bottom="'Speichern (Strg+S)'"/>
+                <mui-button class="with-label" variant="contained" label="Speichern" v-tooltip.bottom="'Speichern (Strg+S)'" @click="tab.save()"/>
+                <IconButton is="a" icon="open_in_new" v-tooltip.bottom="'Seite öffnen'" :href="route('app.pages.render.page', tab.data.slug)" target="_blank"/>
             </div>
         </div>
 
 
 
         <div class="sidebar navigator small-scrollbar">
-            <Tabs v-model="tab.ui.navigator.panel" :tabs="[
-                { label: 'Elemente', value: 'elements' },
-            ]" />
+            <div class="group no-padding">
+                <Tabs v-model="tab.ui.navigator.panel" :tabs="[
+                    { label: 'Elemente', value: 'elements' },
+                ]" />
+            </div>
             <div class="flex vertical">
-                <button type="button" class="flex vertical" v-for="elementTemplate, key in ElementTemplates" :key="key">
+                <button type="button" class="flex vertical" v-for="elementTemplate, key in ElementTemplates" :key="key" @click="tab.createElement(elementTemplate)">
                     <b>{{ elementTemplate.name }}</b>
                     <span>{{ elementTemplate.description }}</span>
                 </button>
+
+                <Container @drop="tab.dropElement($event)" lock-axis="y" drag-handle-selector=".handle">            
+                    <Draggable v-for="element in tab.data.content" :key="element.localId">
+                        <div class="content-element flex v-center" :class="{'selected': tab.selected.elements.includes(element.localId)}">
+                            <IconButton class="handle" icon="drag_indicator"/>
+                            <div class="flex-1 flex vertical" @click="tab.selectElement(element)">
+                                {{ element.type }}
+                            </div>
+                            <IconButton icon="delete" @click=""/>
+                        </div>
+                    </Draggable>
+                </Container>
             </div>
         </div>
 
 
 
         <div class="viewport-wrapper">
-            <iframe
-                class="viewport"
-                :src="route('app.pages.render.page', tab.data.slug)"
-                :style="`max-width: ${tab.breakpoint.width}px`"
-            >
-            </iframe>
+            <div class="viewport" :style="`max-width: ${tab.breakpoint.width}px`">
+                <BlockBuilderCollector :elements="tab.data.content" />
+            </div>
         </div>
 
 
 
         <div class="sidebar inspector small-scrollbar">
-            <div class="input-group">
+            <div class="group no-padding">
                 <Tabs v-model="tab.ui.inspector.panel" :tabs="[
                     { label: 'Element', value: 'element' },
                     { label: 'Seite', value: 'page' },
                 ]" />
             </div>
 
-            <template v-if="true">
-                <div class="input-group">
+            <template v-if="tab.ui.inspector.panel == 'page'">
+                <div class="group">
                     <select class="default-select" v-model="tab.data.status">
                         <option :value="null" disabled>Status</option>
                         <option value="draft">Entwurf</option>
@@ -74,6 +85,8 @@
                     <mui-input class="default-text-input" placeholder="Slug" v-model="tab.data.slug"/>
                 </div>
             </template>
+
+            <Inspector :tab="tab" v-if="tab.ui.inspector.panel == 'element'"/>
         </div>
     </div>
 
@@ -83,7 +96,10 @@
 <script setup>
     import hotkeys from 'hotkeys-js'
     import ElementTemplates from '@/Pages/Apps/Pages/ElementTemplates'
+    import { Container, Draggable } from 'vue3-smooth-dnd'
 
+    import BlockBuilderCollector from '@/Pages/Apps/Pages/Renderer/BlockBuilderCollector.vue'
+    import Inspector from '@/Pages/Apps/PagesAdmin/Pages/Editor/Partials/Inspector.vue'
     import IconButton from '@/Components/Apps/Pages/IconButton.vue'
     import Picker from '@/Components/Form/MediaLibrary/Picker.vue'
     import Tabs from '@/Components/Form/Tabs.vue'
@@ -190,6 +206,9 @@
         .navigator
             grid-area: navigator
 
+            .content-element.selected
+                background: var(--color-background-soft)
+
         .inspector
             grid-area: inspector
 
@@ -200,9 +219,11 @@
             align-items: center
             padding: 1rem
 
-            iframe.viewport
+            .viewport
                 width: 100%
-                height: 100%
+                max-height: 100%
+                min-height: 8rem
+                overflow: auto
                 background: white
                 border: 1px solid var(--color-background-soft)
                 border-radius: var(--radius-s)
@@ -215,7 +236,7 @@
             color: var(--color-heading)
             overflow-y: auto
 
-            .input-group
+            .group
                 padding: 1rem .5rem
                 display: flex
                 flex-direction: column

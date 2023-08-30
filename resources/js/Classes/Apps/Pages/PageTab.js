@@ -1,3 +1,5 @@
+import { applyDrag } from '@/Utils/DragAndDrop'
+import ElementTemplates from '@/Pages/Apps/Pages/ElementTemplates'
 import Tab from '@/Classes/Editor/Tab'
 
 
@@ -141,29 +143,54 @@ export default class PageTab extends Tab
 
 
 
-    createElement(elementTemplate = {}) {
+    createElement(elementTemplate = {})
+    {
         let data = {
             localId: this.generateLocalId(),
         }
 
         data.type = elementTemplate.type
+        data.props = {}
+
+        for (const prop of elementTemplate.props)
+        {
+            data.props[prop.key] = prop.value
+        }
 
         this.addElement(data)
     }
 
-    addElement(element) {
+    addElement(element)
+    {
         this.data.content.push(element)
+    }
+
+    dropElement(dropResults)
+    {
+        this.data.content = applyDrag(this.data.content, dropResults)
+    }
+
+    removeElement(element)
+    {
+        this.data.content = this.data.content.filter(item => item.localId !== element.localId)
+    }
+
+
+
+    selectElement(element)
+    {
+        this.selected.elements = [element.localId]
     }
 
 
 
     hydrate(data) {
         this.data.id = data.id
-        this.data.renderer = data.renderer
-        this.data.title = data.title
-        this.data.slug = data.slug
-        this.data.status = data.status
-        this.data.content = data.content
+        this.data.renderer = data.renderer || 'block-builder'
+        this.data.title = data.title || 'Untitled'
+        this.data.slug = data.slug || ''
+        this.data.status = data.status || 'draft'
+        this.data.content = data.content || []
         this.data.meta = {}
 
         return this
@@ -171,7 +198,7 @@ export default class PageTab extends Tab
 
     serialize()
     {
-        return {
+        return JSON.parse(JSON.stringify({
             id: this.data.id,
             renderer: this.data.renderer,
             title: this.data.title,
@@ -179,6 +206,21 @@ export default class PageTab extends Tab
             status: this.data.status,
             version: this.data.version,
             content: this.data.content,
-        }
+        }))
+    }
+
+    async save()
+    {
+        if (this.processing.saving) return
+
+        console.log('Saving page...')
+        
+        this.processing.saving = true
+        
+        console.log(this.serialize())
+
+        this.processing.saving = false
+
+        console.log('Page saved!');
     }
 }

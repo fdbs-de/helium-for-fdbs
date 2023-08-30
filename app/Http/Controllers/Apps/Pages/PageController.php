@@ -34,7 +34,7 @@ class PageController extends Controller
 
         if ($page->renderer == 'block-builder')
         {
-            return Inertia::render('Apps/Pages/RenderBuilder', $data);
+            return Inertia::render('Apps/Pages/Renderer/BlockBuilder', $data);
         }
 
         abort(404);
