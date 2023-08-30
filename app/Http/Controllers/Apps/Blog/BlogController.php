@@ -46,7 +46,7 @@ class BlogController extends Controller
         ]);
     }
 
-    public function show($categorySlug, $postSlug)
+    public function show($postSlug)
     {
         $query = Post::query();
 

@@ -2,12 +2,12 @@
     <div class="tab-layout">
         <IconButton :is="Link" :href="route('admin.pages.pages')" icon="arrow_back" @click="exitFullscreen"/>
         <TabButton
-            v-for="tab in tabs"
+            v-for="tab in editor.tabs"
             :tab="tab"
             @select-tab="emits('select-tab', tab)"
             @close-tab="emits('close-tab', tab)"
         />
-        <IconButton icon="add" @click="emits('new-tab')"/>
+        <IconButton icon="add" @click="emits('new-tab')" v-show="!editor.hasBlankTab"/>
 
         <div class="spacer"></div>
 
@@ -33,8 +33,8 @@
     ])
 
     const props = defineProps({
-        tabs: {
-            type: Array,
+        editor: {
+            type: Object,
             required: true,
         },
     })

@@ -40,11 +40,11 @@ class PostBuilder extends Builder
 
     public function whereAvailable()
     {
-        $roles = auth()->user()->availableRoles()->pluck('id')->toArray();
+        $roles = auth()->user() ? auth()->user()->availableRoles()->pluck('id')->toArray() : [];
         $user = auth()->user();
 
         // Return all categories if user is site-admin
-        if ($user->isAdmin) return $this;
+        if (optional($user)->isAdmin) return $this;
 
         // Posts that are available to the user via category
         return $this
@@ -62,7 +62,7 @@ class PostBuilder extends Builder
                     })
                     // Or categories where the user is added (owner, editor, viewer)
                     ->orWhereHas('postCategory.users', function ($query) use ($user) {
-                        $query->whereIn('id', [$user->id]);
+                        $query->whereIn('id', [optional($user)->id]);
                     })
                     // Or public categories
                     ->orWhere(function ($query) {
@@ -80,7 +80,7 @@ class PostBuilder extends Builder
             })
             // Or Posts where the user is added (owner, editor, viewer)
             ->orWhereHas('users', function ($query) use ($user) {
-                $query->whereIn('id', [$user->id]);
+                $query->whereIn('id', [optional($user)->id]);
             })
             // Or public posts
             ->orWhere(function ($query) {
@@ -98,13 +98,13 @@ class PostBuilder extends Builder
         $user = auth()->user();
 
         // Return all categories if user is site-admin
-        if ($user->isAdmin) return $this;
+        if (optional($user)->isAdmin) return $this;
 
         return $this
         // Categories where the user is as owner or editor
         ->whereHas('users', function ($query) use ($user) {
             $query
-            ->whereIn('id', [$user->id])
+            ->whereIn('id', [optional($user)->id])
             ->whereIn('role', ['owner', 'editor']);
         });
     }

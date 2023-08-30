@@ -15,6 +15,8 @@ export default class Editor extends EventListener
         this.options = {}
 
         this.setOption('selectNextBestTab', true)
+        this.setOption('openNewOnLaunch', false)
+        this.setOption('openNewOnLastClose', false)
 
         return this
     }
@@ -43,18 +45,42 @@ export default class Editor extends EventListener
     {
         this.tabs.push(tab)
 
-        if (selectImmediately) this.selectTab(tab.localId)
+        if (selectImmediately) this.selectTab(tab)
 
         return this
     }
 
-    selectTab(id)
+    get hasBlankTab()
+    {
+        return this.tabs.find(tab => tab.type == 'open') != null
+    }
+
+    addBlankTab(title = 'Open or create new...')
+    {
+        // There should only ever be one blank tab
+        if (this.hasBlankTab) return false
+
+        // Add new blank tab
+        let tab = new Tab()
+
+        // Set tab title
+        tab.title = title
+
+        // Add tab
+        this.addTab(tab, true)
+
+        return true
+    }
+
+
+
+    selectTab(tab)
     {
         // Deselect current tab
         if (this.tab) this.tab.active = false
 
         // Find new tab
-        this.tab = this.tabs.find(tab => tab.localId == id) || null
+        this.tab = this.tabs.find(tab_ => tab_.localId === tab.localId) || null
 
         // Select new tab
         if (this.tab) this.tab.active = true
@@ -85,9 +111,11 @@ export default class Editor extends EventListener
         this.selectTabByIndex(tabIndex + 1)
     }
 
-    closeTab(id)
+
+
+    closeTab(tab)
     {
-        let tabIndex = this.tabs.findIndex(tab => tab.localId == id)
+        let tabIndex = this.tabs.findIndex(tab_ => tab_.localId == tab.localId)
 
         if (tabIndex < 0) return false
 
@@ -95,18 +123,24 @@ export default class Editor extends EventListener
         this.tabs.splice(tabIndex, 1)
 
         // In case the tab was selected, clear it
-        if (this.tab && this.tab.localId == id) this.tab = null
+        if (this.tab && this.tab.localId == tab.localId) this.tab = null
         
         // Fire close event
-        this.dispatchEvent('tab:close', { id })
+        this.dispatchEvent('tab:close', { id: tab.localId })
 
 
 
         // return if we don't want to select the next best tab
         if (!this.options.selectNextBestTab) return true
 
-        // return if there are no more tabs
-        if (this.tabs.length <= 0) return true
+        if (this.tabs.length <= 0)
+        {
+            // If there are no more tabs, open a new one
+            if (this.options.openNewOnLastClose) this.addBlankTab()
+            
+            // And return true
+            return true
+        }
 
 
 
@@ -114,7 +148,7 @@ export default class Editor extends EventListener
         if (tabIndex > 0) tabIndex-- 
 
         // Select the next best tab
-        this.selectTab(this.tabs[tabIndex].localId)
+        this.selectTab(this.tabs[tabIndex])
 
         // Return success
         return true

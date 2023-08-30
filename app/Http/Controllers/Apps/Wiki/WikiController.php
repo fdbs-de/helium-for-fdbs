@@ -18,18 +18,21 @@ class WikiController extends Controller
         $query = Post::query();
 
         $query
-        // Posts that are published and available to the user
         ->where(function ($query) {
             $query
-            ->whereScope(['wiki'])
-            ->wherePublished()
-            ->whereAvailable();
-        })
-        // Posts that may not be published (drafts; only visible to editors and admins)
-        ->orWhere(function ($query) {
-            $query
-            ->whereScope(['wiki'])
-            ->whereEditable();
+            // Posts that are published and available to the user
+            ->where(function ($query) {
+                $query
+                ->whereScope(['wiki'])
+                ->wherePublished()
+                ->whereAvailable();
+            })
+            // Posts that may not be published (drafts; only visible to editors and admins)
+            ->orWhere(function ($query) {
+                $query
+                ->whereScope(['wiki'])
+                ->whereEditable();
+            });
         });
 
 

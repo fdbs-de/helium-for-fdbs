@@ -3,7 +3,7 @@
 
     <main>
         <template v-for="section in data.sections">
-            <component :is="Sections[section.type].component" v-bind="section.props" />
+            <component :is="ElementTemplates[section.type].component" v-bind="section.props" />
         </template>
     </main>
 </template>
@@ -12,7 +12,7 @@
     import { Head } from '@inertiajs/inertia-vue3'
     import { ref } from 'vue'
 
-    import Sections from '@/Pages/Apps/Pages/Sections.js'
+    import ElementTemplates from '@/Pages/Apps/Pages/ElementTemplates'
 
 
 

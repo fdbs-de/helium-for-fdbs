@@ -9,10 +9,10 @@
                 aspect-ratio="2"
                 :key="post.id"
                 :image="post.image"
-                :color="post.post_category.color"
-                :primary-tag="post.post_category.name"
+                :color="getCategoryColor(post)"
+                :primary-tag="getCategoryName(post)"
                 :effect="post.status !== 'published'"
-                :link="route('wiki.entry', [post.post_category.slug, post.slug])"
+                :link="route('wiki.entry', post.slug)"
                 :warning="post.status !== 'published' ? 'Dieser Eintrag ist nicht veröffentlicht. Du hast die Berechtigungen, ihn trotzdem zu sehen.' : ''"
             >
             <div class="flex-1 flex wrap vertical">
@@ -37,6 +37,14 @@
         categories: Array,
         posts: Array,
     })
+
+    const getCategoryColor = (post) => {
+        return post?.post_category?.color
+    }
+
+    const getCategoryName = (post) => {
+        return post?.post_category?.name
+    }
 </script>
 
 <style lang="sass" scoped>

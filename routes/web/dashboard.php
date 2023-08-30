@@ -35,5 +35,5 @@ Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () 
 
 Route::prefix('wiki')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [WikiController::class, 'overview'])->name('wiki');
-    Route::get('/{categorySlug}/{postSlug}', [WikiController::class, 'show'])->name('wiki.entry');
+    Route::get('/{postSlug}', [WikiController::class, 'show'])->name('wiki.entry');
 });

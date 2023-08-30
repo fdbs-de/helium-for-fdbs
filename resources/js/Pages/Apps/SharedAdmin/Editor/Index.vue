@@ -5,8 +5,8 @@
 
     <div class="main-layout">
         <EditorControls
-            :tabs="editor.tabs"
-            @new-tab="editor.openBlankTab()"
+            :editor="editor"
+            @new-tab="editor.addBlankTab()"
             @close-tab="editor.closeTab($event)"
             @select-tab="editor.selectTab($event)"
         />
@@ -22,12 +22,13 @@
     import { Head } from '@inertiajs/inertia-vue3'
     import { ref, onMounted } from 'vue'
     import hotkeys from 'hotkeys-js'
-    import PageEditor from '@/Classes/Apps/Pages/PageEditor.js'
+
+    import Editor from '@/Classes/Editor/Editor.js'
     import PageTab from '@/Classes/Apps/Pages/PageTab.js'
 
     import EditorControls from '@/Pages/Apps/SharedAdmin/Editor/Partials/Controls.vue'
     import OpenBody from '@/Pages/Apps/SharedAdmin/Editor/Partials/Bodies/Open.vue'
-    import PagesBody from '@/Pages/Apps/PagesAdmin/Pages/Editor/Body.vue'
+    import PagesBody from '@/Pages/Apps/PagesAdmin/Pages/Editor/Index.vue'
 
 
 
@@ -38,7 +39,7 @@
 
 
     const editor = ref(
-        new PageEditor()
+        new Editor()
         .setTitle('Seiten Editor')
         .setOption('openNewOnLastClose', true)
     )
@@ -49,7 +50,7 @@
     onMounted(() => {
         for (const item of props.items)
         {
-            editor.value.addTab(new PageTab('page-editor').hydrate(item), true)
+            editor.value.addTab(new PageTab().hydrate(item), true)
         }
     })
     // END: Hydrate Editor

@@ -2,12 +2,12 @@
     <div class="new-tab-layout">
         <div class="new-button-wrapper">
             <div class="limiter">
-                <button class="new-button page" @click="emits('open', {type: 'page'})">
+                <button class="new-button pages" @click="emits('open', {type: 'page'})">
                     <div class="icon">add</div>
                     <span class="text">Neue Seite</span>
                     <span class="subtext">Inhaltsseiten</span>
                 </button>
-                <button class="new-button component" @click="emits('open', {type: 'form'})">
+                <button class="new-button forms" @click="emits('open', {type: 'form'})">
                     <div class="icon">add</div>
                     <span class="text">Neues Formular</span>
                     <span class="subtext">Formular oder Funnel</span>
@@ -43,16 +43,17 @@
 
         .new-button-wrapper
             width: 100%
-            padding-block: 8rem 4rem
+            padding-block: 6rem 4rem
             background: var(--color-background-dark)
             user-select: none
 
             .limiter
                 display: flex
                 gap: 2rem
+                justify-content: center
 
             .new-button
-                flex: 1
+                height: 12rem
                 aspect-ratio: 16/9
                 border-radius: var(--radius-l)
                 display: flex
@@ -70,11 +71,11 @@
                 &:hover
                     box-shadow: var(--shadow-elevation-high)
 
-                &.page
-                    background: var(--color-app-pages-on-dark)
+                &.pages
+                    background: var(--color-app-pages-on-light)
 
-                &.component
-                    background: #ff6348
+                &.forms
+                    background: var(--color-app-forms-on-light)
 
                 .icon
                     font-family: var(--font-icon)

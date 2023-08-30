@@ -9,41 +9,28 @@ export default class Tab extends EventListener
     {
         super()
 
-        // Valid tab types
-        this.tabTypes = ['tab']
-
         // Basic data
         this.localId = null
-        this.type = 'tab'
+        this.type = 'open'
         this.active = false
-        this.history = []
+        this.title = null
         
         // Generate tab ID
-        this.generateId()
-        
-        // Page data
-        this.title = null
+        this.setLocalId(this.generateLocalId())
 
         return this
     }
 
 
 
-    generateId()
+    generateLocalId()
     {
-        this.localId = 'LID-'+randomInt(0, 9999999999).toString().padStart(10, '0')
-
-        return this
+        return 'LID-' + randomInt(0, 9999999999).toString().padStart(10, '0')
     }
 
-    setType(type)
+    setLocalId(localId = null)
     {
-        if (!this.tabTypes.includes(type))
-        {
-            throw new Error('Invalid tab type')
-        }
-
-        this.type = type
+        this.localId = localId
 
         return this
     }
@@ -52,6 +39,15 @@ export default class Tab extends EventListener
 
     get icon ()
     {
-        return 'layers'
+        return 'grade'
+    }
+
+
+
+    setTitle(title)
+    {
+        this.title = title
+
+        return this
     }
 }

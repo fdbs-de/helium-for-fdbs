@@ -28,11 +28,11 @@ class PostCategoryBuilder extends Builder
 
     public function whereAvailable()
     {
-        $roles = auth()->user()->availableRoles()->pluck('id')->toArray();
+        $roles = auth()->user() ? auth()->user()->availableRoles()->pluck('id')->toArray() : [];
         $user = auth()->user();
 
         // Return all categories if user is site-admin
-        if ($user->isAdmin) return $this;
+        if (optional($user)->isAdmin) return $this;
 
         return $this
         ->where(function ($query) use ($roles, $user) {
@@ -43,7 +43,7 @@ class PostCategoryBuilder extends Builder
             })
             // Or categories where the user is added (owner, editor, viewer)
             ->orWhereHas('users', function ($query) use ($user) {
-                $query->whereIn('id', [$user->id]);
+                $query->whereIn('id', [optional($user)->id]);
             })
             // Or public categories
             ->orWhere(function ($query) {
@@ -60,13 +60,13 @@ class PostCategoryBuilder extends Builder
         $user = auth()->user();
 
         // Return all categories if user is site-admin
-        if ($user->isAdmin) return $this;
+        if (optional($user)->isAdmin) return $this;
 
         return $this
         // Categories where the user is as owner or editor
         ->whereHas('users', function ($query) use ($user) {
             $query
-            ->whereIn('id', [$user->id])
+            ->whereIn('id', [optional($user)->id])
             ->whereIn('role', ['owner', 'editor']);
         });
     }

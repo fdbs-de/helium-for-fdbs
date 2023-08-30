@@ -33,7 +33,7 @@ Route::post('/forms/{form}', [FormController::class, 'submit'])->name('forms.for
 // Blog App
 Route::prefix('/blog')->group(function () {
     Route::get('/', [BlogController::class, 'index'])->name('blog');
-    Route::get('/{categorySlug}/{postSlug}', [BlogController::class, 'show'])->name('blog.article');
+    Route::get('/{postSlug}', [BlogController::class, 'show'])->name('blog.article');
 });
 
 // Job App
@@ -126,4 +126,4 @@ Route::prefix('/messeanmeldung')->group(function () {
 });
 
 // Pages Wildcard
-Route::get('/{page}', [PageController::class, 'show'])->where('page', '.*');
+Route::get('/{page}', [PageController::class, 'show'])->where('page', '.*')->name('app.pages.render.page');
