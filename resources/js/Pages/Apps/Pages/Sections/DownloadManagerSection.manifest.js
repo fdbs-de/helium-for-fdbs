@@ -7,7 +7,7 @@ import Component from '@/Pages/Apps/Pages/Sections/DownloadManagerSection.vue'
 export default {
     version: '1.0.0',
     name: 'Download Section',
-    description: 'A hero section.',
+    description: 'A download manager.',
     previewImage: null,
     type: 'download-manager-section',
     group: 'sections',

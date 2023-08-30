@@ -1,54 +1,111 @@
-import { randomInt } from '@/Utils/Number'
 import Tab from '@/Classes/Editor/Tab'
-import Inspector from '@/Classes/Apps/Pages/PageInspector'
-import ElementManager from '@/Classes/Apps/Pages/Elements/ElementManager'
 
 
 
 export default class PageTab extends Tab
 {
-    constructor (type, options = null)
+    constructor (options = null)
     {
         super()
 
-        // Valid tab types
-        this.tabTypes = ['new-tab', 'page-editor', 'component-editor']
-
         // Set tab type
-        this.setType(type)
+        this.type = 'pages'
+        this.title = 'Pages'
         
-        // Form specific data
-        this.id = null
-        this.renderer = 'builder-vue'
-        this.title = 'Untitled'
-        this.slug = ''
-        this.status = 'draft'
-        this.version = null
-        this.elements = []
-        this.content = ''
-        this.meta = {}
-        this.props = []
+        // Tab specific data
+        this.data = {
+            id: null,
+            renderer: 'block-builder',
+            title: 'Untitled',
+            slug: '',
+            status: 'draft',
+            version: null,
+            content: [],
+            meta: {},
+        }
+        
+        // Edit history
+        this.history = []
 
-        // Set up inspector
-        this.inspector = new Inspector()
-
+        // Processing variables
         this.processing = {
             saving: false,
         }
 
+        // Selected variables
         this.selected = {
             breakpoint: 0,
             elements: [],
         }
 
+        // UI variables
         this.ui = {
-            newElementPanel: false,
+            inspector: {
+                panel: 'element'
+            },
+            navigator: {
+                panel: 'elements'
+            },
         }
 
-        // Add event listeners
-        this.inspector.addEventListener('change', (event) => {
-            this.applyInspectorChanges(event)
-        })
+        // Set available breakpoints
+        this.breakpoints = [
+            {
+                id: 0,
+                name: 'Desktop',
+                tooltip: '<b>Desktop</b><br>\> 1100px',
+                icon: 'monitor',
+                width: null,
+                height: null,
+                orientation: 'landscape',
+                default: true,
+                touch: false,
+            },
+            {
+                id: 1,
+                name: 'Laptop',
+                tooltip: '<b>Laptop</b><br>< 1100px',
+                icon: 'computer',
+                width: 1100,
+                height: null,
+                orientation: 'landscape',
+                default: false,
+                touch: false,
+            },
+            {
+                id: 2,
+                name: 'Tablet',
+                tooltip: '<b>Tablet</b><br>< 900px',
+                icon: 'tablet_android',
+                width: 900,
+                height: null,
+                orientation: 'portrait',
+                default: false,
+                touch: true,
+            },
+            {
+                id: 3,
+                name: 'Mobile Landscape',
+                tooltip: '<b>Mobile Landscape</b><br>< 700px',
+                icon: 'stay_current_landscape',
+                width: 700,
+                height: null,
+                orientation: 'landscape',
+                default: false,
+                touch: true,
+            },
+            {
+                id: 4,
+                name: 'Mobile Portrait',
+                tooltip: '<b>Mobile Portrait</b><br>< 360px',
+                icon: 'stay_current_portrait',
+                width: 360,
+                height: null,
+                orientation: 'portrait',
+                default: false,
+                touch: true,
+            }
+        ]
 
         return this
     }
@@ -57,243 +114,71 @@ export default class PageTab extends Tab
 
     get icon ()
     {
-        if (this.type == 'new-tab') return 'layers'
-        if (this.type == 'page-editor') return 'language'
-        if (this.type == 'component-editor') return 'widgets'
-
-        return 'help'
+        return 'web'
     }
 
 
 
-    get flatElementList ()
+    selectBreakpoint(index)
     {
-        let elements = {}
-
-        function flatten (element)
-        {
-            elements[element.elementId] = element
-            element.inner.forEach(e => flatten(e))
-        }
-
-        this.elements.forEach(e => flatten(e, [null]))
-
-        return elements
-    }
-
-
-
-    toggleNewElementPanel ()
-    {
-        this.ui.newElementPanel = !this.ui.newElementPanel
-    }
-
-
-
-    get selectedElements ()
-    {
-        return this.selected.elements.map(id => this.flatElementList[id]).filter(e => e)
-    }
-
-    onSelectionChange()
-    {
-        this.inspector.update(this.selectedElements)
-    }
-
-    setElementSelection (element)
-    {
-        this.selected.elements = [element.elementId]
-        this.onSelectionChange()
-    }
-
-    addElementSelection (element)
-    {
-        if (this.selected.elements.includes(element.elementId)) return
-
-        this.selected.elements.push(element.elementId)
-        this.onSelectionChange()
-    }
-
-    toggleElementSelection (element)
-    {
-        if (this.selected.elements.includes(element.elementId))
-        {
-            this.selected.elements = this.selected.elements.filter(e => e !== element.elementId)
-        }
-        else
-        {
-            this.selected.elements.push(element.elementId)
-        }
-
-        this.onSelectionChange()
-    }
-
-    rootElementSelection ()
-    {
-        let elements = this.elements
-
-        this.clearElementSelection()
-
-        for (const element of elements)
-        {
-            this.addElementSelection(element)
-        }
-    }
-
-    childrenElementSelection ()
-    {
-        let elements = this.selectedElements
-
-        if (elements.length <= 0) return this.rootElementSelection()
-
-        // Clear if any element has children
-        if (elements.some(e => e.inner?.length > 0)) this.clearElementSelection()
+        // Check if index is in range
+        if (index < 0 || index >= this.breakpoints.length) return false
         
-        for (const element of elements)
-        {
-            for (const child of element.inner)
-            {
-                this.addElementSelection(child)
-            }
-        }
-    }
-
-    parentElementSelection ()
-    {
-        let elements = this.selectedElements
-
-        if (elements.length <= 0) return
-
-        this.clearElementSelection()
+        // Set breakpoint
+        this.selected.breakpoint = index
         
-        for (const element of elements)
-        {
-            if (!element.parent) continue
-
-            this.addElementSelection(element.parent)
-        }
+        return true
     }
 
-    cleanElementSelection ()
+    get breakpoint()
     {
-        this.selected.elements = this.selected.elements.filter(e => this.flatElementList[e])
-        this.onSelectionChange()
-    }
-
-    clearElementSelection ()
-    {
-        this.selected.elements = []
-        this.onSelectionChange()
+        return (
+            this.breakpoints[this.selected.breakpoint] ||
+            this.breakpoints.find(breakpoint => breakpoint.default) ||
+            null
+        )
     }
 
 
 
-    addElement (element, selectImmediately = false)
-    {
-        let target = this.selected.elements.length === 1 ? this.flatElementList[this.selected.elements[0]] : null
-        
-        this.addElementRecursive(target, element)
-
-        if (selectImmediately) this.setElementSelection(element)
-
-        return this
-    }
-
-    addElementRecursive (target, element)
-    {
-        // Try insert to target
-        if (target?.allowedInner?.includes(element.elementType))
-        {
-            return target.addElement(element)
+    createElement(elementTemplate = {}) {
+        let data = {
+            localId: this.generateLocalId(),
         }
 
-        // Try insert to parent
-        if (target?.parent)
-        {
-            return this.addElementRecursive(target.parent, element)
-        }
+        data.type = elementTemplate.type
 
-        // Insert to root
-        this.elements.push(element.setParent(null))
-
-        return element
+        this.addElement(data)
     }
 
-
-
-    removeElements (elementIds)
-    {
-        this.elements = this.elements.filter(element => !elementIds.includes(element.elementId))
-
-        for (const element of this.elements)
-        {
-            element.removeElements(elementIds)
-        }
-
-        this.cleanElementSelection()
-
-        return this
-    }
-
-
-
-    applyInspectorChanges (event)
-    {
-        let elements = this.selectedElements
-
-        for (const element of elements)
-        {
-            element.applyChanges(event)
-        }
+    addElement(element) {
+        this.data.content.push(element)
     }
 
 
 
     hydrate(data) {
-        this.id = data.id
-        this.renderer = data.renderer
-        this.title = data.title
-        this.slug = data.slug
-        this.status = data.status
-        this.meta = {}
-        this.props = []
-
-        if (['builder-vue', 'builder-php'].includes(this.renderer))
-        {
-            this.elements = data.content.map(element => {
-                let elementClass = new ElementManager().newElement(element.elementClassName)
-    
-                if (!elementClass) return
-    
-                return elementClass.hydrate(element)
-            })
-        }
-
-        if (['php'].includes(this.renderer))
-        {
-            this.content = data.content
-        }
+        this.data.id = data.id
+        this.data.renderer = data.renderer
+        this.data.title = data.title
+        this.data.slug = data.slug
+        this.data.status = data.status
+        this.data.content = data.content
+        this.data.meta = {}
 
         return this
     }
 
     serialize()
     {
-        let content = this.content
-
-        if (['builder-vue', 'builder-php'].includes(this.renderer))
-        {
-            content = this.elements.map(element => element.serialize())
-        }
-        
         return {
-            id: this.id,
-            renderer: this.renderer,
-            title: this.title,
-            slug: this.slug,
-            status: this.status,
-            version: this.version,
-            content,
+            id: this.data.id,
+            renderer: this.data.renderer,
+            title: this.data.title,
+            slug: this.data.slug,
+            status: this.data.status,
+            version: this.data.version,
+            content: this.data.content,
         }
     }
 }

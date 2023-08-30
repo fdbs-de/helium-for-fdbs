@@ -16,7 +16,7 @@
                     :primary-tag="post.post_category.name"
                     :effect="post.status !== 'published'"
                     :tags="post.tags"
-                    :link="route('blog.article', [post.post_category.slug, post.slug])"
+                    :link="route('blog.article', post.slug)"
                     :warning="post.status !== 'published' ? 'Dieser Eintrag ist nicht veröffentlicht. Du hast die Berechtigungen, ihn trotzdem zu sehen.' : ''"
                 />
             </div>

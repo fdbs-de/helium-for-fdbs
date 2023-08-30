@@ -1,14 +1,11 @@
 import Snapshot from '@/Classes/Apps/Pages/History/Snapshot'
-import EventListener from '@/Classes/EventListener'
 
 
 
-export default class History extends EventListener
+export default class History
 {
     constructor(options = {})
     {
-        super()
-
         this.snapshots = []
         this.max = options?.maxSteps ?? 100
 
