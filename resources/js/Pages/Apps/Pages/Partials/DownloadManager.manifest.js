@@ -13,7 +13,7 @@ export default {
             fixtureType: 'media:folder',
             label: 'Ordner',
             key: 'mediaId',
-            value: null,
+            value: '',
         },
     ],
     component: Component,

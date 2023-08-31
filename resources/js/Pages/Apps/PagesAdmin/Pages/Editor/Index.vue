@@ -22,7 +22,7 @@
                 <IconButton icon="redo" v-tooltip.bottom="'Wiederherstellen (Strg+Y)'"/>
                 <IconButton icon="history" v-tooltip.bottom="'Bearbeitungsverlauf'"/>
                 <div class="spacer"></div>
-                <mui-button class="with-label" variant="contained" label="Speichern" v-tooltip.bottom="'Speichern (Strg+S)'" @click="tab.save()"/>
+                <mui-button class="with-label" variant="contained" label="Speichern" v-tooltip.bottom="'Speichern (Strg+S)'" @click="tab.save()" :loading="tab.processing.saving"/>
                 <IconButton is="a" icon="open_in_new" v-tooltip.bottom="'Seite öffnen'" :href="route('app.pages.render.page', tab.data.slug)" target="_blank"/>
             </div>
         </div>
@@ -36,10 +36,12 @@
                 ]" />
             </div>
             <div class="flex vertical">
-                <button type="button" class="flex vertical" v-for="elementTemplate, key in ElementTemplates" :key="key" @click="tab.createElement(elementTemplate)">
-                    <b>{{ elementTemplate.name }}</b>
-                    <span>{{ elementTemplate.description }}</span>
-                </button>
+                <div class="group">
+                    <button type="button" class="flex vertical" v-for="elementTemplate, key in ElementTemplates" :key="key" @click="tab.createElement(elementTemplate)">
+                        <b>{{ elementTemplate.name }}</b>
+                        <span>{{ elementTemplate.description }}</span>
+                    </button>
+                </div>
 
                 <Container @drop="tab.dropElement($event)" lock-axis="y" drag-handle-selector=".handle">            
                     <Draggable v-for="element in tab.data.content" :key="element.localId">
@@ -48,7 +50,7 @@
                             <div class="flex-1 flex vertical" @click="tab.selectElement(element)">
                                 {{ element.type }}
                             </div>
-                            <IconButton icon="delete" @click=""/>
+                            <IconButton icon="delete" @click="tab.removeElement(element)"/>
                         </div>
                     </Draggable>
                 </Container>
@@ -86,7 +88,11 @@
                 </div>
             </template>
 
-            <Inspector :tab="tab" v-if="tab.ui.inspector.panel == 'element'"/>
+            <Inspector
+                :tab="tab"
+                v-if="tab.ui.inspector.panel == 'element'"
+                @update:element="tab.updateElement($event)"
+            />
         </div>
     </div>
 
@@ -221,8 +227,7 @@
 
             .viewport
                 width: 100%
-                max-height: 100%
-                min-height: 8rem
+                max-height: 80vh
                 overflow: auto
                 background: white
                 border: 1px solid var(--color-background-soft)

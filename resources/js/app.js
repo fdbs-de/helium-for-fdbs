@@ -9,6 +9,9 @@ import { InertiaProgress } from '@inertiajs/progress'
 import MarketierUI from 'marketier-ui'
 import 'marketier-ui/dist/style.css'
 
+// Import Iodine UI
+import IodineUI from '@freuwort/iodine-ui'
+
 // Import i18n for Vue
 import { createI18n } from 'vue-i18n/index'
 import translations from '@/Lang/translations'
@@ -55,6 +58,7 @@ createInertiaApp({
 
         application.use(plugin)
         application.use(MarketierUI)
+        application.use(IodineUI)
         application.use(FloatingVue)
         application.use(i18n)
         application.use(pinia)

@@ -1,16 +1,29 @@
 <template>
-    <div class="group" v-if="tab">
-        <template v-for="prop in inspectedElement.props">
-            <mui-input :label="prop.label" v-model="prop.value" />
+    <div class="group" v-if="tab && elementProps && elementProps.length > 0">
+        <template v-for="prop in elementProps">
+            <select v-if="prop.fixtureType === 'select'" v-model="prop.value" @change="emitUpdate()">
+                <option :value="null" disabled>{{prop.label}}</option>
+                <option v-for="option in prop.options" :value="option.value">{{ option.label }}</option>
+            </select>
+
+            <TextEditor v-else-if="prop.fixtureType === 'richtext'" :label="prop.label" v-model="prop.value" @update:modelValue="emitUpdate()"/>
+            
+            <mui-input v-else :label="prop.label" v-model="prop.value" @update:modelValue="emitUpdate()"/>
         </template>
     </div>
 </template>
 
 <script setup>
-    import { ref, computed, watch } from 'vue'
+    import { ref, watch } from 'vue'
     import ElementTemplates from '@/Pages/Apps/Pages/ElementTemplates'
 
+    import TextEditor from '@/Components/Form/TextEditor.vue'
 
+
+
+    const emits = defineEmits([
+        'update:element',
+    ])
 
     const props = defineProps({
         tab: {
@@ -19,38 +32,56 @@
         },
     })
 
-    const inspectedElement = ref({})
-    
-    watch(() => props.tab, (tab) => {
-        let element = props.tab.data.content.find(element => element.localId === props.tab.selected.elements[0])
 
+
+    const elementProps = ref([])
+
+
+
+    const getElementfromSelection = () => {
+        return props.tab.data.content.find(element => element.localId === props.tab.selected.elements[0]) || null
+    }
+
+    const getPropsFromElement = () => {
+        if (!props.tab.selected.elements.length) return []
+
+        const element = getElementfromSelection()
+        if (!element) return []
+
+        const template = ElementTemplates[element.type]
+        if (!template) return []
+
+        return template.props.map(prop => {
+            return { ...prop, value: element.props[prop.key] }
+        })
+    }
+
+    const getElementFromProps = () => {
+        if (!props.tab.selected.elements.length) return
+
+        const element = getElementfromSelection()
         if (!element) return
-        
-        let elementTemplate = ElementTemplates[element.type]
 
-        if (!elementTemplate) return
+        element.props = elementProps.value.reduce((props, prop) => {
+            props[prop.key] = prop.value
+            return props
+        }, {})
 
-        elementTemplate.localId = element.localId
+        return element
+    }
 
-        for (let prop of elementTemplate.props)
-        {
-            prop.value = element.props[prop.key]
-        }
-        
-        inspectedElement.value = elementTemplate
+
+
+    watch(() => props.tab, () => {
+        elementProps.value = getPropsFromElement()
     }, {
         immediate: true,
         deep: true,
     })
 
-    watch(() => inspectedElement.value.props, (element) => {
-        if (!element) return
-        
-        console.log(element)
-    }, {
-        immediate: true,
-        deep: true,
-    })
+    const emitUpdate = () => {
+        emits('update:element', getElementFromProps())
+    }
 </script>
 
 <style lang="sass" scoped>

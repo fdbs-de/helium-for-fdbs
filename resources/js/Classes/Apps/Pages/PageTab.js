@@ -1,6 +1,6 @@
 import { applyDrag } from '@/Utils/DragAndDrop'
-import ElementTemplates from '@/Pages/Apps/Pages/ElementTemplates'
 import Tab from '@/Classes/Editor/Tab'
+import { useForm } from '@inertiajs/inertia-vue3'
 
 
 
@@ -170,6 +170,14 @@ export default class PageTab extends Tab
         this.data.content = applyDrag(this.data.content, dropResults)
     }
 
+    updateElement(element)
+    {
+        this.data.content = this.data.content.map(item => {
+            if (item.localId === element.localId) return element
+            return item
+        })
+    }
+
     removeElement(element)
     {
         this.data.content = this.data.content.filter(item => item.localId !== element.localId)
@@ -212,15 +220,15 @@ export default class PageTab extends Tab
     async save()
     {
         if (this.processing.saving) return
-
-        console.log('Saving page...')
         
+
+
         this.processing.saving = true
         
-        console.log(this.serialize())
+        await useForm(this.serialize()).put('/admin/pages/pages/'+this.data.id, {
+            preserveScroll: true,
+        })
 
         this.processing.saving = false
-
-        console.log('Page saved!');
     }
 }
