@@ -39,9 +39,11 @@
 
             <div class="scroll-box small-scrollbar" v-show="tab.ui.navigator.panel == 'add'">
                 <div class="group">
-                    <IodButton type="button" class="flex vertical" v-for="elementTemplate, key in ElementTemplates" :key="key" @click="tab.createElement(elementTemplate)">
-                        <b>{{ elementTemplate.name }}</b>
-                        <span>{{ elementTemplate.description }}</span>
+                    <IodButton type="button" variant="contained" icon-left="add" style="height: 4rem; justify-content: flex-start" v-for="elementTemplate, key in ElementTemplates" :key="key" @click="tab.createElement(elementTemplate)">
+                        <div class="flex vertical v-start">
+                            <b>{{ elementTemplate.name }}</b>
+                            <span>{{ elementTemplate.description }}</span>
+                        </div>
                     </IodButton>
                 </div>
             </div>
