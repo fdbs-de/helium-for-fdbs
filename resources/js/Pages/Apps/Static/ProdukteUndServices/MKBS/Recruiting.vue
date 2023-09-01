@@ -14,7 +14,7 @@
             </div>
             <div class="fact-card">
                 <div class="icon font-icon">alternate_email</div>
-                <h3>Kontakformular</h3>
+                <h3>Kontaktformular</h3>
             </div>
             <div class="fact-card">
                 <div class="icon font-icon">computer</div>
@@ -38,13 +38,13 @@
                 ist von entscheidender Bedeutung für das Thema Recruiting. In einer Zeit, in der der Wettbewerb
                 um talentierte Fachkräfte intensiver denn je ist, dient eine starke Arbeitgebermarke als
                 mächtiges Instrument, um die Aufmerksamkeit potenzieller Mitarbeiter auf sich zu ziehen
-                und langfristig an das Unternehmen zu binden.
+                und diese langfristig an das Unternehmen zu binden.
             </p>
             <p>
                 Eine gutes Employer Branding vermittelt Bewerbern nicht nur, welche Arbeitsmöglichkeiten
                 ein Unternehmen bietet, sondern auch dessen Werte und Arbeitsumgebung. 
                 Wir schaffen mit Ihnen gemeinsam eine starke Arbeitgebermarke und helfen Ihnen so dabei,
-                den Grundstein für eine  Recruiting Kampagne zu legen.
+                den Grundstein für eine Recruitingkampagne zu legen.
             </p>
             <p>&nbsp;</p>
             <p>&nbsp;</p>
@@ -59,7 +59,7 @@
                 von den Erwartungen und dem Auswahlverfahren gibt.
                 Ein weiterer Vorteil ist die Standardisierung des Bewerbungsprozesses im Funnel-Format.
                 Dadurch wird eine objektive Bewertung der Bewerber ermöglicht. Dies minimiert mögliche
-                Vorurteile und sorgt für eine fairere Auswahl.
+                Vorurteile und sorgt für eine faire Auswahl.
             </p>
             <p>&nbsp;</p>
             <p>&nbsp;</p>
@@ -70,7 +70,7 @@
                 Online-Anzeigen und Google Ads spielen eine zentrale Rolle im Bereich des Recruitings, da sie effektive
                 Werkzeuge sind, um qualifizierte Bewerber anzusprechen und den Rekrutierungsprozess effizienter zu gestalten.
                 Wir konnten mit unserer Strategie auf Facebook, Instagram und Google insgesamt fast 300.000 Menschen
-                innerhalb weniger Wochen erreichen. Hier sind einige Gründe, warum sie für das Recruiting so wichtig sind:
+                innerhalb weniger Wochen erreichen. Hier sind einige Gründe, warum Anzeigen für das Recruiting so wichtig sind:
                 <br><br>
                 <b>Reichweite und Sichtbarkeit:</b><br>
                 Online-Anzeigen, insbesondere über Google Ads, ermöglichen es uns, ihre Stellenangebote einer breiten Zielgruppe zugänglich zu machen. 
@@ -101,7 +101,7 @@
             <img src="/images/content/mkbs/recruiting/print_614574056.jpeg" alt="" class="content-image">
             <h2>Print</h2>
             <p>
-                Die Kombination von Online-Anzeigen und traditionellen Printanzeigen, spielt eine wichtige Rolle im Bereich des Recruitings,
+                Die Kombination von Online-Anzeigen und traditionellen Printanzeigen spielt eine wichtige Rolle im Bereich des Recruitings,
                 da sie eine vielseitige und ganzheitliche Herangehensweise an die Bewerberansprache ermöglichen. 
                 Die Multi-Channel-Präsenz ermöglicht eine breite Darstellung in verschiedenen Medien.
                 Bewerber können so auf mehreren Plattformen auf das Unternehmen aufmerksam werden, was die Chancen erhöht,
