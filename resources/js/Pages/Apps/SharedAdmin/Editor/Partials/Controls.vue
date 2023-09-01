@@ -84,7 +84,7 @@
         height: 2.25rem
         display: flex
         background: var(--color-background-dark-soft)
-        color: var(--color-heading-on-background-dark)
+        color: var(--color-text-on-background-dark)
         padding-right: .5rem
 
         > button:not(.tab),

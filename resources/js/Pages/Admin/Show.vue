@@ -202,7 +202,7 @@
                     margin: 0
                     font-size: 1.2rem
                     font-family: var(--font-heading)
-                    color: var(--color-heading)
+                    color: var(--color-text)
 
                 h2
                     font-size: clamp(2rem, 5vw, 4rem)

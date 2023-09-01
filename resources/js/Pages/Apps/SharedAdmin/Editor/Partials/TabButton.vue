@@ -40,7 +40,7 @@
         font-size: inherit
         text-align: left
         position: relative
-        color: var(--color-text-on-background-dark)
+        color: var(--color-text-soft-on-background-dark)
         background: transparent
         border: none
         border-radius: var(--radius-m)
@@ -56,7 +56,7 @@
         &.active
             z-index: 1
             border-radius: var(--radius-m) var(--radius-m) 0 0
-            color: var(--color-heading-on-background-dark)
+            color: var(--color-text-on-background-dark)
             background: var(--color-background-dark)
 
             .corner
@@ -100,7 +100,7 @@
             display: flex
             align-items: center
             justify-content: center
-            color: var(--color-text-on-background-dark)
+            color: var(--color-text-soft-on-background-dark)
 
         > .title
             flex: 1

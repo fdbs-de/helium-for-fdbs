@@ -53,8 +53,8 @@
         width: 2.25rem
         font-size: 1.5rem
         font-family: var(--font-icon)
-        color: var(--color-text)
-        border-radius: calc(var(--su) * .5)
+        color: var(--color-text-soft)
+        border-radius: .5rem
         background: var(--color-background-soft)
         border: none
         padding: 0
@@ -63,7 +63,7 @@
         &:focus,
         &:hover
             background: var(--color-background-soft)
-            color: var(--color-heading)
+            color: var(--color-text)
 
     .mobile-menu
         position: fixed
@@ -109,14 +109,14 @@
 
             .flex
                 height: calc(var(--height-header) + 2px)
-                padding-inline: var(--su)
+                padding-inline: 1rem
                 border-bottom: 2px solid rgba(0,0,0,.1)
 
             .menu-scroller
                 overflow-y: auto
                 overflow-x: hidden
                 flex: 1
-                padding-block: var(--su) 100px
+                padding-block: 1rem 100px
 
                 ul
                     display: flex
@@ -127,24 +127,24 @@
 
                     li
                         > a
-                            padding: calc(var(--su) * .5) calc(var(--su) * 1.5)
+                            padding: .5rem 1.5rem
                             display: flex
-                            color: var(--color-text)
+                            color: var(--color-text-soft)
 
                             &:hover,
                             &:focus
                                 background: var(--color-background-soft)
-                                color: var(--color-heading)
+                                color: var(--color-text)
 
                         &.active > a
                             color: var(--color-primary) !important
 
                     li > ul
-                        padding-left: calc(var(--su) * 1.5)
+                        padding-left: 1.5rem
 
     .desktop-menu
         display: flex
-        gap: calc(var(--su) * 2)
+        gap: 2rem
 
         > ul
             display: contents
@@ -154,7 +154,7 @@
                 display: flex
                 align-items: center
                 position: relative
-                color: var(--color-heading)
+                color: var(--color-text)
 
                 &.has-dropdown::after
                     content: "arrow_drop_down"
@@ -199,8 +199,8 @@
                     min-width: 260px
                     display: flex
                     flex-direction: column
-                    padding: var(--su) 0
-                    border-radius: calc(var(--su) * .5)
+                    padding: 1rem 0
+                    border-radius: var(--radius-m)
                     border: 1px solid var(--color-background-soft)
                     background: var(--color-background)
                     list-style: none
@@ -212,7 +212,7 @@
 
                     > li
                         width: 100%
-                        color: var(--color-text)
+                        color: var(--color-text-soft)
                         position: relative
 
                         &.has-dropdown::after
@@ -229,13 +229,13 @@
                         > a
                             display: flex
                             align-items: center
-                            padding: 0 var(--su)
+                            padding: 0 1rem
                             height: 3rem
                             color: inherit
 
                         &:hover,
                         &:focus
-                            color: var(--color-heading)
+                            color: var(--color-text)
 
                             > a
                                 background: var(--color-background-soft)
@@ -249,7 +249,7 @@
                             color: var(--color-primary)
 
                         > ul
-                            top: calc(-1 * var(--su) - 1px)
+                            top: calc(-1rem - 1px)
                             left: 100%
                             transform: translate(0, -10px)
     

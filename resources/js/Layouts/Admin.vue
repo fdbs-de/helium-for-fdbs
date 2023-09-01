@@ -251,7 +251,7 @@
         position: relative
         z-index: 2000
         cursor: pointer
-        color: var(--color-heading)
+        color: var(--color-text)
         background: var(--color-background)
 
         &.open
@@ -285,7 +285,7 @@
             left: 0
             display: flex
             flex-direction: column
-            background: var(--color-heading)
+            background: var(--color-text)
             box-shadow: var(--shadow-elevation-medium)
             color: white
 
@@ -392,7 +392,7 @@
                     background: #ffffff33
                     border-radius: 0
                     background-clip: content-box
-                    border: 2px solid var(--color-heading)
+                    border: 2px solid var(--color-text)
 
                     &:hover
                         background: var(--color-background)
@@ -530,11 +530,11 @@
                         background-color: transparent
                         font-family: var(--font-icon)
                         font-size: 1.3rem
-                        color: var(--color-text)
+                        color: var(--color-text-soft)
                         padding: 0
 
                         &:hover
-                            color: var(--color-heading)
+                            color: var(--color-text)
 
                     h1
                         font-size: 1.5rem

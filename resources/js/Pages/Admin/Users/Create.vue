@@ -260,7 +260,7 @@
             display: flex
             align-items: center
             width: 100%
-            gap: var(--su)
+            gap: 1rem
 
             &.fixed-height
                 min-height: 5rem
@@ -291,17 +291,17 @@
         .popup-block
             display: flex
             flex-direction: column
-            padding: var(--su)
+            padding: 1rem
             border-radius: .2rem
             background: var(--color-background)
             margin-bottom: 3px
 
             &.popup-error
-                padding: var(--su)
+                padding: 1rem
                 background: var(--color-red)
                 color: var(--color-background)
                 border-radius: .5rem
-                margin-bottom: var(--su)
+                margin-bottom: 1rem
 
                 h3,
                 p
@@ -309,7 +309,7 @@
                     margin: 0
 
             &.popup-head
-                padding: var(--su)
+                padding: 1rem
                 background: var(--color-primary)
                 border-radius: .5rem .5rem .2rem .2rem
                 color: var(--color-background)
@@ -353,7 +353,7 @@
                         color: var(--color-background)
 
             &.popup-footer
-                padding: .75rem var(--su)
+                padding: .75rem 1rem
                 background: var(--color-background)
                 border-radius: .2rem .2rem .5rem .5rem
                 margin-bottom: 0

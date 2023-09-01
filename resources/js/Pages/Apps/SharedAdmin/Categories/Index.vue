@@ -81,7 +81,7 @@
 
     const tableColumns = [
         {type: 'tags', name: 'name', label: 'Name', valuePath: 'name', sortable: true, width: 300, resizeable: true, hideable: true, transform: (value, item) => {
-            return [{icon: item.icon || 'category', text: value, color: item.color || 'var(--color-text)', variant: item.color ? 'filled' : 'contained', shape: 'pill'}]
+            return [{icon: item.icon || 'category', text: value, color: item.color || 'var(--color-text-soft)', variant: item.color ? 'filled' : 'contained', shape: 'pill'}]
         }},
         // {type: 'text', name: 'name', label: 'Name', valuePath: 'name', sortable: true, width: 300, resizeable: true, hideable: true},
         {type: 'text', name: 'slug', label: 'Slug', valuePath: 'slug', sortable: true, width: 200, resizeable: true, hideable: true},
@@ -90,7 +90,7 @@
             switch (value)
             {
                 case 'draft':
-                    return [{icon: null, text: 'Entwurf', color: 'var(--color-text)', variant: 'filled', shape: 'pill'}]
+                    return [{icon: null, text: 'Entwurf', color: 'var(--color-text-soft)', variant: 'filled', shape: 'pill'}]
                 case 'pending':
                     return [{icon: null, text: 'Zur Freigabe', color: 'var(--color-warning)', variant: 'filled', shape: 'pill'}]
                 case 'published':
@@ -107,7 +107,7 @@
         {
             icon: 'edit',
             text: 'Bearbeiten',
-            color: 'var(--color-heading)',
+            color: 'var(--color-text)',
             individual: true,
             multiple: false,
             triggerOnRowClick: true,
@@ -117,7 +117,7 @@
         {
             icon: 'content_copy',
             text: 'Duplizieren',
-            color: 'var(--color-heading)',
+            color: 'var(--color-text)',
             individual: true,
             multiple: false,
             triggerOnRowClick: false,

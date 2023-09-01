@@ -117,7 +117,7 @@
             border: none
             padding: 0 1rem
             background: transparent
-            color: var(--color-text)
+            color: var(--color-text-soft)
             font-family: inherit
             font-size: inherit
             cursor: pointer
@@ -128,17 +128,17 @@
                 padding-inline: 0
 
             &:hover
-                color: var(--color-heading)
+                color: var(--color-text)
                 background: #0000000f
 
             &.active
-                color: var(--color-heading)
+                color: var(--color-text)
                 background: #0000000f
                 font-weight: 600
 
             &:disabled
                 background: transparent
-                color: var(--color-text)
+                color: var(--color-text-soft)
                 opacity: .6
                 cursor: default
 </style>

@@ -62,10 +62,10 @@
             max-width: 500px
             margin: 0 auto var(--height-header)
             transform: translateY(calc(-1 * var(--height-header)))
-            padding: calc(var(--su) * 2)
-            gap: calc(var(--su) * 2)
+            padding: 2rem
+            gap: 2rem
             background: var(--color-background)
-            border-radius: calc(var(--su) * .75)
+            border-radius: var(--radius-l)
             box-shadow: var(--shadow-elevation-low)
             display: flex
             flex-direction: column
@@ -87,8 +87,8 @@
             form
                 border-radius: 0
                 box-shadow: none
-                margin-bottom: calc(var(--su) * 2)
+                margin-bottom: 2rem
                 transform: none
-                padding-inline: var(--su)
-                gap: calc(var(--su) * 1.25)
+                padding-inline: 1rem
+                gap: 1.25rem
 </style>

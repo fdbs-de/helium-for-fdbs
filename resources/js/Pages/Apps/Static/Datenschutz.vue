@@ -5,7 +5,7 @@
         </Head>
 
         <!-- <Alert icon="info" title="Datenschutzerklärungen für unsere Social Media Kanäle">
-            <div class="flex center gap wrap" style="margin-bottom: var(--su)">
+            <div class="flex center gap wrap" style="margin-bottom: 1rem">
                 <a href="https://itrk.legal/9Vw.76.6Md.html" target="_blank" rel="noopener">Instagram</a><br>
                 <a href="https://itrk.legal/9Vw.75.6Md.html" target="_blank" rel="noopener">Facebook</a><br>
                 <a href="https://itrk.legal/9Vw.7H.6Md.html" target="_blank" rel="noopener">LinkedIn</a><br>
@@ -36,6 +36,6 @@
         border-radius: .325rem
         padding: .5rem 1rem
         background-color: var(--color-background-soft)
-        color: var(--color-heading)
+        color: var(--color-text)
         display: inline-block
 </style>

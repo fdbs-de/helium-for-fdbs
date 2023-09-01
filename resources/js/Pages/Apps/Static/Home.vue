@@ -174,7 +174,7 @@
 
             .text-wrapper
                 flex: 3
-                color: var(--color-heading)
+                color: var(--color-text)
                 text-align: center
 
                 p

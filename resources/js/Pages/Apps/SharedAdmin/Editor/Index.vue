@@ -98,6 +98,6 @@
     
     --color-background-dark: #393F3F
     --color-background-dark-soft: #2A2F2F
-    --color-text-on-background-dark: rgb(255, 255, 255, .7)
-    --color-heading-on-background-dark: rgb(255, 255, 255, 1)
+    --color-text-soft-on-background-dark: rgb(255, 255, 255, .7)
+    --color-text-on-background-dark: rgb(255, 255, 255, 1)
 </style>

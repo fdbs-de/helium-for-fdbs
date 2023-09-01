@@ -119,7 +119,7 @@
             border-radius: var(--radius-xl)
 
             h2
-                color: var(--color-heading)
+                color: var(--color-text)
                 text-align: left
                 margin: 0
 

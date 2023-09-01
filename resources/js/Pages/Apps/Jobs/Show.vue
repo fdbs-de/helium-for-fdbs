@@ -10,7 +10,7 @@
 
         <div class="flex wrap gap-1 v-center margin-bottom-4">
             <Tag v-if="post.post_category" :style="'color: '+post.post_category.color || 'gray'" :icon="post.post_category.icon || 'category'" shape="pill">{{post.post_category.name}}</Tag>
-            <Tag v-for="tag in post.tags" :key="tag" style="color: var(--color-text);" shape="pill">{{tag}}</Tag>
+            <Tag v-for="tag in post.tags" :key="tag" style="color: var(--color-text-soft);" shape="pill">{{tag}}</Tag>
         </div>
 
         <div class="formatted-content" v-html="post.content"></div>

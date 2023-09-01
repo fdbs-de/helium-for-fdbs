@@ -14,7 +14,7 @@
         title: String,
         titleColor: {
             type: String,
-            default: 'var(--color-heading)',
+            default: 'var(--color-text)',
         },
         image: {
             type: String,
@@ -26,7 +26,7 @@
 <style lang="sass" scoped>
     .he-background-image
         background-color: var(--color-background-soft)
-        color: var(--color-heading)
+        color: var(--color-text)
         background-size: cover
         background-position: center
         background-repeat: no-repeat

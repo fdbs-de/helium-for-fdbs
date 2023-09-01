@@ -123,7 +123,7 @@
                 z-index: 1
 
         .item-wrapper
-            color: var(--color-text)
+            color: var(--color-text-soft)
             min-height: 3rem
             padding: .25rem 1rem
             display: flex
@@ -133,7 +133,7 @@
             width: 100%
 
             &:hover
-                color: var(--color-heading)
+                color: var(--color-text)
                 background: var(--color-background-soft)
 
         .icon

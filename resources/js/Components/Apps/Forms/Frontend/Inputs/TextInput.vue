@@ -44,7 +44,7 @@
         border-radius: var(--radius-s)
         font-size: 1rem
         line-height: 1.5
-        color: var(--color-text)
+        color: var(--color-text-soft)
         background: var(--color-background-soft)
         font-family: var(--font-text)
 

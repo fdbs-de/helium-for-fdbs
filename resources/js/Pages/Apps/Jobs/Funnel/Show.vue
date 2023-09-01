@@ -216,7 +216,7 @@
                 border-radius: var(--radius-m)
                 background: var(--color-background-soft)
                 border: 1px solid var(--color-border)
-                color: var(--color-text)
+                color: var(--color-text-soft)
                 font-size: 1.25rem
                 font-weight: 500
                 cursor: pointer

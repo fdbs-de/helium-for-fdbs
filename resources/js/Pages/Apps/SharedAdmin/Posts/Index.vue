@@ -59,7 +59,7 @@
         {type: 'text', name: 'title', label: 'Titel', valuePath: 'title', sortable: true, width: 300, resizeable: true, hideable: true},
         {type: 'text', name: 'slug', label: 'Slug', valuePath: 'slug', sortable: true, width: 200, resizeable: true, hideable: true},
         {type: 'tags', name: 'post_category', label: 'Kategorie', valuePath: 'post_category', sortable: false, width: 200, resizeable: true, hideable: true, transform: (value, item) => {
-            if (!value) return [{icon: null, text: 'Keine Kategorie', color: 'var(--color-text)', variant: 'contained', shape: 'pill'}]
+            if (!value) return [{icon: null, text: 'Keine Kategorie', color: 'var(--color-text-soft)', variant: 'contained', shape: 'pill'}]
 
             return [{icon: value.icon, text: value.name, color: value.color, variant: 'filled', shape: 'pill'}]
         }},
@@ -67,7 +67,7 @@
             switch (value)
             {
                 case 'draft':
-                    return [{icon: null, text: 'Entwurf', color: 'var(--color-text)', variant: 'filled', shape: 'pill'}]
+                    return [{icon: null, text: 'Entwurf', color: 'var(--color-text-soft)', variant: 'filled', shape: 'pill'}]
                 case 'pending':
                     return [{icon: null, text: 'Zur Freigabe', color: 'var(--color-warning)', variant: 'filled', shape: 'pill'}]
                 case 'published':
@@ -84,7 +84,7 @@
         {
             icon: 'edit',
             text: 'Bearbeiten',
-            color: 'var(--color-heading)',
+            color: 'var(--color-text)',
             individual: true,
             multiple: true,
             triggerOnRowClick: true,
@@ -94,7 +94,7 @@
         {
             icon: 'content_copy',
             text: 'Duplizieren',
-            color: 'var(--color-heading)',
+            color: 'var(--color-text)',
             individual: true,
             multiple: false,
             triggerOnRowClick: false,

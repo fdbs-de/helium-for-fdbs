@@ -40,7 +40,7 @@
                     </span>
                 </div>
                 <div class="flex v-center">
-                    <IconButton icon="deselect" style="color: var(--color-text)" v-tooltip="'Alles abwählen'" @click="deselectAll()"/>
+                    <IconButton icon="deselect" style="color: var(--color-text-soft)" v-tooltip="'Alles abwählen'" @click="deselectAll()"/>
                     <IconButton v-for="action in multipleActions" :icon="action.icon" :style="'color: ' + action.color" v-tooltip="action.text" @click.stop="action.run(selection)"/>
                 </div>
             </template>
@@ -434,7 +434,7 @@
                 border: 0
 
                 &:hover
-                    background: var(--color-text)
+                    background: var(--color-text-soft)
                     border: 0
                     border-radius: 0
 
@@ -505,11 +505,11 @@
 
                 &.sortable:hover
                     .column-sort-indicator
-                        color: var(--color-text)
+                        color: var(--color-text-soft)
 
                 &.sortable.sorted-field
                     .column-sort-indicator
-                        color: var(--color-heading)
+                        color: var(--color-text)
 
                 &.sortable.sorted-field,
                 &.sortable:hover
@@ -534,7 +534,7 @@
                     white-space: nowrap
                     font-size: .8rem
                     text-transform: uppercase
-                    color: var(--color-heading)
+                    color: var(--color-text)
 
                 .column-resize-handle
                     width: .5rem
@@ -544,7 +544,7 @@
                     position: absolute
                     right: .25rem
                     top: .25rem
-                    background: var(--color-heading)
+                    background: var(--color-text)
                     z-index: 10
                     display: none
                     opacity: 0

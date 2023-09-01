@@ -32,7 +32,7 @@
         background-color: transparent
         font-family: var(--font-icon)
         font-size: 1.25rem
-        color: var(--color-text)
+        color: var(--color-text-soft)
         border-radius: var(--radius-m)
         text-decoration: none
         user-select: none
@@ -40,7 +40,7 @@
         transition: all 100ms ease
 
         &:hover
-            color: var(--color-heading)
+            color: var(--color-text)
 
         &.active
             color: black

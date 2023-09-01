@@ -216,5 +216,5 @@
         border-radius: var(--radius-s)
         flex: none
         background: transparent
-        color: var(--color-text)
+        color: var(--color-text-soft)
 </style>

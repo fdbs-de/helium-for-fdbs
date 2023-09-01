@@ -96,7 +96,7 @@
                 background: var(--color-background)
                 box-shadow: var(--shadow-elevation-low)
                 font-size: 1.5rem 
-                color: var(--color-heading)
+                color: var(--color-text)
 
                 &:hover,
                 &:focus
@@ -113,7 +113,7 @@
                     padding: 0 1rem
                     border: none
                     background: var(--color-background-soft)
-                    color: var(--color-text)
+                    color: var(--color-text-soft)
                     font-family: var(--font-heading)
                     font-size: 0.9rem
                     font-weight: 500
@@ -123,7 +123,7 @@
 
                     &:hover,
                     &:focus
-                        color: var(--color-heading)
+                        color: var(--color-text)
 
                     &.active
                         background: var(--color-primary)
@@ -171,7 +171,7 @@
                         font-size: 1.1rem
                         font-weight: 600
                         margin: 0
-                        color: var(--color-heading)
+                        color: var(--color-text)
                         font-family: var(--font-heading)
 
 

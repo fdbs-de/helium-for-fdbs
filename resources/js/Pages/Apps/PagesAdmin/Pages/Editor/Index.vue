@@ -22,39 +22,41 @@
                 <IconButton icon="redo" v-tooltip.bottom="'Wiederherstellen (Strg+Y)'"/>
                 <IconButton icon="history" v-tooltip.bottom="'Bearbeitungsverlauf'"/>
                 <div class="spacer"></div>
-                <mui-button class="with-label" variant="contained" label="Speichern" v-tooltip.bottom="'Speichern (Strg+S)'" @click="tab.save()" :loading="tab.processing.saving"/>
                 <IconButton is="a" icon="open_in_new" v-tooltip.bottom="'Seite öffnen'" :href="route('app.pages.render.page', tab.data.slug)" target="_blank"/>
+                <mui-button class="with-label" variant="contained" label="Speichern" v-tooltip.bottom="'Speichern (Strg+S)'" @click="tab.save()" :loading="tab.processing.saving"/>
             </div>
         </div>
 
 
 
-        <div class="sidebar navigator small-scrollbar">
-            <div class="group no-padding">
-                <Tabs v-model="tab.ui.navigator.panel" :tabs="[
+        <div class="sidebar navigator">
+            <div class="tab-box">
+                <Tabs v-model="tab.ui.navigator.panel" indicator-style="box" :tabs="[
                     { label: 'Elemente', value: 'elements' },
+                    { label: 'Hinzufügen', value: 'add' },
                 ]" />
             </div>
-            <div class="flex vertical">
+
+            <div class="scroll-box small-scrollbar" v-show="tab.ui.navigator.panel == 'add'">
                 <div class="group">
-                    <button type="button" class="flex vertical" v-for="elementTemplate, key in ElementTemplates" :key="key" @click="tab.createElement(elementTemplate)">
+                    <IodButton type="button" class="flex vertical" v-for="elementTemplate, key in ElementTemplates" :key="key" @click="tab.createElement(elementTemplate)">
                         <b>{{ elementTemplate.name }}</b>
                         <span>{{ elementTemplate.description }}</span>
-                    </button>
+                    </IodButton>
                 </div>
-
-                <Container @drop="tab.dropElement($event)" lock-axis="y" drag-handle-selector=".handle">            
-                    <Draggable v-for="element in tab.data.content" :key="element.localId">
-                        <div class="content-element flex v-center" :class="{'selected': tab.selected.elements.includes(element.localId)}">
-                            <IconButton class="handle" icon="drag_indicator"/>
-                            <div class="flex-1 flex vertical" @click="tab.selectElement(element)">
-                                {{ element.type }}
-                            </div>
-                            <IconButton icon="delete" @click="tab.removeElement(element)"/>
-                        </div>
-                    </Draggable>
-                </Container>
             </div>
+
+            <Container class="scroll-box small-scrollbar" v-show="tab.ui.navigator.panel == 'elements'" @drop="tab.dropElement($event)" lock-axis="y">            
+                <Draggable v-for="element in tab.data.content" :key="element.localId">
+                    <div class="content-element flex v-center" :class="{'selected': tab.selected.elements.includes(element.localId)}">
+                        <IodIcon class="handle" icon="drag_indicator"/>
+                        <div class="flex-1 flex vertical" @click="tab.selectElement(element)">
+                            {{ element.type }}
+                        </div>
+                        <IodIconButton icon="delete" variant="text" color-preset="error" @click="tab.removeElement(element)"/>
+                    </div>
+                </Draggable>
+            </Container>
         </div>
 
 
@@ -67,15 +69,19 @@
 
 
 
-        <div class="sidebar inspector small-scrollbar">
-            <div class="group no-padding">
-                <Tabs v-model="tab.ui.inspector.panel" :tabs="[
+        <div class="sidebar inspector">
+            <div class="tab-box">
+                <Tabs v-model="tab.ui.inspector.panel" indicator-style="box" :tabs="[
                     { label: 'Element', value: 'element' },
                     { label: 'Seite', value: 'page' },
                 ]" />
             </div>
 
-            <template v-if="tab.ui.inspector.panel == 'page'">
+            <div class="scroll-box small-scrollbar" v-show="tab.ui.inspector.panel == 'element'">
+                <Inspector :tab="tab" @update:element="tab.updateElement($event)"/>
+            </div>
+            
+            <div class="scroll-box small-scrollbar" v-show="tab.ui.inspector.panel == 'page'">
                 <div class="group">
                     <select class="default-select" v-model="tab.data.status">
                         <option :value="null" disabled>Status</option>
@@ -83,16 +89,10 @@
                         <option value="published">Veröffentlicht</option>
                         <option value="hidden">Versteckt</option>
                     </select>
-                    <mui-input class="default-text-input" placeholder="Titel" v-model="tab.data.title"/>
-                    <mui-input class="default-text-input" placeholder="Slug" v-model="tab.data.slug"/>
+                    <IodInput class="default-text-input" label="Titel" v-model="tab.data.title"/>
+                    <IodInput class="default-text-input" label="Slug" v-model="tab.data.slug"/>
                 </div>
-            </template>
-
-            <Inspector
-                :tab="tab"
-                v-if="tab.ui.inspector.panel == 'element'"
-                @update:element="tab.updateElement($event)"
-            />
+            </div>
         </div>
     </div>
 
@@ -159,7 +159,7 @@
         flex: 1
         height: calc(100% - 2.25rem)
         display: grid
-        grid-template-columns: 22rem 1fr 22rem
+        grid-template-columns: 25rem 1fr 25rem
         grid-template-rows: 4rem 1fr auto
         grid-template-areas: "tool-bar tool-bar tool-bar" "navigator viewport inspector" "navigator code-editor inspector"
 
@@ -178,11 +178,11 @@
             .end
                 display: flex
                 align-items: center
-                width: 22rem
+                width: 25rem
                 padding-inline: 1rem
 
                 > button.with-label
-                    --primary: var(--color-heading-on-background-dark)
+                    --primary: var(--color-text-on-background-dark)
 
             .center
                 flex: 1
@@ -203,43 +203,76 @@
                     > button
                         border-radius: var(--radius-s)
                         height: 100%
-                        color: var(--color-text-on-background-dark)
+                        color: var(--color-text-soft-on-background-dark)
 
                         &.active
                             background: var(--color-background-dark)
-                            color: var(--color-heading-on-background-dark)
+                            color: var(--color-text-on-background-dark)
 
         .navigator
             grid-area: navigator
 
-            .content-element.selected
-                background: var(--color-background-soft)
+            .content-element
+                user-select: none
+                position: relative
+                padding: .25rem .5rem
+                color: var(--color-text)
+                transition: background 100ms ease
+                cursor: pointer
+
+                &::after
+                    content: ''
+                    position: absolute
+                    top: .5rem
+                    left: 0
+                    bottom: .5rem
+                    width: .2rem
+                    border-radius: 0 3px 3px 0
+                    background: currentColor
+                    opacity: 0
+                    user-select: none
+                    pointer-events: none
+
+                &:hover
+                    background: var(--color-background-soft)
+                    
+                    &::after
+                        opacity: .5
+
+                &.selected
+                    background: var(--color-background-soft)
+
+                    &::after
+                        opacity: 1
+
+                .handle
+                    width: 2rem
+                    font-size: 1.25rem
+                    color: var(--color-text-soft)
 
         .inspector
             grid-area: inspector
-
-        .viewport-wrapper
-            grid-area: viewport
-            display: flex
-            flex-direction: column
-            align-items: center
-            padding: 1rem
-
-            .viewport
-                width: 100%
-                max-height: 80vh
-                overflow: auto
-                background: white
-                border: 1px solid var(--color-background-soft)
-                border-radius: var(--radius-s)
-                box-shadow: var(--shadow-elevation-low)
 
         .sidebar
             height: 100%
             background: var(--color-background)
             box-shadow: var(--shadow-elevation-low)
-            color: var(--color-heading)
-            overflow-y: auto
+            color: var(--color-text)
+            display: flex
+            flex-direction: column
+
+            .tab-box
+                flex: none
+                padding: .5rem
+                border-bottom: 1px solid var(--color-border)
+
+                .tabs-wrapper
+                    --tab-height: 2rem
+                    font-size: .8rem
+
+            .scroll-box
+                flex: 1
+                overflow-y: auto
 
             .group
                 padding: 1rem .5rem
@@ -261,9 +294,25 @@
                     font-weight: 600
                     letter-spacing: .05rem
                     text-transform: uppercase
-                    color: var(--color-text)
+                    color: var(--color-text-soft)
                     user-select: none
 
                 .spacer
                     flex: 1
+
+        .viewport-wrapper
+            grid-area: viewport
+            display: flex
+            flex-direction: column
+            align-items: center
+            padding: 1rem
+
+            .viewport
+                width: 100%
+                max-height: 80vh
+                overflow: auto
+                background: white
+                border: 1px solid var(--color-background-soft)
+                border-radius: var(--radius-s)
+                box-shadow: var(--shadow-elevation-low)
 </style>

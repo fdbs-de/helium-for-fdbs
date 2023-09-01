@@ -1,5 +1,5 @@
 <template>
-    <div class="tabs-wrapper tab-component">
+    <div class="tabs-wrapper tab-component" ref="container">
         <button
             type="button"
             class="tab"
@@ -11,7 +11,7 @@
             {{ tab.label }}
         </button>
 
-        <div class="indicator" ref="indicator"></div>
+        <div class="indicator" :class="['indicator-style-'+indicatorStyle]" ref="indicator"></div>
     </div>
 </template>
 
@@ -21,8 +21,13 @@
     const props = defineProps({
         modelValue: [String, Number],
         tabs: Array,
+        indicatorStyle: {
+            type: String,
+            default: 'line',
+        }
     })
 
+    const container = ref(null)
     const indicator = ref(null)
 
     watch(() => props.modelValue, () => {
@@ -36,7 +41,7 @@
     })
 
     const updateIndicator = () => {
-        const activeTab = document.querySelector('.tabs-wrapper.tab-component .tab.active')
+        const activeTab = container.value.querySelector('.tabs-wrapper.tab-component .tab.active')
 
         if (!activeTab) return
 
@@ -52,7 +57,7 @@
             current = current.offsetParent
         }
 
-        indicator.value.style.transform = `translateX(${left}px)`
+        indicator.value.style.transform = `translateX(${left+1}px)`
         indicator.value.style.width = `${width-2}px`
     }
 </script>
@@ -81,7 +86,7 @@
             border: 0
 
             &:hover
-                background: var(--color-text)
+                background: var(--color-text-soft)
                 border: 0
                 border-radius: 0
 
@@ -92,11 +97,12 @@
             padding: 0 1rem
             height: var(--tab-height)
             position: relative
+            z-index: 2
             border: none
             background: none
             border-radius: var(--radius-s)
             color: inherit
-            font-size: 1rem
+            font-size: inherit
             font-family: inherit
             font-weight: 500
             cursor: pointer
@@ -108,18 +114,29 @@
 
             &:hover,
             &:focus
-                color: var(--color-heading)
+                color: var(--color-text)
 
             &.active
-                color: var(--color-heading)
+                color: var(--color-primary)
 
         .indicator
-            height: 2px
-            width: 1px
-            background: var(--color-heading)
             position: absolute
-            bottom: 0
+            z-index: 1
             left: 0
-            border-radius: 2px 2px 0 0
-            transition: all 100ms ease-in-out
+            width: 1px
+            transition: transform 100ms ease-in-out, width 100ms ease, background 100ms ease
+            pointer-events: none
+
+            &.indicator-style-line
+                bottom: 0
+                height: 2px
+                border-radius: 2px 2px 0 0
+                background: var(--color-text)
+
+            &.indicator-style-box
+                bottom: 0
+                top: 0
+                border-radius: var(--radius-m)
+                background: currentColor
+                opacity: .1
 </style>

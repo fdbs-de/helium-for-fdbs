@@ -11,7 +11,7 @@
                 <div class="flex gap-1 v-center wrap" v-if="post.post_category || post.tags">
                     <Tag v-if="post.post_category" :style="'color: '+post.post_category.color || 'gray'" :icon="post.post_category.icon || 'category'" shape="pill">{{post.post_category.name}}</Tag>
                     <Tag v-if="post.status !== 'published'" style="color: var(--color-error)" shape="pill">Nicht veröffentlicht</Tag>
-                    <Tag v-for="tag in post.tags" :key="tag" style="color: var(--color-text);" shape="pill">{{tag}}</Tag>
+                    <Tag v-for="tag in post.tags" :key="tag" style="color: var(--color-text-soft);" shape="pill">{{tag}}</Tag>
                 </div>
     
                 <div class="formatted-content" v-html="post.content"></div>

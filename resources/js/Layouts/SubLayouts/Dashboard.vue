@@ -79,8 +79,8 @@
                     letter-spacing: .05rem
                     font-weight: 600
                     text-transform: uppercase
-                    color: var(--color-text)
-                    border-radius: calc(var(--su) * .5)
+                    color: var(--color-text-soft)
+                    border-radius: var(--radius-m)
                     padding-inline: 1rem
                     display: flex
                     align-items: center
@@ -90,7 +90,7 @@
                     &:hover,
                     &:focus
                         background: var(--color-background-soft)
-                        color: var(--color-heading)
+                        color: var(--color-text)
 
                     &.active
                         background: var(--color-primary)

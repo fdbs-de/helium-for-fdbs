@@ -116,7 +116,7 @@
                 .popup-header
                     margin: 0
                     padding: 1rem
-                    --local-color-text: var(--color-heading)
+                    --local-color-text: var(--color-text)
                     --local-color-transparent: #00000010
 
                 .popup-content

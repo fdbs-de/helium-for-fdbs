@@ -147,7 +147,7 @@
         right: 0
         z-index: 2000
         cursor: pointer
-        color: var(--color-heading)
+        color: var(--color-text)
         background: var(--color-background)
         box-shadow: var(--shadow-elevation-low)
         border-radius: var(--radius-m)
@@ -207,7 +207,7 @@
                 width: 100%
                 display: flex
                 align-items: center
-                color: var(--color-heading)
+                color: var(--color-text)
                 user-select: none
                 position: relative
                 z-index: 1
@@ -253,7 +253,7 @@
                 user-select: none
                 cursor: pointer
                 position: relative
-                color: var(--color-text)
+                color: var(--color-text-soft)
 
                 &::before
                     content: ''
@@ -290,7 +290,7 @@
                     white-space: nowrap
                     font-weight: 500
                     font-size: .9rem
-                    color: var(--color-heading)
+                    color: var(--color-text)
                     transition: all 200ms cubic-bezier(0.22, 0.61, 0.36, 1)
 
                 .external

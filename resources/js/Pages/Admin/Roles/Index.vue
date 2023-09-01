@@ -169,11 +169,11 @@
 
                 &:hover
                     background: var(--color-background-soft)
-                    color: var(--color-heading)
+                    color: var(--color-text)
 
                 &.active
                     background: var(--color-background-soft)
-                    color: var(--color-heading)
+                    color: var(--color-text)
 
                 .name
                     font-weight: 400
@@ -201,5 +201,5 @@
                 .icon
                     font-family: var(--font-icon)
                     font-size: 1.2rem
-                    color: var(--color-text)
+                    color: var(--color-text-soft)
 </style>
