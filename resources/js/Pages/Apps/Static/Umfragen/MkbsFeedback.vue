@@ -425,7 +425,7 @@
             transform: translateX(-50%)
             bottom: 100%
             font-size: 14px
-            color: var(--color-text)
+            color: var(--color-text-soft)
             font-family: monospace
 
         .progress-bar
@@ -485,7 +485,7 @@
 
         h5
             margin-bottom: 0
-            color: var(--color-text)
+            color: var(--color-text-soft)
 
         .controls
             display: flex

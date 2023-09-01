@@ -163,7 +163,7 @@
             padding: 0
             font-size: .9rem
             font-family: var(--font-heading)
-            color: var(--color-heading)
+            color: var(--color-text)
 
         .metadata-wrapper
             flex: none
@@ -182,7 +182,7 @@
                 justify-content: center
                 font-family: var(--font-icon)
                 font-size: 1.25rem
-                color: var(--color-text)
+                color: var(--color-text-soft)
                 line-height: 1
 
 
@@ -190,7 +190,7 @@
             font-family: var(--font-icon)
             background: none
             border: none
-            color: var(--color-text)
+            color: var(--color-text-soft)
             font-size: 1.3rem
             height: 2.2rem
             width: 2.2rem
@@ -202,7 +202,7 @@
 
             &:hover
                 background: #00000010
-                color: var(--color-heading)
+                color: var(--color-text)
 
     .dropdown
         display: flex
@@ -218,5 +218,5 @@
         height: 3rem !important
         border-radius: 0 !important
         justify-content: flex-start !important
-        --primary: var(--color-text) !important
+        --primary: var(--color-text-soft) !important
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <component :is="LimiterManifest.component" :size="size">
+    <component class="he-text-section" :is="LimiterManifest.component" :size="size">
         <div class="he-richtext formatted-content" v-html="content"></div>
     </component>
 </template>
@@ -14,3 +14,8 @@
         content: String,
     })
 </script>
+
+<style lang="sass" scoped>
+    .he-text-section
+        padding-block: 4rem
+</style>

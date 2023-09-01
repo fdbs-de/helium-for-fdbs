@@ -42,7 +42,7 @@
         padding: 10px 20px
         border-radius: 10px
         position: relative
-        color: var(--color-text)
+        color: var(--color-text-soft)
 
         &.info
             color: var(--color-info)
@@ -107,5 +107,5 @@
 
             .slot
                 display: contents
-                color: var(--color-text)
+                color: var(--color-text-soft)
 </style>

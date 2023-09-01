@@ -89,7 +89,7 @@
         transition: all 200ms ease-out
         position: relative
         cursor: pointer
-        color: var(--color-text)
+        color: var(--color-text-soft)
 
         .card-image-wrapper
             width: 100%

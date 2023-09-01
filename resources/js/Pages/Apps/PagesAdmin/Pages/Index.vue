@@ -87,7 +87,7 @@
             switch (value)
             {
                 case 'draft':
-                    return [{icon: null, text: 'Entwurf', color: 'var(--color-text)', variant: 'filled', shape: 'pill'}]
+                    return [{icon: null, text: 'Entwurf', color: 'var(--color-text-soft)', variant: 'filled', shape: 'pill'}]
                 case 'pending':
                     return [{icon: null, text: 'Zur Freigabe', color: 'var(--color-warning)', variant: 'filled', shape: 'pill'}]
                 case 'published':
@@ -102,7 +102,7 @@
         {
             icon: 'edit',
             text: 'Bearbeiten',
-            color: 'var(--color-heading)',
+            color: 'var(--color-text)',
             individual: true,
             multiple: true,
             triggerOnRowClick: true,
@@ -112,7 +112,7 @@
         {
             icon: 'content_copy',
             text: 'Duplizieren',
-            color: 'var(--color-heading)',
+            color: 'var(--color-text)',
             individual: true,
             multiple: false,
             triggerOnRowClick: false,

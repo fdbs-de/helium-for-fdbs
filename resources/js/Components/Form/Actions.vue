@@ -49,11 +49,11 @@
             background-color: transparent
             font-family: var(--font-icon)
             font-size: 1.3rem
-            color: var(--color-text)
+            color: var(--color-text-soft)
             padding: 0
 
             &:hover
-                color: var(--color-heading)
+                color: var(--color-text)
                 background-color: #0000000f
 
             &.error

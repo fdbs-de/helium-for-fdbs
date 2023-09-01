@@ -264,7 +264,7 @@
         font-family: var(--font-icon)
         font-size: 1.35rem
         text-align: center
-        color: var(--color-text)
+        color: var(--color-text-soft)
         border-radius: .25rem
         flex: none
 

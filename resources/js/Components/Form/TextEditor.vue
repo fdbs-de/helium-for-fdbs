@@ -287,8 +287,8 @@
     const swatches = [
         { value: 'var(--color-primary)', name: 'Primärfarbe' },
         { value: 'var(--color-primary-soft)', name: 'Weiche Primärfarbe' },
-        { value: 'var(--color-text)', name: 'Textfarbe' },
-        { value: 'var(--color-heading)', name: 'Überschriftfarbe' },
+        { value: 'var(--color-text-soft)', name: 'Textfarbe' },
+        { value: 'var(--color-text)', name: 'Überschriftfarbe' },
         { value: 'var(--color-info)', name: 'Info' },
         { value: 'var(--color-success)', name: 'Erfolg' },
         { value: 'var(--color-warning)', name: 'Warnung' },
@@ -618,7 +618,7 @@
         justify-content: center
         font-size: 1rem
         font-family: var(--font-interface)
-        color: var(--color-text)
+        color: var(--color-text-soft)
         padding: 0 .5rem
         height: 2.5rem
         aspect-ratio: 1
@@ -654,7 +654,7 @@
     .dropdown-button
         border: none
         background: none
-        color: var(--color-text)
+        color: var(--color-text-soft)
         font-family: var(--font-interface)
         padding: 0 .5rem
         text-align: left
@@ -694,7 +694,7 @@
             line-height: 1
 
         .label
-            color: var(--color-heading)
+            color: var(--color-text)
             font-size: .8rem
             font-weight: 500
             flex: 1
@@ -793,7 +793,7 @@
                     align-items: center
                     font-size: .9rem
                     font-family: var(--font-interface)
-                    color: var(--color-heading)
+                    color: var(--color-text)
 
                     &.color-info
                         color: var(--color-info)
@@ -875,7 +875,7 @@
                     user-select: none
                     cursor: pointer
                     font-family: var(--font-interface)
-                    color: var(--color-heading)
+                    color: var(--color-text)
                     background: none
                     border-radius: var(--radius-s)
                     border: none
@@ -981,7 +981,7 @@
         font-family: var(--font-icon)
         font-size: 1.35rem
         text-align: center
-        color: var(--color-text)
+        color: var(--color-text-soft)
         border-radius: .25rem
         flex: none
 

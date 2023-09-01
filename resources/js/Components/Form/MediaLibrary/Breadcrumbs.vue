@@ -60,7 +60,7 @@
             gap: .5rem
             cursor: pointer
             font-size: 1rem
-            color: var(--color-text)
+            color: var(--color-text-soft)
             font-family: inherit
             position: relative
             padding: 0

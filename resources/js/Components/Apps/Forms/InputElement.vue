@@ -85,7 +85,7 @@
         border-radius: var(--radius-m)
         user-select: none
 
-        --color-input-type: var(--color-text)
+        --color-input-type: var(--color-text-soft)
 
         &:hover
             box-shadow: 0 0 0 1px var(--color-background-soft)
@@ -120,7 +120,7 @@
             padding: .5rem 0
             gap: .5rem
             border-radius: var(--radius-m)
-            color: var(--color-text)
+            color: var(--color-text-soft)
             transition: all 100ms ease-in-out
 
             .icon

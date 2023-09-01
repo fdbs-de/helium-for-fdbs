@@ -43,7 +43,7 @@
         gap: 1rem
         align-items: center
         border-radius: var(--radius-m)
-        color: var(--color-heading)
+        color: var(--color-text)
         transition: all 200ms
 
         &:hover,

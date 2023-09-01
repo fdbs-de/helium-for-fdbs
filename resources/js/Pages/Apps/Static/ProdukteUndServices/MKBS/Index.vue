@@ -168,7 +168,7 @@
 
             .word
                 transition: opacity 100ms ease-in-out
-                --color-local-primary: var(--color-heading)
+                --color-local-primary: var(--color-text)
 
                 &.red
                     --color-local-primary: #eb3b5a

@@ -29,7 +29,7 @@
         },
         color: {
             type: String,
-            default: 'var(--color-heading)',
+            default: 'var(--color-text)',
         },
         shape: {
             type: String,

@@ -19,7 +19,7 @@
     const props = defineProps({
         color: {
             type: String,
-            default: 'var(--color-heading)'
+            default: 'var(--color-text)'
         },
         leader: {
             type: Boolean,

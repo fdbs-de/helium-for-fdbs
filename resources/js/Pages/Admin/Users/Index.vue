@@ -119,15 +119,15 @@
         {type: 'tags', name: 'roles', label: 'Rollen', valuePath: 'roles', sortable: false, width: 200, resizeable: true, hideable: true, transform: (value) => {
             if (!value || value.length <= 0)
             {
-                return [{icon: null, text: 'Keine Rolle', color: 'var(--color-text)', variant: 'contained', shape: 'pill'}]
+                return [{icon: null, text: 'Keine Rolle', color: 'var(--color-text-soft)', variant: 'contained', shape: 'pill'}]
             }
 
-            return value.map((role) => ({icon: null, text: role.name, color: 'var(--color-text)', variant: 'filled', shape: 'pill'}))}
+            return value.map((role) => ({icon: null, text: role.name, color: 'var(--color-text-soft)', variant: 'filled', shape: 'pill'}))}
         },
         {type: 'tags', name: 'profiles', label: 'Profile', valuePath: 'profiles', sortable: false, width: 100, resizeable: true, hideable: true, transform: (value) => {
             if (!value || value.length <= 0)
             {
-                return [{icon: null, text: 'Kein Profil', color: 'var(--color-text)', variant: 'contained', shape: 'pill'}]
+                return [{icon: null, text: 'Kein Profil', color: 'var(--color-text-soft)', variant: 'contained', shape: 'pill'}]
             }
 
             let profiles = []
@@ -156,7 +156,7 @@
         {
             icon: 'edit',
             text: 'Bearbeiten',
-            color: 'var(--color-heading)',
+            color: 'var(--color-text)',
             individual: true,
             multiple: false,
             triggerOnRowClick: true,

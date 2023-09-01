@@ -14,8 +14,6 @@ html
     height: 100%
     overflow-y: scroll
 
-    --su: 16px
-
     --radius-s: 4px
     --radius-m: 8px
     --radius-l: 12px
@@ -26,23 +24,47 @@ html
     --font-interface: 'Inter', sans-serif
     --font-icon: 'Material Symbols Rounded'
 
+    --height-header: 4.5rem
+    
+    --shadow-color: 0deg 0% 0%
+    --shadow-elevation-low: 0px 1px 1.5px hsl(var(--shadow-color) / 0), 0px 1.6px 2.4px hsl(var(--shadow-color) / 0.03), 0px 3px 4.5px hsl(var(--shadow-color) / 0.07)
+    --shadow-elevation-medium: 0px 1px 1.5px hsl(var(--shadow-color) / 0), 0px 3.9px 5.9px hsl(var(--shadow-color) / 0.03), 0px 7.5px 11.3px hsl(var(--shadow-color) / 0.05), 0px 15px 22.5px hsl(var(--shadow-color) / 0.08)
+    --shadow-elevation-high: 0px 1px 1.5px hsl(var(--shadow-color) / 0), 0px 5.6px 8.4px hsl(var(--shadow-color) / 0.01), 0px 9.6px 14.4px hsl(var(--shadow-color) / 0.02), 0px 13.9px 20.9px hsl(var(--shadow-color) / 0.04), 0px 19.1px 28.7px hsl(var(--shadow-color) / 0.05), 0px 26.4px 39.6px hsl(var(--shadow-color) / 0.06), 0px 36.4px 54.6px hsl(var(--shadow-color) / 0.07), 0px 50px 75px hsl(var(--shadow-color) / 0.09)
+
     --color-primary: #e00047
+    --color-on-primary: #ffffff
     --color-primary-soft: #fc286b
-    --color-heading: #364040
-    --color-text: #686f6f
+    --color-on-primary-soft: #ffffff
+
+    --color-text: #364040
+    --color-text-soft: #686f6f
+    --color-text-soft-disabled: #b0b7b7
+
     --color-background: #ffffff
     --color-background-soft: #eeeeee
+    --color-background-disabled: #f5f5f5
+
     --color-border: #ccc
+    --color-border-focused: #b4b4b4
+    --color-border-disabled: #f0f0f0
 
     --color-blue: #00a0e9
-    --color-red: #ff305d
+    --color-on-blue: #ffffff
     --color-green: #09b959
+    --color-on-green: #ffffff
     --color-yellow: #ffa807
+    --color-on-yellow: #ffffff
+    --color-red: #ff1a3f
+    --color-on-red: #ffffff
 
     --color-info: var(--color-blue)
+    --color-on-info: var(--color-on-blue)
     --color-success: var(--color-green)
+    --color-on-success: var(--color-on-green)
     --color-warning: var(--color-yellow)
+    --color-on-warning: var(--color-on-yellow)
     --color-error: var(--color-red)
+    --color-on-error: var(--color-on-red)
 
     --color-app-pages-on-light: #376bfa
     --color-app-pages-on-dark: #3c9fff
@@ -61,12 +83,6 @@ html
     --color-app-marketing-on-light: #079992
     --color-app-marketing-on-dark: #4cceca
 
-    --height-header: 4.5rem
-
-    --shadow-color: 0deg 0% 0%
-    --shadow-elevation-low: 0px 1px 1.5px hsl(var(--shadow-color) / 0), 0px 1.6px 2.4px hsl(var(--shadow-color) / 0.03), 0px 3px 4.5px hsl(var(--shadow-color) / 0.07)
-    --shadow-elevation-medium: 0px 1px 1.5px hsl(var(--shadow-color) / 0), 0px 3.9px 5.9px hsl(var(--shadow-color) / 0.03), 0px 7.5px 11.3px hsl(var(--shadow-color) / 0.05), 0px 15px 22.5px hsl(var(--shadow-color) / 0.08)
-    --shadow-elevation-high: 0px 1px 1.5px hsl(var(--shadow-color) / 0), 0px 5.6px 8.4px hsl(var(--shadow-color) / 0.01), 0px 9.6px 14.4px hsl(var(--shadow-color) / 0.02), 0px 13.9px 20.9px hsl(var(--shadow-color) / 0.04), 0px 19.1px 28.7px hsl(var(--shadow-color) / 0.05), 0px 26.4px 39.6px hsl(var(--shadow-color) / 0.06), 0px 36.4px 54.6px hsl(var(--shadow-color) / 0.07), 0px 50px 75px hsl(var(--shadow-color) / 0.09)
 
     --mui-icon-font: var(--font-icon)
     --mui-background: var(--color-background-soft)
@@ -85,7 +101,7 @@ html
     background: var(--color-background-soft)
 
 ::-webkit-scrollbar-thumb
-    background: var(--color-text)
+    background: var(--color-text-soft)
     border-radius: 3px
     background-clip: content-box
     border: 2px solid transparent
@@ -110,7 +126,7 @@ html
         border: 2px solid transparent
 
         &:hover
-            background: var(--color-text)
+            background: var(--color-text-soft)
             border: 0px solid transparent
             border-radius: 1px
 
@@ -121,7 +137,7 @@ body
     font-family: var(--font-text)
     font-weight: 400
     line-height: 1.75
-    color: var(--color-text)
+    color: var(--color-text-soft)
 
 #cookie-settings-button
     position: fixed
@@ -138,7 +154,7 @@ h4,
 h5,
 h6
     font-family: var(--font-heading)
-    color: var(--color-heading)
+    color: var(--color-text)
     font-weight: 400
     line-height: 1.4
     margin-block: .75em
@@ -164,7 +180,7 @@ small
 code
     background: var(--color-background-soft)
     border-radius: .175em
-    color: var(--color-heading)
+    color: var(--color-text)
     padding: .25em
     font-size: inherit
 
@@ -231,7 +247,7 @@ input[type="color"]
     max-width: 1300px
     display: block
     margin: 0 auto
-    padding: 0 var(--su)
+    padding: 0 1rem
 
     &.text-limiter
         max-width: 700px
@@ -248,46 +264,6 @@ input[type="color"]
             backdrop-filter: blur(10px)
 
 
-
-.flex
-    display: flex
-
-    &.vertical
-        flex-direction: column
-    
-    &.center
-        align-items: center
-
-    &.h-center
-        justify-content: center
-    
-    &.v-center
-        align-items: center
-        
-    &.h-end
-        justify-content: flex-end
-
-    &.gap
-        gap: var(--su)
-
-    &.gap-2
-        gap: calc(var(--su) * 2)
-
-    &.wrap
-        flex-wrap: wrap
-
-    .flex-1,
-    .spacer
-        flex: 1
-
-    .flex-2
-        flex: 2
-
-    .flex-3
-        flex: 3
-
-    .flex-4
-        flex: 4
 
 .text-green
     color: var(--color-green)
@@ -338,12 +314,12 @@ main
     display: flex
     align-items: center
     flex-direction: column
-    gap: var(--su)
-    padding: var(--su)
+    gap: 1rem
+    padding: 1rem
 
     .confirm-popup-footer
         display: flex
-        gap: var(--su)
+        gap: 1rem
         width: 100%
 
         > button

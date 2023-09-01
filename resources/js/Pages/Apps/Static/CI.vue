@@ -253,7 +253,7 @@
 
         .heading
             padding: 1rem
-            color: var(--color-heading)
+            color: var(--color-text)
             font-family: var(--font-heading)
 
             .title

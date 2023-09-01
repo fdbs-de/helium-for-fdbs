@@ -8,8 +8,13 @@
 
             <TextEditor v-else-if="prop.fixtureType === 'richtext'" :label="prop.label" v-model="prop.value" @update:modelValue="emitUpdate()"/>
             
-            <mui-input v-else :label="prop.label" v-model="prop.value" @update:modelValue="emitUpdate()"/>
+            <IodInput v-else :label="prop.label" v-model="prop.value" @update:modelValue="emitUpdate()"/>
         </template>
+    </div>
+    <div class="group flex v-center" v-else>
+        <small class="padding-block-4 user-select-none color-text">
+            Wähle ein Element aus
+        </small>
     </div>
 </template>
 
@@ -105,7 +110,7 @@
             font-weight: 600
             letter-spacing: .05rem
             text-transform: uppercase
-            color: var(--color-text)
+            color: var(--color-text-soft)
             user-select: none
 
         .spacer

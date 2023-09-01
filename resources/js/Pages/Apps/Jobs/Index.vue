@@ -189,7 +189,7 @@
             justify-content: center
             height: 12rem
             font-size: 1.2rem
-            color: var(--color-heading)
+            color: var(--color-text)
 
         .initiative-card
             background-color: var(--color-background)
@@ -222,11 +222,11 @@
                 position: relative
 
             a
-                color: var(--color-heading)
+                color: var(--color-text)
                 font-weight: 600
 
                 &:hover
-                    color: var(--color-heading)
+                    color: var(--color-text)
                     text-decoration: underline
 
             p

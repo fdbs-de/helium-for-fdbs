@@ -191,7 +191,7 @@
             position: fixed
             top: .75rem
             right: .75rem
-            color: var(--color-heading)
+            color: var(--color-text)
             .svg-wrapper .hamburger-path
                 stroke-dashoffset: -23.8
 
@@ -229,7 +229,7 @@
             .apps-bar
                 background: var(--color-background-soft)
                 width: 4rem
-                color: var(--color-heading)
+                color: var(--color-text)
                 display: flex
                 flex-direction: column
 
@@ -358,7 +358,7 @@
                         border: 2px solid transparent
 
                         &:hover
-                            background: var(--color-text)
+                            background: var(--color-text-soft)
                             border: 0px solid transparent
                             border-radius: 1px
 
@@ -389,7 +389,7 @@
                     user-select: none
                     cursor: pointer
                     position: relative
-                    color: var(--color-text)
+                    color: var(--color-text-soft)
 
                     &::before
                         content: ''
@@ -426,7 +426,7 @@
                         white-space: nowrap
                         font-weight: 500
                         font-size: .9rem
-                        color: var(--color-heading)
+                        color: var(--color-text)
                         transition: transform 200ms cubic-bezier(0.22, 0.61, 0.36, 1)
 
                     .external
@@ -474,7 +474,7 @@
 
                 .hero-card
                     text-align: center
-                    color: var(--color-heading)
+                    color: var(--color-text)
                     background: var(--color-background)
                     background-position: center
                     background-repeat: no-repeat

@@ -15,7 +15,7 @@
                 <div class="flex gap-1 v-center">
                     <Tag v-if="post.post_category" :color="post.post_category.color || 'gray'" :icon="post.post_category.icon || 'category'" shape="pill">{{post.post_category.name}}</Tag>
                     <Tag v-if="post.status !== 'published'" color="var(--color-error)" shape="pill">Nicht veröffentlicht</Tag>
-                    <Tag v-for="tag in post.tags" :key="tag" color="var(--color-text)" shape="pill">{{tag}}</Tag>
+                    <Tag v-for="tag in post.tags" :key="tag" color="var(--color-text-soft)" shape="pill">{{tag}}</Tag>
                     <span>{{ $dayjs(post.created_at).format('D. MMMM YYYY') }}</span>
                 </div>
             </div>

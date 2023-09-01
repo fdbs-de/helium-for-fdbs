@@ -122,7 +122,7 @@
         flex-direction: column
         gap: 3rem
         padding-top: 3rem
-        color: var(--color-text)
+        color: var(--color-text-soft)
 
         .certificate-row
             display: flex
@@ -176,7 +176,7 @@
                 h3
                     margin-block: 0 1rem
                     font-weight: 700
-                    color: var(--color-heading)
+                    color: var(--color-text)
                     
                     &.primary
                         color: var(--color-primary)
