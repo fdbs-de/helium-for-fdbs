@@ -20,6 +20,7 @@
         </p>
         <p>&nbsp;</p>
 
+        <img src="/images/content/nachhaltigkeit/pv_anlage.png" alt="" class="content-image">
         <h2>Pilotprojekt Enteisungsanlage</h2>
         <p>
             Gemeinsam mit der Firma <a href="https://www.cold-sense.com/wp-content/uploads/2023/02/PR_221117_Coldsense_FDBS_Erfolgsgeschichte_BSZeitung_DE_Offiziell.pdf" target="_blank">Coldsense</a> haben wir eine KI-gesteuerte Enteisungsanlage in Betrieb
@@ -43,6 +44,7 @@
         </p>
         <p>&nbsp;</p>
 
+        <img src="/images/content/nachhaltigkeit/ladestation.jpg" alt="" class="content-image">
         <h2>Energiesparmaßnahmen & Ressourcenschonung</h2>
         <p>
             Mit den Umbauarbeiten im Gebäude wurde u.a. auf Bewegungsmelder und zeitgeschaltete
