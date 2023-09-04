@@ -18,7 +18,7 @@
             <Input :input="input" v-for="input in page.inputs" :key="input.id" />
         </div>
 
-        <mui-button type="submit" variant="filled" label="Absenden" />
+        <IodButton type="submit" variant="filled" size="large" label="Absenden" />
 
         <span>
             <span class="color-red">*</span> Pflichtfelder

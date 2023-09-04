@@ -2,12 +2,16 @@
     <div class="page-editor-layout">
         <div class="tool-bar">
             <div class="start">
-                <mui-button class="with-label" variant="contained" icon-left="add" label="Neu"/>
+                <!-- <IodIconButton type="button" class="transparent" variant="text" icon="undo" v-tooltip.bottom="'Rückgangig (Strg+Z)'"/>
+                <IodIconButton type="button" class="transparent" variant="text" icon="redo" v-tooltip.bottom="'Wiederherstellen (Strg+Y)'"/>
+                <IodIconButton type="button" class="transparent" variant="text" icon="history" v-tooltip.bottom="'Bearbeitungsverlauf'"/> -->
                 <div class="spacer"></div>
             </div>
             <div class="center">
                 <div class="breakpoint-selector">
-                    <IconButton
+                    <IodIconButton
+                        type="button"
+                        variant="text"
                         v-for="(breakpoint, index) in tab.breakpoints"
                         :key="breakpoint.id"
                         :icon="breakpoint.icon"
@@ -18,12 +22,9 @@
                 </div>
             </div>
             <div class="end">
-                <IconButton icon="undo" v-tooltip.bottom="'Rückgangig (Strg+Z)'"/>
-                <IconButton icon="redo" v-tooltip.bottom="'Wiederherstellen (Strg+Y)'"/>
-                <IconButton icon="history" v-tooltip.bottom="'Bearbeitungsverlauf'"/>
+                <IodIconButton type="button" class="transparent" variant="text" is="a" icon="open_in_new" v-tooltip.bottom="'Seite öffnen'" :href="route('app.pages.render.page', tab.data.slug)" target="_blank"/>
                 <div class="spacer"></div>
-                <IconButton is="a" icon="open_in_new" v-tooltip.bottom="'Seite öffnen'" :href="route('app.pages.render.page', tab.data.slug)" target="_blank"/>
-                <mui-button class="with-label" variant="contained" label="Speichern" v-tooltip.bottom="'Speichern (Strg+S)'" @click="tab.save()" :loading="tab.processing.saving"/>
+                <IodButton type="button" class="transparent" variant="contained" label="Speichern" v-tooltip.bottom="'Speichern (Strg+S)'" @click="tab.save()" :loading="tab.processing.saving"/>
             </div>
         </div>
 
@@ -32,54 +33,45 @@
         <div class="sidebar navigator">
             <div class="tab-box">
                 <Tabs v-model="tab.ui.navigator.panel" indicator-style="box" :tabs="[
-                    { label: 'Elemente', value: 'elements' },
+                    { label: 'Navigator', value: 'navigator' },
                     { label: 'Hinzufügen', value: 'add' },
                 ]" />
             </div>
 
             <div class="scroll-box small-scrollbar" v-show="tab.ui.navigator.panel == 'add'">
-                <div class="group">
-                    <IodButton type="button" variant="contained" icon-left="add" style="height: 4rem; justify-content: flex-start" v-for="elementTemplate, key in ElementTemplates" :key="key" @click="tab.createElement(elementTemplate)">
-                        <div class="flex vertical v-start">
-                            <b>{{ elementTemplate.name }}</b>
-                            <span>{{ elementTemplate.description }}</span>
-                        </div>
-                    </IodButton>
+                <div class="group grid no-border">
+                    <button
+                        type="button"
+                        class="element-add-button"
+                        v-for="elementTemplate, key in ElementTemplates"
+                        :key="key"
+                        @click="tab.createElement(elementTemplate, true)"
+                        v-tooltip.right="elementTemplate.description"
+                    >
+                        <img class="w-100" :src="elementTemplate.previewImage">
+                        <b>{{ elementTemplate.name }}</b>
+                    </button>
                 </div>
             </div>
 
-            <Container class="scroll-box small-scrollbar" v-show="tab.ui.navigator.panel == 'elements'" @drop="tab.dropElement($event)" lock-axis="y">            
-                <Draggable v-for="element in tab.data.content" :key="element.localId">
-                    <div class="content-element flex v-center" :class="{'selected': tab.selected.elements.includes(element.localId)}">
-                        <IodIcon class="handle" icon="drag_indicator"/>
-                        <div class="flex-1 flex vertical" @click="tab.selectElement(element)">
-                            {{ element.type }}
-                        </div>
-                        <IodIconButton icon="delete" variant="text" color-preset="error" @click="tab.removeElement(element)"/>
-                    </div>
-                </Draggable>
-            </Container>
+            <Navigator class="scroll-box small-scrollbar" v-show="tab.ui.navigator.panel == 'navigator'" :tab="tab" />
         </div>
 
 
 
-        <div class="viewport-wrapper">
-            <div class="viewport" :style="`max-width: ${tab.breakpoint.width}px`">
-                <BlockBuilderCollector :elements="tab.data.content" />
-            </div>
-        </div>
+        <Viewport class="viewport-wrapper" :tab="tab" />
 
 
 
         <div class="sidebar inspector">
             <div class="tab-box">
                 <Tabs v-model="tab.ui.inspector.panel" indicator-style="box" :tabs="[
-                    { label: 'Element', value: 'element' },
+                    { label: 'Inspector', value: 'inspector' },
                     { label: 'Seite', value: 'page' },
                 ]" />
             </div>
 
-            <div class="scroll-box small-scrollbar" v-show="tab.ui.inspector.panel == 'element'">
+            <div class="scroll-box small-scrollbar" v-show="tab.ui.inspector.panel == 'inspector'">
                 <Inspector :tab="tab" @update:element="tab.updateElement($event)"/>
             </div>
             
@@ -104,11 +96,10 @@
 <script setup>
     import hotkeys from 'hotkeys-js'
     import ElementTemplates from '@/Pages/Apps/Pages/ElementTemplates'
-    import { Container, Draggable } from 'vue3-smooth-dnd'
 
-    import BlockBuilderCollector from '@/Pages/Apps/Pages/Renderer/BlockBuilderCollector.vue'
+    import Navigator from '@/Pages/Apps/PagesAdmin/Pages/Editor/Partials/Navigator.vue'
     import Inspector from '@/Pages/Apps/PagesAdmin/Pages/Editor/Partials/Inspector.vue'
-    import IconButton from '@/Components/Apps/Pages/IconButton.vue'
+    import Viewport from '@/Pages/Apps/PagesAdmin/Pages/Editor/Partials/Viewport.vue'
     import Picker from '@/Components/Form/MediaLibrary/Picker.vue'
     import Tabs from '@/Components/Form/Tabs.vue'
     import TextEditor from '@/Components/Form/TextEditor.vue'
@@ -165,6 +156,10 @@
         grid-template-rows: 4rem 1fr auto
         grid-template-areas: "tool-bar tool-bar tool-bar" "navigator viewport inspector" "navigator code-editor inspector"
 
+        .iod-button.transparent,
+        .iod-icon-button.transparent
+            --local-color-background: var(--color-text-on-background-dark)
+
         .tool-bar
             grid-area: tool-bar
             display: flex
@@ -183,9 +178,6 @@
                 width: 25rem
                 padding-inline: 1rem
 
-                > button.with-label
-                    --primary: var(--color-text-on-background-dark)
-
             .center
                 flex: 1
                 display: flex
@@ -202,10 +194,11 @@
                     height: 2.5rem
                     background: var(--color-background-dark-soft)
 
-                    > button
+                    .iod-button,
+                    .iod-icon-button
                         border-radius: var(--radius-s)
                         height: 100%
-                        color: var(--color-text-soft-on-background-dark)
+                        --local-color-background: var(--color-text-soft-on-background-dark)
 
                         &.active
                             background: var(--color-background-dark)
@@ -214,43 +207,31 @@
         .navigator
             grid-area: navigator
 
-            .content-element
-                user-select: none
-                position: relative
-                padding: .25rem .5rem
+            .element-add-button
+                border-radius: var(--radius-m)
+                border: 1px solid blue
+                border-color: var(--color-border)
+                background: var(--color-background)
                 color: var(--color-text)
-                transition: background 100ms ease
+                padding: 0
+                padding-bottom: .5rem
+                display: flex
+                flex-direction: column
+                align-items: center
+                justify-content: flex-start
+                gap: .5rem
                 cursor: pointer
+                font-family: inherit
+                font-size: .8rem
+                overflow: hidden
+                transition: all 100ms ease
 
-                &::after
-                    content: ''
-                    position: absolute
-                    top: .5rem
-                    left: 0
-                    bottom: .5rem
-                    width: .2rem
-                    border-radius: 0 3px 3px 0
-                    background: currentColor
-                    opacity: 0
-                    user-select: none
-                    pointer-events: none
+                img
+                    border-bottom: 1px solid blue
+                    border-color: inherit
 
                 &:hover
-                    background: var(--color-background-soft)
-                    
-                    &::after
-                        opacity: .5
-
-                &.selected
-                    background: var(--color-background-soft)
-
-                    &::after
-                        opacity: 1
-
-                .handle
-                    width: 2rem
-                    font-size: 1.25rem
-                    color: var(--color-text-soft)
+                    box-shadow: var(--shadow-elevation-medium)
 
         .inspector
             grid-area: inspector
@@ -280,16 +261,25 @@
                 padding: 1rem .5rem
                 display: flex
                 flex-direction: column
-                gap: .5rem
+                gap: 1rem
                 border-bottom: 1px solid var(--color-border)
 
                 &.no-padding
                     padding: 0
 
+                &.no-border
+                    border-bottom: none
+
                 &.horizontal
                     flex-direction: row
                     align-items: center
                     gap: 0
+
+                &.grid
+                    display: grid
+                    grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr))
+                    gap: 1rem
+                    padding: 1rem
 
                 .title
                     font-size: .8rem
@@ -304,17 +294,4 @@
 
         .viewport-wrapper
             grid-area: viewport
-            display: flex
-            flex-direction: column
-            align-items: center
-            padding: 1rem
-
-            .viewport
-                width: 100%
-                max-height: 80vh
-                overflow: auto
-                background: white
-                border: 1px solid var(--color-background-soft)
-                border-radius: var(--radius-s)
-                box-shadow: var(--shadow-elevation-low)
 </style>

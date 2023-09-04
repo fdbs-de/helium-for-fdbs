@@ -31,23 +31,24 @@
 
     <Popup title="Neue Seite erstellen" ref="storePopup">
         <form class="flex vertical gap-1 padding-1" @submit.prevent="IPM.store(storeForm.data())">
-            <mui-input v-model="storeForm.title" label="Titel" />
-            <mui-input v-model="storeForm.slug" label="Slug" />
-            <select v-model="storeForm.renderer">
-                <option value="block-builder">Block Builder</option>
-            </select>
-            <mui-toggle v-model="storeForm.is_component" label="Komponent" />
+            <IodInput v-model="storeForm.title" label="Titel" />
+            <IodInput v-model="storeForm.slug" label="Slug">
+                <template #right>
+                    <IodIconButton type="button" icon="auto_awesome" variant="text" class="input-button" @click="generateSlug()" v-tooltip.right="'Aus Titel generieren'"/>
+                </template>
+            </IodInput>
             <div class="flex gap-1">
-                <mui-button class="flex-1" type="button" variant="contained" label="Abbrechen" @click="$refs.storePopup.close()" />
-                <mui-button class="flex-1" type="submit" variant="filled" label="Neu Erstellen" />
+                <IodButton class="flex-1" type="button" variant="contained" label="Abbrechen" @click="$refs.storePopup.close()" />
+                <IodButton class="flex-1" type="submit" variant="filled" label="Neu Erstellen" />
             </div>
         </form>
     </Popup>
 </template>
 
 <script setup>
-    import { Head, useForm, usePage } from '@inertiajs/inertia-vue3'
-    import { ref, computed } from 'vue'
+    import { Head, useForm } from '@inertiajs/inertia-vue3'
+    import { ref } from 'vue'
+    import { slugify } from '@/Utils/String'
     import ItemPageManager from '@/Classes/Managers/ItemPageManager'
 
     import AdminLayout from '@/Layouts/Admin.vue'
@@ -146,6 +147,14 @@
         storeForm.reset()
         storePopup.value.open()
     }
+
+
+
+    // START: Miscelaneous
+    const generateSlug = () => {
+        storeForm.slug = slugify(storeForm.title)
+    }
+    // END: Miscelaneous
 </script>
 
 <style lang="sass" scoped>
