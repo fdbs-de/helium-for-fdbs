@@ -42,11 +42,11 @@ export default class PageTab extends Tab
 
         // UI variables
         this.ui = {
-            inspector: {
-                panel: 'element'
-            },
             navigator: {
-                panel: 'elements'
+                panel: 'navigator'
+            },
+            inspector: {
+                panel: 'inspector'
             },
         }
 
@@ -143,7 +143,7 @@ export default class PageTab extends Tab
 
 
 
-    createElement(elementTemplate = {})
+    createElement(elementTemplate = {}, selectAfterAdd = true)
     {
         let data = {
             localId: this.generateLocalId(),
@@ -158,6 +158,8 @@ export default class PageTab extends Tab
         }
 
         this.addElement(data)
+        
+        if (selectAfterAdd) this.selectElement(data)
     }
 
     addElement(element)

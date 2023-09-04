@@ -1,7 +1,9 @@
 <template>
-    <component :is="LimiterManifest.component" class="he-background-image" :size="size" :style="`background-image: url(${image})`">
-        <h1 :style="'color:'+titleColor">{{ title }}</h1>
-    </component>
+    <section class="he-section he-hero-section" :style="{ height, padding, backgroundColor, backgroundImage: `url(${backgroundImage})`, }">
+        <component :is="LimiterManifest.component" class="he-hero-section-limiter" :size="size">
+            <h1 v-if="title" :style="{color, textAlign}">{{ title }}</h1>
+        </component>
+    </section>
 </template>
 
 <script setup>
@@ -12,28 +14,22 @@
     defineProps({
         size: String,
         title: String,
-        titleColor: {
-            type: String,
-            default: 'var(--color-text)',
-        },
-        image: {
-            type: String,
-            default: '',
-        },
+        height: String,
+        padding: String,
+        backgroundColor: String,
+        backgroundImage: String,
+        color: String,
+        textAlign: String,
     })
 </script>
 
 <style lang="sass" scoped>
-    .he-background-image
-        background-color: var(--color-background-soft)
-        color: var(--color-text)
+    .he-hero-section
         background-size: cover
         background-position: center
         background-repeat: no-repeat
-        height: 300px
         display: flex
         align-items: center
-        justify-content: center
 
         h1
             font-size: 3rem

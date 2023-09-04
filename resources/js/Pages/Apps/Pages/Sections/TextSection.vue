@@ -1,7 +1,9 @@
 <template>
-    <component class="he-text-section" :is="LimiterManifest.component" :size="size">
-        <div class="he-richtext formatted-content" v-html="content"></div>
-    </component>
+    <section class="he-section he-text-section" :style="{padding, backgroundColor, color}">
+        <component class="he-text-section-limiter" :is="LimiterManifest.component" :size="size">
+            <div class="he-richtext formatted-content" v-html="content"></div>
+        </component>
+    </section>
 </template>
 
 <script setup>
@@ -12,10 +14,11 @@
     defineProps({
         size: String,
         content: String,
+        padding: String,
+        backgroundColor: String,
+        color: String,
     })
 </script>
 
 <style lang="sass" scoped>
-    .he-text-section
-        padding-block: 4rem
 </style>

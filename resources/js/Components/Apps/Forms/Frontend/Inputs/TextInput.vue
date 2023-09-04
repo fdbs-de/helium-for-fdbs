@@ -1,9 +1,9 @@
 <template>
     <label class="flex vertical">
         <b v-show="input.options.showLabel">
-            {{ input.options.label }} <span class="color-red" v-if="input.validation.required">*</span>
+            {{ label }}
         </b>
-        <input
+        <IodInput
             v-if="input.options.type != 'textarea'"
             class="forms-input"
             :type="input.options.type"
@@ -29,13 +29,28 @@
 </template>
 
 <script setup>
+    import { computed } from 'vue'
+
+
+
     const props = defineProps({
         input: Object,
+    })
+
+    const label = computed(() => {
+        let result = ''
+
+        if (!props.input.options.showLabel) return result
+
+        result += props.input.options.label
+
+        if (!props.input.validation.required) return result
+        
+        return result + ' *'
     })
 </script>
 
 <style lang="sass" scoped>
-    .forms-input,
     .forms-textarea
         width: 100%
         height: auto
