@@ -10,9 +10,9 @@
                 zwischen <b class="color-primary">9:00 Uhr</b> und <b class="color-primary">17:00 Uhr</b><br>
                 bei uns in der <a href="https://goo.gl/maps/equP1jmcJSuFogSc8" target="_blank"><b>Christian-Pommer-Straße 31/33 38112 Braunschweig</b></a> statt.
             </p>
-            <mui-input type="text" required label="Kundennummer" placeholder="780000" v-model="form.customer"/>
-            <mui-input type="text" required label="Firma" placeholder="Musterfirma GmbH"  v-model="form.company"/>
-            <mui-input type="email" required label="Email" v-model="form.email"/>
+            <mui-input type="text" required label="Kundennummer *" placeholder="780000" v-model="form.customer"/>
+            <mui-input type="text" required label="Firma *" placeholder="Musterfirma GmbH"  v-model="form.company"/>
+            <mui-input type="email" label="Email" v-model="form.email"/>
             <div class="flex gap-2 vertical padding-top-2 padding-bottom-1">
                 <div class="flex gap-1 vertical" v-for="(person, index) in form.people">
                     <h5 class="color-heading margin-0">
@@ -20,13 +20,13 @@
                     </h5>
                     <div class="flex gap-1 v-center wrap">
                         <select required v-model="person.salutation">
-                            <option value="" disabled>Anrede</option>
+                            <option value="" disabled>Anrede *</option>
                             <option value="Herr">Herr</option>
                             <option value="Frau">Frau</option>
                             <option value="Divers">Divers</option>
                         </select>
-                        <mui-input type="text" required label="Vorname" v-model="person.firstname"/>
-                        <mui-input type="text" required label="Nachname" v-model="person.lastname"/>
+                        <mui-input type="text" required label="Vorname *" v-model="person.firstname"/>
+                        <mui-input type="text" required label="Nachname *" v-model="person.lastname"/>
                         <mui-button type="button" label="Entfernen" @click="removePerson(index)" :disabled="form.people.length <= 1" size="small" color="error"/>
                     </div>
                 </div>

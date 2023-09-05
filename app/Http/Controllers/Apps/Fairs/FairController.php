@@ -23,7 +23,7 @@ class FairController extends Controller
         $request->validate([
             'customer' => 'required|string|max:100',
             'company' => 'required|string|max:100',
-            'email' => 'required|email',
+            'email' => 'nullable|email',
             'people' => 'required|array|min:1',
             'people.*.salutation' => 'required|in:Herr,Frau,Divers',
             'people.*.firstname' => 'required|string|max:100',
@@ -46,24 +46,27 @@ class FairController extends Controller
         // END: Save to database
 
         // START: Send confirmation email to customer
-        $message = 'Vielen Dank für Ihre Anmeldung zur ADVENTure 2023 von FDBS. <br><br>';
-
-        $message .= 'Ihre Daten lauten wie folgt:<br>';
-        $message .= 'Kundennummer: ' . $request->customer . '<br>';
-        $message .= 'Firma: ' . $request->company . '<br>';
-        $message .= 'E-Mail: ' . $request->email . '<br><br>';
-        
-        $message .= 'Teilnehmer:<br>';
-        for ($i = 0; $i < count($request->people); $i++) {
-            $message .= '(' . $request->people[$i]['salutation'] . ') ' . $request->people[$i]['firstname'] . ' ' . $request->people[$i]['lastname'];
-            $message .= $i === 0 ? ' – Ansprechpartner' : ' – weitere Person';
-            $message .= '<br>';
+        if ($request->email)
+        {
+            $message = 'Vielen Dank für Ihre Anmeldung zur ADVENTure 2023 von FDBS. <br><br>';
+    
+            $message .= 'Ihre Daten lauten wie folgt:<br>';
+            $message .= 'Kundennummer: ' . $request->customer . '<br>';
+            $message .= 'Firma: ' . $request->company . '<br>';
+            $message .= 'E-Mail: ' . $request->email . '<br><br>';
+            
+            $message .= 'Teilnehmer:<br>';
+            for ($i = 0; $i < count($request->people); $i++) {
+                $message .= '(' . $request->people[$i]['salutation'] . ') ' . $request->people[$i]['firstname'] . ' ' . $request->people[$i]['lastname'];
+                $message .= $i === 0 ? ' – Ansprechpartner' : ' – weitere Person';
+                $message .= '<br>';
+            }
+    
+            Mail::send(new FormsDefault('Anmeldungsbestätigung: ADVENTure 2023', $message, [
+                'to' => $request->email,
+                'replyTo' => ['info@fdbs.de', 'FDBS'],
+            ]));
         }
-
-        Mail::send(new FormsDefault('Anmeldungsbestätigung: ADVENTure 2023', $message, [
-            'to' => $request->email,
-            'replyTo' => ['info@fdbs.de', 'FDBS'],
-        ]));
         // END: Send confirmation email to customer
 
         return back()->with('success', 'Ihre Anmeldung wurde erfolgreich versendet.');
