@@ -37,7 +37,7 @@ export default {
             value: 'var(--color-background-soft)',
         },
         {
-            fixtureType: 'image',
+            fixtureType: 'media:image',
             label: 'Bild',
             key: 'backgroundImage',
             value: '',

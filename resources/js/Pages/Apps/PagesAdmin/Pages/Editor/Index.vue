@@ -72,7 +72,7 @@
             </div>
 
             <div class="scroll-box small-scrollbar" v-show="tab.ui.inspector.panel == 'inspector'">
-                <Inspector :tab="tab" @update:element="tab.updateElement($event)"/>
+                <Inspector :tab="tab" :picker="picker" @update:element="tab.updateElement($event)"/>
             </div>
             
             <div class="scroll-box small-scrollbar" v-show="tab.ui.inspector.panel == 'page'">
@@ -94,6 +94,7 @@
 </template>
 
 <script setup>
+    import { ref } from 'vue'
     import hotkeys from 'hotkeys-js'
     import ElementTemplates from '@/Pages/Apps/Pages/ElementTemplates'
 
@@ -102,8 +103,6 @@
     import Viewport from '@/Pages/Apps/PagesAdmin/Pages/Editor/Partials/Viewport.vue'
     import Picker from '@/Components/Form/MediaLibrary/Picker.vue'
     import Tabs from '@/Components/Form/Tabs.vue'
-    import TextEditor from '@/Components/Form/TextEditor.vue'
-    import CodeEditor from '@/Components/Form/CodeEditor.vue'
     import Popup from '@/Components/Form/Popup.vue'
 
 
@@ -114,6 +113,8 @@
             required: true,
         },
     })
+
+    const picker = ref(null)
 
 
     

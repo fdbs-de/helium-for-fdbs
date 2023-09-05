@@ -11,13 +11,13 @@ export default {
     type: 'text-section',
     group: 'sections',
     props: [
-        ...LimiterManifest.props,
         {
             fixtureType: 'richtext',
             label: 'Inhalt',
             key: 'content',
             value: '<p>Inhalt</p>',
         },
+        ...LimiterManifest.props,
         {
             fixtureType: 'style:padding',
             label: 'Innenabstand',

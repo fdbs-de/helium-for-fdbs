@@ -1,5 +1,4 @@
-import LimiterManifest from '@/Pages/Apps/Pages/Partials/Limiter.manifest.js'
-import Component from '@/Pages/Apps/Pages/Sections/TextSection.vue'
+import Component from '@/Pages/Apps/Pages/Sections/CodeSection.vue'
 
 
 
@@ -11,11 +10,22 @@ export default {
     previewImage: '/images/app/apps/pages/sections/code_section.svg',
     group: 'sections',
     props: [
-        ...LimiterManifest.props,
         {
             fixtureType: 'code',
             label: 'HTML Code',
             key: 'content',
+            value: '',
+        },
+        {
+            fixtureType: 'style:padding',
+            label: 'Innenabstand',
+            key: 'padding',
+            value: '0rem',
+        },
+        {
+            fixtureType: 'style:color',
+            label: 'Hintergrundfarbe',
+            key: 'backgroundColor',
             value: '',
         },
     ],
