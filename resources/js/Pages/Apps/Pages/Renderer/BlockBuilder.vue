@@ -1,5 +1,9 @@
 <template>
-    <Head :title="title" />
+    <Head>
+        <title>{{ title }}</title>
+        
+        <meta name="description" content="Test 1234">
+    </Head>
 
     <main>
         <BlockBuilderCollector :elements="content" />

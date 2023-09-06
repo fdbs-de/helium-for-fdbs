@@ -153,6 +153,7 @@
         flex: 1
         height: calc(100% - 2.25rem)
         display: grid
+        background: var(--color-background-soft)
         grid-template-columns: 25rem 1fr 25rem
         grid-template-rows: 4rem 1fr auto
         grid-template-areas: "tool-bar tool-bar tool-bar" "navigator viewport inspector" "navigator code-editor inspector"

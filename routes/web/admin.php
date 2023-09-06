@@ -153,7 +153,11 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
             ->middleware('can:app.pages.view.pages')
             ->name('admin.pages.pages.search');
 
-            Route::get('/editor/{pages?}', [PageController::class, 'editor'])
+            Route::get('/fetch/{page}', [PageController::class, 'fetch'])
+            ->middleware('can:app.pages.view.pages')
+            ->name('admin.pages.pages.fetch');
+
+            Route::get('/editor', [PageController::class, 'editor'])
             ->middleware('can:app.pages.view.pages')
             ->name('admin.pages.pages.editor');
 

@@ -1,5 +1,5 @@
 <template>
-    <Container @drop="tab.dropElement($event)" lock-axis="y">            
+    <Container @drop="tab.dropElement($event)" behaviour="contain" lock-axis="y">            
         <Draggable v-for="element in tab.data.content" :key="element.localId">
             <div class="content-element flex v-center" :class="{ 'selected': tab.selected.elements.includes(element.localId) }">
                 <IodIcon class="handle" icon="drag_indicator"/>

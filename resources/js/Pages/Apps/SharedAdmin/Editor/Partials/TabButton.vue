@@ -1,5 +1,5 @@
 <template>
-    <button class="tab" :key="tab.localId" :class="{'active': tab.active}" @click="emits('select-tab', tab)">
+    <button class="tab" :class="{'active': tab.active}" @click="emits('select-tab', tab)">
         <div class="icon">{{ tab.icon }}</div>
         <div class="title">
             <span v-if="tab.title">{{ tab.title }}</span>
@@ -30,7 +30,7 @@
 <style lang="sass" scoped>
     .tab
         flex: 1
-        max-width: 20rem
+        width: 18rem
         display: flex
         align-items: center
         height: 100%
@@ -100,7 +100,7 @@
             display: flex
             align-items: center
             justify-content: center
-            color: var(--color-text-soft-on-background-dark)
+            color: inherit
 
         > .title
             flex: 1

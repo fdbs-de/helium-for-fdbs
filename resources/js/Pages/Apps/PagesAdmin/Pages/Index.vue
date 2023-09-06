@@ -108,7 +108,7 @@
             multiple: true,
             triggerOnRowClick: true,
             isAvailable: () => true,
-            run: (items) => IPM.value.openMultiple(items, 'pages'),
+            run: (items) => IPM.value.openMultiple(items, 't', 'pages-'),
         },
         {
             icon: 'content_copy',

@@ -190,7 +190,7 @@ export default class ItemPageManager extends EventListener
 
 
 
-    openMultiple(ids = null, parameterName = 'ids')
+    openMultiple(ids = null, parameterName = 'd', dataName = 'ids')
     {
         if (!ids) ids = this.selection
 
@@ -202,7 +202,7 @@ export default class ItemPageManager extends EventListener
 
         let parameters = {}
 
-        parameters[parameterName] = ids
+        parameters[parameterName] = ids.map(id => dataName+id).join('|')
 
         
 

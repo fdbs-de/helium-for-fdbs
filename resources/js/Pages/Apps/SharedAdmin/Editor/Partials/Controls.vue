@@ -1,26 +1,23 @@
 <template>
     <div class="tab-layout">
-        <IconButton :is="Link" :href="route('admin.pages.pages')" icon="arrow_back" @click="exitFullscreen"/>
-        <TabButton
-            v-for="tab in editor.tabs"
-            :tab="tab"
-            @select-tab="emits('select-tab', tab)"
-            @close-tab="emits('close-tab', tab)"
-        />
-        <IconButton icon="add" @click="emits('new-tab')" v-show="!editor.hasBlankTab"/>
+        <IodIconButton size="small" variant="text" icon="home" is="a" :href="route('admin')" @mousedown="exitFullscreen"/>
 
-        <div class="spacer"></div>
+        <Container @drop="editor.dropTab($event)" class="tab-bar" orientation="horizontal" behaviour="contain" lock-axis="x">            
+            <Draggable v-for="tab in editor.tabs" :key="tab.localId">
+                <TabButton :tab="tab" @select-tab="emits('select-tab', tab)" @close-tab="emits('close-tab', tab)" />
+            </Draggable>
+            <IodIconButton size="small" variant="text" icon="add" @click="emits('new-tab')" v-show="!editor.hasBlankTab" />
+        </Container>
 
-        <IconButton class="small" :icon="isFullscreen ? 'fullscreen_exit' : 'fullscreen'" v-tooltip="'Vollbild (Strg+Shift+Alt+F)'" @click="toggleFullscreen"/>
+        <IodIconButton size="small" variant="text" :icon="isFullscreen ? 'fullscreen_exit' : 'fullscreen'" v-tooltip="'Vollbild (Strg+Shift+Alt+F)'" @click="toggleFullscreen"/>
     </div>
 </template>
 
 <script setup>
-    import { Link } from '@inertiajs/inertia-vue3'
     import { ref, onMounted } from 'vue'
 
     import TabButton from '@/Pages/Apps/SharedAdmin/Editor/Partials/TabButton.vue'
-    import IconButton from '@/Components/Apps/Pages/IconButton.vue'
+    import { Container, Draggable } from 'vue3-smooth-dnd'
 
 
 
@@ -85,15 +82,15 @@
         display: flex
         background: var(--color-background-dark-soft)
         color: var(--color-text-on-background-dark)
-        padding-right: .5rem
 
-        > button:not(.tab),
-        > a:not(.tab)
-            border-radius: var(--radius-s)
-            height: 100%
-            width: 3.5rem
+        .iod-button,
+        .iod-icon-button
+            height: 100% !important
+            width: 3.5rem !important
+            --local-color-background: var(--color-text-on-background-dark)
 
-        > button.small
-            width: auto
-            aspect-ratio: 1
+        .tab-bar
+            flex: 1
+            display: flex
+            overflow-x: auto
 </style>
