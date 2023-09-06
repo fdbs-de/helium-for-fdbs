@@ -16,6 +16,7 @@
         </div>
         <div class="pages-wrapper">
             <div class="limiter text-limiter">
+                {{ tab.localId }}
             </div>
         </div>
     </div>

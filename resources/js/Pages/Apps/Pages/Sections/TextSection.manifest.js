@@ -5,7 +5,7 @@ import Component from '@/Pages/Apps/Pages/Sections/TextSection.vue'
 
 export default {
     version: '1.0.0',
-    name: 'Richtext Section',
+    name: 'Richtext',
     description: 'Fügt einen Abschnitt mit einem Rich Text Editor hinzu',
     previewImage: '/images/app/apps/pages/sections/text_section.svg',
     type: 'text-section',

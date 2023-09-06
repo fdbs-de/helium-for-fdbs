@@ -1,19 +1,21 @@
 <template>
     <AdminLayout title="Globale Einstellungen">
         <div class="card flex vertical gap-1 padding-block-2">
-            <form class="limiter text-limiter flex vertical gap-1" @submit.prevent="generateMediaCache()">
-                <ValidationErrors />
-
-                <mui-toggle class="checkbox" v-model="form.disclaimer">
-                    <template #label>
-                        <span style="line-height: 1.75;">
-                            Ich habe verstanden, dass das erneuern des Medien Cache Metadaten
-                            wie die Beschreibung oder den Alt-Text einzelner Dateien zurücksetzen kann.
-                        </span>
-                    </template>
-                </mui-toggle>
-
-                <mui-button label="Medien Cache erneuern" size="large" :disabled="!form.disclaimer" :loading="form.processing"/>
+            <form class="limiter text-limiter" @submit.prevent="generateMediaCache()">
+                <div class="flex vertical gap-1">
+                    <ValidationErrors />
+    
+                    <mui-toggle class="checkbox" v-model="form.disclaimer">
+                        <template #label>
+                            <span style="line-height: 1.75;">
+                                Ich habe verstanden, dass das erneuern des Medien Cache Metadaten
+                                wie die Beschreibung oder den Alt-Text einzelner Dateien zurücksetzen kann.
+                            </span>
+                        </template>
+                    </mui-toggle>
+    
+                    <IodButton label="Medien Cache erneuern" size="large" :disabled="!form.disclaimer" :loading="form.processing"/>
+                </div>
             </form>
         </div>
     </AdminLayout>

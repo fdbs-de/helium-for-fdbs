@@ -32,34 +32,26 @@
 
 
 
-    const props = defineProps({
-        items: Array,
-    })
+    const editor = ref(new Editor().setTitle('Editor').setOption('openNewOnLastClose', true))
+    const availableEditors = ['pages']
 
 
 
-    const editor = ref(
-        new Editor()
-        .setTitle('Seiten Editor')
-        .setOption('openNewOnLastClose', true)
-    )
-
-
-
-    // START: Hydrate Editor
+    // START: Fetch Tabs
     onMounted(() => {
-        for (const item of props.items)
-        {
-            editor.value.addTab(new PageTab().hydrate(item), true)
-        }
+        // get url params
+        let tabParams = editor.value.getTabParamsFromUrl(window.location)
+
+        tabParams.filter(e => availableEditors.includes(e.type)).forEach(async item => {
+            let data = await axios.get(route('admin.pages.pages.fetch', {page: item.id})).then(res => res?.data)
+            // console.log(item, data)
+            editor.value.addTab(new PageTab().hydrate(data?.data), true)
+        })
+        
     })
-    // END: Hydrate Editor
+    // END: Fetch Tabs
 
 
-
-    // START: Enable Hotkeys for all focusable elements
-    // hotkeys.filter = function (event) { return true }
-    // END: Enable Hotkeys for all focusable elements
     
     // START: Keyboard Shortcuts
     hotkeys('ctrl+alt+n', (event, handler) => { event.preventDefault(); editor.value.openBlankTab() })
@@ -76,7 +68,7 @@
 
     body
         font-family: var(--font-interface)
-        background: var(--color-background-soft)
+        background: #393F3F
 
         --color-primary: #3742fa !important
         --color-primary-soft: #4c5bfa !important
@@ -90,14 +82,14 @@
 </style>
 
 <style lang="sass" scoped>
-.main-layout
-    display: flex
-    flex-direction: column
-    height: 100%
-    width: 100%
-    
-    --color-background-dark: #393F3F
-    --color-background-dark-soft: #2A2F2F
-    --color-text-soft-on-background-dark: rgb(255, 255, 255, .7)
-    --color-text-on-background-dark: rgb(255, 255, 255, 1)
+    .main-layout
+        display: flex
+        flex-direction: column
+        height: 100%
+        width: 100%
+        
+        --color-background-dark: #393F3F
+        --color-background-dark-soft: #2A2F2F
+        --color-text-soft-on-background-dark: rgb(255, 255, 255, .7)
+        --color-text-on-background-dark: rgb(255, 255, 255, 1)
 </style>

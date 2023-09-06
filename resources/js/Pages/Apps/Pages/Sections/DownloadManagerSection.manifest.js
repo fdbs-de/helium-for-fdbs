@@ -6,7 +6,7 @@ import Component from '@/Pages/Apps/Pages/Sections/DownloadManagerSection.vue'
 
 export default {
     version: '1.0.0',
-    name: 'Download Section',
+    name: 'Download Manager',
     description: 'Fügt einen Abschnitt mit einem Download-Ordner-Ansicht hinzu',
     previewImage: '/images/app/apps/pages/sections/download_manager_section.svg',
     type: 'download-manager-section',

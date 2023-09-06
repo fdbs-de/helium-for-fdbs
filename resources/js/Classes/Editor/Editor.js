@@ -1,3 +1,4 @@
+import { applyDrag } from '@/Utils/DragAndDrop'
 import Tab from '@/Classes/Editor/Tab'
 import EventListener from '@/Classes/EventListener'
 
@@ -70,6 +71,13 @@ export default class Editor extends EventListener
         this.addTab(tab, true)
 
         return true
+    }
+
+
+
+    dropTab(dropResults)
+    {
+        this.tabs = applyDrag(this.tabs, dropResults)
     }
 
 
@@ -152,5 +160,27 @@ export default class Editor extends EventListener
 
         // Return success
         return true
+    }
+
+
+
+    getTabParamsFromUrl(url)
+    {
+        const urlParams = new URLSearchParams(url.search)
+
+        return (urlParams.get('t') || '')
+        .trim()
+        .split('|')
+        .filter(editor => editor.length > 0 && editor.indexOf('-') > 0)
+        .map(editor => {
+            let editorParts = editor.split('-')
+
+            if (editorParts.length < 2) return
+
+            return {
+                id: editorParts[1],
+                type: editorParts[0]
+            }
+        })
     }
 }

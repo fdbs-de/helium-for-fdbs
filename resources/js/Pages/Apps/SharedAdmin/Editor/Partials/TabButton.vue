@@ -1,11 +1,11 @@
 <template>
-    <button class="tab" :key="tab.localId" :class="{'active': tab.active}" @click="emits('select-tab', tab)">
-        <div class="icon">{{ tab.icon }}</div>
+    <button class="tab" :class="{'active': tab.active}" @click.exact="emits('select-tab', tab)" @click.middle="emits('close-tab', tab)">
+        <div class="icon" :style="{ color: tab.color }">{{ tab.icon }}</div>
         <div class="title">
             <span v-if="tab.title">{{ tab.title }}</span>
             <i v-else>Unbenannt</i>
         </div>
-        <button class="indicator" @click.stop="emits('close-tab', tab)">
+        <button class="indicator" @click="emits('close-tab', tab)">
             <div class="icon">close</div>
         </button>
         <div class="corner start"></div>
@@ -30,7 +30,7 @@
 <style lang="sass" scoped>
     .tab
         flex: 1
-        max-width: 20rem
+        width: 18rem
         display: flex
         align-items: center
         height: 100%
@@ -58,6 +58,9 @@
             border-radius: var(--radius-m) var(--radius-m) 0 0
             color: var(--color-text-on-background-dark)
             background: var(--color-background-dark)
+
+            .icon
+                opacity: 1
 
             .corner
                 display: block
@@ -100,7 +103,8 @@
             display: flex
             align-items: center
             justify-content: center
-            color: var(--color-text-soft-on-background-dark)
+            color: inherit
+            opacity: .6
 
         > .title
             flex: 1

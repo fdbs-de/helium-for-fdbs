@@ -54,12 +54,15 @@ class PageController extends Controller
 
     public function editor(Request $request)
     {
-        $pages = [];
-        
-        if ($request->pages) $pages = Page::whereIn('id', $request->pages)->get();
+        return Inertia::render('Apps/SharedAdmin/Editor/Index');
+    }
 
-        return Inertia::render('Apps/SharedAdmin/Editor/Index', [
-            'items' => $pages,
+
+
+    public function fetch(Page $page)
+    {
+        return response()->json([
+            'data' => $page,
         ]);
     }
 

@@ -42,6 +42,11 @@ export default class Tab extends EventListener
         return 'grade'
     }
 
+    get color ()
+    {
+        return 'white'
+    }
+
 
 
     setTitle(title)

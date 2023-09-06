@@ -1,111 +1,113 @@
 <template>
     <AdminLayout title="Design Einstellungen">
         <div class="card flex vertical gap-1 padding-block-2">
-            <form class="limiter text-limiter flex vertical gap-1" @submit.prevent="update()">
-                <ValidationErrors />
-
-                <div class="flex vertical gap-1 margin-bottom-3">
-                    <div class="flex gap-1 v-center padding-bottom-1 border-bottom">
-                        <h2 class="margin-0 flex-1">Logos und Icons</h2>
+            <form class="limiter text-limiter" @submit.prevent="update()">
+                <div class="flex vertical gap-1">
+                    <ValidationErrors />
+    
+                    <div class="flex vertical gap-1 margin-bottom-3">
+                        <div class="flex gap-1 v-center padding-bottom-1 border-bottom">
+                            <h2 class="margin-0 flex-1">Logos und Icons</h2>
+                        </div>
+                        <div class="flex gap-1 vertical padding-1 background-soft radius-m">
+                            <mui-input type="text" placeholder="Pfad zum Logo" clearable border v-model="form.design_logos_color">
+                                <template #right>
+                                    <div class="input-group">
+                                        <IconButton icon="folder_open" class="input-button" @click="$refs.fontPicker.open((path) => { form.design_logos_color = path })"/>
+                                    </div>
+                                </template>
+                            </mui-input>
+    
+                            <mui-input type="text" placeholder="Pfad zum Favicon" clearable border v-model="form.design_favicon">
+                                <template #right>
+                                    <div class="input-group">
+                                        <IconButton icon="folder_open" class="input-button" @click="$refs.fontPicker.open((path) => { form.design_favicon = path })"/>
+                                    </div>
+                                </template>
+                            </mui-input>
+                        </div>
                     </div>
-                    <div class="flex gap-1 vertical padding-1 background-soft radius-m">
-                        <mui-input type="text" placeholder="Pfad zum Logo" clearable border v-model="form.design_logos_color">
-                            <template #right>
-                                <div class="input-group">
-                                    <IconButton icon="folder_open" class="input-button" @click="$refs.fontPicker.open((path) => { form.design_logos_color = path })"/>
-                                </div>
-                            </template>
-                        </mui-input>
-
-                        <mui-input type="text" placeholder="Pfad zum Favicon" clearable border v-model="form.design_favicon">
-                            <template #right>
-                                <div class="input-group">
-                                    <IconButton icon="folder_open" class="input-button" @click="$refs.fontPicker.open((path) => { form.design_favicon = path })"/>
-                                </div>
-                            </template>
-                        </mui-input>
+    
+    
+    
+                    <div class="flex vertical gap-1 margin-bottom-3">
+                        <div class="flex gap-1 v-center padding-bottom-1 border-bottom">
+                            <h2 class="margin-0 flex-1">Farben</h2>
+                            <mui-button type="button" label="Farbe hinzufügen" @click="addColor()"/>
+                        </div>
+                        <div class="flex gap-1 vertical padding-1 background-soft radius-m" v-if="form.design_colors.length">
+                            <mui-input type="text" placeholder="Name" border v-model="color.name" v-for="(color, colorIndex) in form.design_colors">
+                                <template #right>
+                                    <div class="input-group" style="padding: 0">
+                                        <mui-input type="text" label="Farbe" v-model="color.value">
+                                            <template #right>
+                                                <input type="color" v-model="color.value">
+                                            </template>
+                                        </mui-input>
+                                    </div>
+                                    <div class="input-group">
+                                        <IconButton icon="delete" class="input-button" style="color: var(--color-error);" @click="removeColor(colorIndex)"/>
+                                    </div>
+                                </template>
+                            </mui-input>
+                        </div>
+                        <div class="flex h-center padding-1 padding-block-3" v-else>
+                            <span>Es wurden noch keine Farben hinzugefügt</span>
+                        </div>
                     </div>
-                </div>
-
-
-
-                <div class="flex vertical gap-1 margin-bottom-3">
-                    <div class="flex gap-1 v-center padding-bottom-1 border-bottom">
-                        <h2 class="margin-0 flex-1">Farben</h2>
-                        <mui-button type="button" label="Farbe hinzufügen" @click="addColor()"/>
-                    </div>
-                    <div class="flex gap-1 vertical padding-1 background-soft radius-m" v-if="form.design_colors.length">
-                        <mui-input type="text" placeholder="Name" border v-model="color.name" v-for="(color, colorIndex) in form.design_colors">
-                            <template #right>
-                                <div class="input-group" style="padding: 0">
-                                    <mui-input type="text" label="Farbe" v-model="color.value">
+    
+    
+    
+                    <div class="flex vertical gap-1 margin-bottom-3">
+                        <div class="flex gap-1 v-center padding-bottom-1 border-bottom">
+                            <h2 class="margin-0 flex-1">Schriften</h2>
+                            <mui-button type="button" label="Schrift hinzufügen" @click="addFont()"/>
+                        </div>
+                        <div class="flex gap-2 vertical" v-if="form.design_fonts.length">
+                            <div class="flex gap-1 vertical padding-1 background-soft radius-m" v-for="(font, fontIndex) in form.design_fonts">
+                                <mui-input type="text" placeholder="Name" border v-model="font.name"/>
+                                <div class="flex gap-1 vertical" v-for="(file, fileIndex) in font.files">
+                                    <mui-input type="text" placeholder="Pfad zur Schriftdatei" clearable border v-model="file.url">
                                         <template #right>
-                                            <input type="color" v-model="color.value">
+                                            <div class="input-group">
+                                                <IconButton icon="folder_open" class="input-button" @click="$refs.fontPicker.open((path) => { file.url = path })"/>
+                                            </div>
+                                            <div class="input-group">
+                                                <select class="input-select" v-model="file.weight">
+                                                    <option value="100">100 – Thin</option>
+                                                    <option value="200">200 – Extra Light</option>
+                                                    <option value="300">300 – Light</option>
+                                                    <option value="400">400 – Regular</option>
+                                                    <option value="500">500 – Medium</option>
+                                                    <option value="600">600 – Semi Bold</option>
+                                                    <option value="700">700 – Bold</option>
+                                                    <option value="800">800 – Extra Bold</option>
+                                                    <option value="900">900 – Black</option>
+                                                </select>
+                                                <IconButton icon="format_italic" class="input-button" :class="{'active': file.style == 'italic'}" @click="file.style = (file.style == 'italic' ? 'normal' : 'italic')"/>
+                                            </div>
+                                            <div class="input-group">
+                                                <IconButton icon="delete" class="input-button" style="color: var(--color-error);" @click="removeFontFile(fontIndex, fileIndex)"/>
+                                            </div>
                                         </template>
                                     </mui-input>
                                 </div>
-                                <div class="input-group">
-                                    <IconButton icon="delete" class="input-button" style="color: var(--color-error);" @click="removeColor(colorIndex)"/>
+                                <div class="flex gap-1 v-center">
+                                    <mui-button type="button" icon-left="delete" label="Schrift löschen" color="error" size="small" variant="contained" border @click="removeFont(fontIndex)"/>
+                                    <div class="spacer"></div>
+                                    <mui-button type="button" icon-left="add" label="Schriftschnitt hinzufügen" size="small" variant="contained" border @click="addFontFile(fontIndex)"/>
                                 </div>
-                            </template>
-                        </mui-input>
-                    </div>
-                    <div class="flex h-center padding-1 padding-block-3" v-else>
-                        <span>Es wurden noch keine Farben hinzugefügt</span>
-                    </div>
-                </div>
-
-
-
-                <div class="flex vertical gap-1 margin-bottom-3">
-                    <div class="flex gap-1 v-center padding-bottom-1 border-bottom">
-                        <h2 class="margin-0 flex-1">Schriften</h2>
-                        <mui-button type="button" label="Schrift hinzufügen" @click="addFont()"/>
-                    </div>
-                    <div class="flex gap-2 vertical" v-if="form.design_fonts.length">
-                        <div class="flex gap-1 vertical padding-1 background-soft radius-m" v-for="(font, fontIndex) in form.design_fonts">
-                            <mui-input type="text" placeholder="Name" border v-model="font.name"/>
-                            <div class="flex gap-1 vertical" v-for="(file, fileIndex) in font.files">
-                                <mui-input type="text" placeholder="Pfad zur Schriftdatei" clearable border v-model="file.url">
-                                    <template #right>
-                                        <div class="input-group">
-                                            <IconButton icon="folder_open" class="input-button" @click="$refs.fontPicker.open((path) => { file.url = path })"/>
-                                        </div>
-                                        <div class="input-group">
-                                            <select class="input-select" v-model="file.weight">
-                                                <option value="100">100 – Thin</option>
-                                                <option value="200">200 – Extra Light</option>
-                                                <option value="300">300 – Light</option>
-                                                <option value="400">400 – Regular</option>
-                                                <option value="500">500 – Medium</option>
-                                                <option value="600">600 – Semi Bold</option>
-                                                <option value="700">700 – Bold</option>
-                                                <option value="800">800 – Extra Bold</option>
-                                                <option value="900">900 – Black</option>
-                                            </select>
-                                            <IconButton icon="format_italic" class="input-button" :class="{'active': file.style == 'italic'}" @click="file.style = (file.style == 'italic' ? 'normal' : 'italic')"/>
-                                        </div>
-                                        <div class="input-group">
-                                            <IconButton icon="delete" class="input-button" style="color: var(--color-error);" @click="removeFontFile(fontIndex, fileIndex)"/>
-                                        </div>
-                                    </template>
-                                </mui-input>
-                            </div>
-                            <div class="flex gap-1 v-center">
-                                <mui-button type="button" icon-left="delete" label="Schrift löschen" color="error" size="small" variant="contained" border @click="removeFont(fontIndex)"/>
-                                <div class="spacer"></div>
-                                <mui-button type="button" icon-left="add" label="Schriftschnitt hinzufügen" size="small" variant="contained" border @click="addFontFile(fontIndex)"/>
                             </div>
                         </div>
+                        <div class="flex h-center padding-1 padding-block-3" v-else>
+                            <span>Es wurden noch keine Schriften hinzugefügt</span>
+                        </div>
                     </div>
-                    <div class="flex h-center padding-1 padding-block-3" v-else>
-                        <span>Es wurden noch keine Schriften hinzugefügt</span>
-                    </div>
+    
+    
+                
+                    <IodButton label="Einstellungen Speichern" size="large" :loading="form.processing"/>
                 </div>
-
-
-            
-                <mui-button label="Einstellungen Speichern" size="large" :loading="form.processing"/>
             </form>
         </div>
     </AdminLayout>

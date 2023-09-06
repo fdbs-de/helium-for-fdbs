@@ -1,20 +1,22 @@
 <template>
     <AdminLayout title="Allgemeine Einstellungen">
         <div class="card flex vertical gap-1 padding-block-2">
-            <form class="limiter text-limiter flex vertical gap-1" @submit.prevent="update()">
-                <ValidationErrors />
-
-                <mui-input v-model="form.site_name" label="Seitenname" />
-                <mui-input v-model="form.site_slogan" label="Slogan" />
-                <mui-input v-model="form.site_domain" label="Domain" placeholder="example.com" />
-                <mui-input type="textarea" v-model="form.site_description" label="Seitenbeschreibung" />
-
-                <select v-model="form.site_language">
-                    <option value="de">Deutsch</option>
-                    <option value="en">English</option>
-                </select>
-                
-                <mui-button label="Einstellungen Speichern" size="large" :loading="form.processing"/>
+            <form class="limiter text-limiter" @submit.prevent="update()">
+                <div class="flex gap-1 vertical">
+                    <ValidationErrors />
+    
+                    <IodInput v-model="form.site_name" label="Seitenname" />
+                    <IodInput v-model="form.site_slogan" label="Slogan" />
+                    <IodInput v-model="form.site_domain" label="Domain" placeholder="example.com" />
+                    <IodInput v-model="form.site_description" label="Seitenbeschreibung" />
+    
+                    <select v-model="form.site_language">
+                        <option value="de">Deutsch</option>
+                        <option value="en">English</option>
+                    </select>
+                    
+                    <IodButton label="Einstellungen Speichern" size="large" :loading="form.processing"/>
+                </div>
             </form>
         </div>
     </AdminLayout>

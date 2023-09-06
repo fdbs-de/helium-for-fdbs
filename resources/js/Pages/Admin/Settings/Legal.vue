@@ -1,12 +1,14 @@
 <template>
     <AdminLayout title="Rechtliche Einstellungen">
         <div class="card flex vertical gap-1 padding-block-2">
-            <form class="limiter text-limiter flex vertical gap-1" @submit.prevent="update()">
-                <ValidationErrors />
+            <form class="limiter text-limiter" @submit.prevent="update()">
+                <div class="flex vertical gap-1">
+                    <ValidationErrors />
+                    
+                    <TextEditor class="text-editor" label="Disclaimer unter dem Impressum" v-model="form.legal_disclaimer"/>
                 
-                <TextEditor class="text-editor" label="Disclaimer unter dem Impressum" v-model="form.legal_disclaimer"/>
-            
-                <mui-button label="Einstellungen Speichern" size="large" :loading="form.processing"/>
+                    <IodButton label="Einstellungen Speichern" size="large" :loading="form.processing"/>
+                </div>
             </form>
         </div>
     </AdminLayout>
