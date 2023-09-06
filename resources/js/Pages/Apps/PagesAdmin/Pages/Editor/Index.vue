@@ -22,8 +22,8 @@
                 </div>
             </div>
             <div class="end">
-                <IodIconButton type="button" class="transparent" variant="text" is="a" icon="open_in_new" v-tooltip.bottom="'Seite öffnen'" :href="route('app.pages.render.page', tab.data.slug)" target="_blank"/>
                 <div class="spacer"></div>
+                <IodIconButton type="button" class="transparent" variant="text" is="a" icon="visibility" v-tooltip.bottom="'Seite öffnen'" :href="route('app.pages.render.page', tab.data.slug)" target="_blank"/>
                 <IodButton type="button" class="transparent" variant="contained" label="Speichern" v-tooltip.bottom="'Speichern (Strg+S)'" @click="tab.save()" :loading="tab.processing.saving"/>
             </div>
         </div>
@@ -179,6 +179,7 @@
                 align-items: center
                 width: 25rem
                 padding-inline: 1rem
+                gap: .5rem
 
             .center
                 flex: 1

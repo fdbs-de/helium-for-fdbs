@@ -6,7 +6,7 @@ import Component from '@/Pages/Apps/Pages/Sections/ImageSection.vue'
 export default {
     version: '1.0.0',
     type: 'image-section',
-    name: 'Image Section',
+    name: 'Image',
     description: 'Fügt einen Abschnitt mit einem Bild hinzu',
     previewImage: '/images/app/apps/pages/sections/image_section.svg',
     group: 'sections',

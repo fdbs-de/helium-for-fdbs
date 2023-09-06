@@ -119,6 +119,17 @@ export default class PageTab extends Tab
         return 'web'
     }
 
+    get color ()
+    {
+        switch (this.data.status)
+        {
+            case 'draft': return '#f39c12'
+            case 'published': return '#2ecc71'
+            case 'hidden': return '#e74c3c'
+            default: return 'white'
+        }
+    }
+
 
 
     selectBreakpoint(index)

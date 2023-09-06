@@ -5,7 +5,7 @@ import Component from '@/Pages/Apps/Pages/Sections/CodeSection.vue'
 export default {
     version: '1.0.0',
     type: 'code-section',
-    name: 'Code Section',
+    name: 'Code',
     description: 'Fügt einen Quellcode-Abschnitt hinzu',
     previewImage: '/images/app/apps/pages/sections/code_section.svg',
     group: 'sections',

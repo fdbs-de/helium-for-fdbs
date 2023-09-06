@@ -6,7 +6,7 @@
             <Draggable v-for="tab in editor.tabs" :key="tab.localId">
                 <TabButton :tab="tab" @select-tab="emits('select-tab', tab)" @close-tab="emits('close-tab', tab)" />
             </Draggable>
-            <IodIconButton size="small" variant="text" icon="add" @click="emits('new-tab')" v-show="!editor.hasBlankTab" />
+            <IodIconButton size="small" variant="text" icon="add" @click="emits('new-tab')" :disabled="editor.hasBlankTab" />
         </Container>
 
         <IodIconButton size="small" variant="text" :icon="isFullscreen ? 'fullscreen_exit' : 'fullscreen'" v-tooltip="'Vollbild (Strg+Shift+Alt+F)'" @click="toggleFullscreen"/>
@@ -93,4 +93,5 @@
             flex: 1
             display: flex
             overflow-x: auto
+            padding-inline: 8px
 </style>
