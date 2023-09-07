@@ -73,6 +73,7 @@
 
             <div class="scroll-box small-scrollbar" v-show="tab.ui.inspector.panel == 'inspector'">
                 <Inspector :tab="tab" :picker="picker" @update:element="tab.updateElement($event)"/>
+                {{ tab.dataNeedingPrefetch }}
             </div>
             
             <div class="scroll-box small-scrollbar" v-show="tab.ui.inspector.panel == 'page'">

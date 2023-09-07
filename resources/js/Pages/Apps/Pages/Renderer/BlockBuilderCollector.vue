@@ -12,7 +12,11 @@
     defineProps({
         elements: {
             type: Array,
-            default: () => [],
+            default: () => ([]),
+        },
+        prefetchedData: {
+            type: Object,
+            default: () => ({}),
         },
     })
 </script>

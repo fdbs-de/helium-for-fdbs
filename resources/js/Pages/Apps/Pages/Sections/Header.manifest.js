@@ -11,6 +11,13 @@ export default {
     group: 'header',
     props: [
         {
+            fixtureType: 'menus:id',
+            label: 'Menü',
+            key: 'menuId',
+            value: '',
+            prefetch: true,
+        },
+        {
             fixtureType: 'style:unit',
             label: 'Höhe',
             key: 'height',

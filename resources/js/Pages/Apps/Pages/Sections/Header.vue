@@ -23,6 +23,7 @@
 
 
     defineProps({
+        menuId: String,
         height: String,
         backgroundColor: String,
         color: String,

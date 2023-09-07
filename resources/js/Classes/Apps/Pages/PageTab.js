@@ -1,5 +1,6 @@
 import { applyDrag } from '@/Utils/DragAndDrop'
 import Tab from '@/Classes/Editor/Tab'
+import { TemplatesNeedingPrefetch } from '@/Pages/Apps/Pages/ElementTemplates'
 import { useForm } from '@inertiajs/inertia-vue3'
 
 
@@ -201,6 +202,16 @@ export default class PageTab extends Tab
     selectElement(element)
     {
         this.selected.elements = [element.localId]
+    }
+
+
+
+    get dataNeedingPrefetch()
+    {
+        let templateTypesNeedingPrefetch = TemplatesNeedingPrefetch.map(element => element.props.filter(prop => prop.prefetch).map(prop => element.type)).flat()
+        return {
+            menu: this.data.content.filter(element => templateTypesNeedingPrefetch.includes(element.type)).map(element => element.props.menuId),
+        }
     }
 
 

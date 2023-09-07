@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Apps\Pages;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Apps\Pages\MenuResource;
+use App\Models\Menu;
 use App\Models\Page;
 use App\Models\Setting;
 use Illuminate\Http\Request;
@@ -19,8 +21,9 @@ class PageController extends Controller
         $data = [
             'title' => $page->title,
             'content' => $page->resolve(),
-            'settings' => Setting::getGlobal(true, 'frontend'),
         ];
+
+
 
         if ($page->renderer == 'php')
         {
