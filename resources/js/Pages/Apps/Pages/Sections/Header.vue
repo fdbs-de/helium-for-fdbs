@@ -60,6 +60,7 @@
             display: flex
             align-items: center
             height: 100%
+            max-width: 1200px
 
         .wrapper
             flex: 1
@@ -94,13 +95,7 @@
                 gap: 1rem
 
                 > .wrapper.menu
-                    order: 1
-                    flex: none
                     padding: 0
-
-                .wrapper.login
-                    flex: 1
-                    width: auto
 
 
     

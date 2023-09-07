@@ -7,6 +7,8 @@
                 <!-- <span class="title flex-1">{{ prop.label }}</span> -->
                 <CodeEditor class="border radius-m" theme="vs-light" v-model="prop.value" @update:modelValue="emitUpdate()"/>
             </div>
+
+
             
             <label v-else-if="prop.fixtureType === 'select'" class="flex v-center">
                 <span class="title flex-1">{{ prop.label }}</span>
@@ -14,6 +16,15 @@
                     <option v-for="option in prop.options" :value="option.value">{{ option.label }}</option>
                 </select>
             </label>
+            
+            <div v-else-if="prop.fixtureType === 'toggle:switch'" class="flex v-center">
+                <span class="title flex-1">{{ prop.label }}</span>
+                <span class="w-14">
+                    <IodToggle type="switch" v-model="prop.value" @update:modelValue="emitUpdate()" />
+                </span>
+            </div>
+
+
 
             <div v-else-if="prop.fixtureType === 'media:folder'" class="flex v-center">
                 <span class="title flex-1">{{ prop.label }}</span>
@@ -209,6 +220,9 @@
         .iod-input
             height: 2.5rem
             width: 14rem
+
+        .iod-toggle
+            padding-inline: 0
 
     .color-trigger
         height: 1.5rem

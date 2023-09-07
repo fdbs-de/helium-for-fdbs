@@ -27,7 +27,7 @@ export default {
             ],
             label: 'Limiter Größe',
             key: 'size',
-            value: 'limiter',
+            value: 'text-limiter',
         },
     ],
     component: Component,
