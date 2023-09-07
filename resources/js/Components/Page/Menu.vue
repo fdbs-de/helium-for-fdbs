@@ -9,7 +9,7 @@
         <div class="mobile-menu" :class="{'is-open': isOpen}">
             <div class="background" @click="isOpen = false"></div>
             <nav class="menu">
-                <div class="flex center">
+                <div class="flex v-center">
                     <div class="spacer"></div>
                     <button class="mobile-menu-toggle" type="button" title="Close navigation" @click="isOpen = false">close</button>
                 </div>

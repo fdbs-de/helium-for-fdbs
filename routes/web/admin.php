@@ -182,6 +182,10 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
             Route::get('/', [MenuController::class, 'index'])
             ->middleware('can:app.pages.view.menus')
             ->name('admin.pages.menus');
+
+            Route::get('/search', [MenuController::class, 'search'])
+            ->middleware('can:app.pages.view.menus')
+            ->name('admin.pages.menus.search');
         });
     });
 
