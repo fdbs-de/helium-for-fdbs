@@ -36,9 +36,9 @@
 
             <ValidationErrors />
 
-            <div class="flex border-bottom">
+            <div class="flex border-bottom padding-bottom-1">
                 <div class="limiter text-limiter">
-                    <Tabs v-model="tab" :tabs="[
+                    <Tabs v-model="tab" indicator-style="box" :tabs="[
                         { label: 'Allgemein', value: 'general' },
                         { label: 'Veröffentlichung', value: 'publishing'},
                         { label: 'Berechtigungen', value: 'permissions'},
@@ -47,95 +47,101 @@
             </div>
 
             <div class="tab-container" v-show="tab === 'general'">
-                <div class="limiter text-limiter flex gap-1 vertical">
-                    <select class="header-select" v-model="form.post_category_id">
-                        <option :value="null" disabled>Kategorie auswählen</option>
-                        <option v-for="category in categories" :key="category.id" :value="category.id">{{category.name}}</option>
-                    </select>
-                    
-                    <mui-input type="text" label="Titel" required v-model="form.title">
-                        <template #right>
-                            <IconButton icon="push_pin" class="input-button" :class="{'active': form.pinned}" @click="form.pinned = !form.pinned"  v-tooltip.right="'Post anpinnen'"/>
-                        </template>
-                    </mui-input>
-                    
-                    <mui-input type="text" label="Slug" required v-model="form.slug">
-                        <template #right>
-                            <IconButton icon="auto_awesome" class="input-button" @click="generateSlug()"  v-tooltip.right="'Aus Titel generieren'"/>
-                        </template>
-                    </mui-input>
-                    <hr class="margin-block-1">
-                    <TextEditor class="content-input flex-1" v-model="form.content" />
+                <div class="limiter text-limiter">
+                    <div class="flex gap-1 vertical">
+                        <select class="header-select" v-model="form.post_category_id">
+                            <option :value="null" disabled>Kategorie auswählen</option>
+                            <option v-for="category in categories" :key="category.id" :value="category.id">{{category.name}}</option>
+                        </select>
+                        
+                        <mui-input type="text" label="Titel" required v-model="form.title">
+                            <template #right>
+                                <IconButton icon="push_pin" class="input-button" :class="{'active': form.pinned}" @click="form.pinned = !form.pinned"  v-tooltip.right="'Post anpinnen'"/>
+                            </template>
+                        </mui-input>
+                        
+                        <mui-input type="text" label="Slug" required v-model="form.slug">
+                            <template #right>
+                                <IconButton icon="auto_awesome" class="input-button" @click="generateSlug()"  v-tooltip.right="'Aus Titel generieren'"/>
+                            </template>
+                        </mui-input>
+                        <hr class="margin-block-1">
+                        <TextEditor class="content-input flex-1" v-model="form.content" />
+                    </div>
                 </div>
             </div>
 
             <div class="tab-container" v-show="tab === 'publishing'">
-                <div class="limiter text-limiter flex gap-1 vertical">
-                    <fieldset class="flex vertical gap-1 margin-bottom-1">
-                        <mui-input type="text" icon-left="tag" placeholder="Tags (Enter zum Hinzufügen)" v-model="tagString" @keydown.enter.stop.prevent="addTag(tagString); tagString = ''">
-                            <template #right>
-                                <IconButton icon="add" class="input-button" @click="addTag(tagString); tagString = ''"  v-show="!!tagString" v-tooltip.right="'Tag Hinzufügen'"/>
-                            </template>
-                        </mui-input>
-
-                        <div class="flex gap-1 wrap" v-show="form.tags.length">
-                            <Tag icon="tag" v-for="tag in form.tags" :label="tag" @click="removeTag(tag)"/>
-                        </div>
-
-                        <small class="flex h-center padding-inline-1" v-show="!form.tags.length">
-                            Keine Tags eingetragen
-                        </small>
-                    </fieldset>
+                <div class="limiter text-limiter">
+                    <div class="flex gap-1 vertical">
+                        <fieldset class="flex vertical gap-1 margin-bottom-1">
+                            <mui-input type="text" icon-left="tag" placeholder="Tags (Enter zum Hinzufügen)" v-model="tagString" @keydown.enter.stop.prevent="addTag(tagString); tagString = ''">
+                                <template #right>
+                                    <IconButton icon="add" class="input-button" @click="addTag(tagString); tagString = ''"  v-show="!!tagString" v-tooltip.right="'Tag Hinzufügen'"/>
+                                </template>
+                            </mui-input>
     
-                    <div class="flex vertical background-soft radius-m">
-                        <div class="flex padding-1 gap-1 wrap">
-                            <mui-toggle type="switch" label="Veröffentlichen am" :modelValue="!!form.available_from" @update:modelValue="form.available_from = $event ? new Date().toISOString().split('T')[0] : null"/>
-                        </div>
-                        <div class="flex padding-1 gap-1 wrap border-top" v-show="form.available_from">
-                            <input type="date" class="date-input flex-1" v-model="form.available_from">
-                        </div>
-                    </div>
+                            <div class="flex gap-1 wrap" v-show="form.tags.length">
+                                <Tag icon="tag" v-for="tag in form.tags" :label="tag" @click="removeTag(tag)"/>
+                            </div>
     
-                    <div class="flex vertical background-soft radius-m">
-                        <div class="flex padding-1 gap-1 wrap">
-                            <mui-toggle type="switch" label="Veröffentlichen bis" :modelValue="!!form.available_to" @update:modelValue="form.available_to = $event ? new Date().toISOString().split('T')[0] : null"/>
+                            <small class="flex h-center padding-inline-1" v-show="!form.tags.length">
+                                Keine Tags eingetragen
+                            </small>
+                        </fieldset>
+        
+                        <div class="flex vertical background-soft radius-m">
+                            <div class="flex padding-1 gap-1 wrap">
+                                <mui-toggle type="switch" label="Veröffentlichen am" :modelValue="!!form.available_from" @update:modelValue="form.available_from = $event ? new Date().toISOString().split('T')[0] : null"/>
+                            </div>
+                            <div class="flex padding-1 gap-1 wrap border-top" v-show="form.available_from">
+                                <input type="date" class="date-input flex-1" v-model="form.available_from">
+                            </div>
                         </div>
-                        <div class="flex padding-1 gap-1 wrap border-top" v-show="form.available_to">
-                            <input type="date" class="date-input flex-1" v-model="form.available_to">
+        
+                        <div class="flex vertical background-soft radius-m">
+                            <div class="flex padding-1 gap-1 wrap">
+                                <mui-toggle type="switch" label="Veröffentlichen bis" :modelValue="!!form.available_to" @update:modelValue="form.available_to = $event ? new Date().toISOString().split('T')[0] : null"/>
+                            </div>
+                            <div class="flex padding-1 gap-1 wrap border-top" v-show="form.available_to">
+                                <input type="date" class="date-input flex-1" v-model="form.available_to">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="tab-container" v-show="tab === 'permissions'">
-                <div class="limiter text-limiter flex gap-1 vertical">
-                    <div class="flex vertical background-soft radius-m margin-top-0">
-                        <div class="flex vertical padding-1">
-                            <mui-toggle type="switch" label="Kategorie-Berechtigungen ignorieren" v-model="form.override_category_roles"/>
-                        </div>
-                        <div class="flex vertical padding-1 gap-1 border-top">
-                            <div class="user flex v-center gap-1" v-for="role in form.roles">
-                                <b class="flex-1">{{ role.name }}</b>
-                                <IconButton icon="close" class="input-button" v-tooltip.right="'Benutzer entfernen'" @click="removeRole(role)"/>
+                <div class="limiter text-limiter">
+                    <div class="flex gap-1 vertical">
+                        <div class="flex vertical background-soft radius-m margin-top-0">
+                            <div class="flex vertical padding-1">
+                                <mui-toggle type="switch" label="Kategorie-Berechtigungen ignorieren" v-model="form.override_category_roles"/>
                             </div>
-                            <mui-button type="button" label="Rolle hinzufügen" variant="contained" size="small" @click="roleSearchPopup.open((item) => addRole(item), {exclude: form.roles.map(e => e.id), scope: 'all'})"/>
-                        </div>
-                        <div class="flex vertical padding-1 gap-1 border-top">
-                            <div class="user flex v-center gap-1" v-for="user in form.users">
-                                <img :src="user.image" :alt="user.name" class="h-2 profile-image">
-                                <b class="flex-1">{{ user.name }}</b>
-                                <select class="h-2" v-model="user.pivot_role">
-                                    <option value="owner">Ersteller</option>
-                                    <option value="editor">Editor</option>
-                                    <option value="viewer">Leser</option>
-                                </select>
-                                <IconButton icon="close" class="input-button" v-tooltip.right="'Benutzer entfernen'" @click="removeUser(user)"/>
+                            <div class="flex vertical padding-1 gap-1 border-top">
+                                <div class="user flex v-center gap-1" v-for="role in form.roles">
+                                    <b class="flex-1">{{ role.name }}</b>
+                                    <IconButton icon="close" class="input-button" v-tooltip.right="'Benutzer entfernen'" @click="removeRole(role)"/>
+                                </div>
+                                <mui-button type="button" label="Rolle hinzufügen" variant="contained" size="small" @click="roleSearchPopup.open((item) => addRole(item), {exclude: form.roles.map(e => e.id), scope: 'all'})"/>
                             </div>
-                            <mui-button type="button" label="Benutzer hinzufügen" variant="contained" size="small" @click="userSearchPopup.open((item) => addUser(item), {exclude: form.users.map(e => e.id)})"/>
-                        </div>
-                        <div class="flex padding-1 gap-1 wrap border-top">
-                            <span><b>Ansehen / verwenden</b><br>{{ whoCanView }}</span>
-                            <span><b>Bearbeiten</b><br>{{ whoCanEdit }}</span>
+                            <div class="flex vertical padding-1 gap-1 border-top">
+                                <div class="user flex v-center gap-1" v-for="user in form.users">
+                                    <img :src="user.image" :alt="user.name" class="h-2 profile-image">
+                                    <b class="flex-1">{{ user.name }}</b>
+                                    <select class="h-2" v-model="user.pivot_role">
+                                        <option value="owner">Ersteller</option>
+                                        <option value="editor">Editor</option>
+                                        <option value="viewer">Leser</option>
+                                    </select>
+                                    <IconButton icon="close" class="input-button" v-tooltip.right="'Benutzer entfernen'" @click="removeUser(user)"/>
+                                </div>
+                                <mui-button type="button" label="Benutzer hinzufügen" variant="contained" size="small" @click="userSearchPopup.open((item) => addUser(item), {exclude: form.users.map(e => e.id)})"/>
+                            </div>
+                            <div class="flex padding-1 gap-1 wrap border-top">
+                                <span><b>Ansehen / verwenden</b><br>{{ whoCanView }}</span>
+                                <span><b>Bearbeiten</b><br>{{ whoCanEdit }}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -412,6 +418,10 @@
                 padding-block: 1rem .5rem
                 transform: translateY(100%)
                 background: linear-gradient(0deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%)
+    
+    .tabs-wrapper
+        --tab-height: 2rem
+        font-size: .8rem
 
     .tab-container
         display: flex
