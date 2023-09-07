@@ -3,98 +3,100 @@
 
     <AdminLayout :title="user.name" :backlink="route('admin.users')" backlink-text="Zurück zur Übersicht">
         <div class="card flex vertical gap-1 padding-block-2 margin-bottom-2">
-            <form class="limiter text-limiter flex vertical gap-4" @submit.prevent="saveItem()">
-                <div class="popup-block popup-error" v-if="hasErrors">
-                    <h3><b>Fehler!</b></h3>
-                    <p v-for="(error, key) in errors" :key="key">{{ error }}</p>
-                </div>
-                
-                <fieldset class="flex vertical gap-1">
-                    <legend>Allgemeines</legend>
-                    <mui-input type="text" v-model="form.username" label="Username"/>
-                    <mui-input type="email" v-model="form.email" label="Email"/>
-                    <mui-toggle class="checkbox" label="Email freigeschaltet" style="background: var(--color-background-soft)" :modelValue="!!form.email_verified_at" @update:modelValue="form.email_verified_at = $event ? new Date() : null "/>
-                    <mui-toggle class="checkbox" style="background: var(--color-background-soft)" :modelValue="!!form.enabled_at" @update:modelValue="form.enabled_at = $event ? new Date() : null ">
-                        <template #label>
-                            <span>Nutzer freigeschaltet</span><br>
-                            <small class="text-green" v-if="domainMatch && !!user.email_verified_at">(Dieser Nutzer hat eine Domain-Email-Adresse)</small>
-                        </template>
-                    </mui-toggle>
-                    
-                    <Alert type="warning" title="Email ist nicht verifiziert" v-if="!!form.enabled_at && !user.email_verified_at">
-                        <p>
-                            Der Nutzer hat seine Email noch nicht bestätigt.<br>
-                            Vorsicht bei der Freischaltung – es kann sich um einen <b>Bot oder Spam-Account</b> handeln!
-                        </p>
-                    </Alert>
-
-                    <hr>
-                    
-                    <mui-input type="password" label="Passwort setzen" no-border show-password-score autocomplete="new-password" v-model="form.password"/>
-                </fieldset>
-                
-                <fieldset class="flex vertical gap-1">
-                    <legend>
-                        <mui-toggle type="switch" label="Kundenprofil" border v-model="form.profiles.customer.has_customer_profile"/>
-                    </legend>
-                    <template v-if="form.profiles.customer.has_customer_profile">
-                        <mui-input v-model="form.profiles.customer.company" label="Firmenname" />
-                        <mui-input v-model="form.profiles.customer.customer_id" label="Kundennummer" />
-                    </template>
-                    <span class="flex v-center h-center h-4" v-else>
-                        Kein Kundenprofil angelegt
-                    </span>
-                </fieldset>
-
-                
-                <fieldset class="flex vertical gap-1">
-                    <legend>
-                        <mui-toggle type="switch" label="Mitarbeiterprofil" border v-model="form.profiles.employee.has_employee_profile"/>
-                    </legend>
-                    <template v-if="form.profiles.employee.has_employee_profile">
-                        <mui-input v-model="form.profiles.employee.first_name" label="Vorname" />
-                        <mui-input v-model="form.profiles.employee.last_name" label="Nachname" />
-                    </template>
-                    <span class="flex v-center h-center h-4" v-else>
-                        Kein Mitarbeiterprofil angelegt
-                    </span>
-                </fieldset>
-
-                <fieldset class="flex vertical gap-1">
-                    <legend>Rollen</legend>
-                    <!-- <mui-input type="text" icon-left="search" label="Suchen" />
-                    <hr> -->
-                    <div class="flex gap-1 wrap">
-                        <mui-toggle
-                            v-for="role in roles"
-                            style="background: var(--color-background-soft)"
-                            :key="role.id"
-                            :label="role.name"
-                            :modelValue="form.roles.includes(role.id)"
-                            @update:modelValue="toggleRole(role.id)"
-                        />
+            <form class="limiter text-limiter" @submit.prevent="saveItem()">
+                <div class="flex vertical gap-4">
+                    <div class="popup-block popup-error" v-if="hasErrors">
+                        <h3><b>Fehler!</b></h3>
+                        <p v-for="(error, key) in errors" :key="key">{{ error }}</p>
                     </div>
-                </fieldset>
-
-                <fieldset class="flex vertical gap-1">
-                    <legend>Benachrichtigungen</legend>
-                    <mui-toggle class="checkbox" label="Allgemeiner Newsletter" style="background: var(--color-background-soft)" @v-model="form.newsletter.generic"/>
-                    <mui-toggle class="checkbox" label="Kunden Newsletter" style="background: var(--color-background-soft)" @v-model="form.newsletter.customer"/>
-                </fieldset>
-
-                <fieldset class="flex vertical gap-1">
-                    <legend>Info</legend>
-                    <span>
-                        Kennt uns durch:<br>
-                        <b v-if="user.settings_object.referal">{{user.settings_object.referal.join(', ')}}</b>
-                        <i v-else>Nicht Angegeben</i>
-                    </span>
-                </fieldset>
-
-                <div class="flex v-center gap-1">
-                    <div class="spacer"></div>
-                    <mui-button class="header-button" v-if="form.id" label="Nutzer Speichern" size="large" :loading="form.processing"/>
-                    <mui-button class="header-button" v-else label="Nutzer erstellen" size="large" :loading="form.processing"/>
+                    
+                    <fieldset class="flex vertical gap-1">
+                        <legend>Allgemeines</legend>
+                        <mui-input type="text" v-model="form.username" label="Username"/>
+                        <mui-input type="email" v-model="form.email" label="Email"/>
+                        <mui-toggle class="checkbox" label="Email freigeschaltet" style="background: var(--color-background-soft)" :modelValue="!!form.email_verified_at" @update:modelValue="form.email_verified_at = $event ? new Date() : null "/>
+                        <mui-toggle class="checkbox" style="background: var(--color-background-soft)" :modelValue="!!form.enabled_at" @update:modelValue="form.enabled_at = $event ? new Date() : null ">
+                            <template #label>
+                                <span>Nutzer freigeschaltet</span><br>
+                                <small class="text-green" v-if="domainMatch && !!user.email_verified_at">(Dieser Nutzer hat eine Domain-Email-Adresse)</small>
+                            </template>
+                        </mui-toggle>
+                        
+                        <Alert type="warning" title="Email ist nicht verifiziert" v-if="!!form.enabled_at && !user.email_verified_at">
+                            <p>
+                                Der Nutzer hat seine Email noch nicht bestätigt.<br>
+                                Vorsicht bei der Freischaltung – es kann sich um einen <b>Bot oder Spam-Account</b> handeln!
+                            </p>
+                        </Alert>
+    
+                        <hr>
+                        
+                        <mui-input type="password" label="Passwort setzen" no-border show-password-score autocomplete="new-password" v-model="form.password"/>
+                    </fieldset>
+                    
+                    <fieldset class="flex vertical gap-1">
+                        <legend>
+                            <mui-toggle type="switch" label="Kundenprofil" border v-model="form.profiles.customer.has_customer_profile"/>
+                        </legend>
+                        <template v-if="form.profiles.customer.has_customer_profile">
+                            <mui-input v-model="form.profiles.customer.company" label="Firmenname" />
+                            <mui-input v-model="form.profiles.customer.customer_id" label="Kundennummer" />
+                        </template>
+                        <span class="flex v-center h-center h-4" v-else>
+                            Kein Kundenprofil angelegt
+                        </span>
+                    </fieldset>
+    
+                    
+                    <fieldset class="flex vertical gap-1">
+                        <legend>
+                            <mui-toggle type="switch" label="Mitarbeiterprofil" border v-model="form.profiles.employee.has_employee_profile"/>
+                        </legend>
+                        <template v-if="form.profiles.employee.has_employee_profile">
+                            <mui-input v-model="form.profiles.employee.first_name" label="Vorname" />
+                            <mui-input v-model="form.profiles.employee.last_name" label="Nachname" />
+                        </template>
+                        <span class="flex v-center h-center h-4" v-else>
+                            Kein Mitarbeiterprofil angelegt
+                        </span>
+                    </fieldset>
+    
+                    <fieldset class="flex vertical gap-1">
+                        <legend>Rollen</legend>
+                        <!-- <mui-input type="text" icon-left="search" label="Suchen" />
+                        <hr> -->
+                        <div class="flex gap-1 wrap">
+                            <mui-toggle
+                                v-for="role in roles"
+                                style="background: var(--color-background-soft)"
+                                :key="role.id"
+                                :label="role.name"
+                                :modelValue="form.roles.includes(role.id)"
+                                @update:modelValue="toggleRole(role.id)"
+                            />
+                        </div>
+                    </fieldset>
+    
+                    <fieldset class="flex vertical gap-1">
+                        <legend>Benachrichtigungen</legend>
+                        <mui-toggle class="checkbox" label="Allgemeiner Newsletter" style="background: var(--color-background-soft)" @v-model="form.newsletter.generic"/>
+                        <mui-toggle class="checkbox" label="Kunden Newsletter" style="background: var(--color-background-soft)" @v-model="form.newsletter.customer"/>
+                    </fieldset>
+    
+                    <fieldset class="flex vertical gap-1">
+                        <legend>Info</legend>
+                        <span>
+                            Kennt uns durch:<br>
+                            <b v-if="user.settings_object.referal">{{user.settings_object.referal.join(', ')}}</b>
+                            <i v-else>Nicht Angegeben</i>
+                        </span>
+                    </fieldset>
+    
+                    <div class="flex v-center gap-1">
+                        <div class="spacer"></div>
+                        <mui-button class="header-button" v-if="form.id" label="Nutzer Speichern" size="large" :loading="form.processing"/>
+                        <mui-button class="header-button" v-else label="Nutzer erstellen" size="large" :loading="form.processing"/>
+                    </div>
                 </div>
             </form>
         </div>

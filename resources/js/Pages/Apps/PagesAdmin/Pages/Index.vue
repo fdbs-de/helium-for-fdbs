@@ -2,10 +2,6 @@
     <Head :title="IPM.options.pageTitle" />
 
     <AdminLayout :title="IPM.options.pageTitle" :loading="IPM.processing">
-        <div class="flex v-center margin-bottom-2">
-            <div class="spacer"></div>
-            <mui-button as="a" label="Editor Öffnen" :href="route('admin.pages.pages.editor')" target="_blank"/>
-        </div>
         <Table
             show-create
             :columns="tableColumns"
