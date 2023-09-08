@@ -1,6 +1,5 @@
 import { applyDrag } from '@/Utils/DragAndDrop'
 import Tab from '@/Classes/Editor/Tab'
-import { TemplatesNeedingPrefetch } from '@/Pages/Apps/Pages/ElementTemplates'
 import { useForm } from '@inertiajs/inertia-vue3'
 
 
@@ -110,6 +109,16 @@ export default class PageTab extends Tab
             }
         ]
 
+        this.globalData = {
+            colorPalettes: {
+                default: [
+                    [ '#ff4757', '#ff6348', '#ffa502', '#2ed573', '#1e90ff', '#3742fa', '#8e44ad', '#9b59b6', ],
+                    [ '#eb3b5a', '#fa8231', '#f7b731', '#20bf6b', '#0fb9b1', '#2d98da', '#3867d6', '#8854d0', ],
+                    [ '#ffffff', '#ECEFF1', '#B0BEC5', '#90A4AE', '#607D8B', '#455A64', '#263238', '#000000', ],
+                ],
+            },
+        }
+
         return this
     }
 
@@ -159,15 +168,13 @@ export default class PageTab extends Tab
     {
         let data = {
             localId: this.generateLocalId(),
+            name: elementTemplate?.name || 'New Element',
+            type: elementTemplate?.type,
+            props: elementTemplate?.props || [],
+            children: elementTemplate?.children || [],
         }
 
-        data.type = elementTemplate.type
-        data.props = {}
 
-        for (const prop of elementTemplate.props)
-        {
-            data.props[prop.key] = prop.value
-        }
 
         this.addElement(data)
         
@@ -195,6 +202,9 @@ export default class PageTab extends Tab
     removeElement(element)
     {
         this.data.content = this.data.content.filter(item => item.localId !== element.localId)
+
+        // Remove element from selected elements
+        this.selected.elements = this.selected.elements.filter(item => item !== element.localId)
     }
 
 
@@ -208,10 +218,20 @@ export default class PageTab extends Tab
 
     get dataNeedingPrefetch()
     {
-        let templateTypesNeedingPrefetch = TemplatesNeedingPrefetch.map(element => element.props.filter(prop => prop.prefetch).map(prop => element.type)).flat()
-        return {
-            menu: this.data.content.filter(element => templateTypesNeedingPrefetch.includes(element.type)).map(element => element.props.menuId),
-        }
+        // Get the values of the props that need prefetching
+        let propsNeedingPrefetchFromData = this.data.content
+            .map(element => element.props)
+            .flat()
+            .filter(prop => prop.prefetch)
+            .map(prop => [prop.fixtureType, prop.value])
+
+        // Group by key
+        let propsNeedingPrefetchFromDataGrouped = propsNeedingPrefetchFromData.reduce((r, a) => {
+            r[a[0]] = [...r[a[0]] || [], a[1]]
+            return r
+        }, {})
+
+        return propsNeedingPrefetchFromDataGrouped
     }
 
 
@@ -252,6 +272,9 @@ export default class PageTab extends Tab
         await useForm(this.serialize()).put('/admin/pages/pages/'+this.data.id, {
             preserveScroll: true,
         })
+
+        // Sleep for 200ms to signalize something is happening
+        await new Promise(r => setTimeout(r, 200))
 
         this.processing.saving = false
     }

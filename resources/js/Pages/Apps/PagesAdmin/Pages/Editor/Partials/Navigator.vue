@@ -4,7 +4,7 @@
             <div class="content-element flex v-center" :class="{ 'selected': tab.selected.elements.includes(element.localId) }" @click.exact="tab.selectElement(element)">
                 <IodIcon class="handle" icon="drag_handle"/>
                 <span class="text">
-                    {{ element.type }}
+                    {{ element.name }}
                 </span>
                 <IodIconButton type="button" icon="delete" variant="text" color-preset="error" size="small" @click.stop="tab.removeElement(element)"/>
             </div>

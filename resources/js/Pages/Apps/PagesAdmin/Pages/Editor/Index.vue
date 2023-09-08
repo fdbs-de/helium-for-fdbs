@@ -2,10 +2,19 @@
     <div class="page-editor-layout">
         <div class="tool-bar">
             <div class="start">
+                <VDropdown placement="bottom-end">
+                    <IodButton type="button" class="transparent" variant="contained" icon-left="add" label="Neu" v-tooltip.right="'Neues Element'" />
+
+                    <template #popper>
+                        <div class="flex padding-1 gap-1 wrap">
+                            <AddElementButton v-for="elementTemplate, key in ElementTemplates" :key="key" @click="tab.createElement(elementTemplate, true)" :template="elementTemplate"/>
+                        </div>
+                    </template>
+                </VDropdown>
+                <div class="spacer"></div>
                 <!-- <IodIconButton type="button" class="transparent" variant="text" icon="undo" v-tooltip.bottom="'Rückgangig (Strg+Z)'"/>
                 <IodIconButton type="button" class="transparent" variant="text" icon="redo" v-tooltip.bottom="'Wiederherstellen (Strg+Y)'"/>
                 <IodIconButton type="button" class="transparent" variant="text" icon="history" v-tooltip.bottom="'Bearbeitungsverlauf'"/> -->
-                <div class="spacer"></div>
             </div>
             <div class="center">
                 <div class="breakpoint-selector">
@@ -22,39 +31,32 @@
                 </div>
             </div>
             <div class="end">
+                <VDropdown placement="bottom-start">
+                    <IodIconButton type="button" class="transparent" variant="text" icon="settings" v-tooltip.left="'Seiteneinstellungen'" />
+
+                    <template #popper>
+                        <div class="flex vertical padding-1 gap-1 w-25">
+                            <select class="default-select" v-model="tab.data.status">
+                                <option :value="null" disabled>Status</option>
+                                <option value="draft">Entwurf</option>
+                                <option value="published">Veröffentlicht</option>
+                                <option value="hidden">Versteckt</option>
+                            </select>
+                            <IodInput class="default-text-input" label="Titel" v-model="tab.data.title"/>
+                            <IodInput class="default-text-input" label="Slug" v-model="tab.data.slug"/>
+                        </div>
+                    </template>
+                </VDropdown>
+                <IodIconButton class="transparent" variant="text" is="a" icon="open_in_new" v-tooltip.left="'Seite öffnen'" :href="route('app.pages.render.page', tab.data.slug)" target="_blank"/>
                 <div class="spacer"></div>
-                <IodIconButton type="button" class="transparent" variant="text" is="a" icon="visibility" v-tooltip.bottom="'Seite öffnen'" :href="route('app.pages.render.page', tab.data.slug)" target="_blank"/>
-                <IodButton type="button" class="transparent" variant="contained" label="Speichern" v-tooltip.bottom="'Speichern (Strg+S)'" @click="tab.save()" :loading="tab.processing.saving"/>
+                <IodButton type="button" class="transparent" variant="contained" label="Speichern" v-tooltip.left="'Speichern (Strg+S)'" @click="tab.save()" :loading="tab.processing.saving"/>
             </div>
         </div>
 
 
 
         <div class="sidebar navigator">
-            <div class="tab-box">
-                <Tabs v-model="tab.ui.navigator.panel" indicator-style="box" :tabs="[
-                    { label: 'Navigator', value: 'navigator' },
-                    { label: 'Hinzufügen', value: 'add' },
-                ]" />
-            </div>
-
-            <div class="scroll-box small-scrollbar" v-show="tab.ui.navigator.panel == 'add'">
-                <div class="group grid no-border">
-                    <button
-                        type="button"
-                        class="element-add-button"
-                        v-for="elementTemplate, key in ElementTemplates"
-                        :key="key"
-                        @click="tab.createElement(elementTemplate, true)"
-                        v-tooltip.right="elementTemplate.description"
-                    >
-                        <img class="w-100" :src="elementTemplate.previewImage">
-                        <b>{{ elementTemplate.name }}</b>
-                    </button>
-                </div>
-            </div>
-
-            <Navigator class="scroll-box small-scrollbar" v-show="tab.ui.navigator.panel == 'navigator'" :tab="tab" />
+            <Navigator class="scroll-box small-scrollbar" :tab="tab" />
         </div>
 
 
@@ -64,29 +66,10 @@
 
 
         <div class="sidebar inspector">
-            <div class="tab-box">
-                <Tabs v-model="tab.ui.inspector.panel" indicator-style="box" :tabs="[
-                    { label: 'Inspector', value: 'inspector' },
-                    { label: 'Seite', value: 'page' },
-                ]" />
-            </div>
-
-            <div class="scroll-box small-scrollbar" v-show="tab.ui.inspector.panel == 'inspector'">
+            <div class="scroll-box small-scrollbar">
                 <Inspector :tab="tab" :picker="picker" @update:element="tab.updateElement($event)"/>
-                {{ tab.dataNeedingPrefetch }}
-            </div>
-            
-            <div class="scroll-box small-scrollbar" v-show="tab.ui.inspector.panel == 'page'">
-                <div class="group">
-                    <select class="default-select" v-model="tab.data.status">
-                        <option :value="null" disabled>Status</option>
-                        <option value="draft">Entwurf</option>
-                        <option value="published">Veröffentlicht</option>
-                        <option value="hidden">Versteckt</option>
-                    </select>
-                    <IodInput class="default-text-input" label="Titel" v-model="tab.data.title"/>
-                    <IodInput class="default-text-input" label="Slug" v-model="tab.data.slug"/>
-                </div>
+                <!-- {{ tab.dataNeedingPrefetch }} -->
+                <!-- {{ tab.data.content }} -->
             </div>
         </div>
     </div>
@@ -102,6 +85,7 @@
     import Navigator from '@/Pages/Apps/PagesAdmin/Pages/Editor/Partials/Navigator.vue'
     import Inspector from '@/Pages/Apps/PagesAdmin/Pages/Editor/Partials/Inspector.vue'
     import Viewport from '@/Pages/Apps/PagesAdmin/Pages/Editor/Partials/Viewport.vue'
+    import AddElementButton from '@/Pages/Apps/PagesAdmin/Pages/Editor/Partials/AddElementButton.vue'
     import Picker from '@/Components/Form/MediaLibrary/Picker.vue'
     import Tabs from '@/Components/Form/Tabs.vue'
     import Popup from '@/Components/Form/Popup.vue'
@@ -116,6 +100,7 @@
     })
 
     const picker = ref(null)
+    const prefetchedData = ref({})
 
 
     
@@ -210,32 +195,6 @@
 
         .navigator
             grid-area: navigator
-
-            .element-add-button
-                border-radius: var(--radius-m)
-                border: 1px solid blue
-                border-color: var(--color-border)
-                background: var(--color-background)
-                color: var(--color-text)
-                padding: 0
-                padding-bottom: .5rem
-                display: flex
-                flex-direction: column
-                align-items: center
-                justify-content: flex-start
-                gap: .5rem
-                cursor: pointer
-                font-family: inherit
-                font-size: .8rem
-                overflow: hidden
-                transition: all 100ms ease
-
-                img
-                    border-bottom: 1px solid blue
-                    border-color: inherit
-
-                &:hover
-                    box-shadow: var(--shadow-elevation-medium)
 
         .inspector
             grid-area: inspector

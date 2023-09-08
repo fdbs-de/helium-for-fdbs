@@ -12,11 +12,3 @@ const Templates = require
 
 
 export default Templates
-
-
-
-export const TemplatesNeedingPrefetch = Object.values(Templates).filter(template => {
-    return template.props.some(prop => {
-        return prop.prefetch
-    })
-})

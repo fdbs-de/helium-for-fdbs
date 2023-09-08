@@ -15,13 +15,13 @@ export default {
         {
             fixtureType: 'select',
             options: [
-                { label: 'h1', value: 'H1', },
-                { label: 'h2', value: 'H2', },
-                { label: 'h3', value: 'H3', },
-                { label: 'h4', value: 'H4', },
-                { label: 'h5', value: 'H5', },
-                { label: 'h6', value: 'H6', },
-                { label: 'p', value: 'Paragraph',}
+                { label: 'H1', value: 'h1', },
+                { label: 'H2', value: 'h2', },
+                { label: 'H3', value: 'h3', },
+                { label: 'H4', value: 'h4', },
+                { label: 'H5', value: 'h5', },
+                { label: 'H6', value: 'h6', },
+                { label: 'Paragraph', value: 'p',}
             ],
             label: 'Titel Tag',
             key: 'titleTag',

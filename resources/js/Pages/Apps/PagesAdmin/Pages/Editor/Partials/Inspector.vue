@@ -1,93 +1,103 @@
 <template>
-    <div class="group inspector-group" v-if="tab && elementProps && elementProps.length > 0">
-        <template v-for="prop in elementProps">
-            <TextEditor v-if="prop.fixtureType === 'richtext'" :label="prop.label" v-model="prop.value" @update:modelValue="emitUpdate()"/>
-
-            <div v-else-if="prop.fixtureType === 'code'" class="flex vertical">
-                <!-- <span class="title flex-1">{{ prop.label }}</span> -->
-                <CodeEditor class="border radius-m" theme="vs-light" v-model="prop.value" @update:modelValue="emitUpdate()"/>
+    <template v-if="tab && element">
+        <div class="group inspector-group">
+            <div class="flex v-center">
+                <span class="title flex-1">Name</span>
+                <IodInput v-model="element.name" placeholder="143" @update:modelValue="emitUpdate()"/>
             </div>
+        </div>
 
-
-            
-            <label v-else-if="prop.fixtureType === 'select'" class="flex v-center">
-                <span class="title flex-1">{{ prop.label }}</span>
-                <select v-model="prop.value" @change="emitUpdate()">
-                    <option v-for="option in prop.options" :value="option.value">{{ option.label }}</option>
-                </select>
-            </label>
-            
-            <div v-else-if="prop.fixtureType === 'toggle:switch'" class="flex v-center">
-                <span class="title flex-1">{{ prop.label }}</span>
-                <span class="w-14">
-                    <IodToggle type="switch" v-model="prop.value" @update:modelValue="emitUpdate()" />
-                </span>
-            </div>
-
-
-
-            <div v-else-if="prop.fixtureType === 'media:folder'" class="flex v-center">
-                <span class="title flex-1">{{ prop.label }}</span>
-                <IodInput v-model="prop.value" placeholder="143" @update:modelValue="emitUpdate()"/>
-            </div>
-
-            <div v-else-if="prop.fixtureType === 'media:image'" class="flex v-center">
-                <span class="title flex-1">{{ prop.label }}</span>
-                <IodInput v-model="prop.value" placeholder="/images" @update:modelValue="emitUpdate()">
-                    <template #right>
-                        <IodIconButton type="button" class="folder-trigger" icon="folder_open" shape="radius-s" variant="text" size="small" @click="picker.open((file) => { prop.value = file; emitUpdate() })"/>
-                    </template>
-                </IodInput>
-            </div>
-
-
-
-            <div v-else-if="prop.fixtureType === 'style:unit'" class="flex v-center">
-                <span class="title flex-1">{{ prop.label }}</span>
-                <IodInput v-model="prop.value" placeholder="100px" @update:modelValue="emitUpdate()"/>
-            </div>
-
-            <div v-else-if="prop.fixtureType === 'style:padding'" class="flex v-center">
-                <span class="title flex-1">{{ prop.label }}</span>
-                <IodInput v-model="prop.value" placeholder="4rem" @update:modelValue="emitUpdate()"/>
-            </div>
-
-            <div v-else-if="prop.fixtureType === 'style:color'" class="flex v-center">
-                <span class="title flex-1">{{ prop.label }}</span>
-                <IodInput v-model="prop.value" placeholder="#fef1f4" @update:modelValue="emitUpdate()">
-                    <template #right>
-                        <VDropdown placement="bottom-end" style="height: 1.5rem;">
-                            <button class="color-trigger" :style="{ backgroundColor: prop.value }"></button>
-
-                            <template #popper>
-                                <div class="flex vertical padding-1 gap-1">
-                                    <div class="flex gap-0-5" v-for="group in colors">
-                                        <button v-for="color in group" class="color-trigger" :style="{ backgroundColor: color }" @click="prop.value = color; emitUpdate()" v-tooltip="color"></button>
+        <div class="group inspector-group">
+            <template v-for="prop in element.props">
+                <TextEditor v-if="prop.fixtureType === 'richtext'" :label="prop.label" v-model="prop.value" @update:modelValue="emitUpdate()"/>
+    
+                <div v-else-if="prop.fixtureType === 'code'" class="flex vertical">
+                    <!-- <span class="title flex-1">{{ prop.label }}</span> -->
+                    <CodeEditor class="border radius-m" theme="vs-light" v-model="prop.value" @update:modelValue="emitUpdate()"/>
+                </div>
+    
+    
+                
+                <label v-else-if="prop.fixtureType === 'select'" class="flex v-center">
+                    <span class="title flex-1">{{ prop.label }}</span>
+                    <select v-model="prop.value" @change="emitUpdate()">
+                        <option v-for="option in prop.options" :value="option.value">{{ option.label }}</option>
+                    </select>
+                </label>
+                
+                <div v-else-if="prop.fixtureType === 'toggle:switch'" class="flex v-center">
+                    <span class="title flex-1">{{ prop.label }}</span>
+                    <span class="w-14">
+                        <IodToggle type="switch" v-model="prop.value" @update:modelValue="emitUpdate()" />
+                    </span>
+                </div>
+    
+    
+    
+                <div v-else-if="prop.fixtureType === 'media:folder'" class="flex v-center">
+                    <span class="title flex-1">{{ prop.label }}</span>
+                    <IodInput v-model="prop.value" placeholder="143" @update:modelValue="emitUpdate()"/>
+                </div>
+    
+                <div v-else-if="prop.fixtureType === 'media:image'" class="flex v-center">
+                    <span class="title flex-1">{{ prop.label }}</span>
+                    <IodInput v-model="prop.value" placeholder="/images" @update:modelValue="emitUpdate()">
+                        <template #right>
+                            <IodIconButton type="button" class="folder-trigger" icon="folder_open" shape="radius-s" variant="text" size="small" @click="picker.open((file) => { prop.value = file; emitUpdate() })"/>
+                        </template>
+                    </IodInput>
+                </div>
+    
+    
+    
+                <div v-else-if="prop.fixtureType === 'style:unit'" class="flex v-center">
+                    <span class="title flex-1">{{ prop.label }}</span>
+                    <IodInput v-model="prop.value" placeholder="100px" @update:modelValue="emitUpdate()"/>
+                </div>
+    
+                <div v-else-if="prop.fixtureType === 'style:padding'" class="flex v-center">
+                    <span class="title flex-1">{{ prop.label }}</span>
+                    <IodInput v-model="prop.value" placeholder="4rem" @update:modelValue="emitUpdate()"/>
+                </div>
+    
+                <div v-else-if="prop.fixtureType === 'style:color'" class="flex v-center">
+                    <span class="title flex-1">{{ prop.label }}</span>
+                    <IodInput v-model="prop.value" placeholder="#fef1f4" @update:modelValue="emitUpdate()">
+                        <template #right>
+                            <VDropdown placement="bottom-end" style="height: 1.5rem;">
+                                <button class="color-trigger" :style="{ backgroundColor: prop.value }"></button>
+    
+                                <template #popper>
+                                    <div class="flex vertical padding-1 gap-1">
+                                        <div class="flex gap-0-5" v-for="group in tab.globalData.colorPalettes.default">
+                                            <button v-for="color in group" class="color-trigger" :style="{ backgroundColor: color }" @click="prop.value = color; emitUpdate()" v-tooltip="color"></button>
+                                        </div>
                                     </div>
-                                </div>
-                            </template>
-                        </VDropdown>
-                    </template>
-                </IodInput>
-            </div>
-            
-
-
-            <div v-else class="flex v-center">
-                <span class="title flex-1">{{ prop.label }}</span>
-                <IodInput v-model="prop.value" @update:modelValue="emitUpdate()"/>
-            </div>
-        </template>
-    </div>
+                                </template>
+                            </VDropdown>
+                        </template>
+                    </IodInput>
+                </div>
+                
+    
+    
+                <div v-else class="flex v-center">
+                    <span class="title flex-1">{{ prop.label }}</span>
+                    <IodInput v-model="prop.value" @update:modelValue="emitUpdate()"/>
+                </div>
+            </template>
+        </div>
+    </template>
     <div class="group flex v-center" v-else>
         <small class="padding-block-4 user-select-none color-text">
             Wähle ein Element aus
         </small>
+        {{ element }}
     </div>
 </template>
 
 <script setup>
-    import { ref, watch } from 'vue'
+    import { ref, watch, computed } from 'vue'
     import ElementTemplates from '@/Pages/Apps/Pages/ElementTemplates'
 
     import TextEditor from '@/Components/Form/TextEditor.vue'
@@ -111,101 +121,66 @@
 
 
 
-    const elementProps = ref([])
-    const colors = ref([
-        [
-            'var(--color-primary)',
-            'var(--color-primary-soft)',
-            'var(--color-background)',
-            'var(--color-background-soft)',
-            'var(--color-text)',
-            'var(--color-text-soft)',
-            'var(--color-border)',
-            'var(--color-border-focused),'
-        ],
-        [
-            '#ff4757',
-            '#ff6348',
-            '#ffa502',
-            '#2ed573',
-            '#1e90ff',
-            '#3742fa',
-            '#8e44ad',
-            '#9b59b6',
-        ],
-        [
-            '#eb3b5a',
-            '#fa8231',
-            '#f7b731',
-            '#20bf6b',
-            '#0fb9b1',
-            '#2d98da',
-            '#3867d6',
-            '#8854d0',
-        ],
-        [
-            '#ffffff',
-            '#ECEFF1',
-            '#B0BEC5',
-            '#90A4AE',
-            '#607D8B',
-            '#455A64',
-            '#263238',
-            '#000000',
-        ],
-    ])
-
-
-
-    const getElementfromSelection = () => {
+    // const elementProps = ref([])
+    const element = computed(() => {
         return props.tab.data.content.find(element => element.localId === props.tab.selected.elements[0]) || null
-    }
-
-    const getPropsFromElement = () => {
-        if (!props.tab.selected.elements.length) return []
-
-        const element = getElementfromSelection()
-        if (!element) return []
-
-        const template = ElementTemplates[element.type]
-        if (!template) return []
-
-        return template.props.map(prop => {
-            return { ...prop, value: element.props[prop.key] }
-        })
-    }
-
-    const getElementFromProps = () => {
-        if (!props.tab.selected.elements.length) return
-
-        const element = getElementfromSelection()
-        if (!element) return
-
-        element.props = elementProps.value.reduce((props, prop) => {
-            props[prop.key] = prop.value
-            return props
-        }, {})
-
-        return element
-    }
-
-
-
-    watch(() => props.tab, () => {
-        elementProps.value = getPropsFromElement()
-    }, {
-        immediate: true,
-        deep: true,
     })
 
+
+
+    // const getElementfromSelection = () => {
+    //     return props.tab.data.content.find(element => element.localId === props.tab.selected.elements[0]) || null
+    // }
+
+    // const getPropsFromElement = () => {
+    //     if (!props.tab.selected.elements.length) return []
+
+    //     const element = getElementfromSelection()
+    //     if (!element) return []
+
+    //     const template = ElementTemplates[element.type]
+    //     if (!template) return []
+
+    //     return template.props.map(prop => {
+    //         return { ...prop, value: element.props[prop.key] }
+    //     })
+    // }
+
+    // const getElementFromProps = () => {
+    //     if (!props.tab.selected.elements.length) return
+
+    //     const element = getElementfromSelection()
+    //     if (!element) return
+
+    //     element.props = elementProps.value.reduce((props, prop) => {
+    //         props[prop.key] = prop.value
+    //         return props
+    //     }, {})
+
+    //     return element
+    // }
+
+
+
+    // watch(() => props.tab, () => {
+    //     elementProps.value = getPropsFromElement()
+    // }, {
+    //     immediate: true,
+    //     deep: true,
+    // })
+
     const emitUpdate = () => {
-        emits('update:element', getElementFromProps())
+        // emits('update:element', getElementFromProps())
     }
 </script>
 
 <style lang="sass" scoped>
     .inspector-group
         padding: 1rem !important
+        display: flex
+        flex-direction: column
+        gap: 1rem
+        border-bottom: 1px solid var(--color-border)
 
         .title
             font-size: .8rem

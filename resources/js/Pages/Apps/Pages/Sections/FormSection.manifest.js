@@ -17,7 +17,6 @@ export default {
             label: 'Form Id',
             key: 'formId',
             value: '',
-            prefetch: true,
         },
         {
             fixtureType: 'style:padding',
