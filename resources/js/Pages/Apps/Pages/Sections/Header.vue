@@ -17,21 +17,23 @@
     import { ref, computed } from 'vue'
     import { Link, usePage } from '@inertiajs/inertia-vue3'
     
-    import Menu from '@/Components/Page/Menu.vue'
-    import { mainMenu } from '@/Pages/Apps/Static/menus'
+    import Menu from '@/Pages/Apps/Pages/Partials/Menu/Menu.vue'
 
 
 
-    defineProps({
+    const props = defineProps({
         menuId: String,
         height: String,
         backgroundColor: String,
         color: String,
+        prefetchedData: Object,
     })
 
 
 
-    const menu = ref(mainMenu)
+    const menu = computed(() => {
+        return props.prefetchedData?.menus?.find(menu => menu.id == props.menuId)?.content || []
+    })
 
 
 

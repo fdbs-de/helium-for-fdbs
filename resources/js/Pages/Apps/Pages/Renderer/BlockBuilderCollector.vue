@@ -1,6 +1,6 @@
 <template>
     <template v-for="element in elements">
-        <component :is="ElementTemplates[element.type].component" v-bind="formatProps(element.props)" />
+        <component :is="ElementTemplates[element.type].component" v-bind="formatProps(element.props)" :prefetched-data="prefetchedData"/>
     </template>
 </template>
 

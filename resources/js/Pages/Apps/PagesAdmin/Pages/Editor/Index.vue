@@ -68,8 +68,8 @@
         <div class="sidebar inspector">
             <div class="scroll-box small-scrollbar">
                 <Inspector :tab="tab" :picker="picker" @update:element="tab.updateElement($event)"/>
-                <!-- {{ tab.dataNeedingPrefetch }} -->
-                <!-- {{ tab.data.content }} -->
+                {{ tab.dataNeedingPrefetch }}
+                {{ tab.prefetchedData }}
             </div>
         </div>
     </div>
@@ -100,7 +100,6 @@
     })
 
     const picker = ref(null)
-    const prefetchedData = ref({})
 
 
     
@@ -132,6 +131,14 @@
     hotkeys('shift+n', (event, handler) => { event.preventDefault(); console.log('NEW ELEMENT') })
     hotkeys('delete, backspace', (event, handler) => { event.preventDefault(); console.log('DELETE') })
     // END: Keyboard Shortcuts
+
+    setTimeout(async () => {
+        let data = await axios.get(route('app.pages.prefetch', {data: props.tab.dataNeedingPrefetch}))
+        
+        console.log(data.data)
+
+        props.tab.prefetchedData = data.data
+    }, 2000)
 </script>
 
 <style lang="sass" scoped>

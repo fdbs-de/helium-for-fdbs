@@ -25,6 +25,8 @@ export default class PageTab extends Tab
             content: [],
             meta: {},
         }
+
+        this.prefetchedData = {}
         
         // Edit history
         this.history = []

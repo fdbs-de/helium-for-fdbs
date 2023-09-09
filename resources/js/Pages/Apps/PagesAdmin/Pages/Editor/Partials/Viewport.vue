@@ -1,7 +1,7 @@
 <template>
     <div class="viewport-wrapper">
         <div class="viewport" :style="`max-width: ${tab.breakpoint.width}px`">
-            <BlockBuilderCollector :elements="tab.data.content" />
+            <BlockBuilderCollector :elements="tab.data.content" :prefetched-data="tab.prefetchedData"/>
 
             <small class="flex h-center padding-block-4 user-select-none color-text" v-if="!tab.data.content.length">
                 Hier könnte Ihr Inhalt stehen

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Apps\Pages;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Apps\Pages\MenuResource;
+use App\Http\Resources\Apps\Pages\PublicPageResource;
 use App\Models\Menu;
 use App\Models\Page;
 use App\Models\Setting;
@@ -12,34 +13,32 @@ use Inertia\Inertia;
 
 class PageController extends Controller
 {
+    private function getPrefetchedData($data)
+    {
+        return [
+            'menus' => MenuResource::collection(Menu::all()),
+        ];
+    }
+
+
+
+    public function prefetch(Request $request)
+    {
+        return response()->json($this->getPrefetchedData($request->all()));
+    }
+
+
+
     public function show(Request $request)
     {
-        $page = Page::where('status', 'published')->firstWhere('slug', $request->page);
+        $page = Page::where('status', 'published')->where('slug', $request->page)->firstOrFail();
 
-        if (!$page) abort(404);
+        $data = PublicPageResource::make($page)
+        ->additional([
+            'prefetched_data' => $this->getPrefetchedData($request->all()),
+        ])
+        ->resolve();
 
-        $data = [
-            'title' => $page->title,
-            'content' => $page->resolve(),
-        ];
-
-
-
-        if ($page->renderer == 'php')
-        {
-            return view('apps.pages.render-php', $data);
-        }
-
-        if ($page->renderer == 'builder-php')
-        {
-            return view('apps.pages.render-builder', $data);
-        }
-
-        if ($page->renderer == 'block-builder')
-        {
-            return Inertia::render('Apps/Pages/Renderer/BlockBuilder', $data);
-        }
-
-        abort(404);
+        return Inertia::render('Apps/Pages/Renderer/BlockBuilder', $data);
     }
 }
