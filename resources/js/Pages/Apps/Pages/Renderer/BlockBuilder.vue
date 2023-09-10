@@ -27,13 +27,14 @@
 </template>
 
 <script setup>
+    import { onMounted } from 'vue'
     import { Head } from '@inertiajs/inertia-vue3'
 
     import BlockBuilderCollector from '@/Pages/Apps/Pages/Renderer/BlockBuilderCollector.vue'
 
 
 
-    defineProps({
+    const props = defineProps({
         title: String,
         slug: String,
         content: Array,
@@ -41,5 +42,18 @@
         meta: Object,
         settings: Object,
         prefetched_data: Object,
+    })
+
+    onMounted(() => {
+        let result = ''
+
+        result += '<style type="text/css">'
+        result += props.settings['design.fonts']
+        result += ':root {'
+        result += props.settings['design.colors']
+        result += '}'
+        result += '</style>'
+
+        document.head.insertAdjacentHTML('beforeend', result)
     })
 </script>

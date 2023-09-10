@@ -1,6 +1,6 @@
 <template>
-    <div class="viewport-wrapper">
-        <div class="viewport" :style="`max-width: ${tab.breakpoint.width}px`">
+    <div class="viewport-outer">
+        <div class="viewport-inner" :style="`max-width: ${tab.breakpoint.width}px`">
             <BlockBuilderCollector :elements="tab.data.content" :prefetched-data="tab.prefetchedData"/>
 
             <small class="flex h-center padding-block-4 user-select-none color-text" v-if="!tab.data.content.length">
@@ -24,13 +24,13 @@
 </script>
 
 <style lang="sass" scoped>
-    .viewport-wrapper
+    .viewport-outer
         display: flex
         flex-direction: column
         align-items: center
         padding: 1rem
 
-        .viewport
+        .viewport-inner
             width: 100%
             max-height: 80vh
             overflow: auto

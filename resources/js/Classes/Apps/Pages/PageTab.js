@@ -236,6 +236,20 @@ export default class PageTab extends Tab
         return propsNeedingPrefetchFromDataGrouped
     }
 
+    async prefetchData()
+    {
+        try
+        {
+            let data = await axios.get(route('app.pages.prefetch', { data: this.dataNeedingPrefetch }))
+            
+            this.prefetchedData = data.data
+        }
+        catch (error)
+        {
+            throw error
+        }
+    }
+
 
 
     hydrate(data) {

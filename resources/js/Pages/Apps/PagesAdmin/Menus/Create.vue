@@ -115,9 +115,8 @@
     function addItem()
     {
         let item = {
-            id: null,
-            href: null,
-            title: null,
+            href: '/',
+            title: 'Titel',
             target: '_self',
             children: [],
         }

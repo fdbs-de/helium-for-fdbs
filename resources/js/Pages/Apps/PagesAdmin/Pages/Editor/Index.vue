@@ -55,23 +55,11 @@
 
 
 
-        <div class="sidebar navigator">
-            <Navigator class="scroll-box small-scrollbar" :tab="tab" />
-        </div>
+        <Navigator class="navigator" :tab="tab" />
 
+        <Viewport class="viewport" :tab="tab" />
 
-
-        <Viewport class="viewport-wrapper" :tab="tab" />
-
-
-
-        <div class="sidebar inspector">
-            <div class="scroll-box small-scrollbar">
-                <Inspector :tab="tab" :picker="picker" @update:element="tab.updateElement($event)"/>
-                {{ tab.dataNeedingPrefetch }}
-                {{ tab.prefetchedData }}
-            </div>
-        </div>
+        <Inspector class="inspector" :tab="tab" :picker="picker" @update:element="tab.updateElement($event)"/>
     </div>
 
     <Picker ref="picker" />
@@ -132,13 +120,7 @@
     hotkeys('delete, backspace', (event, handler) => { event.preventDefault(); console.log('DELETE') })
     // END: Keyboard Shortcuts
 
-    setTimeout(async () => {
-        let data = await axios.get(route('app.pages.prefetch', {data: props.tab.dataNeedingPrefetch}))
-        
-        console.log(data.data)
-
-        props.tab.prefetchedData = data.data
-    }, 2000)
+    props.tab.prefetchData()
 </script>
 
 <style lang="sass" scoped>
@@ -200,67 +182,22 @@
                             background: var(--color-background-dark)
                             color: var(--color-text-on-background-dark)
 
-        .navigator
-            grid-area: navigator
 
+        .navigator,
         .inspector
-            grid-area: inspector
-
-        .sidebar
             height: 100%
             background: var(--color-background)
             box-shadow: var(--shadow-elevation-low)
             color: var(--color-text)
             display: flex
             flex-direction: column
+            overflow-y: auto
 
-            .tab-box
-                flex: none
-                padding: .5rem
-                border-bottom: 1px solid var(--color-border)
+        .navigator
+            grid-area: navigator
 
-                .tabs-wrapper
-                    --tab-height: 2rem
-                    font-size: .8rem
-
-            .scroll-box
-                flex: 1
-                overflow-y: auto
-
-            .group
-                padding: 1rem .5rem
-                display: flex
-                flex-direction: column
-                gap: 1rem
-                border-bottom: 1px solid var(--color-border)
-
-                &.no-padding
-                    padding: 0
-
-                &.no-border
-                    border-bottom: none
-
-                &.horizontal
-                    flex-direction: row
-                    align-items: center
-                    gap: 0
-
-                &.grid
-                    display: grid
-                    grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr))
-                    gap: 1rem
-                    padding: 1rem
-
-                .title
-                    font-size: .8rem
-                    font-weight: 600
-                    letter-spacing: .05rem
-                    text-transform: uppercase
-                    color: var(--color-text-soft)
-                    user-select: none
-
-                .spacer
-                    flex: 1
+        .inspector
+            grid-area: inspector
 
         .viewport-wrapper
             grid-area: viewport

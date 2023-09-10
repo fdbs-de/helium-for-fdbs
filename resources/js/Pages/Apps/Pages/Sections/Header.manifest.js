@@ -18,6 +18,12 @@ export default {
             prefetch: true,
         },
         {
+            fixtureType: 'url',
+            label: 'Login Link',
+            key: 'loginLink',
+            value: '',
+        },
+        {
             fixtureType: 'style:unit',
             label: 'Höhe',
             key: 'height',

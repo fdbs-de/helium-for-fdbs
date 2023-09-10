@@ -1,13 +1,16 @@
 <template>
     <header id="header" :style="{ height, backgroundColor, color }">
         <div class="limiter">
-            <div class="wrapper logo">
+            <div class="wrapper start">
                 <Link id="header-logo" href="/" title="Home">
                     <img class="logo-asset" :src="settings['design.logos.color']" :alt="settings['site.name'] +' Logo'">
                 </Link>
             </div>
-            <div class="wrapper menu">
+            <div class="wrapper center">
                 <Menu id="menu" :menu="menu"/>
+            </div>
+            <div class="wrapper end" v-if="loginLink">
+                <IodButton :is="Link" :href="loginLink" variant="filled" size="small">Anmelden</IodButton>
             </div>
         </div>
     </header>
@@ -23,6 +26,7 @@
 
     const props = defineProps({
         menuId: String,
+        loginLink: String,
         height: String,
         backgroundColor: String,
         color: String,
@@ -71,13 +75,15 @@
             display: flex
             align-items: center
             justify-content: center
+            flex-wrap: wrap
 
-            &.logo
-                flex: none
-                width: 140px
+            &.start
                 justify-content: flex-start
 
-            &.menu
+            &.center
+                flex: none
+
+            &.end
                 justify-content: flex-end
 
         #header-logo
@@ -97,8 +103,8 @@
             .limiter
                 gap: 1rem
 
-                > .wrapper.menu
-                    padding: 0
+                .wrapper.center
+                    order: 1
 
 
     
