@@ -150,7 +150,6 @@
 
     section#hero
         display: flex
-        margin-top: calc(var(--height-header) + 1rem)
         width: 100%
 
         .limiter

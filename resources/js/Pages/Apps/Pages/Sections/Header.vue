@@ -10,7 +10,7 @@
                 <Menu id="menu" :menu="menu"/>
             </div>
             <div class="wrapper end" v-if="loginLink">
-                <IodButton :is="Link" :href="loginLink" variant="filled" size="small">Anmelden</IodButton>
+                <IodButton is="a" :href="loginLink" variant="filled" size="small">Anmelden</IodButton>
             </div>
         </div>
     </header>
@@ -26,6 +26,7 @@
 
     const props = defineProps({
         menuId: String,
+        menu: Array,
         loginLink: String,
         height: String,
         backgroundColor: String,
@@ -36,7 +37,7 @@
 
 
     const menu = computed(() => {
-        return props.prefetchedData?.menus?.find(menu => menu.id == props.menuId)?.content || []
+        return props.menu || props.prefetchedData?.menus?.find(menu => menu.id == props.menuId)?.content || []
     })
 
 

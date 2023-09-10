@@ -2155,13 +2155,13 @@ input[type=color]::-webkit-color-swatch {
 
 .limiter {
   width: 100%;
-  max-width: 1300px;
+  max-width: 1200px;
   display: block;
   margin: 0 auto;
   padding: 0 1rem;
 }
 .limiter.text-limiter {
-  max-width: 700px;
+  max-width: 650px;
 }
 
 .mui-button.mui-container {
