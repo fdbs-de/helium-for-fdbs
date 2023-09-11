@@ -1,9 +1,9 @@
 <template>
     <Head>
         <!-- Favicon -->
-        <link v-if="favicon" rel="apple-touch-icon" :href="favicon">
-        <link v-if="favicon" rel="icon" :href="favicon">
-        <link v-if="favicon" rel="shortcut icon" :href="favicon">
+        <link rel="apple-touch-icon" :href="favicon">
+        <link rel="icon" :href="favicon">
+        <link rel="shortcut icon" :href="favicon">
     </Head>
 
     <Header :menu="mainMenu.content ?? null" login-link="/login" height="4.5rem"/>
