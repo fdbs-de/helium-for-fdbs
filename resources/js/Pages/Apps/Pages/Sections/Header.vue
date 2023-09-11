@@ -1,5 +1,5 @@
 <template>
-    <header id="header" :style="{ height, backgroundColor, color }">
+    <header id="header" :class="{'scrolled': isScrolled}" :style="{ height, backgroundColor, color }">
         <div class="limiter">
             <div class="wrapper start">
                 <Link id="header-logo" href="/" title="Home">
@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-    import { ref, computed } from 'vue'
+    import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
     import { Link, usePage } from '@inertiajs/inertia-vue3'
     
     import Menu from '@/Pages/Apps/Pages/Partials/Menu/Menu.vue'
@@ -55,6 +55,22 @@
     const loginButtonText = computed(() => {
         return loggedIn.value ? 'Profil' : 'Anmelden'
     })
+
+
+
+    const isScrolled = ref(false)
+
+    const handleScroll = () => {
+        isScrolled.value = window.scrollY > 0
+    }
+
+    onMounted(() => {
+        window.addEventListener('scroll', handleScroll)
+    })
+
+    onBeforeUnmount(() => {
+        window.removeEventListener('scroll', handleScroll)
+    })
 </script>
 
 <style lang="sass" scoped>
@@ -70,6 +86,10 @@
         backdrop-filter: blur(20px)
         border-bottom: 1px solid #ffffff99
         box-sizing: border-box
+        transition: border-color .2s ease-in-out
+
+        &.scrolled
+            border-color: var(--color-background-soft)
 
         *
             box-sizing: border-box

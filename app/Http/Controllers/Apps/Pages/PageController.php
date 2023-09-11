@@ -41,4 +41,11 @@ class PageController extends Controller
 
         return Inertia::render('Apps/Pages/Renderer/BlockBuilder', $data);
     }
+
+
+
+    public function root(Request $request)
+    {
+        return Inertia::render('Apps/Static/Home');
+    }
 }

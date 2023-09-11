@@ -104,13 +104,14 @@
 
         .menu
             position: absolute
-            top: 0
+            top: .25rem
+            bottom: .25rem
             right: 0
-            height: 100%
             width: calc(100% - 3rem)
             max-width: 400px
             display: flex
             flex-direction: column
+            border-radius: var(--radius-l) 0 0 var(--radius-l)
             background: var(--color-background)
             transform: translateX(100%)
             transition: transform 300ms ease-in-out

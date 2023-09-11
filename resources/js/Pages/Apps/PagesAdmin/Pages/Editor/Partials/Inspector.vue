@@ -6,9 +6,16 @@
                     <span class="title flex-1">Name</span>
                     <IodInput v-model="element.name" placeholder="143" @update:modelValue="emitUpdate()"/>
                 </div>
+
+                <div class="flex v-center">
+                    <span class="title flex-1">Type</span>
+                    <span class="w-14">
+                        <tag :label="element.type" shape="pill" variant="contained" color="var(--color-primary)"/>
+                    </span>
+                </div>
             </div>
     
-            <div class="group">
+            <div class="group" v-show="element.props.length > 0">
                 <template v-for="prop in element.props">
                     <TextEditor v-if="prop.fixtureType === 'richtext'" :label="prop.label" v-model="prop.value" @update:modelValue="emitUpdate()"/>
         
@@ -89,7 +96,12 @@
                 </template>
             </div>
 
-            {{ element.localId }}
+            <div class="group">
+                <div class="flex v-center">
+                    <span class="title flex-1">Local ID</span>
+                    <small class="w-14">{{ element.localId }}</small>
+                </div>
+            </div>
         </template>
         <div class="group flex v-center" v-else>
             <small class="padding-block-4 user-select-none color-text">
@@ -105,6 +117,7 @@
 
     import TextEditor from '@/Components/Form/TextEditor.vue'
     import CodeEditor from '@/Components/Form/CodeEditor.vue'
+    import Tag from '@/Components/Form/Tag.vue'
 
 
 
