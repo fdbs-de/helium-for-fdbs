@@ -65,7 +65,6 @@
             <div class="row">
                 <div class="copyright">
                     <img src="/images/branding/logo_sloganless_black.svg" alt="FDBS Logo">
-                    <!-- <span aria-hidden="true">© {{new Date().getFullYear()}}</span> -->
                 </div>
                 <div class="spacer"></div>
                 <div class="social-wrapper">

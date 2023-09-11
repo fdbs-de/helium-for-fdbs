@@ -99,7 +99,7 @@
 
 
     
-    import Footer from '@/Components/Page/Footer.vue'
+    import Footer from '@/Pages/Apps/Pages/Sections/Footer.vue'
 
 
 

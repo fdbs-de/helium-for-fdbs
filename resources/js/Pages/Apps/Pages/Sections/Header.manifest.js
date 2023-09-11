@@ -11,10 +11,23 @@ export default {
     group: 'header',
     props: [
         {
+            fixtureType: 'menus:id',
+            label: 'Menü',
+            key: 'menuId',
+            value: '',
+            prefetch: true,
+        },
+        {
+            fixtureType: 'url',
+            label: 'Login Link',
+            key: 'loginLink',
+            value: '',
+        },
+        {
             fixtureType: 'style:unit',
             label: 'Höhe',
             key: 'height',
-            value: '4rem',
+            value: '',
         },
         {
             fixtureType: 'style:color',

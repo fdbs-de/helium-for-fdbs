@@ -5,7 +5,7 @@
         <mui-input type="email" label="Email" v-model="form.email" required autocomplete="username"/>
         <mui-input type="password" label="Passwort" v-model="form.password" required autocomplete="current-password"/>
 
-        <div class="flex center">
+        <div class="flex v-center">
             <mui-toggle type="checkbox" class="checkbox" label="Angemeldet bleiben" v-model="form.remember"/>
             <div class="spacer"></div>
             <mui-button label="Anmelden" :loading="form.processing"/>
@@ -13,7 +13,7 @@
 
         <div class="divider"></div>
 
-        <div class="flex center gap">
+        <div class="flex v-center gap-1">
             <Link :href="route('registrieren')">Noch kein Konto?</Link>
             <Link v-if="canResetPassword" :href="route('password.request')">Passwort vergessen?</Link>
         </div>

@@ -73,7 +73,6 @@
 <style lang="sass" scoped>
     #hero-section
         display: flex
-        margin-top: calc(var(--height-header) + 1rem)
 
         .inner-wrapper
             display: flex

@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Http\Resources\User\PrivateUserResource;
-use App\Models\Document;
+use App\Models\Menu;
 use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -50,6 +50,10 @@ class HandleInertiaRequests extends Middleware
             ],
 
             'settings' => Setting::getGlobal(true, 'frontend'),
+
+            'menus' => [
+                'main' => Menu::where('default_for', 'main')->first(),
+            ],
 
             'ziggy' => function () {
                 return (new Ziggy)->toArray();

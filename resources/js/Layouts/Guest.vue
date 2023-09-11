@@ -1,10 +1,14 @@
 <template>
     <Head>
-        <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
-        <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+        <template v-if="favicon">
+            <!-- Favicon -->
+            <link rel="apple-touch-icon" :href="favicon">
+            <link rel="icon" :href="favicon" type="image/x-icon">
+            <link rel="shortcut icon" :href="favicon" type="image/x-icon">
+        </template>
     </Head>
 
-    <Header :menu="menu"/>
+    <Header :menu="mainMenu.content ?? null" login-link="/login" height="4.5rem"/>
     <slot />
     <Footer />
 </template>
@@ -13,16 +17,25 @@
     import { Head, usePage } from '@inertiajs/inertia-vue3'
     import { ref, computed } from 'vue'
 
-    import Header from '@/Components/Page/Header.vue'
-    import Footer from '@/Components/Page/Footer.vue'
-    import { mainMenu } from '@/Pages/Apps/Static/menus'
+    import Header from '@/Pages/Apps/Pages/Sections/Header.vue'
+    import Footer from '@/Pages/Apps/Pages/Sections/Footer.vue'
 
 
     
-    const menu = ref(mainMenu)
-
-    const globalSettings = computed(() => {
+    const settings = computed(() => {
         return usePage().props.value.settings ?? {}
+    })
+
+    const favicon = computed(() => {
+        return settings.value['design.favicon'] ?? null
+    })
+
+    const menus = computed(() => {
+        return usePage().props.value.menus ?? []
+    })
+
+    const mainMenu = computed(() => {
+        return menus.value.main ?? {}
     })
 </script>
 

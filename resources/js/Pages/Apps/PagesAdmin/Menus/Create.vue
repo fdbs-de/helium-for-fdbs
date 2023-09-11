@@ -23,6 +23,11 @@
 
                     <IodInput label="Name" v-model="form.name"/>
 
+                    <select v-model="form.default_for">
+                        <option :value="null">Keinen Standard</option>
+                        <option value="main">Hauptmenü</option>
+                    </select>
+
                     <div class="flex vertical radius-m border">
                         <div class="flex padding-1">
                             <IodButton type="button" label="Eintrag hinzufügen" variant="contained" size="small" @click="addItem()"/>
@@ -79,7 +84,7 @@
     const form = useForm({
         id: null,
         status: 'published',
-        default_for: '',
+        default_for: null,
         name: '',
         content: [],
     })
@@ -90,7 +95,7 @@
     const open = (item = null) => {
         form.id = item?.id ?? null
         form.status = item?.status ?? 'published'
-        form.default_for = item?.default_for ?? ''
+        form.default_for = item?.default_for ?? null
         form.name = item?.name ?? ''
         form.content = item?.content ?? []
     }
@@ -115,9 +120,8 @@
     function addItem()
     {
         let item = {
-            id: null,
-            href: null,
-            title: null,
+            href: '/',
+            title: 'Titel',
             target: '_self',
             children: [],
         }

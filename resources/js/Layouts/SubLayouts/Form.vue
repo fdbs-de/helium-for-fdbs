@@ -47,7 +47,6 @@
         display: flex
         align-items: center
         justify-content: center
-        margin-top: var(--height-header)
         padding-bottom: var(--height-header)
         height: calc(350px + var(--height-header))
         background: var(--color-background-soft)
