@@ -24,7 +24,7 @@
             max-width: 650px
         
         &.size-limiter
-            max-width: 1200px
+            max-width: 1300px
 
         &.size-page-width
             max-width: 100%

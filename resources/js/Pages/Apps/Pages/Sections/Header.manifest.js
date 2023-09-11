@@ -27,7 +27,7 @@ export default {
             fixtureType: 'style:unit',
             label: 'Höhe',
             key: 'height',
-            value: '4rem',
+            value: '',
         },
         {
             fixtureType: 'style:color',

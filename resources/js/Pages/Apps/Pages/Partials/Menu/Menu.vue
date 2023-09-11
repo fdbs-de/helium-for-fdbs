@@ -1,32 +1,37 @@
 <template>
     <div class="menu-wrapper">
         <nav class="desktop-menu">
-            <MenuBuilder :items="menu" />
+            <ul>
+                <MenuItem v-for="(item, i) in menu" :key="i" :href="item.href" :title="item.title" :children="item.children || []" />
+            </ul>
         </nav>
     
         <button class="mobile-menu-toggle" type="button" title="Open navigation" @click="isOpen = true">menu</button>
     
-        <div class="mobile-menu" :class="{'is-open': isOpen}">
-            <div class="background" @click="isOpen = false"></div>
-            <nav class="menu">
-                <div class="flex v-center">
-                    <div class="spacer"></div>
-                    <button class="mobile-menu-toggle" type="button" title="Close navigation" @click="isOpen = false">close</button>
-                </div>
-                <div class="menu-scroller">
-                    <MenuBuilder :items="menu" />
-                </div>
-            </nav>
-        </div>
+        <Teleport to="body">
+            <div class="mobile-menu" :class="{'is-open': isOpen}">
+                <div class="background" @click="isOpen = false"></div>
+                <nav class="menu">
+                    <div class="flex v-center">
+                        <div class="spacer"></div>
+                        <button class="mobile-menu-toggle" type="button" title="Close navigation" @click="isOpen = false">close</button>
+                    </div>
+                    <div class="menu-scroller">
+                        <ul>
+                            <MenuItem v-for="(item, i) in menu" :key="i" :href="item.href" :title="item.title" :children="item.children || []" />
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </Teleport>
     </div>
 </template>
 
 <script setup>
-    import { Link } from '@inertiajs/inertia-vue3'
     import { ref, watch } from 'vue'
     import { Inertia } from '@inertiajs/inertia'
     
-    import MenuBuilder from '@/Pages/Apps/Pages/Partials/Menu/MenuBuilder.vue'
+    import MenuItem from '@/Pages/Apps/Pages/Partials/Menu/MenuItem.vue'
 
 
 
@@ -49,31 +54,34 @@
 
 <style lang="sass">
     .mobile-menu-toggle
-        height: 2.25rem
-        width: 2.25rem
-        font-size: 1.5rem
+        height: 2.5rem
+        width: 2.5rem
+        border-radius: 3rem
+        font-size: 1.3rem
         font-family: var(--font-icon)
-        color: var(--color-text-soft)
-        border-radius: .5rem
-        background: var(--color-background-soft)
+        color: var(--color-on-primary)
+        background: var(--color-primary)
         border: none
         padding: 0
         display: none
+        cursor: pointer
+        transition: all 100ms ease-out
 
         &:focus,
         &:hover
             background: var(--color-background-soft)
-            color: var(--color-text)
+            color: var(--color-primary)
 
     .mobile-menu
         position: fixed
         top: 0
+        bottom: 0
         left: 0
-        width: 100vw
-        height: 100vh
+        right: 0
         z-index: 1000
         pointer-events: none
         display: none
+        overflow: hidden
 
         &.is-open
             pointer-events: all

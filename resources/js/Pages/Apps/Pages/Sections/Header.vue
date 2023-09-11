@@ -7,10 +7,10 @@
                 </Link>
             </div>
             <div class="wrapper center">
-                <Menu id="menu" :menu="menu"/>
+                <Menu id="header-menu" :menu="menu"/>
             </div>
             <div class="wrapper end" v-if="loginLink">
-                <IodButton is="a" :href="loginLink" variant="filled" size="small">Anmelden</IodButton>
+                <IodButton id="header-profile" is="a" :href="loginLink" variant="filled" shape="pill">{{loginButtonText}}</IodButton>
             </div>
         </div>
     </header>
@@ -45,6 +45,16 @@
     const settings = computed(() => {
         return usePage()?.props?.value?.settings
     })
+
+
+
+    const loggedIn = computed(() => {
+        return !!usePage().props.value.auth.user
+    })
+
+    const loginButtonText = computed(() => {
+        return loggedIn.value ? 'Profil' : 'Anmelden'
+    })
 </script>
 
 <style lang="sass" scoped>
@@ -54,7 +64,7 @@
         left: 0
         z-index: 1000
         width: 100%
-        height: 4rem
+        height: 4.5rem
         background-color: #ffffffd9
         color: var(--color-text)
         backdrop-filter: blur(20px)
@@ -68,7 +78,6 @@
             display: flex
             align-items: center
             height: 100%
-            max-width: 1200px
 
         .wrapper
             flex: 1
@@ -91,13 +100,20 @@
             display: flex
             height: 100%
             width: 100%
-            padding-block: .25rem
+            padding-block: 1rem
 
             .logo-asset
                 height: 100%
                 width: 100%
                 object-fit: contain
                 object-position: center left
+
+        #header-profile
+            height: 2.25rem
+            max-width: 8rem
+            width: 100%
+
+
 
     @media only screen and (max-width: 1000px)
         #header
@@ -106,12 +122,4 @@
 
                 .wrapper.center
                     order: 1
-
-
-    
-    @media only screen and (max-width: 500px)
-        #header
-            .limiter
-                .wrapper.logo
-                    width: 100px
 </style>
