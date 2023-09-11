@@ -43,6 +43,7 @@
 <style lang="sass" scoped>
     #hero-section
         display: flex
+        margin-top: 1rem
 
         &.large
             .inner-wrapper

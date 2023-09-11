@@ -151,6 +151,7 @@
     section#hero
         display: flex
         width: 100%
+        margin-top: 1rem
 
         .limiter
             display: flex

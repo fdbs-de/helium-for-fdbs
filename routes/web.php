@@ -53,7 +53,7 @@ Route::get('/storage/{driveAlias}/{media}', [MediaController::class, 'showPublic
 
 
 // Static Pages
-Route::get('/', [StaticController::class, 'indexHome'])->name('home');
+// Route::get('/z', [StaticController::class, 'indexHome']);
 Route::get('/philosophie', [StaticController::class, 'indexPhilosophie'])->name('philosophie');
 Route::get('/nachhaltigkeit', [StaticController::class, 'indexNachhaltigkeit'])->name('nachhaltigkeit');
 Route::get('/ci', [StaticController::class, 'indexCI'])->middleware(['auth', 'verified', 'panelaccess:employee'])->name('ci');
@@ -127,4 +127,5 @@ Route::prefix('/messeanmeldung')->group(function () {
 
 // Pages Wildcard
 Route::get('/pages/prefetch', [PageController::class, 'prefetch'])->name('app.pages.prefetch');
+Route::get('/', [PageController::class, 'root'])->name('home');
 Route::get('/{page}', [PageController::class, 'show'])->where('page', '.*')->name('app.pages.render.page');

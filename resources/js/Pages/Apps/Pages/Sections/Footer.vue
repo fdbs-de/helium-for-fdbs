@@ -68,13 +68,15 @@
                 </div>
                 <div class="spacer"></div>
                 <div class="social-wrapper">
-                    <a href="https://job38.de/arbeitgeber/fdbs-69115" target="_blank" rel="opener" title="job38">job38</a>
-                    <span>•</span>
+                    <!-- <a href="https://job38.de/arbeitgeber/fdbs-69115" target="_blank" rel="opener" title="job38">job38</a> -->
                     <a href="https://www.kleinanzeigen.de/pro/FDBS" target="_blank" rel="opener" title="Kleinanzeigen">
                         <img src="/images/assets/social-icons/icon_kleinanzeigen.svg" alt="Kleinanzeigen">
                     </a>
                     <a href="https://www.instagram.com/fdbs_foodservice/" target="_blank" rel="opener" title="Instagram">
                         <img src="/images/assets/social-icons/icon_instagram.svg" alt="Instagram">
+                    </a>
+                    <a href="https://job38.de/arbeitgeber/fdbs-69115" target="_blank" rel="opener" title="job38">
+                        <img src="/images/assets/social-icons/icon_job38.svg" alt="job38">
                     </a>
                     <a href="https://www.xing.com/pages/fleischer-dienst-braunschweig-eg" target="_blank" rel="opener" title="Xing">
                         <img src="/images/assets/social-icons/icon_xing.svg" alt="Xing">
@@ -122,9 +124,6 @@
         gap: 3rem
         padding-top: 3rem
         color: var(--color-text-soft)
-
-        .limiter
-            max-width: 1200px
 
         .certificate-row
             display: flex
@@ -242,8 +241,7 @@
                             opacity: .8
 
                     img
-                        margin: .25rem
-                        height: 1.25rem
+                        height: 1.75rem
                         opacity: .6
 
 
