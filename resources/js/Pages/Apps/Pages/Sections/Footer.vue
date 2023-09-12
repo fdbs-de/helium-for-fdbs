@@ -1,7 +1,7 @@
 <template>
     <footer>
         <div class="limiter certificate-row">
-            <p>Wir sind zertifiziert durch</p>
+            <h3>Zertifiziert durch</h3>
             <div class="wrapper">
                 <a class="cert-wrapper" href="/downloads/zertifikate/CrefoZert_2021_2030012751_Fleischer_Dienst_Braunschweig_eG.pdf" target="_blank" rel="noopener noreferrer">
                     <img src="/images/assets/zertifikate/crefo_logo.webp" alt="CreFo Zertifizierung">
@@ -119,11 +119,12 @@
 <style lang="sass" scoped>
     footer
         background: var(--color-background-soft)
+        color: var(--color-text-soft)
+        border-top: 5px solid var(--color-primary)
         display: flex
         flex-direction: column
         gap: 3rem
         padding-top: 3rem
-        color: var(--color-text-soft)
 
         .certificate-row
             display: flex
@@ -131,19 +132,19 @@
             gap: 1.5rem
             border: 1px solid var(--color-background-soft)
 
-            p
+            h3
                 text-align: center
                 margin: 0
-                font-weight: 700
+                font-weight: 600
                 font-family: var(--font-heading)
-                color: var(--color-primary)
-                font-size: 1.25rem
+                color: var(--color-text)
+                font-size: 1.5rem
 
             .wrapper
                 display: flex
                 flex-wrap: wrap
                 align-items: center
-                justify-content: center
+                justify-content: space-between
                 gap: 1.5rem
                 padding-bottom: 3rem
                 border-bottom: 2px solid rgba(0,0,0,.1)
@@ -176,11 +177,9 @@
 
                 h3
                     margin-block: 0 1rem
-                    font-weight: 700
+                    font-weight: 600
+                    font-size: 1.5rem
                     color: var(--color-text)
-                    
-                    &.primary
-                        color: var(--color-primary)
 
                 .navigation
                     display: flex
@@ -193,9 +192,12 @@
                         background-position: 0 center
                         padding-left: 1.5rem
                         transition: all 100ms
+                        color: var(--color-primary)
+                        filter: saturate(0)
 
                         &:hover,
                         &:focus
+                            filter: saturate(1)
                             background-position: .3rem center
 
         .copyright-row
@@ -238,11 +240,11 @@
 
                     &:hover
                         img
-                            opacity: .8
+                            opacity: 1
 
                     img
                         height: 1.75rem
-                        opacity: .6
+                        opacity: .8
 
 
 

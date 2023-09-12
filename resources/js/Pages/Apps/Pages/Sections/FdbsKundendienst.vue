@@ -12,7 +12,7 @@
                         Unser technischer Kundendienst für Ihre<br>
                         Gastro-Küchen, Maschinen und mehr.
                     </p>
-                    <IodButton is="a" label="Jetzt durchstarten" href="/mkbs"/>
+                    <IodButton is="a" label="Kontaktieren Sie uns" href="/"/>
                 </div>
                 <img src="/images/content/customerservice/collage.png" alt="" class="flex-1">
             </div>
