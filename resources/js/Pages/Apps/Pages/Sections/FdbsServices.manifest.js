@@ -16,7 +16,7 @@ export default {
             fixtureType: 'style:padding',
             label: 'Innenabstand',
             key: 'padding',
-            value: '4rem 0rem',
+            value: '10rem 0rem',
         },
         {
             fixtureType: 'style:color',

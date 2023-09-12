@@ -26,6 +26,7 @@
                     <select v-model="form.default_for">
                         <option :value="null">Keinen Standard</option>
                         <option value="main">Hauptmenü</option>
+                        <option value="legal">Rechliches</option>
                     </select>
 
                     <div class="flex vertical radius-m border">

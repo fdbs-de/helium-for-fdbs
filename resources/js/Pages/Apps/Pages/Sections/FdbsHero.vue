@@ -50,7 +50,7 @@
             z-index: 1
 
         .content-wrapper
-            min-height: calc(100vh - 4.5rem)
+            min-height: calc(90vh - 4.5rem)
             display: flex
             flex-direction: column
             justify-content: center
