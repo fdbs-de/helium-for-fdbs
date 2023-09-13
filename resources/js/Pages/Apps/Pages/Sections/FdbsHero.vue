@@ -86,6 +86,7 @@
                 font-family: var(--font-heading)
                 font-weight: 500
                 font-size: 1rem
+                white-space: nowrap
                 filter: drop-shadow(0 .5rem .5rem rgb(0 0 0 / .15))
                 position: absolute
                 bottom: 2rem
@@ -108,5 +109,10 @@
                     100%
                         transform: translate(-50%, -1rem)
 
-    @media only screen and (max-width: 1000px)
+
+
+    @media only screen and (max-width: 500px)
+        .fdbs-video-hero
+            .content-wrapper
+                min-height: 70vh
 </style>

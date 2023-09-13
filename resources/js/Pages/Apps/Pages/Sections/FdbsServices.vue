@@ -80,6 +80,8 @@
 
 <style lang="sass" scoped>
     .fdbs-services
+        padding: 10rem 0
+
         h2
             font-size: clamp(2rem, 10vw, 3.5rem)
             text-align: center
@@ -132,4 +134,18 @@
             p
                 margin: 0
                 flex: 1
+
+    
+
+    @media only screen and (max-width: 500px)
+        .fdbs-services
+            padding: 6rem 0
+
+            .grid
+                gap: 2rem
+
+            .service-card
+                gap: 1.5rem
+                padding: 1rem
+                padding-top: 2rem
 </style>

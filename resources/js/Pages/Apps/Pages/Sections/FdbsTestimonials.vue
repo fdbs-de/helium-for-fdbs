@@ -2,14 +2,14 @@
     <section class="fdbs-testimonials">
         <div class="limiter">
             <div class="content-wrapper">
-                <div class="plain">
+                <div class="plain text-plain">
                     <h2>
                         Eindrücke<br>
                         unserer<br>
                         <b>{{currentTestimonial.type}}</b>
                     </h2>
                 </div>
-                <div class="plain">
+                <div class="plain slider-plain">
                     <div class="testimonial-outer-wrapper">
                         <TransitionGroup tag="div" class="animation-wrapper" :name="`slide-${direction}`">
                             <div class="testimonial-inner-wrapper" v-for="testimonial in testimonials" :key="testimonial.id" v-show="currentTestimonial.id === testimonial.id">
@@ -47,7 +47,7 @@
         {
             id: 1,
             type: 'Partner',
-            text: 'Seit vielen Jahren arbeiten wir sehr gerne mit dem FDBS als verlässlichen Kunden zusammen.',
+            text: 'Seit vielen Jahren arbeiten wir sehr gerne mit dem FDBS als verlässlichen Kunden zusammen. Dabei sind in enger Kooperation viele spannende Projekte für den FDBS und seine Kunden entstanden. Wir freuen uns auf viele weitere Jahre guter Zusammenarbeit!',
             author: {
                 image: '/images/app/defaults/user.png',
                 name: 'Michael Schmiedel',
@@ -57,24 +57,13 @@
         },
         {
             id: 2,
-            type: 'Kunden',
-            text: 'Seit vielen Jahren arbeiten wir sehr gerne mit dem FDBS als verlässlichen Kunden zusammen. Dabei sind in enger Kooperation viele spannende Projekte für den FDBS und seine Kunden entstanden.',
+            type: 'Mitarbeiter',
+            text: 'Eine Philosophie, die gelebt wird: So kann man den FDBS am besten beschreiben. Ständiges Hinterfragen und Optimieren der logistischen Prozesse macht uns stark. Das aktive Gestalten meines Arbeitsbereiches bereitet mir viel Freude und von einer offenen und ehrlichen Feedbackkultur profitiere ich in meinem Bereich ungemein. Es macht einfach Spaß, sich für den FDBS und seine Ziele einzusetzen.',
             author: {
                 image: '/images/app/defaults/user.png',
-                name: 'Michael Schmiedel',
-                company: 'SignPoint GmbH',
-                link: 'https://signpoint.de',
-            },
-        },
-        {
-            id: 3,
-            type: 'Lieferanten',
-            text: 'Seit vielen Jahren arbeiten wir sehr gerne mit dem FDBS als verlässlichen Kunden zusammen. Dabei sind in enger Kooperation viele spannende Projekte für den FDBS und seine Kunden entstanden. Wir freuen uns auf viele weitere Jahre guter Zusammenarbeit!',
-            author: {
-                image: '/images/app/defaults/user.png',
-                name: 'Michael Schmiedel',
-                company: 'SignPoint GmbH',
-                link: 'https://signpoint.de',
+                name: 'Tobias Weniger',
+                company: 'FDBS',
+                link: 'https://fdbs.de',
             },
         },
     ])
@@ -117,7 +106,7 @@
 
 <style lang="sass" scoped>
     .fdbs-testimonials
-        --cut: 4rem
+        --cut: 5vw
         width: 100%
         position: relative
         background: var(--color-background-soft)
@@ -170,6 +159,7 @@
                 flex: 1
                 display: flex
                 padding-top: 10rem
+                max-width: 600px
 
             .testimonial-outer-wrapper
                 flex: 1
@@ -258,5 +248,36 @@
                         height: 2.25rem
                         width: 3.5rem
 
-    @media only screen and (max-width: 1000px)
+
+
+    @media only screen and (max-width: 900px)
+        .fdbs-testimonials
+            &::before
+                background-image: linear-gradient(0deg, rgb(#364040, .7) 40%, rgb(#364040, 0) 60%)
+
+            .content-wrapper
+                flex-direction: column
+                align-items: center
+
+                .text-plain
+                    text-align: center
+
+                .slider-plain
+                    padding-top: 0
+
+
+
+    @media only screen and (max-width: 500px)
+        .fdbs-testimonials
+            &::after
+                height: 4rem
+
+            .content-wrapper
+                .text-plain
+                    padding-top: 6rem
+
+                .slider-plain
+                    .testimonial-outer-wrapper
+                        padding: 1rem
+                        padding-bottom: 5rem
 </style>
