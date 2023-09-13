@@ -1,5 +1,5 @@
 <template>
-    <section class="fdbs-services" id="services" :style="{padding, backgroundColor}">
+    <section class="fdbs-marken" :style="{padding, backgroundColor}">
         <component class="he-text-section-limiter" :is="LimiterManifest.component" :size="size">
             <h2>Unsere Marken</h2>
             <div class="grid">
@@ -31,7 +31,9 @@
 </script>
 
 <style lang="sass" scoped>
-    .fdbs-services
+    .fdbs-marken
+        padding: 10rem 0
+
         h2
             font-size: clamp(2rem, 10vw, 3.5rem)
             text-align: center
@@ -60,20 +62,24 @@
                 display: flex
 
     @media only screen and (max-width: 700px)
-        .fdbs-services
+        .fdbs-marken
             .grid
                 gap: 2rem
 
 
     
     @media only screen and (max-width: 500px)
-        .fdbs-services
+        .fdbs-marken
+            padding: 6rem 0
+            
+            h2
+                margin-bottom: 2rem
+
             .grid
-                flex-direction: column
+                gap: .5rem
 
                 a
-                    max-width: 250px
-                    margin-inline: auto
+                    flex: 1 !important
+                    border-radius: .5rem !important
                     box-shadow: none !important
-                    flex: none
 </style>

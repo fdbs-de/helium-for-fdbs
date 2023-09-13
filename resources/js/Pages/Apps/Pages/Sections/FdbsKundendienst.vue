@@ -1,8 +1,8 @@
 <template>
     <section class="fdbs-kundendienst">
         <div class="limiter">
-            <div class="flex v-center">
-                <div class="content-wrapper flex-1">
+            <div class="content-wrapper">
+                <div class="plain text-plain">
                     <h2>
                         Planung<br>
                         Montage<br>
@@ -14,7 +14,9 @@
                     </p>
                     <IodButton is="a" label="Kontaktieren Sie uns" href="/"/>
                 </div>
-                <img src="/images/content/customerservice/collage.png" alt="" class="flex-1">
+                <div class="plain image-plain">
+                    <img src="/images/content/customerservice/collage.png" alt="">
+                </div>
             </div>
         </div>
     </section>
@@ -33,24 +35,57 @@
 
         .content-wrapper
             display: flex
-            flex-direction: column
-            align-items: stretch
             position: relative
             z-index: 2
-            max-width: 700px
-            gap: 2rem
+            gap: 4rem
 
-            > h2
-                font-size: clamp(2rem, 10vw, 3.5rem)
-                font-weight: 900
-                margin-block: 0
-                color: var(--color-primary)
+            .plain
+                flex: 1
+                display: flex
+                flex-direction: column
+                justify-content: center
+                gap: 2rem
 
-            p
-                opacity: .9
-            
-            > .iod-button
-                max-width: 400px
+                > h2
+                    font-size: clamp(2rem, 10vw, 3.5rem)
+                    font-weight: 900
+                    margin-block: 0
+                    color: var(--color-primary)
 
-    @media only screen and (max-width: 1000px)
+                > p
+                    opacity: .9
+                
+                > .iod-button
+                    max-width: 400px
+
+                > img
+                    width: 100%
+                    display: flex
+
+
+
+    @media only screen and (max-width: 700px)
+        .fdbs-kundendienst
+            .content-wrapper
+                flex-direction: column
+                align-items: center
+
+                .plain
+                    align-items: stretch
+                    text-align: center
+
+                .text-plain
+                    order: 2
+
+                .image-plain
+                    max-width: 300px
+
+
+    
+    @media only screen and (max-width: 500px)
+        .fdbs-kundendienst
+            padding-block: 6rem
+
+            .content-wrapper
+                gap: 6rem
 </style>

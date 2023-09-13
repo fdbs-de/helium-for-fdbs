@@ -1,8 +1,8 @@
 <template>
     <section class="fdbs-marketing">
         <div class="limiter">
-            <div class="flex v-center">
-                <div class="content-wrapper flex-1">
+            <div class="content-wrapper">
+                <div class="plain text-plain">
                     <h2>Wir machen Ihr Unternehmen sichtbar!</h2>
                     <div>
                         <p>
@@ -16,7 +16,6 @@
                     </div>
                     <IodButton is="a" label="Jetzt durchstarten" href="/mkbs"/>
                 </div>
-                <div class="spacer"></div>
             </div>
         </div>
     </section>
@@ -29,7 +28,7 @@
 
 <style lang="sass" scoped>
     .fdbs-marketing
-        --cut: 4rem
+        --cut: 5vw
         width: 100%
         position: relative
         background: var(--color-background-soft)
@@ -51,29 +50,49 @@
             z-index: 1
 
         .content-wrapper
-            color: var(--color-on-primary)
             display: flex
-            flex-direction: column
-            align-items: stretch
-            padding-block: 10rem 12rem
             position: relative
             z-index: 2
-            gap: 2rem
-
-            > h2
-                font-size: clamp(2rem, 10vw, 3.5rem)
-                font-weight: 600
-                margin-block: 0
-                color: inherit
-
-            p
-                color: inherit
-                opacity: .9
+            gap: 4rem
+            padding-block: 10rem 12rem
             
-            > .iod-button
-                --local-color-background: var(--color-on-primary)
-                --local-color-text: var(--color-primary)
-                max-width: 400px
+            .plain
+                color: var(--color-on-primary)
+                display: flex
+                flex-direction: column
+                align-items: stretch
+                position: relative
+                z-index: 2
+                gap: 2rem
 
-    @media only screen and (max-width: 1000px)
+                > h2
+                    font-size: clamp(2rem, 10vw, 3.5rem)
+                    font-weight: 600
+                    margin-block: 0
+                    color: inherit
+                    max-width: 700px
+
+                > div p
+                    color: inherit
+                    opacity: .9
+                
+                > .iod-button
+                    --local-color-background: var(--color-on-primary)
+                    --local-color-text: var(--color-primary)
+                    max-width: 400px
+
+
+
+    @media only screen and (max-width: 500px)
+        .fdbs-marketing
+            &::after
+                background-image: linear-gradient(0deg, rgb(#e00047, 1) 20%, rgb(#e00047, .2) 80%)
+
+            .content-wrapper
+                padding-block: 6rem
+                gap: 2rem
+
+                .plain
+                    text-align: center
+                    align-items: center
 </style>
