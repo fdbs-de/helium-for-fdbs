@@ -7,9 +7,9 @@ export default {
     version: '1.0.0',
     name: 'FDBS Marken',
     description: 'FDBS spezifische Marken Section',
-    previewImage: '/images/app/apps/pages/sections/hero_section.svg',
+    previewImage: '/images/app/apps/pages/sections/blank.svg',
     type: 'fdbs-marken',
-    group: 'fdbs',
+    group: 'FDBS Specific',
     props: [
         ...LimiterManifest.props,
         {

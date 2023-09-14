@@ -8,7 +8,7 @@ export default {
     description: 'Fügt einen Footer hinzu',
     previewImage: '/images/app/apps/pages/sections/footer.svg',
     type: 'footer',
-    group: 'footer',
+    group: 'Basics',
     props: [
         {
             fixtureType: 'style:color',

@@ -7,9 +7,9 @@ export default {
     version: '1.0.0',
     name: 'FDBS Services',
     description: 'FDBS spezifische Services Section',
-    previewImage: '/images/app/apps/pages/sections/hero_section.svg',
+    previewImage: '/images/app/apps/pages/sections/blank.svg',
     type: 'fdbs-services',
-    group: 'fdbs',
+    group: 'FDBS Specific',
     props: [
         ...LimiterManifest.props,
         {

@@ -70,7 +70,7 @@
         position: relative
         user-select: none
         overflow: auto
-        --tab-height: 2.5rem
+        --tab-height: 2.25rem
 
         &::-webkit-scrollbar
                 width: 3px
@@ -131,7 +131,7 @@
                 bottom: 0
                 height: 2px
                 border-radius: 2px 2px 0 0
-                background: var(--color-text)
+                background: var(--color-primary)
 
             &.indicator-style-box
                 bottom: 0

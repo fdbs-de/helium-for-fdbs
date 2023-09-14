@@ -8,7 +8,7 @@ export default {
     name: 'Code',
     description: 'Fügt einen Quellcode-Abschnitt hinzu',
     previewImage: '/images/app/apps/pages/sections/code_section.svg',
-    group: 'sections',
+    group: 'Advanced',
     props: [
         {
             fixtureType: 'code',

@@ -9,7 +9,7 @@ export default {
     name: 'Image',
     description: 'Fügt einen Abschnitt mit einem Bild hinzu',
     previewImage: '/images/app/apps/pages/sections/image_section.svg',
-    group: 'sections',
+    group: 'Basics',
     props: [
         ...LimiterManifest.props,
         {

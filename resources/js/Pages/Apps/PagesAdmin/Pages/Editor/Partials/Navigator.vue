@@ -6,7 +6,7 @@
                 <span class="text">
                     {{ element.name }}
                 </span>
-                <IodIconButton type="button" icon="delete" variant="text" color-preset="error" size="small" @click.stop="tab.removeElement(element)"/>
+                <IodIconButton type="button" icon="delete" variant="text" color-preset="error" size="small" @click.stop="tab.removeElements([element])"/>
             </div>
         </Draggable>
 

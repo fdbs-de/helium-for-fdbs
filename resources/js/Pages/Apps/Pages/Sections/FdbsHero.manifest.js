@@ -6,9 +6,9 @@ export default {
     version: '1.0.0',
     name: 'FDBS Hero',
     description: 'FDBS spezifische Hero Section',
-    previewImage: '/images/app/apps/pages/sections/hero_section.svg',
+    previewImage: '/images/app/apps/pages/sections/blank.svg',
     type: 'fdbs-hero',
-    group: 'fdbs',
+    group: 'FDBS Specific',
     props: [
     ],
     component: Component,

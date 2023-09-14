@@ -30,6 +30,7 @@ class UpdatePageRequest extends FormRequest
             'status' => 'required|string|in:draft,published,hidden',
             'priority' => 'nullable|float|min:0|max:1',
             'content' => 'nullable',
+            'meta' => 'nullable|array',
         ];
     }
 }

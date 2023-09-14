@@ -9,7 +9,7 @@ export default {
     description: 'Fügt einen Abschnitt mit einem Rich Text Editor hinzu',
     previewImage: '/images/app/apps/pages/sections/text_section.svg',
     type: 'text-section',
-    group: 'sections',
+    group: 'Basics',
     props: [
         {
             fixtureType: 'richtext',
