@@ -96,12 +96,12 @@
                 </template>
             </div>
 
-            <div class="group">
+            <!-- <div class="group">
                 <div class="flex v-center">
                     <span class="title flex-1">Local ID</span>
                     <small class="w-14">{{ element.localId }}</small>
                 </div>
-            </div>
+            </div> -->
         </template>
         <div class="group flex v-center" v-else>
             <small class="padding-block-4 user-select-none color-text">
@@ -160,6 +160,10 @@
         flex-direction: column
         gap: 1rem
         border-bottom: 1px solid var(--color-border)
+
+        &.horizontal
+            flex-direction: row
+            align-items: center
 
         .title
             font-size: .8rem

@@ -23,7 +23,13 @@ export default class PageTab extends Tab
             status: 'draft',
             version: null,
             content: [],
-            meta: {},
+            meta: {
+                image: null,
+                description: null,
+            },
+            parent_id: null,
+            users: [],
+            roles: [],
         }
 
         this.prefetchedData = {}
@@ -49,6 +55,9 @@ export default class PageTab extends Tab
             },
             inspector: {
                 panel: 'inspector'
+            },
+            settings: {
+                panel: 'general'
             },
         }
 
@@ -201,12 +210,16 @@ export default class PageTab extends Tab
         })
     }
 
-    removeElement(element)
+    removeElements(elements)
     {
-        this.data.content = this.data.content.filter(item => item.localId !== element.localId)
+        // Get element ids
+        let elementIds = elements.map(element => element.localId)
 
-        // Remove element from selected elements
-        this.selected.elements = this.selected.elements.filter(item => item !== element.localId)
+        // Remove elements from data
+        this.data.content = this.data.content.filter(item => !elementIds.includes(item.localId))
+
+        // Remove elements from selected elements
+        this.selected.elements = this.selected.elements.filter(item => !elementIds.includes(item))
     }
 
 
@@ -214,6 +227,13 @@ export default class PageTab extends Tab
     selectElement(element)
     {
         this.selected.elements = [element.localId]
+    }
+
+
+
+    get selectedElements()
+    {
+        return this.data.content.filter(element => this.selected.elements.includes(element.localId))
     }
 
 
@@ -259,7 +279,10 @@ export default class PageTab extends Tab
         this.data.slug = data.slug || ''
         this.data.status = data.status || 'draft'
         this.data.content = data.content || []
-        this.data.meta = {}
+        this.data.meta = data.meta || {}
+        this.data.parent_id = data.parent_id || null
+        this.data.users = data.users || []
+        this.data.roles = data.roles || []
 
         return this
     }
@@ -274,6 +297,10 @@ export default class PageTab extends Tab
             status: this.data.status,
             version: this.data.version,
             content: this.data.content,
+            meta: this.data.meta,
+            parent_id: this.data.parent_id,
+            users: this.data.users,
+            roles: this.data.roles,
         }))
     }
 

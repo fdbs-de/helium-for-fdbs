@@ -9,7 +9,7 @@ export default {
     type: 'form-section',
     description: 'Fügt ein Formular hinzu',
     previewImage: '/images/app/apps/pages/sections/form_section.svg',
-    group: 'sections',
+    group: 'Dynamic Content',
     props: [
         ...LimiterManifest.props,
         {

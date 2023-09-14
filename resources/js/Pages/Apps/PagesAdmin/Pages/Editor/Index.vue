@@ -2,19 +2,11 @@
     <div class="page-editor-layout">
         <div class="tool-bar">
             <div class="start">
-                <VDropdown placement="bottom-end">
-                    <IodButton type="button" class="transparent" variant="contained" icon-left="add" label="Neu" v-tooltip.right="'Neues Element'" />
-
-                    <template #popper>
-                        <div class="flex padding-1 gap-1 wrap">
-                            <AddElementButton v-for="elementTemplate, key in ElementTemplates" :key="key" @click="tab.createElement(elementTemplate, true)" :template="elementTemplate"/>
-                        </div>
-                    </template>
-                </VDropdown>
+                <IodButton type="button" class="transparent" variant="contained" icon-left="add" label="Neu" v-tooltip.right="'Neues Element (Shift+N)'" @click="elementCatalog.open()"/>
                 <div class="spacer"></div>
-                <!-- <IodIconButton type="button" class="transparent" variant="text" icon="undo" v-tooltip.bottom="'Rückgangig (Strg+Z)'"/>
+                <IodIconButton type="button" class="transparent" variant="text" icon="undo" v-tooltip.bottom="'Rückgangig (Strg+Z)'"/>
                 <IodIconButton type="button" class="transparent" variant="text" icon="redo" v-tooltip.bottom="'Wiederherstellen (Strg+Y)'"/>
-                <IodIconButton type="button" class="transparent" variant="text" icon="history" v-tooltip.bottom="'Bearbeitungsverlauf'"/> -->
+                <IodIconButton type="button" class="transparent" variant="text" icon="history" v-tooltip.bottom="'Bearbeitungsverlauf'"/>
             </div>
             <div class="center">
                 <div class="breakpoint-selector">
@@ -31,23 +23,9 @@
                 </div>
             </div>
             <div class="end">
-                <VDropdown placement="bottom-start">
-                    <IodIconButton type="button" class="transparent" variant="text" icon="settings" v-tooltip.left="'Seiteneinstellungen'" />
-
-                    <template #popper>
-                        <div class="flex vertical padding-1 gap-1 w-25">
-                            <select class="default-select" v-model="tab.data.status">
-                                <option :value="null" disabled>Status</option>
-                                <option value="draft">Entwurf</option>
-                                <option value="published">Veröffentlicht</option>
-                                <option value="hidden">Versteckt</option>
-                            </select>
-                            <IodInput class="default-text-input" label="Titel" v-model="tab.data.title"/>
-                            <IodInput class="default-text-input" label="Slug" v-model="tab.data.slug"/>
-                        </div>
-                    </template>
-                </VDropdown>
-                <IodIconButton class="transparent" variant="text" is="a" icon="open_in_new" v-tooltip.left="'Seite öffnen'" :href="route('app.pages.render.page', tab.data.slug)" target="_blank"/>
+                <IodIconButton type="button" class="transparent" variant="text" icon="settings" v-tooltip.left="'Media Manager (Strg+M)'" @click="pageSettingsPopup.open()"/>
+                <IodIconButton type="button" class="transparent" variant="text" icon="upload" v-tooltip.left="'Seiteneinstellungen (Strg+P)'" @click="picker.open()"/>
+                <IodIconButton type="button" class="transparent" variant="text" icon="open_in_new" v-tooltip.left="'Seite öffnen'" is="a" :href="route('app.pages.render.page', tab.data.slug)" target="_blank"/>
                 <div class="spacer"></div>
                 <IodButton type="button" class="transparent" variant="contained" label="Speichern" v-tooltip.left="'Speichern (Strg+S)'" @click="tab.save()" :loading="tab.processing.saving"/>
             </div>
@@ -55,7 +33,10 @@
 
 
 
-        <Navigator class="navigator" :tab="tab" />
+        <div class="navigator">
+            <Navigator :tab="tab" />
+            <ElementCatalog :tab="tab" ref="elementCatalog"/>
+        </div>
 
         <Viewport class="viewport" :tab="tab" />
 
@@ -63,17 +44,47 @@
     </div>
 
     <Picker ref="picker" />
+
+    <Popup ref="pageSettingsPopup">
+        <div class="flex vertical">
+            <div class="flex padding-1 border-bottom">
+                <Tabs v-model="tab.ui.settings.panel" indicator-style="box" :tabs="[
+                    { label: 'Allgemein', value: 'general' },
+                    { label: 'SEO', value: 'seo' },
+                    { label: 'Berechtigungen', value: 'permissions' },
+                ]"/>
+            </div>
+    
+            <div class="flex vertical gap-1 padding-1" v-show="tab.ui.settings.panel === 'general'">
+                <select class="default-select" v-model="tab.data.status">
+                    <option :value="null" disabled>Status</option>
+                    <option value="draft">Entwurf</option>
+                    <option value="published">Veröffentlicht</option>
+                    <option value="hidden">Versteckt</option>
+                </select>
+                <IodInput label="Titel" v-model="tab.data.title"/>
+                <IodInput label="Slug" v-model="tab.data.slug"/>
+            </div>
+
+            <div class="flex vertical gap-1 padding-1" v-show="tab.ui.settings.panel === 'seo'">
+                <IodInput label="Meta-Beschreibung" v-model="tab.data.meta.description"/>
+                <IodInput label="Meta-Image" v-model="tab.data.meta.image"/>
+            </div>
+
+            <div class="flex vertical gap-1 padding-1" v-show="tab.ui.settings.panel === 'permissions'">
+            </div>
+        </div>
+    </Popup>
 </template>
 
 <script setup>
     import { ref } from 'vue'
     import hotkeys from 'hotkeys-js'
-    import ElementTemplates from '@/Pages/Apps/Pages/ElementTemplates'
 
+    import ElementCatalog from '@/Pages/Apps/PagesAdmin/Pages/Editor/Partials/ElementCatalog.vue'
     import Navigator from '@/Pages/Apps/PagesAdmin/Pages/Editor/Partials/Navigator.vue'
     import Inspector from '@/Pages/Apps/PagesAdmin/Pages/Editor/Partials/Inspector.vue'
     import Viewport from '@/Pages/Apps/PagesAdmin/Pages/Editor/Partials/Viewport.vue'
-    import AddElementButton from '@/Pages/Apps/PagesAdmin/Pages/Editor/Partials/AddElementButton.vue'
     import Picker from '@/Components/Form/MediaLibrary/Picker.vue'
     import Tabs from '@/Components/Form/Tabs.vue'
     import Popup from '@/Components/Form/Popup.vue'
@@ -88,39 +99,28 @@
     })
 
     const picker = ref(null)
-
-
+    const pageSettingsPopup = ref(null)
+    const elementCatalog = ref(null)
     
-    // START: Keyboard Shortcuts
-    hotkeys('ctrl+s', (event, handler) => { event.preventDefault(); console.log('SAVE') })
-    hotkeys('ctrl+shift+s', (event, handler) => { event.preventDefault(); console.log('SAVE AS') })
 
-    // Page Editor specific
-    hotkeys('alt+1', (event, handler) => { event.preventDefault(); console.log('SELECT BREAKPOINT 1') })
-    hotkeys('alt+2', (event, handler) => { event.preventDefault(); console.log('SELECT BREAKPOINT 2') })
-    hotkeys('alt+3', (event, handler) => { event.preventDefault(); console.log('SELECT BREAKPOINT 3') })
-    hotkeys('alt+4', (event, handler) => { event.preventDefault(); console.log('SELECT BREAKPOINT 4') })
-    hotkeys('alt+5', (event, handler) => { event.preventDefault(); console.log('SELECT BREAKPOINT 5') })
-    hotkeys('alt+6', (event, handler) => { event.preventDefault(); console.log('SELECT BREAKPOINT 6') })
-    hotkeys('alt+7', (event, handler) => { event.preventDefault(); console.log('SELECT BREAKPOINT 7') })
-    hotkeys('alt+8', (event, handler) => { event.preventDefault(); console.log('SELECT BREAKPOINT 8') })
-    hotkeys('alt+9', (event, handler) => { event.preventDefault(); console.log('SELECT BREAKPOINT 9') })
-    hotkeys('alt+0', (event, handler) => { event.preventDefault(); console.log('SELECT BREAKPOINT 10') })
-
-    hotkeys('ctrl+c', (event, handler) => { event.preventDefault(); console.log('COPY') })
-    hotkeys('ctrl+d', (event, handler) => { event.preventDefault(); console.log('DUPLICATE') })
-    hotkeys('ctrl+x', (event, handler) => { event.preventDefault(); console.log('CUT') })
-    hotkeys('ctrl+v', (event, handler) => { event.preventDefault(); console.log('PASTE') })
-
-    hotkeys('ctrl+z', (event, handler) => { event.preventDefault(); console.log('UNDO') })
-    hotkeys('ctrl+y', (event, handler) => { event.preventDefault(); console.log('REDO') })
-    hotkeys('ctrl+shift+z', (event, handler) => { event.preventDefault(); console.log('REDO') })
-
-    hotkeys('shift+n', (event, handler) => { event.preventDefault(); console.log('NEW ELEMENT') })
-    hotkeys('delete, backspace', (event, handler) => { event.preventDefault(); console.log('DELETE') })
-    // END: Keyboard Shortcuts
 
     props.tab.prefetchData()
+
+    
+    
+    // START: Keyboard Shortcuts
+    hotkeys('ctrl+s', (event, handler) => { event.preventDefault(); props.tab.save() })
+
+    // Page Editor specific
+    hotkeys('ctrl+z', (event, handler) => { event.preventDefault(); console.log('UNDO') })
+    hotkeys('ctrl+y, ctrl+shift+z', (event, handler) => { event.preventDefault(); console.log('REDO') })
+    
+    hotkeys('ctrl+p', (event, handler) => { event.preventDefault(); pageSettingsPopup.value.open() })
+    hotkeys('ctrl+m', (event, handler) => { event.preventDefault(); picker.value.open() })
+
+    hotkeys('num_add, shift+n', (event, handler) => { event.preventDefault(); elementCatalog.value.open() })
+    hotkeys('delete, backspace', (event, handler) => { event.preventDefault(); props.tab.removeElements(props.tab.selectedElements) })
+    // END: Keyboard Shortcuts
 </script>
 
 <style lang="sass" scoped>
@@ -192,6 +192,7 @@
             display: flex
             flex-direction: column
             overflow-y: auto
+            position: relative
 
         .navigator
             grid-area: navigator

@@ -10,7 +10,7 @@ export default {
     description: 'Fügt einen Abschnitt mit einem Download-Ordner-Ansicht hinzu',
     previewImage: '/images/app/apps/pages/sections/download_manager_section.svg',
     type: 'download-manager-section',
-    group: 'sections',
+    group: 'Dynamic Content',
     props: [
         ...LimiterManifest.props,
         ...DownloadManagerManifest.props,

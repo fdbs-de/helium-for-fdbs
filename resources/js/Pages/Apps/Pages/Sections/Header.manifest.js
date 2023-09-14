@@ -8,7 +8,7 @@ export default {
     description: 'Fügt einen Header hinzu',
     previewImage: '/images/app/apps/pages/sections/header.svg',
     type: 'header',
-    group: 'header',
+    group: 'Basics',
     props: [
         {
             fixtureType: 'menus:id',

@@ -9,7 +9,7 @@ export default {
     description: 'Fügt einen Abschnitt mit einer Seiten-Überschrift hinzu',
     previewImage: '/images/app/apps/pages/sections/hero_section.svg',
     type: 'hero-section',
-    group: 'sections',
+    group: 'Basics',
     props: [
         ...LimiterManifest.props,
         {
