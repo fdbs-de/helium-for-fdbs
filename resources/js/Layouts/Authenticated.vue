@@ -15,7 +15,7 @@
     <div class="layout">
         <div class="menu" :class="{'open': isOpen}">
             <div class="logo">
-                <Link class="logo-link" :href="route('home')">
+                <Link class="logo-link" href="/">
                     <img src="/images/branding/logo_sloganless.svg" alt="FDBS Logo">
                 </Link>
             </div>

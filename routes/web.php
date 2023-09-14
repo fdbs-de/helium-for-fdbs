@@ -127,5 +127,5 @@ Route::prefix('/messeanmeldung')->group(function () {
 
 // Pages Wildcard
 Route::get('/pages/prefetch', [PageController::class, 'prefetch'])->name('app.pages.prefetch');
-Route::get('/', [PageController::class, 'root'])->name('home');
-Route::get('/{page}', [PageController::class, 'show'])->where('page', '.*')->name('app.pages.render.page');
+// Route::get('/', [PageController::class, 'root'])->name('home');
+Route::get('/{page?}', [PageController::class, 'show'])->where('page', '.*')->name('app.pages.render.page');

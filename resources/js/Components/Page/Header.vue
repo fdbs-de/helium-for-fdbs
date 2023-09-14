@@ -2,7 +2,7 @@
     <header id="header">
         <div class="limiter">
             <div class="wrapper logo">
-                <Link id="header-logo" :href="route('home')" title="FDBS Home"><Logo /></Link>
+                <Link id="header-logo" href="/" title="FDBS Home"><Logo /></Link>
             </div>
             <div class="wrapper menu">
                 <Menu id="menu" :menu="menu"/>

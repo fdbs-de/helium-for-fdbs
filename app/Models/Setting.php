@@ -28,6 +28,11 @@ class Setting extends Model
 
 
 
+    public static function getByKey($key)
+    {
+        return self::where('key', $key)->firstOrFail()->value;
+    }
+
     public static function getGlobal($shouldTransform = false, $usecase = null)
     {
         $settings = self::get();

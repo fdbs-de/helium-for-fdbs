@@ -1,5 +1,5 @@
 export const mainMenu = [
-    { id: 'home', label: 'Home', href: route('home'), children: [] },
+    { id: 'home', label: 'Home', href: '/', children: [] },
     { id: 'blog', label: 'Blog', href: route('blog'), children: [] },
     { id: 'philosophie', label: 'Philosophie', href: route('philosophie'), children: [
         { id: 'philosophie.nachhaltigkeit', label: 'Nachhaltigkeit', href: route('nachhaltigkeit'), children: [] },

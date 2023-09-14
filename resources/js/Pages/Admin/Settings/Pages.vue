@@ -4,16 +4,14 @@
             <form class="limiter text-limiter" @submit.prevent="update()">
                 <div class="flex gap-1 vertical">
                     <ValidationErrors />
-    
-                    <IodInput v-model="form.site_name" label="Seitenname" />
-                    <IodInput v-model="form.site_slogan" label="Slogan" />
-                    <IodInput v-model="form.site_domain" label="Domain" placeholder="example.com" />
-                    <IodInput v-model="form.site_description" label="Seitenbeschreibung" />
-    
-                    <select v-model="form.site_language">
-                        <option value="de">Deutsch</option>
-                        <option value="en">English</option>
+                    
+                    <select v-model="form.apps_pages_root_type">
+                        <option value="static">Statische Seite</option>
+                        <option value="redirect">Weiterleitung</option>
+                        <option value="route">Route Seite</option>
                     </select>
+    
+                    <IodInput v-model="form.apps_pages_root_link" label="Slug/URL/Route-Name" />
                     
                     <IodButton label="Einstellungen Speichern" size="large" :loading="form.processing"/>
                 </div>
@@ -38,11 +36,8 @@
 
 
     const form = useForm({
-        site_name: props.settings['site.name'] || '',
-        site_slogan: props.settings['site.slogan'] || '',
-        site_domain: props.settings['site.domain'] || '',
-        site_description: props.settings['site.description'] || '',
-        site_language: props.settings['site.language'] || 'de',
+        apps_pages_root_type: props.settings['apps.pages.root.type'] || 'static',
+        apps_pages_root_link: props.settings['apps.pages.root.link'] || '',
     })
 
     const update = () => {
