@@ -40,7 +40,7 @@ class PageController extends Controller
     public function show(Request $request)
     {
         // Render page if page slug is given
-        if($request->page) return $this->renderPage($request->page);
+        if($request->page) return $this->render($request->page);
         
         // Get settings for root page
         $type = Setting::getByKey('apps.pages.root.type');
