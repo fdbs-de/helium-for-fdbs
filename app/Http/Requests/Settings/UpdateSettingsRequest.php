@@ -53,6 +53,10 @@ class UpdateSettingsRequest extends FormRequest
             'legal_disclaimer' => 'present|nullable|string|max:2047',
             'legal_privacy' => 'present|nullable|string|max:2047',
         ],
+        'pages' => [
+            'apps_pages_root_type' => 'present|nullable|in:static,redirect,route',
+            'apps_pages_root_link' => 'present|nullable|string|max:1000',
+        ],
     ];
 
     /**

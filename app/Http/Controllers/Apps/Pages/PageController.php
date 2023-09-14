@@ -22,20 +22,13 @@ class PageController extends Controller
 
 
 
-    public function prefetch(Request $request)
+    private function render($slug)
     {
-        return response()->json($this->getPrefetchedData($request->all()));
-    }
-
-
-
-    public function show(Request $request)
-    {
-        $page = Page::where('status', 'published')->where('slug', $request->page)->firstOrFail();
+        $page = Page::where('status', 'published')->where('slug', $slug)->firstOrFail();
 
         $data = PublicPageResource::make($page)
         ->additional([
-            'prefetched_data' => $this->getPrefetchedData($request->all()),
+            'prefetched_data' => $this->getPrefetchedData([]),
         ])
         ->resolve();
 
@@ -44,8 +37,28 @@ class PageController extends Controller
 
 
 
-    public function root(Request $request)
+    public function show(Request $request)
     {
-        return Inertia::render('Apps/Static/Home');
+        // Render page if page slug is given
+        if($request->page) return $this->renderPage($request->page);
+        
+        // Get settings for root page
+        $type = Setting::getByKey('apps.pages.root.type');
+        $link = Setting::getByKey('apps.pages.root.link');
+    
+        // Render page based on settings
+        if ($type === 'static') return $this->render($link);
+        if ($type === 'redirect') return redirect($link, 301);
+        if ($type === 'route') return Inertia::render($link);
+        
+        // Return 404 if no settings are set
+        return abort(404);
+    }
+
+
+
+    public function prefetch(Request $request)
+    {
+        return response()->json($this->getPrefetchedData($request->all()));
     }
 }
