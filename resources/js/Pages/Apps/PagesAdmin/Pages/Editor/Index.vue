@@ -43,7 +43,7 @@
         <Inspector class="inspector" :tab="tab" :picker="picker" @update:element="tab.updateElement($event)"/>
     </div>
 
-    <Picker ref="picker" />
+    
 
     <Popup ref="pageSettingsPopup">
         <div class="flex vertical">
@@ -64,17 +64,33 @@
                 </select>
                 <IodInput label="Titel" v-model="tab.data.title"/>
                 <IodInput label="Slug" v-model="tab.data.slug"/>
+                <IodInput label="Überseite" v-model="tab.data.parent_id"/>
+                <IodInput type="number" :step=".1" :min="0" :max="1" label="Priorität" v-model="tab.data.priority"/>
+                <select class="default-select" v-model="tab.data.language">
+                    <option value="*">Sprache</option>
+                    <option value="de">Deutsch</option>
+                    <option value="en">Englisch</option>
+                </select>
             </div>
-
+            
             <div class="flex vertical gap-1 padding-1" v-show="tab.ui.settings.panel === 'seo'">
                 <IodInput label="Meta-Beschreibung" v-model="tab.data.meta.description"/>
-                <IodInput label="Meta-Image" v-model="tab.data.meta.image"/>
+                <IodInput v-model="tab.data.meta.image" label="Meta-Image">
+                    <template #right>
+                        <IodIconButton type="button" class="folder-trigger" icon="folder_open" shape="radius-s" variant="text" size="small" @click="picker.open((file) => { tab.data.meta.image = file })"/>
+                    </template>
+                </IodInput>
             </div>
-
+            
             <div class="flex vertical gap-1 padding-1" v-show="tab.ui.settings.panel === 'permissions'">
+                <IodToggle v-if="tab.data.parent_of" type="switch" label="Berechtigungen überschreiben" v-model="tab.data.strict_permissions"/>
+                <IodToggle type="switch" label="Nutzer müssen angemeldet sein" v-model="tab.data.require_auth"/>
+                <IodToggle type="switch" label="Nutzer müssen verifiziert sein" v-model="tab.data.require_verification"/>
             </div>
         </div>
     </Popup>
+
+    <Picker ref="picker" />
 </template>
 
 <script setup>

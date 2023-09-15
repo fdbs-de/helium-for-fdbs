@@ -23,6 +23,8 @@ class PublicPageResource extends JsonResource
             'slug' => $this->slug ?? null,
             'content' => $this->content,
             'language' => $this->language ?? '*',
+            'status' => $this->status,
+            'priority' => $this->priority ?? 0.5,
             'meta' => [
                 'favicon' => $settings['design.favicon'] ?? null,
                 'description' => $this->meta['description'] ?? null,
@@ -30,6 +32,10 @@ class PublicPageResource extends JsonResource
             ],
             'settings' => $settings,
             'prefetched_data' => $this->additional['prefetched_data'] ?? [],
+            'parent_of' => $this->parent_of ?? null,
+            'strict_permissions' => $this->strict_permissions ?? false,
+            'require_auth' => $this->require_auth ?? false,
+            'require_verification' => $this->require_verification ?? false,
         ];
     }
 }

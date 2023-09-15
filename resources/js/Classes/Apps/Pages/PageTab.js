@@ -21,6 +21,8 @@ export default class PageTab extends Tab
             title: 'Untitled',
             slug: '',
             status: 'draft',
+            language: '*',
+            priority: 0.5,
             version: null,
             content: [],
             meta: {
@@ -28,6 +30,9 @@ export default class PageTab extends Tab
                 description: null,
             },
             parent_id: null,
+            strict_permissions: false,
+            require_auth: false,
+            require_verification: false,
             users: [],
             roles: [],
         }
@@ -278,9 +283,17 @@ export default class PageTab extends Tab
         this.data.title = data.title || 'Untitled'
         this.data.slug = data.slug || ''
         this.data.status = data.status || 'draft'
+        this.data.language = data.language || '*'
+        this.data.priority = data.priority || 0.5
         this.data.content = data.content || []
-        this.data.meta = data.meta || {}
+        this.data.meta = {
+            image: data.meta?.image || null,
+            description: data.meta?.description || null,
+        }
         this.data.parent_id = data.parent_id || null
+        this.data.strict_permissions = data.strict_permissions || false
+        this.data.require_auth = data.require_auth || false
+        this.data.require_verification = data.require_verification || false
         this.data.users = data.users || []
         this.data.roles = data.roles || []
 
@@ -295,10 +308,15 @@ export default class PageTab extends Tab
             title: this.data.title,
             slug: this.data.slug,
             status: this.data.status,
+            language: this.data.language,
+            priority: this.data.priority,
             version: this.data.version,
             content: this.data.content,
             meta: this.data.meta,
             parent_id: this.data.parent_id,
+            strict_permissions: this.data.strict_permissions,
+            require_auth: this.data.require_auth,
+            require_verification: this.data.require_verification,
             users: this.data.users,
             roles: this.data.roles,
         }))
@@ -306,11 +324,14 @@ export default class PageTab extends Tab
 
     async save()
     {
+        // Check if we are already saving
         if (this.processing.saving) return
         
 
 
         this.processing.saving = true
+
+        console.log(this.serialize())
         
         await useForm(this.serialize()).put('/admin/pages/pages/'+this.data.id, {
             preserveScroll: true,
