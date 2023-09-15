@@ -23,14 +23,18 @@ class UpdatePageRequest extends FormRequest
      */
     public function rules()
     {
-        // dd($this->content);
         return [
             'title' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:pages,slug,' . $this->id,
             'status' => 'required|string|in:draft,published,hidden',
-            'priority' => 'nullable|float|min:0|max:1',
+            'priority' => 'nullable|numeric|min:0|max:1',
+            'language' => 'nullable|string|in:*,en,de,fr,es,pt,ru,zh,ja,ar',
             'content' => 'nullable',
             'meta' => 'nullable|array',
+            'parent_of' => 'nullable|exists:pages,id',
+            'strict_permissions' => 'nullable|boolean',
+            'require_auth' => 'nullable|boolean',
+            'require_verification' => 'nullable|boolean',
         ];
     }
 }

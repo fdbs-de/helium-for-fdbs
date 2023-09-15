@@ -5,10 +5,11 @@ namespace App\Models;
 use App\Classes\Parsing\Regex;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Permission\Traits\HasRoles;
 
 class Page extends Model
 {
-    use HasFactory;
+    use HasRoles, HasFactory;
 
     protected $fillable = [
         'renderer',
@@ -21,6 +22,10 @@ class Page extends Model
         'language',
         'priority',
         'is_component',
+        'parent_of',
+        'strict_permissions',
+        'require_auth',
+        'require_verification',
     ];
 
     protected $casts = [
@@ -28,6 +33,9 @@ class Page extends Model
         'meta' => 'array',
         'props' => 'array',
         'is_component' => 'boolean',
+        'strict_permissions' => 'boolean',
+        'require_auth' => 'boolean',
+        'require_verification' => 'boolean',
     ];
 
     protected $attributes = [
@@ -72,121 +80,7 @@ class Page extends Model
     // START: Resolve
     public function resolve($slots = [], $props = [])
     {
-        if ($this->renderer === 'php')
-        {
-            return $this->resolvePhp($slots, $props);
-        }
-
         return $this->content;
-    }
-
-
-
-    public function resolvePhp($slots, $props)
-    {
-        $content = $this->content;
-
-        // Replace all slots
-        $content = preg_replace_callback(Regex::SLOT, function($matches) use ($slots) {
-            $slot = $matches[1];
-
-            if (isset($slots[$slot])) return $slots[$slot];
-
-            if ($slot === 'slot') return $slots['default'];
-
-            return '';
-        }, $content);
-
-
-
-        // Merge global settings with props
-        $props = array_merge($this->getGlobalProps(), $props);
-
-        // Replace all props
-        $content = preg_replace_callback(Regex::PROP, function($matches) use ($props) {
-            $prop = $matches[1];
-
-            if (isset($props[$prop])) return $props[$prop];
-
-            return '';
-        }, $content);
-
-
-
-        // Replace all components
-        $content = preg_replace_callback(Regex::COMPONENT, [$this, 'replaceComponentTags'], $content);
-
-        return $content;
-    }
-
-
-
-    public function replaceComponentTags($matches)
-    {
-        // Get component by slug
-        $component = Page::where('slug', ($matches[1] ?? ''))->where('is_component', true)->where('status', 'published')->first();
-        
-        // Return condition: component not found
-        if (!$component) return '';
-        
-        // Get props
-        $props = $this->parseAttributes(($matches[2] ?? ''));
-
-        // Generate slots from inner content
-        $slots = [
-            'default' => preg_replace_callback(Regex::COMPONENT, [$this, 'replaceComponentTags'], ($matches[3] ?? '')),
-        ];
-
-        // Return resolved component
-        return $component->resolvePhp($slots, $props);
-    }
-
-
-
-    public function parseAttributes($htmlAttributes)
-    {
-        $attributes = array();
-
-        // Split the attribute string into an array of individual attribute strings
-        $attributeStrings = preg_split('/\s+/', $htmlAttributes, -1, PREG_SPLIT_NO_EMPTY);
-
-        // Loop through each attribute string and extract the name and value
-        foreach ($attributeStrings as $attributeString) {
-            if (preg_match('/^([^=]+)="([^"]+)"$/', $attributeString, $matches)) {
-                $name = $matches[1];
-                $value = $matches[2];
-                $attributes[$name] = $value;
-            }
-        }
-
-        return $attributes;
-    }
-
-
-
-    public function getGlobalProps()
-    {
-        // Get global settings
-        $settings = Setting::getGlobal(true, 'props')->toArray();
-        // Get date time props
-        $date = $this->getDateTimeProps();
-        // Merge global settings with date time props and return
-        return array_merge($settings, $date);
-    }
-
-
-
-    public function getDateTimeProps()
-    {
-        $date = now();
-
-        return [
-            'date.date' => $date->format('Y-m-d'),
-            'date.day' => $date->format('d'),
-            'date.month' => $date->format('m'),
-            'date.year' => $date->format('Y'),
-            'date.time' => $date->format('H:i:s'),
-        ];
     }
     // END: Resolve
 }
