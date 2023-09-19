@@ -1,140 +1,183 @@
 <template>
-    <Head title="Profil" />
+    <AuthenticatedLayout title="Übersicht">
+        <div class="limiter">
+            <div class="flex vertical gap-2 padding-bottom-6">
+                <div class="slider"></div>
 
-    <DashboardSubLayout title="Übersicht">
-        <div class="card notification" v-if="$page.props.auth.user.profiles.employee && isInviteStillValid && !$page.props.auth.user.settings_object['invite.employee.sommerfest']">
-            <div class="wrapper">
-                <div class="flex vertical gap-1 w-100 flex-1">
-                    <h2>Unser Sommerfest</h2>
-                    <p>Du bist herzlich eingeladen, an unserer Mitarbeiterversammlung mit anschließendem Sommerfest am 08. September um 15:30 Uhr teilzunehmen. Anmeldeschluss ist der 01. September.</p>
-                </div>
+                <StatefulAccordion title="Relevant für Sie" scope="auth.overview.relevant">
+                    <div class="grid padding-bottom-4">
+                        <div class="icon-card highlight" v-if="user.access.customer">
+                            <IodIcon icon="sell" />
+                            <h3>Angebote</h3>
+                            <p>Hier finden Sie unsere aktuellen Monats- und Grillangebote.</p>
+                            <IodButton is="a" label="Zu den Angebote" href="/dashboard/kunden/angebote"/>
+                        </div>
+        
+                        <div class="icon-card" v-if="user.access.employee">
+                            <IodIcon icon="local_library" />
+                            <h3>Firmenwiki</h3>
+                            <p>Hier finden Sie alle Informationen rund um den FDBS.</p>
+                            <IodButton is="a" label="Zum Wiki" href="/wiki"/>
+                        </div>
+        
+                        <div class="icon-card" v-if="user.access.employee">
+                            <IodIcon icon="download" />
+                            <h3>Dokumente</h3>
+                            <p>Hier finden Sie alle Dokumente, die Sie für Ihre Arbeit benötigen.</p>
+                            <IodButton is="a" label="Zu den Dokumenten" href="/dashboard/intranet/dokumente"/>
+                        </div>
+        
+                        <div class="icon-card" v-if="user.access.customer && !user.access.employee">
+                            <IodIcon icon="cloud_done" />
+                            <h3>Spezifikationen</h3>
+                            <p>Hier finden Sie alle Spezifikationen zu unseren Produkten.</p>
+                            <IodButton is="a" label="Zu den Spezifikationen" href="/dashboard/kunden/spezifikationen"/>
+                        </div>
+                    </div>
+                </StatefulAccordion>
     
-                <div class="flex vertical gap-1 w-100">
-                    <mui-button class="w-100 button" type="button" size="large" icon-left="thumb_down" color="error" label="Nicht teilnehmen" @click="setInvite('sommerfest', 'no')"/>
-                    <mui-button class="w-100 button" type="button" size="large" icon-left="thumb_up" color="info" label="Teilnehmen" @click="setInvite('sommerfest', 'yes')"/>
-                </div>
+                <StatefulAccordion title="News" scope="auth.overview.news">
+                    <template #head-right>
+                        <IodButton is="a" label="Alle News ansehen" size="small" variant="text" href="/dashboard/intranet/news" />
+                    </template>
+
+                    <div class="flex padding-bottom-4"></div>
+                </StatefulAccordion>
+        
+                <StatefulAccordion title="Links" scope="auth.overview.links">
+                    <div class="grid">
+                        <a class="link-card" target="_blank" href="https://fleischer-dienst.uweb2000.de" v-if="user.access.employee">
+                            <IodIcon icon="school"/>
+                            <p>UWEB Schulungen</p>
+                            <IodIcon icon="open_in_new" class="open-in-new"/>
+                        </a>
+                        <a class="link-card" target="_blank" href="https://fleischer-dienst.mitarbeiterangebote.de/login" v-if="user.access.employee">
+                            <IodIcon icon="percent"/>
+                            <p>Mitarbeiterangebote</p>
+                            <IodIcon icon="open_in_new" class="open-in-new"/>
+                        </a>
+                        <a class="link-card" target="_blank" href="https://www.dienstradtool.eurorad.de/register/step1/de45f84422f17ec3961693afaa2844101e4a8c47a2789adeb449f966672656ba" v-if="user.access.employee">
+                            <IodIcon icon="pedal_bike"/>
+                            <p>Dienstfahrrad-Leasing</p>
+                            <IodIcon icon="open_in_new" class="open-in-new"/>
+                        </a>
+                        <a class="link-card" target="_blank" href="/ci" v-if="user.access.employee">
+                            <IodIcon icon="format_paint"/>
+                            <p>CI / Styleguide</p>
+                            <IodIcon icon="open_in_new" class="open-in-new"/>
+                        </a>
+                        <a class="link-card" target="_blank" href="/admin" v-if="can('system.access.admin.panel')">
+                            <IodIcon icon="shield"/>
+                            <p>Adminbereich</p>
+                            <IodIcon icon="open_in_new" class="open-in-new"/>
+                        </a>
+                    </div>
+                </StatefulAccordion>
             </div>
         </div>
-
-        <div class="welcome-wrapper">
-            <h1 class="margin-top-0">Hey! 👋</h1>
-            <p>
-                Herzlich willkommen im neuen Loginbereich vom FDBS.<br>
-                Im Loginbereich können Sie auf die Spezi-Datenbank zugreifen,<br>
-                Informationen im Intranet nachlesen, unsere aktuellsten Angebote durchstöbern und vieles mehr.
-            </p>
-        </div>
-
-        <template v-if="$page.props.auth.user.profiles.employee && isInviteStillValid">
-            <small v-if="$page.props.auth.user.settings_object['invite.employee.sommerfest'] == 'yes'">
-                Du hast dich für unser Sommerfest angemeldet.
-                <Link href="#" @click.prevent="setInvite('sommerfest', 'no')">Stornieren</Link>.
-            </small>
-    
-            <small v-if="$page.props.auth.user.settings_object['invite.employee.sommerfest'] == 'no'">
-                Du möchtest zurzeit nicht an unserem Sommerfest teilnehmen.
-                <Link href="#" @click.prevent="setInvite('sommerfest', 'yes')">Jetzt teilnehmen</Link>.
-            </small>
-        </template>
-    </DashboardSubLayout>
+    </AuthenticatedLayout>
 </template>
 
 <script setup>
-    import { Link, Head, useForm } from '@inertiajs/inertia-vue3'
+    import { usePage } from '@inertiajs/inertia-vue3'
     import { computed } from 'vue'
-    import dayjs from 'dayjs'
+    import { can } from '@/Utils/Permissions'
     
-    import DashboardSubLayout from '@/Layouts/SubLayouts/Dashboard.vue'
+    import AuthenticatedLayout from '@/Layouts/Authenticated.vue'
+    import StatefulAccordion from '@/Components/Form/StatefulAccordion.vue'
 
 
 
-    // START: Invite
-    const setInvite = (invite, value) => {
-        useForm({
-            invite,
-            value,
-        }).put(route('dashboard.invite.update'))
-    }
-
-    // Show invite until 1. of September 2023
-    const isInviteStillValid = computed(() => {
-        return dayjs().isBefore('2023-09-01')
+    const user = computed(() =>{
+        return usePage().props.value.auth.user
     })
-    // END: Invite
 </script>
 
 <style lang="sass" scoped>
-    .card
-        background: var(--color-background)
-        border-radius: var(--radius-m)
-        box-shadow: var(--shadow-elevation-medium)
-
-        &.notification
-            border-radius: var(--radius-l)
-            overflow: hidden
-            display: flex
-            align-items: center
-            flex-wrap: wrap
-            gap: 2rem
-            background: var(--color-background)
-            background-image: url('/images/content/sommerfest.jpg')
-            background-size: cover
-            background-position: center
-            background-repeat: no-repeat
-            margin-bottom: 2rem
-
-            .wrapper
-                flex: 1
-                display: flex
-                flex-direction: column
-                gap: 2rem
-                max-width: 400px
-                width: 100%
-                min-height: 520px
-                padding: 2rem
-                background: #00000040
-                backdrop-filter: blur(20px)
-                border-right: 1px solid #00000040
-
-            h2
-                font-size: 2rem
-                font-weight: 500
-                margin: 0
-                color: var(--color-background)
-
-            p
-                margin: 0
-                color: var(--color-background-soft)
-
-            .button
-                white-space: nowrap
-
-    .welcome-wrapper
-        margin-bottom: 2rem
-        padding: 2rem
-        background: var(--color-background)
-        box-shadow: var(--shadow-elevation-low)
+    .slider
         border-radius: var(--radius-xl)
+        background: var(--color-primary)
+        height: 450px
+        margin-bottom: 4rem
+        margin-top: 1rem
+            
 
-        h1
+
+    .grid
+        display: grid
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))
+        gap: 2rem
+
+    .icon-card
+        display: flex
+        flex-direction: column
+        align-items: stretch
+        gap: 2rem
+        padding: 2rem
+        border-radius: var(--radius-l)
+        border: 1px solid var(--color-border)
+        text-align: center
+
+        &.highlight
+            border-color: var(--color-primary)
+            box-shadow: var(--shadow-elevation-medium)
+            background: var(--color-primary)
+            color: var(--color-on-primary)
+
+            .iod-icon
+                color: inherit
+                filter: drop-shadow(4px 4px 0 #ffffff40)
+
+            h3
+                color: inherit
+
+            .iod-button
+                --local-color-background: var(--color-on-primary)
+                --local-color-text: var(--color-primary)
+
+        .iod-icon
             font-size: 4rem
+            color: var(--color-primary)
+            margin: 1rem auto
+            filter: drop-shadow(4px 4px 0 #e0004730)
+        
+        h3
             margin: 0
-            font-weight: 700
+            font-weight: 600
+            color: var(--color-primary)
+
+        p
+            margin: 0
+            flex: 1
 
     
 
-    @media only screen and (max-width: 500px)
-        .card
-            &.notification
-                flex-direction: column
-                align-items: stretch
+    .link-card
+        display: flex
+        align-items: center
+        gap: 1rem
+        padding: 1rem
+        border-radius: var(--radius-l)
+        border: 1px solid var(--color-border)
+        color: var(--color-text)
+        transition: all 100ms ease-in-out
+        outline: none
 
-                .wrapper
-                    border-right: none
-                    border-top: 1px solid #00000040
-                    padding: 2rem
-                    max-width: 100%
-                    min-height: 0
-                    flex: 1
-                    margin-top: 200px
+        &:hover,
+        &:focus
+            border-color: transparent
+            box-shadow: var(--shadow-elevation-medium)
+
+        .iod-icon:not(.open-in-new)
+            font-size: 2rem
+            color: var(--color-primary)
+            filter: drop-shadow(2px 2px 0 #e0004730)
+        
+        .iod-icon
+            margin: .5rem
+
+        p
+            margin: 0
+            flex: 1
+            font-family: var(--font-heading)
 </style>

@@ -1,6 +1,4 @@
 <template>
-    <Head title="Unsere aktuellen Angebote" />
-
     <DashboardSubLayout title="Angebote">
         <div class="card notification" v-if="!$page.props.auth.user.settings_object['newsletter.subscribed.customer']">
             <div class="text">
@@ -11,9 +9,7 @@
             <mui-button class="button" label="Kostenfrei abonnieren" @click="setNewsletter('customer', true)"/>
         </div>
         
-        <div class="card">
-            <DownloadManager id="248" layout="grid"/>
-        </div>
+        <DownloadManager class="card" media-id="248" layout="grid"/>
 
         <small class="margin-top-3" v-if="$page.props.auth.user.settings_object['newsletter.subscribed.customer']">
             Sie sind für unseren Kunden Newsletter angemeldet.
@@ -23,10 +19,10 @@
 </template>
 
 <script setup>
-    import { Head, Link, useForm } from '@inertiajs/inertia-vue3'
+    import { Link, useForm } from '@inertiajs/inertia-vue3'
 
     import DashboardSubLayout from '@/Layouts/SubLayouts/Dashboard.vue'
-    import DownloadManager from '@/Components/Apps/Pages/Renderer/DownloadManager.vue'
+    import DownloadManager from '@/Pages/Apps/Pages/Partials/DownloadManager.vue'
 
 
 
@@ -42,9 +38,8 @@
 
 <style lang="sass" scoped>
     .card
-        background: var(--color-background)
         border-radius: var(--radius-m)
-        box-shadow: var(--shadow-elevation-low)
+        border: 1px solid var(--color-border)
 
         &.notification
             border-radius: var(--radius-l)

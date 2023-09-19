@@ -11,7 +11,7 @@ class OverviewController extends Controller
 {
     public function redirect()
     {
-        return redirect()->route('dashboard.profile');
+        return redirect('/dashboard/home');
     }
 
     public function show()

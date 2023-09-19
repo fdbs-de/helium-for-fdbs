@@ -1,27 +1,11 @@
 <template>
     <AuthenticatedLayout :title="title">
-        <div id="hero-section">
-            <div class="limiter">
-                <div class="hero-card">
-                    <h1>{{ title }}</h1>
-                </div>
+        <h1><span>{{ title }}</span></h1>
+        <div class="limiter">
+            <div class="flex vertical padding-block-6">
+                <slot />
             </div>
         </div>
-
-        <section id="content-section">
-            <div class="limiter">
-                <div class="main-card">
-                    <div class="dashboard-nav-bar" v-if="$slots.head">
-                        <slot name="head"/>
-                    </div>
-                    <slot />
-
-                    <div class="fab" v-if="$slots.fab">
-                        <slot name="fab" />
-                    </div>
-                </div>
-            </div>
-        </section>
     </AuthenticatedLayout>
 </template>
 
@@ -31,84 +15,44 @@
 
     defineProps({
         title: String,
-        area: String,
     })
 </script>
 
 <style lang="sass" scoped>
-    #hero-section
-        .hero-card
-            text-align: center
-            background: var(--color-background)
-            border-radius: var(--radius-l)
-            box-shadow: var(--shadow-elevation-low)
-            padding: 1rem
-            height: 8rem
-            display: flex
-            align-items: center
-            justify-content: center
+h1
+    border-top: 3px solid var(--color-primary)
+    margin: 0
+    font-size: .9rem
+    text-align: center
+    color: var(--color-background)
+    overflow: hidden
 
-            h1
-                font-size: 1.5rem
+    span
+        display: inline-flex
+        align-items: center
+        background: var(--color-primary)
+        padding: 0 2rem 3px
+        min-height: 1.5rem
+        border-radius: 0 0 var(--radius-m) var(--radius-m)
+        position: relative
 
-    #content-section
-        margin: 2rem 0
+        &::before,
+        &::after
+            content: ''
+            position: absolute
+            top: 0
+            width: 1rem
+            height: 1rem
+            background: transparent
+            pointer-events: none
 
-        .main-card
-            display: flex
-            flex-direction: column
+        &::before
+            right: 100%
+            border-radius: 0 var(--radius-m) 0 0
+            box-shadow: .5rem -.5rem 0 var(--color-primary)
 
-            .checkbox
-                --mui-background: var(--color-background)
-
-            .dashboard-nav-bar
-                display: flex
-                flex-wrap: wrap
-                align-items: center
-                gap: 1rem
-                padding: 1rem
-                border-radius: var(--radius-l)
-                background: var(--color-background)
-                box-shadow: var(--shadow-elevation-low)
-                --mui-background: var(--color-background-soft)
-                position: relative
-
-                > a
-                    height: 2.5rem
-                    font-size: .8rem
-                    letter-spacing: .05rem
-                    font-weight: 600
-                    text-transform: uppercase
-                    color: var(--color-text-soft)
-                    border-radius: var(--radius-m)
-                    padding-inline: 1rem
-                    display: flex
-                    align-items: center
-                    cursor: pointer
-                    user-select: none
-
-                    &:hover,
-                    &:focus
-                        background: var(--color-background-soft)
-                        color: var(--color-text)
-
-                    &.active
-                        background: var(--color-primary)
-                        color: var(--color-background)
-
-        .fab
-            position: fixed
-            bottom: 3rem
-            right: 3rem
-            z-index: 1000
-
-    @media only screen and (max-width: 900px)
-        #content-section
-            margin: 1rem 0
-
-            .main-card
-                .dashboard-nav-bar
-                    flex-direction: column
-                    align-items: flex-start
-                    gap: 1rem
+        &::after
+            left: 100%
+            border-radius: var(--radius-m) 0 0 0
+            box-shadow: -.5rem -.5rem 0 var(--color-primary)
 </style>
