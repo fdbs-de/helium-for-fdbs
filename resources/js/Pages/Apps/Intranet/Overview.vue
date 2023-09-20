@@ -2,7 +2,7 @@
     <AuthenticatedLayout title="Übersicht">
         <div class="limiter">
             <div class="flex vertical gap-2 padding-bottom-6">
-                <div class="slider"></div>
+                <Slider class="slider"/>
 
                 <StatefulAccordion title="Relevant für Sie" scope="auth.overview.relevant">
                     <div class="grid padding-bottom-4">
@@ -85,6 +85,7 @@
     
     import AuthenticatedLayout from '@/Layouts/Authenticated.vue'
     import StatefulAccordion from '@/Components/Form/StatefulAccordion.vue'
+    import Slider from '@/Pages/Apps/Pages/Partials/Slider.vue'
 
 
 
@@ -95,9 +96,6 @@
 
 <style lang="sass" scoped>
     .slider
-        border-radius: var(--radius-xl)
-        background: var(--color-primary)
-        height: 450px
         margin-bottom: 4rem
         margin-top: 1rem
             
@@ -106,7 +104,7 @@
     .grid
         display: grid
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))
-        gap: 2rem
+        gap: 4rem
 
     .icon-card
         display: flex
@@ -168,13 +166,16 @@
             border-color: transparent
             box-shadow: var(--shadow-elevation-medium)
 
-        .iod-icon:not(.open-in-new)
-            font-size: 2rem
-            color: var(--color-primary)
-            filter: drop-shadow(2px 2px 0 #e0004730)
-        
         .iod-icon
             margin: .5rem
+
+            &:not(.open-in-new)
+                font-size: 2rem
+                color: var(--color-primary)
+                filter: drop-shadow(2px 2px 0 #e0004730)
+
+            &.open-in-new
+                opacity: .7
 
         p
             margin: 0
