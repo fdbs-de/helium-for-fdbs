@@ -36,7 +36,7 @@
         {
             superHeadline: 'Ihr neues',
             headline: 'Dashboard',
-            text: 'Brand neu und nun noch besser auf Sie abgestimmt!<br><br>Für mehr Infos und Hilfe bei der Orientierung lesen Sie sich unseren Blog Beitrag zum Redesign durch.',
+            text: 'Brand neu und nun noch besser auf Sie abgestimmt! Für mehr Infos und Hilfe bei der Orientierung lesen Sie sich unseren Blog Beitrag zum Redesign durch.',
             button: {
                 label: 'Zum Beitrag',
                 href: '#',
@@ -51,7 +51,7 @@
         {
             superHeadline: 'Ihr neues',
             headline: 'Dashboard',
-            text: 'Brand neu und nun noch besser auf Sie abgestimmt!<br><br>Für mehr Infos und Hilfe bei der Orientierung lesen Sie sich unseren Blog Beitrag zum Redesign durch.',
+            text: 'Brand neu und nun noch besser auf Sie abgestimmt! Für mehr Infos und Hilfe bei der Orientierung lesen Sie sich unseren Blog Beitrag zum Redesign durch.',
             button: {
                 label: 'Zum Wegtrag',
                 href: '#',
@@ -202,7 +202,7 @@
                 h2
                     display: flex
                     flex-direction: column
-                    font-size: clamp(1.5rem, 10vw, 2rem)
+                    font-size: clamp(1.5rem, 7vw, 2rem)
                     font-weight: 400
                     margin: 0
                     color: inherit
@@ -213,7 +213,7 @@
                     b
                         display: inline
                         font-weight: 700
-                        font-size: clamp(2rem, 15vw, 4rem)
+                        font-size: clamp(2rem, 10vw, 4rem)
 
                 .text
                     flex: 1
@@ -224,6 +224,6 @@
     @media screen and (max-width: 500px)
         .slider-container
             .slide
-                padding: 1rem
-                padding-bottom: 4rem
+                padding: 1.5rem
+                padding-block: 2rem 4rem
 </style>
