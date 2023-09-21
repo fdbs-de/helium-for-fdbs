@@ -49,7 +49,7 @@
             type: 'Partner',
             text: 'Seit vielen Jahren arbeiten wir sehr gerne mit dem FDBS als verlässlichen Kunden zusammen. Dabei sind in enger Kooperation viele spannende Projekte für den FDBS und seine Kunden entstanden. Wir freuen uns auf viele weitere Jahre guter Zusammenarbeit!',
             author: {
-                image: '/images/app/defaults/user.png',
+                image: '/images/content/testimonials/schmiedel.png',
                 name: 'Michael Schmiedel',
                 company: 'SignPoint GmbH',
                 link: 'https://signpoint.de',
@@ -60,7 +60,7 @@
             type: 'Mitarbeiter',
             text: 'Eine Philosophie, die gelebt wird: So kann man den FDBS am besten beschreiben. Ständiges Hinterfragen und Optimieren der logistischen Prozesse macht uns stark. Das aktive Gestalten meines Arbeitsbereiches bereitet mir viel Freude und von einer offenen und ehrlichen Feedbackkultur profitiere ich in meinem Bereich ungemein. Es macht einfach Spaß, sich für den FDBS und seine Ziele einzusetzen.',
             author: {
-                image: '/images/app/defaults/user.png',
+                image: '/images/content/testimonials/weniger.png',
                 name: 'Tobias Weniger',
                 company: 'FDBS',
                 link: 'https://fdbs.de',
