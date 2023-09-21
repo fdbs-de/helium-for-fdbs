@@ -36,29 +36,14 @@
         {
             superHeadline: 'Ihr neues',
             headline: 'Dashboard',
-            text: 'Brand neu und nun noch besser auf Sie abgestimmt! Für mehr Infos und Hilfe bei der Orientierung lesen Sie sich unseren Blog Beitrag zum Redesign durch.',
-            button: {
-                label: 'Zum Beitrag',
-                href: '#',
-                target: '_blank',
-            },
+            text: '<b>Brand neu und nun noch besser auf Sie abgestimmt!</b> Wir haben das Dashboard für Sie überarbeitet und mit neuen Funktionen ausgestattet.',
+            // button: {
+            //     label: 'Zum Beitrag',
+            //     href: '#',
+            //     target: '_blank',
+            // },
             color: {
                 background: '#e00047',
-                text: '#ffffff',
-            },
-            image: '/images/content/intranet/slide_new_dashboard.jpg',
-        },
-        {
-            superHeadline: 'Ihr neues',
-            headline: 'Dashboard',
-            text: 'Brand neu und nun noch besser auf Sie abgestimmt! Für mehr Infos und Hilfe bei der Orientierung lesen Sie sich unseren Blog Beitrag zum Redesign durch.',
-            button: {
-                label: 'Zum Wegtrag',
-                href: '#',
-                target: '_blank',
-            },
-            color: {
-                background: '#0984e3',
                 text: '#ffffff',
             },
             image: '/images/content/intranet/slide_new_dashboard.jpg',

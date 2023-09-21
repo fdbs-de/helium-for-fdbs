@@ -36,13 +36,13 @@
                     </div>
                 </StatefulAccordion>
     
-                <StatefulAccordion title="News" scope="auth.overview.news">
+                <!-- <StatefulAccordion title="News" scope="auth.overview.news">
                     <template #head-right>
                         <IodButton is="a" label="Alle News ansehen" size="small" variant="text" href="/dashboard/intranet/news" />
                     </template>
 
                     <div class="flex padding-bottom-4"></div>
-                </StatefulAccordion>
+                </StatefulAccordion> -->
         
                 <StatefulAccordion title="Links" scope="auth.overview.links">
                     <div class="grid">

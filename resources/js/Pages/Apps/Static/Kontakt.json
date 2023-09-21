@@ -115,27 +115,12 @@
                 "overlay": "/images/content/mitarbeiter/philipp_rost_zeichnung.png"
             },
             {
-                "name": "Florian Keye",
-                "job": "Assistenz Vertriebsleitung",
-                "leader": false,
-                "tel": "25",
-                "image": null
-            },
-            {
                 "name": "Niklas Figge",
                 "job": "Fachberatung",
                 "leader": false,
                 "tel": "80",
                 "image": "/images/content/mitarbeiter/niklas_figge.png",
                 "overlay": "/images/content/mitarbeiter/niklas_figge_zeichnung.png"
-            },
-            {
-                "name": "Elke Grigat",
-                "job": "Fachberatung Käse & Salate",
-                "leader": false,
-                "tel": "38",
-                "image": "/images/content/mitarbeiter/elke_grigat.png",
-                "overlay": "/images/content/mitarbeiter/elke_grigat_zeichnung.png"
             },
             {
                 "name": "Klaus-Dieter Hoffmann",
@@ -267,12 +252,12 @@
                 "overlay": "/images/content/mitarbeiter/franziska_brandt_zeichnung.png"
             },
             {
-                "name": "Maurice Freuwört",
+                "name": "Alyx Freuwört",
                 "job": "Web Developer",
                 "leader": false,
                 "tel": "73",
-                "image": "/images/content/mitarbeiter/maurice_freuwoert.png",
-                "overlay": "/images/content/mitarbeiter/maurice_freuwoert_zeichnung.png"
+                "image": "/images/content/mitarbeiter/alyx_freuwoert.png",
+                "overlay": "/images/content/mitarbeiter/alyx_freuwoert_zeichnung.png"
             },
             {
                 "name": "Annika Görmann",
