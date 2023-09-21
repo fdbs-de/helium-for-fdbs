@@ -9,7 +9,7 @@
                         <div class="icon-card highlight" v-if="user.access.customer">
                             <IodIcon icon="sell" />
                             <h3>Angebote</h3>
-                            <p>Hier finden Sie unsere aktuellen Monats- und Grillangebote.</p>
+                            <p>Finden Sie unsere aktuellen Angebote ganz einfach zum Download.</p>
                             <IodButton is="a" label="Zu den Angebote" href="/dashboard/kunden/angebote"/>
                         </div>
         
@@ -44,7 +44,7 @@
                     <div class="flex padding-bottom-4"></div>
                 </StatefulAccordion> -->
         
-                <StatefulAccordion title="Links" scope="auth.overview.links">
+                <StatefulAccordion title="Links" scope="auth.overview.links" v-if="user.access.employee || can('system.access.admin.panel')">
                     <div class="grid">
                         <a class="link-card" target="_blank" href="https://fleischer-dienst.uweb2000.de" v-if="user.access.employee">
                             <IodIcon icon="school"/>

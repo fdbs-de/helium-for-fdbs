@@ -69,7 +69,7 @@ Route::prefix('/produkte-und-services')->group(function () {
         Route::get('/mehrwegpflicht', [StaticController::class, 'indexMehrwegpflicht'])->name('ps.mehrwegpflicht');
     });
 
-    Route::get('/fachberatung-kaese-und-salate', [StaticController::class, 'indexFachberatungKaeseSalate'])->name('ps.fachberatung-kaese-und-salate');
+    // Route::get('/fachberatung-kaese-und-salate', [StaticController::class, 'indexFachberatungKaeseSalate'])->name('ps.fachberatung-kaese-und-salate');
 
     Route::prefix('/technischer-kundendienst')->group(function () {
         Route::get('/', [StaticController::class, 'indexTechnischerKundendienst'])->name('ps.technischer-kundendienst');

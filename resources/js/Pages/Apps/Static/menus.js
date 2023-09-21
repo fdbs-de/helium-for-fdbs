@@ -24,7 +24,7 @@ export const mainMenu = [
             { id: 'mkbs.print', label: 'Print Design', href: route('mkbs.print'), children: [] },
             { id: 'mkbs.crossmedia', label: 'Crossmedia Marketing', href: route('mkbs.crossmedia'), children: [] },
         ]},
-        { id: 'fachberatung-kaese-und-salate', label: 'Fachberatung: Käse & Salate', href: route('ps.fachberatung-kaese-und-salate'), children: [] },
+        // { id: 'fachberatung-kaese-und-salate', label: 'Fachberatung: Käse & Salate', href: route('ps.fachberatung-kaese-und-salate'), children: [] },
         { id: 'technischer-kundendienst', label: 'Technischer Kundendienst', href: route('ps.technischer-kundendienst'), children: [
             { id: 'technischer-kundendienst.aktuelles', label: 'Top Aktuelles', href: route('ps.technischer-kundendienst.aktuelles'), children: [] },
         ] },

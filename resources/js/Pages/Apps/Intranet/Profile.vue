@@ -16,24 +16,24 @@
                 <StatefulAccordion title="Allgemeines" scope="auth.profile.general">
                     <div class="card margin-bottom-4">
                         <div class="field">
-                            <span>Anzeigename:</span>
+                            <span>Anzeigename</span>
                             <div><b>{{ user.name ?? '---' }}</b></div>
                         </div>
                 
                         <div class="field">
-                            <span>Email:</span>
+                            <span>Email</span>
                             <div class="flex-3 flex gap v-center">
                                 <b>{{user.email ?? '---'}}</b>
                             </div>
                         </div>
         
                         <div class="field">
-                            <span>Nutzername:</span>
+                            <span>Nutzername</span>
                             <div><b>{{user.username ?? '---'}}</b></div>
                         </div>
                 
                         <div class="field">
-                            <span>Status:</span>
+                            <span>Status</span>
                             <div>
                                 <Tag v-if="user.enabled_at" color="green" shape="pill">Freigeschaltet</Tag>
                                 <Tag v-else color="var(--color-yellow)" shape="pill">Freischaltung ausstehend</Tag>
@@ -43,7 +43,7 @@
                         <hr>
         
                         <div class="field">
-                            <span>Passwort:</span>
+                            <span>Passwort</span>
                             <div>
                                 <IodButton type="button" label="Passwort Ändern" size="small" variant="contained" @click="$refs.changePasswordPopup.open()"/>
                             </div>
@@ -52,7 +52,7 @@
                         <hr>
                 
                         <div class="field">
-                            <span>Ausloggen:</span>
+                            <span>Ausloggen</span>
                             <div>
                                 <IodButton is="a" label="Jetzt ausloggen" size="small" variant="contained" :href="route('logout')"/>
                             </div>
@@ -63,12 +63,12 @@
                 <StatefulAccordion title="Firmenprofil" scope="auth.profile.employee" v-if="user.profiles.employee">
                     <div class="card margin-bottom-4">
                         <div class="field">
-                            <span>Vorname:</span>
+                            <span>Vorname</span>
                             <div><b>{{user.profiles.employee.first_name || '---'}}</b></div>
                         </div>
                 
                         <div class="field">
-                            <span>Nachname:</span>
+                            <span>Nachname</span>
                             <div><b>{{user.profiles.employee.last_name || '---'}}</b></div>
                         </div>
                     </div>
@@ -77,17 +77,17 @@
                 <StatefulAccordion title="Kundenprofil" scope="auth.profile.customer" v-if="user.profiles.customer">
                     <div class="card">
                         <div class="field">
-                            <span>Firma:</span>
+                            <span>Firma</span>
                             <div><b>{{$page.props.auth.user.profiles.customer.company || '---'}}</b></div>
                         </div>
                 
                         <div class="field">
-                            <span>Kundennummer:</span>
+                            <span>Kundennummer</span>
                             <div><b>{{$page.props.auth.user.profiles.customer.customer_id || '---'}}</b></div>
                         </div>
                         
                         <div class="field">
-                            <span>Kunden Newsletter:</span>
+                            <span>Kunden Newsletter</span>
                             <div>
                                 <IodToggle type="switch" :modelValue="$page.props.auth.user.settings_object['newsletter.subscribed.customer']" @update:modelValue="setNewsletter('customer', $event)"/>
                             </div>
@@ -181,9 +181,9 @@
             background-color: var(--color-background-soft)
 
         .profile-image
-            width: 8rem
-            height: 8rem
-            margin-top: -4rem
+            width: 10rem
+            height: 10rem
+            margin-top: -5rem
             border-radius: 50%
             background: var(--color-background)
             position: relative
