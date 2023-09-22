@@ -40,7 +40,7 @@
             icon: 'verified',
             title: 'Aktuelle Angebote',
             text: 'Finden Sie unsere aktuellen Angebote ganz einfach zum Download.',
-            button: 'Zu den Angebote',
+            button: 'Zu den Angeboten',
             link: '/angebote',
         },
         // {

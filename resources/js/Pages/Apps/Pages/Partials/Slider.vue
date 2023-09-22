@@ -36,7 +36,7 @@
         {
             superHeadline: 'Ihr neues',
             headline: 'Dashboard',
-            text: '<b>Brand neu und nun noch besser auf Sie abgestimmt!</b> Wir haben das Dashboard für Sie überarbeitet und mit neuen Funktionen ausgestattet.',
+            text: '<b>Brandneu und nun noch besser auf Sie abgestimmt!</b> Wir haben das Dashboard für Sie überarbeitet und mit neuen Funktionen ausgestattet.',
             // button: {
             //     label: 'Zum Beitrag',
             //     href: '#',
