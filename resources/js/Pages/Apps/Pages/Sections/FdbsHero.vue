@@ -50,7 +50,7 @@
             z-index: 1
 
         .content-wrapper
-            min-height: calc(90vh - 4.5rem)
+            min-height: calc(100vh - 4.5rem)
             display: flex
             flex-direction: column
             justify-content: center
@@ -108,11 +108,4 @@
                         transform: translate(-50%, 0rem)
                     100%
                         transform: translate(-50%, -1rem)
-
-
-
-    @media only screen and (max-width: 500px)
-        .fdbs-video-hero
-            .content-wrapper
-                min-height: 70vh
 </style>

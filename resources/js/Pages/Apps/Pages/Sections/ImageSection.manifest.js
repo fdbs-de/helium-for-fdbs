@@ -25,6 +25,12 @@ export default {
             value: '',
         },
         {
+            fixtureType: 'url',
+            label: 'Link',
+            key: 'link',
+            value: '',
+        },
+        {
             fixtureType: 'style:unit',
             label: 'Höhe',
             key: 'height',

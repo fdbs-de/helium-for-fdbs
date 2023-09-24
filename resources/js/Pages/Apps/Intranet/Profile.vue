@@ -1,133 +1,132 @@
 <template>
-    <Head title="Profil" />
-
-    <DashboardSubLayout title="Profil" area="Loginbereich">
-        <div class="profile-wrapper">
-            <div class="group">
-                <h2>Konto</h2>
-                <div class="flex v-center gap">
-                    <span class="flex-1">Name:</span>
-                    <div class="flex-3 flex gap v-center">
-                        <b v-if="$page.props.auth.user.name">{{$page.props.auth.user.name}}</b>
-                        <i v-else>Kein Kontoname angegeben</i>
+    <AuthenticatedLayout title="Ihr Profil">
+        <div class="limiter">
+            <div class="flex vertical gap-2 padding-bottom-6">
+                <div class="profile-card">
+                    <div class="profile-banner" :style="{backgroundImage: `url(/images/app/defaults/user_banner.png)`}"></div>
+                    <div class="profile-image">
+                        <img :src="user.image" :alt="user.name">
                     </div>
-                </div>
-    
-                <div class="flex v-center gap">
-                    <span class="flex-1">Email:</span>
-                    <div class="flex-3 flex gap v-center">
-                        <b>{{$page.props.auth.user.email}}</b>
-                    </div>
-                </div>
-    
-                <div class="flex v-center gap">
-                    <span class="flex-1">Status:</span>
-                    <div class="flex-3 flex gap v-center">
-                        <Tag v-if="$page.props.auth.user.enabled_at" color="green" icon="check_circle">Freigeschaltet</Tag>
-                        <Tag v-else color="var(--color-yellow)" icon="cancel">Freischaltung ausstehend</Tag>
-                    </div>
-                </div>
-            </div>
-
-
-
-            <div class="group" v-if="$page.props.auth.user.profiles.customer">
-                <h2>Kundenprofil</h2>
-
-                <div class="flex v-center gap">
-                    <span class="flex-1">Firma:</span>
-                    <div class="flex-3 flex gap v-center">
-                        <b>{{$page.props.auth.user.profiles.customer.company || '---'}}</b>
+                    <div class="profile-info">
+                        <h2>{{ user.name ?? user.email }}</h2>
+                        <p v-if="user.username">@{{ user.username }}</p>
                     </div>
                 </div>
 
-                <div class="flex v-center gap">
-                    <span class="flex-1">Kundennummer:</span>
-                    <div class="flex-3 flex gap v-center">
-                        <b>{{$page.props.auth.user.profiles.customer.customer_id || '---'}}</b>
-                    </div>
-                </div>
+                <StatefulAccordion title="Allgemeines" scope="auth.profile.general">
+                    <div class="card margin-bottom-4">
+                        <div class="field">
+                            <span>Anzeigename</span>
+                            <div><b>{{ user.name ?? '---' }}</b></div>
+                        </div>
                 
-                <div class="flex v-center gap">
-                    <span class="flex-1">Kunden Newsletter:</span>
-                    <div class="flex-3 flex gap v-center">
-                        <mui-toggle type="switch" :modelValue="$page.props.auth.user.settings_object['newsletter.subscribed.customer']" @update:modelValue="setNewsletter('customer', $event)"/>
+                        <div class="field">
+                            <span>Email</span>
+                            <div class="flex-3 flex gap v-center">
+                                <b>{{user.email ?? '---'}}</b>
+                            </div>
+                        </div>
+        
+                        <div class="field">
+                            <span>Nutzername</span>
+                            <div><b>{{user.username ?? '---'}}</b></div>
+                        </div>
+                
+                        <div class="field">
+                            <span>Status</span>
+                            <div>
+                                <Tag v-if="user.enabled_at" color="green" shape="pill">Freigeschaltet</Tag>
+                                <Tag v-else color="var(--color-yellow)" shape="pill">Freischaltung ausstehend</Tag>
+                            </div>
+                        </div>
+
+                        <hr>
+        
+                        <div class="field">
+                            <span>Passwort</span>
+                            <div>
+                                <IodButton type="button" label="Passwort Ändern" size="small" variant="contained" @click="$refs.changePasswordPopup.open()"/>
+                            </div>
+                        </div>
+
+                        <hr>
+                
+                        <div class="field">
+                            <span>Ausloggen</span>
+                            <div>
+                                <IodButton is="a" label="Jetzt ausloggen" size="small" variant="contained" :href="route('logout')"/>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                </StatefulAccordion>
 
-
-
-            <div class="group" v-if="$page.props.auth.user.profiles.employee">
-                <h2>Mitarbeiterprofil</h2>
-
-                <div class="flex v-center gap">
-                    <span class="flex-1">Vorname:</span>
-                    <div class="flex-3 flex gap v-center">
-                        <b>{{$page.props.auth.user.profiles.employee.first_name || '---'}}</b>
+                <StatefulAccordion title="Firmenprofil" scope="auth.profile.employee" v-if="user.profiles.employee">
+                    <div class="card margin-bottom-4">
+                        <div class="field">
+                            <span>Vorname</span>
+                            <div><b>{{user.profiles.employee.first_name || '---'}}</b></div>
+                        </div>
+                
+                        <div class="field">
+                            <span>Nachname</span>
+                            <div><b>{{user.profiles.employee.last_name || '---'}}</b></div>
+                        </div>
                     </div>
-                </div>
+                </StatefulAccordion>
 
-                <div class="flex v-center gap">
-                    <span class="flex-1">Nachname:</span>
-                    <div class="flex-3 flex gap v-center">
-                        <b>{{$page.props.auth.user.profiles.employee.last_name || '---'}}</b>
+                <StatefulAccordion title="Kundenprofil" scope="auth.profile.customer" v-if="user.profiles.customer">
+                    <div class="card">
+                        <div class="field">
+                            <span>Firma</span>
+                            <div><b>{{$page.props.auth.user.profiles.customer.company || '---'}}</b></div>
+                        </div>
+                
+                        <div class="field">
+                            <span>Kundennummer</span>
+                            <div><b>{{$page.props.auth.user.profiles.customer.customer_id || '---'}}</b></div>
+                        </div>
+                        
+                        <div class="field">
+                            <span>Kunden Newsletter</span>
+                            <div>
+                                <IodToggle type="switch" :modelValue="$page.props.auth.user.settings_object['newsletter.subscribed.customer']" @update:modelValue="setNewsletter('customer', $event)"/>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-
-
-
-            <div class="group">
-                <h2>Einstellungen</h2>
-                <div class="flex v-center gap">
-                    <span class="flex-1">Passwort:</span>
-                    <div class="flex-3 flex gap v-center">
-                        <mui-button type="button" label="Passwort Ändern" size="small" variant="contained" @click="$refs.changePasswordPopup.open()"/>
-                    </div>
-                </div>
-
-                <div class="flex v-center gap">
-                    <span class="flex-1">Abmelden:</span>
-                    <div class="flex-3 flex gap v-center">
-                        <mui-button as="a" :href="route('logout')" label="Abmelden" size="small" variant="contained"/>
-                    </div>
-                </div>
+                </StatefulAccordion>
             </div>
         </div>
-    </DashboardSubLayout>
+    </AuthenticatedLayout>
+
+
 
     <Popup ref="changePasswordPopup" title="Passwort ändern">
-        <div class="popup-block popup-error" v-if="hasErrors">
-            <h3><b>Fehler!</b></h3>
-            <p v-for="(error, key) in errors" :key="key">{{ error }}</p>
-        </div>
+        <ValidationErrors />
 
         <form class="flex vertical gap-1 padding-1" @submit.prevent="changePassword()">
-            <mui-input type="password" no-border label="Derzeitiges Passwort" required v-model="changePasswordForm.currentPassword"/>
-            <mui-input type="password" no-border label="Neues Passwort" show-password-score required v-model="changePasswordForm.newPassword"/>
-            <mui-button label="Passwort Ändern"/>
+            <IodInput type="password" label="Derzeitiges Passwort" required v-model="changePasswordForm.currentPassword"/>
+            <IodInput type="password" label="Neues Passwort" show-password-score :password-score-function="zxcvbn" required v-model="changePasswordForm.newPassword"/>
+            <IodButton label="Passwort Ändern"/>
         </form>
     </Popup>
 </template>
 
 <script setup>
-    import Tag from '@/Components/Form/Tag.vue'
-    import Popup from '@/Components/Form/Popup.vue'
-    import DashboardSubLayout from '@/Layouts/SubLayouts/Dashboard.vue'
-
-    import { Head, Link, usePage, useForm } from '@inertiajs/inertia-vue3'
+    import { usePage, useForm } from '@inertiajs/inertia-vue3'
     import { ref, computed } from 'vue'
     import zxcvbn from 'zxcvbn'
+    
+    import AuthenticatedLayout from '@/Layouts/Authenticated.vue'
+    import StatefulAccordion from '@/Components/Form/StatefulAccordion.vue'
+    import ValidationErrors from '@/Components/ValidationErrors.vue'
+    import Popup from '@/Components/Form/Popup.vue'
+    import Tag from '@/Components/Form/Tag.vue'
 
-    window.zxcvbn = zxcvbn
 
 
-
-    const errors = computed(() => usePage().props.value.errors)
-    const hasErrors = computed(() => Object.keys(errors.value).length > 0)
-
-
+    const user = computed(() =>{
+        return usePage().props.value.auth.user
+    })
 
     // START: Change Password
     const changePasswordPopup = ref(null)
@@ -160,20 +159,115 @@
 </script>
 
 <style lang="sass" scoped>
-    .profile-wrapper
+    .profile-card
+        width: 100%
         display: flex
         flex-direction: column
-        gap: 1rem
+        align-items: center
+        text-align: center
+        border-radius: var(--radius-xl)
+        background: var(--color-background)
+        border: 1px solid var(--color-background-soft)
+        box-shadow: var(--shadow-elevation-low)
+        overflow: hidden
+        margin-block: 1rem 2rem
 
-        .group
-            padding: 1rem
+        .profile-banner
+            width: 100%
+            height: 12rem
+            background-size: cover
+            background-position: center
+            background-repeat: no-repeat
+            background-color: var(--color-background-soft)
+
+        .profile-image
+            width: 10rem
+            height: 10rem
+            margin-top: -5rem
+            border-radius: 50%
+            background: var(--color-background)
+            position: relative
+
+            &::before,
+            &::after
+                content: ''
+                position: absolute
+                bottom: 50%
+                width: 1.5rem
+                height: 1.5rem
+                background: transparent
+                pointer-events: none
+
+            &::before
+                right: calc(100% - 1px)
+                border-radius: 0 0 var(--radius-xl) 0
+                box-shadow: .75rem .75rem 0 var(--color-background)
+
+            &::after
+                left: calc(100% - 1px)
+                border-radius: 0 0 0 var(--radius-xl)
+                box-shadow: -.75rem .75rem 0 var(--color-background)
+
+            img
+                width: 100%
+                height: 100%
+                object-fit: cover
+                border-radius: 50%
+                border: 5px solid var(--color-background)
+                position: relative
+                z-index: 1
+
+        .profile-info
+            width: 100%
             display: flex
             flex-direction: column
-            gap: .5rem
-            border-radius: var(--radius-m)
-            background: var(--color-background)
-            box-shadow: var(--shadow-elevation-low)
+            align-items: center
+            padding-block: 1rem 2rem
 
             h2
                 margin: 0
+                font-size: 1.5rem
+                font-weight: 600
+
+            p
+                margin: 0
+
+    .card
+        display: flex
+        flex-direction: column
+        border-radius: var(--radius-m)
+        background: var(--color-background)
+        border: 1px solid var(--color-border)
+        padding-block: .5rem
+
+    .field
+        display: flex
+        align-items: center
+        gap: .5rem
+        min-height: 3rem
+
+        > span
+            flex: none
+            max-width: 12rem
+            width: 100%
+            padding: .5rem 1rem
+
+        > div
+            padding: .5rem 1rem
+
+
+
+    @media screen and (max-width: 500px)
+        .field
+            flex-direction: column
+            align-items: flex-start
+            padding: 1rem
+
+            > span
+                width: 100%
+                padding: 0
+
+            > div
+                width: 100%
+                padding: 0
 </style>

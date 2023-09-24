@@ -12,7 +12,7 @@
                         Unser technischer Kundendienst für Ihre<br>
                         Gastro-Küchen, Maschinen und mehr.
                     </p>
-                    <IodButton is="a" label="Kontaktieren Sie uns" href="/"/>
+                    <IodButton is="a" label="Kontaktieren Sie uns" href="/produkte-und-services/technischer-kundendienst"/>
                 </div>
                 <div class="plain image-plain">
                     <img src="/images/content/customerservice/collage.png" alt="">

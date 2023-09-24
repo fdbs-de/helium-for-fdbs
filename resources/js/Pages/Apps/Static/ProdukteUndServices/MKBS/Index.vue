@@ -92,17 +92,17 @@
 
 
 
-    const offset = ref(window.pageYOffset)
+    const offset = ref(window.scrollY)
 
     window.addEventListener('scroll', () => {
-        offset.value = window.pageYOffset
+        offset.value = window.scrollY
     })
 </script>
 
 <style lang="sass" scoped>
     section#hero
         display: flex
-        margin-top: calc(var(--height-header) + 1rem)
+        margin-top: 1rem
         width: 100%
 
         .limiter

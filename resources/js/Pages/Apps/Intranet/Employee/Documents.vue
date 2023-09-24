@@ -1,48 +1,47 @@
 <template>
-    <Head title="Dokumente" />
+    <DashboardSubLayout title="Dokumente">
+        <div class="flex vertical gap-2">
+            <StatefulAccordion title="Allgemeine Dokumente" scope="auth.employee.documents.general">
+                <DownloadManager class="card margin-bottom-4" media-id="191"/>
+            </StatefulAccordion>
 
-    <DashboardSubLayout title="Dokumente" area="Intranet">
-        <div class="card">
-            <div class="flex w-100 padding-inline-1 border-bottom">
-                <Tabs class="tabs" v-model="tab" :tabs="[
-                    { label: 'Allgemeine Dokumente', value: '191' },
-                    { label: 'QM Dokumente', value: '192' },
-                    { label: 'Marketing Material', value: '190' },
-                    { label: 'CI Dokumente', value: '11163' },
-                    { label: 'Leitbild und Organigramm', value: '211' },
-                    { label: 'HR Dokumente', value: '11162' },
-                ]" />
-            </div>
+            <StatefulAccordion title="QM Dokumente" scope="auth.employee.documents.qm">
+                <DownloadManager class="card margin-bottom-4" media-id="192"/>
+            </StatefulAccordion>
 
-            <DownloadManager :id="tab"/>
+            <StatefulAccordion title="Marketing Material" scope="auth.employee.documents.marketing">
+                <DownloadManager class="card margin-bottom-4" media-id="190"/>
+            </StatefulAccordion>
+
+            <StatefulAccordion title="CI Dokumente" scope="auth.employee.documents.ci">
+                <DownloadManager class="card margin-bottom-4" media-id="11163"/>
+            </StatefulAccordion>
+
+            <StatefulAccordion title="Leitbild und Organigramm" scope="auth.employee.documents.leitbild">
+                <DownloadManager class="card margin-bottom-4" media-id="211"/>
+            </StatefulAccordion>
+
+            <StatefulAccordion title="HR Dokumente" scope="auth.employee.documents.hr">
+                <DownloadManager class="card" media-id="11162"/>
+            </StatefulAccordion>
         </div>
     </DashboardSubLayout>
 </template>
 
 <script setup>
-    import { Head, Link } from '@inertiajs/inertia-vue3'
-    import { ref } from 'vue'
-
     import DashboardSubLayout from '@/Layouts/SubLayouts/Dashboard.vue'
-    import DownloadManager from '@/Components/Apps/Pages/Renderer/DownloadManager.vue'
-    import Tabs from '@/Components/Form/Tabs.vue'
+    import StatefulAccordion from '@/Components/Form/StatefulAccordion.vue'
+    import DownloadManager from '@/Pages/Apps/Pages/Partials/DownloadManager.vue'
 
 
 
     defineProps({
         documents: Array,
     })
-
-    const tab = ref('191')
 </script>
 
 <style lang="sass" scoped>
     .card
-        background: var(--color-background)
         border-radius: var(--radius-m)
-        box-shadow: var(--shadow-elevation-low)
-
-    .tabs
-        --tab-height: 4rem
-        width: 100%
+        border: 1px solid var(--color-border)
 </style>
