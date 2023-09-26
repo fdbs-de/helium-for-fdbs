@@ -241,7 +241,7 @@
 
 <script>
     import { Editor, EditorContent } from '@tiptap/vue-3'
-    import { Node } from '@tiptap/core'
+    import { Node, mergeAttributes } from '@tiptap/core'
     import { lowlight } from 'lowlight/lib/core'
     import Link from '@tiptap/extension-link'
     import Image from '@tiptap/extension-image'
@@ -450,12 +450,127 @@
                     Color,
                     CharacterCount,
                     Keyfact,
-                    Table.configure({
-                        resizable: false,
+                    Table.extend({
+                        renderHTML({ HTMLAttributes }) {
+                            return ['div', { class: 'table-wrapper' }, ['table', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes), ['tbody', 0]]];
+                        },
+                    })
+                    .configure({
+                        resizable: true,
                     }),
                     TableRow,
-                    TableHeader,
-                    TableCell,
+                    TableHeader.extend({
+                        addAttributes() {
+                            return {
+                                colspan: {
+                                    default: 1
+                                },
+                                rowspan: {
+                                    default: 1
+                                },
+                                colwidth: {
+                                    default: null,
+                                    parseHTML: (element) => {
+                                        const colwidth = element.getAttribute("colwidth");
+                                        const value = colwidth
+                                            ? colwidth.split(",").map((item) => parseInt(item, 10))
+                                            : null;
+
+                                        return value;
+                                    }
+                                },
+                                style: {
+                                    default: null
+                                }
+                            };
+                        },
+                        renderHTML({ HTMLAttributes }) {
+                            let totalWidth = 0;
+                            let fixedWidth = true;
+
+                            if (HTMLAttributes.colwidth) {
+                                HTMLAttributes.colwidth.forEach((col) => {
+                                    if (!col) {
+                                        fixedWidth = false;
+                                    } else {
+                                        totalWidth += col;
+                                    }
+                                });
+                            } else {
+                                fixedWidth = false;
+                            }
+
+                            if (fixedWidth && totalWidth > 0) {
+                                HTMLAttributes.style = `width: ${totalWidth}px;`;
+                            } else if (totalWidth && totalWidth > 0) {
+                                HTMLAttributes.style = `min-width: ${totalWidth}px`;
+                            } else {
+                                HTMLAttributes.style = null;
+                            }
+
+                            return [
+                                "th",
+                                mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
+                                0
+                            ];
+                        }
+                    }),
+                    TableCell.extend({
+                        addAttributes() {
+                            return {
+                                colspan: {
+                                    default: 1
+                                },
+                                rowspan: {
+                                    default: 1
+                                },
+                                colwidth: {
+                                    default: null,
+                                    parseHTML: (element) => {
+                                        const colwidth = element.getAttribute("colwidth");
+                                        const value = colwidth
+                                            ? colwidth.split(",").map((item) => parseInt(item, 10))
+                                            : null;
+
+                                        return value;
+                                    }
+                                },
+                                style: {
+                                    default: null
+                                }
+                            };
+                        },
+                        renderHTML({ HTMLAttributes }) {
+                            let totalWidth = 0;
+                            let fixedWidth = true;
+
+                            if (HTMLAttributes.colwidth) {
+                                HTMLAttributes.colwidth.forEach((col) => {
+                                    if (!col) {
+                                        fixedWidth = false;
+                                    } else {
+                                        totalWidth += col;
+                                    }
+                                });
+                            } else {
+                                fixedWidth = false;
+                            }
+
+                            if (fixedWidth && totalWidth > 0) {
+                                HTMLAttributes.style = `width: ${totalWidth}px;`;
+                            } else if (totalWidth && totalWidth > 0) {
+                                HTMLAttributes.style = `min-width: ${totalWidth}px`;
+                            } else {
+                                HTMLAttributes.style = null;
+                            }
+
+                            return [
+                                "td",
+                                mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
+                                0
+                            ];
+                        }
+                    }),
                     CodeBlockLowlight.configure({
                         lowlight,
                     }),
