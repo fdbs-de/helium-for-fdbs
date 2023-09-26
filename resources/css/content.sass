@@ -1,11 +1,38 @@
 .formatted-content
-    table
-        border-spacing: 0
-        // table-layout: fixed
+    .table-wrapper
         width: 100%
-        margin: 1rem 0
+        margin-block: 1rem
+        padding-inline: 1px
+        padding-block: 0 .25rem
         overflow: hidden
         overflow-x: auto
+
+        &::-webkit-scrollbar
+            width: 6px
+            height: 6px
+
+        &::-webkit-scrollbar-track
+            background: var(--color-background)
+
+        &::-webkit-scrollbar-thumb
+            background: #00000050
+            border-radius: 3px
+            background-clip: content-box
+            border: 2px solid transparent
+
+            &:hover
+                background: var(--color-text-soft)
+                border: 0px solid transparent
+                border-radius: 1px
+
+    .table-wrapper table
+        margin: 0
+
+    table
+        border-spacing: 0
+        table-layout: fixed
+        width: 100%
+        margin: 1rem 0
 
         tr:first-child
             > td:first-child,
