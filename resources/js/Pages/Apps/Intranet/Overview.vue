@@ -10,7 +10,7 @@
                             <IodIcon icon="sell" />
                             <h3>Angebote</h3>
                             <p>Finden Sie unsere aktuellen Angebote ganz einfach zum Download.</p>
-                            <IodButton is="a" label="Zu den Angebote" href="/dashboard/kunden/angebote"/>
+                            <IodButton is="a" label="Zu den Angeboten" href="/dashboard/kunden/angebote"/>
                         </div>
         
                         <div class="icon-card" v-if="user.access.employee">
