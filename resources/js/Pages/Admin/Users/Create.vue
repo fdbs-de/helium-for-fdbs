@@ -1,14 +1,17 @@
 <template>
-    <Head title="Nutzer verwalten" />
+    <AdminLayout :title="form.id ? 'Account bearbeiten' : 'Account erstellen'" sticky>
+        <template #header-left>
+            <IodButton label="Zurück" variant="contained" size="small" :loading="form.processing" is="a" :href="route('admin.users')" v-tooltip="'Zurück zur Übersicht'"/>
+        </template>
 
-    <AdminLayout :title="user.name" :backlink="route('admin.users')" backlink-text="Zurück zur Übersicht">
+        <template #header-right>
+            <IodButton label="Speichern" variant="filled" size="small" :loading="form.processing" @click="saveItem()"/>
+        </template>
+
         <div class="card flex vertical gap-1 padding-block-2 margin-bottom-2">
             <form class="limiter text-limiter" @submit.prevent="saveItem()">
                 <div class="flex vertical gap-4">
-                    <div class="popup-block popup-error" v-if="hasErrors">
-                        <h3><b>Fehler!</b></h3>
-                        <p v-for="(error, key) in errors" :key="key">{{ error }}</p>
-                    </div>
+                    <ValidationErrors />
                     
                     <fieldset class="flex vertical gap-1">
                         <legend>Allgemeines</legend>
@@ -94,8 +97,7 @@
     
                     <div class="flex v-center gap-1">
                         <div class="spacer"></div>
-                        <mui-button class="header-button" v-if="form.id" label="Nutzer Speichern" size="large" :loading="form.processing"/>
-                        <mui-button class="header-button" v-else label="Nutzer erstellen" size="large" :loading="form.processing"/>
+                        
                     </div>
                 </div>
             </form>
@@ -126,16 +128,22 @@
 </template>
 
 <script setup>
-    import { Head, Link, useForm, usePage } from '@inertiajs/inertia-vue3'
+    import { useForm } from '@inertiajs/inertia-vue3'
+    import hotkeys from 'hotkeys-js'
     import { ref, computed, watch } from 'vue'
     import zxcvbn from 'zxcvbn'
 
     import AdminLayout from '@/Layouts/Admin.vue'
-    import Switcher from '@/Components/Form/Switcher.vue'
-    import IconButton from '@/Components/Form/IconButton.vue'
     import Alert from '@/Components/Alert.vue'
+    import ValidationErrors from '@/Components/ValidationErrors.vue'
 
+
+
+    hotkeys('ctrl+s', (event, handler) => { event.preventDefault(); saveItem() })
+    
     window.zxcvbn = zxcvbn
+
+
 
     const props = defineProps({
         user: Object,
@@ -241,14 +249,6 @@
             },
         })
     }
-
-
-    
-    
-    // START: Error Handling
-    const errors = computed(() => usePage().props.value.errors)
-    const hasErrors = computed(() => Object.keys(errors.value).length > 0)
-    // END: Error Handling
 </script>
 
 <style lang="sass" scoped>

@@ -1,6 +1,4 @@
 <template>
-    <Head :title="IPM.options.pageTitle" />
-
     <AdminLayout :title="IPM.options.pageTitle" :loading="IPM.processing">
         <Table
             show-create
@@ -25,7 +23,6 @@
 </template>
 
 <script setup>
-    import { Head } from '@inertiajs/inertia-vue3'
     import { ref } from 'vue'
     import ItemPageManager from '@/Classes/Managers/ItemPageManager'
 

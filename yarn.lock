@@ -951,10 +951,10 @@
   dependencies:
     "@floating-ui/core" "^0.3.0"
 
-"@freuwort/iodine-ui@^1.0.0-alpha.0":
-  version "1.0.0-alpha.0"
-  resolved "https://registry.npmjs.org/@freuwort/iodine-ui/-/iodine-ui-1.0.0-alpha.0.tgz"
-  integrity sha512-jOFz8hEgJVQOyTsMYe6RI1ZpmeLQikps2v3BY3fCu72GEFppsBf7Fl3PL0ecKP9xrto/uC0XwZbTnVYQN5T1aA==
+"@freuwort/iodine-ui@^1.0.0-alpha.1":
+  version "1.0.0-alpha.1"
+  resolved "https://registry.npmjs.org/@freuwort/iodine-ui/-/iodine-ui-1.0.0-alpha.1.tgz"
+  integrity sha512-5oY4UG2/h9LdU2DdZItxxAWm4syIN8pDUFos0U7KPRQpSeBAbBV3qGMSauulsa9M0y/0WNrIVCeB3XTUGRIpEQ==
   dependencies:
     core-js "^3.8.3"
     focus-trap-vue "^4.0.2"

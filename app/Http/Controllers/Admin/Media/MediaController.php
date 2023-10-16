@@ -278,11 +278,13 @@ class MediaController extends Controller
         {
             $filename = $file->getClientOriginalName();
             
+            // Save to disk (possibly override existing file)
             $path = Storage::putFileAs($media->path, $file, $filename);
 
-            // save to database
-            $media->children()->create([
+            // Save to database (update or create)
+            $media->children()->updateOrCreate([
                 'path' => $path,
+            ], [
                 'mediatype' => $file->getMimeType(),
             ]);
         }
@@ -296,11 +298,13 @@ class MediaController extends Controller
     {
         $path = $media->path . '/' . $request->name;
 
+        // Save to disk (does nothing if directory already exists)
         Storage::makeDirectory($path);
 
-        // save to database
-        $media->children()->create([
+        // Save to database (update or create)
+        $media->children()->updateOrCreate([
             'path' => $path,
+        ], [
             'mediatype' => 'folder',
         ]);
 

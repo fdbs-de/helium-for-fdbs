@@ -1,35 +1,38 @@
 <template>
-    <Head :title="form.name || 'Unbenanntes Menü'" />
+    <AdminLayout :title="form.id ? 'Menü bearbeiten' : 'Menü erstellen'" sticky>
+        <template #header-left>
+            <IodButton label="Zurück" variant="contained" size="small" :loading="form.processing" is="a" :href="route('admin.pages.menus')" v-tooltip="'Zurück zur Übersicht'"/>
+        </template>
 
-    <AdminLayout :title="form.name || 'Unbenanntes Menü'" :backlink="route('admin.pages.menus')" backlink-text="Zurück zur Übersicht">
-        <form class="card flex vertical gap-1 padding-1" @submit.prevent="save()">
-            <div class="flex v-center gap-1">
-                <select class="header-select" v-model="form.status">
-                    <option :value="null" disabled>Status auswählen</option>
-                    <option value="published">Veröffentlicht</option>
-                    <option value="hidden">Versteckt</option>
-                </select>
-
-                <div class="spacer"></div>
-
-                <IodButton :loading="form.processing" size="large">
-                    {{ form.id ? 'Menü Speichern' : 'Menü erstellen' }}
-                </IodButton>
+        <template #header-right>
+            <div class="flex gap-1 v-center">
+                <IodButton :label="form.id ? 'Speichern' : 'Erstellen'" variant="filled" size="small" :loading="form.processing" @click="saveItem()" v-tooltip.bottom="'(STRG+S zum speichern)'"/>
             </div>
+        </template>
 
+        <form class="card flex vertical gap-1 padding-1" @submit.prevent="saveItem()">
             <div class="limiter text-limiter">
                 <div class="flex vertical gap-1">
                     <ValidationErrors />
 
                     <IodInput label="Name" v-model="form.name"/>
 
-                    <select v-model="form.default_for">
-                        <option :value="null">Keinen Standard</option>
-                        <option value="main">Hauptmenü</option>
-                        <option value="legal">Rechliches</option>
-                    </select>
+                    <div class="flex v-center gap-1">
+                        <IodSelect class="flex-1" label="Standard für" v-model="form.default_for" :options="[
+                            { value: null, text: 'Keinen Standard' },
+                            { value: 'main', text: 'Hauptmenü' },
+                            { value: 'legal', text: 'Rechliches' },
+                        ]"/>
+                        <IodIcon icon="double_arrow"/>
+                        <IodSelect class="flex-1" label="Status" v-model="form.status" :options="[
+                            { value: 'published', text: 'Veröffentlicht' },
+                            { value: 'hidden', text: 'Versteckt' },
+                        ]"/>
+                    </div>
 
-                    <div class="flex vertical radius-m border">
+                    <hr class="margin-block-1">
+
+                    <div class="flex vertical radius-m background-soft">
                         <div class="flex padding-1">
                             <IodButton type="button" label="Eintrag hinzufügen" variant="contained" size="small" @click="addItem()"/>
                         </div>
@@ -68,7 +71,7 @@
 
 
 
-    hotkeys('ctrl+s', (event, handler) => { event.preventDefault(); save() })
+    hotkeys('ctrl+s', (event, handler) => { event.preventDefault(); saveItem() })
 
 
 
@@ -101,7 +104,7 @@
         form.content = item?.content ?? []
     }
 
-    const save = () => {
+    const saveItem = () => {
         if (form.processing) return
 
         form.submit(submitMethod.value, submitRoute.value, {

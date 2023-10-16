@@ -7,7 +7,7 @@
         <div class="menu" :class="{'open': isOpen}">
             <div class="top-bar">
                 <a :href="route('admin')" class="logo">
-                    <img src="/images/app/branding/cms_icon_white.svg" alt="Gastro CMS Logo">
+                    <img src="/images/app/branding/cms_icon_white.svg" alt="Helium CMS Logo">
                 </a>
                 <div class="info-wrapper">
                     <a class="info website" target="_blank" :href="`http://${globalSettings['site.domain']}`">
@@ -18,10 +18,6 @@
                         <Icon icon="account_circle" />
                         {{ user.name }}
                     </a>
-                    <!-- <a class="info update" :href="route('admin')">
-                        <Icon icon="download_done" />
-                        Sunrise 2023 Update
-                    </a> -->
                 </div>
             </div>
 
@@ -78,23 +74,29 @@
         </div>
 
         <main class="content">
-            <div id="hero-section" v-show="!noHeader">
+            <section id="hero-section" :class="{'scrolled': isScrolled, 'sticky': sticky}" v-show="!noHeader">
                 <div class="limiter">
                     <div class="hero-card">
-                        <Link class="back-button" v-if="backlink" :href="backlink" v-tooltip="backlinkText">arrow_back</Link>
+                        <div class="sides start">
+                            <Link class="back-button" v-if="backlink" :href="backlink" v-tooltip="backlinkText">arrow_back</Link>
+                            <slot name="header-left" />
+                        </div>
                         <h1>{{ title }}</h1>
-
+                        <div class="sides end">
+                            <slot name="header-right" />
+                        </div>
+    
                         <button class="toggle-open" :class="{'open': isOpen}" :title="isOpen ? 'Menü ausklappen' : 'Menü einklappen'" @click="isOpen = !isOpen">
                             <svg class="svg-wrapper" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
                                 <path class="hamburger-path" d="M5 9C5 9 17.5 9 19 9C20.5 9 22.5 7.5 21.5 6C20.5 4.5 18 6 17 7C16 8 7 17 7 17"/>
                                 <path class="hamburger-path" d="M5 15.0054C5 15.0054 17.5 15.0054 19 15.0054C20.5 15.0054 22.5 16.5054 21.5 18.0054C20.5 19.5054 18 18.0054 17 17.0054C16 16.0054 7 7.00542 7 7.00542"/>
                             </svg>
                         </button>
-
+    
                         <Loader class="loader" v-show="loading" />
                     </div>
                 </div>
-            </div>
+            </section>
             
             <section id="content-section">
                 <div class="limiter">
@@ -111,21 +113,23 @@
 
 <script setup>
     import { Head, Link, usePage } from '@inertiajs/inertia-vue3'
-    import { ref, computed } from 'vue'
+    import { ref, computed, onBeforeUnmount, onMounted } from 'vue'
     import { can, canAny } from '@/Utils/Permissions'
 
     import Loader from '@/Components/Form/Loader.vue'
     import Icon from '@/Components/Icon.vue'
-    import IconButton from '@/Components/Apps/Pages/IconButton.vue'
 
 
 
     defineProps({
-        area: String,
         title: String,
         backlink: [String, Object, Function],
         backlinkText: String,
         noHeader: {
+            type: Boolean,
+            default: false,
+        },
+        sticky: {
             type: Boolean,
             default: false,
         },
@@ -135,6 +139,24 @@
         }
     })
 
+
+
+    // START: Scroll detection
+    const isScrolled = ref(false)
+
+    const handleScroll = () => {
+        isScrolled.value = window.scrollY > 0
+    }
+
+    onMounted(() => {
+        window.addEventListener('scroll', handleScroll)
+    })
+
+    onBeforeUnmount(() => {
+        window.removeEventListener('scroll', handleScroll)
+    })
+    // END: Scroll detection
+    
 
 
     const globalSettings = computed(() => {
@@ -149,8 +171,9 @@
 
     const menu = ref([
         [
-            {label: 'Dashboard', color: 'var(--color-background)', icon: 'speed', route: route('admin'), permission: [], activeWhen: ['admin'], submenu: [
-                {label: 'Übersicht', icon: 'dashboard', route: route('admin'), permission: [], activeWhen: ['admin']},
+            {label: 'Dashboard', color: 'var(--color-background)', icon: 'speed', route: route('admin'), permission: [], activeWhen: ['admin', 'admin.profile'], submenu: [
+                { label: 'Übersicht', icon: '', route: route('admin'), permission: [], activeWhen: ['admin'] },
+                {label: 'Profil', icon: '', route: route('admin'), permission: [], activeWhen: ['admin.profile']},
             ]},
             {label: 'Accounts', color: 'var(--color-background)', icon: 'person', route: route('admin.users'), permission: ['system.view.users'], activeWhen: ['admin.users', 'admin.users.editor', 'admin.roles'], submenu: [
                 {label: 'Accounts', icon: '', route: route('admin.users'), permission: ['system.view.users'], activeWhen: ['admin.users', 'admin.users.editor']},
@@ -281,6 +304,7 @@
             width: 20rem
             height: 100vh
             position: sticky
+            z-index: 1000
             top: 0
             left: 0
             display: flex
@@ -498,18 +522,40 @@
 
             #hero-section
                 user-select: none
+                top: 0
+                z-index: 100
+                transition: all 200ms ease
+
+                &.sticky
+                    position: sticky
+
+                &.scrolled.sticky
+                    background: var(--color-background)
+                    box-shadow: var(--shadow-elevation-low)
+
+                    .hero-card
+                        border: none
                 
                 .hero-card
                     text-align: center
-                    background: var(--color-background)
-                    border-radius: 0 0 var(--radius-m) var(--radius-m)
-                    box-shadow: var(--shadow-elevation-low)
-                    padding: 1rem
-                    height: 4rem
-                    display: flex
+                    min-height: 4rem
+                    border-bottom: 1px solid var(--color-border)
+                    display: grid
+                    grid-template-columns: 1fr auto 1fr
                     align-items: center
-                    justify-content: center
+                    gap: 1rem
                     position: relative
+                    transition: all 200ms ease
+
+                    .sides
+                        display: flex
+                        align-items: center
+
+                        &.start
+                            justify-content: flex-start
+
+                        &.end
+                            justify-content: flex-end
 
                     .back-button
                         display: flex
@@ -532,16 +578,16 @@
                             color: var(--color-text)
 
                     h1
-                        font-size: 1.5rem
-                        flex: 1
+                        font-size: 1.25rem
                         position: relative
+                        margin: 0
 
                     .loader
                         position: absolute
                         bottom: 0
-                        left: var(--radius-m)
+                        left: 0
+                        right: 0
                         height: 2px
-                        width: calc(100% - 2 * var(--radius-m))
 
             #content-section
                 margin: 2rem 0
