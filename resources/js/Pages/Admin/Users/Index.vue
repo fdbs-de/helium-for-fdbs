@@ -1,6 +1,4 @@
 <template>
-    <Head :title="IPM.options.pageTitle" />
-
     <AdminLayout :title="IPM.options.pageTitle" :loading="IPM.processing">
         <Table
             :columns="tableColumns"
@@ -86,7 +84,7 @@
 </template>
 
 <script setup>
-    import { Head, useForm } from '@inertiajs/inertia-vue3'
+    import { useForm } from '@inertiajs/inertia-vue3'
     import { ref } from 'vue'
     import dayjs from 'dayjs'
     import ItemPageManager from '@/Classes/Managers/ItemPageManager'

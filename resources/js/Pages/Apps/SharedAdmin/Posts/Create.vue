@@ -1,40 +1,41 @@
 <template>
-    <Head :title="form.title || 'Post Titel'" />
+    <AdminLayout :title="form.id ? 'Eintrag bearbeiten' : 'Eintrag erstellen'">
+        <template #header-left>
+            <IodButton label="Zurück" variant="contained" size="small" :loading="form.processing" is="a" :href="route('admin.' + app + '.posts')" v-tooltip="'Zurück zur Übersicht'"/>
+        </template>
 
-    <AdminLayout :title="form.title || 'Post Titel'" :backlink="route('admin.'+app+'.posts')" backlink-text="Zurück zur Übersicht">
-        <form class="card flex vertical gap-1 padding-1" @submit.prevent="save()">
-            <div class="flex v-center gap-1">
-                <select class="header-select" v-model="form.status">
-                    <option :value="null" disabled>Status auswählen</option>
-                    <option value="draft">Entwurf</option>
-                    <option value="pending">Zur Freigabe</option>
-                    <option value="published">Veröffentlicht</option>
-                    <option value="hidden">Versteckt</option>
-                </select>
-
-                <div class="spacer"></div>
-
-                <mui-toggle type="switch" prepend-label="Auto-Save" v-model="autosave" v-if="form.id"/>
-
-                <mui-button class="header-button" :loading="form.processing" size="large" :disabled="!hasUnsavedChanges" v-tooltip.bottom="'(STRG+S zum speichern)'">
-                    {{ form.id ? 'Post Speichern' : 'Post erstellen' }}
-                </mui-button>
+        <template #header-right>
+            <div class="flex gap-1 v-center">
+                <IodIconButton
+                    v-if="form.id"
+                    type="button"
+                    icon="sync"
+                    size="small"
+                    color-preset="warning"
+                    :border="!autosave"
+                    :variant="autosave ? 'filled' : 'text'"
+                    v-tooltip="autosave ? 'Autosave deaktivieren' : 'Autosave aktivieren'"
+                    @click="autosave = !autosave"
+                />
+                <IodButton :label="form.id ? 'Speichern' : 'Erstellen'" variant="filled" size="small" :loading="form.processing" @click="saveItem()" v-tooltip.bottom="'(STRG+S zum speichern)'"/>
             </div>
+        </template>
+
+        <form class="card flex vertical gap-1 padding-1" @submit.prevent="saveItem()">
+            <ValidationErrors />
 
             <div class="hero-image-wrapper">
                 <img :src="form.image" :alt="form.title" class="hero-image" v-if="form.image">
                 <div class="hero-image-overlay bottom">
                     <div class="limiter text-limiter">
-                        <mui-input type="text" class="flex-1" placeholder="Bild URL" clearable v-model="form.image">
+                        <IodInput type="text" class="flex-1" placeholder="Bild URL" clearable v-model="form.image">
                             <template #right>
                                 <IconButton icon="folder_open" class="input-button" @click="$refs.picker.open((file) => { form.image = file })"/>
                             </template>
-                        </mui-input>
+                        </IodInput>
                     </div>
                 </div>
             </div>
-
-            <ValidationErrors />
 
             <div class="flex border-bottom padding-bottom-1">
                 <div class="limiter text-limiter">
@@ -49,23 +50,33 @@
             <div class="tab-container" v-show="tab === 'general'">
                 <div class="limiter text-limiter">
                     <div class="flex gap-1 vertical">
-                        <select class="header-select" v-model="form.post_category_id">
-                            <option :value="null" disabled>Kategorie auswählen</option>
-                            <option v-for="category in categories" :key="category.id" :value="category.id">{{category.name}}</option>
-                        </select>
+                        <div class="flex v-center gap-1">
+                            <IodSelect class="flex-1" label="Kategorie" v-model="form.post_category_id" :options="categories.map(e => ({value: e.id, text: e.name}))"/>
+                            <IodIcon icon="double_arrow"/>
+                            <IodSelect class="flex-1" label="Eintrags-Status" v-model="form.status" :options="[
+                                {value: 'draft', text: 'Entwurf'},
+                                {value: 'pending', text: 'Zur Freigabe'},
+                                {value: 'published', text: 'Veröffentlicht'},
+                                {value: 'hidden', text: 'Versteckt'},
+                            ]"/>
+                        </div>
+
+                        <hr class="margin-block-1">
                         
-                        <mui-input type="text" label="Titel" required v-model="form.title">
+                        <IodInput type="text" label="Titel" required v-model="form.title">
                             <template #right>
                                 <IconButton icon="push_pin" class="input-button" :class="{'active': form.pinned}" @click="form.pinned = !form.pinned"  v-tooltip.right="'Post anpinnen'"/>
                             </template>
-                        </mui-input>
+                        </IodInput>
                         
-                        <mui-input type="text" label="Slug" required v-model="form.slug">
+                        <IodInput type="text" label="Slug" required v-model="form.slug">
                             <template #right>
                                 <IconButton icon="auto_awesome" class="input-button" @click="generateSlug()"  v-tooltip.right="'Aus Titel generieren'"/>
                             </template>
-                        </mui-input>
+                        </IodInput>
+
                         <hr class="margin-block-1">
+
                         <TextEditor class="content-input flex-1" v-model="form.content" />
                     </div>
                 </div>
@@ -155,7 +166,7 @@
 </template>
 
 <script setup>
-    import { Head, Link, useForm, usePage } from '@inertiajs/inertia-vue3'
+    import { useForm, usePage } from '@inertiajs/inertia-vue3'
     import { slugify } from '@/Utils/String'
     import { ref, computed, watch } from 'vue'
     import LocalSetting from '@/Classes/Managers/LocalSetting'
@@ -174,7 +185,7 @@
 
 
 
-    hotkeys('ctrl+s', (event, handler) => { event.preventDefault(); save() })
+    hotkeys('ctrl+s', (event, handler) => { event.preventDefault(); saveItem() })
 
 
 
@@ -234,7 +245,7 @@
         formDelta.value = form.data()
     }
 
-    const save = () => {
+    const saveItem = () => {
         if (form.processing) return
 
         form.submit(submitMethod.value, submitRoute.value, {
@@ -269,7 +280,7 @@
         if (autosave.value && !!form.id) saveThrottled()
     })
 
-    const saveThrottled = _.debounce(save, 5000)
+    const saveThrottled = _.debounce(saveItem, 5000)
     // END: Auto-save
 
 
@@ -411,13 +422,15 @@
             left: 0
             width: 100%
             transition: transform 100ms ease-out
-            --primary: white
 
             &.bottom
                 bottom: 0
                 padding-block: 1rem .5rem
                 transform: translateY(100%)
                 background: linear-gradient(0deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%)
+
+            .iod-container.iod-input
+                background: var(--color-background)
     
     .tabs-wrapper
         --tab-height: 2rem
