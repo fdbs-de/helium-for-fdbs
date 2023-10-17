@@ -60,7 +60,7 @@
             <div class="table-head">
                 <div class="table-row">
                     <div class="table-column centered w-3">
-                        <mui-toggle
+                        <IodToggle
                             class="table-checkbox"
                             :modelValue="items.length && items.every(item => selection.includes(item.id))"
                             @update:modelValue="$event ? selectAll() : deselectAll()"
@@ -72,19 +72,19 @@
                         'resizing': column.resizing,
                         'sortable': column.sortable,
                         'sorted-field': sort.field === column.name,
-                    }" :style="`width: ${column.width}px;`" @click="toggleSort(column.name)">
+                    }" :style="`width: ${column.width}px;`" @mousedown.exact="toggleSort(column.name)">
                         <div class="column-label" v-tooltip="column.label">{{ column.label }}</div>
-                        <div class="column-sort-indicator">{{ sort.order === 'asc' ? 'north' : 'south' }}</div>
-                        <div class="column-resize-handle" @mousedown="startResize($event, column)"></div>
+                        <div class="column-sort-indicator">{{ sort.order === 'asc' ? 'arrow_upward' : 'arrow_downward' }}</div>
+                        <div class="column-resize-handle" @mousedown.stop="startResize($event, column)"></div>
                     </div>
-                    <div class="table-column actions"></div>
+                    <!-- <div class="table-column actions"></div> -->
                 </div>
             </div>
 
             <div class="table-body">
                 <div class="table-row" v-for="item in items" @click="rowClick(item)">
                     <div class="table-column centered w-3">
-                        <mui-toggle class="table-checkbox" :modelValue="getSelection.includes(item.id)" @click.stop @update:modelValue="setSelection(item, $event)"/>
+                        <IodToggle class="table-checkbox" :modelValue="getSelection.includes(item.id)" @click.stop @update:modelValue="setSelection(item, $event)"/>
                     </div>
                     <div class="table-column" v-for="column in columns.filter(e => e.show)" :style="`width: ${column.width}px;`">
                         <TableColumn :type="column.type" :value="getValue(item, column)" />
@@ -441,8 +441,12 @@
             .table-row
                 display: flex
                 align-items: center
-                min-height: 2.5rem
+                min-height: 3rem
                 position: relative
+                border-bottom: 1px solid var(--color-border)
+
+                &:last-child
+                    border-bottom: none
 
             .table-column
                 display: flex
@@ -463,7 +467,7 @@
                     background: var(--color-background-soft)
 
                     .column-resize-handle
-                        opacity: 1
+                        opacity: 1 !important
 
                 &.centered
                     justify-content: center
@@ -527,47 +531,41 @@
                     pointer-events: none
 
                 .column-label
-                    padding-inline: .75rem
+                    padding-inline: 1rem
                     font-weight: bold
                     overflow: hidden
                     text-overflow: ellipsis
                     white-space: nowrap
-                    font-size: .8rem
-                    text-transform: uppercase
                     color: var(--color-text)
 
                 .column-resize-handle
-                    width: .5rem
-                    height: calc(100% - .5rem)
-                    border-radius: 4rem
+                    width: 6px
                     cursor: col-resize
                     position: absolute
-                    right: .25rem
-                    top: .25rem
-                    background: var(--color-text)
+                    right: 3px
+                    top: 3px
+                    bottom: 3px
+                    border-radius: 3px
+                    background: var(--color-primary)
                     z-index: 10
                     display: none
                     opacity: 0
 
                     &:hover
-                        opacity: 1
+                        opacity: .7
 
             .table-head
-                border-bottom: 1px solid var(--color-border)
-
                 .table-row
                     height: 3rem
+                    border-bottom: 1px solid var(--color-border)
 
                     .table-column
-                        height: 2.5rem
-                        border-radius: var(--radius-s)
+                        height: 100%
 
                         &.actions
                             background: none
 
             .table-body
-                padding-block: .5rem
-
                 .table-row
                     &:hover
                         background-color: var(--color-background-soft)

@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Builder\PostCategoryBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Permission\Models\Role;
+use App\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 
 class PostCategory extends Model

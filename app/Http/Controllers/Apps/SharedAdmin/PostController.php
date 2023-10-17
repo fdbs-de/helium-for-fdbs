@@ -13,7 +13,6 @@ use App\Models\Post;
 use App\Models\PostCategory;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Spatie\Permission\Models\Role;
 
 class PostController extends Controller
 {
