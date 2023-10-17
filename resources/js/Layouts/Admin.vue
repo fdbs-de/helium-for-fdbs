@@ -144,7 +144,8 @@
     // START: Scroll detection
     const isScrolled = ref(false)
 
-    const handleScroll = () => {
+    function handleScroll()
+    {
         isScrolled.value = window.scrollY > 0
     }
 
@@ -155,6 +156,8 @@
     onBeforeUnmount(() => {
         window.removeEventListener('scroll', handleScroll)
     })
+
+    handleScroll()
     // END: Scroll detection
     
 

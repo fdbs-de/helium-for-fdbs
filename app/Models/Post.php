@@ -6,7 +6,7 @@ use App\Builder\PostBuilder;
 use App\Permissions\Permissions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Permission\Models\Role;
+use App\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 use Laravel\Scout\Searchable;
 

@@ -25,6 +25,8 @@ class CreateRoleRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255|unique:roles,name',
+            'color' => 'nullable|string|max:255',
+            'icon' => 'nullable|string|max:255',
             'permissions' => 'nullable|array',
             'permissions.*' => 'required|string|exists:permissions,name',
         ];

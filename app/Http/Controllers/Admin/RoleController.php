@@ -5,20 +5,19 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Roles\CreateRoleRequest;
 use App\Http\Requests\Roles\DestroyRoleRequest;
+use App\Http\Requests\Roles\DuplicateRoleRequest;
 use App\Http\Requests\Roles\UpdateRoleRequest;
+use App\Http\Resources\Role\RoleResource;
+use App\Models\Role;
 use App\Permissions\Permissions;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Admin/Roles/Index', [
-            'items' => Role::with('permissions')->orderBy('created_at')->get(),
-            'permissions' => Permissions::GROUPED_PERMISSIONS,
-        ]);
+        return Inertia::render('Admin/Roles/Index');
     }
 
 
@@ -84,8 +83,64 @@ class RoleController extends Controller
 
 
         return response()->json([
-            'data' => $query->get(),
+            'data' => RoleResource::collection($query->get()),
             'total' => $total,
+        ]);
+    }
+
+
+
+    public function search(Request $request)
+    {
+        $query = Role::query();
+        
+        // START: Search
+        if ($request->search)
+        {
+            $query->whereFuzzy(function ($query) use ($request) {
+                $query
+                ->orWhereFuzzy('name', $request->search);
+            });
+        }
+        // END: Search
+
+
+
+        // START: Sort
+        $field = $request->sort['field'] ?? 'created_at';
+        $order = $request->sort['order'] ?? 'desc';
+        
+        $query->orderBy($field, $order);
+        // END: Sort
+
+
+
+        // START: Pagination
+        $total = $query->count();
+
+        $limit = $request->size ?? 20;
+        $offset = $request->size * ($request->page ?? 0) - $request->size;
+
+        // Clamp the offset to 0 and limit
+        $offset = max(0, $offset);
+        $offset = min($offset, intdiv($total, $limit) * $limit);
+        
+        $query->limit($limit)->offset($offset);
+        // END: Pagination
+
+        return response()->json([
+            'data' => RoleResource::collection($query->get()),
+            'total' => $total,
+        ]);
+    }
+
+
+
+    public function create(Role $role)
+    {
+        return Inertia::render('Admin/Roles/Create', [
+            'item' => RoleResource::make($role),
+            'permissions' => Permissions::GROUPED_PERMISSIONS,
         ]);
     }
 
@@ -94,8 +149,16 @@ class RoleController extends Controller
     public function store(CreateRoleRequest $request)
     {
         $role = Role::create($request->validated());
-
         $role->syncPermissions($request->permissions);
+
+        return redirect()->route('admin.roles.editor', RoleResource::make($role));
+    }
+
+
+
+    public function duplicate(DuplicateRoleRequest $request, Role $role)
+    {
+        $role->duplicate();
 
         return back();
     }
@@ -105,7 +168,6 @@ class RoleController extends Controller
     public function update(UpdateRoleRequest $request, Role $role)
     {
         $role->update($request->validated());
-
         $role->syncPermissions($request->permissions);
 
         return back();
@@ -113,9 +175,9 @@ class RoleController extends Controller
 
 
 
-    public function delete(DestroyRoleRequest $request, Role $role)
+    public function delete(DestroyRoleRequest $request)
     {
-        $role->delete();
+        Role::whereIn('id', $request->ids)->delete();
 
         return back();
     }

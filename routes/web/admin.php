@@ -77,16 +77,28 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
         Route::get('/', [RoleController::class, 'index'])
         ->middleware('can:system.view.roles')
         ->name('admin.roles');
+
+        Route::get('/search', [RoleController::class, 'search'])
+        ->middleware('can:system.view.roles')
+        ->name('admin.roles.search');
+
+        Route::get('/editor/{role?}', [RoleController::class, 'create'])
+        ->middleware('can:system.view.roles')
+        ->name('admin.roles.editor');
         
         Route::post('/', [RoleController::class, 'store'])
         ->middleware('can:system.create.roles')
         ->name('admin.roles.store');
+
+        Route::post('/{role}', [RoleController::class, 'duplicate'])
+        ->middleware('can:system.create.roles')
+        ->name('admin.roles.duplicate');
         
         Route::put('/{role}', [RoleController::class, 'update'])
         ->middleware('can:system.edit.roles')
         ->name('admin.roles.update');
         
-        Route::delete('/{role}', [RoleController::class, 'delete'])
+        Route::delete('/', [RoleController::class, 'delete'])
         ->middleware('can:system.delete.roles')
         ->name('admin.roles.delete');
     });

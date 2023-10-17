@@ -5,6 +5,9 @@
     <div class="column-icons" v-else-if="type === 'icons'">
         <div class="icon" v-for="icon in value" :style="`color: ${icon.color};`">{{ icon.icon }}</div>
     </div>
+    <div class="column-image" v-else-if="type === 'image'">
+        <img :src="value" :alt="value"/>
+    </div>
     <div class="column-actions" v-else-if="type === 'actions'">
         <IconButton :icon="action.icon" :style="`color: ${action.color}`" v-for="action in value" @click.stop="action.run"/>
     </div>
@@ -34,7 +37,7 @@
         flex-wrap: wrap
         gap: .5rem
         padding-block: .25rem
-        padding-inline: .75rem
+        padding-inline: 1rem
         user-select: none
 
     .column-icons
@@ -42,7 +45,7 @@
         flex-wrap: wrap
         gap: .5rem
         padding-block: .25rem
-        padding-inline: .75rem
+        padding-inline: 1rem
         user-select: none
 
         .icon
@@ -54,11 +57,24 @@
             font-family: var(--font-icon)
             font-size: 1.25rem
 
+    .column-image
+        display: flex
+        flex-wrap: wrap
+        gap: .5rem
+        padding: .5rem
+        user-select: none
+
+        img
+            height: 2rem
+            max-width: 100%
+            object-fit: contain
+            border-radius: var(--radius-s)
+
     .column-actions
         align-self: stretch
         display: flex
         align-items: center
-        margin: .25rem .75rem
+        margin: .25rem 1rem
         user-select: none
         border-radius: var(--radius-m)
         background: var(--color-background-soft)
@@ -73,5 +89,5 @@
         overflow: hidden
         text-overflow: ellipsis
         padding-block: .25rem
-        padding-inline: .75rem
+        padding-inline: 1rem
 </style>

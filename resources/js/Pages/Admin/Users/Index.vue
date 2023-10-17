@@ -111,36 +111,18 @@
 
 
     const tableColumns = [
+        // {type: 'image', name: 'image', label: 'Bild', valuePath: 'image', sortable: false, width: 50, resizeable: false, hideable: true},
         {type: 'text', name: 'name', label: 'Name', valuePath: 'name', sortable: true, width: 300, resizeable: true, hideable: true},
         {type: 'text', name: 'username', label: 'Nutzername', valuePath: 'username', sortable: true, width: 150, resizeable: true, hideable: true, transform: (value) => value || '---'},
         {type: 'text', name: 'email', label: 'Email', valuePath: 'email', sortable: true, width: 250, resizeable: true, hideable: true},
-        {type: 'tags', name: 'roles', label: 'Rollen', valuePath: 'roles', sortable: false, width: 200, resizeable: true, hideable: true, transform: (value) => {
-            if (!value || value.length <= 0)
-            {
-                return [{icon: null, text: 'Keine Rolle', color: 'var(--color-text-soft)', variant: 'contained', shape: 'pill'}]
-            }
-
-            return value.map((role) => ({icon: null, text: role.name, color: 'var(--color-text-soft)', variant: 'filled', shape: 'pill'}))}
-        },
-        {type: 'tags', name: 'profiles', label: 'Profile', valuePath: 'profiles', sortable: false, width: 100, resizeable: true, hideable: true, transform: (value) => {
-            if (!value || value.length <= 0)
-            {
-                return [{icon: null, text: 'Kein Profil', color: 'var(--color-text-soft)', variant: 'contained', shape: 'pill'}]
-            }
-
+        {type: 'text', name: 'roles', label: 'Rollen', valuePath: 'roles', sortable: false, width: 200, resizeable: true, hideable: true, transform: (value) => {
+            return value.map(e => e.name).join(', ') || '---'
+        }},
+        {type: 'text', name: 'profiles', label: 'Profile', valuePath: 'profiles', sortable: false, width: 100, resizeable: true, hideable: true, transform: (value) => {
             let profiles = []
-
-            if (value.customer)
-            {
-                profiles.push({icon: null, text: 'Kunde', color: '#16a085', variant: 'filled', shape: 'pill'})
-            }
-
-            if (value.employee)
-            {
-                profiles.push({icon: null, text: 'Personal', color: '#6c5ce7', variant: 'filled', shape: 'pill'})
-            }
-            
-            return profiles
+            if (value.customer) profiles.push('Kunde')
+            if (value.employee) profiles.push('Personal')
+            return profiles.join('; ') || '---'
         }},
         {type: 'date', name: 'created_at', label: 'Registriert am', valuePath: 'created_at', sortable: true, width: 200, resizeable: true, hideable: true},
         {type: 'date', name: 'email_verified_at', label: 'Verifikation am', valuePath: 'email_verified_at', sortable: true, width: 200, resizeable: true, hideable: true},

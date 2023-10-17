@@ -1,205 +1,93 @@
 <template>
-    <Head title="Rollen verwalten" />
+    <AdminLayout :title="IPM.options.pageTitle" :loading="IPM.processing">
+        <Table
+            show-create
+            :columns="tableColumns"
+            :actions="tableActions"
+            :items="IPM.items"
+            :scope="IPM.tableScope"
+            v-model:selection="IPM.selection"
+            v-model:filter="IPM.modelFilter"
+            v-model:sort="IPM.modelSort"
+            v-model:pagination="IPM.modelPagination"
+            @request:refresh="IPM.fetch()"
+            @request:create="IPM.open()"
+        />
 
-    <AdminLayout title="Rollen verwalten">
-        <div class="layout">
-            <div class="sidebar">
-                <mui-button class="margin-bottom-1" @click="createItem()" icon-left="add" size="large" variant="contained">Neue Rolle</mui-button>
-                <mui-input class="margin-bottom-1" type="search" v-model="search" icon-left="search" placeholder="Rollen suchen" />
-                
-                <div class="role" v-for="role in items" :key="role.id" :class="{'active': role.id === form.id}">
-                    <button type="button" class="name" :loading="createForm.processing" @click="openItem(role)">
-                        <span v-tooltip.bottom="role.name">{{ role.name }}</span>
-                    </button>
-                    <IconButton icon="delete" @click="deleteItem(role)" v-tooltip.right="'Rolle löschen'"/>
-                </div>
-
-                <div class="flex v-center h-center padding-1 h-3" v-if="items.length <= 0">
-                    <span>
-                        Keine Rollen gefunden
-                    </span>
-                </div>
-            </div>
-
-            <form class="content flex vertical gap-1" @submit.prevent="saveItem()" v-if="form.id">
-                <div class="flex gap-1 v-center">
-                    <mui-input class="flex-1" v-model="form.name" label="Rollen Name" />
-                    <mui-button size="large" :loading="form.processing" >Rolle speichern</mui-button>
-                </div>
-                
-                <div class="flex gap-1 vertical">
-                    <fieldset class="flex gap-1 vertical" v-for="(group, key) in groupedPermissions" :key="key">
-                        <legend>{{ group.title }}</legend>
-
-                        <div class="flex vertical" v-for="(subgroup, i) in group.permissions" :key="'permission_group_'+group.title+'_'+i">
-                            <mui-toggle class="checkbox" v-for="permission in subgroup" :key="permission.name" :modelValue="form.permissions.includes(permission.name)" @update:modelValue="togglePermission(permission.name)">
-                                <template #label>
-                                    <div class="w-100 flex v-center">
-                                        <span class="flex-1">{{ permission.label }}</span>
-                                        <div class="icon" v-tooltip="permission.description">info</div>
-                                    </div>
-                                </template>
-                            </mui-toggle>
-                        </div>
-                    </fieldset>
-                </div>
-            </form>
-
-            <div class="content" v-else>
-                <div class="flex v-center h-center padding-1 radius-l background-soft h-20">
-                    <span>
-                        Wähle eine Rolle aus, um sie zu bearbeiten
-                    </span>
-                </div>
-            </div>
+        <div class="flex v-center gap-1 wrap border-top padding-top-1 margin-top-2">
+            <small><b>{{ IPM.pagination.total }}</b> Roles</small>
+    
+            <div class="spacer"></div>
         </div>
     </AdminLayout>
 </template>
 
 <script setup>
-    import { Head, useForm } from '@inertiajs/inertia-vue3'
-    import { ref, computed } from 'vue'
+    import { ref } from 'vue'
+    import ItemPageManager from '@/Classes/Managers/ItemPageManager'
 
     import AdminLayout from '@/Layouts/Admin.vue'
-    import IconButton from '@/Components/Form/IconButton.vue'
+    import Table from '@/Components/Form/Table/Table.vue'
 
 
 
-    const props = defineProps({
-        items: Array,
-        permissions: Object,
-    })
-
-    const search = ref('')
-
-    const items = computed(() => {
-        return props.items.filter((item) => item.name.toLowerCase().includes(search.value.toLowerCase()))
-    })
-
-    const groupedPermissions = computed(() => {
-        return props.permissions
-    })
-
-
-
-    // START: Form
-    const form = useForm({
-        id: null,
-        name: '',
-        permissions: [],
-    })
-
-    const createForm = useForm({name: 'Neue Rolle'})
-
-    const togglePermission = (permission) => {
-        if (form.permissions.includes(permission))
-        {
-            form.permissions = form.permissions.filter((p) => p !== permission)
+    const IPM = ref(new ItemPageManager({
+        pageTitle: 'Rollen verwalten',
+        scope: 'admin.roles.index',
+        routes: {
+            fetch: 'admin.roles.search',
+            editor: 'admin.roles.editor',
+            duplicate: 'admin.roles.duplicate',
+            delete: 'admin.roles.delete',
         }
-        else
+    }))
+
+    IPM.value.fetch()
+
+
+
+    const tableColumns = [
+        {type: 'text', name: 'name', label: 'Name', valuePath: 'name', sortable: true, width: 300, resizeable: true, hideable: true},
+        {type: 'tags', name: 'color', label: 'Farbe', valuePath: 'color', sortable: true, width: 200, resizeable: true, hideable: true, transform: (value, item) => {
+            return [{icon: null, text: value || 'Keine Farbe', color: item.color || 'var(--color-text-soft)', variant: item.color ? 'filled' : 'contained', shape: 'pill'}]
+        }},
+        {type: 'date', name: 'created_at', label: 'Erstellt am', valuePath: 'created_at', sortable: true, width: 200, resizeable: true, hideable: true},
+        {type: 'date', name: 'updated_at', label: 'Geändert am', valuePath: 'updated_at', sortable: true, width: 200, resizeable: true, hideable: true},
+    ]
+
+    const tableActions = [
         {
-            form.permissions.push(permission)
-        }
-    }
-    // END: Form
-
-
-
-    // START: Editor
-    const openItem = (item = null) => {
-        form.id = item?.id ?? null
-        form.name = item?.name ?? ''
-        form.permissions = item?.permissions?.map(e => e.name) ?? []
-    }
-
-    const createItem = () => {
-        createForm.post(route('admin.roles.store'))
-    }
-
-    const saveItem = () => {
-        form.put(route('admin.roles.update', form.id), {
-            preserveScroll: true,
-        })
-    }
-
-    const deleteItem = (item) => {
-        if (confirm('Soll die Rolle "'+item.name+'" wirklich gelöscht werden?'))
+            icon: 'edit',
+            text: 'Bearbeiten',
+            color: 'var(--color-text)',
+            individual: true,
+            multiple: false,
+            triggerOnRowClick: true,
+            isAvailable: () => true,
+            run: (items) => IPM.value.open(items[0]),
+        },
         {
-            useForm().delete(route('admin.roles.delete', item.id))
-        }
-    }
-    // END: Editor
-
-
-
-    
+            icon: 'content_copy',
+            text: 'Duplizieren',
+            color: 'var(--color-text)',
+            individual: true,
+            multiple: false,
+            triggerOnRowClick: false,
+            isAvailable: () => true,
+            run: (items) => IPM.value.duplicate(items[0]),
+        },
+        {
+            icon: 'delete',
+            text: 'Löschen',
+            color: 'var(--color-error)',
+            individual: true,
+            multiple: true,
+            triggerOnRowClick: false,
+            isAvailable: () => true,
+            run: (items) => IPM.value.delete(items, 'Sollen {{count}} Rollen gelöscht werden?'),
+        },
+    ]
 </script>
 
-<style lang="sass">
-    .checkbox
-        .label
-            width: 100%
-</style>
-
 <style lang="sass" scoped>
-    .layout
-        display: flex
-        flex-direction: row
-        height: 100%
-        border-radius: var(--radius-m)
-        background: var(--color-background)
-        box-shadow: var(--shadow-elevation-low)
-
-        .sidebar
-            width: 340px
-            display: flex
-            flex-direction: column
-            gap: 3px
-            padding: 1rem
-            border-right: 1px solid var(--color-border)
-
-            .role
-                height: 3rem
-                display: flex
-                flex-direction: row
-                align-items: center
-                justify-content: space-between
-                user-select: none
-                border-radius: var(--radius-m)
-
-                &:hover
-                    background: var(--color-background-soft)
-                    color: var(--color-text)
-
-                &.active
-                    background: var(--color-background-soft)
-                    color: var(--color-text)
-
-                .name
-                    font-weight: 400
-                    font-family: inherit
-                    font-size: inherit
-                    background: none
-                    border: none
-                    cursor: pointer
-                    color: inherit
-                    text-align: left
-                    padding: 0 1rem
-                    flex: 1
-                    height: 100%
-                    overflow: hidden
-                    text-overflow: ellipsis
-                    white-space: nowrap
-
-        .content
-            flex: 1
-            padding: 1rem
-
-            .checkbox
-                --mui-background: var(--color-background)
-
-                .icon
-                    font-family: var(--font-icon)
-                    font-size: 1.2rem
-                    color: var(--color-text-soft)
 </style>
