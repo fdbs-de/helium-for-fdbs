@@ -1,11 +1,12 @@
 <template>
-    <AdminLayout :title="IPM.options.pageTitle" :loading="IPM.processing">
+    <AdminLayout :title="IPM.options.pageTitle">
         <Table
             :columns="tableColumns"
             :actions="tableActions"
             :filter-settings="tableFilters"
             :items="IPM.items"
             :scope="IPM.tableScope"
+            :loading="IPM.processing"
             v-model:selection="IPM.selection"
             v-model:filter="IPM.modelFilter"
             v-model:sort="IPM.modelSort"
@@ -14,13 +15,10 @@
         />
 
         <div class="flex v-center gap-1 wrap border-top padding-top-1 margin-top-2">
-            <small><b>{{IPM.pagination.total}}</b> User</small>
-        
             <div class="spacer"></div>
-
-            <mui-button type="button" variant="text" size="small" label="Einladungen" @click="openInvitesPopup()"/>
-            <mui-button type="button" variant="text" size="small" label="Newsletter" @click="openNewsletterPopup()"/>
-            <mui-button type="button" variant="text" size="small" label="Einstellungen" @click="openSettingsPopup()"/>
+            <IodButton type="button" variant="text" size="small" label="Einladungen" @click="openInvitesPopup()"/>
+            <IodButton type="button" variant="text" size="small" label="Newsletter" @click="openNewsletterPopup()"/>
+            <IodButton type="button" variant="text" size="small" label="Einstellungen" @click="openSettingsPopup()"/>
         </div>
     </AdminLayout>
 
@@ -111,18 +109,17 @@
 
 
     const tableColumns = [
-        // {type: 'image', name: 'image', label: 'Bild', valuePath: 'image', sortable: false, width: 50, resizeable: false, hideable: true},
         {type: 'text', name: 'name', label: 'Name', valuePath: 'name', sortable: true, width: 300, resizeable: true, hideable: true},
-        {type: 'text', name: 'username', label: 'Nutzername', valuePath: 'username', sortable: true, width: 150, resizeable: true, hideable: true, transform: (value) => value || '---'},
-        {type: 'text', name: 'email', label: 'Email', valuePath: 'email', sortable: true, width: 250, resizeable: true, hideable: true},
+        {type: 'text', name: 'username', label: 'Nutzername', valuePath: 'username', sortable: true, width: 150, resizeable: true, hideable: true, transform: (value) => value || '-'},
+        {type: 'text', name: 'email', label: 'Email', valuePath: 'email', sortable: true, width: 250, resizeable: true, hideable: true, transform: (value) => value || '-' },
         {type: 'text', name: 'roles', label: 'Rollen', valuePath: 'roles', sortable: false, width: 200, resizeable: true, hideable: true, transform: (value) => {
-            return value.map(e => e.name).join(', ') || '---'
+            return value.map(e => e.name).join(', ') || '-'
         }},
         {type: 'text', name: 'profiles', label: 'Profile', valuePath: 'profiles', sortable: false, width: 100, resizeable: true, hideable: true, transform: (value) => {
             let profiles = []
             if (value.customer) profiles.push('Kunde')
             if (value.employee) profiles.push('Personal')
-            return profiles.join('; ') || '---'
+            return profiles.join('; ') || '-'
         }},
         {type: 'date', name: 'created_at', label: 'Registriert am', valuePath: 'created_at', sortable: true, width: 200, resizeable: true, hideable: true},
         {type: 'date', name: 'email_verified_at', label: 'Verifikation am', valuePath: 'email_verified_at', sortable: true, width: 200, resizeable: true, hideable: true},
@@ -162,8 +159,8 @@
             name: 'status',
             label: 'Status',
             values: [
-                {label: 'Aktiv', value: 'active'},
-                {label: 'Ausstehend', value: 'pending'},
+                {text: 'Aktiv', value: 'active'},
+                {text: 'Ausstehend', value: 'pending'},
             ],
         },
         {
@@ -172,16 +169,10 @@
             name: 'profiles',
             label: 'Profile',
             values: [
-                {label: 'Kunde', value: 'customer'},
-                {label: 'Personal', value: 'employee'},
+                {text: 'Kunde', value: 'customer'},
+                {text: 'Personal', value: 'employee'},
             ],
         },
-        {
-            type: 'date',
-            name: 'created_at',
-            label: 'Registriert',
-            values: [],
-        }
     ]
 
 
