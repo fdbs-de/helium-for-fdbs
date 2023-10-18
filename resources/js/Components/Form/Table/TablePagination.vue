@@ -1,23 +1,14 @@
 <template>
     <div class="table-pagination">
-        <template v-if="buttons.length">
-            <button class="page-button square" :disabled="page === 1" @click="$emit('update:modelValue', 1)">1</button>
-            
-            <div class="vertical-divider"></div>
-        </template>
+        <IodIconButton type="button" size="small" variant="text" icon="first_page" :disabled="page === 1" @click="$emit('update:modelValue', 1)" />
+        <IodIconButton type="button" size="small" variant="text" icon="chevron_left" :disabled="page === 1" @click="$emit('update:modelValue', page - 1)" />
         
-        <button class="page-button square" v-for="button in buttons" :class="{'active': button === page}" @click="$emit('update:modelValue', button)">
-            {{ button }}
-        </button>
-        <button class="page-button" disabled v-if="!buttons.length">
-            Keine Seiten
-        </button>
+        <div class="range">
+            <span><b>{{ startRange }} - {{ endRange }}</b> / {{ total }}</span>
+        </div>
         
-        <template v-if="buttons.length">
-            <div class="vertical-divider"></div>
-            
-            <button class="page-button square" :disabled="page === pages" @click="$emit('update:modelValue', pages)">{{pages}}</button>
-        </template>
+        <IodIconButton type="button" size="small" variant="text" icon="chevron_right" :disabled="page === pages" @click="$emit('update:modelValue', page + 1)" />
+        <IodIconButton type="button" size="small" variant="text" icon="last_page" :disabled="page === pages" @click="$emit('update:modelValue', pages)" />
     </div>
 </template>
 
@@ -52,93 +43,37 @@
         return Math.ceil(props.total / props.size)
     })
 
-    /**
-     * Return an array of page numbers to display
-     * amount = 5
-     * try to always return {amount} buttons if possible
-     * try to return the current page in the middle
-     */
-    const buttons = computed(() => {
-        let amount = 5
-        let buttons = []
+    const startRange = computed(() => {
+        return (page.value - 1) * props.size + 1
+    })
 
-        if (pages.value <= amount)
-        {
-            for (let i = 1; i <= pages.value; i++)
-            {
-                buttons.push(i)
-            }
-        }
-        else
-        {
-            let start = page.value - Math.floor(amount / 2)
-            let end = page.value + Math.floor(amount / 2)
-
-            if (start < 1)
-            {
-                start = 1
-                end = amount
-            }
-            else if (end > pages.value)
-            {
-                start = pages.value - amount + 1
-                end = pages.value
-            }
-
-            for (let i = start; i <= end; i++)
-            {
-                buttons.push(i)
-            }
-        }
-
-        return buttons
+    const endRange = computed(() => {
+        return Math.min(((page.value - 1) * props.size + props.size), props.total)
     })
 </script>
 
 <style lang="sass" scoped>
     .table-pagination
         display: inline-flex
-        align-items: stretch
+        align-items: center
         justify-content: center
+        gap: .25rem
+        padding: .25rem
+        height: 2.5rem
         border-radius: var(--radius-m)
         background: var(--color-background-soft)
         overflow: hidden
 
-        .vertical-divider
-            width: 0
-            border-left: 1px solid var(--color-border)
+        .iod-button
+            --local-color-background: var(--color-text) !important
 
-        .page-button
+        .range
             display: flex
             align-items: center
             justify-content: center
-            width: auto
-            height: 2.5rem
-            border: none
-            padding: 0 1rem
-            background: transparent
-            color: var(--color-text-soft)
-            font-family: inherit
-            font-size: inherit
-            cursor: pointer
-            user-select: none
+            min-width: 10rem
 
-            &.square
-                width: 2.5rem
-                padding-inline: 0
-
-            &:hover
+            b
+                font-weight: 500
                 color: var(--color-text)
-                background: #0000000f
-
-            &.active
-                color: var(--color-text)
-                background: #0000000f
-                font-weight: 600
-
-            &:disabled
-                background: transparent
-                color: var(--color-text-soft)
-                opacity: .6
-                cursor: default
 </style>

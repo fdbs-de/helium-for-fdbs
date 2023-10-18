@@ -1,54 +1,55 @@
 <template>
-    <div class="pi-table-wrapper">
+    <div class="iod-container iod-table">
         <div class="table-fixture-wrapper">
-            <mui-input
-                type="search"
-                class="table-search-input"
-                placeholder="Suchen"
-                :modelValue="getFilter.search"
-                @update:modelValue="setFilter({search: $event})"
-            >
-                <template #right>
-                    <!-- <VDropdown placement="bottom">
-                        <IconButton icon="filter_list" v-tooltip="'Filter'"/>
-                        <template #popper>
-                            <div class="flex vertical padding-1">
-                                <div class="row flex gap-0-5 v-center" v-for="row in filterSettings">
-                                    <mui-toggle type="switch"/>
-                                    <span class="flex-1">{{ row.label }}</span>
-                                    <div class="flex-3" v-if="row.type == 'select'">
-                                        <select :multiple="row.multiple">
-                                            <option v-for="option in row.values" :value="option.value">{{option.label}}</option>
-                                        </select>
-                                    </div>
-                                    <div class="flex-3" v-if="row.type == 'date'">
-                                        <input type="date"/>
-                                        <input type="date"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </template>
-                    </VDropdown> -->
-                    <IconButton icon="search" @click="$emit('request:refresh')" v-tooltip="'Suchen'"/>
-                </template>
-            </mui-input>
+            <div class="fixture-row">
 
-            <template v-if="selection.length">
-                <div class="flex v-center padding-inline-1 background-soft radius-m" style="height: 2.5rem">
-                    <span>
-                        <b>{{ selection.length }} {{ selection.length === 1 ? 'Element' : 'Elemente' }}</b> ausgewählt
-                    </span>
-                </div>
-                <div class="flex v-center">
-                    <IconButton icon="deselect" style="color: var(--color-text-soft)" v-tooltip="'Alles abwählen'" @click="deselectAll()"/>
-                    <IconButton v-for="action in multipleActions" :icon="action.icon" :style="'color: ' + action.color" v-tooltip="action.text" @click.stop="action.run(selection)"/>
-                </div>
-            </template>
-            
-            <div class="spacer"></div>
-            
-            <mui-button label="Neu" icon-left="add" @click="$emit('request:create')" v-show="showCreate"/>
+                <IodInput
+                    type="search"
+                    class="table-search-input"
+                    placeholder="Suchen"
+                    :modelValue="getFilter.search"
+                    @update:modelValue="setFilter({search: $event})"
+                >
+                    <template #right>
+                        <IodIconButton type="button" variant="text" size="small" icon="search" @click="$emit('request:refresh')" v-tooltip="'Suchen'"/>
+                    </template>
+                </IodInput>
+    
+                <template v-if="selection.length">
+                    <div class="flex v-center padding-inline-1 background-soft radius-m" style="height: 2.5rem">
+                        <span>
+                            <b>{{ selection.length }} {{ selection.length === 1 ? 'Element' : 'Elemente' }}</b> ausgewählt
+                        </span>
+                    </div>
+                    <div class="flex v-center">
+                        <IconButton icon="deselect" style="color: var(--color-text-soft)" v-tooltip="'Alles abwählen'" @click="deselectAll()"/>
+                        <IconButton v-for="action in multipleActions" :icon="action.icon" :style="'color: ' + action.color" v-tooltip="action.text" @click.stop="action.run(selection)"/>
+                    </div>
+                </template>
+                
+                <div class="spacer"></div>
+                
+                <IodButton type="button" label="Neu" icon-left="add" @click="$emit('request:create')" v-show="showCreate"/>
+            </div>
+
+            <!-- <div class="fixture-row">
+                <VDropdown placement="bottom">
+                    <IodIconButton type="button" variant="text" icon="filter_list" v-tooltip="'Filter'"/>
+                    <template #popper>
+                        <div class="flex vertical padding-1">
+                            <div class="row flex gap-0-5 v-center" v-for="row in filterSettings">
+                                <template v-if="row.type == 'select'">
+                                    <IodSelect class="w-20" :label="row.label" :multiple="row.multiple" :options="row.values"/>
+                                </template>
+                            </div>
+                        </div>
+                    </template>
+                </VDropdown>
+            </div> -->
+
+            <Loader class="loader" v-show="loading" />
         </div>
+
 
 
 
@@ -61,7 +62,6 @@
                 <div class="table-row">
                     <div class="table-column centered w-3">
                         <IodToggle
-                            class="table-checkbox"
                             :modelValue="items.length && items.every(item => selection.includes(item.id))"
                             @update:modelValue="$event ? selectAll() : deselectAll()"
                             v-tooltip="'Alle auswählen'"
@@ -84,7 +84,7 @@
             <div class="table-body">
                 <div class="table-row" v-for="item in items" @click="rowClick(item)">
                     <div class="table-column centered w-3">
-                        <IodToggle class="table-checkbox" :modelValue="getSelection.includes(item.id)" @click.stop @update:modelValue="setSelection(item, $event)"/>
+                        <IodToggle :modelValue="getSelection.includes(item.id)" @click.stop @update:modelValue="setSelection(item, $event)"/>
                     </div>
                     <div class="table-column" v-for="column in columns.filter(e => e.show)" :style="`width: ${column.width}px;`">
                         <TableColumn :type="column.type" :value="getValue(item, column)" />
@@ -105,23 +105,22 @@
             
             <div class="spacer"></div>
 
-            <div class="flex gap-0-5 v-center background-soft radius-m">
-                <select class="table-page-size-select" :value="getPagination.size" @change="setPagination({size: parseInt($event.target.value)})" v-tooltip="'Einträge pro Seite'">
-                    <option :value="10">10</option>
-                    <option :value="20">20</option>
-                    <option :value="50">50</option>
-                    <option :value="100">100</option>
-                    <option :value="250">250</option>
-                    <option :value="1000000">Alle</option>
-                </select>
+            <div class="size-fixture">
+                <IodSelect class="table-page-size-select" v-tooltip="'Einträge pro Seite'" :modelValue="getPagination.size" @update:modelValue="setPagination({ size: parseInt($event) })" :options="[
+                    { value: 10, text: '10 pro Seite' },
+                    { value: 20, text: '20 pro Seite' },
+                    { value: 50, text: '50 pro Seite' },
+                    { value: 100, text: '100 pro Seite' },
+                    { value: 250, text: '250 pro Seite' },
+                    { value: 1000000, text: 'Alle' },
+                ]"/>
 
                 <VDropdown placement="top-end">
-                    <IconButton icon="grid_view" v-tooltip="'Ansicht anpassen'"/>
+                    <IodIconButton type="button" size="small" variant="text" icon="grid_view" v-tooltip="'Ansicht anpassen'"/>
                     <template #popper>
                         <div class="flex vertical padding-1">
-                            <mui-toggle
+                            <IodToggle
                                 type="switch"
-                                style="--mui-background: var(--color-background)"
                                 v-for="column in columns.filter(e => e.hideable)"
                                 :label="column.label"
                                 v-model="column.show" />
@@ -134,12 +133,13 @@
 </template>
 
 <script setup>
-    import { ref, computed, watch, defineEmits } from 'vue'
+    import { ref, computed, watch } from 'vue'
     import LocalSetting from '@/Classes/Managers/LocalSetting'
 
     import TableColumn from '@/Components/Form/Table/TableColumn.vue'
     import TablePagination from '@/Components/Form/Table/TablePagination.vue'
     import IconButton from '@/Components/Apps/Pages/IconButton.vue'
+    import Loader from '@/Components/Form/Loader.vue'
 
 
 
@@ -154,6 +154,10 @@
         selection: Array,
         scope: String,
         showCreate: {
+            type: Boolean,
+            default: false,
+        },
+        loading: {
             type: Boolean,
             default: false,
         },
@@ -376,23 +380,38 @@
 </script>
 
 <style lang="sass" scoped>
-    .pi-table-wrapper
+    .iod-container.iod-table
         background: var(--color-background)
         box-shadow: var(--shadow-elevation-low)
         border-radius: var(--radius-m)
         display: grid
         grid-template-rows: auto auto
 
-        .table-checkbox
-            --mui-background: var(--color-background)
-
         .table-fixture-wrapper
-            padding: 1rem
+            position: relative
+            padding-block: 1rem
             display: flex
-            align-items: center
-            flex-wrap: wrap
+            flex-direction: column
             gap: 1rem
             border-bottom: 1px solid var(--color-border)
+
+            .fixture-row
+                padding-inline: 1rem
+                display: flex
+                align-items: center
+                flex-wrap: wrap
+                gap: 1rem
+                position: relative
+
+            .loader
+                position: absolute
+                height: 2px
+                left: 0
+                right: 0
+                bottom: 0
+
+            .iod-button
+                --local-color-background: var(--color-text) !important
 
             .table-search-input
                 height: 2.5rem
@@ -590,7 +609,20 @@
             .spacer
                 flex: 1
 
-            .table-page-size-select
+            .size-fixture
+                display: flex
+                align-items: center
+                gap: .25rem
+                padding: .25rem
                 height: 2.5rem
                 border-radius: var(--radius-m)
+                background: var(--color-background-soft)
+
+                .table-page-size-select
+                    height: 2.5rem
+                    width: 10rem
+                    border-radius: var(--radius-m)
+
+                .iod-button
+                    --local-color-background: var(--color-text) !important
 </style>

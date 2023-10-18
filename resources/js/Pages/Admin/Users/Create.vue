@@ -5,7 +5,7 @@
         </template>
 
         <template #header-right>
-            <IodButton label="Speichern" variant="filled" size="small" :loading="form.processing" @click="saveItem()"/>
+            <IodButton label="Speichern" variant="filled" size="small" :loading="form.processing" @click="saveItem()" v-tooltip.bottom="'(STRG+S zum Speichern)'"/>
         </template>
 
         <div class="card flex vertical gap-1 padding-block-2 margin-bottom-2">
@@ -15,15 +15,16 @@
                     
                     <fieldset class="flex vertical gap-1">
                         <legend>Allgemeines</legend>
-                        <mui-input type="text" v-model="form.username" label="Username"/>
-                        <mui-input type="email" v-model="form.email" label="Email"/>
-                        <mui-toggle class="checkbox" label="Email freigeschaltet" style="background: var(--color-background-soft)" :modelValue="!!form.email_verified_at" @update:modelValue="form.email_verified_at = $event ? new Date() : null "/>
-                        <mui-toggle class="checkbox" style="background: var(--color-background-soft)" :modelValue="!!form.enabled_at" @update:modelValue="form.enabled_at = $event ? new Date() : null ">
-                            <template #label>
-                                <span>Nutzer freigeschaltet</span><br>
-                                <small class="text-green" v-if="domainMatch && !!user.email_verified_at">(Dieser Nutzer hat eine Domain-Email-Adresse)</small>
-                            </template>
-                        </mui-toggle>
+                        <IodInput type="text" v-model="form.username" label="Username"/>
+                        <IodInput type="email" v-model="form.email" label="Email" :helper="domainMatch && !!user.email_verified_at ? 'Dieser Nutzer hat eine Domain-Email-Adresse' : null"/>
+                        <IodInput type="password" label="Passwort setzen" autocomplete="new-password" no-border show-password-score :password-score-function="zxcvbn" v-model="form.password"/>
+                        
+                        <hr>
+
+                        <div class="flex v-center gap-1 wrap">
+                            <IodToggle class="flex-1 background-soft" label="Email verifiziert" :modelValue="!!form.email_verified_at" @update:modelValue="form.email_verified_at = $event ? new Date() : null "/>
+                            <IodToggle class="flex-1 background-soft" label="Freigegeben" :modelValue="!!form.enabled_at" @update:modelValue="form.enabled_at = $event ? new Date() : null "/>
+                        </div>
                         
                         <Alert type="warning" title="Email ist nicht verifiziert" v-if="!!form.enabled_at && !user.email_verified_at">
                             <p>
@@ -31,34 +32,37 @@
                                 Vorsicht bei der Freischaltung – es kann sich um einen <b>Bot oder Spam-Account</b> handeln!
                             </p>
                         </Alert>
-    
-                        <hr>
-                        
-                        <mui-input type="password" label="Passwort setzen" no-border show-password-score autocomplete="new-password" v-model="form.password"/>
                     </fieldset>
                     
+
+
                     <fieldset class="flex vertical gap-1">
                         <legend>
-                            <mui-toggle type="switch" label="Kundenprofil" border v-model="form.profiles.customer.has_customer_profile"/>
+                            <IodToggle type="switch" label="Kundenprofil" v-model="form.profiles.customer.has_customer_profile"/>
                         </legend>
+
                         <template v-if="form.profiles.customer.has_customer_profile">
-                            <mui-input v-model="form.profiles.customer.company" label="Firmenname" />
-                            <mui-input v-model="form.profiles.customer.customer_id" label="Kundennummer" />
+                            <IodInput v-model="form.profiles.customer.company" label="Firmenname" />
+                            <IodInput v-model="form.profiles.customer.customer_id" label="Kundennummer" />
                         </template>
+
                         <span class="flex v-center h-center h-4" v-else>
                             Kein Kundenprofil angelegt
                         </span>
                     </fieldset>
     
+
                     
                     <fieldset class="flex vertical gap-1">
                         <legend>
-                            <mui-toggle type="switch" label="Mitarbeiterprofil" border v-model="form.profiles.employee.has_employee_profile"/>
+                            <IodToggle type="switch" label="Mitarbeiterprofil" v-model="form.profiles.employee.has_employee_profile"/>
                         </legend>
+
                         <template v-if="form.profiles.employee.has_employee_profile">
-                            <mui-input v-model="form.profiles.employee.first_name" label="Vorname" />
-                            <mui-input v-model="form.profiles.employee.last_name" label="Nachname" />
+                            <IodInput v-model="form.profiles.employee.first_name" label="Vorname" />
+                            <IodInput v-model="form.profiles.employee.last_name" label="Nachname" />
                         </template>
+
                         <span class="flex v-center h-center h-4" v-else>
                             Kein Mitarbeiterprofil angelegt
                         </span>
@@ -66,12 +70,9 @@
     
                     <fieldset class="flex vertical gap-1">
                         <legend>Rollen</legend>
-                        <!-- <mui-input type="text" icon-left="search" label="Suchen" />
-                        <hr> -->
                         <div class="flex gap-1 wrap">
-                            <mui-toggle
+                            <IodToggle class="background-soft"
                                 v-for="role in roles"
-                                style="background: var(--color-background-soft)"
                                 :key="role.id"
                                 :label="role.name"
                                 :modelValue="form.roles.includes(role.id)"
@@ -82,8 +83,8 @@
     
                     <fieldset class="flex vertical gap-1">
                         <legend>Benachrichtigungen</legend>
-                        <mui-toggle class="checkbox" label="Allgemeiner Newsletter" style="background: var(--color-background-soft)" @v-model="form.newsletter.generic"/>
-                        <mui-toggle class="checkbox" label="Kunden Newsletter" style="background: var(--color-background-soft)" @v-model="form.newsletter.customer"/>
+                        <IodToggle class="background-soft" label="Allgemeiner Newsletter" v-model="form.newsletter.generic"/>
+                        <IodToggle class="background-soft" label="Kunden Newsletter" v-model="form.newsletter.customer"/>
                     </fieldset>
     
                     <fieldset class="flex vertical gap-1">
@@ -94,11 +95,6 @@
                             <i v-else>Nicht Angegeben</i>
                         </span>
                     </fieldset>
-    
-                    <div class="flex v-center gap-1">
-                        <div class="spacer"></div>
-                        
-                    </div>
                 </div>
             </form>
         </div>
@@ -128,9 +124,9 @@
 </template>
 
 <script setup>
-    import { useForm } from '@inertiajs/inertia-vue3'
+    import { useForm, usePage } from '@inertiajs/inertia-vue3'
     import hotkeys from 'hotkeys-js'
-    import { ref, computed, watch } from 'vue'
+    import { computed, watch } from 'vue'
     import zxcvbn from 'zxcvbn'
 
     import AdminLayout from '@/Layouts/Admin.vue'
@@ -140,8 +136,6 @@
 
 
     hotkeys('ctrl+s', (event, handler) => { event.preventDefault(); saveItem() })
-    
-    window.zxcvbn = zxcvbn
 
 
 
@@ -180,9 +174,11 @@
     })
 
     const domainMatch = computed(() => {
-        if (!props.settings['site.domain']) return false
+        let siteDomain = usePage()?.props?.value?.settings['site.domain'] || null
 
-        return props.user?.email?.endsWith('@' + props.settings['site.domain'])
+        if (!siteDomain) return false
+
+        return props.user?.email?.endsWith('@' + siteDomain)
     })
 
 
