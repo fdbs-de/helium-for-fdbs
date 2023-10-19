@@ -15,12 +15,11 @@ export default class ItemPageManager extends EventListener
         super()
 
         this.items = []
+        this.itemIds = []
         this.selection = []
         this.processing = false
         this.scope = options.scope ?? null
-        this.filter = {
-            search: LocalSetting.get(this.scope, 'filter.search', ''),
-        }
+        this.filter = LocalSetting.get(this.scope, 'filter', {})
         this.sort = {
             field: LocalSetting.get(this.scope, 'sort.field', null),
             order: LocalSetting.get(this.scope, 'sort.order', 'desc'),
@@ -64,14 +63,11 @@ export default class ItemPageManager extends EventListener
 
     set modelFilter(value)
     {
-        this.filter = {
-            ...this.filter,
-            ...value,
-        }
+        this.filter = value
 
         this.throttledFetch()
 
-        LocalSetting.set(this.scope, 'filter.search', this.filter.search)
+        LocalSetting.set(this.scope, 'filter', this.filter)
     }
 
 
@@ -131,6 +127,7 @@ export default class ItemPageManager extends EventListener
             if (!response?.data) throw new Error('No data returned')
 
             this.items = response?.data?.data ?? []
+            this.itemIds = response?.data?.item_ids ?? this.items.map(i => i?.id).filter(id => id || id === 0 || id === '0') ?? []
             this.pagination.total = response?.data?.total ?? 0
         }
         catch (error)

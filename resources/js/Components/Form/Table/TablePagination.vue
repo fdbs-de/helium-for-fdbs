@@ -63,6 +63,7 @@
         border-radius: var(--radius-m)
         background: var(--color-background-soft)
         overflow: hidden
+        user-select: none
 
         .iod-button
             --local-color-background: var(--color-text) !important

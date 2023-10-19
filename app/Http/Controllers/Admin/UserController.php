@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\DestroyUserRequest;
 use App\Http\Requests\Users\UpdateUserRequest;
+use App\Http\Resources\Role\RoleResource;
 use App\Http\Resources\User\PublicUserResource;
 use App\Http\Resources\User\UserResource;
 use App\Mail\ImportedUserCreated;
@@ -22,7 +23,9 @@ class UserController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Admin/Users/Index');
+        return Inertia::render('Admin/Users/Index', [
+            'roles' => RoleResource::collection(Role::get()),
+        ]);
     }
 
 
@@ -85,7 +88,7 @@ class UserController extends Controller
 
     public function search(Request $request)
     {
-        $query = User::with(['roles', 'settings']);
+        $query = User::query();
         
         // START: Search
         if ($request->search)
@@ -101,12 +104,47 @@ class UserController extends Controller
 
 
 
+        // START: Filter
+        if ($request->profiles)
+        {
+            $profiles = array_map( function ($profile) { return 'profile.' . $profile; }, $request->profiles);
+
+            $query->whereHas('settings', function ($query) use ($profiles) {
+                $query->whereIn('key', $profiles);
+            });
+        }
+
+        if ($request->roles)
+        {
+            $query->whereHas('roles', function ($query) use ($request) {
+                $query->whereIn('name', $request->roles);
+            });
+        }
+
+        if ($request->newsletter)
+        {
+            $newsletter = array_map( function ($newsletter) { return 'newsletter.subscribed.' . $newsletter; }, $request->newsletter);
+
+            $query->whereHas('settings', function ($query) use ($newsletter) {
+                $query->whereIn('key', $newsletter)->where('value', 'true');
+            });
+        }
+        // END: Filter
+
+
+
         // START: Sort
         $field = $request->sort['field'] ?? 'created_at';
         $order = $request->sort['order'] ?? 'desc';
         
         $query->orderBy($field, $order);
         // END: Sort
+
+
+
+        // START: Identifiers
+        $ids = $query->pluck('users.id')->toArray();
+        // END: Identifiers
 
 
 
@@ -125,6 +163,7 @@ class UserController extends Controller
 
         return response()->json([
             'data' => UserResource::collection($query->get()),
+            'item_ids' => $ids,
             'total' => $total,
         ]);
     }
@@ -134,7 +173,7 @@ class UserController extends Controller
     public function create(User $user)
     {
         return Inertia::render('Admin/Users/Create', [
-            'user' => $user->load(['roles', 'settings']),
+            'user' => UserResource::make($user),
             'roles' => Role::get(),
         ]);
     }
