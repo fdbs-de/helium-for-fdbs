@@ -10,22 +10,6 @@ class UserResource extends JsonResource
     {
         return $model->getAllPermissions()->pluck('name')->toArray();
     }
-
-
-
-    private function getProfiles($model)
-    {
-        $profiles = [];
-
-        // $model->profiles is a json object
-        // $model->profiles['profileName'] is either an object or null
-        foreach ($model->profiles as $profileName => $profile)
-        {
-            if ($profile) $profiles[] = $profileName;
-        }
-
-        return $profiles;
-    }
     
 
 
@@ -40,19 +24,20 @@ class UserResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'image' => $this->image,
             'name' => $this->name,
             'username' => $this->username,
             'email' => $this->email,
-            'email_verified_at' => $this->email_verified_at,
             'is_enabled' => $this->is_enabled,
-            'image' => $this->image,
             'roles' => $this->roles,
             'profiles' => $this->profiles,
             'permissions' => $this->getPermissions($this),
             'settings' => $this->settings,
             'settings_object' => $this->settings_object,
+            'email_verified_at' => $this->email_verified_at,
+            'enabled_at' => $this->enabled_at,
             'created_at' => $this->created_at,
-            // 'updated_at' => $this->updated_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }

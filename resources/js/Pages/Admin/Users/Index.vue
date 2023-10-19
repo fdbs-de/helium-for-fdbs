@@ -1,6 +1,7 @@
 <template>
     <AdminLayout :title="IPM.options.pageTitle">
         <Table
+            show-create
             :columns="tableColumns"
             :actions="tableActions"
             :filter-settings="tableFilters"
@@ -12,6 +13,7 @@
             v-model:sort="IPM.modelSort"
             v-model:pagination="IPM.modelPagination"
             @request:refresh="IPM.fetch()"
+            @request:create="IPM.open()"
         />
 
         <div class="flex v-center gap-1 wrap border-top padding-top-1 margin-top-2">
@@ -93,6 +95,15 @@
 
 
 
+    const props = defineProps({
+        roles: {
+            type: Array,
+            default: () => [],
+        },
+    })
+
+
+
     const IPM = ref(new ItemPageManager({
         pageTitle: 'Accounts verwalten',
         scope: 'admin.users.index',
@@ -155,22 +166,29 @@
     const tableFilters = [
         {
             type: 'select',
-            multiple: false,
-            name: 'status',
-            label: 'Status',
-            values: [
-                {text: 'Aktiv', value: 'active'},
-                {text: 'Ausstehend', value: 'pending'},
-            ],
-        },
-        {
-            type: 'select',
             multiple: true,
             name: 'profiles',
             label: 'Profile',
             values: [
                 {text: 'Kunde', value: 'customer'},
                 {text: 'Personal', value: 'employee'},
+            ],
+        },
+        {
+            type: 'select',
+            multiple: true,
+            name: 'roles',
+            label: 'Rollen',
+            values: props.roles.map(e => ({text: e.name, value: e.name})),
+        },
+        {
+            type: 'select',
+            multiple: true,
+            name: 'newsletter',
+            label: 'Newsletter',
+            values: [
+                {text: 'Allgemein', value: 'generic'},
+                {text: 'Kunden', value: 'customer'},
             ],
         },
     ]

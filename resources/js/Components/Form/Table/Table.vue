@@ -4,13 +4,27 @@
             <div class="fixture-row">
 
                 <IodInput
-                    type="search"
                     class="table-search-input"
                     placeholder="Suchen"
-                    :modelValue="getFilter.search"
-                    @update:modelValue="setFilter({search: $event})"
+                    v-model="filter.search"
                 >
                     <template #right>
+                        <VDropdown placement="bottom" v-if="filterSettings && filterSettings.length">
+                            <IodIconButton type="button" variant="text" size="small" icon="filter_list" v-tooltip="'Filter'"/>
+                            <template #popper>
+                                <div class="flex vertical gap-1 padding-1">
+                                    <div class="flex gap-0-5 vertical" v-for="row in filterSettings">
+                                        <span>{{ row.label }}</span>
+                                        <template v-if="row.type == 'select'">
+                                            <!-- <IodSelect class="w-20" :label="row.label" :multiple="row.multiple" :options="row.values" v-model="filter[row.name]"/> -->
+                                            <select class="w-20 h-6" :multiple="row.multiple" v-model="filter[row.name]">
+                                                <option v-for="option in row.values" :value="option.value">{{ option.text }}</option>
+                                            </select>
+                                        </template>
+                                    </div>
+                                </div>
+                            </template>
+                        </VDropdown>
                         <IodIconButton type="button" variant="text" size="small" icon="search" @click="$emit('request:refresh')" v-tooltip="'Suchen'"/>
                     </template>
                 </IodInput>
@@ -32,20 +46,12 @@
                 <IodButton type="button" label="Neu" icon-left="add" @click="$emit('request:create')" v-show="showCreate"/>
             </div>
 
-            <!-- <div class="fixture-row">
-                <VDropdown placement="bottom">
-                    <IodIconButton type="button" variant="text" icon="filter_list" v-tooltip="'Filter'"/>
-                    <template #popper>
-                        <div class="flex vertical padding-1">
-                            <div class="row flex gap-0-5 v-center" v-for="row in filterSettings">
-                                <template v-if="row.type == 'select'">
-                                    <IodSelect class="w-20" :label="row.label" :multiple="row.multiple" :options="row.values"/>
-                                </template>
-                            </div>
-                        </div>
-                    </template>
-                </VDropdown>
-            </div> -->
+            <div class="fixture-row">
+                <IodIcon icon="filter_list" style="color: var(--color-text-soft)" v-tooltip="'Aktive Filter'"/>
+                <IodButton class="filter-tag" size="small" shape="pill" variant="contained" :label='`Suche: "${filter.search}"`' v-show="filter.search" @click="filter.search = ''"/>
+                <IodButton class="filter-tag" size="small" shape="pill" variant="contained" :label="`${item.label}: ${item.value}`" @click="delete filter[item.key]" v-for="item in displayFilter"/>
+                <IodButton class="filter-tag" size="small" shape="pill" variant="contained" :label='`Seite: ${pagination.page}`' v-show="pagination.page > 1" @click="setPagination({ page: 0 })"/>
+            </div>
 
             <Loader class="loader" v-show="loading" />
         </div>
@@ -135,11 +141,13 @@
 <script setup>
     import { ref, computed, watch } from 'vue'
     import LocalSetting from '@/Classes/Managers/LocalSetting'
+    import { capitalizeWords } from '@/Utils/String'
 
     import TableColumn from '@/Components/Form/Table/TableColumn.vue'
     import TablePagination from '@/Components/Form/Table/TablePagination.vue'
     import IconButton from '@/Components/Apps/Pages/IconButton.vue'
     import Loader from '@/Components/Form/Loader.vue'
+    import Tag from '@/Components/Form/Tag.vue'
 
 
 
@@ -232,19 +240,58 @@
 
 
     // START: Filter
-    const getFilter = computed(() => {
-        return {
-            search: '',
-            ...props.filter
+    const filter = ref({...props.filter})
+
+    const displayFilter = computed(() => {
+        // Get the filter settings;
+        let filterSettings = props.filterSettings ?? {}
+
+        // Get the filter values
+        let filter_ = {...filter.value}
+
+        // Remove empty values
+        for (const key in filter_)
+        {
+            if (!filter_[key]) delete filter_[key]
         }
+
+        // Get the display filter
+        let displayFilter = []
+
+        // Loop through the filter
+        for (const key in filter_)
+        {
+            // Get the filter setting
+            let setting = filterSettings.find(setting => setting.name === key)
+
+            // If the setting is not found, skip it
+            if (!setting) continue
+
+            // Get the value
+            let value = filter_[key]
+
+            // If the value is an array, join it
+            if (Array.isArray(value)) value = value.join(', ')
+
+            // If the value is a boolean, convert it to a string
+            if (typeof value === 'boolean') value = value ? 'On' : 'Off'
+
+            // If the value is a string, capitalize it
+            if (typeof value === 'string') value = capitalizeWords(value)
+
+            // Add the filter to the display filter
+            displayFilter.push({
+                key,
+                label: setting.label,
+                value,
+            })
+        }
+
+        // Return the display filter
+        return displayFilter
     })
 
-    const setFilter = (value) => {
-        emits('update:filter', {
-            ...getFilter.value,
-            ...value,
-        })
-    }
+    watch(filter, () => { emits('update:filter', filter.value) }, { deep: true })
     // END: Filter
 
 
@@ -403,6 +450,12 @@
                 gap: 1rem
                 position: relative
 
+                .filter-tag
+                    height: 1.5rem !important
+                    text-transform: unset !important
+                    letter-spacing: unset !important
+                    --local-color-background: var(--color-text) !important
+
             .loader
                 position: absolute
                 height: 2px
@@ -410,15 +463,15 @@
                 right: 0
                 bottom: 0
 
-            .iod-button
-                --local-color-background: var(--color-text) !important
-
             .table-search-input
                 height: 2.5rem
                 width: 100%
                 max-width: 400px
                 min-width: 100px
                 border-radius: var(--radius-m)
+
+                .iod-button
+                    --local-color-background: var(--color-text) !important
 
             .spacer
                 flex: 1
