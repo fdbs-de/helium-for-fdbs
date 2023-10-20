@@ -19,8 +19,7 @@
         <div class="flex v-center gap-1 wrap border-top padding-top-1 margin-top-2">
             <div class="spacer"></div>
             <IodButton type="button" variant="text" size="small" label="Einladungen" @click="openInvitesPopup()"/>
-            <IodButton type="button" variant="text" size="small" label="Newsletter" @click="openNewsletterPopup()"/>
-            <IodButton type="button" variant="text" size="small" label="Einstellungen" @click="openSettingsPopup()"/>
+            <IodButton is="a" target="_blank" variant="text" size="small" label="Exportieren" :href="route('admin.users.export', {users: IPM.itemIds})"/>
         </div>
     </AdminLayout>
 
@@ -45,48 +44,11 @@
             </div>
         </div>
     </Popup>
-
-
-
-    <Popup title="Newsletter Emails" ref="newsletterPopup" position="right" style="--max-width: 400px;">
-        <div class="flex vertical gap-1 padding-1 h-100">
-            <select class="w-100" v-model="newsletterForm.newsletter" @change="getNewsletterData()">
-                <option value="generic">Allgemeiner Newsletter</option>
-                <option value="customer">Kunden Newsletter</option>
-            </select>
-
-            <div class="flex vertical background-soft padding-0-5 radius-m flex-1">
-                <div class="flex-1 flex vertical" style="overflow-y: auto;">
-                    <span v-for="user in newsletterForm.users">{{ user.email }};</span>
-                </div>
-                <mui-button type="button" :label="newsletterForm.users.length+' Emails kopieren'" size="small" @click="copyToClipboard(newsletterForm.users.map(e => e.email).join('; '))"/>
-            </div>
-        </div>
-    </Popup>
-        
-        
-        
-    <Popup title="Einstellungen" ref="settingsPopup">
-        <div class="flex vertical gap-1 padding-1">
-            <h5 class="margin-0">Globale Benutzer Verwaltung</h5>
-            
-            <fieldset class="flex vertical padding-inline-0">
-                <mui-toggle type="switch" v-model="settingsForm.fixProfiles" label="Profile migrieren" v-tooltip="'Diese Option migriert die alten Benutzerprofile zu den neuen user-settings'"/>
-                <mui-toggle type="switch" v-model="settingsForm.updateNames" label="Anzeigenamen aktualisieren" v-tooltip="'Diese Option synkronisiert die Anzeigenamen mit den Daten der Benutzerprofile'"/>
-            </fieldset>
-            
-            <div class="flex">
-                <div class="spacer"></div>
-                <mui-button type="button" label="Einstellungen speichern" @click="saveSettings()"/>
-            </div>
-        </div>
-    </Popup>
 </template>
 
 <script setup>
     import { useForm } from '@inertiajs/inertia-vue3'
     import { ref } from 'vue'
-    import dayjs from 'dayjs'
     import ItemPageManager from '@/Classes/Managers/ItemPageManager'
 
     import AdminLayout from '@/Layouts/Admin.vue'
@@ -195,38 +157,6 @@
 
 
 
-    // START: Newsletter
-    const newsletterPopup = ref(null)
-
-    const newsletterForm = useForm({
-        newsletter: 'generic',
-        users: [],
-    })
-
-    const openNewsletterPopup = () => {
-        getNewsletterData()
-        newsletterPopup.value.open()
-    }
-
-    const getNewsletterData = async () => {
-        try
-        {
-            let response = await axios.get(route('admin.newsletter.search'), {params: {newsletter: newsletterForm.newsletter}})
-            newsletterForm.users = response.data
-        }
-        catch (error)
-        {
-            console.log(error)
-        }
-    }
-
-    const copyToClipboard = (text) => {
-        navigator.clipboard.writeText(text)
-    }
-    // END: Newsletter
-
-
-
     // START: Invites
     const invitesPopup = ref(null)
 
@@ -257,25 +187,6 @@
         }
     }
     // END: Invites
-
-
-
-    // START: Global Settings
-    const settingsPopup = ref(null)
-
-    const settingsForm = useForm({
-        fixProfiles: false,
-        updateNames: false,
-    })
-
-    const openSettingsPopup = () => {
-        settingsPopup.value.open()
-    }
-
-    const saveSettings = () => {
-        settingsForm.patch(route('admin.users.settings'))
-    }
-    // END: Global Settings
 </script>
 
 <style lang="sass" scoped>
