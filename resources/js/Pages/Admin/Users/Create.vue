@@ -8,7 +8,7 @@
             <IodButton label="Speichern" variant="filled" size="small" :loading="form.processing" @click="saveItem()" v-tooltip.bottom="'(STRG+S zum Speichern)'"/>
         </template>
 
-        <div class="card flex vertical gap-1 padding-block-2 margin-bottom-2">
+        <div class="card flex vertical gap-1 padding-block-2">
             <form class="limiter text-limiter" @submit.prevent="saveItem()">
                 <div class="flex vertical gap-4">
                     <ValidationErrors />
@@ -87,38 +87,38 @@
                         <IodToggle class="background-soft" label="Kunden Newsletter" v-model="form.newsletter.customer"/>
                     </fieldset>
     
-                    <fieldset class="flex vertical gap-1">
+                    <fieldset class="flex vertical">
                         <legend>Info</legend>
-                        <span>
-                            Kennt uns durch:<br>
+                        <small>
+                            Kennt uns durch:
                             <b v-if="user.settings_object.referal">{{user.settings_object.referal.join(', ')}}</b>
-                            <i v-else>Nicht Angegeben</i>
-                        </span>
+                            <b v-else><i>Nicht Angegeben</i></b>
+                        </small>
+
+                        <template v-if="user.id">
+                            <small>
+                                UserID:
+                                <b>{{user.id}}</b>
+                            </small>
+    
+                            <small v-tooltip="$dayjs(user.created_at).format('DD.MM.YYYY - HH:mm')">
+                                Erstellt:
+                                <b>{{$dayjs(user.created_at).format('DD.MM.YYYY')}}</b>
+                            </small>
+    
+                            <small v-tooltip="$dayjs(user.email_verified_at).format('DD.MM.YYYY - HH:mm')" v-if="user.email_verified_at">
+                                Bestätigt:
+                                <b>{{$dayjs(user.email_verified_at).format('DD.MM.YYYY')}}</b>
+                            </small>
+    
+                            <small v-tooltip="$dayjs(user.enabled_at).format('DD.MM.YYYY - HH:mm')" v-if="user.enabled_at">
+                                Freigegeben:
+                                <b>{{$dayjs(user.enabled_at).format('DD.MM.YYYY')}}</b>
+                            </small>
+                        </template>
                     </fieldset>
                 </div>
             </form>
-        </div>
-        
-        <div class="flex v-center gap-1 border-top padding-top-1">
-            <small>
-                UserID
-                <b>{{user.id}}</b>
-            </small>
-
-            <small v-tooltip="$dayjs(user.created_at).format('DD.MM.YYYY - HH:mm')">
-                Erstellt
-                <b>{{$dayjs(user.created_at).format('DD.MM.YYYY')}}</b>
-            </small>
-
-            <small v-tooltip="$dayjs(user.email_verified_at).format('DD.MM.YYYY - HH:mm')" v-if="user.email_verified_at">
-                Bestätigt
-                <b>{{$dayjs(user.email_verified_at).format('DD.MM.YYYY')}}</b>
-            </small>
-
-            <small v-tooltip="$dayjs(user.enabled_at).format('DD.MM.YYYY - HH:mm')" v-if="user.enabled_at">
-                Freigegeben
-                <b>{{$dayjs(user.enabled_at).format('DD.MM.YYYY')}}</b>
-            </small>
         </div>
     </AdminLayout>
 </template>

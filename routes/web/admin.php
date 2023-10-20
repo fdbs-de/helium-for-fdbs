@@ -51,6 +51,10 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
         Route::get('/', [UserController::class, 'index'])
         ->middleware('can:system.view.users')
         ->name('admin.users');
+
+        Route::get('/export', [UserController::class, 'export'])
+        ->middleware('can:system.view.users')
+        ->name('admin.users.export');
         
         Route::get('/search', [UserController::class, 'search'])
         ->middleware('can:system.view.users')

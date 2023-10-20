@@ -41,7 +41,7 @@
                         Kippbratpfannen und weitere thermische Geräte,
                         Vakuumgeräte
                     </li>
-                    <li><b>Geäteprüfung nach DGUV V3</b></li>
+                    <li><b>Geräteprüfung nach DGUV V3</b></li>
                     <li>
                         <b>Schleifarbeiten:</b> Kuttermesser, Wolfscheiben,
                         Aufschnittmaschinenmesser, Hand-Messer, usw

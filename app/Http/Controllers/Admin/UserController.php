@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Users\CreateUserRequest;
 use App\Http\Requests\Users\DestroyUserRequest;
 use App\Http\Requests\Users\UpdateUserRequest;
 use App\Http\Resources\Role\RoleResource;
@@ -180,9 +181,59 @@ class UserController extends Controller
 
 
 
-    public function store(Request $request)
+    public function store(CreateUserRequest $request)
     {
-        return back();
+        // dd($request->all());
+
+        $user = User::create([
+            'email' => $request->email,
+            'username' => $request->username,
+            'email_verified_at' => $request->email_verified_at,
+            'enabled_at' => $request->enabled_at,
+            'password' => bcrypt($request->password),
+        ]);
+
+
+
+        // Set the user's roles
+        $user->roles()->sync($request->roles);
+
+        if ($request->profiles['customer']['has_customer_profile'])
+        {
+            $user->setSetting('profile.customer', [
+                'company' => $request->profiles['customer']['company'],
+                'customer_id' => $request->profiles['customer']['customer_id'],
+            ]);
+        }
+        else
+        {
+            $user->unsetSetting('profile.customer');
+        }
+
+
+
+        // Set the user's employee profile
+        if ($request->profiles['employee']['has_employee_profile'])
+        {
+            $user->setSetting('profile.employee', [
+                'first_name' => $request->profiles['employee']['first_name'],
+                'last_name' => $request->profiles['employee']['last_name'],
+            ]);
+        }
+        else
+        {
+            $user->unsetSetting('profile.employee');
+        }
+
+        // Update the user's name
+        $user->updateName();
+
+
+
+        $user->setSetting('newsletter.subscribed.generic', $request->newsletter['generic']);
+        $user->setSetting('newsletter.subscribed.customer', $request->newsletter['customer']);
+
+        return redirect()->route('admin.users.editor', $user->id);
     }
 
 
@@ -259,88 +310,45 @@ class UserController extends Controller
 
 
 
-    public function importUsers(Request $request)
+    public function export(Request $request)
     {
-        $request->validate([
-            'users' => 'required|array',
-            'users.*.email' => 'required|email',
-            'users.*.name' => 'required|string|max:255',
-            'users.*.cb_kundennummer' => 'present|nullable|string|max:255',
-            'users.*.approved' => 'required|in:1',
-        ]);
+        $users = User::whereIn('id', $request->users);
 
-        
-        foreach ($request->input('users') as $user)
+        $csv = "\xEF\xBB\xBF";
+
+        // Add header
+        $csv .= 'ID;Name;Username;Email;Email verified;Enabled;Roles;Profiles;Newsletter;Invites;Created at;Updated at' . PHP_EOL;
+
+        foreach ($users->get() as $user)
         {
-            $newPassword = Str::random(10);
+            $profiles = [];
+            if ($user->getSetting('profile.customer')) $profiles[] = 'Customer';
+            if ($user->getSetting('profile.employee')) $profiles[] = 'Employee';
 
-            if (User::firstWhere('email', $user['email'])) continue;
-            
-            $model = User::create([
-                'email' => $user['email'],
-                'name' => $user['name'],
-                'password' => bcrypt($newPassword),
-            ]);
+            $newsletter = [];
+            if ($user->getSetting('newsletter.subscribed.generic')) $newsletter[] = 'Generic';
+            if ($user->getSetting('newsletter.subscribed.customer')) $newsletter[] = 'Customer';
 
-            $model->enabled_at = now();
-            $model->email_verified_at = now();
-            $model->save();
+            $invites = [];
+            if ($user->getSetting('invite.employee.sommerfest')) $invites[] = 'Sommerfest: '. $user->getSetting('invite.employee.sommerfest');
 
-            $customerProfile = $model->fresh()->customerProfile()->create([
-                'company' => $user['name'],
-                'customer_id' => $user['cb_kundennummer'],
-            ]);
-
-            $customerProfile->enabled_at = now();
-            $customerProfile->save();
-
-            Mail::to($user['email'])->send(new ImportedUserCreated($user['email'], $newPassword));
+            $csv .= $user->id . ';';
+            $csv .= $user->name . ';';
+            $csv .= $user->username . ';';
+            $csv .= $user->email . ';';
+            $csv .= $user->email_verified_at ? 'Yes;' : 'No;';
+            $csv .= $user->enabled_at ? 'Yes;' : 'No;';
+            $csv .= $user->roles->pluck('name')->join(', ') . ';';
+            $csv .= implode(', ', $profiles) . ';';
+            $csv .= implode(', ', $newsletter) . ';';
+            $csv .= implode(', ', $invites) . ';';
+            $csv .= $user->created_at->format('m.d.Y H:i') . ';';
+            $csv .= $user->updated_at->format('m.d.Y H:i');
+            $csv .= PHP_EOL;
         }
 
-        return back()->with('success', 'Users imported successfully');
-    }
-
-
-
-    public function updateSettings(Request $request)
-    {
-        $users = User::all();
-
-        foreach ($users as $user)
-        {
-            /**
-             * Fix user profiles
-             * This fix migrates the old user profiles to the new user settings
-             */
-            if ($request->fixProfiles === true)
-            {
-                if ($user->customerProfile)
-                {
-                    $user->setSetting('profile.customer', [
-                        'company' => $user->customerProfile->company,
-                        'customer_id' => $user->customerProfile->customer_id,
-                    ]);
-                }
-                
-                if ($user->employeeProfile)
-                {
-                    $user->setSetting('profile.employee', [
-                        'first_name' => $user->employeeProfile->first_name,
-                        'last_name' => $user->employeeProfile->last_name,
-                    ]);
-                }
-            }
-
-            /**
-             * Update pre-calculated user name
-             * This fix sets the 'name' column to the most appropriate value
-             */
-            if ($request->updateNames === true)
-            {
-                $user->updateName();
-            }
-        }
-
-        return back();
+        return response($csv)
+            ->header('Content-Type', 'text/csv')
+            ->header('Content-Disposition', 'attachment; filename="users.csv"');
     }
 }
