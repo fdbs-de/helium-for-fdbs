@@ -114,6 +114,16 @@
             run: (items) => IPM.value.open(items[0]),
         },
         {
+            icon: 'content_copy',
+            text: 'Duplizieren',
+            color: 'var(--color-text)',
+            individual: true,
+            multiple: false,
+            triggerOnRowClick: false,
+            isAvailable: () => true,
+            run: (items) => IPM.value.duplicate(items[0]),
+        },
+        {
             icon: 'delete',
             text: 'Löschen',
             color: 'var(--color-error)',

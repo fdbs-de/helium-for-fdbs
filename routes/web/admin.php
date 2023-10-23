@@ -67,6 +67,10 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'can:system.access.admin
         Route::post('/', [UserController::class, 'store'])
         ->middleware('can:system.create.users')
         ->name('admin.users.store');
+
+        Route::post('/{user}', [UserController::class, 'duplicate'])
+        ->middleware('can:system.create.users')
+        ->name('admin.users.duplicate');
         
         Route::put('/{user}', [UserController::class, 'update'])
         ->middleware('can:system.edit.users')

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\CreateUserRequest;
 use App\Http\Requests\Users\DestroyUserRequest;
+use App\Http\Requests\Users\DuplicateUserRequest;
 use App\Http\Requests\Users\UpdateUserRequest;
 use App\Http\Resources\Role\RoleResource;
 use App\Http\Resources\User\PublicUserResource;
@@ -234,6 +235,15 @@ class UserController extends Controller
         $user->setSetting('newsletter.subscribed.customer', $request->newsletter['customer']);
 
         return redirect()->route('admin.users.editor', $user->id);
+    }
+
+
+
+    public function duplicate(DuplicateUserRequest $request, User $user)
+    {
+        $user->duplicate();
+
+        return back();
     }
 
 
