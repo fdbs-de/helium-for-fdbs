@@ -217,4 +217,30 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->name = $this->display_name;
         $this->save();
     }
+
+
+
+    public function duplicate()
+    {
+        $user = $this->replicate()->fill([
+            'email' => null,
+            'username' => null,
+            'email_verified_at' => null,
+            'enabled_at' => null,
+        ]);
+
+        $user->push();
+        
+        $settings = $this->settings;
+
+        foreach ($settings as $setting)
+        {
+            $user->settings()->create([
+                'key' => $setting->key,
+                'value' => $setting->value,
+            ]);
+        }
+
+        return $user;
+    }
 }
