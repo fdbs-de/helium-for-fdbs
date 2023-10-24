@@ -58,7 +58,7 @@
                     Teilen Sie uns Ihre Meinung in einer kurzen Umfrage mit und helfen Sie uns aktiv, uns zu verbessern. <b>Wir freuen uns über Ihr Feedback!</b>
                 </p>
                 <div class="flex h-center v-center margin-top-2">
-                    <mui-button as="a" target="_blank" href="/umfragen/mkbs-kundenzufriedenheit" size="large" label="Zur Kundenunfrage"/>
+                    <mui-button as="a" target="_blank" href="/umfragen/mkbs-kundenzufriedenheit" size="large" label="Zur Kundenumfrage"/>
                 </div>
             </div>
         </section>
