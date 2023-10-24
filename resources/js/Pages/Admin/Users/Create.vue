@@ -7,14 +7,31 @@
         <template #header-right>
             <IodButton label="Speichern" variant="filled" size="small" :loading="form.processing" @click="saveItem()" v-tooltip.bottom="'(STRG+S zum Speichern)'"/>
         </template>
+        
 
-        <div class="card flex vertical gap-1 padding-block-2">
-            <form class="limiter text-limiter" @submit.prevent="saveItem()">
-                <div class="flex vertical gap-4">
+
+        <form class="card flex vertical" @submit.prevent="saveItem()">
+            <div class="flex vertical">
+                <img class="w-100 h-20 object-fit-cover radius-top-m" src="/images/app/defaults/user_banner.png">
+                <div class="flex border-bottom padding-block-1">
+                    <div class="limiter text-limiter">
+                        <Tabs v-model="tab" indicator-style="box" :tabs="[
+                            { label: 'Allgemeines', value: 'general' },
+                            { label: 'Berechtigungen', value: 'permissions' },
+                            { label: 'Profile', value: 'profiles' },
+                            { label: 'Info', value: 'info' },
+                        ]" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="limiter text-limiter">
+                <div class="flex vertical gap-4 padding-block-2">
                     <ValidationErrors />
-                    
-                    <fieldset class="flex vertical gap-1">
-                        <legend>Allgemeines</legend>
+
+
+
+                    <div class="flex vertical gap-1" v-show="tab == 'general'">
                         <IodInput type="text" v-model="form.username" label="Username"/>
                         <IodInput type="email" v-model="form.email" label="Email" :helper="domainMatch && !!user.email_verified_at ? 'Dieser Nutzer hat eine Domain-Email-Adresse' : null"/>
                         <IodInput type="password" label="Passwort setzen" autocomplete="new-password" no-border show-password-score :password-score-function="zxcvbn" v-model="form.password"/>
@@ -32,44 +49,16 @@
                                 Vorsicht bei der Freischaltung – es kann sich um einen <b>Bot oder Spam-Account</b> handeln!
                             </p>
                         </Alert>
-                    </fieldset>
-                    
+
+                        <hr>
+
+                        <IodToggle class="background-soft" label="Allgemeiner Newsletter" v-model="form.newsletter.generic"/>
+                        <IodToggle class="background-soft" label="Kunden Newsletter" v-model="form.newsletter.customer"/>
+                    </div>
 
 
-                    <fieldset class="flex vertical gap-1">
-                        <legend>
-                            <IodToggle type="switch" label="Kundenprofil" v-model="form.profiles.customer.has_customer_profile"/>
-                        </legend>
 
-                        <template v-if="form.profiles.customer.has_customer_profile">
-                            <IodInput v-model="form.profiles.customer.company" label="Firmenname" />
-                            <IodInput v-model="form.profiles.customer.customer_id" label="Kundennummer" />
-                        </template>
-
-                        <span class="flex v-center h-center h-4" v-else>
-                            Kein Kundenprofil angelegt
-                        </span>
-                    </fieldset>
-    
-
-                    
-                    <fieldset class="flex vertical gap-1">
-                        <legend>
-                            <IodToggle type="switch" label="Mitarbeiterprofil" v-model="form.profiles.employee.has_employee_profile"/>
-                        </legend>
-
-                        <template v-if="form.profiles.employee.has_employee_profile">
-                            <IodInput v-model="form.profiles.employee.first_name" label="Vorname" />
-                            <IodInput v-model="form.profiles.employee.last_name" label="Nachname" />
-                        </template>
-
-                        <span class="flex v-center h-center h-4" v-else>
-                            Kein Mitarbeiterprofil angelegt
-                        </span>
-                    </fieldset>
-    
-                    <fieldset class="flex vertical gap-1">
-                        <legend>Rollen</legend>
+                    <div class="flex vertical gap-1" v-show="tab == 'permissions'">
                         <div class="flex gap-1 wrap">
                             <IodToggle class="background-soft"
                                 v-for="role in roles"
@@ -79,59 +68,75 @@
                                 @update:modelValue="toggleRole(role.id)"
                             />
                         </div>
-                    </fieldset>
+                    </div>
+                    
+
+
+                    <div class="flex vertical gap-1" v-show="tab == 'profiles'">
+                        <IodToggle type="switch" label="Kundenprofil" v-model="form.profiles.customer.has_customer_profile"/>
+                        
+                        <template v-if="form.profiles.customer.has_customer_profile">
+                            <IodInput v-model="form.profiles.customer.company" label="Firmenname" />
+                            <IodInput v-model="form.profiles.customer.customer_id" label="Kundennummer" />
+                        </template>
+
+                        <hr>
+                        
+                        <IodToggle type="switch" label="Mitarbeiterprofil" v-model="form.profiles.employee.has_employee_profile"/>
     
-                    <fieldset class="flex vertical gap-1">
-                        <legend>Benachrichtigungen</legend>
-                        <IodToggle class="background-soft" label="Allgemeiner Newsletter" v-model="form.newsletter.generic"/>
-                        <IodToggle class="background-soft" label="Kunden Newsletter" v-model="form.newsletter.customer"/>
-                    </fieldset>
+                        <template v-if="form.profiles.employee.has_employee_profile">
+                            <IodInput v-model="form.profiles.employee.first_name" label="Vorname" />
+                            <IodInput v-model="form.profiles.employee.last_name" label="Nachname" />
+                        </template>
+                    </div>
+
+
     
-                    <fieldset class="flex vertical">
-                        <legend>Info</legend>
-                        <small>
+                    <div class="flex vertical" v-show="tab == 'info'">
+                        <span>
                             Kennt uns durch:
                             <b v-if="user.settings_object.referal">{{user.settings_object.referal.join(', ')}}</b>
                             <b v-else><i>Nicht Angegeben</i></b>
-                        </small>
+                        </span>
 
                         <template v-if="user.id">
-                            <small>
+                            <span>
                                 UserID:
                                 <b>{{user.id}}</b>
-                            </small>
+                            </span>
     
-                            <small v-tooltip="$dayjs(user.created_at).format('DD.MM.YYYY - HH:mm')">
+                            <span>
                                 Erstellt:
-                                <b>{{$dayjs(user.created_at).format('DD.MM.YYYY')}}</b>
-                            </small>
+                                <b v-tooltip="$dayjs(user.created_at).format('DD.MM.YYYY - HH:mm')">{{$dayjs(user.created_at).format('DD.MM.YYYY')}}</b>
+                            </span>
     
-                            <small v-tooltip="$dayjs(user.email_verified_at).format('DD.MM.YYYY - HH:mm')" v-if="user.email_verified_at">
+                            <span v-if="user.email_verified_at">
                                 Bestätigt:
-                                <b>{{$dayjs(user.email_verified_at).format('DD.MM.YYYY')}}</b>
-                            </small>
+                                <b v-tooltip="$dayjs(user.email_verified_at).format('DD.MM.YYYY - HH:mm')">{{$dayjs(user.email_verified_at).format('DD.MM.YYYY')}}</b>
+                            </span>
     
-                            <small v-tooltip="$dayjs(user.enabled_at).format('DD.MM.YYYY - HH:mm')" v-if="user.enabled_at">
+                            <span v-if="user.enabled_at">
                                 Freigegeben:
-                                <b>{{$dayjs(user.enabled_at).format('DD.MM.YYYY')}}</b>
-                            </small>
+                                <b v-tooltip="$dayjs(user.enabled_at).format('DD.MM.YYYY - HH:mm')">{{$dayjs(user.enabled_at).format('DD.MM.YYYY')}}</b>
+                            </span>
                         </template>
-                    </fieldset>
+                    </div>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </AdminLayout>
 </template>
 
 <script setup>
     import { useForm, usePage } from '@inertiajs/inertia-vue3'
     import hotkeys from 'hotkeys-js'
-    import { computed, watch } from 'vue'
+    import { ref, computed, watch } from 'vue'
     import zxcvbn from 'zxcvbn'
 
-    import AdminLayout from '@/Layouts/Admin.vue'
-    import Alert from '@/Components/Alert.vue'
     import ValidationErrors from '@/Components/ValidationErrors.vue'
+    import AdminLayout from '@/Layouts/Admin.vue'
+    import Tabs from '@/Components/Form/Tabs.vue'
+    import Alert from '@/Components/Alert.vue'
 
 
 
@@ -146,6 +151,8 @@
     })
 
 
+
+    const tab = ref('general')
 
     const form = useForm({
         id: null,
@@ -252,111 +259,4 @@
         background: var(--color-background)
         box-shadow: var(--shadow-elevation-low)
         border-radius: var(--radius-m)
-
-    .user-popup
-        .popup-row
-            display: flex
-            align-items: center
-            width: 100%
-            gap: 1rem
-
-            &.fixed-height
-                min-height: 5rem
-
-            .spacer
-                flex: 1
-
-            i
-                opacity: .7
-
-        .button-group
-            display: flex
-            flex-direction: column
-            gap: 2px
-
-            > button
-                width: 100%
-                border-radius: .2rem
-
-                &:first-child
-                    border-top-left-radius: .5rem
-                    border-top-right-radius: .5rem
-
-                &:last-child
-                    border-bottom-left-radius: .5rem
-                    border-bottom-right-radius: .5rem
-
-        .popup-block
-            display: flex
-            flex-direction: column
-            padding: 1rem
-            border-radius: .2rem
-            background: var(--color-background)
-            margin-bottom: 3px
-
-            &.popup-error
-                padding: 1rem
-                background: var(--color-red)
-                color: var(--color-background)
-                border-radius: .5rem
-                margin-bottom: 1rem
-
-                h3,
-                p
-                    color: inherit
-                    margin: 0
-
-            &.popup-head
-                padding: 1rem
-                background: var(--color-primary)
-                border-radius: .5rem .5rem .2rem .2rem
-                color: var(--color-background)
-
-                --primary: var(--color-background)
-                --primary-contrast: var(--color-primary)
-
-                h3,
-                p
-                    width: 100%
-                    overflow: hidden
-                    text-overflow: ellipsis
-                    white-space: nowrap
-                    margin: 0
-                    color: inherit
-
-                p
-                    opacity: .8
-
-            &.popup-tags
-                background: var(--color-background-soft)
-
-                .tag
-                    padding: 0 1rem
-                    border-radius: 30px
-                    height: 30px
-                    background: var(--color-background)
-                    box-shadow: var(--shadow-elevation-low)
-
-                    &.clickable
-                        cursor: pointer
-
-                    &::after
-                        opacity: 0
-
-                    &.clickable:hover::after
-                        opacity: .1
-
-                    &.active
-                        background: var(--color-primary)
-                        color: var(--color-background)
-
-            &.popup-footer
-                padding: .75rem 1rem
-                background: var(--color-background)
-                border-radius: .2rem .2rem .5rem .5rem
-                margin-bottom: 0
-
-                p
-                    margin: 0
-                    font-size: .8rem
 </style>
