@@ -54,6 +54,30 @@
 
                         <IodToggle class="background-soft" label="Allgemeiner Newsletter" v-model="form.newsletter.generic"/>
                         <IodToggle class="background-soft" label="Kunden Newsletter" v-model="form.newsletter.customer"/>
+
+                        <hr>
+
+                        <IodButton type="button" label="Neue Adresse" variant="contained" @click="addAddress()"/>
+                        <fieldset class="flex vertical gap-1" v-for="address, i in form.addresses">
+                            <legend v-if="address.full_address">{{ address.full_address }}</legend>
+                            <div class="flex v-center gap-1">
+                                <IodSelect class="flex-1" v-model="address.type" label="Adress-Typ" :options="[
+                                    {value: 'default', text: 'Standard'},
+                                    {value: 'home', text: 'Privat'},
+                                    {value: 'work', text: 'Arbeit'},
+                                    {value: 'billing', text: 'Rechnungsadresse'},
+                                    {value: 'shipping', text: 'Lieferadresse'},
+                                    {value: 'other', text: 'Andere'},
+                                ]"/>
+                                <IodInput class="flex-3" v-model="address.address_line_1" label="Straße" />
+                            </div>
+                            <div class="flex v-center gap-1">
+                                <IodInput class="flex-1" v-model="address.postal_code" label="Postleitzahl" />
+                                <IodInput class="flex-3" v-model="address.city" label="Stadt" />
+                            </div>
+                            <IodInput v-model="address.country" label="Land" />
+                            <IodButton type="button" label="Adresse entfernen" size="small" variant="contained" color-preset="error" @click="removeAddress(i)"/>
+                        </fieldset>
                     </div>
 
 
@@ -93,33 +117,46 @@
 
     
                     <div class="flex vertical" v-show="tab == 'info'">
-                        <span>
-                            Kennt uns durch:
-                            <b v-if="user.settings_object.referal">{{user.settings_object.referal.join(', ')}}</b>
-                            <b v-else><i>Nicht Angegeben</i></b>
-                        </span>
-
                         <template v-if="user.id">
-                            <span>
-                                UserID:
-                                <b>{{user.id}}</b>
+                            <span class="flex v-center">
+                                <span class="flex-1">User ID:</span>
+                                <b class="flex-2">{{user.id}}</b>
                             </span>
     
-                            <span>
-                                Erstellt:
-                                <b v-tooltip="$dayjs(user.created_at).format('DD.MM.YYYY - HH:mm')">{{$dayjs(user.created_at).format('DD.MM.YYYY')}}</b>
+                            <span class="flex v-center">
+                                <span class="flex-1">Erstellt:</span>
+                                <b class="flex-2" v-tooltip="$dayjs(user.created_at).format('DD.MM.YYYY - HH:mm')">{{$dayjs(user.created_at).format('DD.MM.YYYY')}}</b>
                             </span>
     
-                            <span v-if="user.email_verified_at">
-                                Bestätigt:
-                                <b v-tooltip="$dayjs(user.email_verified_at).format('DD.MM.YYYY - HH:mm')">{{$dayjs(user.email_verified_at).format('DD.MM.YYYY')}}</b>
+                            <span class="flex v-center" v-if="user.email_verified_at">
+                                <span class="flex-1">Bestätigt:</span>
+                                <b class="flex-2" v-tooltip="$dayjs(user.email_verified_at).format('DD.MM.YYYY - HH:mm')">{{$dayjs(user.email_verified_at).format('DD.MM.YYYY')}}</b>
                             </span>
     
-                            <span v-if="user.enabled_at">
-                                Freigegeben:
-                                <b v-tooltip="$dayjs(user.enabled_at).format('DD.MM.YYYY - HH:mm')">{{$dayjs(user.enabled_at).format('DD.MM.YYYY')}}</b>
+                            <span class="flex v-center" v-if="user.enabled_at">
+                                <span class="flex-1">Freigegeben:</span>
+                                <b class="flex-2" v-tooltip="$dayjs(user.enabled_at).format('DD.MM.YYYY - HH:mm')">{{$dayjs(user.enabled_at).format('DD.MM.YYYY')}}</b>
                             </span>
+
+                            <hr>
+
+                            <span class="flex v-center">
+                                <span class="flex-1">Posts:</span>
+                                <b class="flex-2">{{ user.resources.post_count ?? 0 }}</b>
+                            </span>
+
+                            <span class="flex v-center">
+                                <span class="flex-1">Kategorien:</span>
+                                <b class="flex-2">{{ user.resources.post_category_count ?? 0 }}</b>
+                            </span>
+                            <hr>
                         </template>
+
+                        <span class="flex v-center">
+                            <span class="flex-1">Kennt uns durch:</span>
+                            <b class="flex-2" v-if="user.settings_object.referal">{{user.settings_object.referal.join(', ')}}</b>
+                            <b class="flex-2" v-else><i>Nicht Angegeben</i></b>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -160,6 +197,7 @@
         username: '',
         password: '',
         enabled_at: null,
+        terminated_at: null,
         email_verified_at: null,
         profiles: {
             customer: {
@@ -173,6 +211,8 @@
                 last_name: '',
             },
         },
+        addresses: [],
+        removed_addresses: [],
         roles: [],
         newsletter: {
             generic: false,
@@ -196,6 +236,7 @@
         form.username = props.user.username || ''
         form.password = ''
         form.enabled_at = props.user.enabled_at
+        form.terminated_at = props.user.terminated_at
         form.email_verified_at = props.user.email_verified_at
 
         form.profiles.customer.has_customer_profile = !!props.user.profiles.customer
@@ -205,6 +246,8 @@
         form.profiles.employee.has_employee_profile = !!props.user.profiles.employee
         form.profiles.employee.first_name = props.user.profiles?.employee?.first_name || ''
         form.profiles.employee.last_name = props.user.profiles?.employee?.last_name || ''
+
+        form.addresses = props.user.addresses || []
 
         form.roles = props.user.roles?.map(e => e.id)
 
@@ -218,6 +261,7 @@
 
 
 
+    // START: Roles
     const toggleRole = (role) => {
         if (form.roles.includes(role))
         {
@@ -228,9 +272,38 @@
             form.roles.push(role)
         }
     }
+    // END: Roles
 
 
 
+    // START: Addresses
+    const addAddress = () => {
+        form.addresses.unshift({
+            id: null,
+            type: 'default',
+            address_line_1: '',
+            address_line_2: '',
+            postal_code: '',
+            city: '',
+            state: '',
+            country: '',
+            notes: '',
+        })
+    }
+
+    const removeAddress = (index) => {
+        if (form.addresses[index].id)
+        {
+            form.removed_addresses.push(form.addresses[index].id)
+        }
+
+        form.addresses.splice(index, 1)
+    }
+    // END: Addresses
+
+
+
+    // START: Save Item
     const saveItem = () => {
         form.id ? updateItem() : storeItem()
     }
@@ -252,6 +325,7 @@
             },
         })
     }
+    // END: Save Item
 </script>
 
 <style lang="sass" scoped>

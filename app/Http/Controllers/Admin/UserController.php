@@ -263,6 +263,29 @@ class UserController extends Controller
 
 
 
+        // Remove the user's addresses
+        $user->addresses()->whereIn('id', $request->removed_addresses)->delete();
+
+        // Set the user's addresses
+        foreach ($request->addresses as $address)
+        {
+            $user->addresses()->updateOrCreate([
+                'id' => $address['id'] ?? null,
+            ], [
+                'type' => $address['type'],
+                'address_line_1' => $address['address_line_1'],
+                'address_line_2' => $address['address_line_2'],
+                'city' => $address['city'],
+                'state' => $address['state'],
+                'postal_code' => $address['postal_code'],
+                'country' => $address['country'],
+                'notes' => $address['notes'],
+            ]);
+        }
+
+
+
+
         // Set the user's roles
         $user->roles()->sync($request->roles);
 
