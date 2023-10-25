@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources\User;
 
+use App\Http\Resources\Address\AddressResource;
+use App\Http\Resources\Role\RoleResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -29,13 +31,24 @@ class UserResource extends JsonResource
             'username' => $this->username,
             'email' => $this->email,
             'is_enabled' => $this->is_enabled,
-            'roles' => $this->roles,
+
             'profiles' => $this->profiles,
+            'addresses' => AddressResource::collection($this->addresses),
+
+            'roles' => RoleResource::collection($this->roles),
             'permissions' => $this->getPermissions($this),
+
+            'resources' => [
+                'post_count' => $this->posts()->count(),
+                'post_category_count' => $this->post_categories()->count(),
+            ],
+            
             'settings' => $this->settings,
             'settings_object' => $this->settings_object,
+
             'email_verified_at' => $this->email_verified_at,
             'enabled_at' => $this->enabled_at,
+            'terminated_at' => $this->terminated_at,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

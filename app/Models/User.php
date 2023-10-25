@@ -10,6 +10,7 @@ use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Role;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -22,6 +23,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'email_verified_at',
         'enabled_at',
+        'terminated_at',
     ];
 
     protected $appends = [
@@ -39,21 +41,41 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
         'enabled_at' => 'datetime',
+        'terminated_at' => 'datetime',
     ];
 
 
 
+    // START: Relationships
+    public function addresses(): MorphMany
+    {
+        return $this->morphMany(Address::class, 'addressable');
+    }
+
+    public function posts()
+    {
+        return $this->belongsToMany(Post::class, 'post_user')->withPivot('role');
+    }
+
+    public function post_categories()
+    {
+        return $this->belongsToMany(PostCategory::class, 'post_category_user')->withPivot('role');
+    }
+    // END: Relationships
+
+
+
+    // START: Attributes
     public function getIsEnabledAttribute()
     {
         return $this->enabled_at !== null && $this->enabled_at < now();
     }
 
-
-
     public function getImageAttribute()
     {
         return $this->image ?? '/images/app/defaults/user.png';
     }
+    // END: Attributes
 
 
 
@@ -93,15 +115,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $settings;
     }
     // END: Settings
-
-
-
-    // START: Posts
-    public function posts()
-    {
-        return $this->belongsToMany(Post::class, 'post_user')->withPivot('role');
-    }
-    // END: Posts
 
 
 
