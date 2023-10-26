@@ -32,7 +32,9 @@
 
 
                     <div class="flex vertical gap-1" v-show="tab == 'general'">
+                        <IodInput type="text" v-model="form.name" label="Anzeigename" disabled/>
                         <IodInput type="text" v-model="form.username" label="Username"/>
+                        <IodInput type="text" v-model="form.custom_account_id" label="Kundennummer"/>
                         <IodInput type="email" v-model="form.email" label="Email" :helper="domainMatch && !!user.email_verified_at ? 'Dieser Nutzer hat eine Domain-Email-Adresse' : null"/>
                         <IodInput type="password" label="Passwort setzen" autocomplete="new-password" no-border show-password-score :password-score-function="zxcvbn" v-model="form.password"/>
                         
@@ -41,6 +43,7 @@
                         <div class="flex v-center gap-1 wrap">
                             <IodToggle class="flex-1 background-soft" label="Email verifiziert" :modelValue="!!form.email_verified_at" @update:modelValue="form.email_verified_at = $event ? new Date() : null "/>
                             <IodToggle class="flex-1 background-soft" label="Freigegeben" :modelValue="!!form.enabled_at" @update:modelValue="form.enabled_at = $event ? new Date() : null "/>
+                            <IodToggle class="flex-1 background-soft cb-error" label="Gesperrt" :modelValue="!!form.terminated_at" @update:modelValue="form.terminated_at = $event ? new Date() : null "/>
                         </div>
                         
                         <Alert type="warning" title="Email ist nicht verifiziert" v-if="!!form.enabled_at && !user.email_verified_at">
@@ -52,8 +55,19 @@
 
                         <hr>
 
-                        <IodToggle class="background-soft" label="Allgemeiner Newsletter" v-model="form.newsletter.generic"/>
-                        <IodToggle class="background-soft" label="Kunden Newsletter" v-model="form.newsletter.customer"/>
+                        <IodInput v-model="form.details.prefix" label="Titel" />
+                        <IodInput v-model="form.details.firstname" label="Vorname" />
+                        <IodInput v-model="form.details.middlename" label="Zweiter Vorname" />
+                        <IodInput v-model="form.details.lastname" label="Nachname" />
+                        <IodInput v-model="form.details.suffix" label="Suffix" />
+                        <IodInput v-model="form.details.nickname" label="Spitzname" />
+                        <IodInput v-model="form.details.legalname" label="Name für Rechtliches" />
+
+                        <hr>
+
+                        <IodInput v-model="form.details.company" label="Firma" />
+                        <IodInput v-model="form.details.department" label="Abteilung" />
+                        <IodInput v-model="form.details.title" label="Jobtitel" />
 
                         <hr>
 
@@ -78,6 +92,11 @@
                             <IodInput v-model="address.country" label="Land" />
                             <IodButton type="button" label="Adresse entfernen" size="small" variant="contained" color-preset="error" @click="removeAddress(i)"/>
                         </fieldset>
+
+                        <hr>
+
+                        <IodToggle class="background-soft" label="Allgemeiner Newsletter" v-model="form.newsletter.generic"/>
+                        <IodToggle class="background-soft" label="Kunden Newsletter" v-model="form.newsletter.customer"/>
                     </div>
 
 
@@ -193,12 +212,26 @@
 
     const form = useForm({
         id: null,
+        name: '',
         email: '',
         username: '',
+        custom_account_id: '',
         password: '',
+        email_verified_at: null,
         enabled_at: null,
         terminated_at: null,
-        email_verified_at: null,
+        details: {
+            prefix: '',
+            firstname: '',
+            middlename: '',
+            lastname: '',
+            suffix: '',
+            nickname: '',
+            legalname: '',
+            company: '',
+            department: '',
+            title: '',
+        },
         profiles: {
             customer: {
                 has_customer_profile: false,
@@ -232,8 +265,10 @@
 
     const openItem = () => {
         form.id = props.user.id
+        form.name = props.user.name || ''
         form.email = props.user.email || ''
         form.username = props.user.username || ''
+        form.custom_account_id = props.user.custom_account_id || ''
         form.password = ''
         form.enabled_at = props.user.enabled_at
         form.terminated_at = props.user.terminated_at
@@ -246,6 +281,17 @@
         form.profiles.employee.has_employee_profile = !!props.user.profiles.employee
         form.profiles.employee.first_name = props.user.profiles?.employee?.first_name || ''
         form.profiles.employee.last_name = props.user.profiles?.employee?.last_name || ''
+
+        form.details.prefix = props.user.details?.prefix || ''
+        form.details.firstname = props.user.details?.firstname || ''
+        form.details.middlename = props.user.details?.middlename || ''
+        form.details.lastname = props.user.details?.lastname || ''
+        form.details.suffix = props.user.details?.suffix || ''
+        form.details.nickname = props.user.details?.nickname || ''
+        form.details.legalname = props.user.details?.legalname || ''
+        form.details.company = props.user.details?.company || ''
+        form.details.department = props.user.details?.department || ''
+        form.details.title = props.user.details?.title || ''
 
         form.addresses = props.user.addresses || []
 
@@ -333,4 +379,10 @@
         background: var(--color-background)
         box-shadow: var(--shadow-elevation-low)
         border-radius: var(--radius-m)
+
+    .cb-error
+        color: var(--color-error)
+        background: #ff000020
+        --local-color-off: var(--color-error) !important
+        --local-color-on: var(--color-error) !important
 </style>

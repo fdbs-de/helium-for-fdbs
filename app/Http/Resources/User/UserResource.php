@@ -8,14 +8,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
 {
-    private function getPermissions($model)
-    {
-        return $model->getAllPermissions()->pluck('name')->toArray();
-    }
-    
-
-
-
     /**
      * Transform the resource into an array.
      *
@@ -26,17 +18,19 @@ class UserResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'image' => $this->image,
             'name' => $this->name,
             'username' => $this->username,
+            'custom_account_id' => $this->custom_account_id,
+            'image' => $this->image,
             'email' => $this->email,
             'is_enabled' => $this->is_enabled,
 
             'profiles' => $this->profiles,
+            'details' => $this->details,
             'addresses' => AddressResource::collection($this->addresses),
 
             'roles' => RoleResource::collection($this->roles),
-            'permissions' => $this->getPermissions($this),
+            'permissions' => $this->getAllPermissions()->pluck('name')->toArray(),
 
             'resources' => [
                 'post_count' => $this->posts()->count(),

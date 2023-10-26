@@ -174,19 +174,20 @@
 
     const menu = ref([
         [
-            {label: 'Dashboard', color: 'var(--color-background)', icon: 'speed', route: route('admin'), permission: [], activeWhen: ['admin', 'admin.profile'], submenu: [
+            { label: 'Dashboard', color: 'var(--color-background)', icon: 'speed', route: route('admin'), permission: [], activeWhen: ['admin', 'admin.profile'], submenu: [
                 { label: 'Übersicht', icon: '', route: route('admin'), permission: [], activeWhen: ['admin'] },
-                {label: 'Profil', icon: '', route: route('admin'), permission: [], activeWhen: ['admin.profile']},
+                { label: 'Profil', icon: '', route: route('admin'), permission: [], activeWhen: ['admin.profile'] },
             ]},
-            {label: 'Accounts', color: 'var(--color-background)', icon: 'person', route: route('admin.users'), permission: ['system.view.users'], activeWhen: ['admin.users', 'admin.users.editor', 'admin.roles'], submenu: [
+            { label: 'Accounts', color: 'var(--color-background)', icon: 'person', route: route('admin.users'), permission: ['system.view.users'], activeWhen: ['admin.users', 'admin.users.editor', 'admin.roles'], submenu: [
                 {label: 'Accounts', icon: '', route: route('admin.users'), permission: ['system.view.users'], activeWhen: ['admin.users', 'admin.users.editor']},
+                {label: 'Unternehmen', icon: '', route: route('admin.users'), permission: ['system.view.companies'], activeWhen: ['admin.companies', 'admin.companies.editor']},
                 {label: 'Berechtigungen', icon: '', route: route('admin.roles'), permission: ['system.view.roles'], activeWhen: ['admin.roles']},
             ]},
-            {label: 'Medien', color: 'var(--color-background)', icon: 'upload', route: route('admin.media', ['public']), permission: ['system.view.media'], activeWhen: ['admin.media', 'admin.docs'], submenu: [
+            { label: 'Medien', color: 'var(--color-background)', icon: 'upload', route: route('admin.media', ['public']), permission: ['system.view.media'], activeWhen: ['admin.media', 'admin.docs'], submenu: [
                 {label: 'Öffentliche Ablage', icon: 'home_storage', route: route('admin.media', ['public']), permission: ['system.view.media'], activeWhen: ['admin.media:driveAlias=public']},
                 {label: 'Private Ablage', icon: 'lock', route: route('admin.media', ['private']), permission: ['system.view.media'], activeWhen: ['admin.media:driveAlias=private']},
             ]},
-            {label: 'Einstellungen', color: 'var(--color-background)', icon: 'settings', route: route('admin.settings.index', 'general'), permission: ['system.view.settings'], activeWhen: ['admin.settings.index'], submenu: [
+            { label: 'Einstellungen', color: 'var(--color-background)', icon: 'settings', route: route('admin.settings.index', 'general'), permission: ['system.view.settings'], activeWhen: ['admin.settings.index'], submenu: [
                 {label: 'Allgemein', icon: 'settings', route: route('admin.settings.index', 'general'), permission: [], activeWhen: ['admin.settings.index:page=general']},
                 {label: 'Design', icon: 'design_services', route: route('admin.settings.index', 'design'), permission: [], activeWhen: ['admin.settings.index:page=design']},
                 {label: 'Medien', icon: 'upload', route: route('admin.settings.index', 'media'), permission: [], activeWhen: ['admin.settings.index:page=media']},
@@ -194,7 +195,7 @@
                 {label: 'Seite', icon: '', route: route('admin.settings.index', 'pages'), permission: [], activeWhen: ['admin.settings.index:page=pages']},
                 // {label: 'Apps', icon: 'apps', route: route('admin.settings.index', 'apps'), permission: [], activeWhen: ['admin.settings.index:page=apps']},
             ]},
-            {label: 'Messeanmeldungen', color: 'var(--color-background)', icon: 'mark_email_unread', route: route('admin.fairs'), permission: ['system.view.users'], activeWhen: ['admin.fairs'], submenu: [
+            { label: 'Messeanmeldungen', color: 'var(--color-background)', icon: 'mark_email_unread', route: route('admin.fairs'), permission: ['system.view.users'], activeWhen: ['admin.fairs'], submenu: [
                 {label: 'Exportieren', icon: '', route: route('admin.fairs'), permission: ['app.fairs.export'], activeWhen: ['admin.fairs']},
             ]},
         ],
