@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -60,16 +61,36 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        $user->details()->create([]);
+
 
 
         // Create the customer profile
         if ($request->is_customer)
         {
+            // Depriecated
             $user->setSetting('profile.customer', [
                 'company' => $request->customer['company'],
                 'customer_id' => $request->customer['customer_id'],
             ]);
 
+            // Update the user details
+            $user->details->update([
+                'company' => $request->customer['company'],
+            ]);
+
+            // Update the user
+            $user->update([
+                'custom_account_id' => $request->customer['customer_id'],
+            ]);
+
+            // Add customer role if it exists
+            if ($role = Role::where('name', 'Kunde')->first())
+            {
+                $user->roles()->attach($role->id);
+            }
+
+            // Update the user newsletter settings
             $user->setSetting('newsletter.subscribed.customer', $request->customer['newsletter']);
         }
 
@@ -78,10 +99,23 @@ class RegisteredUserController extends Controller
         // Create the employee profile
         if ($request->is_employee)
         {
+            // Depriecated
             $user->setSetting('profile.employee', [
                 'first_name' => $request->employee['first_name'],
                 'last_name' => $request->employee['last_name'],
             ]);
+
+            // Update the user details
+            $user->details->update([
+                'firstname' => $request->employee['first_name'],
+                'lastname' => $request->employee['last_name'],
+            ]);
+
+            // Add emplyee role if it exists
+            if ($role = Role::where('name', 'Personal')->first())
+            {
+                $user->roles()->attach($role->id);
+            }
         }
 
 

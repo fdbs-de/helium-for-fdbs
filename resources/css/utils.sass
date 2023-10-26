@@ -47,6 +47,15 @@
 
 @each $prop in ['padding', 'margin']
     @each $modifier in ['', '-inline', '-block', '-top', '-right', '-bottom', '-left']
+        .#{$prop}#{$modifier}-0-5
+            #{$prop}#{$modifier}: 0.5rem
+
+        .#{$prop}#{$modifier}-1-5
+            #{$prop}#{$modifier}: 1.5rem
+
+        .#{$prop}#{$modifier}-2-5
+            #{$prop}#{$modifier}: 2.5rem
+
         @for $i from 0 through 10
             .#{$prop}#{$modifier}-#{$i}
                 #{$prop}#{$modifier}: #{$i}rem
@@ -98,9 +107,6 @@
 
 .w-2-5
     width: 2.5rem
-
-.padding-0-5
-    padding: 0.5rem
 
 
 
@@ -221,3 +227,14 @@
 
 .object-fit-contain
     object-fit: contain
+
+
+
+.shadow-low
+    box-shadow: var(--shadow-elevation-low)
+
+.shadow-medium
+    box-shadow: var(--shadow-elevation-medium)
+
+.shadow-high
+    box-shadow: var(--shadow-elevation-high)

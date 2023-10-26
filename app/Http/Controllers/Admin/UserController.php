@@ -330,6 +330,72 @@ class UserController extends Controller
 
 
 
+        // Remove the user's emails
+        $user->emails()->whereIn('id', $request->removed_emails)->delete();
+
+        // Set the user's emails
+        foreach ($request->emails as $email)
+        {
+            $user->emails()->updateOrCreate([
+                'id' => $email['id'] ?? null,
+            ], [
+                'type' => $email['type'],
+                'email' => $email['email'],
+            ]);
+        }
+
+
+
+        // Remove the user's phone numbers
+        $user->phone_numbers()->whereIn('id', $request->removed_phone_numbers)->delete();
+
+        // Set the user's phone numbers
+        foreach ($request->phone_numbers as $phone_number)
+        {
+            $user->phone_numbers()->updateOrCreate([
+                'id' => $phone_number['id'] ?? null,
+            ], [
+                'type' => $phone_number['type'],
+                'number' => $phone_number['number'],
+            ]);
+        }
+
+
+
+        // Remove the user's significant dates
+        $user->significant_dates()->whereIn('id', $request->removed_significant_dates)->delete();
+
+        // Set the user's significant dates
+        foreach ($request->significant_dates as $significant_date)
+        {
+            $user->significant_dates()->updateOrCreate([
+                'id' => $significant_date['id'] ?? null,
+            ], [
+                'type' => $significant_date['type'],
+                'date' => $significant_date['date'],
+                'ignore_year' => $significant_date['ignore_year'],
+                'repeats_annually' => $significant_date['repeats_annually'],
+            ]);
+        }
+
+
+
+        // Remove the user's website links
+        $user->website_links()->whereIn('id', $request->removed_website_links)->delete();
+
+        // Set the user's website links
+        foreach ($request->website_links as $website_link)
+        {
+            $user->website_links()->updateOrCreate([
+                'id' => $website_link['id'] ?? null,
+            ], [
+                'name' => $website_link['name'],
+                'url' => $website_link['url'],
+            ]);
+        }
+
+
+
 
         // Set the user's roles
         $user->roles()->sync($request->roles);
