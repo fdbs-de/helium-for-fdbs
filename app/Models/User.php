@@ -20,6 +20,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'image',
         'name',
         'username',
+        'custom_account_id',
         'email',
         'password',
         'email_verified_at',
@@ -56,6 +57,26 @@ class User extends Authenticatable implements MustVerifyEmail
     public function addresses(): MorphMany
     {
         return $this->morphMany(Address::class, 'addressable');
+    }
+
+    public function emails(): MorphMany
+    {
+        return $this->morphMany(Email::class, 'emailable');
+    }
+
+    public function phone_numbers(): MorphMany
+    {
+        return $this->morphMany(PhoneNumber::class, 'phoneable');
+    }
+
+    public function significant_dates(): MorphMany
+    {
+        return $this->morphMany(SignificantDate::class, 'dateable');
+    }
+
+    public function website_links(): MorphMany
+    {
+        return $this->morphMany(WebsiteLink::class, 'linkable');
     }
 
     public function posts()
