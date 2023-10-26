@@ -20,6 +20,7 @@ use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\DB;
 use App\Models\Role;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -184,15 +185,45 @@ class UserController extends Controller
 
     public function store(CreateUserRequest $request)
     {
-        // dd($request->all());
+        // Create the user
+        $user = User::create($request->only([
+            'name',
+            'username',
+            'custom_account_id',
+            'email',
+            'email_verified_at',
+            'enabled_at',
+            'terminated_at',
+        ]));
 
-        $user = User::create([
-            'email' => $request->email,
-            'username' => $request->username,
-            'email_verified_at' => $request->email_verified_at,
-            'enabled_at' => $request->enabled_at,
-            'password' => bcrypt($request->password),
-        ]);
+        // Set the user's password
+        if ($request->password)
+        {
+            $user->password = Hash::make($request->password);
+            $user->save();
+        }
+
+
+
+        // Set the user details
+        $user->details()->create($request->details);
+
+
+
+        // Set the user's addresses
+        foreach ($request->addresses as $address)
+        {
+            $user->addresses()->create([
+                'type' => $address['type'],
+                'address_line_1' => $address['address_line_1'],
+                'address_line_2' => $address['address_line_2'],
+                'city' => $address['city'],
+                'state' => $address['state'],
+                'postal_code' => $address['postal_code'],
+                'country' => $address['country'],
+                'notes' => $address['notes'],
+            ]);
+        }
 
 
 
@@ -250,16 +281,30 @@ class UserController extends Controller
 
     public function update(UpdateUserRequest $request, User $user)
     {
-        $user->email = $request->email;
-        $user->username = $request->username;
-        $user->email_verified_at = $request->email_verified_at;
-        $user->enabled_at = $request->enabled_at;
+        // Update the user
+        $user->update($request->only([
+            'name',
+            'username',
+            'custom_account_id',
+            'email',
+            'email_verified_at',
+            'enabled_at',
+            'terminated_at',
+        ]));
 
-        // Reset the user's password
+        // Update the user's password
         if ($request->password)
         {
-            $user->password = bcrypt($request->password);
+            $user->password = Hash::make($request->password);
+            $user->save();
         }
+
+
+
+        // Update or create the user details
+        $user->details()->updateOrCreate([
+            'user_id' => $user->id,
+        ], $request->details);
 
 
 
@@ -317,9 +362,6 @@ class UserController extends Controller
         }
 
 
-
-        // Save the user to the database
-        $user->save();
 
         // Update the user's name
         $user->updateName();

@@ -9,16 +9,19 @@ class Permissions
      */
     public const SYSTEM_SUPER_ADMIN = 'system.super-admin';
 
+    // Access
     public const SYSTEM_ADMIN = 'system.admin';
     public const SYSTEM_ACCESS_ADMIN_PANEL = 'system.access.admin.panel';
     public const SYSTEM_ACCESS_ADMIN_STATS = 'system.access.admin.stats';
 
+    // Roles
     public const SYSTEM_VIEW_ROLES = 'system.view.roles';
     public const SYSTEM_ASSIGN_ROLES = 'system.assign.roles';
     public const SYSTEM_CREATE_ROLES = 'system.create.roles';
     public const SYSTEM_EDIT_ROLES = 'system.edit.roles';
     public const SYSTEM_DELETE_ROLES = 'system.delete.roles';
 
+    // Users
     public const SYSTEM_VIEW_USERS = 'system.view.users';
     public const SYSTEM_CREATE_USERS = 'system.create.users';
     public const SYSTEM_EDIT_USERS = 'system.edit.users';
@@ -26,11 +29,19 @@ class Permissions
     public const SYSTEM_ENABLE_USERS = 'system.enable.users';
     public const SYSTEM_DISABLE_USERS = 'system.disable.users';
 
+    // Companies
+    public const SYSTEM_VIEW_COMPANIES = 'system.view.companies';
+    public const SYSTEM_CREATE_COMPANIES = 'system.create.companies';
+    public const SYSTEM_EDIT_COMPANIES = 'system.edit.companies';
+    public const SYSTEM_DELETE_COMPANIES = 'system.delete.companies';
+
+    // Settings
     public const SYSTEM_VIEW_SETTINGS = 'system.view.settings';
     public const SYSTEM_EDIT_SETTINGS = 'system.edit.settings';
     public const SYSTEM_ENABLE_APPS = 'system.enable.apps';
     public const SYSTEM_DISABLE_APPS = 'system.disable.apps';
 
+    // Media
     public const SYSTEM_VIEW_MEDIA = 'system.view.media';
     public const SYSTEM_UPLOAD_MEDIA = 'system.upload.media';
     public const SYSTEM_EDIT_MEDIA = 'system.edit.media';
@@ -175,6 +186,12 @@ class Permissions
                     ['name' => self::SYSTEM_DELETE_USERS, 'label' => 'Benutzer löschen', 'description' => 'Der Benutzer kann andere Benutzer löschen.'],
                     ['name' => self::SYSTEM_ENABLE_USERS, 'label' => 'Benutzer aktivieren', 'description' => 'Der Benutzer kann andere Benutzer aktivieren.'],
                     ['name' => self::SYSTEM_DISABLE_USERS, 'label' => 'Benutzer deaktivieren', 'description' => 'Der Benutzer kann andere Benutzer deaktivieren.'],
+                ],
+                [
+                    ['name' => self::SYSTEM_VIEW_COMPANIES, 'label' => 'Firmen anzeigen', 'description' => 'Der Benutzer kann die Firmen ansehen.'],
+                    ['name' => self::SYSTEM_CREATE_COMPANIES, 'label' => 'Firmen erstellen', 'description' => 'Der Benutzer kann Firmen erstellen.'],
+                    ['name' => self::SYSTEM_EDIT_COMPANIES, 'label' => 'Firmen bearbeiten', 'description' => 'Der Benutzer kann Firmen bearbeiten.'],
+                    ['name' => self::SYSTEM_DELETE_COMPANIES, 'label' => 'Firmen löschen', 'description' => 'Der Benutzer kann Firmen löschen.'],
                 ],
                 [
                     ['name' => self::SYSTEM_VIEW_SETTINGS, 'label' => 'Einstellungen anzeigen', 'description' => 'Der Benutzer kann die Einstellungen ansehen.'],

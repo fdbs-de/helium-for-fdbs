@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources\User;
 
+use App\Http\Resources\Address\AddressResource;
+use App\Http\Resources\Role\RoleResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PrivateUserResource extends JsonResource
@@ -18,20 +20,33 @@ class PrivateUserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'username' => $this->username,
+            'custom_account_id' => $this->custom_account_id,
             'image' => $this->image,
             'email' => $this->email,
-            'email_verified_at' => $this->email_verified_at,
-            'enabled_at' => $this->enabled_at,
             'is_enabled' => $this->is_enabled,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+
             'access' => $this->access,
             'profiles' => $this->profiles,
-            'roles' => $this->roles,
+            'details' => $this->details,
+            'addresses' => AddressResource::collection($this->addresses),
+
+            'roles' => RoleResource::collection($this->roles),
             'permissions' => $this->permissions,
             'permission_list' => $this->getAllPermissions()->pluck('name')->toArray(),
+
+            'resources' => [
+                'post_count' => $this->posts()->count(),
+                'post_category_count' => $this->post_categories()->count(),
+            ],
+
             'settings' => $this->settings,
             'settings_object' => $this->settings_object,
+
+            'email_verified_at' => $this->email_verified_at,
+            'enabled_at' => $this->enabled_at,
+            'terminated_at' => $this->terminated_at,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }
