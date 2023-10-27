@@ -98,6 +98,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->enabled_at !== null && $this->enabled_at < now();
     }
 
+    public function getIsTerminatedAttribute()
+    {
+        return $this->terminated_at !== null && $this->terminated_at < now();
+    }
+
     public function getImageAttribute()
     {
         return $this->image ?? '/images/app/defaults/user.png';
