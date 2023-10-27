@@ -243,11 +243,17 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function getDisplayNameAttribute()
     {
-        $customerProfile = $this->getSetting('profile.customer');
-        if ($customerProfile) return $customerProfile['company'];
+        // If user has no details, return null
+        if (!$this->details) return null;
 
-        $employeeProfile = $this->getSetting('profile.employee');
-        if ($employeeProfile) return $employeeProfile['first_name'] . ' ' . $employeeProfile['last_name'];
+        // If user has a company name
+        if ($this->details->company) return $this->details->company;
+
+        // If user has a fullname or nickname
+        if ($this->details->fullname_or_nickname) return $this->details->fullname_or_nickname;
+
+        // If user has a username
+        if ($this->username) return $this->username;
 
         return null;
     }

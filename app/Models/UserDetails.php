@@ -33,7 +33,7 @@ class UserDetails extends Model
 
     public function getFullNameAttribute()
     {
-        return $this->prefix . ' ' . $this->firstname . ' ' . $this->middlename . ' ' . $this->lastname . ' ' . $this->suffix;
+        return implode(' ', array_filter([$this->prefix, $this->firstname, $this->middlename, $this->lastname, $this->suffix]));
     }
 
     public function getFullnameOrNicknameAttribute()

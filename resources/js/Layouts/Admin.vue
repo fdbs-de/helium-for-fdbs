@@ -314,7 +314,7 @@
             display: flex
             flex-direction: column
             background: var(--color-text)
-            box-shadow: var(--shadow-elevation-medium)
+            box-shadow: var(--shadow-elevation-low)
             color: white
 
             .top-bar
@@ -534,15 +534,16 @@
                     position: sticky
 
                 &.scrolled.sticky
-                    background: var(--color-background)
-                    box-shadow: var(--shadow-elevation-low)
-
                     .hero-card
+                        background: var(--color-background)
+                        box-shadow: var(--shadow-elevation-medium)
+                        border-radius: 0 0 var(--radius-l) var(--radius-l)
                         border: none
                 
                 .hero-card
                     text-align: center
                     min-height: 4rem
+                    padding-inline: 1rem
                     border-bottom: 1px solid var(--color-border)
                     display: grid
                     grid-template-columns: 1fr auto 1fr
