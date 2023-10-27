@@ -1,10 +1,9 @@
 <template>
-    <AdminLayout title="Admin-Übersicht">
+    <AdminLayout title="Admin-Übersicht" no-header>
         <div class="card welcome-card">
             <h2>{{ greeting }}</h2>
             <div class="bottom-bar">
                 <small><Link :href="route('dashboard.profile')">{{ user.name }}</Link></small>
-                <!-- <small>Sunrise 2023 Update</small> -->
                 <div class="spacer"></div>
                 <small>{{ day }} der {{ date }}</small>
                 <b>{{ time }}</b>
