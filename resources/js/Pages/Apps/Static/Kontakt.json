@@ -25,6 +25,14 @@
                 "overlay": "/images/content/mitarbeiter/robert_heiduk_zeichnung.png"
             },
             {
+                "name": "Annika Görmann",
+                "job": "Qualitätsmanagement",
+                "leader": false,
+                "tel": "72",
+                "image": "/images/content/mitarbeiter/annika_goermann.png",
+                "overlay": "/images/content/mitarbeiter/annika_goermann_zeichnung.png"
+            },
+            {
                 "name": "Annette Körner",
                 "job": "Personal & Lohn",
                 "leader": false,
@@ -258,14 +266,6 @@
                 "tel": "73",
                 "image": "/images/content/mitarbeiter/alyx_freuwoert.png",
                 "overlay": "/images/content/mitarbeiter/alyx_freuwoert_zeichnung.png"
-            },
-            {
-                "name": "Annika Görmann",
-                "job": "Social Media Marketing",
-                "leader": false,
-                "tel": "72",
-                "image": "/images/content/mitarbeiter/annika_goermann.png",
-                "overlay": "/images/content/mitarbeiter/annika_goermann_zeichnung.png"
             },
             {
                 "name": "Carolin Götzner",
