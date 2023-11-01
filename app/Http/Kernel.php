@@ -66,7 +66,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         
         'enabled' => \App\Http\Middleware\Enabled::class,
-        'panelaccess' => \App\Http\Middleware\PanelAccess::class,
+        'active' => \App\Http\Middleware\Active::class,
         'select.app' => \App\Http\Middleware\SelectApp::class,
 
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
