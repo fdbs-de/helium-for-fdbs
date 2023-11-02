@@ -17,22 +17,14 @@
 
 
 
+        <!-- START: Fonts -->
+        <!-- Powered by Bunny Fonts; the GDPR compliant font CDN -->
+        <link rel="preconnect" href="https://fonts.bunny.net">
+        <link href="https://fonts.bunny.net/css?family=inter:400,500,600|jetbrains-mono:400,700|material+symbols+rounded:opsz,wght,FILL,GRAD@24,300,0,0" rel="stylesheet" />
+        <!-- END: Fonts -->
+
+
         <!-- START: Ziggy -->
-        {{-- @php
-            $ziggyGroups = [];
-            $user = auth()->user();
-            
-            array_push($ziggyGroups, 'static');
-            array_push($ziggyGroups, Auth::check() ? 'authenticated' : 'guest');
-
-            if ($user)
-            {
-                if ($user->access['customer']) array_push($ziggyGroups, 'customer');
-                if ($user->access['employee']) array_push($ziggyGroups, 'employee');
-                if ($user->access['admin']) array_push($ziggyGroups, 'admin');
-            }
-        @endphp --}}
-
         @routes
         <!-- END: Ziggy -->
 

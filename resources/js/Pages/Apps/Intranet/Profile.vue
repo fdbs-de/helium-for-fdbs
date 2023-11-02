@@ -13,87 +13,67 @@
                     </div>
                 </div>
 
-                <StatefulAccordion title="Allgemeines" scope="auth.profile.general">
-                    <div class="card margin-bottom-4">
-                        <div class="field">
-                            <span>Anzeigename</span>
-                            <div><b>{{ user.name ?? '---' }}</b></div>
-                        </div>
-                
-                        <div class="field">
-                            <span>Email</span>
-                            <div class="flex-3 flex gap v-center">
-                                <b>{{user.email ?? '---'}}</b>
-                            </div>
-                        </div>
-        
-                        <div class="field">
-                            <span>Nutzername</span>
-                            <div><b>{{user.username ?? '---'}}</b></div>
-                        </div>
-                
-                        <div class="field">
-                            <span>Status</span>
-                            <div>
-                                <Tag v-if="user.enabled_at" color="green" shape="pill">Freigeschaltet</Tag>
-                                <Tag v-else color="var(--color-yellow)" shape="pill">Freischaltung ausstehend</Tag>
-                            </div>
-                        </div>
+                <div class="card margin-bottom-4">
+                    <div class="field">
+                        <span>Anzeigename</span>
+                        <div><b>{{ user.name ?? '---' }}</b></div>
+                    </div>
+            
+                    <div class="field">
+                        <span>Nutzername</span>
+                        <div><b>{{user.username ?? '---'}}</b></div>
+                    </div>
 
-                        <hr>
-        
-                        <div class="field">
-                            <span>Passwort</span>
-                            <div>
-                                <IodButton type="button" label="Passwort Ändern" size="small" variant="contained" @click="$refs.changePasswordPopup.open()"/>
-                            </div>
-                        </div>
-
-                        <hr>
-                
-                        <div class="field">
-                            <span>Ausloggen</span>
-                            <div>
-                                <IodButton is="a" label="Jetzt ausloggen" size="small" variant="contained" :href="route('logout')"/>
-                            </div>
+                    <div class="field">
+                        <span>Email</span>
+                        <div class="flex-3 flex gap v-center">
+                            <b>{{user.email ?? '---'}}</b>
                         </div>
                     </div>
-                </StatefulAccordion>
-
-                <StatefulAccordion title="Firmenprofil" scope="auth.profile.employee" v-if="user.profiles.employee">
-                    <div class="card margin-bottom-4">
-                        <div class="field">
-                            <span>Vorname</span>
-                            <div><b>{{user.profiles.employee.first_name || '---'}}</b></div>
-                        </div>
-                
-                        <div class="field">
-                            <span>Nachname</span>
-                            <div><b>{{user.profiles.employee.last_name || '---'}}</b></div>
+            
+                    <div class="field">
+                        <span>Status</span>
+                        <div>
+                            <Tag v-if="user.enabled_at" color="green" shape="pill">Freigeschaltet</Tag>
+                            <Tag v-else color="var(--color-yellow)" shape="pill">Freischaltung ausstehend</Tag>
                         </div>
                     </div>
-                </StatefulAccordion>
 
-                <StatefulAccordion title="Kundenprofil" scope="auth.profile.customer" v-if="user.profiles.customer">
-                    <div class="card">
-                        <div class="field">
-                            <span>Firma</span>
-                            <div><b>{{$page.props.auth.user.profiles.customer.company || '---'}}</b></div>
-                        </div>
-                
-                        <div class="field">
-                            <span>Kundennummer</span>
-                            <div><b>{{$page.props.auth.user.profiles.customer.customer_id || '---'}}</b></div>
-                        </div>
-                        
-                        <div class="field">
-                            <span>Kunden Newsletter</span>
-                            <div>
-                                <IodToggle type="switch" :modelValue="$page.props.auth.user.settings_object['newsletter.subscribed.customer']" @update:modelValue="setNewsletter('customer', $event)"/>
-                            </div>
+                    <hr>
+
+                    <div class="field" v-if="user.details && user.details.fullname">
+                        <span>Name</span>
+                        <div><b>{{ user.details.fullname }}</b></div>
+                    </div>
+                    
+                    <div class="field" v-if="user.custom_account_id">
+                        <span>Kundennummer</span>
+                        <div><b>{{ user.custom_account_id }}</b></div>
+                    </div>
+
+                    <div class="field" v-if="user.details && user.details.company">
+                        <span>Firma</span>
+                        <div><b>{{ user.details.company }}</b></div>
+                    </div>
+
+                    <hr>
+    
+                    <div class="field">
+                        <span>Passwort</span>
+                        <div>
+                            <IodButton type="button" label="Passwort Ändern" size="small" variant="contained" @click="$refs.changePasswordPopup.open()"/>
                         </div>
                     </div>
-                </StatefulAccordion>
+
+                    <hr>
+            
+                    <div class="field">
+                        <span>Ausloggen</span>
+                        <div>
+                            <IodButton is="a" label="Jetzt ausloggen" size="small" variant="contained" :href="route('logout')"/>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </AuthenticatedLayout>

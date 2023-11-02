@@ -24,6 +24,11 @@ class UserDetails extends Model
         'title',
     ];
 
+    protected $appends = [
+        'fullname',
+        'fullname_or_nickname',
+    ];
+
 
 
     public function user()
