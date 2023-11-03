@@ -173,7 +173,7 @@
             .card-footer
                 display: flex
                 align-items: center
-                padding: 1rem
+                padding: 1.5rem
 
 
 

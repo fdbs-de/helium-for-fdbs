@@ -276,8 +276,9 @@
 
     // START: Select
     const select = (file) => {
+        let url = encodeURI(file?.path?.url ?? '')
         picker.value.close()
-        successCallback.value(file?.path?.url ?? '')
+        successCallback.value(url)
         reset()
     }
     // END: Select
