@@ -120,10 +120,10 @@ Route::prefix('/umfragen')->group(function () {
     });
 });
 
-Route::prefix('/messeanmeldung')->group(function () {
-    Route::get('/', [FairController::class, 'show'])->name('fair');
-    Route::post('/', [FairController::class, 'store'])->name('fair.store');
-});
+// Route::prefix('/messeanmeldung')->group(function () {
+//     Route::get('/', [FairController::class, 'show'])->name('fair');
+//     Route::post('/', [FairController::class, 'store'])->name('fair.store');
+// });
 
 // Pages Wildcard
 Route::get('/pages/prefetch', [PageController::class, 'prefetch'])->name('app.pages.prefetch');
