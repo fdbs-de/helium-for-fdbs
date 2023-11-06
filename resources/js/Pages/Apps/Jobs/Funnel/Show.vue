@@ -4,7 +4,7 @@
             <title>{{funnel.title}} – FDBS Karriere</title>
         </Head>
 
-        <form class="form" @submit.prevent="submit" v-if="funnel.pages">
+        <form class="form" @submit.prevent="submit" v-if="funnel.pages" v-show="!submitted">
             <div class="form-step" v-for="(page, index) in funnel.pages" v-show="validation.showPages.includes(index)">
                 <template v-for="input in page.inputs">
                     <!-- Heading -->
@@ -51,12 +51,19 @@
 
             <small><span class="text-red">*</span> Diese Felder musst du verpflichtend ausfüllen</small>
         </form>
+
+        <Alert title="Bewerbung erfolgreich abgesendet!" type="success" v-show="submitted">
+            <span class="margin-bottom-1">
+                Wir haben deine Bewerbung erhalten und werden uns in Kürze bei dir melden.<br><br>
+                <IodButton is="a" href="/" icon-left="home" label="Zur Startseite" color-preset="success"/>
+            </span>
+        </Alert>
     </TextSubLayout>
 </template>
 
 <script setup>
     import { Head, Link, useForm } from '@inertiajs/inertia-vue3'
-    import { computed } from 'vue'
+    import { computed, ref } from 'vue'
 
     import TextSubLayout from '@/Layouts/SubLayouts/Text.vue'
     import Alert from '@/Components/Alert.vue'
@@ -85,6 +92,7 @@
     }
 
     const form = useForm(formBase())
+    const submitted = ref(false)
 
 
 
@@ -150,6 +158,7 @@
         form.post(route('karriere.funnel.store', props.funnel.slug), {
             onSuccess: () => {
                 form.reset()
+                submitted.value = true
                 sendClick(eventName, 'success')
             },
             onError: () => {

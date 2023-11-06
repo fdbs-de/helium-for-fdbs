@@ -73,8 +73,8 @@
             </div>
         </div>
 
-        <main class="content">
-            <section id="hero-section" :class="{'scrolled': isScrolled, 'sticky': sticky}" v-show="!noHeader">
+        <main class="content" :class="{ 'no-header': noHeader }">
+            <section id="hero-section" :class="{ 'scrolled': isScrolled, 'sticky': sticky }">
                 <div class="limiter">
                     <div class="hero-card">
                         <div class="sides start">
@@ -523,6 +523,13 @@
         .content
             flex: 1
             font-family: var(--font-interface)
+
+            &.no-header
+                #hero-section
+                    display: none
+
+                #content-section
+                    margin-top: 0
 
             #hero-section
                 user-select: none
