@@ -6,55 +6,101 @@
                 <small><Link :href="route('dashboard.profile')">{{ user.name }}</Link></small>
                 <div class="spacer"></div>
                 <small>{{ day }} der {{ date }}</small>
-                <b>{{ time }}</b>
             </div>
         </div>
+
         <div class="layout margin-bottom-4">
-            <div class="card main spec">
-                <div class="data-wrapper">
-                    <div class="data-section" style="color: #1028FF">
-                        <p>Accounts</p>
-                        <h2><AnimatedNumber :number="users.total"/></h2>
+            <div class="card spec span-4">
+                <div class="card-heading">
+                    <h2>Accounts</h2>
+                    <IodButton is="a" :href="route('admin.users')" size="small" label="Accounts" icon-right="east"/>
+                </div>
+                <div class="data-wrapper horizontal">
+                    <div class="number-stat" style="color: #1028FF">
+                        <div class="label">Gesamt</div>
+                        <h3 class="data"><AnimatedNumber :number="users.total"/></h3>
                     </div>
-                    <hr class="vertical">
-                    <div class="data-section" style="color: #0051FE">
-                        <p>Kunden</p>
-                        <h2><AnimatedNumber :number="users.customers"/></h2>
+                    <div class="number-stat" style="color: #0051FE">
+                        <div class="label" v-tooltip="'Diese Accounts haben ihre Email noch nicht bestätigt'">Unverifiziert</div>
+                        <h3 class="data"><AnimatedNumber :number="users.unverified"/></h3>
                     </div>
-                    <div class="data-section" style="color: #0066FE">
-                        <p>Personal</p>
-                        <h2><AnimatedNumber :number="users.employees"/></h2>
+                    <div class="number-stat" style="color: #0066FE">
+                        <div class="label" v-tooltip="'Diese Accounts sind noch nicht manuell freigegeben'">Verifiziert</div>
+                        <h3 class="data"><AnimatedNumber :number="users.verified"/></h3>
                     </div>
-                    <div class="data-section" style="color: #008FFC">
-                        <p>Ausstehend</p>
-                        <h2><AnimatedNumber :number="users.disabled"/></h2>
+                    <div class="number-stat" style="color: #008FFC">
+                        <div class="label" v-tooltip="'Diese Accounts sind gesperrt'">Gesperrt</div>
+                        <h3 class="data"><AnimatedNumber :number="users.terminated"/></h3>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <IodButton is="a" :href="route('admin.users')" size="small" label="Account Verwaltung" style="--local-color-background: #1028FF"/>
+            </div>
+        </div>
+        
+        <div class="layout margin-bottom-4">
+            <div class="card spec span-2">
+                <div class="card-heading">
+                    <h2>Rollen</h2>
+                    <IodButton is="a" :href="route('admin.roles')" size="small" label="Rollen" icon-right="east" style="--local-color-background: #a55eea"/>
+                </div>
+                <div class="data-wrapper">
+                    <div class="progress-stat" v-for="count, name in limitObjectKeys(roles.userCount)" :key="name">
+                        <span class="text-align-right">{{ name }}</span>
+                        <div class="data" v-tooltip="count + ' Verwendungen'">
+                            <AnimatedProgressBar class="flex-1" color="#a55eea" :number="count" :max="users.total"/>
+                        </div>
+                        <span class="text-align-left font-mono">{{ count }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card spec span-2">
+                <div class="card-heading">
+                    <h2>Medien</h2>
+                    <IodButton is="a" :href="route('admin.media', ['public'])" size="small" label="Medien" icon-right="east" style="--local-color-background: #7158e2"/>
+                </div>
+                <div class="data-wrapper horizontal">
+                    <div class="number-stat border-right" style="color: #7158e2">
+                        <div class="label">Dateien</div>
+                        <h3 class="data"><AnimatedNumber :number="media.total_files"/></h3>
+                    </div>
+                    <div class="number-stat" style="color: #7158e2">
+                        <div class="label">Ordner</div>
+                        <h3 class="data"><AnimatedNumber :number="media.total_folders"/></h3>
+                    </div>
+                </div>
+                <div class="data-wrapper">
+                    <div class="progress-stat">
+                        <span class="text-align-right">{{ formatBytes(media.storage.used, 0) }}</span>
+                        <div class="data">
+                            <AnimatedProgressBar class="flex-1" color="#7158e2" :number="media.storage.used" :max="media.storage.total"/>
+                        </div>
+                        <span class="text-align-left font-mono">{{ formatBytes(media.storage.total, 0) }}</span>
+                    </div>
                 </div>
             </div>
         </div>
         
         <div class="layout margin-bottom-2">
-            <div class="card main spec">
-                <div class="data-wrapper">
-                    <div class="data-section" style="color: #EA2027">
-                        <p>Posts</p>
-                        <h2><AnimatedNumber :number="posts.total"/></h2>
+            <div class="card spec span-4">
+                <div class="card-heading">
+                    <h2>Posts</h2>
+                </div>
+                <div class="data-wrapper horizontal">
+                    <div class="number-stat" style="color: #be2edd">
+                        <div class="label">Gesamt</div>
+                        <h3 class="data"><AnimatedNumber :number="posts.total"/></h3>
                     </div>
-                    <hr class="vertical">
-                    <div class="data-section" style="color: #EE5A24">
-                        <p>Blog</p>
-                        <h2><AnimatedNumber :number="posts.blog"/></h2>
+                    <div class="number-stat" style="color: #cd43ec">
+                        <div class="label">Blog</div>
+                        <h3 class="data"><AnimatedNumber :number="posts.blog"/></h3>
                     </div>
-                    <div class="data-section" style="color: #F79F1F">
-                        <p>Jobs</p>
-                        <h2><AnimatedNumber :number="posts.jobs"/></h2>
+                    <div class="number-stat" style="color: #d858f5">
+                        <div class="label">Jobs</div>
+                        <h3 class="data"><AnimatedNumber :number="posts.jobs"/></h3>
                     </div>
-                    <div class="data-section" style="color: #FFC312">
-                        <p>Wiki</p>
-                        <h2><AnimatedNumber :number="posts.wiki"/></h2>
+                    <div class="number-stat" style="color: #e271fc">
+                        <div class="label">Wiki</div>
+                        <h3 class="data"><AnimatedNumber :number="posts.wiki"/></h3>
                     </div>
                 </div>
             </div>
@@ -65,16 +111,20 @@
 <script setup>
     import { Head, usePage, Link } from '@inertiajs/inertia-vue3'
     import { ref, computed } from 'vue'
+    import { formatBytes } from '@/Utils/Number'
     import dayjs from 'dayjs'
 
     import AdminLayout from '@/Layouts/Admin.vue'
     import AnimatedNumber from '@/Components/AnimatedNumber.vue'
+    import AnimatedProgressBar from '@/Components/AnimatedProgressBar.vue'
 
 
 
     const props = defineProps({
         posts: Object,
         users: Object,
+        roles: Object,
+        media: Object,
     })
 
 
@@ -115,15 +165,31 @@
 
 
     const date = computed(() => dayjs().format('D. MMMM'))
-    const time = computed(() => dayjs().format('HH:mm'))
     const day = computed(() => dayjs().format('dddd'))
     const user = computed(() => usePage().props?.value?.auth?.user)
+
+
+
+    function limitObjectKeys(object, limit = 5)
+    {
+        const keys = Object.keys(object)
+
+        if (keys.length <= limit) return object
+
+        const limited = {}
+
+        for (let i = 0; i < limit; i++) {
+            limited[keys[i]] = object[keys[i]]
+        }
+
+        return limited
+    }
 </script>
 
 <style lang="sass" scoped>
     .layout
         display: grid
-        grid-template-columns: 1fr 1fr 1fr
+        grid-template-columns: 1fr 1fr 1fr 1fr
         gap: 2rem
 
     .card
@@ -131,25 +197,58 @@
         box-shadow: var(--shadow-elevation-low)
         border-radius: var(--radius-m)
 
-        &.main
+        &.span-4
+            grid-column: span 4
+
+        &.span-3
             grid-column: span 3
+
+        &.span-2
+            grid-column: span 2
+
+        &.span-1
+            grid-column: span 1
 
         &.spec
             display: flex
             flex-direction: column
             border-radius: var(--radius-l)
 
+            .card-heading
+                display: flex
+                align-items: center
+                padding: 1rem
+                border-bottom: 1px solid var(--color-border)
+
+                h2
+                    flex: 1
+                    font-size: 1.2rem
+                    margin: 0
+                    padding-left: .5rem
+                    font-weight: 600
+
             .data-wrapper
-                padding: 1.5rem
-                gap: 1.5rem
+                padding-block: 1rem
                 display: flex
                 align-items: stretch
                 border-bottom: 1px solid var(--color-border)
+                flex-direction: column
+
+                &.horizontal
+                    flex-direction: row
+                    gap: 1.5rem
 
                 &:last-child
                     border-bottom: none
 
-                .data-section
+                .progress-stat
+                    display: grid
+                    grid-template-columns: 1fr 2fr 1fr
+                    gap: 1.5rem
+                    align-items: center
+                    height: 2.5rem
+
+                .number-stat
                     flex: 1
                     display: flex
                     flex-direction: column
@@ -157,18 +256,18 @@
                     text-align: center
                     color: var(--color-primary)
 
-                p
-                    margin: 0
-                    font-size: 1.2rem
-                    font-family: var(--font-heading)
-                    color: var(--color-text)
+                    > .label
+                        padding-inline: 1rem
+                        font-size: 1rem
+                        color: var(--color-text-soft)
+                        margin: 0
 
-                h2
-                    font-size: clamp(2rem, 5vw, 4rem)
-                    margin: 0
-                    font-weight: 600
-                    font-family: var(--font-mono)
-                    color: inherit
+                    > .data
+                        font-size: clamp(2rem, 5vw, 4rem)
+                        margin: 0
+                        font-weight: 600
+                        font-family: var(--font-mono)
+                        color: inherit
 
             .card-footer
                 display: flex
@@ -178,46 +277,47 @@
 
 
     .welcome-card
-        aspect-ratio: 2.8
-        min-height: 12rem
-        background: url('/images/app/versions/sunrise_2023.webp')
+        height: 200px
+        background-color: var(--color-primary)
+        background-image: url('/images/app/versions/sunrise_2023.webp')
         background-size: cover
         background-position: center
         background-repeat: no-repeat
+        background-blend-mode: luminosity
         position: relative
         overflow: hidden
         color: white
-        margin-bottom: 4rem
-        padding: 2rem
-        box-shadow: var(--shadow-elevation-medium)
+        margin-block: 2rem 4rem
+        padding: 1.5rem
+        box-shadow: var(--shadow-elevation-low)
         border-radius: var(--radius-l)
         
         &::before
             content: ''
             position: absolute
             top: 0
+            bottom: 0
             left: 0
-            width: 100%
-            height: 100%
+            right: 0
+            background: var(--color-primary)
+            opacity: .8
             pointer-events: none
             border-radius: inherit
-            border: 1px solid #ffffff60
 
         .bottom-bar
             position: absolute
             bottom: 0
             left: 0
             width: 100%
-            padding: 3rem 2rem 1rem
+            padding: 1rem 1.5rem
             border-radius: inherit
-            background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%)
             display: flex
             flex-wrap: wrap
             align-items: center
             gap: .5rem 2rem
 
             small
-                opacity: .9
+                opacity: .8
 
             a
                 color: inherit
@@ -230,11 +330,10 @@
             color: inherit
             position: relative
             z-index: 1
-            font-size: clamp(2rem, 5vw, 4rem)
+            font-size: clamp(1.2rem, 5vw, 2rem)
             font-weight: 600
             text-align: center
             margin: 0
-            text-shadow: 0 3px 10px #00000030
 
 
 
