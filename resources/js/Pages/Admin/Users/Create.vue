@@ -33,7 +33,7 @@
                             <b class="flex-1 padding-left-0-5 color-heading user-select-none">Account</b>
                         </div>
 
-                        <IodInput type="text" v-model="form.name" label="Anzeigename" disabled/>
+                        <IodInput type="text" v-model="form.name" label="Anzeigename"/>
 
                         <IodInput type="email" v-model="form.email" label="Email">
                             <template #right>
@@ -174,6 +174,40 @@
                                 <IodInput v-model="address.country" label="Land" />
                                 <hr class="margin-0">
                                 <IodButton type="button" class="margin-inline-0-5" label="löschen" size="small" variant="text" color-preset="error" @click="removeAddress(i)"/>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="flex vertical gap-0-5">
+                        <div class="flex gap-0-5 v-center">
+                            <b class="flex-1 padding-left-0-5 color-heading user-select-none">Bankverbindungen</b>
+                            <IodButton type="button" class="margin-left-auto" label="Neue Bankverbindung" size="small" variant="text" @click="addBankDetails()"/>
+                        </div>
+
+                        <div class="address-grid">
+                            <div class="flex vertical background-soft radius-m gap-0-5 padding-block-0-5" v-for="bank, i in form.bank_details">
+                                <IodIcon icon="account_balance" class="margin-inline-auto" style="font-size: 4rem; height: 8rem; width: 4rem; color: var(--color-text)" />
+                                <hr class="margin-0">
+                                <IodSelect style="width: 100% !important" v-model="bank.type" label="Verbindungs-Typ" :options="[
+                                    { value: null, text: 'Kein Label' },
+                                    { value: 'default', text: 'Standard' },
+                                    { value: 'savings', text: 'Sparbuch' },
+                                    { value: 'checking', text: 'Girokonto' },
+                                    { value: 'business', text: 'Geschäftskonto' },
+                                    { value: 'loan', text: 'Kreditkonto' },
+                                    { value: 'investment', text: 'Investmentkonto' },
+                                    { value: 'other', text: 'Anders' },
+                                ]"/>
+                                <IodInput v-model="bank.bank_name" label="Bankname" />
+                                <IodInput v-model="bank.branch" label="Filiale" />
+                                <IodInput v-model="bank.account_name" label="Kontoinhaber" />
+                                <IodInput v-model="bank.account_number" label="Kontonummer" />
+                                <IodInput v-model="bank.swift_code" label="SWIFT / BIC" />
+                                <IodInput v-model="bank.iban" label="IBAN" />
+                                <hr class="margin-0">
+                                <IodButton type="button" class="margin-inline-0-5" label="löschen" size="small" variant="text" color-preset="error" @click="removeBankDetails(i)"/>
                             </div>
                         </div>
                     </div>
@@ -375,6 +409,8 @@
         },
         addresses: [],
         removed_addresses: [],
+        bank_details: [],
+        removed_bank_details: [],
         emails: [],
         removed_emails: [],
         phone_numbers: [],
@@ -431,6 +467,7 @@
         form.details.title = props.user.details?.title || ''
 
         form.addresses = props.user.addresses || []
+        form.bank_details = props.user.bank_details || []
         form.emails = props.user.emails || []
         form.phone_numbers = props.user.phone_numbers || []
         form.significant_dates = props.user.significant_dates || []
@@ -511,6 +548,30 @@
         form.addresses.splice(index, 1)
     }
     // END: Addresses
+
+    // START: Bank Details
+    const addBankDetails = () => {
+        form.bank_details.push({
+            id: null,
+            type: 'default',
+            bank_name: '',
+            branch: '',
+            account_name: '',
+            account_number: '',
+            swift_code: '',
+            iban: '',
+        })
+    }
+
+    const removeBankDetails = (index) => {
+        if (form.bank_details[index].id)
+        {
+            form.removed_bank_details.push(form.bank_details[index].id)
+        }
+
+        form.bank_details.splice(index, 1)
+    }
+    // END: Bank Details
 
     // START: Emails
     const addEmail = () => {

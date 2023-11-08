@@ -178,10 +178,10 @@
                 { label: 'Übersicht', icon: '', route: route('admin'), permission: [], activeWhen: ['admin'] },
                 { label: 'Profil', icon: '', route: route('admin'), permission: [], activeWhen: ['admin.profile'] },
             ]},
-            { label: 'Accounts', color: 'var(--color-background)', icon: 'person', route: route('admin.users'), permission: ['system.view.users'], activeWhen: ['admin.users', 'admin.users.editor', 'admin.roles'], submenu: [
+            { label: 'Accounts', color: 'var(--color-background)', icon: 'person', route: route('admin.users'), permission: ['system.view.users'], activeWhen: ['admin.users', 'admin.users.editor', 'admin.companies', 'admin.companies.editor', 'admin.roles', 'admin.roles.editor'], submenu: [
                 {label: 'Accounts', icon: '', route: route('admin.users'), permission: ['system.view.users'], activeWhen: ['admin.users', 'admin.users.editor']},
-                {label: 'Unternehmen', icon: '', route: route('admin.users'), permission: ['system.view.companies'], activeWhen: ['admin.companies', 'admin.companies.editor']},
-                {label: 'Berechtigungen', icon: '', route: route('admin.roles'), permission: ['system.view.roles'], activeWhen: ['admin.roles']},
+                {label: 'Unternehmen', icon: '', route: route('admin.companies'), permission: ['system.view.companies'], activeWhen: ['admin.companies', 'admin.companies.editor']},
+                {label: 'Berechtigungen', icon: '', route: route('admin.roles'), permission: ['system.view.roles'], activeWhen: ['admin.roles', 'admin.roles.editor']},
             ]},
             { label: 'Medien', color: 'var(--color-background)', icon: 'upload', route: route('admin.media', ['public']), permission: ['system.view.media'], activeWhen: ['admin.media', 'admin.docs'], submenu: [
                 {label: 'Öffentliche Ablage', icon: 'home_storage', route: route('admin.media', ['public']), permission: ['system.view.media'], activeWhen: ['admin.media:driveAlias=public']},
@@ -195,9 +195,9 @@
                 {label: 'Seite', icon: '', route: route('admin.settings.index', 'pages'), permission: [], activeWhen: ['admin.settings.index:page=pages']},
                 // {label: 'Apps', icon: 'apps', route: route('admin.settings.index', 'apps'), permission: [], activeWhen: ['admin.settings.index:page=apps']},
             ]},
-            { label: 'Messeanmeldungen', color: 'var(--color-background)', icon: 'mark_email_unread', route: route('admin.fairs'), permission: ['system.view.users'], activeWhen: ['admin.fairs'], submenu: [
-                {label: 'Exportieren', icon: '', route: route('admin.fairs'), permission: ['app.fairs.export'], activeWhen: ['admin.fairs']},
-            ]},
+            // { label: 'Messeanmeldungen', color: 'var(--color-background)', icon: 'mark_email_unread', route: route('admin.fairs'), permission: ['system.view.users'], activeWhen: ['admin.fairs'], submenu: [
+            //     {label: 'Exportieren', icon: '', route: route('admin.fairs'), permission: ['app.fairs.export'], activeWhen: ['admin.fairs']},
+            // ]},
         ],
         [
             {label: 'Pages', color: 'var(--color-app-pages-on-dark)', icon: 'web', route: route('admin.pages.pages'), permission: ['app.pages.access.admin.panel'], activeWhen: ['admin.pages.pages', 'admin.pages.pages.editor', 'admin.pages.menus', 'admin.pages.menus.editor'], submenu: [

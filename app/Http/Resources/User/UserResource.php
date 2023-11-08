@@ -6,6 +6,7 @@ use App\Http\Resources\Address\AddressResource;
 use App\Http\Resources\Date\SignificantDateResource;
 use App\Http\Resources\Email\EmailResource;
 use App\Http\Resources\Link\WebsiteLinkResource;
+use App\Http\Resources\Payment\BankDetailsResource;
 use App\Http\Resources\PhoneNumber\PhoneNumberResource;
 use App\Http\Resources\Role\RoleResource;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -32,6 +33,7 @@ class UserResource extends JsonResource
             'profiles' => $this->profiles,
             'details' => $this->details,
             'addresses' => AddressResource::collection($this->addresses),
+            'bank_details' => BankDetailsResource::collection($this->bank_details),
             'phone_numbers' => PhoneNumberResource::collection($this->phone_numbers),
             'emails' => EmailResource::collection($this->emails),
             'website_links' => WebsiteLinkResource::collection($this->website_links),

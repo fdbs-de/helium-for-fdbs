@@ -65,6 +65,18 @@ class UpdateUserRequest extends FormRequest
             'removed_addresses' => ['nullable', 'array'],
             'removed_addresses.*' => ['required', 'integer', 'exists:addresses,id,addressable_id,' . $this->user->id],
 
+            'bank_details' => ['nullable', 'array'],
+            'bank_details.*.type' => ['required', 'string', 'max:255'],
+            'bank_details.*.bank_name' => ['nullable', 'string', 'max:255'],
+            'bank_details.*.branch' => ['nullable', 'string', 'max:255'],
+            'bank_details.*.account_name' => ['nullable', 'string', 'max:255'],
+            'bank_details.*.account_number' => ['nullable', 'string', 'max:255'],
+            'bank_details.*.swift_code' => ['nullable', 'string', 'max:255'],
+            'bank_details.*.iban' => ['nullable', 'string', 'max:255'],
+
+            'removed_bank_details' => ['nullable', 'array'],
+            'removed_bank_details.*' => ['required', 'integer', 'exists:bank_details,id,bankable_id,' . $this->user->id],
+
             'emails' => ['nullable', 'array'],
             'emails.*.type' => ['required', 'string', 'max:255'],
             'emails.*.email' => ['required', 'string', 'email', 'max:255'],

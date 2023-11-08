@@ -59,6 +59,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->morphMany(Address::class, 'addressable');
     }
 
+    public function bank_details(): MorphMany
+    {
+        return $this->morphMany(BankDetails::class, 'bankable');
+    }
+
     public function emails(): MorphMany
     {
         return $this->morphMany(Email::class, 'emailable');
