@@ -1,6 +1,7 @@
 <?php
 
 use App\Classes\Drives\Drives;
+use App\Http\Controllers\Admin\Companies\CompanyController;
 use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingsController;
@@ -79,6 +80,40 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'enabled', 'active', 'ca
         Route::delete('/', [UserController::class, 'delete'])
         ->middleware('can:system.delete.users')
         ->name('admin.users.delete');
+    });
+
+    Route::prefix('companies')->group(function () {
+        Route::get('/', [CompanyController::class, 'index'])
+        ->middleware('can:system.view.companies')
+        ->name('admin.companies');
+
+        Route::get('/export', [CompanyController::class, 'export'])
+        ->middleware('can:system.view.companies')
+        ->name('admin.companies.export');
+
+        Route::get('/search', [CompanyController::class, 'search'])
+        ->middleware('can:system.view.companies')
+        ->name('admin.companies.search');
+
+        Route::get('/editor/{company?}', [CompanyController::class, 'create'])
+        ->middleware('can:system.view.companies')
+        ->name('admin.companies.editor');
+
+        Route::post('/', [CompanyController::class, 'store'])
+        ->middleware('can:system.create.companies')
+        ->name('admin.companies.store');
+
+        Route::post('/{company}', [CompanyController::class, 'duplicate'])
+        ->middleware('can:system.create.companies')
+        ->name('admin.companies.duplicate');
+
+        Route::put('/{company}', [CompanyController::class, 'update'])
+        ->middleware('can:system.edit.companies')
+        ->name('admin.companies.update');
+
+        Route::delete('/', [CompanyController::class, 'delete'])
+        ->middleware('can:system.delete.companies')
+        ->name('admin.companies.delete');
     });
 
     Route::prefix('roles')->group(function () {

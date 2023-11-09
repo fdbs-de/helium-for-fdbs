@@ -10,15 +10,9 @@ use App\Http\Requests\Users\UpdateUserRequest;
 use App\Http\Resources\Role\RoleResource;
 use App\Http\Resources\User\PublicUserResource;
 use App\Http\Resources\User\UserResource;
-use App\Mail\ImportedUserCreated;
-use App\Mail\UserEnabled;
-use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
 use Inertia\Inertia;
-use Illuminate\Support\Facades\DB;
 use App\Models\Role;
 use Illuminate\Support\Facades\Hash;
 
@@ -186,7 +180,7 @@ class UserController extends Controller
     public function store(CreateUserRequest $request)
     {
         // Create the user
-        $user = User::create($request->only([
+        $user = User::make($request->only([
             'name',
             'username',
             'custom_account_id',
@@ -200,35 +194,39 @@ class UserController extends Controller
         if ($request->password)
         {
             $user->password = Hash::make($request->password);
-            $user->save();
         }
 
+        $user->save();
 
 
+        
+        // Set the user's roles
+        $user->roles()->sync($request->roles);
+
+
+        
         // Set the user details
         $user->details()->create($request->details);
 
-
-
         // Set the user's addresses
-        foreach ($request->addresses as $address)
-        {
-            $user->addresses()->create([
-                'type' => $address['type'],
-                'address_line_1' => $address['address_line_1'],
-                'address_line_2' => $address['address_line_2'],
-                'city' => $address['city'],
-                'state' => $address['state'],
-                'postal_code' => $address['postal_code'],
-                'country' => $address['country'],
-                'notes' => $address['notes'],
-            ]);
-        }
+        collect($request->addresses)->each(function ($i) use ($user) { $user->addresses()->create($i); });
+
+        // Set the user's bank details
+        collect($request->bank_details)->each(function ($i) use ($user) { $user->bank_details()->create($i); });
+
+        // Set the user's emails
+        collect($request->emails)->each(function ($i) use ($user) { $user->emails()->create($i); });
+
+        // Set the user's phone numbers
+        collect($request->phone_numbers)->each(function ($i) use ($user) { $user->phone_numbers()->create($i); });
+
+        // Set the user's significant dates
+        collect($request->significant_dates)->each(function ($i) use ($user) { $user->significant_dates()->create($i); });
+
+        // Set the user's website links
+        collect($request->website_links)->each(function ($i) use ($user) { $user->website_links()->create($i); });
 
 
-
-        // Set the user's roles
-        $user->roles()->sync($request->roles);
 
         if ($request->profiles['customer']['has_customer_profile'])
         {
@@ -256,9 +254,6 @@ class UserController extends Controller
         {
             $user->unsetSetting('profile.employee');
         }
-
-        // Update the user's name
-        $user->updateName();
 
 
 
@@ -302,9 +297,7 @@ class UserController extends Controller
 
 
         // Update or create the user details
-        $user->details()->updateOrCreate([
-            'user_id' => $user->id,
-        ], $request->details);
+        $user->details()->updateOrCreate(['user_id' => $user->id], $request->details);
 
 
 
@@ -314,18 +307,18 @@ class UserController extends Controller
         // Set the user's addresses
         foreach ($request->addresses as $address)
         {
-            $user->addresses()->updateOrCreate([
-                'id' => $address['id'] ?? null,
-            ], [
-                'type' => $address['type'],
-                'address_line_1' => $address['address_line_1'],
-                'address_line_2' => $address['address_line_2'],
-                'city' => $address['city'],
-                'state' => $address['state'],
-                'postal_code' => $address['postal_code'],
-                'country' => $address['country'],
-                'notes' => $address['notes'],
-            ]);
+            $user->addresses()->updateOrCreate(['id' => $address['id']], $address);
+        }
+
+
+
+        // Remove the user's bank details
+        $user->bank_details()->whereIn('id', $request->removed_bank_details)->delete();
+
+        // Set the user's bank details
+        foreach ($request->bank_details as $bank_details)
+        {
+            $user->bank_details()->updateOrCreate(['id' => $bank_details['id']], $bank_details);
         }
 
 
@@ -336,12 +329,7 @@ class UserController extends Controller
         // Set the user's emails
         foreach ($request->emails as $email)
         {
-            $user->emails()->updateOrCreate([
-                'id' => $email['id'] ?? null,
-            ], [
-                'type' => $email['type'],
-                'email' => $email['email'],
-            ]);
+            $user->emails()->updateOrCreate(['id' => $email['id']], $email);
         }
 
 
@@ -352,12 +340,7 @@ class UserController extends Controller
         // Set the user's phone numbers
         foreach ($request->phone_numbers as $phone_number)
         {
-            $user->phone_numbers()->updateOrCreate([
-                'id' => $phone_number['id'] ?? null,
-            ], [
-                'type' => $phone_number['type'],
-                'number' => $phone_number['number'],
-            ]);
+            $user->phone_numbers()->updateOrCreate(['id' => $phone_number['id']], $phone_number);
         }
 
 
@@ -368,14 +351,7 @@ class UserController extends Controller
         // Set the user's significant dates
         foreach ($request->significant_dates as $significant_date)
         {
-            $user->significant_dates()->updateOrCreate([
-                'id' => $significant_date['id'] ?? null,
-            ], [
-                'type' => $significant_date['type'],
-                'date' => $significant_date['date'],
-                'ignore_year' => $significant_date['ignore_year'],
-                'repeats_annually' => $significant_date['repeats_annually'],
-            ]);
+            $user->significant_dates()->updateOrCreate(['id' => $significant_date['id']], $significant_date);
         }
 
 
@@ -386,12 +362,7 @@ class UserController extends Controller
         // Set the user's website links
         foreach ($request->website_links as $website_link)
         {
-            $user->website_links()->updateOrCreate([
-                'id' => $website_link['id'] ?? null,
-            ], [
-                'name' => $website_link['name'],
-                'url' => $website_link['url'],
-            ]);
+            $user->website_links()->updateOrCreate(['id' => $website_link['id']], $website_link);
         }
 
 
@@ -426,11 +397,6 @@ class UserController extends Controller
         {
             $user->unsetSetting('profile.employee');
         }
-
-
-
-        // Update the user's name
-        $user->updateName();
 
 
 
