@@ -58,23 +58,11 @@
 
     const tableColumns = [
         {type: 'text', name: 'name', label: 'Name', valuePath: 'name', sortable: true, width: 300, resizeable: true, hideable: true},
-        {type: 'text', name: 'username', label: 'Nutzername', valuePath: 'username', sortable: true, width: 150, resizeable: true, hideable: true, transform: (value) => value || '-'},
-        {type: 'text', name: 'email', label: 'Email', valuePath: 'email', sortable: true, width: 250, resizeable: true, hideable: true, transform: (value) => value || '-' },
-        {type: 'text', name: 'roles', label: 'Rollen', valuePath: 'roles', sortable: false, width: 200, resizeable: true, hideable: true, transform: (value) => {
-            return value.map(e => e.name).join(', ') || '-'
-        }},
-        {type: 'text', name: 'profiles', label: 'Profile', valuePath: 'profiles', sortable: false, width: 100, resizeable: true, hideable: true, transform: (value) => {
-            let profiles = []
-            if (value.customer) profiles.push('Kunde')
-            if (value.employee) profiles.push('Personal')
-            return profiles.join('; ') || '-'
-        }},
-        {type: 'date', name: 'created_at', label: 'Registriert am', valuePath: 'created_at', sortable: true, width: 200, resizeable: true, hideable: true},
-        {type: 'date', name: 'email_verified_at', label: 'Verifikation am', valuePath: 'email_verified_at', sortable: true, width: 200, resizeable: true, hideable: true},
-        {type: 'tags', name: 'status', label: 'Status', valuePath: 'status', sortable: false, width: 100, resizeable: true, hideable: true, transform: (value, item) => {
-            if (item.is_enabled) return [{icon: null, text: 'Aktiv', color: 'var(--color-success)', variant: 'filled', shape: 'pill'}]
-            return [{icon: null, text: 'Ausstehend', color: 'var(--color-warning)', variant: 'filled', shape: 'pill'}]
-        }},
+        {type: 'text', name: 'legal_form', label: 'Rechtsform', valuePath: 'legal_form', sortable: true, width: 150, resizeable: true, hideable: true, transform: (value) => value || '-'},
+        {type: 'text', name: 'description', label: 'Beschreibung', valuePath: 'description', sortable: true, width: 300, resizeable: true, hideable: true, transform: (value) => value || '-' },
+        {type: 'text', name: 'notes', label: 'Notizen', valuePath: 'notes', sortable: true, width: 300, resizeable: true, hideable: true, transform: (value) => value || '-' },
+        {type: 'date', name: 'created_at', label: 'Erstellt am', valuePath: 'created_at', sortable: true, width: 200, resizeable: true, hideable: true},
+        {type: 'date', name: 'updated_at', label: 'Aktualisiert am', valuePath: 'updated_at', sortable: true, width: 200, resizeable: true, hideable: true},
     ]
 
     const tableActions = [
@@ -106,7 +94,7 @@
             multiple: true,
             triggerOnRowClick: false,
             isAvailable: () => true,
-            run: (items) => IPM.value.delete(items, 'Sollen {{count}} Benutzer gelöscht werden?'),
+            run: (items) => IPM.value.delete(items, 'Sollen {{count}} Firmen gelöscht werden?'),
         },
     ]
 
@@ -114,28 +102,20 @@
         {
             type: 'select',
             multiple: true,
-            name: 'profiles',
-            label: 'Profile',
+            name: 'legal_form',
+            label: 'Rechtsform',
             values: [
-                {text: 'Kunde', value: 'customer'},
-                {text: 'Personal', value: 'employee'},
-            ],
-        },
-        {
-            type: 'select',
-            multiple: true,
-            name: 'roles',
-            label: 'Rollen',
-            values: props.roles.map(e => ({text: e.name, value: e.name})),
-        },
-        {
-            type: 'select',
-            multiple: true,
-            name: 'newsletter',
-            label: 'Newsletter',
-            values: [
-                {text: 'Allgemein', value: 'generic'},
-                {text: 'Kunden', value: 'customer'},
+                { value: 'gmbh', text: 'GmbH' },
+                { value: 'gbr', text: 'GbR' },
+                { value: 'ohg', text: 'OHG' },
+                { value: 'kg', text: 'KG' },
+                { value: 'ug', text: 'UG' },
+                { value: 'ag', text: 'AG' },
+                { value: 'eg', text: 'eG' },
+                { value: 'ev', text: 'e.V.' },
+                { value: 'sole-proprietor', text: 'Einzelunternehmen' },
+                { value: 'freelancer', text: 'Freiberufler' },
+                { value: 'other', text: 'Anders' },
             ],
         },
     ]

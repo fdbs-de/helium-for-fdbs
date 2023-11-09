@@ -39,6 +39,9 @@ class CompanyResource extends JsonResource
 
             'legal_address' => AddressResource::make($this->legal_address),
             'billing_address' => AddressResource::make($this->billing_address),
+
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }

@@ -161,8 +161,8 @@
                                 <IodIcon icon="location_on" class="margin-inline-auto" style="font-size: 4rem; height: 8rem; width: 4rem; color: var(--color-text)" />
                                 <hr class="margin-0">
                                 <IodSelect style="width: 100% !important" v-model="address.type" label="Adress-Typ" :options="[
-                                    { value: null, text: 'Kein Label' },
-                                    { value: 'home', text: 'Privat' },
+                                    { value: 'main', text: 'Hauptadresse' },
+                                    { value: 'home', text: 'Zuhause' },
                                     { value: 'work', text: 'Arbeit' },
                                     { value: 'billing', text: 'Rechnungsadresse' },
                                     { value: 'shipping', text: 'Lieferadresse' },
@@ -191,10 +191,8 @@
                                 <IodIcon icon="account_balance" class="margin-inline-auto" style="font-size: 4rem; height: 8rem; width: 4rem; color: var(--color-text)" />
                                 <hr class="margin-0">
                                 <IodSelect style="width: 100% !important" v-model="bank.type" label="Verbindungs-Typ" :options="[
-                                    { value: null, text: 'Kein Label' },
-                                    { value: 'default', text: 'Standard' },
-                                    { value: 'savings', text: 'Sparbuch' },
                                     { value: 'checking', text: 'Girokonto' },
+                                    { value: 'savings', text: 'Sparbuch' },
                                     { value: 'business', text: 'Geschäftskonto' },
                                     { value: 'loan', text: 'Kreditkonto' },
                                     { value: 'investment', text: 'Investmentkonto' },
@@ -223,10 +221,10 @@
                             <IodIconButton class="margin-0-5" type="button" icon="close" variant="text" color-preset="error" @click="removeEmail(i)"/>
                             <hr class="h-3 vertical">
                             <IodSelect class="w-12" v-model="email.type" label="Email-Typ" :options="[
-                                {value: null, text: 'Kein Label'},
-                                {value: 'home', text: 'Privat'},
-                                {value: 'work', text: 'Arbeit'},
-                                {value: 'other', text: 'Anders'},
+                                { value: 'main', text: 'Hauptemail' },
+                                { value: 'home', text: 'Privat' },
+                                { value: 'work', text: 'Arbeit' },
+                                { value: 'other', text: 'Anders' },
                             ]"/>
                             <hr class="h-3 vertical">
                             <IodInput type="email" class="flex-1" v-model="email.email" label="Email" />
@@ -244,12 +242,12 @@
                             <IodIconButton class="margin-0-5" type="button" icon="close" variant="text" color-preset="error" @click="removePhoneNumber(i)"/>
                             <hr class="h-3 vertical">
                             <IodSelect class="w-12" v-model="phone_number.type" label="Nummer-Typ" :options="[
-                                {value: null, text: 'Kein Label'},
-                                {value: 'home', text: 'Privat'},
-                                {value: 'work', text: 'Arbeit'},
-                                {value: 'mobile', text: 'Mobil'},
-                                {value: 'fax', text: 'Fax'},
-                                {value: 'other', text: 'Anders'},
+                                { value: 'main', text: 'Hauptnummer' },
+                                { value: 'home', text: 'Privat' },
+                                { value: 'work', text: 'Arbeit' },
+                                { value: 'mobile', text: 'Mobil' },
+                                { value: 'fax', text: 'Fax' },
+                                { value: 'other', text: 'Anders' },
                             ]"/>
                             <hr class="h-3 vertical">
                             <IodInput type="tel" class="flex-1" v-model="phone_number.number" label="Telefonnummer" />
@@ -267,10 +265,9 @@
                             <IodIconButton class="margin-0-5" type="button" icon="close" variant="text" color-preset="error" @click="removeSignificantDate(i)"/>
                             <hr class="h-3 vertical">
                             <IodSelect class="w-12" v-model="date.type" label="Datum-Typ" :options="[
-                                {value: null, text: 'Kein Label'},
-                                {value: 'birthday', text: 'Geburtstag'},
-                                {value: 'anniversary', text: 'Jahrestag'},
-                                {value: 'other', text: 'Anders'},
+                                { value: 'birthday', text: 'Geburtstag' },
+                                { value: 'anniversary', text: 'Jahrestag' },
+                                { value: 'other', text: 'Anders' },
                             ]"/>
                             <hr class="h-3 vertical">
                             <input type="date" class="flex-1" v-model="date.date" />
@@ -528,7 +525,7 @@
     const addAddress = () => {
         form.addresses.push({
             id: null,
-            type: 'home',
+            type: 'main',
             address_line_1: '',
             address_line_2: '',
             postal_code: '',
@@ -553,7 +550,7 @@
     const addBankDetails = () => {
         form.bank_details.push({
             id: null,
-            type: 'default',
+            type: 'checking',
             bank_name: '',
             branch: '',
             account_name: '',
@@ -577,7 +574,7 @@
     const addEmail = () => {
         form.emails.push({
             id: null,
-            type: 'home',
+            type: 'main',
             email: '',
             verified_at: null,
         })
@@ -597,7 +594,7 @@
     const addPhoneNumber = () => {
         form.phone_numbers.push({
             id: null,
-            type: 'home',
+            type: 'main',
             number: '',
             verified_at: null,
         })

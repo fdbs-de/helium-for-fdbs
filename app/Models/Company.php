@@ -69,4 +69,24 @@ class Company extends Model
         return $this->addresses()->where('type', 'billing')->first();
     }
     // END: Specific Addresses
+
+
+
+    // START: Duplicate
+    public function duplicate()
+    {
+        $model = $this->replicate();
+        $model->push();
+
+        $model->addresses()->saveMany($this->addresses()->get()->map(function ($item) { return $item->replicate(); }));
+        $model->legal_details()->saveMany($this->legal_details()->get()->map(function ($item) { return $item->replicate(); }));
+        $model->bank_details()->saveMany($this->bank_details()->get()->map(function ($item) { return $item->replicate(); }));
+        $model->emails()->saveMany($this->emails()->get()->map(function ($item) { return $item->replicate(); }));
+        $model->phone_numbers()->saveMany($this->phone_numbers()->get()->map(function ($item) { return $item->replicate(); }));
+        $model->significant_dates()->saveMany($this->significant_dates()->get()->map(function ($item) { return $item->replicate(); }));
+        $model->website_links()->saveMany($this->website_links()->get()->map(function ($item) { return $item->replicate(); }));
+
+        return $model;
+    }
+    // END: Duplicate
 }
