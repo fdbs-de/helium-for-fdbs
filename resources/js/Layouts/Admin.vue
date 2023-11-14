@@ -204,16 +204,16 @@
                 {label: 'Seiten', icon: 'web', route: route('admin.pages.pages'), permission: ['app.pages.view.pages'], activeWhen: ['admin.pages.pages']},
                 {label: 'Menüs', icon: 'list', route: route('admin.pages.menus'), permission: ['app.pages.view.menus'], activeWhen: ['admin.pages.menus', 'admin.pages.menus.editor']},
             ]},
+            {label: 'Blog', color: 'var(--color-app-blog-on-dark)', icon: 'newspaper', route: route('admin.blog.posts'), permission: ['app.blog.access.admin.panel'], activeWhen: ['admin.blog.posts', 'admin.blog.categories', 'admin.blog.posts.editor', 'admin.blog.categories.editor'], submenu: [
+                {label: 'Beiträge', icon: 'feed', route: route('admin.blog.posts'), permission: ['app.blog.view.posts'], activeWhen: ['admin.blog.posts', 'admin.blog.posts.editor']},
+                {label: 'Kategorien', icon: 'category', route: route('admin.blog.categories'), permission: ['app.blog.view.categories'], activeWhen: ['admin.blog.categories', 'admin.blog.categories.editor']},
+            ]},
             {label: 'Forms', color: 'var(--color-app-forms-on-dark)', icon: 'edit_square', route: route('admin.forms.forms.overview'), permission: ['app.forms.access.admin.panel'], activeWhen: ['admin.forms.forms.overview'], submenu: [
                 {label: 'Übersicht', icon: 'dashboard', route: route('admin.forms.forms.overview'), permission: ['app.forms.view.overview'], activeWhen: ['admin.forms.forms.overview']},
                 {label: 'Formulare', icon: 'edit_square', route: route('admin.forms.forms.overview'), permission: ['app.forms.view.forms'], activeWhen: ['admin.forms.forms.index', 'admin.forms.forms.editor']},
                 {label: 'Einsendungen', icon: 'send', route: route('admin.forms.forms.overview'), permission: ['app.forms.view.entries'], activeWhen: ['admin.forms.entries', 'admin.forms.entries.editor']},
             ]},
-            {label: 'Blog', color: 'var(--color-app-blog-on-dark)', icon: 'newspaper', route: route('admin.blog.posts'), permission: ['app.blog.access.admin.panel'], activeWhen: ['admin.blog.posts', 'admin.blog.categories', 'admin.blog.posts.editor', 'admin.blog.categories.editor'], submenu: [
-                {label: 'Beiträge', icon: 'feed', route: route('admin.blog.posts'), permission: ['app.blog.view.posts'], activeWhen: ['admin.blog.posts', 'admin.blog.posts.editor']},
-                {label: 'Kategorien', icon: 'category', route: route('admin.blog.categories'), permission: ['app.blog.view.categories'], activeWhen: ['admin.blog.categories', 'admin.blog.categories.editor']},
-            ]},
-            // {label: 'Ecommerce', color: 'var(--color-app-ecommerce-on-dark)', icon: 'shopping_cart', route: route('admin.blog.posts'), permission: ['app.ecommerce.access.admin.panel'], activeWhen: ['admin.ecommerce.overview'], submenu: []},
+            {label: 'Ecommerce', color: 'var(--color-app-ecommerce-on-dark)', icon: 'shopping_cart', route: route('admin.blog.posts'), permission: ['app.ecommerce.access.admin.panel'], activeWhen: ['admin.ecommerce.overview'], submenu: []},
             {label: 'Jobs', color: 'var(--color-app-jobs-on-dark)', icon: 'work', route: route('admin.jobs.posts'), permission: ['app.jobs.access.admin.panel'], activeWhen: ['admin.jobs.posts', 'admin.jobs.categories', 'admin.jobs.posts.editor', 'admin.jobs.categories.editor'], submenu: [
                 {label: 'Stellenangebote', icon: 'feed', route: route('admin.jobs.posts'), permission: ['app.jobs.view.offers'], activeWhen: ['admin.jobs.posts', 'admin.jobs.posts.editor']},
                 {label: 'Anstellungs Arten', icon: 'category', route: route('admin.jobs.categories'), permission: ['app.jobs.view.categories'], activeWhen: ['admin.jobs.categories', 'admin.jobs.categories.editor']},
