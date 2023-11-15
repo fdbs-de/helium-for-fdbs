@@ -2,91 +2,20 @@
     <div class="editor-wrapper" :class="{'fullscreen': isFullscreen, 'simplified': simplified, 'sticky': sticky}" v-if="editor">
         <div class="editor-controls">
             <div class="toolbar">
-                <div class="flex w-100 h-2 v-center color-heading" v-if="label" style="user-select: none">
+                <div class="flex w-100 h-2 v-center color-heading user-select-none" v-if="label">
                     <small><b>{{ label }}</b></small>
                 </div>
-                <template v-if="!simplified">
-                    <VDropdown placement="bottom-start">
-                        <button type="button" class="toolbar-button drop">Einfügen</button>
-                        <template #popper>
-                            <div class="dropdown-list">
-                                <button type="button" class="dropdown-button" @click="openImageDialog()" v-close-popper>
-                                    <div class="icon">image</div>
-                                    <div class="label">Bild einfügen</div>
-                                </button>
-                                <button type="button" class="dropdown-button" @click="editor.chain().focus().insertTable({ rows: 3, cols: 3}).run()" v-close-popper>
-                                    <div class="icon">table</div>
-                                    <div class="label">Tabelle einfügen</div>
-                                </button>
-                                <button type="button" class="dropdown-button" @click="openKeyfactDialog()" v-close-popper>
-                                    <div class="icon">star</div>
-                                    <div class="label">Keyfact einfügen</div>
-                                </button>
-                                <button type="button" class="dropdown-button" @click="editor.chain().focus().setHorizontalRule().run()" v-close-popper>
-                                    <div class="icon">horizontal_rule</div>
-                                    <div class="label">Horizontale Linie einfügen</div>
-                                </button>
-                            </div>
-                        </template>
-                    </VDropdown>
-    
-                    <VDropdown placement="bottom-start">
-                        <button type="button" class="toolbar-button drop">Bearbeiten</button>
-                        <template #popper>
-                            <div class="dropdown-list">
-                                <button type="button" class="dropdown-button" @click="editor.chain().focus().undo().run()" :disabled="!editor.can().undo()">
-                                    <div class="icon">undo</div>
-                                    <div class="label">Rückgangig</div>
-                                    <div class="secondary-info">CTRL + Z</div>
-                                </button>
-                                <button type="button" class="dropdown-button" @click="editor.chain().focus().redo().run()" :disabled="!editor.can().redo()">
-                                    <div class="icon">redo</div>
-                                    <div class="label">Wiederholen</div>
-                                    <div class="secondary-info">CTRL + Y</div>
-                                </button>
-                                
-                                <div class="dropdown-divider"></div>
-    
-                                <button type="button" class="dropdown-button" :class="{ 'active': editor.isActive('blockquote') }" @click="editor.chain().focus().toggleBlockquote().run()">
-                                    <div class="icon">format_quote</div>
-                                    <div class="label">Als Zitat formatieren</div>
-                                    <div class="secondary-info">CTRL + SHIFT + B</div>
-                                </button>
-                                <button type="button" class="dropdown-button" :class="{ 'active': editor.isActive('code') }" @click="editor.chain().focus().toggleCode().run()">
-                                    <div class="icon">code</div>
-                                    <div class="label">Als Code formatieren</div>
-                                    <div class="secondary-info">CTRL + E</div>
-                                </button>
-    
-                                <div class="dropdown-divider"></div>
-    
-                                <button type="button" class="dropdown-button" @click="editor.chain().focus().clearNodes().unsetAllMarks().run()">
-                                    <div class="icon">format_clear</div>
-                                    <div class="label">Formatierung löschen</div>
-                                </button>
-                            </div>
-                        </template>
-                    </VDropdown>
-    
-                    <VDropdown placement="bottom-start">
-                        <button type="button" class="toolbar-button drop">Ansicht</button>
-                        <template #popper>
-                            <div class="dropdown-list">
-                                <button type="button" class="dropdown-button" :class="{ 'active': applyLimiter }" @click="applyLimiter = !applyLimiter">
-                                    <div class="icon">width_wide</div>
-                                    <div class="label">Breite limitieren</div>
-                                </button>
-                            </div>
-                        </template>
-                    </VDropdown>
-                </template>
 
+                <button type="button" class="toolbar-button" @click="tab = 'home'">Home</button>
+                <button type="button" class="toolbar-button" @click="tab = 'insert'">Einfügen</button>
+                <button type="button" class="toolbar-button" @click="tab = 'view'">Ansicht</button>
+                <button type="button" class="toolbar-button" v-show="editor.isActive('image')" @click="openImageDialog()">Bild</button>
+                <button type="button" class="toolbar-button" v-show="editor.isActive('link')" @click="openLinkDialog()">Link</button>
+                <button type="button" class="toolbar-button" @click="tab = 'table'" v-show="editor.isActive('table')">Tabelle</button>
+                
                 <div class="spacer"></div>
 
                 <button type="button" class="toolbar-button color-error" v-show="editor.isActive('keyfact')" @click="removeKeyfact()">Keyfact entfernen</button>
-                <button type="button" class="toolbar-button color-primary" v-show="editor.isActive('image')" @click="openImageDialog()">Bild bearbeiten</button>
-                <button type="button" class="toolbar-button color-primary" v-show="editor.isActive('link')" @click="openLinkDialog()">Link bearbeiten</button>
-                <button type="button" class="toolbar-button color-primary" v-show="editor.isActive('table')" @click="tableToolbar = true">Tabelle bearbeiten</button>
 
                 <div class="toolbar-toggle-button"
                     @click="toggleFullscreen()"
@@ -98,32 +27,82 @@
 
 
 
-            <div class="styling-panel" v-show="!isAnyDialogOpen && !tableToolbar">
-                <select class="select" :value="getNodeType" @input="setNodeType">
-                    <option value="" disabled>---</option>
-                    <option value="paragraph">Paragraph</option>
-                    <option value="h1">Überschrift 1</option>
-                    <option value="h2">Überschrift 2</option>
-                    <option value="h3">Überschrift 3</option>
-                    <option value="h4">Überschrift 4</option>
-                    <option value="h5">Überschrift 5</option>
-                    <option value="h6">Überschrift 6</option>
-                </select>
-                
+            <div class="styling-panel small-scrollbar" v-show="!isAnyDialogOpen && tab === 'home'">
                 <div class="button-group">
-                    <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('bold') }" @click="editor.chain().focus().toggleBold().run()">format_bold</button>
-                    <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('italic') }" @click="editor.chain().focus().toggleItalic().run()">format_italic</button>
-                    <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('underline') }" @click="editor.chain().focus().toggleUnderline().run()">format_underlined</button>
-                </div>
-                
-                <div class="button-group" v-if="!simplified">
-                    <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('bulletList') }" @click="editor.chain().focus().toggleBulletList().run()">format_list_bulleted</button>
-                    <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('orderedList') }" @click="editor.chain().focus().toggleOrderedList().run()">format_list_numbered</button>
-                </div>
-                
-                <div class="button-group">
+                    <VDropdown placement="bottom" v-if="!simplified" v-tooltip="'Text-Stil'">
+                        <button type="button" class="button icon drop">
+                            <template v-if="getNodeType === 'h1'">format_h1</template>
+                            <template v-else-if="getNodeType === 'h2'">format_h2</template>
+                            <template v-else-if="getNodeType === 'h3'">format_h3</template>
+                            <template v-else-if="getNodeType === 'h4'">format_h4</template>
+                            <template v-else-if="getNodeType === 'h5'">format_h5</template>
+                            <template v-else-if="getNodeType === 'h6'">format_h6</template>
+                            <template v-else>text_fields</template>
+                        </button>
+                        <template #popper>
+                            <div class="dropdown-list">
+                                <button type="button" class="dropdown-button" :class="{ 'is-active': getNodeType === 'p' }" @click="editor.chain().focus().setParagraph().run()">
+                                    <div class="icon">text_fields</div>
+                                    <div class="label">Paragraph</div>
+                                </button>
+                                <button type="button" class="dropdown-button" :class="{ 'is-active': getNodeType === 'h1' }" @click="editor.chain().focus().setHeading({ level: 1 }).run()">
+                                    <div class="icon">format_h1</div>
+                                    <div class="label">Überschrift 1</div>
+                                </button>
+                                <button type="button" class="dropdown-button" :class="{ 'is-active': getNodeType === 'h2' }" @click="editor.chain().focus().setHeading({ level: 2 }).run()">
+                                    <div class="icon">format_h2</div>
+                                    <div class="label">Überschrift 2</div>
+                                </button>
+                                <button type="button" class="dropdown-button" :class="{ 'is-active': getNodeType === 'h3' }" @click="editor.chain().focus().setHeading({ level: 3 }).run()">
+                                    <div class="icon">format_h3</div>
+                                    <div class="label">Überschrift 3</div>
+                                </button>
+                                <button type="button" class="dropdown-button" :class="{ 'is-active': getNodeType === 'h4' }" @click="editor.chain().focus().setHeading({ level: 4 }).run()">
+                                    <div class="icon">format_h4</div>
+                                    <div class="label">Überschrift 4</div>
+                                </button>
+                                <button type="button" class="dropdown-button" :class="{ 'is-active': getNodeType === 'h5' }" @click="editor.chain().focus().setHeading({ level: 5 }).run()">
+                                    <div class="icon">format_h5</div>
+                                    <div class="label">Überschrift 5</div>
+                                </button>
+                                <button type="button" class="dropdown-button" :class="{ 'is-active': getNodeType === 'h6' }" @click="editor.chain().focus().setHeading({ level: 6 }).run()">
+                                    <div class="icon">format_h6</div>
+                                    <div class="label">Überschrift 6</div>
+                                </button>
+                            </div>
+                        </template>
+                    </VDropdown>
+                    <hr>
+                    <VDropdown placement="bottom" v-if="!simplified">
+                        <button type="button" class="button icon drop">
+                            <template v-if="editor.isActive({ textAlign: 'center' })">format_align_center</template>
+                            <template v-else-if="editor.isActive({ textAlign: 'right' })">format_align_right</template>
+                            <template v-else-if="editor.isActive({ textAlign: 'justify' })">format_align_justify</template>
+                            <template v-else>format_align_left</template>
+                        </button>
+                        <template #popper>
+                            <div class="dropdown-list">
+                                <button type="button" class="dropdown-button" :class="{ 'is-active': editor.isActive({ textAlign: 'left' }) }" @click="editor.chain().focus().setTextAlign('left').run()">
+                                    <div class="icon">format_align_left</div>
+                                    <div class="label">Links</div>
+                                </button>
+                                <button type="button" class="dropdown-button" :class="{ 'is-active': editor.isActive({ textAlign: 'center' }) }" @click="editor.chain().focus().setTextAlign('center').run()">
+                                    <div class="icon">format_align_center</div>
+                                    <div class="label">Zentriert</div>
+                                </button>
+                                <button type="button" class="dropdown-button" :class="{ 'is-active': editor.isActive({ textAlign: 'right' }) }" @click="editor.chain().focus().setTextAlign('right').run()">
+                                    <div class="icon">format_align_right</div>
+                                    <div class="label">Rechts</div>
+                                </button>
+                                <button type="button" class="dropdown-button" :class="{ 'is-active': editor.isActive({ textAlign: 'justify' }) }" @click="editor.chain().focus().setTextAlign('justify').run()">
+                                    <div class="icon">format_align_justify</div>
+                                    <div class="label">Blocksatz</div>
+                                </button>
+                            </div>
+                        </template>
+                    </VDropdown>
                     <VDropdown placement="bottom">
-                        <button type="button" class="button icon">format_color_fill</button>
+                        <button type="button" class="button icon drop">format_color_fill</button>
                         <template #popper>
                             <div class="dropdown-grid padding-1">
                                 <button type="button" class="swatch blog-editor" v-for="swatch in swatches" :key="swatch.value" v-tooltip="swatch.name" :style="'background: '+swatch.value" @click="editor.chain().focus().setColor(swatch.value).run()"></button>
@@ -131,30 +110,39 @@
                             </div>
                         </template>
                     </VDropdown>
-                    <hr>
-                    <button type="button" class="button icon" @click="openLinkDialog()">link</button>
-                    <button type="button" class="button icon" :disabled="!editor.isActive('link')" @click="removeLink()">link_off</button>
                 </div>
 
                 <div class="button-group">
-                    <button type="button" class="button icon" @click="editor.chain().focus().insertTable({ rows: 3, cols: 3}).run()" v-tooltip="'Tabelle einfügen'">table</button>
+                    <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('bold') }" @click="editor.chain().focus().toggleBold().run()">format_bold</button>
+                    <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('italic') }" @click="editor.chain().focus().toggleItalic().run()">format_italic</button>
+                    <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('underline') }" @click="editor.chain().focus().toggleUnderline().run()">format_underlined</button>
+                    <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('strike') }" @click="editor.chain().focus().toggleStrike().run()">strikethrough_s</button>
+                    <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('blockquote') }" @click="editor.chain().focus().toggleBlockquote().run()">format_quote</button>
+                    <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('code') }" @click="editor.chain().focus().toggleCode().run()">code</button>
+                </div>
+                
+                <div class="button-group" v-if="!simplified">
+                    <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('bulletList') }" @click="editor.chain().focus().toggleBulletList().run()">format_list_bulleted</button>
+                    <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('orderedList') }" @click="editor.chain().focus().toggleOrderedList().run()">format_list_numbered</button>
                     <hr>
-                    <button type="button" class="button icon" @click="editor.chain().focus().setHorizontalRule().run()" v-tooltip="'Horizontale Linie einfügen'">horizontal_rule</button>
+                    <button type="button" class="button icon" @click="openLinkDialog()">link</button>
                 </div>
 
-                <div class="button-group" v-if="!simplified">
-                    <button type="button" class="button icon" :class="{ 'is-active': editor.isActive({textAlign: 'left'}) }" @click="editor.chain().focus().setTextAlign('left').run()">format_align_left</button>
-                    <button type="button" class="button icon" :class="{ 'is-active': editor.isActive({textAlign: 'center'}) }" @click="editor.chain().focus().setTextAlign('center').run()">format_align_center</button>
-                    <button type="button" class="button icon" :class="{ 'is-active': editor.isActive({textAlign: 'right'}) }" @click="editor.chain().focus().setTextAlign('right').run()">format_align_right</button>
-                    <button type="button" class="button icon" :class="{ 'is-active': editor.isActive({textAlign: 'justify'}) }" @click="editor.chain().focus().setTextAlign('justify').run()">format_align_justify</button>
+                <div class="button-group">
+                    <button type="button" class="button icon" @click="editor.chain().focus().clearNodes().unsetAllMarks().run()">format_clear</button>
                 </div>
             </div>
 
-            <div class="styling-panel" v-show="!isAnyDialogOpen && tableToolbar">
+            <div class="styling-panel small-scrollbar" v-show="!isAnyDialogOpen && tab === 'insert'">
                 <div class="button-group">
-                    <button type="button" class="button icon" @click="tableToolbar = false" v-tooltip="'Formatierungs-Leiste'">arrow_back</button>
+                    <button type="button" class="button icon" @click="openImageDialog()" v-tooltip="'Bild einfügen'">image</button>
+                    <button type="button" class="button icon" @click="editor.chain().focus().insertTable({ rows: 3, cols: 3}).run()" v-tooltip="'Tabelle einfügen'">table</button>
+                    <button type="button" class="button icon" @click="editor.chain().focus().setHorizontalRule().run()" v-tooltip="'Horizontale Linie einfügen'">horizontal_rule</button>
+                    <button type="button" class="button icon" @click="openKeyfactDialog()" v-tooltip="'Keyfact einfügen'">star</button>
                 </div>
+            </div>
 
+            <div class="styling-panel small-scrollbar" v-show="!isAnyDialogOpen && tab === 'table'">
                 <div class="button-group">
                     <button type="button" class="button icon" @click="editor.chain().focus().addColumnBefore().run()" v-tooltip="'Neue Spalte rechts'">chevron_left</button>
                     <button type="button" class="button icon" @click="editor.chain().focus().addColumnAfter().run()" v-tooltip="'Neue Spalte link'">chevron_right</button>
@@ -168,16 +156,18 @@
                 </div>
 
                 <div class="button-group">
-                    <button type="button" class="button" @click="editor.chain().focus().mergeOrSplit().run()">Zelle Zusammenführen</button>
-                </div>
-
-                <div class="button-group">
+                    <button type="button" class="button icon" @click="editor.chain().focus().mergeOrSplit().run()" v-tooltip="'Zelle Zusammenführen'">cell_merge</button>
+                    <hr>
                     <button type="button" class="button icon" @click="editor.chain().focus().toggleHeaderCell().run()" v-tooltip="'Überschrift Zelle'">title</button>
                 </div>
 
                 <div class="button-group">
                     <button type="button" class="button icon" @click="editor.chain().focus().deleteTable().run()" v-tooltip="'Tabelle löschen'">delete</button>
                 </div>
+            </div>
+
+            <div class="styling-panel small-scrollbar" v-show="!isAnyDialogOpen && tab === 'view'">
+                <IodToggle label="Editorbreite limitieren" v-model="applyLimiter"/>
             </div>
 
 
@@ -408,7 +398,7 @@
                     isOpen: false,
                     icon: 'star',
                 },
-                tableToolbar: false,
+                tab: 'home',
                 swatches,
                 fullscreenAvailable: false,
                 isFullscreen: false,
@@ -607,7 +597,7 @@
         computed: {
             getNodeType()
             {
-                if      (this.editor.isActive('paragraph')) return 'paragraph'
+                if      (this.editor.isActive('paragraph')) return 'p'
                 else if (this.editor.isActive('heading'))   return 'h' + this.editor.getAttributes('heading').level
                 else    return ''
             },
@@ -786,7 +776,7 @@
             outline: none
             background: var(--color-background-soft)
 
-        &.active
+        &.is-active
             .icon
                 background: var(--color-primary)
                 color: var(--color-background)
@@ -825,8 +815,8 @@
         width: 100%
         display: flex
         flex-direction: column
-        background: var(--color-background)
-        border-radius: var(--radius-s)
+        background: var(--color-background-soft)
+        border-radius: var(--radius-m)
         position: relative
 
         &.sticky
@@ -866,21 +856,11 @@
             z-index: 1
             display: flex
             flex-direction: column
-            background: var(--color-background)
+            background: var(--color-background-soft)
             position: relative
             top: 0
             border-top-left-radius: inherit
             border-top-right-radius: inherit
-
-            &::after
-                content: ''
-                position: absolute
-                left: 2px
-                bottom: 0
-                transform: translateY(100%)
-                width: calc(100% - 4px)
-                height: 8px
-                background: linear-gradient(180deg, rgb(black, 0.07) 0%, rgb(black, 0) 100%)
 
             .toolbar
                 display: flex
@@ -888,7 +868,6 @@
                 flex-wrap: wrap
                 gap: 0 1rem
                 min-height: 2rem
-                background: var(--color-background-soft)
                 padding: 0 1rem
                 border-top-left-radius: inherit
                 border-top-right-radius: inherit
@@ -950,35 +929,26 @@
 
             .styling-panel
                 display: flex
-                gap: 1rem .5rem
-                padding: 1rem .5rem
-                flex-wrap: wrap
+                gap: .5rem
+                padding: 1rem
                 align-items: center
-                border-left: 1px solid var(--color-background-soft)
+                background: var(--color-background)
                 border-right: 1px solid var(--color-background-soft)
-
-                .select
-                    height: 2.5rem
-                    border: none
-                    background: var(--color-background-soft)
-                    border-radius: var(--radius-m)
-                    border: none
-                    user-select: none
-                    cursor: pointer
+                border-left: 1px solid var(--color-background-soft)
+                overflow-x: auto
 
                 .button-group
-                    height: 2.5rem
                     display: flex
                     align-items: center
-                    padding: 0 .25rem
+                    padding: .25rem
                     border-radius: var(--radius-m)
                     background: var(--color-background-soft)
 
                     > hr
-                        border: none
                         margin: 0 .25rem
+                        border: none
                         border-left: 1px solid var(--color-border)
-                        height: 1.5rem
+                        height: 2rem
                         width: 0
 
                 .button
@@ -996,14 +966,29 @@
                     border: none
 
                     &.icon
-                        aspect-ratio: 1.2
+                        aspect-ratio: 1
                         justify-content: center
                         font-family: var(--font-icon)
-                        font-size: 1.3rem
+                        font-size: 1.2rem
                         line-height: 1
                         padding: 0
 
-                    &::after
+                    &.drop
+                        aspect-ratio: unset
+                        padding-inline: .5rem
+
+                        &::after
+                            content: 'arrow_drop_down'
+                            font-family: var(--font-icon)
+                            font-size: 1.3rem
+                            line-height: 1
+                            user-select: none
+                            pointer-events: none
+                            opacity: .5
+                            text-align: center
+                            width: 1rem
+
+                    &::before
                         content: ''
                         position: absolute
                         top: 0
@@ -1017,7 +1002,7 @@
                     &:not(:disabled):hover
                         color: var(--color-primary)
 
-                        &::after
+                        &::before
                             opacity: .1
                     
                     &.is-active
@@ -1059,12 +1044,9 @@
             flex: 1
             display: flex
             flex-direction: column
-            background: var(--color-background-soft)
-            border: 1px solid var(--color-background-soft)
-            border-top: none
             border-bottom-left-radius: inherit
             border-bottom-right-radius: inherit
-            padding: 2rem
+            padding: 1rem
 
             .editor-limiter
                 flex: 1
@@ -1075,7 +1057,7 @@
                 margin: 0 auto
                 outline: none
                 background: var(--color-background)
-                border-radius: var(--radius-s)
+                border-radius: var(--radius-m)
                 box-shadow: var(--shadow-elevation-low)
 
                 &.ignore-limiter
