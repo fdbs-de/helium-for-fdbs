@@ -1,34 +1,34 @@
 <template>
     <div class="editor-wrapper" :class="{'fullscreen': isFullscreen, 'simplified': simplified, 'sticky': sticky}" v-if="editor">
         <div class="editor-controls">
-            <div class="toolbar">
-                <div class="flex w-100 h-2 v-center color-heading user-select-none" v-if="label">
-                    <small><b>{{ label }}</b></small>
-                </div>
-
-                <button type="button" class="toolbar-button" @click="tab = 'home'">Home</button>
-                <button type="button" class="toolbar-button" @click="tab = 'insert'">Einfügen</button>
-                <button type="button" class="toolbar-button" @click="tab = 'view'">Ansicht</button>
-                <button type="button" class="toolbar-button" v-show="editor.isActive('image')" @click="openImageDialog()">Bild</button>
-                <button type="button" class="toolbar-button" v-show="editor.isActive('link')" @click="openLinkDialog()">Link</button>
-                <button type="button" class="toolbar-button" @click="tab = 'table'" v-show="editor.isActive('table')">Tabelle</button>
+            <div class="toolbar-panel flex v-center h-center color-heading user-select-none" v-if="label">
+                <small><b>{{ label }}</b></small>
+            </div>
+            
+            <div class="toolbar-panel">
+                <button type="button" class="toolbar-button" :class="{'is-active': tab === 'home'}" @click="tab = 'home'">Home</button>
+                <button type="button" class="toolbar-button" :class="{'is-active': tab === 'insert'}" @click="tab = 'insert'">Einfügen</button>
+                <button type="button" class="toolbar-button" :class="{'is-active': tab === 'view'}" @click="tab = 'view'">Ansicht</button>
+                <button type="button" class="toolbar-button" :class="{'is-active': tab === 'image'}" v-show="editor.isActive('image')" @click="openImageDialog()">Bild</button>
+                <button type="button" class="toolbar-button" :class="{'is-active': tab === 'link'}" v-show="editor.isActive('link')" @click="openLinkDialog()">Link</button>
+                <button type="button" class="toolbar-button" :class="{'is-active': tab === 'table'}" @click="tab = 'table'" v-show="editor.isActive('table')">Tabelle</button>
                 
                 <div class="spacer"></div>
 
                 <button type="button" class="toolbar-button color-error" v-show="editor.isActive('keyfact')" @click="removeKeyfact()">Keyfact entfernen</button>
 
-                <div class="toolbar-toggle-button"
-                    @click="toggleFullscreen()"
-                    v-if="fullscreenAvailable"
-                    v-tooltip.bottom="isFullscreen ? 'Vollbild verlassen' : 'Vollbild'">
-                    {{ isFullscreen ? 'fullscreen_exit' : 'fullscreen' }}
-                </div>
+                <IodIconButton type="button" size="small" variant="text" :icon="isFullscreen ? 'fullscreen_exit' : 'fullscreen'" @click="toggleFullscreen()" v-if="fullscreenAvailable" v-tooltip.bottom="isFullscreen ? 'Vollbild verlassen' : 'Vollbild'"/>
             </div>
 
 
 
             <div class="styling-panel small-scrollbar" v-show="!isAnyDialogOpen && tab === 'home'">
-                <div class="button-group">
+                <!-- <div class="group w-4">
+                    <IodIconButton type="button" size="small" variant="text" icon="undo" :disabled="!editor.can().undo()" @click="editor.chain().focus().undo().run()" v-tooltip="'Rückgängig'"/>
+                    <IodIconButton type="button" size="small" variant="text" icon="redo" :disabled="!editor.can().redo()" @click="editor.chain().focus().redo().run()" v-tooltip="'Wiederholen'"/>
+                </div>
+                <hr class="vertical"> -->
+                <div class="group">
                     <VDropdown placement="bottom" v-if="!simplified" v-tooltip="'Text-Stil'">
                         <button type="button" class="button icon drop">
                             <template v-if="getNodeType === 'h1'">format_h1</template>
@@ -72,7 +72,9 @@
                             </div>
                         </template>
                     </VDropdown>
-                    <hr>
+                </div>
+                <hr class="vertical">
+                <div class="group">
                     <VDropdown placement="bottom" v-if="!simplified">
                         <button type="button" class="button icon drop">
                             <template v-if="editor.isActive({ textAlign: 'center' })">format_align_center</template>
@@ -111,63 +113,74 @@
                         </template>
                     </VDropdown>
                 </div>
-
-                <div class="button-group">
-                    <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('bold') }" @click="editor.chain().focus().toggleBold().run()">format_bold</button>
-                    <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('italic') }" @click="editor.chain().focus().toggleItalic().run()">format_italic</button>
-                    <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('underline') }" @click="editor.chain().focus().toggleUnderline().run()">format_underlined</button>
-                    <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('strike') }" @click="editor.chain().focus().toggleStrike().run()">strikethrough_s</button>
-                    <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('blockquote') }" @click="editor.chain().focus().toggleBlockquote().run()">format_quote</button>
-                    <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('code') }" @click="editor.chain().focus().toggleCode().run()">code</button>
+                <hr class="vertical">
+                <div class="group w-10">
+                    <IodIconButton type="button" size="small" :variant="editor.isActive('bold') ? 'filled' : 'text'" icon="format_bold" @click="editor.chain().focus().toggleBold().run()" v-tooltip="'Fett'"/>
+                    <IodIconButton type="button" size="small" :variant="editor.isActive('italic') ? 'filled' : 'text'" icon="format_italic" @click="editor.chain().focus().toggleItalic().run()" v-tooltip="'Kursiv'"/>
+                    <IodIconButton type="button" size="small" :variant="editor.isActive('underline') ? 'filled' : 'text'" icon="format_underlined" @click="editor.chain().focus().toggleUnderline().run()" v-tooltip="'Unterstrichen'"/>
+                    <IodIconButton type="button" size="small" :variant="editor.isActive('strike') ? 'filled' : 'text'" icon="strikethrough_s" @click="editor.chain().focus().toggleStrike().run()" v-tooltip="'Durchstrichen'"/>
+                    <IodIconButton type="button" size="small" :variant="editor.isActive('blockquote') ? 'filled' : 'text'" icon="format_quote" @click="editor.chain().focus().toggleBlockquote().run()" v-tooltip="'Zitat'"/>
+                    <IodIconButton type="button" size="small" :variant="editor.isActive('code') ? 'filled' : 'text'" icon="code" @click="editor.chain().focus().toggleCode().run()" v-tooltip="'Code'"/>
                 </div>
-                
-                <div class="button-group" v-if="!simplified">
-                    <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('bulletList') }" @click="editor.chain().focus().toggleBulletList().run()">format_list_bulleted</button>
-                    <button type="button" class="button icon" :class="{ 'is-active': editor.isActive('orderedList') }" @click="editor.chain().focus().toggleOrderedList().run()">format_list_numbered</button>
-                    <hr>
-                    <button type="button" class="button icon" @click="openLinkDialog()">link</button>
+                <hr class="vertical">
+                <div class="group w-6" v-if="!simplified">
+                    <IodIconButton type="button" size="small" :variant="editor.isActive('bulletList') ? 'filled' : 'text'" icon="format_list_bulleted" @click="editor.chain().focus().toggleBulletList().run()" v-tooltip="'Aufzählung'"/>
+                    <IodIconButton type="button" size="small" :variant="editor.isActive('orderedList') ? 'filled' : 'text'" icon="format_list_numbered" @click="editor.chain().focus().toggleOrderedList().run()" v-tooltip="'Nummerierung'"/>
+                    <IodIconButton type="button" size="small" variant="text" icon="link" @click="openLinkDialog()" v-tooltip="'Link hinzufügen'"/>
+                    <IodIconButton type="button" size="small" variant="text" icon="link_off" :disabled="!editor.isActive('link')" @click="removeLink()" v-tooltip="'Link entfernen'"/>
                 </div>
-
-                <div class="button-group">
-                    <button type="button" class="button icon" @click="editor.chain().focus().clearNodes().unsetAllMarks().run()">format_clear</button>
+                <hr class="vertical">
+                <div class="group">
+                    <IodIconButton type="button" size="small" variant="text" icon="format_clear" @click="editor.chain().focus().clearNodes().unsetAllMarks().run()" v-tooltip="'Formatierung entfernen'"/>
                 </div>
             </div>
 
             <div class="styling-panel small-scrollbar" v-show="!isAnyDialogOpen && tab === 'insert'">
-                <div class="button-group">
-                    <button type="button" class="button icon" @click="openImageDialog()" v-tooltip="'Bild einfügen'">image</button>
-                    <button type="button" class="button icon" @click="editor.chain().focus().insertTable({ rows: 3, cols: 3}).run()" v-tooltip="'Tabelle einfügen'">table</button>
-                    <button type="button" class="button icon" @click="editor.chain().focus().setHorizontalRule().run()" v-tooltip="'Horizontale Linie einfügen'">horizontal_rule</button>
-                    <button type="button" class="button icon" @click="openKeyfactDialog()" v-tooltip="'Keyfact einfügen'">star</button>
+                <div class="group">
+                    <IodIconButton type="button" size="small" variant="text" icon="image" @click="openImageDialog()" v-tooltip="'Bild einfügen'"/>
+                </div>
+                <hr class="vertical">
+                <div class="group">
+                    <IodIconButton type="button" size="small" variant="text" icon="table" @click="editor.chain().focus().insertTable({ rows: 3, cols: 3}).run()" v-tooltip="'Tabelle einfügen'"/>
+                </div>
+                <hr class="vertical">
+                <div class="group">
+                    <IodIconButton type="button" size="small" variant="text" icon="horizontal_rule" @click="editor.chain().focus().setHorizontalRule().run()" v-tooltip="'Horizontale Linie einfügen'"/>
+                </div>
+                <hr class="vertical">
+                <div class="group">
+                    <IodIconButton type="button" size="small" variant="text" icon="lightbulb" @click="openKeyfactDialog()" v-tooltip="'Keyfact einfügen'"/>
                 </div>
             </div>
 
             <div class="styling-panel small-scrollbar" v-show="!isAnyDialogOpen && tab === 'table'">
-                <div class="button-group">
-                    <button type="button" class="button icon" @click="editor.chain().focus().addColumnBefore().run()" v-tooltip="'Neue Spalte rechts'">chevron_left</button>
-                    <button type="button" class="button icon" @click="editor.chain().focus().addColumnAfter().run()" v-tooltip="'Neue Spalte link'">chevron_right</button>
-                    <button type="button" class="button icon" @click="editor.chain().focus().deleteColumn().run()" v-tooltip="'Spalte löschen'">delete</button>
+                <div class="group">
+                    <IodIconButton type="button" size="small" variant="text" icon="splitscreen_left" @click="editor.chain().focus().addColumnBefore().run()" v-tooltip="'Neue Spalte rechts'"/>
+                    <IodIconButton type="button" size="small" variant="text" icon="delete" @click="editor.chain().focus().deleteColumn().run()" v-tooltip="'Spalte löschen'"/>
+                    <IodIconButton type="button" size="small" variant="text" icon="splitscreen_right" @click="editor.chain().focus().addColumnAfter().run()" v-tooltip="'Neue Spalte links'"/>
                 </div>
-
-                <div class="button-group">
-                    <button type="button" class="button icon" @click="editor.chain().focus().addRowBefore().run()" v-tooltip="'Neue Zeile drüber'">expand_less</button>
-                    <button type="button" class="button icon" @click="editor.chain().focus().addRowAfter().run()" v-tooltip="'Neue Zeile drunter'">expand_more</button>
-                    <button type="button" class="button icon" @click="editor.chain().focus().deleteRow().run()" v-tooltip="'Zeile löschen'">delete</button>
+                <hr class="vertical">
+                <div class="group">
+                    <IodIconButton type="button" size="small" variant="text" icon="splitscreen_top" @click="editor.chain().focus().addRowBefore().run()" v-tooltip="'Neue Zeile drüber'"/>
+                    <IodIconButton type="button" size="small" variant="text" icon="delete" @click="editor.chain().focus().deleteRow().run()" v-tooltip="'Zeile löschen'"/>
+                    <IodIconButton type="button" size="small" variant="text" icon="splitscreen_bottom" @click="editor.chain().focus().addRowAfter().run()" v-tooltip="'Neue Zeile drunter'"/>
                 </div>
-
-                <div class="button-group">
-                    <button type="button" class="button icon" @click="editor.chain().focus().mergeOrSplit().run()" v-tooltip="'Zelle Zusammenführen'">cell_merge</button>
-                    <hr>
-                    <button type="button" class="button icon" @click="editor.chain().focus().toggleHeaderCell().run()" v-tooltip="'Überschrift Zelle'">title</button>
+                <hr class="vertical">
+                <div class="group w-4">
+                    <IodIconButton type="button" size="small" variant="text" icon="cell_merge" @click="editor.chain().focus().mergeOrSplit().run()" v-tooltip="'Zelle Zusammenführen'"/>
+                    <IodIconButton type="button" size="small" variant="text" icon="title" @click="editor.chain().focus().toggleHeaderCell().run()" v-tooltip="'Überschrift Zelle'"/>
                 </div>
-
-                <div class="button-group">
-                    <button type="button" class="button icon" @click="editor.chain().focus().deleteTable().run()" v-tooltip="'Tabelle löschen'">delete</button>
+                <hr class="vertical">
+                <div class="group">
+                    <IodIconButton type="button" size="small" variant="text" icon="delete_forever" @click="editor.chain().focus().deleteTable().run()" v-tooltip="'Tabelle löschen'"/>
                 </div>
             </div>
 
             <div class="styling-panel small-scrollbar" v-show="!isAnyDialogOpen && tab === 'view'">
-                <IodToggle label="Editorbreite limitieren" v-model="applyLimiter"/>
+                <div class="group w-20">
+                    <IodToggle label="Editorbreite limitieren" style="padding: 0; min-height: 2rem" v-model="applyLimiter"/>
+                    <IodToggle label="Rechtschreibprüfung" style="padding: 0; min-height: 2rem" v-model="applySpellcheck"/>
+                </div>
             </div>
 
 
@@ -220,7 +233,7 @@
 
 
         <div class="editor-content">
-            <editor-content class="editor-limiter formatted-content" :class="{'ignore-limiter': !applyLimiter}" spellcheck="true" lang="de" :editor="editor" />
+            <editor-content class="editor-limiter formatted-content" :class="{'ignore-limiter': !applyLimiter}" :spellcheck="applySpellcheck" lang="de" :editor="editor" />
         </div>
 
 
@@ -403,6 +416,7 @@
                 fullscreenAvailable: false,
                 isFullscreen: false,
                 applyLimiter: true,
+                applySpellcheck: true,
             }
         },
         mounted() {
@@ -561,9 +575,9 @@
                             ];
                         }
                     }),
-                    CodeBlockLowlight.configure({
-                        lowlight,
-                    }),
+                    // CodeBlockLowlight.configure({
+                    //     lowlight,
+                    // }),
                 ],
                 content: this.modelValue,
                 onUpdate: () => {
@@ -622,19 +636,6 @@
             exitFullscreen()
             {
                 document.exitFullscreen()
-            },
-
-            setNodeType(e)
-            {
-                switch (e.target.value)
-                {
-                    case 'paragraph': this.editor.chain().focus().setParagraph().run(); break;
-                    case 'h1': this.editor.chain().focus().setHeading({ level: 1 }).run(); break;
-                    case 'h2': this.editor.chain().focus().setHeading({ level: 2 }).run(); break;
-                    case 'h3': this.editor.chain().focus().setHeading({ level: 3 }).run(); break;
-                    case 'h4': this.editor.chain().focus().setHeading({ level: 4 }).run(); break;
-                    case 'h5': this.editor.chain().focus().setHeading({ level: 5 }).run(); break;
-                }
             },
 
             openLinkDialog()
@@ -823,20 +824,6 @@
             .editor-controls
                 position: sticky
 
-        &.simplified
-            .editor-controls
-                border-bottom: 1px solid var(--color-background-soft)
-
-                &::after
-                    display: none
-
-            .editor-content
-                padding: 0
-
-                .editor-limiter
-                    border-radius: 0 0 2px 2px
-                    box-shadow: none
-
         &.fullscreen
             position: fixed
             top: 0
@@ -846,9 +833,10 @@
             z-index: 10000
             border-radius: 0
             overflow-y: auto
+            overflow-x: hidden
 
             .editor-content
-                padding: 4rem 2rem
+                padding: 2rem
 
         .editor-controls
             flex: none
@@ -862,94 +850,99 @@
             border-top-left-radius: inherit
             border-top-right-radius: inherit
 
-            .toolbar
+            .iod-button
+                --color-primary: var(--color-text)
+
+            .toolbar-panel
                 display: flex
                 align-items: center
-                flex-wrap: wrap
-                gap: 0 1rem
-                min-height: 2rem
-                padding: 0 1rem
-                border-top-left-radius: inherit
-                border-top-right-radius: inherit
+                min-height: 2.25rem
+                padding: 0 .75rem
+                border-right: 1px solid var(--color-background-soft)
+                border-left: 1px solid var(--color-background-soft)
+                overflow: hidden
+
+                &:first-child
+                    border-top-left-radius: inherit
+                    border-top-right-radius: inherit
 
                 .spacer
                     flex: 1
 
-                .toolbar-button,
-                .toolbar-toggle-button
-                    background: none
-                    border: none
-                    padding: 0
-                    margin: 0
-                    cursor: pointer
-                    user-select: none
+                .toolbar-button
                     display: flex
                     align-items: center
-                    font-size: .9rem
+                    padding: 0 1rem
+                    margin: 0
+                    margin-top: .25rem
+                    height: 2rem
+                    border-radius: var(--radius-m) var(--radius-m) 0 0
+                    border: none
+                    cursor: pointer
+                    user-select: none
+                    font-size: .8rem
+                    font-weight: 500
                     font-family: var(--font-interface)
-                    color: var(--color-text)
+                    color: var(--color-text-soft)
+                    position: relative
 
-                    &.color-info
-                        color: var(--color-info)
-
-                    &.color-success
-                        color: var(--color-success)
-
-                    &.color-warning
-                        color: var(--color-warning)
-
-                    &.color-error
-                        color: var(--color-error)
-
-                    &.color-primary
-                        color: var(--color-primary)
-
-                    &.drop::after
-                        content: 'arrow_drop_down'
-                        font-family: var(--font-icon)
-                        font-size: 1.3rem
-                        line-height: 1
+                    &::before,
+                    &::after
+                        content: ''
+                        position: absolute
+                        bottom: 0
+                        height: 1rem
+                        width: 1rem
+                        background: transparent
+                        z-index: 1
+                        opacity: 0
                         user-select: none
                         pointer-events: none
-                        opacity: .5
+
+                    &::before
+                        right: 100%
+                        border-bottom-right-radius: var(--radius-m)
+                        box-shadow: .25rem .25rem 0 0 var(--color-background)
+
+                    &::after
+                        left: 100%
+                        border-bottom-left-radius: var(--radius-m)
+                        box-shadow: -.25rem .25rem 0 0 var(--color-background)
 
                     &:hover,
                     &:focus
                         outline: none
-                        color: var(--color-primary)
+                        color: var(--color-text)
 
-                .toolbar-button:not(.drop)
-                    &:hover
-                        text-decoration: underline
-                        background: var(--color-background-soft)
+                    &.is-active
+                        background: var(--color-background)
+                        color: var(--color-text)
+                        z-index: 1
 
-                .toolbar-toggle-button
-                    font-family: var(--font-icon)
-                    font-size: 1.25rem
+                        &::before,
+                        &::after
+                            opacity: 1
 
             .styling-panel
                 display: flex
-                gap: .5rem
-                padding: 1rem
-                align-items: center
+                align-items: stretch
+                padding: .5rem 0
+                min-height: 5rem
                 background: var(--color-background)
                 border-right: 1px solid var(--color-background-soft)
                 border-left: 1px solid var(--color-background-soft)
+                border-bottom: 1px solid var(--color-background-soft)
                 overflow-x: auto
+                overflow-y: hidden
 
-                .button-group
+                > hr
+                    margin: 0
+
+                .group
                     display: flex
                     align-items: center
-                    padding: .25rem
-                    border-radius: var(--radius-m)
-                    background: var(--color-background-soft)
-
-                    > hr
-                        margin: 0 .25rem
-                        border: none
-                        border-left: 1px solid var(--color-border)
-                        height: 2rem
-                        width: 0
+                    flex-wrap: wrap
+                    padding: 0 1rem
 
                 .button
                     position: relative
@@ -962,7 +955,7 @@
                     font-family: var(--font-interface)
                     color: var(--color-text)
                     background: none
-                    border-radius: var(--radius-s)
+                    border-radius: var(--radius-m)
                     border: none
 
                     &.icon
@@ -1000,13 +993,11 @@
                         opacity: 0
 
                     &:not(:disabled):hover
-                        color: var(--color-primary)
-
                         &::before
                             opacity: .1
                     
                     &.is-active
-                        background: var(--color-primary)
+                        background: var(--color-text)
                         color: var(--color-background)
 
                     &:disabled
@@ -1019,8 +1010,10 @@
                 align-items: center
                 gap: 1rem
                 padding: 1rem
+                background: var(--color-background)
                 border-left: 1px solid var(--color-background-soft)
                 border-right: 1px solid var(--color-background-soft)
+                border-bottom: 1px solid var(--color-background-soft)
                 position: relative
                 z-index: 1000
 
