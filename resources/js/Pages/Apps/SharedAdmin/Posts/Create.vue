@@ -75,11 +75,11 @@
                             </template>
                         </IodInput>
 
-                        <hr class="margin-block-1">
-
-                        <TextEditor class="content-input flex-1" v-model="form.content" />
+                        
                     </div>
                 </div>
+                <hr class="margin-block-1">
+                <TextEditor class="content-input flex-1" v-model="form.content" @save="saveItem()"/>
             </div>
 
             <div class="tab-container" v-show="tab === 'publishing'">
@@ -185,6 +185,10 @@
 
 
 
+    // We enable hotkeys for all inputs > ctrl+s should always trigger save
+    hotkeys.filter = function (event) { return true }
+    
+    // Define hotkeys
     hotkeys('ctrl+s', (event, handler) => { event.preventDefault(); saveItem() })
 
 
