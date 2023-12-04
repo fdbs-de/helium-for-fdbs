@@ -13,6 +13,41 @@ use Inertia\Inertia;
 class JobController extends Controller
 {
     private const funnels = [
+        ['title' => 'Bewerben als Lagermitarbeiter', 'name' => 'Lagermitarbeiter', 'tags' => ['schnellbewerbung', 'lager'], 'route' => 'karriere.funnel.show', 'slug' => 'lagermitarbeiter', 'pages' => [
+            // Welche Ausbildung hast Du? -> Textfeld
+            ['title' => 'Page 1', 'inputs' => [
+                ['id' => 'education', 'type' => 'text', 'name' => 'Ausbildung', 'label' => 'Welche Ausbildung hast Du?', 'required' => true, 'options' => [
+                    ['color' => '#FF0D22', 'label' => 'Fachkraft für Lagerlogistik', 'value' => 'Fachkraft für Lagerlogistik'],
+                    ['color' => '#C90A1B', 'label' => 'Fachlagerist', 'value' => 'Fachlagerist'],
+                ],]
+            ]],
+            // Wie viele Jahre Berufserfahrung kannst du vorweisen? -> keine, 1 bis 5 Jahre, 5 bis 10 Jahre, mehr als 10 Jahre
+            ['title' => 'Page 2', 'inputs' => [
+                ['id' => 'experienceinPosition', 'type' => 'multiple', 'name' => 'Erfahrung als Lagermitarbeiter (Jahre)', 'label' => 'Wie viele Jahre Berufserfahrung kannst du vorweisen?', 'required' => true, 'options' => [['label' => 'keine', 'value' => 'keine'], ['label' => '1 bis 5 Jahre', 'value' => '1 bis 5 Jahre'], ['label' => '5 bis 10 Jahre', 'value' => '5 bis 10 Jahre'], ['label' => 'mehr als 10 Jahre', 'value' => 'mehr als 10 Jahre'],]]
+            ]],
+            // Welchen Staplerschein hast du? -> Ja, Nein
+            ['title' => 'Page 3', 'inputs' => [
+                ['id' => 'forkliftLicense', 'type' => 'multiple', 'name' => 'Staplerschein', 'label' => 'Besitzt du einen Staplerschein?', 'required' => true, 'options' => [['label' => 'Nein', 'value' => 'Nein'], ['label' => 'Ja', 'value' => 'Ja'],]]
+            ]],
+            // Bereitschaft zur Spätschicht? -> Ja, Nein
+            ['title' => 'Page 4', 'inputs' => [
+                ['id' => 'lateShift', 'type' => 'multiple', 'name' => 'Spätschicht', 'label' => 'Bereitschaft zur Spätschicht?', 'required' => true, 'options' => [['label' => 'Nein', 'value' => 'Nein'], ['label' => 'Ja', 'value' => 'Ja'],]]
+            ]],
+            // Wie sind deine Deutschkenntnisse? -> nicht so gut, Okay, Gut, Muttersprache
+            ['title' => 'Page 5', 'inputs' => [
+                ['id' => 'experienceInLanguage', 'type' => 'multiple', 'name' => 'Deutschkenntnisse', 'label' => 'Wie sind deine Deutschkenntnisse?', 'required' => true, 'options' => [['label' => 'nicht so gut', 'value' => 'nicht so gut'], ['label' => 'Okay', 'value' => 'Okay'], ['label' => 'Gut', 'value' => 'Gut'], ['label' => 'Muttersprache', 'value' => 'Muttersprache'],]]
+            ]],
+            // Frühestmögliches Eintrittsdatum -> Textfeld (Schnellauswahl: sofort, nächster Monatsbegin, in 4 Wochen, in 3 Monaten, später)
+            ['title' => 'Page 6', 'inputs' => [
+                ['id' => 'startDate', 'type' => 'text', 'name' => 'Frühstes Einstiegsdatum', 'label' => 'Frühestmögliches Eintrittsdatum', 'required' => true, 'options' => [
+                    ['color' => '#FF0D22', 'label' => 'sofort', 'value' => 'sofort'],
+                    ['color' => '#C90A1B', 'label' => 'nächster Monatsbeginn', 'value' => 'nächster Monatsbeginn'],
+                    ['color' => '#960814', 'label' => 'in 4 Wochen', 'value' => 'in 4 Wochen'],
+                    ['color' => '#75060F', 'label' => 'in 3 Monaten', 'value' => 'in 3 Monaten'],
+                    ['color' => '#52040B', 'label' => 'später', 'value' => 'später'],
+                ],]
+            ]],
+        ]],
         ['title' => 'Bewerben als LKW Fahrer', 'name' => 'Fahrer', 'tags' => ['schnellbewerbung', 'fahrer'], 'route' => 'karriere.funnel.show', 'slug' => 'fahrer', 'pages' => [
             // Hast du bereits Erfahrung als LKW Fahrer? -> Ja, Nein
             ['title' => 'Page 1', 'inputs' => [
@@ -208,7 +243,7 @@ class JobController extends Controller
             'email' => 'nullable|email|max:200',
             'phone' => 'required|string|max:200',
             'birthday' => 'required|string|max:200',
-            'city' => 'required|string|max:200',
+            'zip' => 'required|string|max:200',
         ];
 
         foreach ($inputs as $input) {
@@ -235,7 +270,7 @@ class JobController extends Controller
             'email' => 'Email',
             'phone' => 'Telefon',
             'birthday' => 'Geburtsdatum',
-            'city' => 'Wohnort',
+            'zip' => 'PLZ',
         ];
         
         foreach ($inputs as $input)
