@@ -19,6 +19,7 @@ class JobController extends Controller
                 ['id' => 'education', 'type' => 'text', 'name' => 'Ausbildung', 'label' => 'Welche Ausbildung hast Du?', 'required' => true, 'options' => [
                     ['color' => '#FF0D22', 'label' => 'Fachkraft für Lagerlogistik', 'value' => 'Fachkraft für Lagerlogistik'],
                     ['color' => '#C90A1B', 'label' => 'Fachlagerist', 'value' => 'Fachlagerist'],
+                    ['color' => '#960814', 'label' => 'Quereinsteiger', 'value' => 'Quereinsteiger'],
                 ],]
             ]],
             // Wie viele Jahre Berufserfahrung kannst du vorweisen? -> keine, 1 bis 5 Jahre, 5 bis 10 Jahre, mehr als 10 Jahre
