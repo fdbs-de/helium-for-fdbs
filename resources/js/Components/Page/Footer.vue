@@ -3,8 +3,8 @@
         <div class="limiter certificate-row">
             <p>Wir sind zertifiziert durch</p>
             <div class="wrapper">
-                <a class="cert-wrapper" href="/downloads/zertifikate/CrefoZert_2021_2030012751_Fleischer_Dienst_Braunschweig_eG.pdf" target="_blank" rel="noopener noreferrer">
-                    <img src="/images/assets/zertifikate/crefo_logo.webp" alt="CreFo Zertifizierung">
+                <a class="cert-wrapper" href="/downloads/zertifikate/CrefoZert_2022_2030012751_Fleischer_Dienst_Braunschweig_eG.pdf" target="_blank" rel="noopener noreferrer">
+                    <img src="/images/assets/zertifikate/crefo_logo.jpg" alt="CreFo Zertifizierung">
                 </a>
                 <a class="cert-wrapper" href="/downloads/zertifikate/qs_zertifikat_2022.pdf" target="_blank" rel="noopener noreferrer">
                     <img src="/images/assets/zertifikate/qs_logo.webp" alt="QS Zertifizierung">
