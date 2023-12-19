@@ -14,9 +14,9 @@ class Currency extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        'code',
         'name',
         'symbol',
-        'code',
         'decimal_places',
     ];
 

@@ -13,10 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('taxes', function (Blueprint $table) {
-            $table->string('name');
-            $table->string('type');
-            $table->decimal('rate', 8, 4);
+        Schema::table('product_groups', function (Blueprint $table) {
+            $table->foreign('default_product_id')->references('id')->on('products')->setNullOnDelete()->cascadeOnUpdate();
         });
     }
 
@@ -27,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('taxes');
+        Schema::table('product_groups', function (Blueprint $table) {
+            $table->dropForeign(['default_product_id']);
+        });
     }
 };

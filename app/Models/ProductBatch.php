@@ -17,4 +17,16 @@ class ProductBatch extends Model
         'weight_per_item',
         'expiration_date',
     ];
+
+
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
+
+    public function product_prices()
+    {
+        return $this->morphMany(ProductPrice::class, 'priceable');
+    }
 }

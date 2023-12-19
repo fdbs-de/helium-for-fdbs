@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class ProductPrice extends Model
 {
@@ -12,11 +13,17 @@ class ProductPrice extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        'type', // E.g. SP, PP
         'currency_code',
-        'amount',
+        'price',
     ];
 
 
+
+    public function priceable(): MorphTo
+    {
+        return $this->morphTo();
+    }
 
     public function currency()
     {

@@ -12,8 +12,9 @@ class Tax extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'name',
         'type',
+        'priority',
+        'name',
         'rate',
     ];
 
@@ -22,5 +23,10 @@ class Tax extends Model
     public function countries()
     {
         return $this->morphToMany(Country::class, 'model', 'model_has_countries');
+    }
+
+    public function product_groups()
+    {
+        return $this->belongsToMany(ProductGroup::class, 'product_group_tax');
     }
 }

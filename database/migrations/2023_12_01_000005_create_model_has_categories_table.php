@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('product_weights', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create('model_has_categories', function (Blueprint $table) {
+            $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->morphs('model');
         });
     }
 
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_weights');
+        Schema::dropIfExists('model_has_categories');
     }
 };

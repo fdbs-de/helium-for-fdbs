@@ -14,6 +14,7 @@ class ProductDimensions extends Model
     protected $fillable = [
         'product_id',
         'type', // E.g. product, package
+        'label', // For custom dimensions like parts of product
         'width',
         'height',
         'depth',

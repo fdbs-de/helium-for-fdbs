@@ -13,9 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('product_dimensions', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create('model_has_countries', function (Blueprint $table) {
+            $table->morphs('model');
+            $table->string('country_code', 4);
+
+            $table->foreign('country_code')->references('code')->on('countries')->restrictOnDelete()->cascadeOnUpdate();
         });
     }
 
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_dimensions');
+        Schema::dropIfExists('model_has_countries');
     }
 };

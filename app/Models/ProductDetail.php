@@ -17,4 +17,11 @@ class ProductDetail extends Model
         'label',
         'value',
     ];
+
+
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

@@ -14,8 +14,8 @@ class Country extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'name',
         'code',
+        'name',
     ];
 
 

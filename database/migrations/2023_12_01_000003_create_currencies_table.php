@@ -19,8 +19,8 @@ class CreateCurrenciesTable extends Migration
             $table->string('symbol');
             $table->integer('decimal_places');
 
-            $table->index('name');
             $table->index('code');
+            $table->index('name');
         });
     }
 

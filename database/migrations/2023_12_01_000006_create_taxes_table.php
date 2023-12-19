@@ -13,9 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('model_has_country', function (Blueprint $table) {
-            $table->morphs('model');
-            $table->foreignId('country_code')->constrained('countries');
+        Schema::create('taxes', function (Blueprint $table) {
+            $table->id();
+            $table->string('type');
+            $table->integer('priority')->nullable();
+            $table->string('name');
+            $table->decimal('rate', 8, 4);
         });
     }
 
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('model_has_country');
+        Schema::dropIfExists('taxes');
     }
 };

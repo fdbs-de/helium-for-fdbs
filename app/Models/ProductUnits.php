@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProductWeight extends Model
+class ProductUnits extends Model
 {
     use HasFactory;
 
@@ -13,8 +13,11 @@ class ProductWeight extends Model
 
     protected $fillable = [
         'product_id',
-        'type', // E.g. net, gross
         'weight',
+        'length',
+        'volume',
+        'temperature',
+        'speed',
     ];
 
 
