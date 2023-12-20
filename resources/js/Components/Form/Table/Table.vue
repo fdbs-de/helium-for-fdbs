@@ -244,7 +244,7 @@
 
     const displayFilter = computed(() => {
         // Get the filter settings;
-        let filterSettings = props.filterSettings ?? {}
+        let filterSettings = props.filterSettings ?? []
 
         // Get the filter values
         let filter_ = {...filter.value}
