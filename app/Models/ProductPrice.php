@@ -20,6 +20,15 @@ class ProductPrice extends Model
 
 
 
+    protected static function booted()
+    {
+        static::deleting(function ($productPrice) {
+            $productPrice->countries()->detach();
+        });
+    }
+
+
+
     public function priceable(): MorphTo
     {
         return $this->morphTo();

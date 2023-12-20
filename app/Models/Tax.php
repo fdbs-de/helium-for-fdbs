@@ -18,6 +18,15 @@ class Tax extends Model
         'rate',
     ];
 
+
+
+    protected static function booted()
+    {
+        static::deleting(function ($tax) {
+            $tax->countries()->detach();
+        });
+    }
+
     
 
     public function countries()
@@ -27,6 +36,6 @@ class Tax extends Model
 
     public function product_groups()
     {
-        return $this->belongsToMany(ProductGroup::class, 'product_group_tax');
+        return $this->morphedByMany(ProductGroup::class, 'model', 'model_has_taxes');
     }
 }

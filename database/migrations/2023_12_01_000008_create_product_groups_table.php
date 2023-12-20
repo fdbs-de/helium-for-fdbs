@@ -13,9 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('product_group_tax', function (Blueprint $table) {
-            $table->foreignId('product_group_id')->constrained('product_groups')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignId('tax_id')->constrained('taxes')->cascadeOnDelete()->cascadeOnUpdate();
+        Schema::create('product_groups', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('default_product_id')->nullable();
+            $table->string('name')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_group_tax');
+        Schema::dropIfExists('product_groups');
     }
 };

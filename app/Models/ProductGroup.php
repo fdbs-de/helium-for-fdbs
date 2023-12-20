@@ -16,6 +16,16 @@ class ProductGroup extends Model
 
 
 
+    protected static function booted()
+    {
+        static::deleting(function ($productGroup) {
+            $productGroup->categories()->detach();
+            $productGroup->taxes()->detach();
+        });
+    }
+
+
+
     public function categories()
     {
         return $this->morphToMany(Category::class, 'model', 'model_has_category');
@@ -33,6 +43,6 @@ class ProductGroup extends Model
 
     public function taxes()
     {
-        return $this->belongsToMany(Tax::class, 'product_group_tax');
+        return $this->morphToMany(Tax::class, 'model', 'model_has_taxes');
     }
 }
