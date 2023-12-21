@@ -18,20 +18,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // Set up all roles and permissions
-        Artisan::call('setup:roles');
-
-
-
-        $root = User::create([
-            'name' => 'Root',
-            'email' => config('app.root_email'),
-            'password' => Hash::make(config('app.root_password')),
-        ]);
-
-        $root->syncRoles([Roles::SUPER_ADMIN]);
-        $root->email_verified_at = now();
-        $root->enabled_at = now();
-        $root->save();
+        
     }
 }

@@ -30,9 +30,6 @@ return [
 
     'env' => env('APP_ENV', 'production'),
 
-    'root_email' => env('ROOT_EMAIL'),
-    'root_password' => env('ROOT_PASSWORD'),
-
     /*
     |--------------------------------------------------------------------------
     | Application Debug Mode
