@@ -1,6 +1,4 @@
-<p align="center"><a href="https://heliumcms.com" target="_blank"><img src="https://raw.githubusercontent.com/freuwort/helium-for-fdbs/master/public/images/app/branding/cms_icon.svg" width="200"></a></p>
-
-<hr>
+<p align="center"><a href="https://heliumcms.com" target="_blank"><img src="https://raw.githubusercontent.com/freuwort/helium-for-fdbs/master/public/images/app/branding/cms_icon.svg" width="120"></a></p><br>
 
 ## About Helium
 Helium is a content management system built on [Laravel](https://laravel.com) and [Vue.js](https://vuejs.org).<br>
