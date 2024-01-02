@@ -47,7 +47,7 @@
             </form>
         </section>
 
-        <h2 class="text-align-center">Der Vorstand</h2>
+        <!-- <h2 class="text-align-center">Der Vorstand</h2>
         <div class="staff-card-container">
             <div></div>
             <StaffCard name="Sebastian Gerlach" job="Vorstand" leader label="(geschäftsführend)" image="/images/content/mitarbeiter/sebastian_gerlach.png" overlay="/images/content/mitarbeiter/sebastian_gerlach_zeichnung.png"/>
@@ -68,7 +68,7 @@
                     :image="employee.image || '/images/content/mitarbeiter/missing.png'"
                     :overlay="employee.overlay"/>
             </template>
-        </div>
+        </div> -->
     </TextSubLayout>
 </template>
 
