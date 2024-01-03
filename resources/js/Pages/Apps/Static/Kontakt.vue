@@ -1,9 +1,9 @@
 <template>
     <Head>
-        <title>Kontakt & Ansprechpartner – FDBS</title>
+        <title>Kontakt – FDBS</title>
     </Head>
 
-    <TextSubLayout title="Kontakt & Ansprechpartner" image="/images/content/banner/kontakt_360006987.webp">
+    <TextSubLayout title="Kontakt" image="/images/content/banner/kontakt_360006987.webp">
         <section id="form-section">
             <div class="card">
                 <h2>Anfahrt</h2>
