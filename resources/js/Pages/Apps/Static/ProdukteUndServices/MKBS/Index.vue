@@ -63,7 +63,7 @@
             </div>
         </section>
 
-        <section id="contacts">
+        <!-- <section id="contacts">
             <div class="limiter">
                 <h2>Unser Team</h2>
                 <div class="grid">
@@ -78,7 +78,7 @@
                         :overlay="employee.overlay"/>
                 </div>
             </div>
-        </section>
+        </section> -->
     </GuestLayout>
 </template>
 

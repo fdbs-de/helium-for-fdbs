@@ -21,11 +21,11 @@
                 10.1 Elektro = 550,00 € netto<br>
             </p>
             <img src="/images/content/customerservice/mkn_06_2023.png" alt="MKN Maschinen" class="content-image border">
+            <!-- <p>&nbsp;</p>
             <p>&nbsp;</p>
-            <p>&nbsp;</p>
-            <p>&nbsp;</p>
+            <p>&nbsp;</p> -->
             
-            <h2>Ihre Ansprechpartner</h2>
+            <!-- <h2>Ihre Ansprechpartner</h2>
             <div class="grid">
                 <StaffCard
                     class="service-scroll-item"
@@ -37,7 +37,7 @@
                     :tel="employee.tel"
                     :image="employee.image || '/images/content/mitarbeiter/missing.png'"
                     :overlay="employee.overlay"/>
-            </div>
+            </div> -->
         </div>
     </TextSubLayout>
 </template>

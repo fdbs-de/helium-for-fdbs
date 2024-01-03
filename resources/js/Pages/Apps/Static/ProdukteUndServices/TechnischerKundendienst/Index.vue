@@ -134,7 +134,7 @@
             <p>&nbsp;</p>
         </div>
 
-        <div class="limiter">
+        <!-- <div class="limiter">
             <h2 class="text-align-center">Unser Team</h2>
             <div class="grid">
                 <StaffCard
@@ -147,7 +147,7 @@
                     :image="employee.image || '/images/content/mitarbeiter/missing.png'"
                     :overlay="employee.overlay"/>
             </div>
-        </div>
+        </div> -->
     </TextSubLayout>
 </template>
 
