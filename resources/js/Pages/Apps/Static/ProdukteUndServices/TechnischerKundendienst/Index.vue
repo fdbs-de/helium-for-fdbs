@@ -115,7 +115,7 @@
                     <li>
                         <b>Perfektes Wasser</b> für jede Gelegenheit!
                         Egal ob Kaffee, Kochen oder Spülen, wir ermitteln
-                        ihren Bedarf und fi nden für sie die richtige
+                        ihren Bedarf und finden für sie die richtige
                         Wasseraufbereitung
                     </li>
                     <li><b>Prüfen</b> ihrer Wasserqualität</li>
@@ -127,6 +127,7 @@
             <p>Entdecken Sie regelmäßig ausgewählte Maschinen zu unschlagbaren Sonderpreisen für Ihre Großküche.</p>
             <div class="card margin-top-2">
                 <img src="/images/content/customerservice/hobart.png" alt="Hightech-Highlights" class="content-image">
+                <span class="flex h-center text-center">– Preise auf Anfrage –</span>
                 <DownloadManager id="11195" class="border-top"/>
             </div>
             <p>&nbsp;</p>
