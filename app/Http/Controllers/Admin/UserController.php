@@ -102,6 +102,28 @@ class UserController extends Controller
 
 
         // START: Filter
+        if ($request->status)
+        {
+            if ($request->status === 'active')
+            {
+                $query->where(function ($query) use ($request) {
+                    $query
+                    ->whereNotNull('enabled_at')
+                    ->whereNotNull('email_verified_at')
+                    ->whereNull('terminated_at');
+                });
+            }
+            else if ($request->status === 'pending')
+            {
+                $query->where(function ($query) use ($request) {
+                    $query
+                    ->whereNull('enabled_at')
+                    ->orWhereNull('email_verified_at')
+                    ->orWhereNotNull('terminated_at');
+                });
+            }
+        }
+
         if ($request->profiles)
         {
             $profiles = array_map( function ($profile) { return 'profile.' . $profile; }, $request->profiles);

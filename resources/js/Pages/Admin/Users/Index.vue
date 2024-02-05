@@ -138,6 +138,16 @@
     const tableFilters = [
         {
             type: 'select',
+            multiple: false,
+            name: 'status',
+            label: 'Status',
+            values: [
+                {text: 'Aktiv', value: 'active'},
+                {text: 'Ausstehend', value: 'pending'},
+            ],
+        },
+        {
+            type: 'select',
             multiple: true,
             name: 'profiles',
             label: 'Profile',

@@ -9,22 +9,7 @@
                     v-model="filter.search"
                 >
                     <template #right>
-                        <VDropdown placement="bottom" v-if="filterSettings && filterSettings.length">
-                            <IodIconButton type="button" variant="text" size="small" icon="filter_list" v-tooltip="'Filter'"/>
-                            <template #popper>
-                                <div class="flex vertical gap-1 padding-1">
-                                    <div class="flex gap-0-5 vertical" v-for="row in filterSettings">
-                                        <span>{{ row.label }}</span>
-                                        <template v-if="row.type == 'select'">
-                                            <!-- <IodSelect class="w-20" :label="row.label" :multiple="row.multiple" :options="row.values" v-model="filter[row.name]"/> -->
-                                            <select class="w-20 h-6" :multiple="row.multiple" v-model="filter[row.name]">
-                                                <option v-for="option in row.values" :value="option.value">{{ option.text }}</option>
-                                            </select>
-                                        </template>
-                                    </div>
-                                </div>
-                            </template>
-                        </VDropdown>
+                        <TableFilters :filter="filter" :filterSettings="filterSettings" />
                         <IodIconButton type="button" variant="text" size="small" icon="search" @click="$emit('request:refresh')" v-tooltip="'Suchen'"/>
                     </template>
                 </IodInput>
@@ -145,6 +130,7 @@
 
     import TableColumn from '@/Components/Form/Table/TableColumn.vue'
     import TablePagination from '@/Components/Form/Table/TablePagination.vue'
+    import TableFilters from '@/Components/Form/Table/TableFilters.vue'
     import IconButton from '@/Components/Apps/Pages/IconButton.vue'
     import Loader from '@/Components/Form/Loader.vue'
     import Tag from '@/Components/Form/Tag.vue'
