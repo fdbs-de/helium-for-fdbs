@@ -13,6 +13,7 @@ use App\Http\Controllers\Apps\IntranetAdmin\InviteController;
 use App\Http\Controllers\Apps\NewsletterAdmin\NewsletterController;
 use App\Http\Controllers\Apps\PagesAdmin\MenuController;
 use App\Http\Controllers\Apps\PagesAdmin\PageController;
+use App\Http\Controllers\Apps\PagesAdmin\PlannerController;
 use App\Http\Controllers\Apps\SharedAdmin\PostCategoryController;
 use App\Http\Controllers\Apps\SharedAdmin\PostController;
 use Illuminate\Support\Facades\Route;
@@ -261,6 +262,36 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'enabled', 'active', 'ca
             Route::delete('/', [MenuController::class, 'delete'])
             ->middleware('can:app.pages.delete.menus')
             ->name('admin.pages.menus.delete');
+        });
+
+        Route::prefix('planner')->group(function () {
+            Route::get('/', [PlannerController::class, 'index'])
+            ->middleware('can:app.pages.view.pages')
+            ->name('admin.pages.planner');
+
+            Route::get('/search', [PlannerController::class, 'search'])
+            ->middleware('can:app.pages.view.pages')
+            ->name('admin.pages.planner.search');
+
+            Route::get('/editor/{group?}', [PlannerController::class, 'create'])
+            ->middleware('can:app.pages.view.pages')
+            ->name('admin.pages.planner.editor');
+
+            Route::post('/', [PlannerController::class, 'store'])
+            ->middleware('can:app.pages.create.pages')
+            ->name('admin.pages.planner.store');
+
+            Route::post('/{group}', [PlannerController::class, 'duplicate'])
+            ->middleware('can:app.pages.create.pages')
+            ->name('admin.pages.planner.duplicate');
+
+            Route::put('/{group}', [PlannerController::class, 'update'])
+            ->middleware('can:app.pages.edit.pages')
+            ->name('admin.pages.planner.update');
+
+            Route::delete('/', [PlannerController::class, 'delete'])
+            ->middleware('can:app.pages.delete.pages')
+            ->name('admin.pages.planner.delete');
         });
     });
 
