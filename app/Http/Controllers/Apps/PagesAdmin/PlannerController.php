@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Apps\PagesAdmin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Planner\CreatePlannerPostGroupRequest;
+use App\Http\Requests\Planner\UpdatePlannerPostGroupRequest;
 use App\Http\Resources\Planner\PostGroupResource;
 use App\Models\PlannerPostGroup;
 use Illuminate\Http\Request;
@@ -14,6 +16,8 @@ class PlannerController extends Controller
     {
         return Inertia::render('Apps/PagesAdmin/Planner/Index');
     }
+
+
 
     public function search(Request $request)
     {
@@ -75,7 +79,7 @@ class PlannerController extends Controller
 
 
 
-    public function create(Request $request, PlannerPostGroup $group)
+    public function create(PlannerPostGroup $group)
     {
         return Inertia::render('Apps/PagesAdmin/Planner/Create', [
             'item' => PostGroupResource::make($group),
@@ -84,31 +88,19 @@ class PlannerController extends Controller
 
 
 
-    public function store(Request $request)
+    public function store(CreatePlannerPostGroupRequest $request)
     {
-        $group = PlannerPostGroup::create([
-            'slug' => $request->slug,
-            'owner_type' => $request->owner_type,
-            'owner_id' => $request->owner_id,
-            'title' => $request->title,
-            'status' => $request->status,
-        ]);
+        $group = PlannerPostGroup::create($request->validated());
 
-        return response()->json(PostGroupResource::make($group));
+        return redirect()->route('admin.pages.planner.editor', PostGroupResource::make($group));
     }
 
 
 
-    public function update(Request $request, PlannerPostGroup $group)
+    public function update(UpdatePlannerPostGroupRequest $request, PlannerPostGroup $group)
     {
-        $group->update([
-            'slug' => $request->slug,
-            'owner_type' => $request->owner_type,
-            'owner_id' => $request->owner_id,
-            'title' => $request->title,
-            'status' => $request->status,
-        ]);
+        $group->update($request->validated());
 
-        return response()->json(PostGroupResource::make($group));
+        return redirect()->route('admin.pages.planner.editor', PostGroupResource::make($group));
     }
 }

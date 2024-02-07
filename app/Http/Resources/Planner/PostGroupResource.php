@@ -15,14 +15,15 @@ class PostGroupResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'slug' => $this->slug,
             'owner_type' => $this->owner_type,
             'owner_id' => $this->owner_id,
-            // 'owner_displayname' => $this->owner,
+            'owner_displayname' => optional($this->owner)->name ?? null,
             'title' => $this->title,
             'status' => $this->status,
-            // 'posts' => PostResource::collection($this->posts),
-            // 'current_posts' => PostResource::collection($this->current_posts),
+            'posts' => PostResource::collection($this->posts),
+            'current_posts' => PostResource::collection($this->current_posts),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

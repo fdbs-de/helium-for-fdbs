@@ -109,8 +109,9 @@
 
     function setOwner(item)
     {
+        console.log(item)
         form.owner_id = item.id
-        form.owner_type = item.class_name
+        form.owner_type = item.model_class
         form.owner_displayname = item.name
     }
     // END: Methods

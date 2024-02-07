@@ -21,7 +21,7 @@
 <script setup>
     import { Head, useForm } from '@inertiajs/inertia-vue3'
     import { ref } from 'vue'
-    import { slugify } from '@/Utils/String'
+    import { slugify, capitalizeWords } from '@/Utils/String'
     import ItemPageManager from '@/Classes/Managers/ItemPageManager'
 
     import AdminLayout from '@/Layouts/Admin.vue'
@@ -52,21 +52,9 @@
         {type: 'text', name: 'title', label: 'Titel', valuePath: 'title', sortable: true, width: 300, resizeable: true, hideable: true},
         {type: 'text', name: 'slug', label: 'Slug', valuePath: 'slug', sortable: true, width: 200, resizeable: true, hideable: true},
         {type: 'text', name: 'owner_displayname', label: 'Zugewiesen zu', valuePath: 'owner_displayname', sortable: false, width: 200, resizeable: true, hideable: true},
+        {type: 'text', name: 'status', label: 'Status', valuePath: 'status', sortable: false, width: 150, resizeable: true, hideable: true, transform: (value) => capitalizeWords(value)},
         {type: 'date', name: 'created_at', label: 'Erstellt am', valuePath: 'created_at', sortable: true, width: 200, resizeable: true, hideable: true},
         {type: 'date', name: 'updated_at', label: 'Geändert am', valuePath: 'updated_at', sortable: true, width: 200, resizeable: true, hideable: true},
-        {type: 'tags', name: 'status', label: 'Status', valuePath: 'status', sortable: false, width: 150, resizeable: true, hideable: true, transform: (value, item) => {
-            switch (value)
-            {
-                case 'draft':
-                    return [{icon: null, text: 'Entwurf', color: 'var(--color-text-soft)', variant: 'filled', shape: 'pill'}]
-                case 'pending':
-                    return [{icon: null, text: 'Zur Freigabe', color: 'var(--color-warning)', variant: 'filled', shape: 'pill'}]
-                case 'published':
-                    return [{icon: null, text: 'Veröffentlicht', color: 'var(--color-success)', variant: 'filled', shape: 'pill'}]
-                case 'hidden':
-                    return [{icon: null, text: 'Versteckt', color: 'var(--color-error)', variant: 'filled', shape: 'pill'}]
-            }
-        }},
     ]
 
     const tableActions = [
