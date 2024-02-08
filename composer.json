@@ -8,6 +8,7 @@
         "php": "^8.0.2",
         "caneara/quest": "^2.0",
         "doctrine/dbal": "^3.6",
+        "endroid/qr-code": "^5.0",
         "guzzlehttp/guzzle": "^7.2",
         "http-interop/http-factory-guzzle": "^1.2",
         "inertiajs/inertia-laravel": "^0.5.4",
@@ -19,6 +20,7 @@
         "meilisearch/meilisearch-php": "^0.27.0",
         "spatie/laravel-permission": "^5.5",
         "spatie/pdf-to-image": "^2.2",
+        "spomky-labs/otphp": "^11.2",
         "tightenco/ziggy": "^1.0"
     },
     "require-dev": {

@@ -29,6 +29,7 @@ class PrivateUserResource extends JsonResource
             'image' => $this->image,
             'email' => $this->email,
             'is_enabled' => $this->is_enabled,
+            'has_mfa_enabled' => $this->has_mfa_enabled,
 
             'access' => $this->access,
             'profiles' => $this->profiles,

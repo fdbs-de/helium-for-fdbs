@@ -65,6 +65,14 @@
                         </div>
                     </div>
 
+                    <!-- <div class="field">
+                        <span>2-Faktor-Authentifizierung</span>
+                        <div>
+                            <IodButton type="button" label="Deaktivieren" size="small" variant="contained" v-if="user.has_mfa_enabled" @click="resetTOTP()"/>
+                            <IodButton type="button" label="Aktivieren" size="small" variant="filled" v-else @click="setupTOTP()"/>
+                        </div>
+                    </div> -->
+
                     <hr>
             
                     <div class="field">
@@ -81,12 +89,39 @@
 
 
     <Popup ref="changePasswordPopup" title="Passwort ändern">
-        <ValidationErrors />
-
         <form class="flex vertical gap-1 padding-1" @submit.prevent="changePassword()">
+            <ValidationErrors />
+            
             <IodInput type="password" label="Derzeitiges Passwort" required v-model="changePasswordForm.currentPassword"/>
             <IodInput type="password" label="Neues Passwort" show-password-score :password-score-function="zxcvbn" required v-model="changePasswordForm.newPassword"/>
             <IodButton label="Passwort Ändern"/>
+        </form>
+    </Popup>
+    
+    <Popup ref="setupTOTPPopup" title="2-Faktor-Authentifizierung">
+        <form class="flex vertical gap-1 padding-1" @submit.prevent="enableTOTP()">
+            <ValidationErrors />
+            <div class="flex v-start gap-1">
+                <div class="w-16 flex vertical gap-1">
+                    <img class="w-16" :src="TOTPSetup.qr_code" alt="QR-Code" v-if="TOTPSetup.qr_code"/>
+                    <small class="w-16" v-tooltip="TOTPSetup.secret">Manuell eingeben</small>
+                </div>
+                <div class="flex-1 flex vertical gap-1">
+                    <ol>
+                        <li>
+                            Öffnen Sie Ihre Authentifizierungs-App und scannen Sie den QR-Code.
+                        </li>
+                        <li>
+                            Geben Sie den 6-stelligen Code ein, der in Ihrer App angezeigt wird.
+                        </li>
+                        <li>
+                            Bestätigen Sie die 2-Faktor-Authentifizierung.
+                        </li>
+                    </ol>
+                    <IodInput type="text" label="Authentifizierungscode" required v-model="TOTPForm.otp"/>
+                    <IodButton label="Bestätigen"/>
+                </div>
+            </div>
         </form>
     </Popup>
 </template>
@@ -125,6 +160,43 @@
         })
     }
     // END: Change Password
+
+
+
+    // START: TOTP
+    const setupTOTPPopup = ref(null)
+    const TOTPSetup = ref({
+        qr_code: null,
+        secret: null,
+    })
+    const TOTPForm = useForm({
+        otp: '',
+    })
+
+    function setupTOTP()
+    {
+        setupTOTPPopup.value.open()
+        
+        axios.put(route('mfa.totp.setup')).then(response => {
+            TOTPSetup.value = response.data
+        })
+    }
+
+    function enableTOTP()
+    {
+        TOTPForm.put(route('mfa.totp.enable'), {
+            onSuccess() {
+                TOTPForm.reset()
+                setupTOTPPopup.value.close()
+            },
+        })
+    }
+
+    function resetTOTP()
+    {
+        useForm().delete(route('mfa.totp.reset'))
+    }
+    // END: TOTP
 
 
 
@@ -228,7 +300,7 @@
 
         > span
             flex: none
-            max-width: 12rem
+            max-width: 16rem
             width: 100%
             padding: .5rem 1rem
 
