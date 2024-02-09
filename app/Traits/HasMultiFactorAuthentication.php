@@ -77,21 +77,23 @@ trait HasMultiFactorAuthentication
 
 
 
-    public function enableTOTP($otp)
+    public function enableTOTP($otp): Bool
     {
         // Get the TOTP method
         $method = $this->TOTPMethod();
 
         // Check if Method is already enabled
         if ($method->enabled_at) return false;
-        
+
         // Check if OTP is valid
-        if (!TOTP::createFromSecret($method->secret)->verify($otp)) return false;
+        if (!TOTP::createFromSecret($method->secret)->verify((string) $otp)) return false;
         
         // Enable the method
         $method->update([
             'enabled_at' => now(),
         ]);
+
+        return true;
     }
 
 

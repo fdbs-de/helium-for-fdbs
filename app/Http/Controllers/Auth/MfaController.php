@@ -23,7 +23,7 @@ class MfaController extends Controller
             'otp' => 'required|digits:6',
         ]);
 
-        $request->user()->enableTOTP($request->otp);
+        if (!$request->user()->enableTOTP($request->otp)) back(422);
 
         return back()->with('status', 'Two factor authentication has been enabled.');
     }
