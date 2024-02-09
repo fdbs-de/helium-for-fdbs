@@ -65,13 +65,13 @@
                         </div>
                     </div>
 
-                    <div class="field">
+                    <!-- <div class="field">
                         <span>2-Faktor-Authentifizierung</span>
                         <div>
                             <IodButton type="button" label="Deaktivieren" size="small" variant="contained" v-if="user.has_mfa_enabled" @click="resetTOTP()"/>
                             <IodButton type="button" label="Aktivieren" size="small" variant="filled" v-else @click="setupTOTP()"/>
                         </div>
-                    </div>
+                    </div> -->
 
                     <hr>
             

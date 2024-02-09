@@ -30,6 +30,9 @@ Route::middleware('auth')->group(function () {
     Route::get('verify-email/{id}/{hash}', [VerifyEmailController::class, '__invoke'])->middleware(['signed', 'throttle:6,1'])->name('verification.verify');
 
     Route::post('email/verification-notification', [EmailVerificationNotificationController::class, 'store'])->middleware('throttle:6,1')->name('verification.send');
+    
+    Route::get('verify-mfa', [MfaController::class, 'create'])->name('mfa');
+    Route::post('verify-mfa', [MfaController::class, 'store'])->name('mfa.verify');
 
     Route::put('mfa/totp/setup', [MfaController::class, 'setupTOTP'])->name('mfa.totp.setup');
     Route::put('mfa/totp/enable', [MfaController::class, 'enableTOTP'])->name('mfa.totp.enable');

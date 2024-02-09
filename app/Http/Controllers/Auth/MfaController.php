@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class MfaController extends Controller
 {
@@ -33,5 +35,25 @@ class MfaController extends Controller
         $request->user()->resetTOTP();
 
         return back();
+    }
+
+
+
+    public function create(Request $request)
+    {
+        return Inertia::render('Auth/VerifyMFA', [
+            'status' => session('status'),
+        ]);
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([ 'otp' => 'required|digits:6' ]);
+
+        if (!$request->user()->verifyTOTP($request->otp)) back()->withErrors([ 'multi_factor_code' => 'Der eingegebene Code ist ungültig.' ]);
+
+        session(['verified_multi_factor' => true]);
+
+        return redirect()->intended(RouteServiceProvider::HOME);
     }
 }

@@ -9,7 +9,7 @@ use App\Http\Controllers\Apps\Intranet\OverviewController;
 use App\Http\Controllers\Apps\Intranet\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('dashboard')->middleware(['auth', 'verified', 'enabled', 'active'])->group(function () {
+Route::prefix('dashboard')->middleware(['auth', 'verified.mfa', 'verified', 'enabled', 'active'])->group(function () {
     Route::get('/', [OverviewController::class, 'redirect'])->name('dashboard');
     Route::get('/home', [OverviewController::class, 'show']);
 
