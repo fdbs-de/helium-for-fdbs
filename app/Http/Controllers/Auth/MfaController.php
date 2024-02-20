@@ -14,7 +14,7 @@ class MfaController extends Controller
         $request->user()->setupTOTP();
 
         return response()->json([
-            'qr_code' => $request->user()->TOTPProvisioningQRCode(config('app.name')),
+            'qr_code' => $request->user()->TOTPProvisioningQRCode($request->user()->email ?? config('app.name')),
             'secret' => $request->user()->TOTPMethod()->secret,
         ]);
     }
@@ -25,7 +25,9 @@ class MfaController extends Controller
             'otp' => 'required|digits:6',
         ]);
 
-        if (!$request->user()->enableTOTP($request->otp)) back(422);
+        if (!$request->user()->enableTOTP($request->otp)) back()->withErrors(['multi_factor_code' => 'Der eingegebene Code ist ungültig.']);
+
+        session(['verified_multi_factor' => true]);
 
         return back()->with('status', 'Two factor authentication has been enabled.');
     }

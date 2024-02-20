@@ -18,7 +18,7 @@ use App\Http\Controllers\Apps\SharedAdmin\PostCategoryController;
 use App\Http\Controllers\Apps\SharedAdmin\PostController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('admin')->middleware(['auth', 'verified', 'enabled', 'active', 'can:system.access.admin.panel'])->group(function () {
+Route::prefix('admin')->middleware(['auth', 'verified.mfa', 'verified', 'enabled', 'active', 'can:system.access.admin.panel'])->group(function () {
     Route::get('/', [IndexController::class, 'show'])->name('admin');
 
     Route::get('/search-users', [UserController::class, 'searchPublic'])->name('admin.search.users');

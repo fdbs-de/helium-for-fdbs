@@ -65,13 +65,13 @@
                         </div>
                     </div>
 
-                    <!-- <div class="field">
+                    <div class="field">
                         <span>2-Faktor-Authentifizierung</span>
                         <div>
                             <IodButton type="button" label="Deaktivieren" size="small" variant="contained" v-if="user.has_mfa_enabled" @click="resetTOTP()"/>
                             <IodButton type="button" label="Aktivieren" size="small" variant="filled" v-else @click="setupTOTP()"/>
                         </div>
-                    </div> -->
+                    </div>
 
                     <hr>
             
@@ -104,7 +104,6 @@
             <div class="flex v-start gap-1">
                 <div class="w-16 flex vertical gap-1">
                     <img class="w-16" :src="TOTPSetup.qr_code" alt="QR-Code" v-if="TOTPSetup.qr_code"/>
-                    <small class="w-16" v-tooltip="TOTPSetup.secret">Manuell eingeben</small>
                 </div>
                 <div class="flex-1 flex vertical gap-1">
                     <ol>
@@ -118,8 +117,11 @@
                             Bestätigen Sie die 2-Faktor-Authentifizierung.
                         </li>
                     </ol>
-                    <IodInput type="text" label="Authentifizierungscode" required v-model="TOTPForm.otp"/>
-                    <IodButton label="Bestätigen"/>
+                    <IodInput type="text" label="Authentifizierungscode" required v-model="TOTPForm.otp">
+                        <template #right>
+                            <IodButton label="Bestätigen" size="small"/>
+                        </template>
+                    </IodInput>
                 </div>
             </div>
         </form>
@@ -132,7 +134,6 @@
     import zxcvbn from 'zxcvbn'
     
     import AuthenticatedLayout from '@/Layouts/Authenticated.vue'
-    import StatefulAccordion from '@/Components/Form/StatefulAccordion.vue'
     import ValidationErrors from '@/Components/ValidationErrors.vue'
     import Popup from '@/Components/Form/Popup.vue'
     import Tag from '@/Components/Form/Tag.vue'
@@ -195,6 +196,11 @@
 
     function resetTOTP()
     {
+        // confirm
+        if (!confirm('Möchten Sie die 2-Faktor-Authentifizierung wirklich deaktivieren?')) {
+            return
+        }
+
         useForm().delete(route('mfa.totp.reset'), {
             preserveScroll: true,
         })

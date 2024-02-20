@@ -4,18 +4,19 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class VerifyMultiFactor
 {
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::user()->hasMfaEnabled)
+        if ($request->user()->hasMfaEnabled && !session()->has('verified_multi_factor'))
         {
-            if (!session()->has('verified_multi_factor'))
+            if ($request->expectsJson())
             {
-                return redirect()->route('mfa');
+                return response()->json(['message' => 'You must verify your multi factor authentication before proceeding.'], 401);
             }
+            
+            return redirect()->route('mfa');
         }
 
         return $next($request);
