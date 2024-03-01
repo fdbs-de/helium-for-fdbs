@@ -52,7 +52,7 @@ class MfaController extends Controller
     {
         $request->validate([ 'otp' => 'required|digits:6' ]);
 
-        if (!$request->user()->verifyTOTP($request->otp)) back()->withErrors([ 'multi_factor_code' => 'Der eingegebene Code ist ungültig.' ]);
+        if (!$request->user()->verifyTOTP($request->otp)) return back()->withErrors([ 'multi_factor_code' => 'Der eingegebene Code ist ungültig.' ]);
 
         session(['verified_multi_factor' => true]);
 
