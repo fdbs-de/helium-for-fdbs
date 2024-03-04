@@ -192,6 +192,7 @@
 
         input
             flex: 1
+            width: 0
             min-width: 0
             padding: 0
             height: 100%

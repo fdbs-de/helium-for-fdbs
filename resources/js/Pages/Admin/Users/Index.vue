@@ -96,9 +96,13 @@
         }},
         {type: 'date', name: 'created_at', label: 'Registriert am', valuePath: 'created_at', sortable: true, width: 200, resizeable: true, hideable: true},
         {type: 'date', name: 'email_verified_at', label: 'Verifikation am', valuePath: 'email_verified_at', sortable: true, width: 200, resizeable: true, hideable: true},
-        {type: 'tags', name: 'status', label: 'Status', valuePath: 'status', sortable: false, width: 100, resizeable: true, hideable: true, transform: (value, item) => {
-            if (item.is_enabled) return [{icon: null, text: 'Aktiv', color: 'var(--color-success)', variant: 'filled', shape: 'pill'}]
-            return [{icon: null, text: 'Ausstehend', color: 'var(--color-warning)', variant: 'filled', shape: 'pill'}]
+        {type: 'tags', name: 'status', label: 'Status', valuePath: 'status', sortable: false, width: 150, resizeable: true, hideable: true, transform: (value, item) => {
+            if (item.is_enabled) return [{icon: null, text: 'Aktiv', color: 'var(--color-success)', variant: 'contained', shape: 'pill'}]
+            return [{icon: null, text: 'Ausstehend', color: 'var(--color-warning)', variant: 'contained', shape: 'pill'}]
+        }},
+        {type: 'tags', name: 'has_mfa_enabled', label: 'Zweiter Faktor', valuePath: 'has_mfa_enabled', sortable: false, width: 150, resizeable: true, hideable: true, transform: (value, item) => {
+            if (value) return [{icon: null, text: 'Aktiv', color: 'var(--color-success)', variant: 'contained', shape: 'pill'}]
+            return [{icon: null, text: 'Inaktiv', color: 'var(--color-error)', variant: 'contained', shape: 'pill'}]
         }},
     ]
 
@@ -144,6 +148,16 @@
             values: [
                 {text: 'Aktiv', value: 'active'},
                 {text: 'Ausstehend', value: 'pending'},
+            ],
+        },
+        {
+            type: 'select',
+            multiple: false,
+            name: 'has_mfa_enabled',
+            label: 'Zweiter Faktor',
+            values: [
+                {text: 'Aktiv', value: 'active'},
+                {text: 'Inaktiv', value: 'inactive'},
             ],
         },
         {

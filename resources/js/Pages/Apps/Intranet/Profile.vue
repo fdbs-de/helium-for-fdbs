@@ -98,15 +98,23 @@
         </form>
     </Popup>
     
+
     <Popup ref="setupTOTPPopup" title="2-Faktor-Authentifizierung">
-        <form class="flex vertical gap-1 padding-1" @submit.prevent="enableTOTP()">
+        <form class="flex vertical gap-1" @submit.prevent="enableTOTP">
             <ValidationErrors />
-            <div class="flex v-start gap-1">
-                <div class="w-16 flex vertical gap-1">
-                    <img class="w-16" :src="TOTPSetup.qr_code" alt="QR-Code" v-if="TOTPSetup.qr_code"/>
+
+            <div class="totp-popup-layout">
+                <div class="flex-2 flex vertical gap-1 padding-1">
+                    <img class="w-100 aspect-ratio-1 radius-s background-soft" :src="TOTPSetup.qr_code" alt="QR-Code"/>
+                    <IodInput type="text" label="Manueller Code" readonly :modelValue="TOTPSetup.secret" @click="copySecret">
+                        <template #right>
+                            <IodIconButton type="button" icon="content_copy" variant="text" size="small"/>
+                        </template>
+                    </IodInput>
                 </div>
-                <div class="flex-1 flex vertical gap-1">
-                    <ol>
+
+                <div class="flex-3 flex vertical gap-1 padding-1">
+                    <ol class="flex-1 padding-left-1-5 margin-0">
                         <li>
                             Öffnen Sie Ihre Authentifizierungs-App und scannen Sie den QR-Code.
                         </li>
@@ -117,11 +125,8 @@
                             Bestätigen Sie die 2-Faktor-Authentifizierung.
                         </li>
                     </ol>
-                    <IodInput type="text" label="Authentifizierungscode" required v-model="TOTPForm.otp">
-                        <template #right>
-                            <IodButton label="Bestätigen" size="small"/>
-                        </template>
-                    </IodInput>
+                    <OTPInput :length="6" :dividers="[3]" v-model="TOTPForm.otp" @complete="enableTOTP"/>
+                    <IodButton label="Bestätigen"/>
                 </div>
             </div>
         </form>
@@ -135,6 +140,7 @@
     
     import AuthenticatedLayout from '@/Layouts/Authenticated.vue'
     import ValidationErrors from '@/Components/ValidationErrors.vue'
+    import OTPInput from '@/Components/Form/OTPInput.vue'
     import Popup from '@/Components/Form/Popup.vue'
     import Tag from '@/Components/Form/Tag.vue'
 
@@ -181,6 +187,12 @@
         axios.put(route('mfa.totp.setup')).then(response => {
             TOTPSetup.value = response.data
         })
+    }
+
+    function copySecret()
+    {
+        navigator.clipboard.writeText(TOTPSetup.value.secret)
+        alert('Der Code wurde in die Zwischenablage kopiert.')
     }
 
     function enableTOTP()
@@ -316,6 +328,10 @@
         > div
             padding: .5rem 1rem
 
+    .totp-popup-layout
+        display: flex
+        flex-direction: row
+
 
 
     @media screen and (max-width: 500px)
@@ -331,4 +347,7 @@
             > div
                 width: 100%
                 padding: 0
+
+        .totp-popup-layout
+            flex-direction: column
 </style>

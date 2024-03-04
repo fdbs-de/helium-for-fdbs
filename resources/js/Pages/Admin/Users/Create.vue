@@ -303,6 +303,11 @@
                                     <span class="flex-1">User ID:</span>
                                     <b class="flex-2">{{user.id}}</b>
                                 </span>
+
+                                <span class="flex v-center">
+                                    <span class="flex-1">Zweiter Faktor:</span>
+                                    <b class="flex-2">{{ user.has_mfa_enabled ? 'Aktiv' : 'Inaktiv'}}</b>
+                                </span>
         
                                 <span class="flex v-center">
                                     <span class="flex-1">Erstellt:</span>

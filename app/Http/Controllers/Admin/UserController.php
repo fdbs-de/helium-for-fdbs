@@ -124,6 +124,26 @@ class UserController extends Controller
             }
         }
 
+        if ($request->has_mfa_enabled)
+        {
+            if ($request->has_mfa_enabled === 'active')
+            {
+                $query->whereHas('mfaMethods', function ($query) {
+                    $query->whereNotNull('enabled_at');
+                });
+            }
+            else if ($request->has_mfa_enabled === 'inactive')
+            {
+                $query->where(function ($query) use ($request) {
+                    $query
+                    ->whereHas('mfaMethods', function ($query) {
+                        $query->whereNull('enabled_at');
+                    })
+                    ->orWhereDoesntHave('mfaMethods');
+                });
+            }
+        }
+
         if ($request->profiles)
         {
             $profiles = array_map( function ($profile) { return 'profile.' . $profile; }, $request->profiles);

@@ -78,7 +78,7 @@
         position: sticky
         top: 0
         left: 0
-        z-index: 100000
+        z-index: 10000
         width: 100%
         height: 4.5rem
         background-color: #ffffffd9
