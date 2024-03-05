@@ -66,6 +66,17 @@
                 link: 'https://fdbs.de',
             },
         },
+        {
+            id: 3,
+            type: 'Partner',
+            text: 'Der FDBS ist für uns als R&S Vertriebs GmbH seit weit über 30 Jahren ein wichtiger Handelspartner. Die Zusammenarbeit ist stets unbürokratisch und Entscheidungen für ein Produkt werden schnell, zuverlässig und kurzfristig getroffen. Der FDBS unterstützt uns auch kreativ, indem sie unsere Werbemittel auf ihren eigenen Webseiten und in Handzetteln veröffentlicht und Vorschläge zu neuen Gestaltungen macht. Für uns ist die FDBS ein wichtiger und kompetenter Großhändler und Partner, mit viel Know-How und einem tollen Team!',
+            author: {
+                image: '/images/content/testimonials/kuehne.png',
+                name: 'Ralf Kühne',
+                company: 'Verkaufsleitung R&S Nord',
+                link: 'https://www.rs-europa.com/',
+            }
+        },
     ])
 
     const currentTestimonialIndex = ref(0)
