@@ -123,7 +123,7 @@
         emits('update:modelValue', values.value.join(''))
     }
 
-    // ToDo: handle shift+tab when focus is on input
+    // TODO: handle shift+tab when focus is on input
     function onFocus(event)
     {
         const emptyIndex = values.value.findIndex(char => char === '')

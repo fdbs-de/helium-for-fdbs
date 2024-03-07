@@ -27,7 +27,7 @@ class MfaController extends Controller
 
         if (!$request->user()->enableTOTP($request->otp)) back()->withErrors(['multi_factor_code' => 'Der eingegebene Code ist ungültig.']);
 
-        session(['verified_multi_factor' => true]);
+        session(['verified_mfa' => true]);
 
         return back()->with('status', 'Two factor authentication has been enabled.');
     }
@@ -54,7 +54,7 @@ class MfaController extends Controller
 
         if (!$request->user()->verifyTOTP($request->otp)) return back()->withErrors([ 'multi_factor_code' => 'Der eingegebene Code ist ungültig.' ]);
 
-        session(['verified_multi_factor' => true]);
+        session(['verified_mfa' => true]);
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }

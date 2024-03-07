@@ -36,6 +36,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \App\Http\Middleware\VerifyRememberedMultiFactorAuthentication::class,
             \App\Http\Middleware\HandleInertiaRequests::class,
         ],
 
@@ -64,7 +65,7 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'verified.mfa' => \App\Http\Middleware\VerifyMultiFactor::class,
+        'verified.mfa' => \App\Http\Middleware\VerifyMultiFactorAuthentication::class,
         
         'enabled' => \App\Http\Middleware\Enabled::class,
         'active' => \App\Http\Middleware\Active::class,
