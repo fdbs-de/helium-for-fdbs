@@ -13,7 +13,7 @@ class VerifyRememberedMultiFactorAuthentication
         // TODO: Security check... is this safe?
 
         // If user logs in via remember and has enabled MFA, verify their MFA status
-        if (Auth::user()->hasMfaEnabled && Auth::viaRemember())
+        if (optional(Auth::user())->hasMfaEnabled && Auth::viaRemember())
         {
             session()->put('verified_mfa', true);
         }
