@@ -20,6 +20,7 @@ class PostController extends Controller
     {
         return Inertia::render('Apps/SharedAdmin/Posts/Index', [
             'app' => $request->app['route'],
+            'categories' => PostCategoryResource::collection(PostCategory::whereScope($request->app['id'])->wherePublished()->whereAvailable()->get()),
         ]);
     }
 
@@ -42,6 +43,24 @@ class PostController extends Controller
             });
         }
         // END: Search
+
+
+
+        // START: Filter
+        if ($request->status)
+        {
+            $query->whereIn('status', $request->status);
+        }
+
+        if ($request->categories)
+        {
+            $query->whereHas('postCategory', function ($query) use ($request) {
+                $query
+                ->whereScope($request->app['id'] ?? '')
+                ->whereIn('name', $request->categories);
+            });
+        }
+        // END: Filter
 
 
 

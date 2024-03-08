@@ -1,11 +1,13 @@
 <template>
-    <AdminLayout :title="IPM.options.pageTitle" :loading="IPM.processing">
+    <AdminLayout :title="IPM.options.pageTitle">
         <Table
             show-create
             :columns="tableColumns"
             :actions="tableActions"
+            :filter-settings="tableFilters"
             :items="IPM.items"
             :scope="IPM.tableScope"
+            :loading="IPM.processing"
             v-model:selection="IPM.selection"
             v-model:filter="IPM.modelFilter"
             v-model:sort="IPM.modelSort"
@@ -13,12 +15,6 @@
             @request:refresh="IPM.fetch()"
             @request:create="IPM.open()"
         />
-
-        <div class="flex v-center gap-1 wrap border-top padding-top-1 margin-top-2">
-            <small><b>{{IPM.pagination.total}}</b> Einträge</small>
-        
-            <div class="spacer"></div>
-        </div>
     </AdminLayout>
 </template>
 
@@ -33,6 +29,7 @@
 
     const props = defineProps({
         app: String,
+        categories: Array,
     })
 
 
@@ -58,19 +55,19 @@
         {type: 'tags', name: 'post_category', label: 'Kategorie', valuePath: 'post_category', sortable: false, width: 200, resizeable: true, hideable: true, transform: (value, item) => {
             if (!value) return [{icon: null, text: 'Keine Kategorie', color: 'var(--color-text-soft)', variant: 'contained', shape: 'pill'}]
 
-            return [{icon: value.icon, text: value.name, color: value.color, variant: 'filled', shape: 'pill'}]
+            return [{icon: value.icon, text: value.name, color: value.color, variant: 'contained', shape: 'pill'}]
         }},
         {type: 'tags', name: 'status', label: 'Status', valuePath: 'status', sortable: false, width: 150, resizeable: true, hideable: true, transform: (value, item) => {
             switch (value)
             {
                 case 'draft':
-                    return [{icon: null, text: 'Entwurf', color: 'var(--color-text-soft)', variant: 'filled', shape: 'pill'}]
+                    return [{icon: null, text: 'Entwurf', color: 'var(--color-text-soft)', variant: 'contained', shape: 'pill'}]
                 case 'pending':
-                    return [{icon: null, text: 'Zur Freigabe', color: 'var(--color-warning)', variant: 'filled', shape: 'pill'}]
+                    return [{icon: null, text: 'Zur Freigabe', color: 'var(--color-warning)', variant: 'contained', shape: 'pill'}]
                 case 'published':
-                    return [{icon: null, text: 'Veröffentlicht', color: 'var(--color-success)', variant: 'filled', shape: 'pill'}]
+                    return [{icon: null, text: 'Veröffentlicht', color: 'var(--color-success)', variant: 'contained', shape: 'pill'}]
                 case 'hidden':
-                    return [{icon: null, text: 'Versteckt', color: 'var(--color-error)', variant: 'filled', shape: 'pill'}]
+                    return [{icon: null, text: 'Versteckt', color: 'var(--color-error)', variant: 'contained', shape: 'pill'}]
             }
         }},
         {type: 'date', name: 'created_at', label: 'Erstellt am', valuePath: 'created_at', sortable: true, width: 200, resizeable: true, hideable: true},
@@ -107,6 +104,28 @@
             triggerOnRowClick: false,
             isAvailable: () => true,
             run: (items) => IPM.value.delete(items, 'Sollen {{count}} Einträge gelöscht werden?'),
+        },
+    ]
+
+    const tableFilters = [
+        {
+            type: 'select',
+            multiple: true,
+            name: 'status',
+            label: 'Status',
+            values: [
+                {text: 'Entwurf', value: 'draft'},
+                {text: 'Zur Freigabe', value: 'pending'},
+                {text: 'Veröffentlicht', value: 'published'},
+                {text: 'Versteckt', value: 'hidden'},
+            ]
+        },
+        {
+            type: 'select',
+            multiple: true,
+            name: 'categories',
+            label: 'Kategorien',
+            values: props.categories.map(e => ({text: e.name, value: e.name})),
         },
     ]
 </script>
