@@ -10,6 +10,7 @@ use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Role;
+use App\Notifications\ResetPasswordNotification;
 use App\Traits\HasMultiFactorAuthentication;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
@@ -114,6 +115,15 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->image ?? '/images/app/defaults/user.png';
     }
     // END: Attributes
+
+
+
+    // START: Notifications
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
+    }
+    // END: Notifications
 
 
 
