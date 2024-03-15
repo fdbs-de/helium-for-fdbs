@@ -21,9 +21,9 @@
                 <div class="cert-wrapper">
                     <img src="/images/assets/zertifikate/lucid_regnr_text.webp" alt="LUCID Registrierungsnummer: DE3379292435101">
                 </div>
-                <div class="cert-wrapper" href="#" target="_blank" rel="noopener noreferrer">
+                <a class="cert-wrapper" href="/downloads/zertifikate/Zertifikat_ITW.pdf" target="_blank" rel="noopener noreferrer">
                     <img src="/images/assets/zertifikate/itw_logo.webp" alt="Initiative Tierwohl Zertifizierung">
-                </div>
+                </a>
             </div>
         </div>
 
