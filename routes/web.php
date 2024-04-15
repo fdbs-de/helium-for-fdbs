@@ -64,6 +64,7 @@ Route::prefix('/produkte-und-services')->group(function () {
 
     Route::prefix('/foodservice')->group(function () {
         Route::get('/', [StaticController::class, 'indexFoodservice'])->name('ps.foodservice');
+        Route::get('/rezepte', [StaticController::class, 'indexFoodserviceRezepte'])->name('ps.foodservice.rezepte');
         // Route::get('/aktuelles', [StaticController::class, 'indexFoodserviceAktuelles'])->name('ps.foodservice.aktuelles');
         Route::get('/tierhaltungskennzeichnung', [StaticController::class, 'indexTierhaltungskennzeichnung'])->name('ps.tierhaltungskennzeichnung');
         Route::get('/mehrwegpflicht', [StaticController::class, 'indexMehrwegpflicht'])->name('ps.mehrwegpflicht');

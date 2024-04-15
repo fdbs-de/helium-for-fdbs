@@ -20,6 +20,7 @@ class StaticController extends Controller
     public function indexAngebote() { return Inertia::render('Apps/Static/ProdukteUndServices/Angebote'); }
 
     public function indexFoodservice() { return Inertia::render('Apps/Static/ProdukteUndServices/Foodservice/Index'); }
+    public function indexFoodserviceRezepte() { return Inertia::render('Apps/Static/ProdukteUndServices/Foodservice/Rezepte'); }
     public function indexFoodserviceAktuelles() { return Inertia::render('Apps/Static/ProdukteUndServices/Foodservice/Aktuelles'); }
     public function indexTierhaltungskennzeichnung() { return Inertia::render('Apps/Static/ProdukteUndServices/Foodservice/Tierhaltungskennzeichnung'); }
     public function indexMehrwegpflicht() { return Inertia::render('Apps/Static/ProdukteUndServices/Foodservice/Mehrwegpflicht'); }
