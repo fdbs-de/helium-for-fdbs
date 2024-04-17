@@ -22,11 +22,9 @@ class VerifyEmailController extends Controller
         if ($request->user()->hasVerifiedEmail()) {
             return redirect()->intended(RouteServiceProvider::HOME.'?verified=1');
         }
-
+        
         if ($request->user()->markEmailAsVerified()) {
             event(new Verified($request->user()));
-
-            Mail::to(config('mail.addresses.user_inquiry'))->send(new AdminNewUser($request->user()->email));
         }
 
         return redirect()->intended(RouteServiceProvider::HOME.'?verified=1');
