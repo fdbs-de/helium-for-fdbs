@@ -5,7 +5,7 @@
         <div class="margin-bottom-4 background-soft radius-l padding-1">
             <h2 class="text-align-center margin-top-0">Alle wichtigen Infos im Überblick</h2>
             Messedatum: <b>22. bis 23. September 2024</b><br>
-            Addresse: <a href="https://goo.gl/maps/equP1jmcJSuFogSc8" target="_blank"><b>Christian-Pommer-Straße 31/33 38112 Braunschweig</b></a><br>
+            Adresse: <a href="https://goo.gl/maps/equP1jmcJSuFogSc8" target="_blank"><b>Christian-Pommer-Straße 31/33 38112 Braunschweig</b></a><br>
             <hr>
             Anlieferung der Messestände: <b>Freitag, 20.09.2024, 6:00 bis 15:00</b><br>
             Aufbau der Messestände: <b>Samstag, 21.09.2024, 9:00 bis 17:00</b><br>
