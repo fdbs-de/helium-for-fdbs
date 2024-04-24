@@ -112,7 +112,7 @@ class FairController extends Controller
             $message .= '380V Stromanschluss: <b>' . ($request->power380 ? $request->power380.'kW' : 'nicht benötigt') . '</b><br>';
             $message .= 'Sonderwünsche: <b>' . ($request->notes ? $request->notes : 'keine') . '</b><br><br>';
             
-            $message .= 'Teilnahme am Oktoberfest: <b>' . (count($request->participants) ? 'ja' : 'nein') . '</b><br>';
+            $message .= 'Teilnahme am bayerischen Abend: <b>' . (count($request->participants) ? 'ja' : 'nein') . '</b><br>';
             for ($i = 0; $i < count($request->participants); $i++)
             {
                 $message .= '• ' . $request->participants[$i]['salutation'] . ' ' . $request->participants[$i]['firstname'] . ' ' . $request->participants[$i]['lastname'];
@@ -120,7 +120,7 @@ class FairController extends Controller
             }
     
             Mail::send(new FormsDefault('Lieferantenanmeldung: Hausmesse 2024', $message, [
-                'to' => 'mf@fdbs.de',
+                'to' => 'messe@fdbs.de',
                 'replyTo' => [$request->email, $request->company],
             ]));
 

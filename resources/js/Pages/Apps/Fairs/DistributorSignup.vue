@@ -62,10 +62,10 @@
 
 
             <div class="group">
-                <h4><IodIcon icon="counter_3"/> Oktoberfest</h4>
+                <h4><IodIcon icon="counter_3"/>Bayerischer Abend</h4>
 
                 <div class="subgroup">
-                    <IodToggle label="Ich / wir möchten am Oktoberfest teilnehmen" class="toggle-with-input" border :modelValue="!!form.participants.length" @update:modelValue="form.participants = $event ? [{...participantTemplate}] : []" />
+                    <IodToggle label="Ich / wir möchten am bayerischen Abend teilnehmen" class="toggle-with-input" border :modelValue="!!form.participants.length" @update:modelValue="form.participants = $event ? [{...participantTemplate}] : []" />
                 </div>
 
                 <div class="subgroup" v-show="!!form.participants.length">
@@ -120,7 +120,7 @@
                         </p>
                         <hr>
                         <p>
-                            <b>Oktoberfest</b><br>
+                            <b>Bayerischer Abend</b><br>
                             Teilnahme: <b>{{ !!form.participants.length ? 'ja' : 'nein' }}</b><br>
                             <template v-for="(participant, index) in form.participants">
                                 Teilnehmer Nr. {{index + 1}}: <b>{{ participant.firstname + ' ' + participant.lastname }}</b><br>
