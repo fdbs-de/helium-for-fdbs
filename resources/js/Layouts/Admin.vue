@@ -194,9 +194,9 @@
                 {label: 'Rechtliches', icon: '', route: route('admin.settings.index', 'legal'), permission: [], activeWhen: ['admin.settings.index:page=legal']},
                 {label: 'Seite', icon: '', route: route('admin.settings.index', 'pages'), permission: [], activeWhen: ['admin.settings.index:page=pages']},
             ]},
-            // { label: 'Messeanmeldungen', color: 'var(--color-background)', icon: 'mark_email_unread', route: route('admin.fairs'), permission: ['system.view.users'], activeWhen: ['admin.fairs'], submenu: [
-            //     {label: 'Exportieren', icon: '', route: route('admin.fairs'), permission: ['app.fairs.export'], activeWhen: ['admin.fairs']},
-            // ]},
+            { label: 'Events', color: 'var(--color-background)', icon: 'local_activity', route: route('admin.fairs'), permission: ['system.view.users'], activeWhen: ['admin.fairs'], submenu: [
+                {label: 'Anmeldungen', icon: '', route: route('admin.fairs'), permission: ['app.fairs.export'], activeWhen: ['admin.fairs']},
+            ]},
         ],
         [
             {label: 'Pages', color: 'var(--color-app-pages-on-dark)', icon: 'web', route: route('admin.pages.pages'), permission: ['app.pages.access.admin.panel'], activeWhen: ['admin.pages.pages', 'admin.pages.pages.editor', 'admin.pages.menus', 'admin.pages.menus.editor', 'admin.pages.planner', 'admin.pages.planner.editor'], submenu: [

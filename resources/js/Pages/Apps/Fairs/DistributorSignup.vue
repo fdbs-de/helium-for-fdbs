@@ -20,13 +20,26 @@
                 <h4><IodIcon icon="counter_1"/> Kontaktinformationen</h4>
                 <div class="subgroup">
                     <IodInput type="text" required border label="Firma" v-model="form.company"/>
+                    <IodInput type="text" required border label="Ansprechpartner" v-model="form.name"/>
                     <IodInput type="email" required border label="Email" v-model="form.email"/>
+                    <IodInput type="text" required border label="Telefon" v-model="form.phone"/>
                 </div>
             </div>
 
 
             <div class="group">
-                <h4><IodIcon icon="counter_2"/>Ihr Messestand</h4>
+                <h4><IodIcon icon="counter_2"/>Rechnungsadresse</h4>
+                <div class="subgroup">
+                    <IodInput type="text" required border label="Firma / Name" v-model="form.billing_name"/>
+                    <IodInput type="text" required border label="Adresse" v-model="form.billing_address"/>
+                    <IodInput type="text" required border label="PLZ" v-model="form.billing_zip"/>
+                    <IodInput type="text" required border label="Ort" v-model="form.billing_city"/>
+                </div>
+            </div>
+
+
+            <div class="group">
+                <h4><IodIcon icon="counter_3"/>Ihr Messestand</h4>
 
                 <div class="subgroup">
                     <h6>Ausstellungsfläche</h6>
@@ -40,29 +53,46 @@
 
                 <div class="subgroup">
                     <h6>Stromanschlüsse</h6>
-                    <IodToggle class="toggle-with-input with-flex v-center" border :modelValue="form.power220 !== null" @update:modelValue="form.power220 = $event ? 0 : null">
+                    <IodToggle class="toggle-with-input with-flex v-center" border :modelValue="form.options.power220 !== null" @update:modelValue="form.options.power220 = $event ? 0 : null">
                         <template #label>
                             <h6 class="flex-1">220 Volt</h6>
-                            <IodInput type="number" suffix="kW" class="toggle-input" min="1" :required="form.power220 !== null" v-show="form.power220 !== null" v-model="form.power220" />
+                            <IodInput type="number" suffix="kW" class="toggle-input" min="1" :required="form.options.power220 !== null" v-show="form.options.power220 !== null" v-model="form.options.power220" />
                         </template>
                     </IodToggle>
-                    <IodToggle class="toggle-with-input with-flex v-center" border :modelValue="form.power380 !== null" @update:modelValue="form.power380 = $event ? 0 : null">
+                    <IodToggle class="toggle-with-input with-flex v-center" border :modelValue="form.options.power380 !== null" @update:modelValue="form.options.power380 = $event ? 0 : null">
                         <template #label>
                             <h6 class="flex-1">380 Volt</h6>
-                            <IodInput type="number" suffix="kW" class="toggle-input" min="1" :required="form.power380 !== null" v-show="form.power380 !== null" v-model="form.power380" />
+                            <IodInput type="number" suffix="kW" class="toggle-input" min="1" :required="form.options.power380 !== null" v-show="form.options.power380 !== null" v-model="form.options.power380" />
                         </template>
                     </IodToggle>
                 </div>
 
                 <div class="subgroup">
-                    <h6>Sonderwünsche</h6>
-                    <IodInput type="text" border label="Notizen" v-model="form.notes"/>
+                    <h6>Standoptionen</h6>
+                    <IodToggle class="toggle-with-input with-flex v-center" border :modelValue="form.options.table !== null" @update:modelValue="form.options.table = $event ? 0 : null">
+                        <template #label>
+                            <h6 class="flex-1">Tische</h6>
+                            <IodInput type="number" suffix="Stk." class="toggle-input" min="1" :required="form.options.table !== null" v-show="form.options.table !== null" v-model="form.options.table" />
+                        </template>
+                    </IodToggle>
+                    <IodToggle class="toggle-with-input with-flex v-center" border :modelValue="form.options.standing_table !== null" @update:modelValue="form.options.standing_table = $event ? 0 : null">
+                        <template #label>
+                            <h6 class="flex-1">Stehtische</h6>
+                            <IodInput type="number" suffix="Stk." class="toggle-input" min="1" :required="form.options.standing_table !== null" v-show="form.options.standing_table !== null" v-model="form.options.standing_table" />
+                        </template>
+                    </IodToggle>
+                    <IodToggle class="toggle-with-input with-flex v-center" border :modelValue="form.options.chair !== null" @update:modelValue="form.options.chair = $event ? 0 : null">
+                        <template #label>
+                            <h6 class="flex-1">Stühle</h6>
+                            <IodInput type="number" suffix="Stk." class="toggle-input" min="1" :required="form.options.chair !== null" v-show="form.options.chair !== null" v-model="form.options.chair" />
+                        </template>
+                    </IodToggle>
                 </div>
             </div>
 
 
             <div class="group">
-                <h4><IodIcon icon="counter_3"/>Bayerischer Abend</h4>
+                <h4><IodIcon icon="counter_4"/>Bayerischer Abend</h4>
 
                 <div class="subgroup">
                     <IodToggle label="Ich / wir möchten am bayerischen Abend teilnehmen" class="toggle-with-input" border :modelValue="!!form.participants.length" @update:modelValue="form.participants = $event ? [{...participantTemplate}] : []" />
@@ -93,14 +123,23 @@
             
             
             <div class="group">
-                <h4><IodIcon icon="counter_4"/>Eingaben überprüfen</h4>
+                <h4><IodIcon icon="counter_5"/>Eingaben überprüfen</h4>
 
                 <div class="subgroup">
                     <div class="wrapper flex vertical gap-0-5 padding-1 border radius-m">
                         <p>
                             <b>Kontaktinformationen</b><br>
                             Firma: <b>{{ form.company || '---' }}</b><br>
-                            Email: <b>{{ form.email || '---' }}</b>
+                            Ansprechpartner: <b>{{ form.name || '---' }}</b><br>
+                            Email: <b>{{ form.email || '---' }}</b><br>
+                            Telefon: <b>{{ form.phone || '---' }}</b>
+                        </p>
+                        <hr>
+                        <p>
+                            <b>Rechnungsadresse</b><br>
+                            <template v-if="form.billing_name">{{ form.billing_name }}<br></template>
+                            <template v-if="form.billing_address">{{ form.billing_address }}<br></template>
+                            <template v-if="[form.billing_zip, form.billing_city].join(' ')">{{ [form.billing_zip, form.billing_city].join(' ') }}</template>
                         </p>
                         <hr>
                         <p>
@@ -108,15 +147,34 @@
                             Breite: <b>{{ new Intl.NumberFormat("de-DE", {minimumFractionDigits: 2}).format(form.standWidth) }} m</b><br>
                             Tiefe: <b>{{ new Intl.NumberFormat("de-DE", {minimumFractionDigits: 2}).format(form.standDepth) }} m</b><br>
                             Fläche: <b>{{ new Intl.NumberFormat("de-DE", {minimumFractionDigits: 2}).format(form.standWidth * form.standDepth) }} m²</b><br>
-                            220V Stromanschluss: <b>{{ form.power220 ? new Intl.NumberFormat("de-DE", {minimumFractionDigits: 2}).format(form.power220) + ' kW' : "nicht benötigt" }}</b><br>
-                            380V Stromanschluss: <b>{{ form.power380 ? new Intl.NumberFormat("de-DE", {minimumFractionDigits: 2}).format(form.power380) + ' kW' : "nicht benötigt" }}</b><br>
-                            Sonderwünsche: <b>{{ form.notes || 'keine' }}</b><br>
+                        </p>
+                        <p>
+                            <b>Standoptionen</b><br>
+                            220V Stromanschluss: <b>{{ form.options.power220 ? new Intl.NumberFormat("de-DE", {minimumFractionDigits: 2}).format(form.options.power220) + ' kW' : "nicht benötigt" }}</b><br>
+                            380V Stromanschluss: <b>{{ form.options.power380 ? new Intl.NumberFormat("de-DE", {minimumFractionDigits: 2}).format(form.options.power380) + ' kW' : "nicht benötigt" }}</b><br>
+                            Tische: <b>{{ form.options.table || 'keine' }}</b><br>
+                            Stehtische: <b>{{ form.options.standing_table || 'keine' }}</b><br>
+                            Stühle: <b>{{ form.options.chair || 'keine' }}</b><br>
                         </p>
                         <hr>
-                        <p>
-                            Preis: <b>{{ new Intl.NumberFormat("de-DE", {minimumFractionDigits: 2}).format(form.standWidth * form.standDepth * 100 + 100) }} Euro zzgl. Ust.</b><br>
-                            <small>(100€/m² + einmalig 100€ für Strom, Wasser, Verpflegung etc.)</small><br>
-                            <small>Den Rechnungsbetrag werden wir nach Rechnungseingang überweisen.</small>
+                        <p class="flex v-center gap-1">
+                            <span>
+                                Preis: <b>{{ new Intl.NumberFormat("de-DE", {minimumFractionDigits: 2}).format(price) }} Euro zzgl. Ust.</b><br>
+                                Der Rechnungsbetrag wird nach Rechnungseingang überwiesen.
+                            </span>
+                            <div class="spacer"></div>
+                            <VDropdown placement="bottom-end">
+                                <IodIcon icon="info"/>
+                                <template #popper>
+                                    <small class="flex vertical padding-1 color-text">
+                                        <span>• 100€ pro m² Standfläche</span>
+                                        <span>• 100€ für Strom, Wasser, Verpflegung etc.</span>
+                                        <span>• 20€ pro Tisch</span>
+                                        <span>• 25€ pro Stehtisch</span>
+                                        <span>• 5€ pro Stuhl</span>
+                                    </small>
+                                </template>
+                            </VDropdown>
                         </p>
                         <hr>
                         <p>
@@ -139,6 +197,13 @@
                             gelesen und akzeptiere diese.
                         </template>
                     </IodToggle>
+
+                    <IodToggle class="toggle-with-input" border required v-model="form.video">
+                        <template #label>
+                            Mit der Anmeldung zur Messe stimme ich der Aufzeichnung und Verarbeitung von
+                            Foto- und Videoaufnahmen gemäß Art. 13 DSGVO zu.
+                        </template>
+                    </IodToggle>
                 </div>
     
                 <div class="subgroup">
@@ -158,7 +223,7 @@
 
 <script setup>
     import { Head, Link, useForm } from '@inertiajs/inertia-vue3'
-    import { ref } from 'vue'
+    import { ref, computed } from 'vue'
 
     import TextSubLayout from '@/Layouts/SubLayouts/Text.vue'
 
@@ -174,22 +239,43 @@
 
     const form = useForm({
         company: '',
+        name: '',
         email: '',
+        phone: '',
+        billing_name: '',
+        billing_address: '',
+        billing_zip: '',
+        billing_city: '',
         standWidth: 4,
         standDepth: 3,
-        power220: null,
-        power380: null,
-        notes: '',
+        options: {
+            power220: null,
+            power380: null,
+            table: null,
+            chair: null,
+            standing_table: null,
+        },
         participants: [],
         gdpr: false,
+        video: false,
     })
+
+    const price = computed(() => {
+        let price = form.standWidth * form.standDepth * 100 + 100
+
+        if (form.options.table) price += form.options.table * 20
+        if (form.options.standing_table) price += form.options.standing_table * 25
+        if (form.options.chair) price += form.options.chair * 5
+
+        return price
+    })
+
+
 
     function addParticipant()
     {
         if (form.participants.length >= 4) return
         form.participants.push({...participantTemplate})
-
-        console.log(form.participants)
     }
     
     function removeParticipant(index)
@@ -202,6 +288,7 @@
     {
         if (isSent.value) return
         if (!form.gdpr) return
+        if (!form.video) return
 
         form.post(route('fair.store.distributor'), {
             onSuccess: () => {
