@@ -188,6 +188,10 @@ Route::prefix('admin')->middleware(['auth', 'verified.mfa', 'verified', 'enabled
         Route::get('/', [FairController::class, 'index'])
         ->middleware('can:system.view.users')
         ->name('admin.fairs');
+
+        Route::get('/search', [FairController::class, 'search'])
+        ->middleware('can:system.view.users')
+        ->name('admin.fairs.search');
         
         Route::get('/export', [FairController::class, 'export'])
         ->middleware('can:system.view.users')

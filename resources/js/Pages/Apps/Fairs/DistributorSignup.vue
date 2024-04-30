@@ -3,14 +3,47 @@
         <Head title="Anmeldung zur Hausmesse 2024 (Lieferant)" />
 
         <div class="margin-bottom-4 background-soft radius-l padding-1">
-            <h2 class="text-align-center margin-top-0">Alle wichtigen Infos im Überblick</h2>
-            Messedatum: <b>22. bis 23. September 2024</b><br>
-            Adresse: <a href="https://goo.gl/maps/equP1jmcJSuFogSc8" target="_blank"><b>Christian-Pommer-Straße 31/33 38112 Braunschweig</b></a><br>
+            <h2 class="margin-top-0 padding-inline-0-5" style="font-size: 1.5rem;">Alle wichtigen Infos im Überblick</h2>
             <hr>
-            Anlieferung der Messestände: <b>Freitag, 20.09.2024, 6:00 bis 15:00</b><br>
-            Aufbau der Messestände: <b>Samstag, 21.09.2024, 9:00 bis 17:00</b><br>
-            Abbau der Messestände: <b>Montag, 23.09.2024, nach Messeschluss bis 20:00</b><br>
-            Abholung der Messestände: <b>Dienstag, 24.09.2024, 6:00 bis 14:00</b><br>
+            <div class="flex gap-1 v-center padding-left-0-5">
+                <IodIcon style="color: rgb(59, 130, 246)" icon="calendar_today"/>
+                <span>
+                    Messedatum: <b>22. bis 23. September 2024</b><br>
+                    Adresse: <a href="https://goo.gl/maps/equP1jmcJSuFogSc8" target="_blank"><b>Christian-Pommer-Straße 31/33 38112 Braunschweig</b></a><br>
+                </span>
+            </div>
+            <hr>
+            <div class="flex gap-1 v-center padding-left-0-5">
+                <IodIcon style="color: rgb(5, 150, 105)" icon="local_shipping"/>
+                <span>
+                    <b>Anlieferung der Messestände</b><br>
+                    Mittwoch, 18.09.2024 bis Freitag, 20.09.2024, 6:00 bis 12:00
+                </span>
+            </div>
+            <hr>
+            <div class="flex gap-1 v-center padding-left-0-5">
+                <IodIcon style="color: rgb(5, 150, 105)" icon="line_start_diamond"/>
+                <span>
+                    <b>Aufbau der Messestände</b><br>
+                    Samstag, 21.09.2024, 9:00 bis 17:00
+                </span>
+            </div>
+            <hr>
+            <div class="flex gap-1 v-center padding-left-0-5">
+                <IodIcon style="color: rgb(100, 116, 139)" icon="line_end_diamond"/>
+                <span>
+                    <b>Abbau der Messestände</b><br>
+                    Montag, 23.09.2024, nach Messeschluss bis 20:00
+                </span>
+            </div>
+            <hr>
+            <div class="flex gap-1 v-center padding-left-0-5">
+                <IodIcon style="color: rgb(100, 116, 139); transform: scaleX(-1)" icon="local_shipping"/>
+                <span>
+                    <b>Abholung der Messestände</b><br>
+                    Dienstag, 24.09.2024, 6:00 bis 14:00
+                </span>
+            </div>
         </div>
 
         <h2 class="text-align-center">Online-Anmeldung</h2>
@@ -71,19 +104,28 @@
                     <h6>Standoptionen</h6>
                     <IodToggle class="toggle-with-input with-flex v-center" border :modelValue="form.options.table !== null" @update:modelValue="form.options.table = $event ? 0 : null">
                         <template #label>
-                            <h6 class="flex-1">Tische</h6>
+                            <h6 class="flex-1">
+                                Tische
+                                <small>(20€)</small>
+                            </h6>
                             <IodInput type="number" suffix="Stk." class="toggle-input" min="1" :required="form.options.table !== null" v-show="form.options.table !== null" v-model="form.options.table" />
                         </template>
                     </IodToggle>
                     <IodToggle class="toggle-with-input with-flex v-center" border :modelValue="form.options.standing_table !== null" @update:modelValue="form.options.standing_table = $event ? 0 : null">
                         <template #label>
-                            <h6 class="flex-1">Stehtische</h6>
+                            <h6 class="flex-1">
+                                Stehtische
+                                <small>(25€)</small>
+                            </h6>
                             <IodInput type="number" suffix="Stk." class="toggle-input" min="1" :required="form.options.standing_table !== null" v-show="form.options.standing_table !== null" v-model="form.options.standing_table" />
                         </template>
                     </IodToggle>
                     <IodToggle class="toggle-with-input with-flex v-center" border :modelValue="form.options.chair !== null" @update:modelValue="form.options.chair = $event ? 0 : null">
                         <template #label>
-                            <h6 class="flex-1">Stühle</h6>
+                            <h6 class="flex-1">
+                                Stühle
+                                <small>(5€)</small>
+                            </h6>
                             <IodInput type="number" suffix="Stk." class="toggle-input" min="1" :required="form.options.chair !== null" v-show="form.options.chair !== null" v-model="form.options.chair" />
                         </template>
                     </IodToggle>
