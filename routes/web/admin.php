@@ -196,6 +196,10 @@ Route::prefix('admin')->middleware(['auth', 'verified.mfa', 'verified', 'enabled
         Route::get('/export', [FairController::class, 'export'])
         ->middleware('can:system.view.users')
         ->name('admin.fairs.export');
+
+        Route::delete('/', [FairController::class, 'delete'])
+        ->middleware('can:system.delete.users')
+        ->name('admin.fairs.delete');
     });
 
 

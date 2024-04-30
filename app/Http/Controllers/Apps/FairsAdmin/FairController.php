@@ -88,14 +88,17 @@ class FairController extends Controller
 
 
 
-    public function export()
+    public function export(Request $request)
     {
-        $data = ScopedData::where('scope', 'FDBS Hausmesse 2024')->where('key', 'Anmeldung Lieferant')->get();
+        $data = ScopedData::whereIn('id', $request->items)->get();
         
         // Respect umlauts
         $csv = "\xEF\xBB\xBF";
 
         // Add header
+        $csv .= 'ID;';
+        $csv .= 'Event;';
+        $csv .= 'Anmeldungstyp;';
         $csv .= 'Firma;';
         $csv .= 'Ansprechpartner;';
         $csv .= 'Email;';
@@ -121,8 +124,12 @@ class FairController extends Controller
 
         foreach ($data as $item)
         {
-            for ($i = 0; $i < count($item->value['participants']); $i++)
+            $participants = count(optional($item->value)['participants'] ?? []);
+            for ($i = 0; $i < max($participants, 1); $i++)
             {
+                $csv .= $item->id . ';';
+                $csv .= $item->scope . ';';
+                $csv .= $item->key . ';';
                 $csv .= optional($item->value)['company'] . ';';
                 $csv .= optional($item->value)['name'] . ';';
                 $csv .= optional($item->value)['email'] . ';';
@@ -138,9 +145,18 @@ class FairController extends Controller
                 $csv .= (optional($item->value)['options']['table'] ?? 'keine'). ';';
                 $csv .= (optional($item->value)['options']['standing_table'] ?? 'keine'). ';';
                 $csv .= (optional($item->value)['options']['chair'] ?? 'keine'). ';';
-                $csv .= optional($item->value)['participants'][$i]['salutation'] . ';';
-                $csv .= optional($item->value)['participants'][$i]['firstname'] . ';';
-                $csv .= optional($item->value)['participants'][$i]['lastname'] . ';';
+                if ($participants >= 1)
+                {
+                    $csv .= optional($item->value)['participants'][$i]['salutation'] . ';';
+                    $csv .= optional($item->value)['participants'][$i]['firstname'] . ';';
+                    $csv .= optional($item->value)['participants'][$i]['lastname'] . ';';
+                }
+                else
+                {
+                    $csv .= ';';
+                    $csv .= ';';
+                    $csv .= ';';
+                }
                 $csv .= optional($item->value)['gdpr'] == true ? 'Ja;' : 'Nein;';
                 $csv .= optional($item->value)['video'] == true ? 'Ja;' : 'Nein;';
                 $csv .= $item->created_at->format('m.d.Y H:i');
@@ -148,9 +164,11 @@ class FairController extends Controller
             }
         }
 
+        $filename = 'event_export_'.count($data).'x_'.date('d_m_Y_H_i').'.csv';
+
         return response($csv)
             ->header('Content-Type', 'text/csv')
-            ->header('Content-Disposition', 'attachment; filename="anmeldungen.csv"');
+            ->header('Content-Disposition', 'attachment; filename="'.$filename.'"');
     }
 
 

@@ -134,8 +134,7 @@ class FairController extends Controller
         $message .= 'Bitte prüfen Sie die Anmeldung.<br><br>';
 
         Mail::send(new FormsDefault('Anmeldung: FDBS Hausmesse 2024', $message, [
-            // 'to' => 'messe@fdbs.de',
-            'to' => 'mf@fdbs.de',
+            'to' => 'messe@fdbs.de',
             'replyTo' => [$request->email, $request->company],
         ]));
 
