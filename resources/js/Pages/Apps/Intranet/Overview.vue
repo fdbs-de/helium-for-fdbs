@@ -46,9 +46,9 @@
         
                 <StatefulAccordion title="Links" scope="auth.overview.links" v-if="user.access.employee || can('system.access.admin.panel')">
                     <div class="grid">
-                        <a class="link-card" target="_blank" href="https://fleischer-dienst.uweb2000.de" v-if="user.access.employee">
+                        <a class="link-card" target="_blank" href="https://fdbs.prevenio.de/" v-if="user.access.employee">
                             <IodIcon icon="school"/>
-                            <p>UWEB Schulungen</p>
+                            <p>Prevenio Schulungen</p>
                             <IodIcon icon="open_in_new" class="open-in-new"/>
                         </a>
                         <a class="link-card" target="_blank" href="https://fleischer-dienst.mitarbeiterangebote.de/login" v-if="user.access.employee">
