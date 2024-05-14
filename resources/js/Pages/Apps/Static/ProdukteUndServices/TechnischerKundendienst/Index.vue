@@ -121,7 +121,7 @@
                     <li><b>Prüfen</b> ihrer Wasserqualität</li>
                 </ul>
             </p>
-            <p>&nbsp;</p>
+            <!-- <p>&nbsp;</p>
 
             <h2>Hightech-Highlights</h2>
             <p>Entdecken Sie regelmäßig ausgewählte Maschinen zu unschlagbaren Sonderpreisen für Ihre Großküche.</p>
@@ -129,7 +129,7 @@
                 <img src="/images/content/customerservice/hobart.png" alt="Hightech-Highlights" class="content-image">
                 <span class="flex h-center text-center">– Preise auf Anfrage –</span>
                 <DownloadManager id="11195" class="border-top"/>
-            </div>
+            </div> -->
             <p>&nbsp;</p>
             <p>&nbsp;</p>
             <p>&nbsp;</p>
