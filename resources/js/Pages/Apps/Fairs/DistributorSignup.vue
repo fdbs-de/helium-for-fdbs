@@ -49,6 +49,10 @@
         <h2 class="text-align-center">Online-Anmeldung</h2>
 
         <form class="form" @submit.prevent="submit" v-if="!isSent">
+            <ValidationErrors />
+
+
+
             <div class="group">
                 <h4><IodIcon icon="counter_1"/> Kontaktinformationen</h4>
                 <div class="subgroup">
@@ -268,6 +272,7 @@
     import { ref, computed } from 'vue'
 
     import TextSubLayout from '@/Layouts/SubLayouts/Text.vue'
+    import ValidationErrors from '@/Components/ValidationErrors.vue'
 
 
 

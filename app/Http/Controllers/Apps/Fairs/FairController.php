@@ -85,7 +85,7 @@ class FairController extends Controller
             'company' => 'required|string|max:100',
             'name' => 'required|string|max:100',
             'email' => 'required|email',
-            'phone' => 'required|string|max:20',
+            'phone' => 'required|string|max:40',
             'billing_name' => 'required|string|max:100',
             'billing_address' => 'required|string|max:100',
             'billing_zip' => 'required|string|max:10',
