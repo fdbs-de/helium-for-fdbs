@@ -121,13 +121,13 @@ Route::prefix('/umfragen')->group(function () {
     });
 });
 
-Route::prefix('/messe')->group(function () {
-    // Route::get('/besucher', [FairController::class, 'showVisitorForm'])->name('fair.visitor');
-    Route::get('/anmeldung/lieferant', [FairController::class, 'showDistributorForm'])->name('fair.distributor');
+// Route::prefix('/messe')->group(function () {
+//     // Route::get('/besucher', [FairController::class, 'showVisitorForm'])->name('fair.visitor');
+//     Route::get('/anmeldung/lieferant', [FairController::class, 'showDistributorForm'])->name('fair.distributor');
 
-    // Route::post('/visitor', [FairController::class, 'storeVisitor'])->name('fair.store.visitor');
-    Route::post('/anmeldung/distributor', [FairController::class, 'storeDistributor'])->name('fair.store.distributor');
-});
+//     // Route::post('/visitor', [FairController::class, 'storeVisitor'])->name('fair.store.visitor');
+//     Route::post('/anmeldung/distributor', [FairController::class, 'storeDistributor'])->name('fair.store.distributor');
+// });
 
 // Pages Wildcard
 Route::get('/pages/prefetch', [PageController::class, 'prefetch'])->name('app.pages.prefetch');
