@@ -37,7 +37,7 @@
                     <br>
                     <b>Bestellhotline:</b><br>
                     0531 - 210 55-23<br>
-                    (besetzt von 07:00 - 16:00)<br>
+                    (besetzt von 07:00 - 15:00)<br>
                 </div>
             </div>
             <div class="block">
