@@ -13,143 +13,143 @@ use Inertia\Inertia;
 class JobController extends Controller
 {
     private const funnels = [
-        ['title' => 'Bewerben als Lagermitarbeiter', 'name' => 'Lagermitarbeiter', 'tags' => ['schnellbewerbung', 'lager'], 'route' => 'karriere.funnel.show', 'slug' => 'lagermitarbeiter', 'pages' => [
-            // Welche Ausbildung hast Du? -> Textfeld
-            ['title' => 'Page 1', 'inputs' => [
-                ['id' => 'education', 'type' => 'text', 'name' => 'Ausbildung', 'label' => 'Welche Ausbildung hast Du?', 'required' => true, 'options' => [
-                    ['color' => '#FF0D22', 'label' => 'Fachkraft für Lagerlogistik', 'value' => 'Fachkraft für Lagerlogistik'],
-                    ['color' => '#C90A1B', 'label' => 'Fachlagerist', 'value' => 'Fachlagerist'],
-                    ['color' => '#960814', 'label' => 'Quereinsteiger', 'value' => 'Quereinsteiger'],
-                ],]
-            ]],
-            // Wie viele Jahre Berufserfahrung kannst du vorweisen? -> keine, 1 bis 5 Jahre, 5 bis 10 Jahre, mehr als 10 Jahre
-            ['title' => 'Page 2', 'inputs' => [
-                ['id' => 'experienceinPosition', 'type' => 'multiple', 'name' => 'Erfahrung als Lagermitarbeiter (Jahre)', 'label' => 'Wie viele Jahre Berufserfahrung kannst du vorweisen?', 'required' => true, 'options' => [['label' => 'keine', 'value' => 'keine'], ['label' => '1 bis 5 Jahre', 'value' => '1 bis 5 Jahre'], ['label' => '5 bis 10 Jahre', 'value' => '5 bis 10 Jahre'], ['label' => 'mehr als 10 Jahre', 'value' => 'mehr als 10 Jahre'],]]
-            ]],
-            // Welchen Staplerschein hast du? -> Ja, Nein
-            ['title' => 'Page 3', 'inputs' => [
-                ['id' => 'forkliftLicense', 'type' => 'multiple', 'name' => 'Staplerschein', 'label' => 'Besitzt du einen Staplerschein?', 'required' => true, 'options' => [['label' => 'Nein', 'value' => 'Nein'], ['label' => 'Ja', 'value' => 'Ja'],]]
-            ]],
-            // Bereitschaft zur Spätschicht? -> Ja, Nein
-            ['title' => 'Page 4', 'inputs' => [
-                ['id' => 'lateShift', 'type' => 'multiple', 'name' => 'Spätschicht', 'label' => 'Bereitschaft zur Spätschicht?', 'required' => true, 'options' => [['label' => 'Nein', 'value' => 'Nein'], ['label' => 'Ja', 'value' => 'Ja'],]]
-            ]],
-            // Wie sind deine Deutschkenntnisse? -> nicht so gut, Okay, Gut, Muttersprache
-            ['title' => 'Page 5', 'inputs' => [
-                ['id' => 'experienceInLanguage', 'type' => 'multiple', 'name' => 'Deutschkenntnisse', 'label' => 'Wie sind deine Deutschkenntnisse?', 'required' => true, 'options' => [['label' => 'nicht so gut', 'value' => 'nicht so gut'], ['label' => 'Okay', 'value' => 'Okay'], ['label' => 'Gut', 'value' => 'Gut'], ['label' => 'Muttersprache', 'value' => 'Muttersprache'],]]
-            ]],
-            // Frühestmögliches Eintrittsdatum -> Textfeld (Schnellauswahl: sofort, nächster Monatsbegin, in 4 Wochen, in 3 Monaten, später)
-            ['title' => 'Page 6', 'inputs' => [
-                ['id' => 'startDate', 'type' => 'text', 'name' => 'Frühstes Einstiegsdatum', 'label' => 'Frühestmögliches Eintrittsdatum', 'required' => true, 'options' => [
-                    ['color' => '#FF0D22', 'label' => 'sofort', 'value' => 'sofort'],
-                    ['color' => '#C90A1B', 'label' => 'nächster Monatsbeginn', 'value' => 'nächster Monatsbeginn'],
-                    ['color' => '#960814', 'label' => 'in 4 Wochen', 'value' => 'in 4 Wochen'],
-                    ['color' => '#75060F', 'label' => 'in 3 Monaten', 'value' => 'in 3 Monaten'],
-                    ['color' => '#52040B', 'label' => 'später', 'value' => 'später'],
-                ],]
-            ]],
-        ]],
-        ['title' => 'Bewerben als LKW Fahrer', 'name' => 'Fahrer', 'tags' => ['schnellbewerbung', 'fahrer'], 'route' => 'karriere.funnel.show', 'slug' => 'fahrer', 'pages' => [
-            // Hast du bereits Erfahrung als LKW Fahrer? -> Ja, Nein
-            ['title' => 'Page 1', 'inputs' => [
-                ['id' => 'hasExperience', 'type' => 'multiple', 'name' => 'Erfahrung als LKW Fahrer', 'label' => 'Hast du bereits Erfahrung als LKW Fahrer?', 'required' => true, 'options' => [['label' => 'Nein', 'value' => 'Nein'], ['label' => 'Ja', 'value' => 'Ja'],]]
-            ]],
-            // Welchen Führerschein hast du? -> keinen, C, CE, C und CE
-            ['title' => 'Page 2', 'inputs' => [
-                ['id' => 'driversLicense', 'type' => 'multiple', 'name' => 'Führerschein', 'label' => 'Welchen Führerschein hast du?', 'required' => true, 'options' => [['label' => 'keinen', 'value' => 'keinen'], ['label' => 'C', 'value' => 'C'], ['label' => 'CE', 'value' => 'CE'], ['label' => 'C und CE', 'value' => 'C und CE'],], 'exitConditions' => [
-                    'keinen' => 'Wir können dir leider keine Stelle anbieten, da du noch keinen LKW-Führerschein besitzt.',
-                ]]
-            ]],
-            // Besitzt du eine gültige Modul 95 Qualifizierung? -> Ja, Nein
-            ['title' => 'Page 3', 'inputs' => [
-                ['id' => 'hasModul95', 'type' => 'multiple', 'name' => 'Modul 95 Qualifizierung', 'label' => 'Besitzt du eine gültige Modul 95 Qualifizierung?', 'required' => true, 'options' => [['label' => 'Nein', 'value' => 'Nein'], ['label' => 'Ja', 'value' => 'Ja'],]]
-            ]],
-            // Wie viele Jahre Berufserfahrung kannst du vorweisen? -> keine, 1 bis 5 Jahre, 5 bis 10 Jahre, mehr als 10 Jahre
-            ['title' => 'Page 4', 'inputs' => [
-                ['id' => 'experienceAsDriver', 'type' => 'multiple', 'name' => 'Erfahrung als LKW Fahrer (Jahre)', 'label' => 'Wie viele Jahre Berufserfahrung kannst du vorweisen?', 'required' => true, 'options' => [['label' => 'keine', 'value' => 'keine'], ['label' => '1 bis 5 Jahre', 'value' => '1 bis 5 Jahre'], ['label' => '5 bis 10 Jahre', 'value' => '5 bis 10 Jahre'], ['label' => 'mehr als 10 Jahre', 'value' => 'mehr als 10 Jahre'],]]
-            ]],
-            // Wie sind deine Deutschkenntnisse? -> nicht so gut, Okay, Gut, Muttersprache
-            ['title' => 'Page 5', 'inputs' => [
-                ['id' => 'experienceInLanguage', 'type' => 'multiple', 'name' => 'Deutschkenntnisse', 'label' => 'Wie sind deine Deutschkenntnisse?', 'required' => true, 'options' => [['label' => 'nicht so gut', 'value' => 'nicht so gut'], ['label' => 'Okay', 'value' => 'Okay'], ['label' => 'Gut', 'value' => 'Gut'], ['label' => 'Muttersprache', 'value' => 'Muttersprache'],]]
-            ]],
-            // Frühestmögliches Eintrittsdatum -> Textfeld (Schnellauswahl: sofort, nächster Monatsbegin, in 4 Wochen, in 3 Monaten, später)
-            ['title' => 'Page 6', 'inputs' => [
-                ['id' => 'startDate', 'type' => 'text', 'name' => 'Frühstes Einstiegsdatum', 'label' => 'Frühestmögliches Eintrittsdatum', 'required' => true, 'options' => [
-                    ['color' => '#FF0D22', 'label' => 'sofort', 'value' => 'sofort'],
-                    ['color' => '#C90A1B', 'label' => 'nächster Monatsbeginn', 'value' => 'nächster Monatsbeginn'],
-                    ['color' => '#960814', 'label' => 'in 4 Wochen', 'value' => 'in 4 Wochen'],
-                    ['color' => '#75060F', 'label' => 'in 3 Monaten', 'value' => 'in 3 Monaten'],
-                    ['color' => '#52040B', 'label' => 'später', 'value' => 'später'],
-                ],]
-            ]],
-        ]],
-        ['title' => 'Industriemechaniker / Schlosser / Technischer Produktspezialist als Servicetechniker', 'name' => 'Schlosser', 'tags' => ['schnellbewerbung', 'schlosser'], 'route' => 'karriere.funnel.show', 'slug' => 'schlosser', 'pages' => [
-            // Welche technische Ausbildung hast Du? -> Textfeld
-            ['title' => 'Page 1', 'inputs' => [
-                ['id' => 'education', 'type' => 'text', 'name' => 'Technische Ausbildung', 'label' => 'Welche technische Ausbildung hast Du?', 'required' => true, 'options' => [
-                    ['color' => '#FF0D22', 'label' => 'Schlosser', 'value' => 'Schlosser'],
-                    ['color' => '#C90A1B', 'label' => 'Industriemechaniker', 'value' => 'Industriemechaniker'],
-                    ['color' => '#960814', 'label' => 'Metallbauer', 'value' => 'Metallbauer'],
-                ],]
-            ]],
-            // Hast Du bereits Erfahrungen im Kundendienst gemacht? -> Ja, Nein
-            ['title' => 'Page 2', 'inputs' => [
-                ['id' => 'hasExperience', 'type' => 'multiple', 'name' => 'Erfahrung im Kundendienst', 'label' => 'Hast Du bereits Erfahrungen im Kundendienst gemacht?', 'required' => true, 'options' => [['label' => 'Nein', 'value' => 'Nein'], ['label' => 'Ja', 'value' => 'Ja'],]]
-            ]],
-            // Welchen Führerschein hast Du? (Ausschlusskriterium) -> keinen, B, BE
-            ['title' => 'Page 3', 'inputs' => [
-                ['id' => 'driversLicense', 'type' => 'multiple', 'name' => 'Führerschein', 'label' => 'Welchen Führerschein hast Du?', 'required' => true, 'options' => [['label' => 'keinen', 'value' => 'keinen'], ['label' => 'B', 'value' => 'B'], ['label' => 'BE', 'value' => 'BE'],], 'exitConditions' => [
-                    'keinen' => 'Wir können dir leider keine Stelle anbieten, da du noch keinen PKW-Führerschein besitzt.',
-                ]]
-            ]],
-            // Wie viele Jahre Berufserfahrung bringst Du mit? -> keine, 1 bis 5 Jahre, 5 bis 10 Jahre, mehr als 10 Jahre
-            ['title' => 'Page 4', 'inputs' => [
-                ['id' => 'experienceInYears', 'type' => 'multiple', 'name' => 'Erfahrung (Jahre)', 'label' => 'Wie viele Jahre Berufserfahrung bringst Du mit?', 'required' => true, 'options' => [['label' => 'keine', 'value' => 'keine'], ['label' => '1 bis 5 Jahre', 'value' => '1 bis 5 Jahre'], ['label' => '5 bis 10 Jahre', 'value' => '5 bis 10 Jahre'], ['label' => 'mehr als 10 Jahre', 'value' => 'mehr als 10 Jahre'],]]
-            ]],
-            // Frühestmögliches Eintrittsdatum
-            ['title' => 'Page 5', 'inputs' => [
-                ['id' => 'startDate', 'type' => 'text', 'name' => 'Frühstes Einstiegsdatum', 'label' => 'Frühestmögliches Eintrittsdatum', 'required' => true, 'options' => [
-                    ['color' => '#FF0D22', 'label' => 'sofort', 'value' => 'sofort'],
-                    ['color' => '#C90A1B', 'label' => 'nächster Monatsbeginn', 'value' => 'nächster Monatsbeginn'],
-                    ['color' => '#960814', 'label' => 'in 4 Wochen', 'value' => 'in 4 Wochen'],
-                    ['color' => '#75060F', 'label' => 'in 3 Monaten', 'value' => 'in 3 Monaten'],
-                    ['color' => '#52040B', 'label' => 'später', 'value' => 'später'],
-                ],]
-            ]],
-        ]],
-        ['title' => 'Elektromonteur / Elektrotechniker / Elektriker als Servicetechniker', 'name' => 'Elektriker', 'tags' => ['schnellbewerbung', 'elektriker'], 'route' => 'karriere.funnel.show', 'slug' => 'elektriker', 'pages' => [
-            // Welche elektrotechnische Ausbildung hast Du? -> Textfeld
-            ['title' => 'Page 1', 'inputs' => [
-                ['id' => 'education', 'type' => 'text', 'name' => 'Elektrotechnische Ausbildung', 'label' => 'Welche elektrotechnische Ausbildung hast Du?', 'required' => true,'options' => [
-                    ['color' => '#FF0D22', 'label' => 'Elektriker', 'value' => 'Elektriker'],
-                    ['color' => '#C90A1B', 'label' => 'Elektrotechniker', 'value' => 'Elektrotechniker'],
-                ],]
-            ]],
-            // Hast Du bereits Erfahrungen im Kundendienst gemacht? -> Ja, Nein
-            ['title' => 'Page 2', 'inputs' => [
-                ['id' => 'hasExperience', 'type' => 'multiple', 'name' => 'Erfahrung im Kundendienst', 'label' => 'Hast Du bereits Erfahrungen im Kundendienst gemacht?', 'required' => true, 'options' => [['label' => 'Nein', 'value' => 'Nein'], ['label' => 'Ja', 'value' => 'Ja'],]]
-            ]],
-            // Welchen Führerschein hast Du? (Ausschlusskriterium) -> keinen, B, BE
-            ['title' => 'Page 3', 'inputs' => [
-                ['id' => 'driversLicense', 'type' => 'multiple', 'name' => 'Führerschein', 'label' => 'Welchen Führerschein hast Du?', 'required' => true, 'options' => [['label' => 'keinen', 'value' => 'keinen'], ['label' => 'B', 'value' => 'B'], ['label' => 'BE', 'value' => 'BE'],], 'exitConditions' => [
-                    'keinen' => 'Wir können dir leider keine Stelle anbieten, da du noch keinen PKW-Führerschein besitzt.',
-                ]]
-            ]],
-            // Wie viele Jahre Berufserfahrung bringst Du mit? -> keine, 1 bis 5 Jahre, 5 bis 10 Jahre, mehr als 10 Jahre
-            ['title' => 'Page 4', 'inputs' => [
-                ['id' => 'experienceInYears', 'type' => 'multiple', 'name' => 'Erfahrung (Jahre)', 'label' => 'Wie viele Jahre Berufserfahrung bringst Du mit?', 'required' => true, 'options' => [['label' => 'keine', 'value' => 'keine'], ['label' => '1 bis 5 Jahre', 'value' => '1 bis 5 Jahre'], ['label' => '5 bis 10 Jahre', 'value' => '5 bis 10 Jahre'], ['label' => 'mehr als 10 Jahre', 'value' => 'mehr als 10 Jahre'],]]
-            ]],
-            // Frühestmögliches Eintrittsdatum
-            ['title' => 'Page 5', 'inputs' => [
-                ['id' => 'startDate', 'type' => 'text', 'name' => 'Frühstes Einstiegsdatum', 'label' => 'Frühestmögliches Eintrittsdatum', 'required' => true, 'options' => [
-                    ['color' => '#FF0D22', 'label' => 'sofort', 'value' => 'sofort'],
-                    ['color' => '#C90A1B', 'label' => 'nächster Monatsbeginn', 'value' => 'nächster Monatsbeginn'],
-                    ['color' => '#960814', 'label' => 'in 4 Wochen', 'value' => 'in 4 Wochen'],
-                    ['color' => '#75060F', 'label' => 'in 3 Monaten', 'value' => 'in 3 Monaten'],
-                    ['color' => '#52040B', 'label' => 'später', 'value' => 'später'],
-                ],]
-            ]],
-        ]],
+        // ['title' => 'Bewerben als Lagermitarbeiter', 'name' => 'Lagermitarbeiter', 'tags' => ['schnellbewerbung', 'lager'], 'route' => 'karriere.funnel.show', 'slug' => 'lagermitarbeiter', 'pages' => [
+        //     // Welche Ausbildung hast Du? -> Textfeld
+        //     ['title' => 'Page 1', 'inputs' => [
+        //         ['id' => 'education', 'type' => 'text', 'name' => 'Ausbildung', 'label' => 'Welche Ausbildung hast Du?', 'required' => true, 'options' => [
+        //             ['color' => '#FF0D22', 'label' => 'Fachkraft für Lagerlogistik', 'value' => 'Fachkraft für Lagerlogistik'],
+        //             ['color' => '#C90A1B', 'label' => 'Fachlagerist', 'value' => 'Fachlagerist'],
+        //             ['color' => '#960814', 'label' => 'Quereinsteiger', 'value' => 'Quereinsteiger'],
+        //         ],]
+        //     ]],
+        //     // Wie viele Jahre Berufserfahrung kannst du vorweisen? -> keine, 1 bis 5 Jahre, 5 bis 10 Jahre, mehr als 10 Jahre
+        //     ['title' => 'Page 2', 'inputs' => [
+        //         ['id' => 'experienceinPosition', 'type' => 'multiple', 'name' => 'Erfahrung als Lagermitarbeiter (Jahre)', 'label' => 'Wie viele Jahre Berufserfahrung kannst du vorweisen?', 'required' => true, 'options' => [['label' => 'keine', 'value' => 'keine'], ['label' => '1 bis 5 Jahre', 'value' => '1 bis 5 Jahre'], ['label' => '5 bis 10 Jahre', 'value' => '5 bis 10 Jahre'], ['label' => 'mehr als 10 Jahre', 'value' => 'mehr als 10 Jahre'],]]
+        //     ]],
+        //     // Welchen Staplerschein hast du? -> Ja, Nein
+        //     ['title' => 'Page 3', 'inputs' => [
+        //         ['id' => 'forkliftLicense', 'type' => 'multiple', 'name' => 'Staplerschein', 'label' => 'Besitzt du einen Staplerschein?', 'required' => true, 'options' => [['label' => 'Nein', 'value' => 'Nein'], ['label' => 'Ja', 'value' => 'Ja'],]]
+        //     ]],
+        //     // Bereitschaft zur Spätschicht? -> Ja, Nein
+        //     ['title' => 'Page 4', 'inputs' => [
+        //         ['id' => 'lateShift', 'type' => 'multiple', 'name' => 'Spätschicht', 'label' => 'Bereitschaft zur Spätschicht?', 'required' => true, 'options' => [['label' => 'Nein', 'value' => 'Nein'], ['label' => 'Ja', 'value' => 'Ja'],]]
+        //     ]],
+        //     // Wie sind deine Deutschkenntnisse? -> nicht so gut, Okay, Gut, Muttersprache
+        //     ['title' => 'Page 5', 'inputs' => [
+        //         ['id' => 'experienceInLanguage', 'type' => 'multiple', 'name' => 'Deutschkenntnisse', 'label' => 'Wie sind deine Deutschkenntnisse?', 'required' => true, 'options' => [['label' => 'nicht so gut', 'value' => 'nicht so gut'], ['label' => 'Okay', 'value' => 'Okay'], ['label' => 'Gut', 'value' => 'Gut'], ['label' => 'Muttersprache', 'value' => 'Muttersprache'],]]
+        //     ]],
+        //     // Frühestmögliches Eintrittsdatum -> Textfeld (Schnellauswahl: sofort, nächster Monatsbegin, in 4 Wochen, in 3 Monaten, später)
+        //     ['title' => 'Page 6', 'inputs' => [
+        //         ['id' => 'startDate', 'type' => 'text', 'name' => 'Frühstes Einstiegsdatum', 'label' => 'Frühestmögliches Eintrittsdatum', 'required' => true, 'options' => [
+        //             ['color' => '#FF0D22', 'label' => 'sofort', 'value' => 'sofort'],
+        //             ['color' => '#C90A1B', 'label' => 'nächster Monatsbeginn', 'value' => 'nächster Monatsbeginn'],
+        //             ['color' => '#960814', 'label' => 'in 4 Wochen', 'value' => 'in 4 Wochen'],
+        //             ['color' => '#75060F', 'label' => 'in 3 Monaten', 'value' => 'in 3 Monaten'],
+        //             ['color' => '#52040B', 'label' => 'später', 'value' => 'später'],
+        //         ],]
+        //     ]],
+        // ]],
+        // ['title' => 'Bewerben als LKW Fahrer', 'name' => 'Fahrer', 'tags' => ['schnellbewerbung', 'fahrer'], 'route' => 'karriere.funnel.show', 'slug' => 'fahrer', 'pages' => [
+        //     // Hast du bereits Erfahrung als LKW Fahrer? -> Ja, Nein
+        //     ['title' => 'Page 1', 'inputs' => [
+        //         ['id' => 'hasExperience', 'type' => 'multiple', 'name' => 'Erfahrung als LKW Fahrer', 'label' => 'Hast du bereits Erfahrung als LKW Fahrer?', 'required' => true, 'options' => [['label' => 'Nein', 'value' => 'Nein'], ['label' => 'Ja', 'value' => 'Ja'],]]
+        //     ]],
+        //     // Welchen Führerschein hast du? -> keinen, C, CE, C und CE
+        //     ['title' => 'Page 2', 'inputs' => [
+        //         ['id' => 'driversLicense', 'type' => 'multiple', 'name' => 'Führerschein', 'label' => 'Welchen Führerschein hast du?', 'required' => true, 'options' => [['label' => 'keinen', 'value' => 'keinen'], ['label' => 'C', 'value' => 'C'], ['label' => 'CE', 'value' => 'CE'], ['label' => 'C und CE', 'value' => 'C und CE'],], 'exitConditions' => [
+        //             'keinen' => 'Wir können dir leider keine Stelle anbieten, da du noch keinen LKW-Führerschein besitzt.',
+        //         ]]
+        //     ]],
+        //     // Besitzt du eine gültige Modul 95 Qualifizierung? -> Ja, Nein
+        //     ['title' => 'Page 3', 'inputs' => [
+        //         ['id' => 'hasModul95', 'type' => 'multiple', 'name' => 'Modul 95 Qualifizierung', 'label' => 'Besitzt du eine gültige Modul 95 Qualifizierung?', 'required' => true, 'options' => [['label' => 'Nein', 'value' => 'Nein'], ['label' => 'Ja', 'value' => 'Ja'],]]
+        //     ]],
+        //     // Wie viele Jahre Berufserfahrung kannst du vorweisen? -> keine, 1 bis 5 Jahre, 5 bis 10 Jahre, mehr als 10 Jahre
+        //     ['title' => 'Page 4', 'inputs' => [
+        //         ['id' => 'experienceAsDriver', 'type' => 'multiple', 'name' => 'Erfahrung als LKW Fahrer (Jahre)', 'label' => 'Wie viele Jahre Berufserfahrung kannst du vorweisen?', 'required' => true, 'options' => [['label' => 'keine', 'value' => 'keine'], ['label' => '1 bis 5 Jahre', 'value' => '1 bis 5 Jahre'], ['label' => '5 bis 10 Jahre', 'value' => '5 bis 10 Jahre'], ['label' => 'mehr als 10 Jahre', 'value' => 'mehr als 10 Jahre'],]]
+        //     ]],
+        //     // Wie sind deine Deutschkenntnisse? -> nicht so gut, Okay, Gut, Muttersprache
+        //     ['title' => 'Page 5', 'inputs' => [
+        //         ['id' => 'experienceInLanguage', 'type' => 'multiple', 'name' => 'Deutschkenntnisse', 'label' => 'Wie sind deine Deutschkenntnisse?', 'required' => true, 'options' => [['label' => 'nicht so gut', 'value' => 'nicht so gut'], ['label' => 'Okay', 'value' => 'Okay'], ['label' => 'Gut', 'value' => 'Gut'], ['label' => 'Muttersprache', 'value' => 'Muttersprache'],]]
+        //     ]],
+        //     // Frühestmögliches Eintrittsdatum -> Textfeld (Schnellauswahl: sofort, nächster Monatsbegin, in 4 Wochen, in 3 Monaten, später)
+        //     ['title' => 'Page 6', 'inputs' => [
+        //         ['id' => 'startDate', 'type' => 'text', 'name' => 'Frühstes Einstiegsdatum', 'label' => 'Frühestmögliches Eintrittsdatum', 'required' => true, 'options' => [
+        //             ['color' => '#FF0D22', 'label' => 'sofort', 'value' => 'sofort'],
+        //             ['color' => '#C90A1B', 'label' => 'nächster Monatsbeginn', 'value' => 'nächster Monatsbeginn'],
+        //             ['color' => '#960814', 'label' => 'in 4 Wochen', 'value' => 'in 4 Wochen'],
+        //             ['color' => '#75060F', 'label' => 'in 3 Monaten', 'value' => 'in 3 Monaten'],
+        //             ['color' => '#52040B', 'label' => 'später', 'value' => 'später'],
+        //         ],]
+        //     ]],
+        // ]],
+        // ['title' => 'Industriemechaniker / Schlosser / Technischer Produktspezialist als Servicetechniker', 'name' => 'Schlosser', 'tags' => ['schnellbewerbung', 'schlosser'], 'route' => 'karriere.funnel.show', 'slug' => 'schlosser', 'pages' => [
+        //     // Welche technische Ausbildung hast Du? -> Textfeld
+        //     ['title' => 'Page 1', 'inputs' => [
+        //         ['id' => 'education', 'type' => 'text', 'name' => 'Technische Ausbildung', 'label' => 'Welche technische Ausbildung hast Du?', 'required' => true, 'options' => [
+        //             ['color' => '#FF0D22', 'label' => 'Schlosser', 'value' => 'Schlosser'],
+        //             ['color' => '#C90A1B', 'label' => 'Industriemechaniker', 'value' => 'Industriemechaniker'],
+        //             ['color' => '#960814', 'label' => 'Metallbauer', 'value' => 'Metallbauer'],
+        //         ],]
+        //     ]],
+        //     // Hast Du bereits Erfahrungen im Kundendienst gemacht? -> Ja, Nein
+        //     ['title' => 'Page 2', 'inputs' => [
+        //         ['id' => 'hasExperience', 'type' => 'multiple', 'name' => 'Erfahrung im Kundendienst', 'label' => 'Hast Du bereits Erfahrungen im Kundendienst gemacht?', 'required' => true, 'options' => [['label' => 'Nein', 'value' => 'Nein'], ['label' => 'Ja', 'value' => 'Ja'],]]
+        //     ]],
+        //     // Welchen Führerschein hast Du? (Ausschlusskriterium) -> keinen, B, BE
+        //     ['title' => 'Page 3', 'inputs' => [
+        //         ['id' => 'driversLicense', 'type' => 'multiple', 'name' => 'Führerschein', 'label' => 'Welchen Führerschein hast Du?', 'required' => true, 'options' => [['label' => 'keinen', 'value' => 'keinen'], ['label' => 'B', 'value' => 'B'], ['label' => 'BE', 'value' => 'BE'],], 'exitConditions' => [
+        //             'keinen' => 'Wir können dir leider keine Stelle anbieten, da du noch keinen PKW-Führerschein besitzt.',
+        //         ]]
+        //     ]],
+        //     // Wie viele Jahre Berufserfahrung bringst Du mit? -> keine, 1 bis 5 Jahre, 5 bis 10 Jahre, mehr als 10 Jahre
+        //     ['title' => 'Page 4', 'inputs' => [
+        //         ['id' => 'experienceInYears', 'type' => 'multiple', 'name' => 'Erfahrung (Jahre)', 'label' => 'Wie viele Jahre Berufserfahrung bringst Du mit?', 'required' => true, 'options' => [['label' => 'keine', 'value' => 'keine'], ['label' => '1 bis 5 Jahre', 'value' => '1 bis 5 Jahre'], ['label' => '5 bis 10 Jahre', 'value' => '5 bis 10 Jahre'], ['label' => 'mehr als 10 Jahre', 'value' => 'mehr als 10 Jahre'],]]
+        //     ]],
+        //     // Frühestmögliches Eintrittsdatum
+        //     ['title' => 'Page 5', 'inputs' => [
+        //         ['id' => 'startDate', 'type' => 'text', 'name' => 'Frühstes Einstiegsdatum', 'label' => 'Frühestmögliches Eintrittsdatum', 'required' => true, 'options' => [
+        //             ['color' => '#FF0D22', 'label' => 'sofort', 'value' => 'sofort'],
+        //             ['color' => '#C90A1B', 'label' => 'nächster Monatsbeginn', 'value' => 'nächster Monatsbeginn'],
+        //             ['color' => '#960814', 'label' => 'in 4 Wochen', 'value' => 'in 4 Wochen'],
+        //             ['color' => '#75060F', 'label' => 'in 3 Monaten', 'value' => 'in 3 Monaten'],
+        //             ['color' => '#52040B', 'label' => 'später', 'value' => 'später'],
+        //         ],]
+        //     ]],
+        // ]],
+        // ['title' => 'Elektromonteur / Elektrotechniker / Elektriker als Servicetechniker', 'name' => 'Elektriker', 'tags' => ['schnellbewerbung', 'elektriker'], 'route' => 'karriere.funnel.show', 'slug' => 'elektriker', 'pages' => [
+        //     // Welche elektrotechnische Ausbildung hast Du? -> Textfeld
+        //     ['title' => 'Page 1', 'inputs' => [
+        //         ['id' => 'education', 'type' => 'text', 'name' => 'Elektrotechnische Ausbildung', 'label' => 'Welche elektrotechnische Ausbildung hast Du?', 'required' => true,'options' => [
+        //             ['color' => '#FF0D22', 'label' => 'Elektriker', 'value' => 'Elektriker'],
+        //             ['color' => '#C90A1B', 'label' => 'Elektrotechniker', 'value' => 'Elektrotechniker'],
+        //         ],]
+        //     ]],
+        //     // Hast Du bereits Erfahrungen im Kundendienst gemacht? -> Ja, Nein
+        //     ['title' => 'Page 2', 'inputs' => [
+        //         ['id' => 'hasExperience', 'type' => 'multiple', 'name' => 'Erfahrung im Kundendienst', 'label' => 'Hast Du bereits Erfahrungen im Kundendienst gemacht?', 'required' => true, 'options' => [['label' => 'Nein', 'value' => 'Nein'], ['label' => 'Ja', 'value' => 'Ja'],]]
+        //     ]],
+        //     // Welchen Führerschein hast Du? (Ausschlusskriterium) -> keinen, B, BE
+        //     ['title' => 'Page 3', 'inputs' => [
+        //         ['id' => 'driversLicense', 'type' => 'multiple', 'name' => 'Führerschein', 'label' => 'Welchen Führerschein hast Du?', 'required' => true, 'options' => [['label' => 'keinen', 'value' => 'keinen'], ['label' => 'B', 'value' => 'B'], ['label' => 'BE', 'value' => 'BE'],], 'exitConditions' => [
+        //             'keinen' => 'Wir können dir leider keine Stelle anbieten, da du noch keinen PKW-Führerschein besitzt.',
+        //         ]]
+        //     ]],
+        //     // Wie viele Jahre Berufserfahrung bringst Du mit? -> keine, 1 bis 5 Jahre, 5 bis 10 Jahre, mehr als 10 Jahre
+        //     ['title' => 'Page 4', 'inputs' => [
+        //         ['id' => 'experienceInYears', 'type' => 'multiple', 'name' => 'Erfahrung (Jahre)', 'label' => 'Wie viele Jahre Berufserfahrung bringst Du mit?', 'required' => true, 'options' => [['label' => 'keine', 'value' => 'keine'], ['label' => '1 bis 5 Jahre', 'value' => '1 bis 5 Jahre'], ['label' => '5 bis 10 Jahre', 'value' => '5 bis 10 Jahre'], ['label' => 'mehr als 10 Jahre', 'value' => 'mehr als 10 Jahre'],]]
+        //     ]],
+        //     // Frühestmögliches Eintrittsdatum
+        //     ['title' => 'Page 5', 'inputs' => [
+        //         ['id' => 'startDate', 'type' => 'text', 'name' => 'Frühstes Einstiegsdatum', 'label' => 'Frühestmögliches Eintrittsdatum', 'required' => true, 'options' => [
+        //             ['color' => '#FF0D22', 'label' => 'sofort', 'value' => 'sofort'],
+        //             ['color' => '#C90A1B', 'label' => 'nächster Monatsbeginn', 'value' => 'nächster Monatsbeginn'],
+        //             ['color' => '#960814', 'label' => 'in 4 Wochen', 'value' => 'in 4 Wochen'],
+        //             ['color' => '#75060F', 'label' => 'in 3 Monaten', 'value' => 'in 3 Monaten'],
+        //             ['color' => '#52040B', 'label' => 'später', 'value' => 'später'],
+        //         ],]
+        //     ]],
+        // ]],
     ];
 
     public function index()
