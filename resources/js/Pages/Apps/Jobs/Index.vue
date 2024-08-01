@@ -111,7 +111,7 @@
     const filteredJobs = computed(() => {
         return props.posts.filter(job => {
             if (filterParameter.value.search.trim() && !job?.title?.toLowerCase().trim().includes(filterParameter.value.search.toLowerCase().trim())) return false
-            if (filterParameter.value.type          && job?.category?.name?.toLowerCase() !== filterParameter.value.type) return false
+            if (filterParameter.value.type          && job?.post_category?.name?.toLowerCase() !== filterParameter.value.type) return false
             if (filterParameter.value.category      && !(job?.tags?.map(e => e.toLowerCase()) || []).includes(filterParameter.value.category)) return false
 
             return true
