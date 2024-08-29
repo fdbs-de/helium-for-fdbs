@@ -49,7 +49,7 @@ class JobController extends Controller
         //         ],]
         //     ]],
         // ]],
-        ['title' => 'Bewerben als Auslieferungsfahrer für 7,5t', 'name' => 'Fahrer', 'tags' => ['schnellbewerbung', 'fahrer'], 'route' => 'karriere.funnel.show', 'slug' => 'fahrer', 'pages' => [
+        ['title' => 'Bewerben als Auslieferungsfahrer ab 7,5t', 'name' => 'Fahrer', 'tags' => ['schnellbewerbung', 'fahrer'], 'route' => 'karriere.funnel.show', 'slug' => 'fahrer', 'pages' => [
             // Hast du bereits Erfahrung als LKW Fahrer? -> Ja, Nein
             ['title' => 'Page 1', 'inputs' => [
                 ['id' => 'hasExperience', 'type' => 'multiple', 'name' => 'Erfahrung als LKW Fahrer', 'label' => 'Hast du bereits Erfahrung als LKW Fahrer?', 'required' => true, 'options' => [['label' => 'Nein', 'value' => 'Nein'], ['label' => 'Ja', 'value' => 'Ja'],]]
