@@ -36,23 +36,6 @@
 
 
 
-        @env('production')
-            <!-- START: eTracker Analytics -->
-            <script id="_etLoader"
-                type="text/plain"
-                charset="UTF-8"
-                data-cookiecategory="etracker"
-                data-block-cookies="true"
-                data-respect-dnt="true"
-                data-secure-code="4aKHpV"
-                src="//code.etracker.com/code/e.js"
-                async>
-            </script>
-            <!-- END: eTracker Analytics -->
-        @endenv
-
-
-
         <!-- START: IE Detect -->
         <script defer>
             function detectIEEdge()
@@ -92,7 +75,7 @@
         
         <!-- START: Cookie Consent Tool-->
         <script src="https://app.prive.eu/consent"
-                data-cc-tools="etracker"
+                data-cc-tools="youtube"
                 data-cc-privacy="https://fdbs.de/datenschutz"
                 data-cc-imprint="https://fdbs.de/impressum"
                 data-cc-color="#e00047"

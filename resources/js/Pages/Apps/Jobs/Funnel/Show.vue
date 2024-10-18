@@ -144,37 +144,17 @@
 
     const setFunnelInput = (key, value) => {
         form[key] = value
-
-        sendClick(`funnel.${props.funnel.slug}.${key}`, value)
     }
 
 
 
     const submit = () => {
-        const eventName = `funnel.${props.funnel.slug}.submit`
-
-        sendClick(eventName, 'start')
-
         form.post(route('karriere.funnel.store', props.funnel.slug), {
             onSuccess: () => {
                 form.reset()
                 submitted.value = true
-                sendClick(eventName, 'success')
-            },
-            onError: () => {
-                sendClick(eventName, 'error')
             },
         })
-    }
-
-
-
-    const sendClick = (path, value = '') => {
-        const _etracker = window._etracker
-        
-        if (!_etracker) return
-
-        _etracker.sendEvent(new et_ClickEvent(path, value))
     }
 </script>
 
