@@ -466,33 +466,38 @@ class UserController extends Controller
         $csv = "\xEF\xBB\xBF";
 
         // Add header
-        $csv .= 'ID;Name;Username;Email;Email verified;Enabled;Roles;Profiles;Newsletter;Invites;Created at;Updated at' . PHP_EOL;
+        $csv .= 'ID;Name;Vorname;Nachname;Firma;Kundennummer;Username;Email;Passwort;Rollen' . PHP_EOL;
 
         foreach ($users->get() as $user)
         {
-            $profiles = [];
-            if ($user->getSetting('profile.customer')) $profiles[] = 'Customer';
-            if ($user->getSetting('profile.employee')) $profiles[] = 'Employee';
+            // $profiles = [];
+            // if ($user->getSetting('profile.customer')) $profiles[] = 'Customer';
+            // if ($user->getSetting('profile.employee')) $profiles[] = 'Employee';
 
-            $newsletter = [];
-            if ($user->getSetting('newsletter.subscribed.generic')) $newsletter[] = 'Generic';
-            if ($user->getSetting('newsletter.subscribed.customer')) $newsletter[] = 'Customer';
+            // $newsletter = [];
+            // if ($user->getSetting('newsletter.subscribed.generic')) $newsletter[] = 'Generic';
+            // if ($user->getSetting('newsletter.subscribed.customer')) $newsletter[] = 'Customer';
 
-            $invites = [];
-            if ($user->getSetting('invite.employee.sommerfest')) $invites[] = 'Sommerfest: '. $user->getSetting('invite.employee.sommerfest');
+            // $invites = [];
+            // if ($user->getSetting('invite.employee.sommerfest')) $invites[] = 'Sommerfest: '. $user->getSetting('invite.employee.sommerfest');
 
             $csv .= $user->id . ';';
             $csv .= $user->name . ';';
+            $csv .= optional($user->details)->firstname . ';';
+            $csv .= optional($user->details)->lastname . ';';
+            $csv .= optional($user->details)->company . ';';
+            $csv .= $user->custom_account_id . ';';
             $csv .= $user->username . ';';
             $csv .= $user->email . ';';
-            $csv .= $user->email_verified_at ? 'Yes;' : 'No;';
-            $csv .= $user->enabled_at ? 'Yes;' : 'No;';
-            $csv .= $user->roles->pluck('name')->join(', ') . ';';
-            $csv .= implode(', ', $profiles) . ';';
-            $csv .= implode(', ', $newsletter) . ';';
-            $csv .= implode(', ', $invites) . ';';
-            $csv .= $user->created_at->format('m.d.Y H:i') . ';';
-            $csv .= $user->updated_at->format('m.d.Y H:i');
+            $csv .= $user->password . ';';
+            // $csv .= $user->email_verified_at ? 'Yes;' : 'No;';
+            // $csv .= $user->enabled_at ? 'Yes;' : 'No;';
+            $csv .= $user->roles->pluck('name')->join(',');
+            // $csv .= implode(',', $profiles) . ';';
+            // $csv .= implode(',', $newsletter) . ';';
+            // $csv .= implode(',', $invites) . ';';
+            // $csv .= $user->created_at->format('m.d.Y H:i') . ';';
+            // $csv .= $user->updated_at->format('m.d.Y H:i');
             $csv .= PHP_EOL;
         }
 
