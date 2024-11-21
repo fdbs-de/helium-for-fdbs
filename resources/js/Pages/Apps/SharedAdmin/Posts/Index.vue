@@ -15,6 +15,11 @@
             @request:refresh="IPM.fetch()"
             @request:create="IPM.open()"
         />
+
+        <div class="flex v-center gap-1 wrap border-top padding-top-1 margin-top-2">
+            <div class="spacer"></div>
+            <IodButton is="a" target="_blank" variant="text" size="small" label="Exportieren" :href="route('admin.posts.export', {posts: IPM.itemIds})"/>
+        </div>
     </AdminLayout>
 </template>
 

@@ -152,6 +152,10 @@ Route::prefix('admin')->middleware(['auth', 'verified.mfa', 'verified', 'enabled
         ->middleware('can:system.edit.media')
         ->name('admin.media.generate.cache');
 
+        Route::get('/backup', [MediaController::class, 'backup'])
+        ->middleware('can:system.admin')
+        ->name('admin.media.backup');
+
         Route::get('/{driveAlias}/{media?}', [MediaController::class, 'index'])
         ->middleware('can:system.view.media')
         ->name('admin.media')
@@ -334,6 +338,10 @@ Route::prefix('admin')->middleware(['auth', 'verified.mfa', 'verified', 'enabled
     });
 
 
+
+    Route::get('/posts/export', [PostController::class, 'export'])
+    ->middleware('can:system.admin')
+    ->name('admin.posts.export');
 
     Route::prefix('blog')->middleware(['select.app:blog', 'can:app.blog.access.admin.panel'])->group(function () {
         Route::prefix('posts')->group(function () {

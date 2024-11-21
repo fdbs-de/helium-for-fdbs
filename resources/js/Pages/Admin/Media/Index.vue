@@ -72,6 +72,11 @@
                 </select>
             </div>
         </div>
+
+        <div class="flex v-center gap-1 wrap border-top padding-top-1 margin-top-1">
+            <div class="spacer"></div>
+            <IodButton is="a" target="_blank" variant="text" size="small" label="Exportieren" :href="route('admin.media.backup')"/>
+        </div>
     </AdminLayout>
 
 

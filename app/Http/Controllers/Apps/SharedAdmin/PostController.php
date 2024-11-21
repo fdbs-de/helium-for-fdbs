@@ -161,6 +161,35 @@ class PostController extends Controller
 
 
 
+    public function export(Request $request)
+    {
+        $posts = Post::whereIn('id', $request->posts);
+
+        $export = [];
+
+        foreach ($posts->get() as $post)
+        {
+            $export[] = [
+                'id' => $post->id,
+                'status' => $post->status,
+                'title' => $post->title,
+                'slug' => $post->slug,
+                'role' => $post->postCategory->name,
+                'tags' => $post->tags,
+                'is_pinned' => $post->pinned,
+                'content' => $post->content,
+                'created_at' => $post->created_at,
+                'updated_at' => $post->updated_at,
+            ];
+        }
+
+        return response($export)
+            ->header('Content-Type', 'application/json')
+            ->header('Content-Disposition', 'attachment; filename="posts.json"');
+    }
+
+
+
     public function delete(DestroyPostRequest $request)
     {
         Post::whereIn('id', $request->ids)->delete();
