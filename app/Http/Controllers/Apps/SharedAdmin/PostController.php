@@ -174,6 +174,7 @@ class PostController extends Controller
                 'status' => $post->status,
                 'title' => $post->title,
                 'slug' => $post->slug,
+                'image' => $post->image,
                 'role' => $post->postCategory->name,
                 'tags' => $post->tags,
                 'is_pinned' => $post->pinned,
